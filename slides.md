@@ -254,6 +254,7 @@ No mechanics background assumed — every idea described in plain terms
 
 ---
 layout: two-cols-header
+class: idea-slide
 ---
 
 # Thin-walled open circular-arc ("tape-spring") longeron
@@ -351,6 +352,8 @@ contract for the confirmed detail.
 -->
 
 ---
+class: summary-slide
+---
 
 # Run `20260730T020245` — summary
 
@@ -413,6 +416,8 @@ later cited as a success.
 -->
 
 ---
+class: summary-slide
+---
 
 # Run `20260729T012952` — summary
 
@@ -449,6 +454,8 @@ H4 detail: precision fix after adversarial review — "segment 1 reversed in
 3 of those 5 remain. Neither reading changes the FALSIFIED verdict.
 -->
 ---
+class: summary-slide
+---
 
 # Run `20260728T023457` — summary
 
@@ -483,6 +490,7 @@ INCONCLUSIVE rather than FALSIFIED.
 
 ---
 layout: two-cols-header
+class: idea-slide
 ---
 
 # Single bistable shallow-arch snap segment near the ring joint
@@ -574,6 +582,8 @@ CURRENT state of PROBLEM_STATEMENT.md and bo/confirmed_anchors.json (checked
 -->
 
 ---
+class: summary-slide
+---
 
 # Run `20260727T011550` — summary
 
@@ -604,6 +614,8 @@ into, is exactly the situation that deserves a faithfulness check before
 being trusted.
 -->
 
+---
+class: summary-slide
 ---
 
 # Run `20260724T012622` — summary
@@ -639,6 +651,7 @@ absence.
 
 ---
 layout: two-cols-header
+class: idea-slide
 ---
 
 # Chained mild pre-curved ("sub-bistable") arch-segment longeron
@@ -702,6 +715,8 @@ Full context:
 -->
 
 ---
+class: summary-slide
+---
 
 # Run `20260723T010834` — summary
 
@@ -740,6 +755,7 @@ own slide notes for the caveat.
 
 ---
 layout: two-cols-header
+class: idea-slide
 ---
 
 # Doubly-symmetric cruciform/I-beam cross-section
@@ -799,6 +815,8 @@ Full context:
 -->
 
 ---
+class: summary-slide
+---
 
 # Run `20260721T201733` — summary
 
@@ -854,6 +872,7 @@ baseline) and still fails ligament strain.
 
 ---
 layout: two-cols-header
+class: idea-slide
 ---
 
 <div class="text-xs opacity-50 mb-2">Run 20260718T132852</div>
@@ -921,6 +940,7 @@ Full context:
 
 ---
 layout: two-cols-header
+class: summary-slide
 ---
 
 <div class="text-xs opacity-50 mb-2">Run 20260718T132852 — summary</div>
@@ -972,6 +992,7 @@ Per-hypothesis detail:
 -->
 ---
 layout: two-cols-header
+class: idea-slide
 ---
 
 <div class="text-xs opacity-50 mb-2">Run 20260718T071133</div>
@@ -1025,6 +1046,7 @@ Full context:
 
 ---
 layout: two-cols-header
+class: summary-slide
 ---
 
 <div class="text-xs opacity-50 mb-2">Run 20260718T071133 — summary</div>
@@ -1077,6 +1099,7 @@ Per-hypothesis detail:
 
 ---
 layout: two-cols-header
+class: idea-slide
 ---
 
 <div class="text-xs opacity-50 mb-2">Run 20260718T031519</div>
@@ -1133,6 +1156,7 @@ Full context:
 
 ---
 layout: two-cols-header
+class: summary-slide
 ---
 
 <div class="text-xs opacity-50 mb-2">Run 20260718T031519 — summary</div>
@@ -1176,6 +1200,7 @@ Per-hypothesis detail:
 
 ---
 layout: two-cols-header
+class: idea-slide
 ---
 
 <div class="text-xs opacity-50 mb-2">Run 20260717T192331</div>
@@ -1236,6 +1261,7 @@ Full context:
 
 ---
 layout: two-cols-header
+class: summary-slide
 ---
 
 <div class="text-xs opacity-50 mb-2">Run 20260717T192331 — summary</div>
@@ -1293,6 +1319,7 @@ Per-hypothesis detail:
 
 ---
 layout: two-cols-header
+class: idea-slide
 ---
 
 <div class="text-xs opacity-50 mb-2">Run 20260717T014507</div>
@@ -1356,6 +1383,7 @@ Full context:
 
 ---
 layout: two-cols-header
+class: summary-slide
 ---
 
 <div class="text-xs opacity-50 mb-2">Run 20260717T014507 — summary</div>
@@ -1407,6 +1435,7 @@ Per-hypothesis detail:
 
 ---
 layout: two-cols-header
+class: summary-slide
 ---
 
 <div class="text-xs opacity-50 mb-2">Run 20260715T191329 — summary (no new idea this run)</div>
@@ -1464,6 +1493,7 @@ Per-hypothesis detail:
 
 ---
 layout: two-cols-header
+class: idea-slide
 ---
 
 <div class="text-xs opacity-50 mb-2">Run 20260715T002538</div>
@@ -1521,6 +1551,7 @@ Full context:
 
 ---
 layout: two-cols-header
+class: summary-slide
 ---
 
 <div class="text-xs opacity-50 mb-2">Run 20260715T002538 — summary</div>
@@ -1584,6 +1615,7 @@ Per-hypothesis detail:
 
 ---
 layout: two-cols-header
+class: idea-slide
 ---
 
 <div class="text-xs opacity-50 mb-2">Run 20260714T020739</div>
@@ -1667,6 +1699,7 @@ Full context:
 
 ---
 layout: two-cols-header
+class: summary-slide
 ---
 
 <div class="text-xs opacity-50 mb-2">Run 20260714T020739 — summary</div>
@@ -1720,6 +1753,7 @@ Per-hypothesis detail:
 
 ---
 layout: two-cols-header
+class: summary-slide
 ---
 
 # Run `20260712T192155` — summary
@@ -1788,6 +1822,7 @@ Per-hypothesis detail:
 -->
 ---
 layout: two-cols-header
+class: idea-slide
 ---
 
 # Open thin-walled L-profile (shear-centre offset)
@@ -1845,6 +1880,7 @@ Fuller context:
 
 ---
 layout: two-cols-header
+class: summary-slide
 ---
 
 # Run `20260709T024901` — summary
@@ -1895,6 +1931,7 @@ Per-hypothesis detail:
 
 ---
 layout: two-cols-header
+class: idea-slide
 ---
 
 # Flexure-hinge (piecewise stiff/thin) longeron
@@ -1944,6 +1981,7 @@ Fuller context:
 
 ---
 layout: two-cols-header
+class: idea-slide
 ---
 
 # BoxProfile hollow-tube cross-section
@@ -1990,6 +2028,7 @@ Fuller context:
 
 ---
 layout: two-cols-header
+class: idea-slide
 ---
 
 # Heterogeneous (2 stiff + 1 compliant) longerons
@@ -2042,6 +2081,7 @@ Fuller context:
 
 ---
 layout: two-cols-header
+class: summary-slide
 ---
 
 # Run `20260708T021335` — summary
@@ -2089,6 +2129,7 @@ Per-hypothesis detail:
 
 ---
 layout: two-cols-header
+class: idea-slide
 ---
 
 # Elliptical top/bottom rings, phase offset
@@ -2148,6 +2189,7 @@ Fuller context:
 
 ---
 layout: two-cols-header
+class: idea-slide
 ---
 
 # Radially bowed (pre-curved) longerons
@@ -2196,6 +2238,7 @@ Fuller context:
 
 ---
 layout: two-cols-header
+class: summary-slide
 ---
 
 # Run `20260706T204732` — summary
@@ -2249,6 +2292,7 @@ Per-hypothesis detail:
 
 ---
 layout: two-cols-header
+class: idea-slide
 ---
 
 # Elliptical cross-section
@@ -2312,6 +2356,7 @@ Fuller context:
 
 ---
 layout: two-cols-header
+class: idea-slide
 ---
 
 # Square (isotropic) cross-section
@@ -2365,6 +2410,7 @@ Fuller context:
 
 ---
 layout: two-cols-header
+class: idea-slide
 ---
 
 # Anisotropic rectangle, reversed orientation (run17 anchor)
@@ -2430,6 +2476,7 @@ Fuller context:
 
 ---
 layout: two-cols-header
+class: summary-slide
 ---
 
 # Run `20260705T181941` — summary
@@ -2487,6 +2534,7 @@ Per-hypothesis detail beyond the idea slides:
 
 ---
 layout: two-cols-header
+class: idea-slide
 ---
 
 # Solid Circular Longeron Family (SCLF), thick variant
@@ -2548,6 +2596,7 @@ Fuller context:
 
 ---
 layout: two-cols-header
+class: summary-slide
 ---
 
 # Run `20260630T164908` — summary
@@ -2599,6 +2648,7 @@ Per-hypothesis detail:
 
 ---
 layout: two-cols-header
+class: idea-slide
 ---
 
 # Multi-storey topology (n_storeys=2)
@@ -2663,6 +2713,7 @@ Fuller context:
 
 ---
 layout: two-cols-header
+class: idea-slide
 ---
 
 # n_longerons = 5 (extended topology)
@@ -2725,6 +2776,7 @@ Fuller context:
 
 ---
 layout: two-cols-header
+class: idea-slide
 ---
 
 # Extended-J hollow/cellular longeron
@@ -2783,6 +2835,7 @@ Fuller context:
 
 ---
 layout: two-cols-header
+class: summary-slide
 ---
 
 # Run `20260629T191754` — summary
@@ -2836,6 +2889,7 @@ Per-hypothesis detail beyond what's in the idea slides:
 
 ---
 layout: two-cols-header
+class: idea-slide
 ---
 
 # Pretwisted longerons
@@ -2907,6 +2961,7 @@ Fuller context:
 
 ---
 layout: two-cols-header
+class: summary-slide
 ---
 
 # Run `20260629T145434` — summary

@@ -5,3 +5,24 @@
 #slidev-goto-dialog {
   display: none !important;
 }
+
+/* Tighter slide margins. Default theme is px-14 py-10 (56px/40px) on a
+   980x552 canvas -- measured via headless render, this was real reclaimable
+   space, not decorative breathing room. 32px/24px keeps a clean margin
+   while returning ~32px of vertical and ~48px of horizontal budget to
+   every slide's content. */
+.slidev-layout {
+  padding-left: 32px !important;
+  padding-right: 32px !important;
+  padding-top: 24px !important;
+  padding-bottom: 24px !important;
+}
+
+/* Title color-coding: idea slides (a genuinely new design tested) keep the
+   theme's default teal. Summary slides (per-run recap, no new mechanism)
+   get a distinct muted amber -- so which kind of slide you're on reads at
+   a glance without reading the heading text. Set via `class: idea-slide`
+   / `class: summary-slide` in each slide's own frontmatter. */
+.slidev-layout.summary-slide h1 {
+  color: #a1752f;
+}
