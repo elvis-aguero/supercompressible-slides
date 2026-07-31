@@ -1,0 +1,7 @@
+/* Disable Slidev's built-in "goto slide" quick-jump box.
+   It has a bug (empty search matches every slide) that makes it render as a
+   full-height list that spills into view regardless of open/closed state.
+   Navigation by URL (?page=N) or the prev/next controls covers this deck's needs. */
+#slidev-goto-dialog {
+  display: none !important;
+}
