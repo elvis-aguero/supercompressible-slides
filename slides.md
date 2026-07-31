@@ -254,6 +254,52 @@ No mechanics background assumed — every idea described in plain terms
 
 ---
 layout: two-cols-header
+class: baseline-slide
+---
+
+# The Bessa baseline — what a valid design looks like
+
+::left::
+
+<div class="text-sm leading-snug">
+
+Every target in this deck is stated as a multiple of this design — the reference
+point for what "good" looks like, before the anti-chronological history below.
+
+- **Design:** circular longeron cross-section, 3 longerons, 1 storey — the best
+  feasible point Bessa, Glowacki &amp; Houlder (2019) found in that family.
+- **Geometry:** ratio_d=0.02005, ratio_pitch=0.25, ratio_top_diameter=0.2505.
+- **Result:** &sigma;_cr,nd=0.1306 kPa/longeron, mls=0.0198 (inside the 2% cap),
+  fully reversible coiling.
+
+</div>
+
+::right::
+
+<div class="flex flex-col items-center justify-center h-full gap-1">
+  <img src="/gifs/bessa_baseline_native.gif" class="max-h-85 rounded shadow-lg" />
+  <div class="text-xs opacity-50 text-center">Bessa point, re-solved 2026-07-31 for this deck.</div>
+</div>
+
+<!--
+Re-solved 2026-07-31 via the exact same two-stage NO-CONTACT pipeline
+test_nocontact_anchors.py uses for this anchor (energy-free StaticRiksStep,
+supercompressible_lin_buckle_pretwist.py -> supercompressible_riks_pretwist.py),
+specifically to render a native-Abaqus gif for this lead slide -- no ODB for this
+exact point existed in the permanent archive before now. Solved sigma_crit=0.1306
+kPa (expected 0.1306, exact match to 4 sig figs), mls=0.019795. ODB archived at
+data/idea_odbs/bessa_baseline/ (PROVENANCE.txt has full inputs and the solve
+recipe). See PROBLEM_STATEMENT.md lines 133-137 for the original definition of
+this point and why it's the study's reference floor.
+
+Deliberately NOT following the 4-bullet What/Origin/Stats/Verdict idea-slide
+template -- this is not a hypothesis this study tested, it's an external
+reference point, so there is no verdict to render. Per explicit user instruction:
+describe the design and show the gif, no reasoning/justification needed.
+-->
+
+---
+layout: two-cols-header
 class: idea-slide
 ---
 
@@ -739,6 +785,19 @@ The one "success" (mcs>=0.80) is a near-degenerate cross-section
 (ratio_a=0.004616, ratio_b=0.00059) at sigma=2.97e-5 kPa, ~26,000x below the
 0.7704 kPa target — not a real candidate.
 
+H2 self-correction (why this FALSIFIED is trustworthy, not premature): the
+strategizer's FIRST attempt at this verdict, based on an earlier 72-eval
+campaign (D005), was ALSO "FALSIFIED" -- but the automated verdict validator
+rejected it, citing a Duhem-Quine confound: the registered criterion demanded
+a >=100-eval campaign, D005 ran only 72, and its failure mode (Riks
+non-convergence) is confounded with a possible solver/rate limitation rather
+than demonstrated evidence the mechanism itself fails. The strategizer
+retracted to INCONCLUSIVE and re-ran a properly-powered, non-confounded
+follow-up (D006, above) before re-closing FALSIFIED -- the detail above IS
+that corrected, validator-satisfying campaign, not the original rejected one.
+Strategizer's own retrospective calls this "the single most important thing
+that happened this run."
+
 H3 detail: registered falsification criterion was explicit — "a single valid
 (slenderness>=10, all 5 criteria) design beating 0.7704 kPa refutes the
 absence claim outright." D004 found exactly such a counterexample at
@@ -928,6 +987,21 @@ Full context:
   with rigid-body joint rotations, not a single continuously-bending elastic beam) --
   so despite being a real, reproducible, fully-feasible 220.89 kPa design, it is
   excluded from this study's beam-family headline comparisons.
+- WHY "fully feasible" IS trustworthy despite a real gate bug found mid-run: D009
+  (implementer, flagged) discovered the mls<=0.02 feasibility gate was computing a
+  field that does not exist in this ODB and silently returning 0.0 for every one of
+  94 designs evaluated so far -- meaning the gate had never actually been enforced.
+  D010 fixed the oracle (added the missing LE field request) and D011 then
+  DELIBERATELY discarded all pre-fix ledger rows and re-ran the full campaign fresh
+  against the corrected oracle (explicitly removing D009's own reuse/idempotency
+  logic so no stale mls=0.0 row could leak back in). The reported 220.89 kPa /
+  fully-feasible result is from that corrected, post-fix campaign. Separately, the
+  critic flagged the 287x-over-baseline magnitude itself as CRITICAL-severity
+  implausible against this study's own commissioned literature review; the
+  strategizer spent two further bounded delegations (D012 sweep, D013 mode-shape
+  verification above) specifically to settle that concern with new evidence rather
+  than soften the claim or drop it under time pressure (strategizer's own closing
+  retrospective).
 - GIF NOTE: this ODB (data/idea_odbs/20260718T132852_H3_tensegrity/tensegrity_RIKS.odb)
   has no 'E' (beam bending strain) field output at all -- physically correct, since
   T3D2 truss/cable elements have no bending strain concept. The render script's
@@ -2699,6 +2773,22 @@ Fuller context:
   escape attempt in run `20260715T002538` H4, a peak-local-strain reduction test in
   run `20260718T071133` H3) — all fold into this same slide per the deck's rule 1, none
   earn their own slide.
+- Run `20260718T071133` H3, why INCONCLUSIVE (not FALSIFIED as first drafted): the
+  strategizer's first pass marked H3 FALSIFIED on the delegation's own self-reported
+  "4/36 feasible, best=0.1085 kPa, clear plateau" (diagnostics.jsonl VERDICT_SUBSTANCE_FLAG,
+  2026-07-18T11:38:07). A critic pass (retrospective, critic node, 2026-07-18T13:07:02)
+  caught two compounding problems by re-querying the ledger directly rather than
+  trusting the report: (1) a slenderness-formula bug meant the true feasible count was
+  3/36, not 4/36 -- one of the "feasible" rows didn't actually clear criterion 4; (2)
+  more importantly, ALL of the rows counted as feasible had `converged=False` -- they
+  were non-converged salvaged reads, not genuine Riks solutions. The strategizer's own
+  closing retrospective (2026-07-18T13:23:20) calls this out directly: a sparse,
+  non-converged-only "feasible" set cannot support a falsification claim per the
+  Charter, and the verdict was downgraded to INCONCLUSIVE. Kept here rather than
+  fixed silently, because it's a real instance of the adversarial-critic layer
+  catching a genuine science-integrity error the automated validator did not flag on
+  its own axis (it flagged sparsity; the critic separately caught the convergence
+  issue).
 - GIF: native Abaqus/CAE Viewer export (presentation/render/render_odb.py). Only 5-6
   Riks increments are present in this archived ODB (a relatively shallow coiling test
   at this twist/pitch combination), so the animation is short; the legs show very low

@@ -26,3 +26,11 @@
 .slidev-layout.summary-slide h1 {
   color: #a1752f;
 }
+
+/* Baseline/reference slide (the lead Bessa-point comparison, `class:
+   baseline-slide`): a third, distinct muted indigo -- it's neither a
+   tested idea nor a run recap, it's an external reference point the rest
+   of the deck is measured against, so it earns its own visual identity. */
+.slidev-layout.baseline-slide h1 {
+  color: #5a5a9e;
+}
