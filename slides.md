@@ -311,12 +311,17 @@ class: summary-slide
 
 <div class="text-sm leading-snug">
 
-- H3: RIVAL — strain set by global coiling curvature × extreme-fibre distance (κ_coil·c), not fold localization → INCONCLUSIVE (magnitude ratio 0.946 and kinematics favour it, but both registered correlation clauses miss: ρ=0.358 vs. 0.5 bar; fold-scale law fits better, r=0.826 vs. 0.545)
-- H4: metric-comparability gate for shell λ_cr → INCONCLUSIVE (imperfection-amplitude sweep not executable — hardcoded module constant, not a design param; off-ledger knockdown 0.646–1.113, not uniformly ≥0.8 → every shell σ_crit is an upper bound only)
-- H5: wide, shallow ribbon (arc_depth≤0.5mm) escapes the B31 slenderness floor via shells → FALSIFIED, folds into the tape-spring slide (kappa·arc_depth underpredicts strain ~13.5×; local plate/free-edge instability preempts coiling in 60% of designs)
-- H6: true strain minimum lies in the unsampled intermediate corridor (arc_depth 0.6–1.8mm) → FALSIFIED, folds into the tape-spring slide (min converged mls=0.0464, between both flanks; 65% local-mode preemption)
-- H7: deep-corridor near-misses partly a measurement artifact, one clears 2% once corrected → FALSIFIED, folds into the tape-spring slide (correction bidirectional: one design +9%, one −25%; none reached the cap)
-- H8: dense local sweep around the closest near-miss (design C) for ≤2% → FALSIFIED, folds into the tape-spring slide (51-eval LHS + mesh confirmation; best mesh-confirmed mls=0.027053, still 1.35× the cap)
+H3–H4 test the tape-spring's *mechanism*; H5–H8 are corridor sub-searches of that
+same family (see idea slide below) — none reached the 2% cap.
+
+| # | Claim | Verdict | Key evidence |
+|---|---|---|---|
+| H3 | Strain set by global coiling curvature, not fold localization (RIVAL) | ❔ | magnitude ratio 0.946 fits, but ρ=0.358 misses the required ≥0.5 |
+| H4 | Metric-comparability gate for shell σ_cr | ❔ | imperfection sweep not executable → every shell σ_crit is an upper bound only |
+| H5 | Wide, shallow ribbon escapes the slenderness floor | ❌ | underpredicts strain ~13.5×; local instability preempts coiling in 60% of designs |
+| H6 | True strain minimum in unsampled intermediate corridor | ❌ | best converged mls=0.0464, still above cap |
+| H7 | Near-misses partly a measurement artifact | ❌ | correction bidirectional (+9%/−25%); none cleared the cap |
+| H8 | Dense local sweep near closest miss | ❌ | best mesh-confirmed mls=0.027, 1.35× the cap |
 
 </div>
 
@@ -382,8 +387,7 @@ class: idea-slide
   **shell** section, hypothesizing a *localized elastic fold* (`t/2R_tape`)
   could escape the mast-scale coiling curvature capping every beam family.
 - **Origin:** Calladine inextensional-fold theory + Seffen–Pellegrino
-  tape-spring mechanics (real citation) — first shell-longeron capability
-  built in this study.
+  tape-spring mechanics (real citation).
 - **Stats:** 407 evals, 4 corridors, 0/406 feasible. Best mesh-confirmed
   strain 0.027053 (1.35× cap) at σ_cr,nd=0.634 kPa; 0/7 checked sections
   transversely flattened.
@@ -474,21 +478,20 @@ class: summary-slide
 
 <div class="text-sm leading-snug">
 
-- H2: split the single-ring chiral brace's compliance into N≥3 parallel, independent circumferential ligaments → OPEN, deprioritized — folds into the chiral-brace idea's slide (literature review found only a weak N^-1/3 scaling at best, and one directly relevant corpus finding suggesting identical parallel elements reach their strain threshold simultaneously, not distributed — the opposite of the needed mechanism; no delegation ever tested it)
-- H3: distributing bistable arch segments at multiple locations along the full longeron (vs. one segment near the bottom ring) lowers peak local strain further → INCONCLUSIVE — folds into the bistable-arch idea's slide (confounded: the required joint-discontinuity strain-underestimation check via validation/warping_check, at each segment transition, was never performed, and multi-segment configs have MORE such transition joints than the single-segment precedent)
-- H4: a graded/staggered chain of K=3 non-identical bistable arch segments lowers peak local strain further, per Palathingal-Ananthasuresh sizing → FALSIFIED — folds into the bistable-arch idea's slide (reversal-count evidence does not support the staggering-specific mechanism; reversal signals cluster at the segment nearest the bottom ring at every K, consistent with curvature demand being set by the boundary condition itself, not by staggering)
+Smallest-budget run in this batch (93 evals); no new idea — all three fold
+into existing idea slides (chiral-brace, bistable-arch) as refinements.
+
+| # | Claim | Verdict | Key evidence |
+|---|---|---|---|
+| H2 | Split single-ring chiral brace into N≥3 parallel ligaments | ⏳ | lit only: weak N^-1/3 scaling; elements share strain, don't distribute it; never tested |
+| H3 | Distribute bistable arch segments along the full longeron | ❔ | confounded — joint-discontinuity strain check never run; more transition joints than precedent |
+| H4 | Graded/staggered K=3 bistable arch chain | ❌ | reversal signals cluster at the bottom-ring segment at every K, not staggering-specific |
 
 </div>
 
 <!--
 Run stats: GATED, evals_used=93. H1 (oracle re-confirm, -0.0062% deviation)
 excluded from this deck entirely per the format contract.
-
-This is the smallest-budget run in this batch (93 evals) and produced no new
-idea — all three substantive hypotheses are refinements of ideas that
-already have their own slides (chiral-brace, bistable-arch), consistent with
-the study's search space converging on a small number of well-characterized
-mechanism families by this point.
 
 H3 detail: mls-reduction numbers themselves (19.6%/17.5% from D004/D005
 identical-rise controls) were real per the raw beam output, but the
@@ -512,10 +515,12 @@ class: summary-slide
 
 <div class="text-sm leading-snug">
 
-- H2: peak local bending strain (mls) at high σ is a near-invariant kinematic property of coiling, only reducible by a compound (aperiodic-bracing + strain-clearing) mechanism → FALSIFIED (conjunctive claim; the bracing-lowers-strain conjunct holds, but the strain-clears-2%-wall conjunct is decisively contradicted — 0/280 designs clear the wall across 3 campaigns)
-- H3: a quasi-periodic (aperiodic, golden-ratio-derived spacing), multi-level inter-longeron elastic bracing network beats the single periodic ring/helix brace already exhausted → FALSIFIED — folds into the chiral-brace idea's slide (280-eval, 3-campaign investigation; aperiodic bracing genuinely lowers peak per-member ligament strain at matched material, e.g. 6.03% vs. 13.92% periodic, but the mcs≥0.80 and ligament-strain≤2% regions are disjoint, zero overlap)
-- H4: across every family tried, peak local bending strain in a continuously-loaded elastic member is structurally coupled to that member's cross-sectional size/stiffness → SUPPORTED (positive size-strain relationship confirmed WITHIN each of 3 independent sub-campaigns, not just pooled: ρ=0.534/0.512/0.690, all clearing the pre-registered ρ>0.5, p<0.01 bar)
-- H5: tapering the brace ligament along its own length relieves ligament strain the same way host-longeron tapering decouples area from strain → INCONCLUSIVE — folds into the chiral-brace idea's slide (a 10-point diagnostic, not the registered full CEI-BO campaign, found a worsening trade-off: strain fell only 14.3% while σ fell 22.4% over the same taper range)
+| # | Claim | Verdict | Key evidence |
+|---|---|---|---|
+| H2 | Peak strain (mls) at high σ is invariant, only reducible by a compound aperiodic-bracing+clearing mechanism | ❌ | conjunctive claim; strain-clears-2%-wall conjunct fails — 0/280 designs clear it |
+| H3 | Aperiodic (golden-ratio) elastic bracing network beats single periodic ring/helix brace | ❌ | lowers ligament strain (6.03% vs 13.92%) but feasible-σ and ≤2%-strain regions never overlap |
+| H4 | Peak local bending strain is structurally coupled to member cross-section size/stiffness, across every family | ✅ | ρ=0.534/0.512/0.690 within all 3 sub-campaigns, all clearing the ρ>0.5, p<0.01 bar |
+| H5 | Tapering the brace ligament relieves ligament strain | ❔ | 10-pt diagnostic: strain fell only 14.3% while σ fell 22.4% — worsening trade-off, full campaign not run |
 
 </div>
 
@@ -545,10 +550,16 @@ class: summary-slide
 
 # Run `20260727T011550` — summary
 
-- H2: a bistable shallow-arch snap-through segment near the bottom ring lowers peak local bending strain (mls) by ≥20% relative, at matched compression → FALSIFIED as registered (real effect found — 16/24 feasible points, max 12.3%, mean ~7% reduction — but short of the pre-registered 20% bar)
-- H3: mls is a near-invariant kinematic property of beam-type coiling, independent of cross-section or added compliant segments → SUPPORTED at the registered bar (same 24-point grid; no design cleared the 20% refutation threshold)
-- H4: reinvest the real mls headroom from H2 via joint cross-section+arch re-optimization to beat 0.7704 kPa → SUPPORTED, then RETRACTED post-hoc → own slide, this deck
-- H5: a second, independently-snapping arch at the top ring further lowers mls → FALSIFIED on its stated mechanism (the top segment never actually snaps; folds into H4's slide, same design point)
+<div class="text-sm leading-snug">
+
+| # | Claim | Verdict | Key evidence |
+|---|---|---|---|
+| H2 | Bistable shallow-arch snap segment near bottom ring cuts mls by ≥20% | ❌ | real effect (16/24 feasible, mean ~7%, max 12.3%) but short of the 20% bar |
+| H3 | mls is a near-invariant kinematic property of coiling, independent of cross-section/added segments | ✅ | same 24-pt grid; no design cleared the 20% refutation threshold |
+| H4 | Reinvest H2's mls headroom via joint cross-section+arch re-opt to beat 0.7704 kPa | ❌ | retracted post-hoc — continuum submodel found real joint strain 2.7×+ the beam value, see idea slide |
+| H5 | Second, independently-snapping arch at top ring further lowers mls | ❌ | top segment never actually snaps |
+
+</div>
 
 <!--
 Run stats: all-Sonnet, 12h budget, finished in ~6.5h, GATED on 3rd critic
@@ -671,10 +682,16 @@ class: summary-slide
 
 # Run `20260724T012622` — summary
 
-- H2: continuously rotating the rectangle's cross-section principal axes along its own arc-length ("twisted-strip" beam) → INCONCLUSIVE — folds into `run17_rectangle`'s slide (existence-search prong stopped at 43/~100-110 planned evals, 1/43 feasible, short of its own pre-registered power bar)
-- H3: is the local-bending-strain wall a purely kinematic property of coiling's total curvature demand, not a fixable cross-section problem? → SUPPORTED (8-point matched-pair twist sweep 0-120° at the winning rectangle: mls only rises, 1.99%→5.01%, with twist; σ stays twist-invariant, <0.07% drift)
-- H4: hierarchically self-similar ("fractal-order") longeron centerline perturbation lowers peak local bending strain → FALSIFIED — folds into the meander/serpentine idea's slide (matched quad, order 0-3, mls flat-to-slightly-increasing across every order)
-- H5: swap the single-ring chiral brace's planform for a true helical coil ("chiral_helix") → INCONCLUSIVE — folds into the chiral-brace idea's slide (213 evals across 4 delegations; at the exact seed producing the old disputed 1.2457 kPa design, ligament strain falls from 9.05% to 6.00%, still 3x over the 2% limit, and not this run's own closest approach)
+<div class="text-sm leading-snug">
+
+| # | Claim | Verdict | Key evidence |
+|---|---|---|---|
+| H2 | Continuously-twisted rectangle cross-section ("twisted-strip" beam) | ❔ | existence search stopped at 43/~100-110 planned evals, 1/43 feasible — underpowered |
+| H3 | The local-strain wall is intrinsic to coiling curvature demand, not a fixable cross-section problem | ✅ | 8-pt twist sweep 0-120°: mls only rises (1.99%→5.01%), σ twist-invariant (<0.07% drift) |
+| H4 | Fractal-order longeron centerline perturbation lowers peak strain | ❌ | matched quad, order 0-3: mls flat-to-slightly-increasing at every order |
+| H5 | Swap chiral brace planform for a true helical coil | ❔ | ligament strain falls 9.05%→6.00%, still 3× over the 2% limit |
+
+</div>
 
 <!--
 Run stats: all-Sonnet, 12h, GATED, evals_used=272, $26.83. Baseline unchanged
@@ -706,8 +723,14 @@ class: summary-slide
 
 # Run `20260723T010834` — summary
 
-- H2: chain of true-bistable (Q≥2.31) snap-through arch segments → FALSIFIED — a solve-completion wall, not a strain wall (72 evals, 23/72 coilable, only 1/72 reached mcs≥0.80, and that one a near-degenerate, physically meaningless cross-section)
-- H3: chained mild pre-curved (sub-bistable) arch segments → FALSIFIED as an absence claim, but a real counterexample was found → own slide, this deck
+<div class="text-sm leading-snug">
+
+| # | Claim | Verdict | Key evidence |
+|---|---|---|---|
+| H2 | Chain of true-bistable (Q≥2.31) snap-through arch segments | ❌ | solve-completion wall, not a strain wall — 23/72 coilable, only 1 near-degenerate "success" |
+| H3 | (Absence claim) no valid chained mild pre-curved sub-bistable arch design exists | ✅ | refuted — real counterexample found, σ=0.776506 kPa, see idea slide |
+
+</div>
 
 <!--
 Run stats: GATED, evals_used=206. H1 (oracle-wiring re-confirm) excluded from
@@ -825,14 +848,16 @@ class: summary-slide
 
 <div class="text-sm leading-snug">
 
-- H1: properly-powered 128-eval re-test of the smoothly-tapered longeron family → FALSIFIED vs. the 0.7704 kPa baseline (best 0.362763 kPa = 2.78x Bessa, itself a valid standalone design, but only 47% of baseline, flat trend)
-- H2: doubly-symmetric cruciform/I-beam cross-section → FALSIFIED (own slide, this deck)
-- H3: continuous elastic chiral/auxetic bracing at a fixed host anchor → INCONCLUSIVE (mechanism genuinely elastic, but only 2/120 evals Riks-converged near the boundary — underpowered, not contradicted)
-- H4: jointly optimize host cross-section + chiral brace together → SUPPORTED on its literally-registered (host-only) criteria, but NOT citable as a result — every winning design's brace ligament strains 7.7-9.1%, the same apples-to-apples violation as tensegrity
-- H5: bistable snap-through segment near the ring joints (proposal) → OPEN, ran out of budget this run (tested the following run as its own idea)
-- H6: among H4's numerically-passing designs, does any also keep the brace ligament elastic? → FALSIFIED for this exact topology, properly powered (440 evals across 3 campaigns); closest miss σ=0.336844 kPa (2.58x Bessa) at ligament strain 2.15%, just 0.15 points over the 2% limit
-- H7: does n_longerons materially change per-longeron σ? → SUPPORTED (confirms this run's oracle carries no n_longerons scaling bug)
-- H8: longer/more convoluted multi-loop chiral-brace ligament path → FALSIFIED (349 evals, only 1/349 meets all 6 criteria at 19% of baseline)
+| # | Claim | Verdict | Key evidence |
+|---|---|---|---|
+| H1 | Properly-powered re-test of the tapered-longeron family | ❌ | best 0.362763 kPa = 2.78× Bessa but only 47% of baseline |
+| H2 | Doubly-symmetric cruciform/I-beam cross-section | ❌ | own slide, this deck |
+| H3 | Continuous elastic chiral/auxetic bracing at a fixed host | ❔ | only 2/120 evals converged near the boundary — underpowered |
+| H4 | Jointly optimize host + chiral brace together | ❌ | numerically supported but not citable — brace strain 7.7–9.1%, same apples-to-apples violation as tensegrity |
+| H5 | Bistable snap-through segment near the ring joints | ⏳ | ran out of budget this run; tested the following run |
+| H6 | Among H4's designs, keep the brace ligament elastic too | ❌ | 440 evals; closest miss ligament strain 2.15%, just over the 2% limit |
+| H7 | Does n_longerons change per-longeron σ? | ✅ | confirms the oracle carries no n_longerons scaling bug |
+| H8 | Longer/more convoluted multi-loop brace ligament path | ❌ | 349 evals, only 1/349 meets all 6 criteria, at 19% of baseline |
 
 </div>
 
@@ -947,13 +972,11 @@ class: summary-slide
 
 <div class="text-sm leading-snug">
 
-- **H1:** distributed N-cell (N&ge;3) flexure-hinge chain &rarr; folds
-  into the flexure-hinge idea's slide (falsified).
-- **H2:** smooth continuous taper vs. the piecewise "waisted" family &rarr;
-  folds into the waisted-tapered idea's slide (inconclusive).
-- **H3:** Class-1 tensegrity strut-and-cable replacement (new idea, own
-  slide) &rarr; supported (220.89 kPa; later demoted via the
-  apples-to-apples criterion).
+| # | Claim | Verdict | Key evidence |
+|---|---|---|---|
+| H1 | Distributed N-cell (N&ge;3) flexure-hinge chain | ❌ | folds into the flexure-hinge idea's slide |
+| H2 | Smooth continuous taper vs. the piecewise "waisted" family | ❔ | folds into the waisted-tapered idea's slide |
+| H3 | Class-1 tensegrity strut-and-cable replacement (own slide) | ❌ | 220.89 kPa but demoted via the apples-to-apples criterion |
 
 
 </div>
@@ -1082,14 +1105,11 @@ class: summary-slide
 
 <div class="text-sm leading-snug">
 
-- **H1:** mine the Bessa 7D generalized-cross-section dataset for a real,
-  realizable profile &rarr; folds into the extended-J hollow-tube idea's
-  slide (inconclusive — 0 of the coilable rows pass all four criteria at
-  once).
-- **H2:** laced/battened two-parallel-chord built-up longeron (new idea,
-  own slide) &rarr; inconclusive.
-- **H3:** 2-storey mast reduces peak local strain &rarr; folds into the
-  multi-storey idea's slide (inconclusive).
+| # | Claim | Verdict | Key evidence |
+|---|---|---|---|
+| H1 | Mine the Bessa 7D dataset for a real, realizable profile | ❔ | folds into the extended-J hollow-tube slide; 0/8 coilable rows pass all 4 criteria |
+| H2 | Laced/battened two-parallel-chord built-up longeron (own slide) | ❔ | 1/50 feasible, 3 orders of magnitude below target |
+| H3 | 2-storey mast reduces peak local strain | ❔ | folds into the multi-storey idea's slide; no clean signal |
 
 
 </div>
@@ -1189,11 +1209,10 @@ class: summary-slide
 
 <div class="text-sm leading-snug">
 
-- **H1:** elliptical top/bottom rings with phase offset, re-tested &rarr;
-  folds into the elliptical-rings idea's slide (falsified — every point in
-  a 30-point sweep plus 2 boundary probes was non-coilable).
-- **H2:** in-plane serpentine/meander centerline perturbation (new idea,
-  own slide) &rarr; inconclusive.
+| # | Claim | Verdict | Key evidence |
+|---|---|---|---|
+| H1 | Elliptical top/bottom rings with phase offset, re-tested | ❌ | folds into the elliptical-rings slide; every point in a 32-point sweep was non-coilable |
+| H2 | In-plane serpentine/meander centerline perturbation (own slide) | ❔ | inconclusive |
 
 
 </div>
@@ -1290,18 +1309,12 @@ class: summary-slide
 
 <div class="text-sm leading-snug">
 
-- **H1:** extend the rectangle search beyond the known corner &rarr; folds
-  into the rectangle-anchor idea's slide (supported — reconfirms 0.7704
-  kPa bit-identically).
-- **H2:** extend the Kresling psi ceiling &rarr; folds into the Kresling
-  idea's slide (falsified — no design in [0,60&deg;] beat the 0.711 kPa
-  anchor).
-- **H3:** smoothly radially-tapered ("waisted") longeron (new idea, own
-  slide) &rarr; inconclusive.
-- **H4:** local refinement around the waisted 0.877 kPa point &rarr; folds
-  into the waisted idea's slide (inconclusive — that point was later found
-  invalid under the corrected slenderness formula).
-
+| # | Claim | Verdict | Key evidence |
+|---|---|---|---|
+| H1 | Rectangle search extended beyond the known corner | ✅ | reconfirms 0.7704 kPa bit-identically |
+| H2 | Extend Kresling ψ ceiling beyond 30° | ❌ | no design in [0,60°] beat the 0.711 kPa anchor |
+| H3 | Smoothly radially-tapered ("waisted") longeron | ❔ | new idea, own slide below |
+| H4 | Local refinement near the 0.877 kPa waisted point | ❌ | point later invalid under corrected slenderness formula |
 
 </div>
 
@@ -1409,15 +1422,11 @@ class: summary-slide
 
 <div class="text-sm leading-snug">
 
-- **H1:** existence &ge;0.3918 kPa in the rectangle family &rarr; folds
-  into the rectangle-anchor idea's slide (supported — 0.7704 kPa found,
-  becomes the canonical anchor for the rest of the study).
-- **H2:** pretensioned diagonal cable-stay bracing &rarr; folds into the
-  chiral-bracing idea's slide (inconclusive, 0/45 feasible — only the
-  no-brace control was feasible).
-- **H3:** Kresling/TCO bar-hinge longeron (new idea, own slide) &rarr;
-  inconclusive.
-
+| # | Claim | Verdict | Key evidence |
+|---|---|---|---|
+| H1 | Existence ≥0.3918 kPa in the rectangle family | ✅ | 0.7704 kPa found — becomes the study's canonical anchor |
+| H2 | Pretensioned diagonal cable-stay bracing | ❔ | 0/45 feasible — only the no-brace control was feasible |
+| H3 | Kresling/TCO bar-hinge longeron | ❔ | new idea, own slide below |
 
 </div>
 
@@ -1525,13 +1534,10 @@ class: summary-slide
 
 <div class="text-sm leading-snug">
 
-- **H1:** rectangle family ceiling vs the 3&times;-Bessa target &rarr;
-  folds into the rectangle-anchor idea's slide (inconclusive).
-- **H2:** broad existence claim — does ANY novel family (serpentine
-  centerline, auxiliary bracing, and others) decouple buckling stiffness
-  from radial bending strain? &rarr; inconclusive, bounded negative across
-  five families tested on the first trustworthy converged oracle.
-
+| # | Claim | Verdict | Key evidence |
+|---|---|---|---|
+| H1 | Rectangle family ceiling vs the 3× Bessa target | ❔ | high-σ points all fail mls (~0.032, well over the 0.02 limit) |
+| H2 | Any novel family decouples buckling stiffness from radial strain? | ❔ | bounded negative across 5 families — existence claim, can't be proven absent |
 
 </div>
 
@@ -1583,17 +1589,12 @@ class: summary-slide
 
 <div class="text-sm leading-snug">
 
-- **H1:** closed thin-walled box cross-section at slenderness&ge;10 &rarr;
-  folds into the box/hollow-tube idea's slide (inconclusive — mechanism
-  confirmed, coilability fails).
-- **H2:** helical (chiral) longeron path (new idea, own slide) &rarr;
-  falsified.
-- **H3:** feasible &sigma; bound by the 2% local-strain limit (rectangle
-  family) &rarr; falsified as an absence claim — a knife-edge bifurcation,
-  not a feasible window.
-- **H4:** 2-storey escape from the &sigma;&harr;feasibility barrier &rarr;
-  folds into the multi-storey idea's slide (inconclusive — barrier holds).
-
+| # | Claim | Verdict | Key evidence |
+|---|---|---|---|
+| H1 | Closed thin-walled box cross-section at slenderness≥10 | ❔ | mechanism confirmed (high-J → high σ) but coilability fails |
+| H2 | Helical (chiral) longeron path | ❌ | new idea, own slide below |
+| H3 | Feasible σ bound by the 2% local-strain limit | ❌ | knife-edge bifurcation, not a feasible window |
+| H4 | 2-storey escape from the σ↔feasibility barrier | ❌ | barrier holds — same conflict pattern as single-storey |
 
 </div>
 
@@ -1705,12 +1706,10 @@ class: summary-slide
 
 <div class="text-sm leading-snug">
 
-- **H1:** hard slenderness&ge;10 floor on the rectangle family vs the 2.34
-  kPa target &rarr; inconclusive (best feasible 0.058 kPa, trend still
-  rising when the campaign stopped).
-- **H2:** diagonal chiral-bracing lattice (new idea, own slide) &rarr;
-  inconclusive — bracing consistently blocks full coiling compression
-  (0/42 feasible).
+| # | Claim | Verdict | Key evidence |
+|---|---|---|---|
+| H1 | Hard slenderness≥10 floor on rectangle family vs 2.34 kPa target | ❔ | best feasible 0.058 kPa, trend still rising when campaign stopped |
+| H2 | Diagonal chiral-bracing lattice (see idea slide below) | ❔ | 0/42 feasible; braced 30/30 fail on strain vs 34/46 unbraced control |
 
 
 </div>
@@ -1841,18 +1840,10 @@ class: summary-slide
 
 <div class="text-sm leading-snug">
 
-- **H1:** fresh joint 4D Bayesian search over the rectangle-anchor family
-  (all of ratio_a/ratio_b/ratio_pitch/ratio_top_diameter simultaneously) →
-  folds into the run17-rectangle-anchor idea slide, FALSIFIED — a
-  repeatable counterexample was found (σ_cr,nd = 2.5656 kPa, coilable=1,
-  max_compressive_strain=0.9998, max_local_strain=0.0199), clearing the
-  2.3376 kPa floor while meeting all three feasibility criteria: more than
-  double the run's own prior best (1.1688 kPa) and >7× the original
-  0.3644 kPa anchor.
-- **H2:** 2-storey mast with an independently-set tangential dimension per
-  storey → folds into the multi-storey idea slide, INCONCLUSIVE (zero
-  confirmed-feasible designs, but a persistent NaN gap in the Riks solves
-  means this isn't a fully clean negative either).
+| # | Claim | Verdict | Key evidence |
+|---|---|---|---|
+| H1 | Fresh joint 4D search over the rectangle-anchor family (see idea slide below) | ❌ | counterexample found: σ_cr,nd=2.5656 kPa, all 3 criteria met — 2.2× prior best, >7× original anchor |
+| H2 | 2-storey mast, independent tangential dim per storey (see idea slide below) | ❔ | 0 confirmed-feasible, but persistent Riks NaN gap — not a clean negative |
 
 
 </div>
@@ -1910,15 +1901,11 @@ class: summary-slide
 
 <div class="text-sm leading-snug">
 
-- **H1:** open thin-walled L-profile (shear-centre offset) → own idea
-  slide (above), FALSIFIED.
-- **H2:** n_longerons variation within the rectangle-anchor family
-  (proposed, zero evals this run) → folds into the n=5-longerons idea
-  (tested later, outside this batch, in run `20260721T201733` as its own
-  H7).
-- **H3:** the rectangle-anchor family's optimum is bending-strain-limited
-  (both Riks criteria already sit at their ceilings at 1.1688 kPa) →
-  meta/analytical, SUPPORTED.
+| # | Claim | Verdict | Key evidence |
+|---|---|---|---|
+| H1 | Open thin-walled L-profile, shear-centre offset (see idea slide below) | ❌ | ~24× below the 1.1688 kPa baseline |
+| H2 | n_longerons variation within rectangle-anchor family (tested later, run `20260721T201733` H7) | ⏳ | proposed, 0 evals this run |
+| H3 | Rectangle-anchor optimum is bending-strain-limited, not under-searched | ✅ | both Riks criteria already at ceiling at 1.1688 kPa |
 
 
 </div>
@@ -2019,16 +2006,12 @@ class: summary-slide
 
 <div class="text-sm leading-snug">
 
-- **H1:** flexure-hinge (piecewise stiff/thin) longeron → own idea slide
-  (above), INCONCLUSIVE (strong negative signal, underpowered surrogates).
-- **H2:** BoxProfile hollow-tube cross-section → own idea slide (above),
-  INCONCLUSIVE (underperforms baseline).
-- **H3:** heterogeneous (2 stiff + 1 compliant) longerons → own idea slide
-  (above), INCONCLUSIVE (no improvement found).
-- **H4:** increase only the tangential dimension of the rectangle-anchor
-  family (no pitch co-scaling) → folds into the run17-rectangle-anchor
-  idea slide, SUPPORTED — new best-found design, 1.1688 kPa (3.2× the
-  0.3644 kPa anchor).
+| # | Claim | Verdict | Key evidence |
+|---|---|---|---|
+| H1 | Flexure-hinge (piecewise stiff/thin) longeron (see idea slide below) | ❔ | strong negative signal, but underpowered surrogates |
+| H2 | BoxProfile hollow-tube cross-section (see idea slide below) | ❔ | underperforms baseline |
+| H3 | Heterogeneous (2 stiff + 1 compliant) longerons (see idea slide below) | ❔ | no improvement found |
+| H4 | Increase only the tangential dimension of the rectangle-anchor family | ✅ | new best-found design, 1.1688 kPa — 3.2× the 0.3644 kPa anchor |
 
 
 </div>
@@ -2217,20 +2200,13 @@ class: summary-slide
 
 <div class="text-sm leading-snug">
 
-- **H1:** relax the rectangle-anchor family's slenderness floor to ≥8 →
-  folds into the run17-rectangle-anchor idea slide, INCONCLUSIVE
-  (constraint surrogates not above chance; raw result was worse than the
-  ≥10 baseline anyway, 0.3130 kPa).
-- **H2:** add pretwist to the rectangle-anchor family → folds into the
-  run17-rectangle-anchor idea slide, INCONCLUSIVE (same surrogate-adequacy
-  standard applied consistently with H1/H3).
-- **H3:** elliptical top/bottom rings with phase offset → own idea slide
-  (above), INCONCLUSIVE (strongly suggestive dead end).
-- **H4:** scale ratio_b and pitch together at fixed slenderness=10 →
-  folds into the run17-rectangle-anchor idea slide, FALSIFIED (feasibility
-  collapses almost immediately past the smallest tested width).
-- **H5:** radially bowed longerons → own idea slide (above), FALSIFIED.
-
+| # | Claim | Verdict | Key evidence |
+|---|---|---|---|
+| H1 | Relax rectangle-anchor slenderness floor to ≥8 | ❔ | folds into run17-rectangle idea slide; surrogates not above chance; raw 0.3130 kPa, worse than ≥10 baseline |
+| H2 | Add pretwist to the rectangle-anchor family | ❔ | folds into run17-rectangle idea slide; same surrogate-adequacy standard as H1/H3 |
+| H3 | Elliptical top/bottom rings, phase offset | ❔ | own idea slide below; strongly suggestive dead end |
+| H4 | Scale ratio_b and pitch together at slenderness=10 | ❌ | folds into run17-rectangle idea slide; feasibility collapses past smallest tested width |
+| H5 | Radially bowed longerons | ❌ | own idea slide below |
 
 </div>
 
@@ -2370,41 +2346,29 @@ Fuller context:
 -->
 
 ---
-layout: two-cols-header
 class: summary-slide
 ---
 
 # Run `20260705T181941` — summary
 
-::left::
+<div class="text-xs opacity-70 text-center mb-1">
+The run that broke the SCLF "486 kPa" headline (real physics, invalid strain) and
+replaced it with a smaller but genuinely valid anchor (0.3644 kPa) the rest of the study builds on.
+</div>
 
 <div class="text-sm leading-snug">
 
-- **H1:** re-tested "thick SCLF" under the new local-strain criterion →
-  SCLF slide, SUPPORTED (mls=24.7%, invalidating it).
-- **H2:** SCLF family ceiling / stiffness-vs-strain trade-off (analytical,
-  meta) → SUPPORTED — no circular-family design breaks the trade-off across
-  95 evaluations with above-chance surrogates.
-- **H3:** n_storeys=2 curvature-reduction test → folds into multi-storey
-  slide, INCONCLUSIVE (mechanism runs BACKWARDS — strain rose 13.5%).
-- **H4:** elliptical cross-section → own idea slide (above), INCONCLUSIVE
-  (untestable — Abaqus 2024 lacks EllipticalProfile).
-- **H5:** square cross-section → own idea slide (above), FALSIFIED.
-- **H6:** anisotropic rectangle, original orientation → folds into
-  run17-rectangle-anchor, FALSIFIED.
-- **H7:** anisotropic rectangle, reversed (compound claim) → folds into
-  run17-rectangle-anchor, INCONCLUSIVE (under-powered).
-- **H8:** anisotropic rectangle, reversed (clean existence claim) → own
-  idea slide (above), SUPPORTED — becomes the study's canonical anchor.
+| # | Claim | Verdict | Key evidence |
+|---|---|---|---|
+| H1 | Re-test "thick SCLF" under the new local-strain criterion | ✅ | mls=24.7% — invalidates SCLF; see that slide |
+| H2 | SCLF family ceiling: stiffness-vs-strain trade-off (analytical) | ✅ | no circular design breaks it, 95 evals, above-chance surrogates |
+| H3 | n_storeys=2 lowers curvature/strain | ❌ | mechanism runs backwards — strain rose 13.5%; folds into multi-storey slide |
+| H4 | Elliptical cross-section | ❔ | untestable — Abaqus 2024 has no EllipticalProfile; own idea slide below |
+| H5 | Square cross-section | ❌ | own idea slide below |
+| H6 | Anisotropic rectangle, original orientation | ❌ | folds into run17-rectangle-anchor slide |
+| H7 | Anisotropic rectangle, reversed (compound claim) | ❔ | under-powered; folds into run17-rectangle-anchor slide |
+| H8 | Anisotropic rectangle, reversed (clean existence claim) | ✅ | becomes the study's canonical anchor; own idea slide below |
 
-</div>
-
-::right::
-
-<div class="flex items-center justify-center h-full text-sm opacity-70 text-center">
-The run that broke the SCLF "486 kPa" headline (real physics, invalid
-strain) and replaced it with a smaller but genuinely valid anchor
-(0.3644 kPa) that the rest of the study builds on.
 </div>
 
 <!--
@@ -2622,19 +2586,13 @@ class: summary-slide
 
 <div class="text-sm leading-snug">
 
-- **H1:** generalized Bessa-optimum Stage-2 Riks test (J=6.65e-6) → folds
-  into the extended-J hollow-tube idea's story, FALSIFIED (9.23% strain,
-  not 90%; motivates the SCLF pivot).
-- **H2:** Solid Circular Longeron Family, existence test → own idea slide
-  (above), SUPPORTED (486 kPa, 90.06% strain).
-- **H3:** shorter-pitch SCLF (ratio_pitch=0.30–0.40) → folds into the SCLF
-  idea slide, FALSIFIED (best 50.91% strain; pitch=0.30 not even coilable).
-- **H4:** SCLF thick design (ratio_d=0.1333, pitch≥0.93) → same idea as
-  H2/its own idea slide, SUPPORTED then later invalidated (see idea slide).
-- **H5:** smaller top-ring SCLF variant → folds into the SCLF idea slide,
-  FALSIFIED (83.68% strain — smaller ring makes h_min LARGER, opposite of
-  predicted).
-
+| # | Claim | Verdict | Key evidence |
+|---|---|---|---|
+| H1 | Generalized Bessa-optimum Stage-2 Riks test (J=6.65e-6) | ❌ | 9.23% strain, not 90%; motivates the SCLF pivot |
+| H2 | Solid Circular Longeron Family (SCLF), existence test | ❌ | 486 kPa at 90.06% strain — later invalidated (mls=24.7%, 12× the limit); own idea slide below |
+| H3 | Shorter-pitch SCLF variant (ratio_pitch=0.30–0.40) | ❌ | best 50.91% strain; pitch=0.30 not even coilable |
+| H4 | SCLF thick design (same finding as H2) | ❌ | same headline, later invalidated; see idea slide |
+| H5 | Smaller top-ring SCLF variant | ❌ | 83.68% strain — smaller ring makes h_min LARGER, opposite of predicted |
 
 </div>
 
@@ -2736,21 +2694,15 @@ class: summary-slide
 
 <div class="text-sm leading-snug">
 
-- **H1:** pre-twist family, 46-eval anchor sweep → folds into the
-  pretwisted-longerons slide (INCONCLUSIVE, suggestive negative).
-- **H2:** multi-storey topology (n_storeys=2) → own idea slide (above),
-  INCONCLUSIVE.
-- **H3:** n_longerons=5 (extended topology) → own idea slide (above),
-  SUPPORTED (mechanism exceeds 65.3 kPa but not the 75.1 kPa floor).
-- **H4:** max-torsion single-longeron anchor (n_longerons=3, twist=0) →
-  folds into the extended-J slide, FALSIFIED (71.59 kPa, below the
-  75.1 kPa floor; motivated H5's search).
-- **H5:** extended-J hollow/cellular longeron → own idea slide (above),
-  SUPPORTED at Stage 1 (83.66 kPa).
-- **H6:** Stage-2 Riks test of the H5 D4 design → folds into the
-  extended-J slide, FALSIFIED (32% strain, not 90%).
-- **H7:** Stage-2 Riks test of the H5 C4 design → folds into the
-  extended-J slide, FALSIFIED (9% strain, even worse).
+| # | Claim | Verdict | Key evidence |
+|---|---|---|---|
+| H1 | Pre-twist family, 46-eval anchor sweep | ❔ | suggestive negative; folds into pretwisted-longerons slide |
+| H2 | Multi-storey topology (n_storeys=2) | ❔ | own idea slide below |
+| H3 | n_longerons=5 (extended topology) | ✅ | exceeds 65.3 kPa but not the 75.1 kPa floor; own idea slide below |
+| H4 | Max-torsion single-longeron anchor (n_longerons=3, twist=0) | ❌ | 71.59 kPa, below 75.1 kPa floor; motivated H5's search |
+| H5 | Extended-J hollow/cellular longeron | ✅ | Stage 1 only, 83.66 kPa; own idea slide below |
+| H6 | Stage-2 Riks test of H5's D4 design | ❌ | 32% strain, not 90%; folds into extended-J slide |
+| H7 | Stage-2 Riks test of H5's C4 design | ❌ | 9% strain, even worse; folds into extended-J slide |
 
 </div>
 
@@ -2993,13 +2945,10 @@ class: summary-slide
 
 <div class="text-sm leading-snug">
 
-- **H1:** pre-twisted longerons proposed as a new mechanism, twist_angle ∈
-  [π/6, π] → own idea slide (above); resolved next run, INCONCLUSIVE
-  (strongly suggestive negative, underpowered test).
-- **H2:** n_longerons ∈ {4, 5} topology axis proposed as a way past Bessa's
-  fixed 3-longeron design → folds into the n=5 longerons idea (resolved
-  next run as its own H3).
-
+| # | Claim | Verdict | Key evidence |
+|---|---|---|---|
+| H1 | Pre-twisted longerons (twist_angle ∈ [π/6, π]) | ❔ | zero evals this run; resolved next run — suggestive negative, underpowered; own idea slide below |
+| H2 | n_longerons ∈ {4,5} — path past Bessa's fixed 3-longeron design | ✅ | zero evals this run; resolved next run as SUPPORTED (65.31–71.59 kPa, still below the 75.1 kPa floor) |
 
 </div>
 

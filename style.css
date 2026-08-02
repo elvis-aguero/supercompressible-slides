@@ -50,3 +50,13 @@
 .slidev-layout:has(.baseline-slide) h1 {
   color: #5a5a9e;
 }
+
+/* Compact verdict tables on summary slides: the theme default (12px vertical
+   cell padding) is fine for a 2-3 row table but costs 24px/row -- some runs
+   have 7-8 hypothesis rows and blow the 552px canvas at the default padding.
+   4px keeps rows readable and scannable while returning ~16px/row (128px on
+   an 8-row table). Applies uniformly so every summary table reads the same. */
+.summary-slide table td,
+.summary-slide table th {
+  padding: 4px 8px;
+}
