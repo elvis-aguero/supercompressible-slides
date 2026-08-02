@@ -30,14 +30,9 @@ not meant to render. Read this before adding or editing any slide.
 
 2. H1-AS-ORACLE-WIRING-CHECK IS EXCLUDED FROM THE DECK, ENTIRELY, ALWAYS.
    Several runs' H1 is not a design hypothesis at all — it is the run's
-   one-time oracle-wiring sanity check (re-solve a known anchor, confirm the
-   simulator reproduces it within tolerance; see PROBLEM_STATEMENT.md's
-   "Confirmed anchors" policy). That kind of H1 gets NO slide, NO
-   run-summary bullet, and NO speaker-note mention anywhere in this deck,
-   ever — it is infrastructure self-check, not a research result. (This
-   does NOT mean every hypothesis literally numbered "H1" is excluded —
-   plenty of runs' H1 is a real, substantive design test. Check what the
-   hypothesis actually claims, not its number.)
+   one-time oracle-wiring sanity check. That kind of H1 gets NO slide,
+   ever . (This does NOT mean every hypothesis literally numbered "H1" is excluded —
+   plenty of runs' H1 is a real, substantive design test. )
 
 3. BULLET TEMPLATE AND ORDER (exactly 4 bullets, left column of a
    two-column layout — no more prose on the main slide):
@@ -56,16 +51,15 @@ not meant to render. Read this before adding or editing any slide.
                       positive ones — do not hedge a clean falsification
                       into vagueness.
    Everything else — reasoning, caveats, provenance history, full parameter
-   dumps, technical asides — goes in the slide's Slidev speaker notes (an
+   dumps, technical asides — MUST go in the slide's Slidev speaker notes (an
    HTML comment immediately after the slide content, before the next
    `---`), never in the slide body. (Do not write that comment's own open/
    close delimiters literally inside THIS contract comment — a literal
    closing sequence anywhere in this text terminates the contract comment
    itself early, dumping the rest of it as visible text on whichever slide
-   holds it. This exact bug shipped once, 2026-07-31 — found by rendering
-   the actual cover slide, not by reading the source.)
+   holds it.)
 
-   HARD CHARACTER BUDGET, measured not guessed (2026-07-31): this deck's
+   CHARACTER BUDGET, measured not guessed (2026-07-31): this deck's
    canvas is 980x552px. Rendered headlessly (playwright, real DOM, real
    font metrics) at `layout: two-cols-header` + a `text-sm leading-snug`
    wrapper on the bullet list, the left column has 416px of usable height
@@ -251,10 +245,10 @@ not meant to render. Read this before adding or editing any slide.
 # Supercompressible Metamaterial
 ## Full provenance, in order
 
-Every idea, every run, in the order it actually happened — 23 runs, 25 genuinely new ideas tested
+Every idea, every run, in the order it actually happened
 
 <div class="text-sm opacity-70 mt-8">
-No mechanics background assumed — every idea described in plain terms
+A collection of ideas tried
 </div>
 
 ---
@@ -262,19 +256,19 @@ layout: two-cols-header
 class: baseline-slide
 ---
 
-# The Bessa baseline — what a valid design looks like
+# The original baseline
 
 ::left::
 
 <div class="text-sm leading-snug">
 
-Every target in this deck is stated as a multiple of this design — the reference
-point for what "good" looks like, before the anti-chronological history below.
+Every target in this deck is stated as a multiple of this design, everything else
+is presented in anti-chronological history. We are looking for designs that achieve at least 80% maximum 
+compression strain (mcs), and at most 2% maximum local strain (mls). 
 
-- **Design:** circular longeron cross-section, 3 longerons, 1 storey — the best
-  feasible point Bessa, Glowacki &amp; Houlder (2019) found in that family.
+- **Design:** circular longeron cross-section, 3 longerons, 1 storey. Circular top and bottom rings
 - **Geometry:** ratio_d=0.02005, ratio_pitch=0.25, ratio_top_diameter=0.2505.
-- **Result:** &sigma;_cr,nd=0.1306 kPa/longeron, mls=0.0198 (inside the 2% cap),
+- **Result:** <u>&sigma;_cr,nd=0.1306 kPa/longeron</u>, mls=0.0198 (inside the 2% cap),
   fully reversible coiling.
 
 </div>
