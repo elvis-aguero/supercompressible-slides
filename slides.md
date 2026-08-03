@@ -31,8 +31,8 @@ not meant to render. Read this before adding or editing any slide.
 2. H1-AS-ORACLE-WIRING-CHECK IS EXCLUDED FROM THE DECK, ENTIRELY, ALWAYS.
    Several runs' H1 is not a design hypothesis at all — it is the run's
    one-time oracle-wiring sanity check. That kind of H1 gets NO slide,
-   ever . (This does NOT mean every hypothesis literally numbered "H1" is excluded —
-   plenty of runs' H1 is a real, substantive design test. )
+   ever. (This does NOT mean every hypothesis literally numbered "H1" is
+   excluded — plenty of runs' H1 is a real, substantive design test.)
 
 3. BULLET TEMPLATE AND ORDER (exactly 4 bullets, left column of a
    two-column layout — no more prose on the main slide):
@@ -40,16 +40,48 @@ not meant to render. Read this before adding or editing any slide.
      (b) Origin    — where the idea came from: a real, specific citation, or
                       the honest "common sense / resize of family X" if
                       that's actually what it was. Never fabricate a
-                      literature grounding that isn't real.
-     (c) Stats     — how many designs were evaluated / how many feasible,
-                      plus the key physical numbers (σ_cr,nd, compression
-                      achieved, strain, slenderness, etc.).
-     (d) Verdict   — one direct sentence: did the mechanism work as
-                      hypothesized; is this a good idea; confirmed valid /
-                      falsified / inconclusive, and briefly why. State
-                      negative results as plainly and confidently as
-                      positive ones — do not hedge a clean falsification
-                      into vagueness.
+                      literature grounding that isn't real. If a real
+                      citation is claimed, add a numbered footnote (small
+                      text at the bottom of the slide, below the bullets)
+                      with the actual reference. If only a named theory/
+                      author was cited without a delegation verifying a
+                      specific paper, the footnote must say so plainly
+                      ("named theory, no single paper verified this run")
+                      rather than invent a fake author/year/journal to look
+                      more rigorous than the evidence actually is.
+     (c) Stats     — outcome numbers a reader with no mechanics or stats
+                      background can evaluate unaided: how many designs
+                      were tested and how many met every criterion, the
+                      best result's compression and local-strain numbers
+                      against the 80%/2% targets (see the baseline slide),
+                      and (when there are enough points for it to be
+                      meaningful, roughly n>=4) the spread of σ_cr,nd across
+                      the tested designs as low/median/high. Don't force a
+                      quartile onto a 5-point sweep — state the actual
+                      range instead when a formal quartile would be
+                      statistically meaningless.
+     (d) Verdict   — one direct sentence explaining WHY the mechanism did
+                      or didn't work, not a restatement of WHAT the verdict
+                      is. "FALSIFIED — no folded regime exists" is circular
+                      (that's the definition of FALSIFIED, not a reason);
+                      "FALSIFIED — the wall thickness needed for local
+                      stability is the same feature that sets the strain
+                      floor" is a reason. Don't repeat the baseline number
+                      or other Stats-bullet content here — Verdict's only
+                      job is the causal explanation. Still state negative
+                      results as plainly and confidently as positive ones.
+   PLAIN-LANGUAGE BAR (applies to all 4 bullets): no unexplained jargon in
+   the visible slide body. Terms like a bare "ρ" or "r" (correlation/
+   regression coefficients), an unglossed "magnitude ratio", or a made-up
+   proper noun like "corridor" for a parameter sub-range do not belong on
+   the slide face — a reader with no solid-mechanics or statistics
+   background must be able to parse every bullet without asking "what does
+   that mean?". Two ways to satisfy this: (1) speak in physical/outcome
+   terms instead of the underlying statistic (percentages, physical units,
+   plain descriptions of a design region) -- this is preferred; or (2) if a
+   technical term is unavoidable on-slide, define it in the same clause the
+   first time it appears. Reserve ρ/r/p-values and similar for speaker
+   notes, where a reader who wants the underlying statistics can find them.
    Everything else — reasoning, caveats, provenance history, full parameter
    dumps, technical asides — MUST go in the slide's Slidev speaker notes (an
    HTML comment immediately after the slide content, before the next
@@ -263,8 +295,8 @@ class: baseline-slide
 <div class="text-sm leading-snug">
 
 Every target in this deck is stated as a multiple of this design, everything else
-is presented in anti-chronological history. We are looking for designs that achieve at least 80% maximum 
-compression strain (mcs), and at most 2% maximum local strain (mls). 
+is presented in anti-chronological history. We are looking for designs that achieve at least 80% maximum
+compression strain (mcs), and at most 2% maximum local strain (mls).
 
 - **Design:** circular longeron cross-section, 3 longerons, 1 storey. Circular top and bottom rings
 - **Geometry:** ratio_d=0.02005, ratio_pitch=0.25, ratio_top_diameter=0.2505.
@@ -305,17 +337,17 @@ class: summary-slide
 
 <div class="text-sm leading-snug">
 
-H3–H4 test the tape-spring's *mechanism*; H5–H8 are corridor sub-searches of that
-same family (see idea slide below) — none reached the 2% cap.
+H3–H4 test the tape-spring's *mechanism*; H5–H8 are follow-up searches within that
+same design family (see idea slide below) — none reached the 2% strain target.
 
 | # | Claim | Verdict | Key evidence |
 |---|---|---|---|
-| H3 | Strain set by global coiling curvature, not fold localization (RIVAL) | ❔ | magnitude ratio 0.946 fits, but ρ=0.358 misses the required ≥0.5 |
-| H4 | Metric-comparability gate for shell σ_cr | ❔ | imperfection sweep not executable → every shell σ_crit is an upper bound only |
-| H5 | Wide, shallow ribbon escapes the slenderness floor | ❌ | underpredicts strain ~13.5×; local instability preempts coiling in 60% of designs |
-| H6 | True strain minimum in unsampled intermediate corridor | ❌ | best converged mls=0.0464, still above cap |
-| H7 | Near-misses partly a measurement artifact | ❌ | correction bidirectional (+9%/−25%); none cleared the cap |
-| H8 | Dense local sweep near closest miss | ❌ | best mesh-confirmed mls=0.027, 1.35× the cap |
+| H3 | Strain is set by the mast's overall coiling, not by a local fold (rival theory) | ❔ | predicted and measured strain matched on average, but the pattern didn't hold consistently design-to-design |
+| H4 | Is a shell's σ_cr directly comparable to a beam's σ_cr? | ❔ | the check this needed couldn't run — every shell result here is an upper bound only, not a firm number |
+| H5 | Wide, shallow ribbon escapes the strain floor | ❌ | badly underpredicted the real strain; a different failure mode (local buckling) hits first in 60% of designs |
+| H6 | True strain minimum sits in an untested middle range | ❌ | best result there: 4.64% strain, still well above the 2% target |
+| H7 | Near-misses were partly a measurement bug | ❌ | bug confirmed and fixed, but the fix helped some designs and hurt others — none reached the target either way |
+| H8 | Dense search right around the closest miss | ❌ | best confirmed result: 2.7% strain, still 35% over the 2% target |
 
 </div>
 
@@ -378,17 +410,22 @@ class: idea-slide
 <div class="text-sm leading-snug">
 
 - **What:** Replaced the solid B31 longeron with a thin-walled, open-arc S4R
-  **shell** section, hypothesizing a *localized elastic fold* (`t/2R_tape`)
-  could escape the mast-scale coiling curvature capping every beam family.
-- **Origin:** Calladine inextensional-fold theory + Seffen–Pellegrino
-  tape-spring mechanics (real citation).
-- **Stats:** 407 evals, 4 corridors, 0/406 feasible. Best mesh-confirmed
-  strain 0.027053 (1.35× cap) at σ_cr,nd=0.634 kPa; 0/7 checked sections
-  transversely flattened.
-- **Verdict:** FALSIFIED by direct kinematic observation — no folded regime
-  exists here. Strain tracks extreme-fibre bending (ratio 0.946), not the
-  fold scale (2.566). Baseline stays 0.7704 kPa (`run17_rectangle`).
+  **shell** section, hypothesizing a *localized elastic fold* could escape
+  the mast-scale coiling curvature capping every beam family.
+- **Origin:** Named for Calladine inextensional shell-folding theory and
+  Seffen–Pellegrino tape-spring mechanics.¹
+- **Stats:** 407 designs tested across 4 design regions; 0 met every
+  criterion. Best design (confirmed after mesh refinement) already reaches
+  the 80% compression target — it fails only on local strain: 2.71%
+  (target ≤2%), at σ_cr,nd=0.634 kPa.
+- **Verdict:** FALSIFIED: the curvature that keeps the arc locally stable
+  is the same curvature that sets its bending-strain floor. The shape can
+  never be shallow enough to fold locally without first buckling — so
+  strain follows ordinary beam bending at every depth tested, not a fold.
 
+<div class="text-xs opacity-50 mt-2">
+¹ Named theories cited by the delegation; no single specific paper was looked up/verified this run.
+</div>
 
 </div>
 
@@ -1102,7 +1139,7 @@ class: summary-slide
 | # | Claim | Verdict | Key evidence |
 |---|---|---|---|
 | H1 | Mine the Bessa 7D dataset for a real, realizable profile | ❔ | folds into the extended-J hollow-tube slide; 0/8 coilable rows pass all 4 criteria |
-| H2 | Laced/battened two-parallel-chord built-up longeron (own slide) | ❔ | 1/50 feasible, 3 orders of magnitude below target |
+| H2 | Laced/battened two-parallel-chord built-up longeron (own slide) | ❌ | existence confirmed (1/50 feasible, real hit); 1000x below target either way |
 | H3 | 2-storey mast reduces peak local strain | ❔ | folds into the multi-storey idea's slide; no clean signal |
 
 
@@ -1156,14 +1193,15 @@ class: idea-slide
 - **Origin:** common-sense mechanistic hypothesis grounded in the
   parallel-axis theorem (2&middot;A_f&middot;(h/2)&sup2;), not a
   literature citation.
-- **Stats:** a 50-eval CEI-BO campaign found only 1/50 fully feasible, at
+- **Stats:** a 50-eval CEI-BO campaign found 1/50 feasible, at
   &sigma;_cr,nd=0.00079 kPa — three orders of magnitude below the 0.7704
-  kPa target, with zero new feasible points in the final two of five
-  rounds.
-- **Verdict:** inconclusive — the search barely found the feasible
-  manifold at all (2% feasible rate), too underpowered to certify the
-  mechanism's absence, but the one point found is nowhere near
-  competitive.
+  kPa target.
+- **Verdict:** FALSIFIED as a viable mechanism. 50 evals clears this
+  study's existence-testing bar (settled 2026-08-02: n&#8805;48 for a
+  defensible read), and a genuine feasible hit — not a zero-hit rate — was
+  found, so existence itself was never in question. The real finding is
+  competitiveness: the one feasible design is 1000&times; below target,
+  too large a gap to blame on under-search rather than the mechanism.
 
 
 </div>
@@ -1178,12 +1216,17 @@ class: idea-slide
 Full context:
 
 - This is hypothesis H2 of run `20260718T071133`, delegation D005 (50-eval CEI-BO
-  campaign over the laced/battened two-chord longeron). Correction per the verdict
-  validator's critique: with feasibility this sparse (2%), this is not a
-  well-populated feasible region whose objective trend plateaued -- it is a search
-  that struggled to find feasibility at all, which per the study's Charter Sec.2 lacks
-  the demonstrated search power to support a negative existence claim of this
-  magnitude. Left INCONCLUSIVE rather than FALSIFIED.
+  campaign over the laced/battened two-chord longeron). Originally left INCONCLUSIVE
+  per the verdict validator's critique: with feasibility this sparse (2%), a
+  zero-or-near-zero hit rate could have meant either "this mechanism is bad" or
+  "the search never found where it's good" -- indistinguishable without more power.
+  REVISED 2026-08-03 once the study settled a concrete existence-testing default
+  (n_doe=48, giving p<=6.25% confidence on a zero-hit read): 50 evals already clears
+  that bar, and unlike the zero-hit case this campaign found a REAL feasible point --
+  existence is directly observed, not inferred from an absence. The only open
+  question was ever competitiveness, and a 1000x gap from target is decisive on its
+  own terms; no plausible amount of additional search closes three orders of
+  magnitude from a single documented mechanism. Flipped INCONCLUSIVE -> FALSIFIED.
 - ODB: data/idea_odbs/20260718T071133_H2_laced_built_up/SUPERCOMPRESSIBLE_RIKS.odb,
   sourced from presentation/resim/built_up/riks_4a8e6e6a4c504a5abfa2ef1b0d5f21c1.
   Rendered cleanly through the full native pipeline; the twin-chord (two-parallel-rod)
