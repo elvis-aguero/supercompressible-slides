@@ -467,10 +467,12 @@ class: idea-slide
 - **What:** Replaced the solid B31 longeron with a thin-walled, open-arc S4R
   **shell** section, hypothesizing a *localized elastic fold* could escape
   the mast-scale coiling curvature capping every beam family.
+  Free: t_tape∈[.4,1.6] R_tape∈[6,400] alpha_tape∈[.05,2.2] beta_tape∈[0,3.14] pitch∈[.25,1.5] +1 more | Fixed: circular=17 n_long=3 n_st=1 twist=0 rsm=.3677
 - **Origin:** Named for Calladine inextensional shell-folding theory and
   Seffen–Pellegrino tape-spring mechanics.¹
 - **Stats:** n=406 → 176 coil → 137 riks → 0 good
   p50/p90/p100 — σ_crit: 2.11/17.6/88.3 · mcs: 1.02/1.04/1.06 · mls: .047/.130/.447
+  best good: none (0/406 passed every criterion)
 - **Verdict:** FALSIFIED: the curvature that keeps the arc locally stable
   is the same curvature that sets its bending-strain floor. The shape can
   never be shallow enough to fold locally without first buckling — so
@@ -681,11 +683,13 @@ class: idea-slide
 - **What:** Spliced one bistable, shallow-arched snap-through segment near
   the bottom ring, jointly re-optimized with the base cross-section, to
   reinvest local-strain headroom into higher σ_cr,nd than 0.7704 kPa.
+  Free: a∈[.007,.012] b∈[.025,.045] arch_rise∈[.02,.09] arch_length∈[.25,.5] | Fixed: pitch=.681277 top_d=.04444 circular=15 stabilization=1 dual_arch=1
 - **Origin:** elastic-instability/bistable-mechanism metamaterials
   literature; follow-on to a same-run hypothesis whose single-arch strain
   cut (mean ~7%, max 12.3%) fell short of a pre-registered 20% bar.
 - **Stats:** n=133 → 132 coil → 66 riks → 1 good (6.5× Bessa)
   p50/p90/p100 — σ_crit: .76/1.50/1.99 · mcs: 1.00/1.00/1.04 · mls: .0194/.0230/.0267
+  best good: a=.00961 b=.033165 arch_rise=.0343 arch_length=.4305 → σ=.8509 mcs=1.00 mls=.0196
 - **Verdict:** SUPPORTED at gate time, then RETRACTED. A continuum submodel
   of the arch-to-longeron joint (control-tested against the Bessa point)
   found real local strain 2.7×+ over the beam-reported value, still rising
@@ -887,12 +891,14 @@ class: idea-slide
 - **What:** Chain of N alternating-sign pre-curved shallow-arch segments,
   rise-to-thickness ratio (Q) kept *below* the bistability floor (Q≈2.31) —
   mild repeating curvature, not genuine snap-through.
+  Free: n_segments∈[2,6] arch_rise∈[.02,.3] | Fixed: a=.009213 b=.033238 pitch=.681277 top_d=.04444 circular=11
 - **Origin:** follow-up to the same run's H2 (*true* bistable, Q≥2.31
   chain), which hit a Riks numerical wall in 71/72 cases; asks whether
   backing off avoids the wall while still beating baseline.
 - **Stats:** n=133 → 19 coil → 3 riks → 1 good (5.9× Bessa)
   p50/p90/p100 — σ_crit: .12/.65/.78 · mcs: 1.00/1.03/1.03 · mls: .0194/.0267/.0285
   (only 3 converged Riks points — quartiles are just those 3, not a real distribution)
+  best good: n_segments=3 arch_rise=.10 → σ=.7765 mcs=1.03 mls=.0194
 - **Verdict:** falsified as an absence claim — one genuine 5-criteria
   counterexample beats the 0.7704 kPa baseline. Valid, but a mild curvature
   perturbation, not the true bistable mechanism originally proposed.
@@ -1021,6 +1027,7 @@ class: idea-slide
   open thin-walled cruciform/I-beam profile, chosen so torsional stiffness
   (J) is tunable independently of bending stiffness (Ixx/Iyy), unlike a solid
   rectangle where the two are coupled.
+  Free: b∈[.015,.05] h∈[.02,.08] tf∈[.002,.012] tw∈[.0015,.008] pitch∈[.3,1.5] +1 more | Fixed: circular=8 n_long=3 n_st=1 twist=0 rsm=.3677
 - **Origin:** classical flexural-torsional beam theory (common-sense
   cross-section engineering, not a specific outside citation) — the
   motivating idea was that decoupling J from Ixx/Iyy might let the section
@@ -1028,6 +1035,7 @@ class: idea-slide
   the rectangle family pays.
 - **Stats:** n=91 → 90 coil → 0 riks → 0 good
   (0 designs ever reached a converged Riks solve — see Verdict)
+  best good: none (0/91 passed every criterion)
 - **Verdict:** FALSIFIED — a solve-completion wall, not a strain wall: all
   90 coilable designs failed to reach a converged Riks solution, so the
   cross-section itself never produces a mast this infrastructure can
@@ -1139,11 +1147,13 @@ class: idea-slide
 - **What:** Replaced the bending longeron with a pin-jointed, prestressed
   Class-1 tensegrity assembly — stiffness from prestress/geometry, not
   beam bending.
+  Free: a_strut∈[.001,.03] slen_strut∈[10,40] area_cable∈[1e-5,5e-3] mid_h∈[.1,.9] prestrain∈[.001,.02] +2 more | Fixed: circular=7 n_long=3 n_st=1 twist=0 rsm=.3677
 - **Origin:** Amendola et al. (2018) tensegrity prestress-stiffness theory,
   contrasted with Meng (2012)/Sorrentino (2021) on bending-family
   strain-stiffness coupling.
 - **Stats:** n=45 → 45 coil → 44 riks → 12 good (1691&times; Bessa)
   p50/p90/p100 — &sigma;_crit: 72.8/220.8/238.4 · mcs: 1.12/1919/2929 · mls: .205/8.41/9.55
+  best good: a_strut=.03 slen_strut=10.29 area_cable=.0046 mid_h=.523 prestrain=.0193 +2 more &rarr; &sigma;=220.89 mcs=1.15 mls&asymp;9e-14
 - **Verdict:** SUPPORTED at face value (largest &sigma;_cr,nd in the study;
   re-verified via direct ODB mode-1 extraction, 6&times;10<sup>-10</sup> rad
   match) but demoted by the apples-to-apples criterion — pin-jointed/prestress
@@ -1278,11 +1288,14 @@ class: idea-slide
   separated by a fixed gap (a laced/battened built-up member), aiming to
   set global bending stiffness by chord separation while peak local strain
   stays governed by each chord's own small radius.
+  Free: rc∈[.001,.02] h∈[.01,.15] n_battens∈[2,8] pitch∈[.25,1.5] top_d∈[0,.8]
+  | Fixed: circular=4 n_storeys=1 twist=0 rsm=.3677
 - **Origin:** common-sense mechanistic hypothesis grounded in the
   parallel-axis theorem (2&middot;A_f&middot;(h/2)&sup2;), not a
   literature citation.
 - **Stats:** n=62 &rarr; 50 coil &rarr; 50 riks &rarr; 1 good (0.0061&times; Bessa)
   p50/p90/p100 — &sigma;_crit: .09/2.64/6.15 · mcs: .76/1.03/1.07 · mls: .031/.079/.107
+  best good: rc=.0024 h=.0234 n_battens=2 pitch=.75 top_d=.13 &rarr; &sigma;=.00079 mcs=1.00 mls=.014
 - **Verdict:** FALSIFIED as a viable mechanism. 50 evals clears this
   study's existence-testing bar (settled 2026-08-02: n&#8805;48 for a
   defensible read), and a genuine feasible hit — not a zero-hit rate — was
@@ -1384,10 +1397,13 @@ class: idea-slide
   small-amplitude in-plane serpentine (meander) wave instead of a straight
   line, aiming to distribute bending curvature along the member's length
   rather than concentrate it at one region.
+  Free: amplitude_rel∈(0,.02] n_periods∈[1,6] | Fixed: host=run17_rectangle
+  (a=.009213 b=.033238 pitch=.681277 top_d=.04444)
 - **Origin:** common-sense mechanistic hypothesis (a curvature-distribution
   argument), not drawn from an outside literature source.
 - **Stats:** n=17 &rarr; 17 coil &rarr; 8 riks &rarr; 3 good (5.89&times; Bessa)
   p50/p90/p100 — &sigma;_crit: .769/.774/.783 · mcs: 1.000/1.032/1.067 · mls: .0220/.0224/.0226
+  best good: amplitude_rel=.0047 n_periods=3 &rarr; &sigma;=.7694 mcs=1.02 mls=.0198
 - **Verdict:** negative — among the 8 trust-gated converged points, local
   strain correlates *positively* with both amplitude (+0.42) and n_periods
   (+0.53), the opposite of the hypothesized direction; meandering raises
@@ -1491,10 +1507,13 @@ class: idea-slide
 - **What:** Tapered a longeron's radial thickness along its arc-length —
   thick at both ring ends, waisted at mid-span — a fixed-volume
   optimal-column shape, not a uniform section.
+  Free: a_end∈[.004,.02] waist∈[.30,.98] b∈[.012,.06] pitch∈[.4769,.8857]
+  top_d∈[.0311,.0578] | Fixed: circular=4 n_storeys=1 twist=0
 - **Origin:** classical Lagrange-Keller / Tadjbakhsh-Keller optimal-column
   result, adapted to this study's longeron geometry.
 - **Stats:** n=29 &rarr; 29 coil &rarr; 29 riks &rarr; 1 good (0.49&times; Bessa)
   p50/p90/p100 — &sigma;_crit: .756/3.04/3.58 · mcs: .677/1.058/1.072 · mls: .0192/.0277/.0441
+  best good: a_end=.0049 waist=.414 b=.0419 pitch=.870 top_d=.0385 &rarr; &sigma;=.0643 mcs=.95 mls=.013
 - **Verdict:** inconclusive — the mis-specified (waist-based) constraint
   never searched the real feasible region; the headline fails corrected.
 
@@ -1608,6 +1627,8 @@ class: idea-slide
   at an interior hinge node, offset circumferentially by angle
   `psi_kresling`, coupling axial compression to rigid-body strut
   re-orientation instead of relying purely on elastic bending.
+  Free: a∈[.006,.014] b∈[.008,.025] pitch∈[.25,1.5] top_d∈[0,.6] psi∈[0,.5236]
+  +1 more | Fixed: circular=2 n_storeys=1 twist=0
 - **Origin:** the Kresling origami folding pattern (a well-known
   bar-hinge/triangulated-cylinder mechanism), adapted here to this study's
   beam-longeron model — a real, specific geometric precedent, not a
@@ -1615,6 +1636,7 @@ class: idea-slide
 - **Stats:** n=45 &rarr; 37 coil &rarr; 37 riks &rarr; 8 good (5.44&times; Bessa)
   p50/p90/p100 — &sigma;_crit: .574/1.28/2.52 · mcs: 1.00/1.00/1.00 · mls: .0217/.0294/.0483
   (8/37 converged designs pass every criterion — not a single knife-edge hit)
+  best good: a=.0120 b=.0151 pitch=.618 top_d=.0351 psi=.5236 +1 more &rarr; &sigma;=.7111 mcs=1.00 mls=.0196
 - **Verdict:** INCONCLUSIVE — a genuinely feasible design existed and once
   cleared all four original criteria, but was later rejected on a separate
   ring-passthrough criterion (see notes); not a validated winner.
@@ -1784,12 +1806,15 @@ class: idea-slide
 - **What:** Bent each longeron into a helix winding around the mast axis
   (a `helix_wrap` parameter), rather than a straight line, hypothesizing a
   spring-like geometry predisposed to reversible coiling.
+  Free: a∈[.003,.03] b∈[.008,.06] pitch∈[.30,1.5] top_d∈[0,.6] wrap∈[0,1.5708]
+  | Fixed: n_storeys=1 twist=0 rsm=.3677
 - **Origin:** common-sense mechanistic hypothesis, explicitly distinguished
   from pre-twist (which rotates the cross-section) and radial bowing
   (which is planar) — both tried and falsified in earlier runs. Not drawn
   from an outside literature source.
 - **Stats:** n=28 &rarr; 8 coil &rarr; 8 riks &rarr; 1 good (0.044&times; Bessa)
   p50/p90/p100 — &sigma;_crit: 1.09/6.04/14.76 · mcs: .881/1.00/1.00 · mls: .019/.118/.191
+  best good: a=.003 b=.008 pitch=.30 top_d=0 wrap=0 (degenerate) &rarr; &sigma;=.0057 mcs=1.00 mls=.0066
 - **Verdict:** falsified — helical wrap raises critical buckling stress
   but destroys local-strain feasibility even faster, the opposite of the
   hypothesized reversible-coiling benefit.
@@ -1892,11 +1917,13 @@ class: idea-slide
 - **What:** Added a diagonal chiral-bracing lattice of short auxiliary beam
   struts between adjacent longerons, layered on the slenderness-valid
   rectangular family (two verified CEI-BO campaigns; see notes).
+  Free: a&isin;[.0025,.20] b&isin;[.0025,.075] pitch&isin;[.25,1.5] top_d&isin;[0,.8] z_brace&isin;[.05,.95] +2 more | Fixed: circular=2 n_long=3 n_storeys=1 twist=0 rsm=.3677
 - **Origin:** common-sense — an alternative stiff load path to offload
   torsional/bending demand from the longerons (a later refinement drew a
   cable-stayed precedent, Gurfinkel & Krishnan 2017; see notes).
 - **Stats:** n=42 &rarr; 30 coil &rarr; 22 riks &rarr; 0 good
   p50/p90/p100 — &sigma;_crit: 19.24/596.53/713.78 · mcs: .00/.06/.77 · mls: .00/.04/.25
+  best good: none (0/42 passed every criterion)
   (braced designs failed max_compressive_strain in 30/30 vs 34/46 for the unbraced control)
 - **Verdict:** INCONCLUSIVE as an existence claim; directional signal is
   clear — bracing blocks coiling rather than helping it.
@@ -2088,11 +2115,13 @@ class: idea-slide
 - **What:** An open thin-walled longeron cross-section with an inherent
   shear-centre-to-centroid offset (Abaqus `LProfile`) — a DOF the Bessa
   parametrization fixes to zero, never accessed by any prior family.
+  Free: a∈[.002,.02] b∈[.01,.06] t_frac_a∈[.02,.5] t_frac_b∈[.02,.5] pitch_margin∈[0,1] +1 more | Fixed: n_long=3 rsm=.3677
 - **Origin:** parametric-space extension, tempered by a literature review
   (Zahn & Iwankiw 1989 flexural-torsional buckling theory) predicting
   AGAINST the mechanism beforehand (see notes).
 - **Stats:** n=45 → 29 coil → 6 riks → 0 good
   p50/p90/p100 — σ_crit: .022/.073/.085 · mcs: .434/.564/.579 · mls: .010/.018/.018
+  best good: none (0/45 passed every criterion)
 - **Verdict:** FALSIFIED — matches the theoretical prior; a GP surrogate fit
   on this data is genuinely predictive (well above a chance baseline, CV
   R²=0.881), confirming the flat, feature-less landscape is real and not a
@@ -2194,10 +2223,12 @@ class: idea-slide
 - **What:** A spatially-varying longeron: thick `RectangularProfile` ends
   near both rings (global stiffness) with a deliberately thin mid-span
   "hinge" segment to cap peak bending strain.
+  Free: a∈[.003,.03] b_end∈[.010,.075] b_hinge∈[.005,.030] hinge_frac∈[.05,.9] pitch∈[.25,1.5] +1 more | Fixed: rsm=.3677
 - **Origin:** common sense — decouple average stiffness (thick ends) from
   peak local fibre strain (thin hinge), a DOF no uniform family could access.
 - **Stats:** n=56 → 45 coil → 45 riks → 1 good (1.07× Bessa)
   p50/p90/p100 — σ_crit: 3.01/13.96/41.51 · mcs: .93/1.00/1.00 · mls: .067/.121/.250
+  best good: a=.00452 b_end=.0712 b_hinge=.0200 hinge_frac=.380 pitch=.860 +1 more → σ=.1391 mcs=1.00 mls=.019
 - **Verdict:** INCONCLUSIVE by the study's strict adequacy bar, but the raw
   signal is a clear dead end: how thin the mid-span hinge is shows no
   consistent relationship with peak strain across 45 designs (sometimes
@@ -2250,12 +2281,14 @@ class: idea-slide
 - **What:** A closed, thin-walled rectangular hollow-tube (`BoxProfile`)
   longeron, motivated by mining the 50,000-point Bessa 7D dataset for
   high-torsion/bending-stiffness combinations no solid family could reach.
+  Free: a_out∈[.006,.10] b_out∈[.006,.10] t1∈[.0005,.02] t3∈[.0005,.02] pitch∈[.25,1.5] +1 more | Fixed: rsm=.3677 circular=3
 - **Origin:** dataset-mining common sense — a least-squares fit of
   high-performing 7D rows to box geometries had poor residuals (~98%
   relative L2 error), so the family was built and searched directly.
 - **Stats:** n=51 → 36 coil → 36 riks → 4 good (2.39× Bessa)
   p50/p90/p100 — σ_crit: 4.20/60.35/90.13 · mcs: .61/1.00/1.00 · mls: .043/.097/.151
-  (best good design, 0.3123 kPa, still below the 0.3644 kPa solid-rectangle baseline;
+  best good: a_out=.0184 b_out=.0543 t1=.003 t3=.002 pitch=.602 +1 more → σ=.3123 mcs=1.00 mls=.018
+  (still below the 0.3644 kPa solid-rectangle baseline;
   high σ_crit p90/p100 likely a non-coiling stiff mode, not real progress)
 - **Verdict:** INCONCLUSIVE by the strict adequacy bar, but a clear
   negative signal — a genuinely different (mode-switching) failure mode
@@ -2299,11 +2332,13 @@ class: idea-slide
 - **What:** Made the 3 longerons non-identical: 2 stiff `RectangularProfile`
   + 1 compliant `RectangularProfile`, same radial dimension, unchanged
   rings.
+  Free: a∈[.003,.03] b_stiff∈[.010,.075] b_compliant∈[.005,.030] pitch∈[.25,1.5] top_d∈[0,.8] | Fixed: rsm=.3677
 - **Origin:** common sense — the compliant longeron absorbs large
   rotations, "rescuing" compressibility while the stiff ones carry
   buckling load.
 - **Stats:** n=46 → 32 coil → 32 riks → 1 good (2.79× Bessa)
   p50/p90/p100 — σ_crit: 1.86/21.94/40.42 · mcs: .53/1.29/1.49 · mls: .060/.130/.396
+  best good: a=.00920 b_stiff=.01875 b_compliant=.01875 pitch=.602 top_d=.038 → σ=.3644 mcs=1.00 mls=.020
 - **Verdict:** INCONCLUSIVE by the study's adequacy bar, but the mechanism
   is contradicted: the stiffness ratio between the compliant and stiff
   longerons shows no consistent relationship with strain across the 32
@@ -2404,10 +2439,12 @@ class: idea-slide
   independently-parametrized ellipses plus a phase offset between the top
   and bottom ring's major-axis orientation, to break the rotational
   symmetry that forces every longeron to undergo identical peak curvature.
+  Free: ring_aspect∈[1,1.5] phase_offset∈[0,.2] a∈[.004,.02] b∈[.01,.045] pitch∈[.3,1] +1 more | Fixed: circular=2 n_long=3 n_storeys=1 twist=0 rsm=.3677
 - **Origin:** common sense structural-symmetry-breaking hypothesis, not a
   literature citation.
 - **Stats:** n=67 → 9 coil → 9 riks → 0 good
   p50/p90/p100 — σ_crit: 0.36/1.97/4.05 · mcs: 0.36/0.47/0.78 · mls: .012/.021/.039
+  best good: none (0/67 passed every criterion)
   (combines D008's 19-pt dense grid + D010's 48-pt broader search; the sharper
   finding — mcs collapses 0.9999→0.398 at the first non-circular step tested —
   doesn't survive as an aggregate quartile, see speaker notes)
@@ -2463,9 +2500,11 @@ class: idea-slide
 - **What:** Gave each longeron a smooth radial offset by height — zero at
   both rings, max inward bow at mid-height — to geometrically pre-condition
   the coiling path and retain high compressive strain.
+  Free: bow_amp∈[0,.2] a∈[.004,.02] b∈[.01,.045] pitch∈[.3,1] top_d∈[0,.6] | Fixed: circular=2 n_long=3 n_storeys=1 twist=0 rsm=.3677
 - **Origin:** common sense geometric hypothesis, not a literature citation.
 - **Stats:** n=48 → 45 coil → 27 riks → 1 good (0.58× Bessa)
   p50/p90/p100 — σ_crit: 1.37/8.97/16.00 · mcs: 0.44/1.00/1.00 · mls: .024/.045/.071
+  best good: bow_amp=.087 a=.005 b=.013 pitch=.32 top_d=.35 → σ=.0757 mcs=1.00 mls=.013
 - **Verdict:** FALSIFIED. Bowing does the opposite of hypothesized — a
   confound-free dose-response sweep (bow_amplitude ∈ {0,0.05,0.10,0.15},
   fixed ratio_b=0.03) shows max_compressive_strain decreasing monotonically
@@ -2570,9 +2609,11 @@ class: idea-slide
   its short semi-axis lies in the plane of dominant coiling-induced
   bending, to raise torsional stiffness beyond the circular family's
   strain-limited ceiling.
+  Free: none — untestable, see Verdict
 - **Origin:** direct mechanistic extension of the SCLF (circular) family —
   common sense, not a literature citation.
 - **Stats:** n=0 — untestable (hard software-capability gap, see Verdict)
+  best good: none (0/0)
 - **Verdict:** INCONCLUSIVE, and genuinely so: the hypothesis as literally
   registered is untestable with the available infrastructure, not
   falsified. `model.EllipticalProfile` does not exist in the installed
@@ -2633,10 +2674,12 @@ class: idea-slide
   half-width/fiber-distance, a square carries ~1.7× a circle's moment of
   inertia (I_square/I_circle=64/(12π)), bend axis on a flat side not a
   diagonal.
+  Free: side∈[.005,.025] pitch∈[.25,1] top_d∈[0,.6] | Fixed: rsm=.3677 circular=2 n_long=3 n_storeys=1 twist=0
 - **Origin:** common sense, basic section-property comparison — not a
   literature citation.
 - **Stats:** n=50 → 50 coil → 50 riks → 9 good (1.23× Bessa)
   p50/p90/p100 — σ_crit: .22/4.54/13.15 · mcs: .99/1.00/1.00 · mls: .022/.055/.098
+  best good: side=.0097 pitch=.25 top_d=.218 → σ=.160 mcs=1.00 mls=.020
 - **Verdict:** FALSIFIED, plainly — contradicted by an adequate,
   above-chance-surrogate search (σ_crit CV R²=0.999, mls CV R²=0.545).
   (Square does edge circular in σ_crit at matched strain, 0.16-0.19 vs
@@ -2686,10 +2729,12 @@ class: idea-slide
   tangential LONG — reverse of this run's earlier falsified orientation,
   at slenderness≥10, testing whether max_local_strain and sigma_crit
   decouple.
+  Free: a∈[.004,.014] b∈[.01,.045] pitch∈[.25,1] top_d∈[0,.6] | Fixed: rsm=.3677 circular=2 n_long=3 n_storeys=1 twist=0
 - **Origin:** direct extension of the elliptical-substitution idea above —
   mirror of this run's own H6, common sense, not a literature citation.
 - **Stats:** n=165 → 149 coil → 148 riks → 6 good (2.79× Bessa)
   p50/p90/p100 — σ_crit: .86/4.26/7.52 · mcs: .80/1.00/1.00 · mls: .022/.034/.043
+  best good: a=.0092 b=.0188 pitch=.602 top_d=.038 → σ=.3644 mcs=1.00 mls=.0195
   (6 pass every criterion; 3 of those also clear this run's own higher
   0.196 kPa target — the headline design, σ_crit=0.3644 at slenderness=16.04)
 - **Verdict:** SUPPORTED — real, repeatable, non-fluke. This design
@@ -2806,11 +2851,14 @@ class: idea-slide
 - **What:** Constrained the cross-section to a solid circle (ratio_d ∈
   [0.08,0.16], else free) after the generalized Bessa optimum failed
   Stage 2 categorically — testing whether J/I=2 is what Stage 2 needs.
+  Free: d∈[.04,.14] pitch∈[.25,1.5] top_d∈[0,.8] | Fixed: circular=1
+  n_longerons=3 twist=0 rsm=.43681 area=.00215 Ixx=1.35e-6 Iyy=1.24e-6 J=6.65e-6
 - **Origin:** follow-up to this run's H1 (generalized optimum: 9.23% Riks
   strain, not 90%) — circular is the shape closest to Bessa 2019's own
   demonstration.
 - **Stats:** n=42 → 28 coil → 5 riks → 0 good (mls never measured this campaign)
   p50/p90/p100 — σ_crit: 431.8/497.8/505.7 · mcs: .837/.892/.901 · mls: not measured
+  best good: none (0/42 passed every criterion)
 - **Verdict:** SUPPORTED as existence at the time — circular passes Stage 1
   and this campaign's own Stage-2 mcs bar, generalized doesn't. **But later
   invalidated** (next run's H1): peak local strain 24.7%, 12× the 2% PLA
@@ -2921,12 +2969,15 @@ class: idea-slide
   ring at mid-height, still 3 continuous longerons per storey — instead of
   Bessa's single-storey topology, to see if a shorter per-segment coiling
   path could beat the Bessa 2019 paper optimum (65.3 kPa/longeron).
+  Free: twist∈[.05,.35] pitch∈[.25,1.5] top_d∈[0,.8] rsm∈[.334,.45]
+  area∈[1.17e-5,4.1e-3] +3 more | Fixed: n_longerons=3 n_storeys=2
 - **Origin:** common sense topology extension of the Bessa rocking-mast
   concept, not drawn from an outside literature source.
 - **Stats:** n=32 → 9 coil → 0 riks → 0 good (mcs/mls never tracked this campaign)
   p50/p90/p100 — σ_crit (coilable only): 5.6/64.3/65.0 · mcs: not tracked · mls: not tracked
   (best coilable, 64.9989 kPa, is 99.5% of the single-storey Bessa optimum
   by Stage-1 σ_crit alone — never checked against real feasibility)
+  best good: none (0/32 passed every criterion)
 - **Verdict:** INCONCLUSIVE — the topology recovers almost all of the
   single-storey Stage-1 performance without losing coilability, which is
   itself informative, but this campaign's own domain never tracked
@@ -3012,11 +3063,14 @@ class: idea-slide
 - **What:** Increased the mast's rotational symmetry from Bessa's fixed 3
   longerons to 4, 5, and 6, at the same (near-optimal) 7D cross-section, to
   test whether more legs raise the per-longeron critical load.
+  Free: twist∈[0,π] area∈[1.17e-5,4.1e-3] Ixx∈[1e-7,1.4e-6] Iyy∈[1.13e-11,1.4e-6]
+  J∈[1e-6,7.77e-6] +3 more | Fixed: n_longerons=5 n_storeys=1 (main batch; anchors also test 4,6)
 - **Origin:** common sense topology extension — Bessa's own parametrization
   never varies longeron count, fixing it at 3 throughout the 2019 paper.
 - **Stats:** n=31 (D005's own ledger; "48-evaluation" in an earlier draft
   could not be corroborated) → 20 coil → 0 riks → 0 good (Stage 2 never run)
   p50/p90/p100 — σ_crit (coilable only): 61.5/71.2/71.6 · mcs: not tracked · mls: not tracked
+  best good: none (0/31 passed every criterion)
 - **Verdict:** SUPPORTED as registered — but with an important nuance: none
   of n=4/5/6 reached the study's actual 75.1 kPa floor, and per-longeron
   σ_cr,nd turned out to be empirically independent of n_longerons at fixed
@@ -3075,11 +3129,14 @@ class: idea-slide
 - **What:** Pushed torsional-stiffness ratio_J beyond the Bessa 7D
   dataset's own max (7.77e-6) — hollow/cellular cross-sections (e.g. a
   hollow tube) unreachable by any solid Bessa-parametrized material.
+  Free: twist∈[0,π] area∈[1.17e-5,4.1e-3] Ixx∈[1e-7,1.4e-6] Iyy∈[1.13e-11,1.4e-6]
+  J∈[1e-6,1.5e-5] +3 more | Fixed: n_longerons=3 n_storeys=1
 - **Origin:** common-sense extrapolation of the Bessa family's torsion
   axis — σ_cr,nd scales with GJ, and the Bessa optimum sits at only 86%
   of max ratio_J.
 - **Stats:** n=18 → 16 coil → 1 riks → 0 good
   σ_crit/mcs (n=1, only C4 genuinely converged): 76.1 kPa / .090 · mls: not measured
+  best good: none (0/18 passed every criterion)
 - **Verdict:** Stage-1 existence SUPPORTED (mechanism real, floor
   clearable — 5/16 cleared 75.1 kPa), but Stage-2 FAILS both candidates —
   the same GJ that clears the floor blocks deep coiling. Not a usable
@@ -3182,12 +3239,15 @@ class: idea-slide
   longeron of the standard 3-longeron mast, on top of the full 7D Bessa
   cross-section search, to see whether twisting the legs could beat the
   75.1 kPa/longeron study floor.
+  Free: twist∈[0,π] area∈[1.17e-5,4.1e-3] Ixx∈[1e-7,1.4e-6] Iyy∈[1e-7,1.4e-6]
+  J∈[1e-6,7.77e-6] +3 more | Fixed: n_longerons=3
 - **Origin:** common sense mechanistic hypothesis (not a literature
   citation) — the idea that a pre-twisted leg might exploit a shorter
   effective pitch and reach a higher coiling-mode eigenvalue.
 - **Stats:** n=46 → 6 coil → 0 riks → 0 good (Stage 2 never run this campaign)
   p50/p90/p100 — σ_crit (coilable only): 7.3/43.6/65.3 · mcs: not tracked · mls: not tracked
   (every coilable design at or below the twist=0 baseline, 65.31 kPa)
+  best good: none (0/46 passed every criterion)
 - **Verdict:** the mechanism does not work — pre-twist destroys
   coilability rather than helping it. The registered test technically
   fell short of its own ≥80-eval bar (a license-server outage killed 26 of
