@@ -36,7 +36,21 @@ not meant to render. Read this before adding or editing any slide.
 
 3. BULLET TEMPLATE AND ORDER (exactly 4 bullets, left column of a
    two-column layout — no more prose on the main slide):
-     (a) What      — precisely what was tried.
+     (a) What      — precisely what was tried, plus a FIXED-FORMAT bounds
+                      line (added 2026-08-04, same scoped plain-language-bar
+                      exception as Stats — it's a data readout): the free
+                      search-space variables with their sampled bounds, and
+                      the fixed variables with their held values, e.g.
+                      "Free: a∈[.001,.05] b∈[.001,.06] pitch∈[.25,1.5]
+                      top_d∈[0,.8] | Fixed: n_storeys=2 twist=0 rsm=.3677" —
+                      drop the `ratio_` prefix (every variable in this study
+                      has it) and comma separators between bracket terms
+                      (each is already self-delimiting) to stay compact.
+                      Lets a reader check whether an outlier Stats quartile
+                      value is just a consequence of a wide sampled bound,
+                      not a real finding. Cap at 5 free vars listed; beyond
+                      that, list the first 5 and append "+N more" rather
+                      than let the line run long.
      (b) Origin    — where the idea came from: a real, specific citation, or
                       the honest "common sense / resize of family X" if
                       that's actually what it was. Never fabricate a
@@ -86,6 +100,14 @@ not meant to render. Read this before adding or editing any slide.
                       legend once, here in the contract — individual slides
                       leave it implicit (you're optimizing for scanning many
                       slides in sequence, not reading one cold).
+
+                      Best-good line (added 2026-08-04): the actual best
+                      GOOD (feasible) design's inputs and outputs, e.g.
+                      "best good: a=.00774 b=.01417 pitch=.68 top_d=.044 →
+                      σ=.2712 mcs=.99 mls=.017" — same `ratio_` -stripping
+                      compaction as the What bullet's bounds line, same
+                      5-var cap with "+N more" beyond that. If G=0: "best
+                      good: none (0/N passed every criterion)".
 
                       Idea-specific findings that don't fit this shape (a
                       correlation between one input and an outcome, a
