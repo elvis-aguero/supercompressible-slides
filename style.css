@@ -51,6 +51,28 @@
   color: #5a5a9e;
 }
 
+/* Idea-slide two-cols-header: rebalance the flat 50/50 grid split (Slidev's
+   own two-cols-header.vue hardcodes `grid-template-columns: repeat(2, 1fr)`)
+   in favor of the text column, and pin the right-column image to the right
+   edge instead of centering it -- the ~15% empty strip on the right was a
+   byproduct of even columns + flex-centering, not a deliberate margin
+   (measured via headless render, user: "the gif should move all the way
+   right and the text claim more space"). Frontmatter `class: idea-slide`
+   lands on .col-left/.col-right themselves, never on the outer
+   .slidev-layout grid container for two-cols-header (see the title-color
+   comment above for why) -- so the grid-column override needs :has(),
+   same trick as the title color-coding. */
+.slidev-layout:has(.idea-slide) {
+  grid-template-columns: 3fr 2fr !important;
+}
+.col-right.idea-slide .flex.items-center.justify-center,
+.col-right.idea-slide .flex.flex-col.items-center.justify-center {
+  justify-content: flex-end;
+}
+.col-right.idea-slide .flex.flex-col.items-center.justify-center {
+  align-items: flex-end;
+}
+
 /* Compact verdict tables on summary slides: the theme default (12px vertical
    cell padding) is fine for a 2-3 row table but costs 24px/row -- some runs
    have 7-8 hypothesis rows and blow the 552px canvas at the default padding.

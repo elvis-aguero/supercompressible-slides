@@ -1081,15 +1081,10 @@ Full context:
 -->
 
 ---
-layout: two-cols-header
 class: summary-slide
 ---
 
-<div class="text-xs opacity-50 mb-2">Run 20260718T132852 — summary</div>
-
 # Run `20260718T132852` — summary
-
-::left::
 
 <div class="text-sm leading-snug">
 
@@ -1098,15 +1093,6 @@ class: summary-slide
 | H1 | Distributed N-cell (N&ge;3) flexure-hinge chain | ❌ | folds into the flexure-hinge idea's slide |
 | H2 | Smooth continuous taper vs. the piecewise "waisted" family | ❔ | folds into the waisted-tapered idea's slide |
 | H3 | Class-1 tensegrity strut-and-cable replacement (own slide) | ❌ | 220.89 kPa but demoted via the apples-to-apples criterion |
-
-
-</div>
-
-::right::
-
-<div class="flex items-center justify-center h-full text-sm opacity-60 text-center px-4">
-No image for a run-summary slide by format convention — see the idea slide below and
-this slide's speaker notes for full detail.
 </div>
 
 <!--
@@ -1221,15 +1207,10 @@ Full context:
 -->
 
 ---
-layout: two-cols-header
 class: summary-slide
 ---
 
-<div class="text-xs opacity-50 mb-2">Run 20260718T071133 — summary</div>
-
 # Run `20260718T071133` — summary
-
-::left::
 
 <div class="text-sm leading-snug">
 
@@ -1238,15 +1219,6 @@ class: summary-slide
 | H1 | Mine the Bessa 7D dataset for a real, realizable profile | ❔ | folds into the extended-J hollow-tube slide; 0/8 coilable rows pass all 4 criteria |
 | H2 | Laced/battened two-parallel-chord built-up longeron (own slide) | ❌ | existence confirmed (1/50 feasible, real hit); 1000x below target either way |
 | H3 | 2-storey mast reduces peak local strain | ❔ | folds into the multi-storey idea's slide; no clean signal |
-
-
-</div>
-
-::right::
-
-<div class="flex items-center justify-center h-full text-sm opacity-60 text-center px-4">
-No image for a run-summary slide by format convention — see the idea slide below and
-this slide's speaker notes for full detail.
 </div>
 
 <!--
@@ -1337,15 +1309,10 @@ Full context:
 -->
 
 ---
-layout: two-cols-header
 class: summary-slide
 ---
 
-<div class="text-xs opacity-50 mb-2">Run 20260718T031519 — summary</div>
-
 # Run `20260718T031519` — summary
-
-::left::
 
 <div class="text-sm leading-snug">
 
@@ -1353,15 +1320,6 @@ class: summary-slide
 |---|---|---|---|
 | H1 | Elliptical top/bottom rings with phase offset, re-tested | ❌ | folds into the elliptical-rings slide; every point in a 32-point sweep was non-coilable |
 | H2 | In-plane serpentine/meander centerline perturbation (own slide) | ❔ | inconclusive |
-
-
-</div>
-
-::right::
-
-<div class="flex items-center justify-center h-full text-sm opacity-60 text-center px-4">
-No image for a run-summary slide by format convention — see the idea slide below and
-this slide's speaker notes for full detail.
 </div>
 
 <!--
@@ -1439,15 +1397,10 @@ Full context:
 -->
 
 ---
-layout: two-cols-header
 class: summary-slide
 ---
 
-<div class="text-xs opacity-50 mb-2">Run 20260717T192331 — summary</div>
-
 # Run `20260717T192331` — summary
-
-::left::
 
 <div class="text-sm leading-snug">
 
@@ -1457,14 +1410,6 @@ class: summary-slide
 | H2 | Extend Kresling ψ ceiling beyond 30° | ❌ | no design in [0,60°] beat the 0.711 kPa anchor |
 | H3 | Smoothly radially-tapered ("waisted") longeron | ❔ | new idea, own slide below |
 | H4 | Local refinement near the 0.877 kPa waisted point | ❌ | point later invalid under corrected slenderness formula |
-
-</div>
-
-::right::
-
-<div class="flex items-center justify-center h-full text-sm opacity-60 text-center px-4">
-No image for a run-summary slide by format convention — see the idea slide below and
-this slide's speaker notes for full detail.
 </div>
 
 <!--
@@ -1562,15 +1507,10 @@ Full context:
 -->
 
 ---
-layout: two-cols-header
 class: summary-slide
 ---
 
-<div class="text-xs opacity-50 mb-2">Run 20260717T014507 — summary</div>
-
 # Run `20260717T014507` — summary
-
-::left::
 
 <div class="text-sm leading-snug">
 
@@ -1579,14 +1519,6 @@ class: summary-slide
 | H1 | Existence ≥0.3918 kPa in the rectangle family | ✅ | 0.7704 kPa found — becomes the study's canonical anchor |
 | H2 | Pretensioned diagonal cable-stay bracing | ❔ | 0/45 feasible — only the no-brace control was feasible |
 | H3 | Kresling/TCO bar-hinge longeron | ❔ | new idea, own slide below |
-
-</div>
-
-::right::
-
-<div class="flex items-center justify-center h-full text-sm opacity-60 text-center px-4">
-No image for a run-summary slide by format convention — see the idea slide below and
-this slide's speaker notes for full detail.
 </div>
 
 <!--
@@ -1675,15 +1607,10 @@ Full context:
 -->
 
 ---
-layout: two-cols-header
 class: summary-slide
 ---
 
-<div class="text-xs opacity-50 mb-2">Run 20260715T191329 — summary (no new idea this run)</div>
-
 # Run `20260715T191329` — summary
-
-::left::
 
 <div class="text-sm leading-snug">
 
@@ -1691,15 +1618,6 @@ class: summary-slide
 |---|---|---|---|
 | H1 | Rectangle family ceiling vs the 3× Bessa target | ❔ | high-σ points all fail mls (~0.032, well over the 0.02 limit) |
 | H2 | Any novel family decouples buckling stiffness from radial strain? | ❔ | bounded negative across 5 families — existence claim, can't be proven absent |
-
-</div>
-
-::right::
-
-<div class="flex items-center justify-center h-full text-sm opacity-60 text-center px-4">
-No new genuinely-new idea originated this run (both hypotheses are a
-refinement and a cross-cutting/meta claim) — no idea slide, per format
-convention. See speaker notes for detail.
 </div>
 
 <!--
@@ -1730,15 +1648,10 @@ Per-hypothesis detail:
 -->
 
 ---
-layout: two-cols-header
 class: summary-slide
 ---
 
-<div class="text-xs opacity-50 mb-2">Run 20260715T002538 — summary</div>
-
 # Run `20260715T002538` — summary
-
-::left::
 
 <div class="text-sm leading-snug">
 
@@ -1748,14 +1661,6 @@ class: summary-slide
 | H2 | Helical (chiral) longeron path | ❌ | new idea, own slide below |
 | H3 | Feasible σ bound by the 2% local-strain limit | ❌ | knife-edge bifurcation, not a feasible window |
 | H4 | 2-storey escape from the σ↔feasibility barrier | ❌ | barrier holds — same conflict pattern as single-storey |
-
-</div>
-
-::right::
-
-<div class="flex items-center justify-center h-full text-sm opacity-60 text-center px-4">
-No image for a run-summary slide by format convention — see this slide's speaker notes
-for full detail.
 </div>
 
 <!--
@@ -1848,15 +1753,10 @@ Full context:
 -->
 
 ---
-layout: two-cols-header
 class: summary-slide
 ---
 
-<div class="text-xs opacity-50 mb-2">Run 20260714T020739 — summary</div>
-
 # Run `20260714T020739` — summary
-
-::left::
 
 <div class="text-sm leading-snug">
 
@@ -1864,15 +1764,6 @@ class: summary-slide
 |---|---|---|---|
 | H1 | Hard slenderness≥10 floor on rectangle family vs 2.34 kPa target | ❔ | best feasible 0.058 kPa, trend still rising when campaign stopped |
 | H2 | Diagonal chiral-bracing lattice (see idea slide below) | ❔ | 0/42 feasible; braced 30/30 fail on strain vs 34/46 unbraced control |
-
-
-</div>
-
-::right::
-
-<div class="flex items-center justify-center h-full text-sm opacity-60 text-center px-4">
-No image for a run-summary slide by format convention — see the idea slide below and
-this slide's speaker notes for full detail.
 </div>
 
 <!--
@@ -1992,13 +1883,10 @@ Full context:
 -->
 
 ---
-layout: two-cols-header
 class: summary-slide
 ---
 
 # Run `20260712T192155` — summary
-
-::left::
 
 <div class="text-sm leading-snug">
 
@@ -2007,15 +1895,10 @@ class: summary-slide
 | H1 | Fresh joint 4D search over the rectangle-anchor family (see idea slide below) | ❌ | counterexample found: σ_cr,nd=2.5656 kPa, all 3 criteria met — 2.2× prior best, >7× original anchor |
 | H2 | 2-storey mast, independent tangential dim per storey (see idea slide below) | ❔ | 0 confirmed-feasible, but persistent Riks NaN gap — not a clean negative |
 
-
-</div>
-
-::right::
-
-<div class="flex items-center justify-center h-full text-sm opacity-70 text-center">
 This run's H1 counterexample (2.5656 kPa) is this whole batch's best
 confirmed valid design — a refinement of the run17-rectangle-anchor idea,
 not a new mechanism, so it earns a bullet here rather than its own slide.
+
 </div>
 
 <!--
@@ -2053,13 +1936,10 @@ Per-hypothesis detail:
   keeps this from being a fully clean negative.
 -->
 ---
-layout: two-cols-header
 class: summary-slide
 ---
 
 # Run `20260709T024901` — summary
-
-::left::
 
 <div class="text-sm leading-snug">
 
@@ -2069,15 +1949,10 @@ class: summary-slide
 | H2 | n_longerons variation within rectangle-anchor family (tested later, run `20260721T201733` H7) | ⏳ | proposed, 0 evals this run |
 | H3 | Rectangle-anchor optimum is bending-strain-limited, not under-searched | ✅ | both Riks criteria already at ceiling at 1.1688 kPa |
 
-
-</div>
-
-::right::
-
-<div class="flex items-center justify-center h-full text-sm opacity-70 text-center">
 One new family tested and cleanly falsified; the run's real finding is
 analytical (H3) — the current best design is already strain-capped, not
 just under-searched.
+
 </div>
 
 <!--
@@ -2164,13 +2039,10 @@ Fuller context:
 -->
 
 ---
-layout: two-cols-header
 class: summary-slide
 ---
 
 # Run `20260708T021335` — summary
-
-::left::
 
 <div class="text-sm leading-snug">
 
@@ -2181,15 +2053,10 @@ class: summary-slide
 | H3 | Heterogeneous (2 stiff + 1 compliant) longerons (see idea slide below) | ❔ | no improvement found |
 | H4 | Increase only the tangential dimension of the rectangle-anchor family | ✅ | new best-found design, 1.1688 kPa — 3.2× the 0.3644 kPa anchor |
 
-
-</div>
-
-::right::
-
-<div class="flex items-center justify-center h-full text-sm opacity-70 text-center">
 Three new cross-section families tried this run, all dead ends — but the
 run's one refinement (H4) delivers the biggest single headline jump of
 this batch, more than tripling the established anchor's performance.
+
 </div>
 
 <!--
@@ -2375,13 +2242,10 @@ Fuller context:
 -->
 
 ---
-layout: two-cols-header
 class: summary-slide
 ---
 
 # Run `20260706T204732` — summary
-
-::left::
 
 <div class="text-sm leading-snug">
 
@@ -2393,14 +2257,10 @@ class: summary-slide
 | H4 | Scale ratio_b and pitch together at slenderness=10 | ❌ | folds into run17-rectangle idea slide; feasibility collapses past smallest tested width |
 | H5 | Radially bowed longerons | ❌ | own idea slide below |
 
-</div>
-
-::right::
-
-<div class="flex items-center justify-center h-full text-sm opacity-70 text-center">
 Every hypothesis this run either fails outright or is blocked by the same
 recurring issue: the Riks compressive-strain constraint surrogate is
 consistently unreliable in the sparse-feasible regions this run searched.
+
 </div>
 
 <!--
@@ -2789,13 +2649,10 @@ Fuller context:
 -->
 
 ---
-layout: two-cols-header
 class: summary-slide
 ---
 
 # Run `20260630T164908` — summary
-
-::left::
 
 <div class="text-sm leading-snug">
 
@@ -2807,14 +2664,10 @@ class: summary-slide
 | H4 | SCLF thick design (same finding as H2) | ❌ | same headline, later invalidated; see idea slide |
 | H5 | Smaller top-ring SCLF variant | ❌ | 83.68% strain — smaller ring makes h_min LARGER, opposite of predicted |
 
-</div>
-
-::right::
-
-<div class="flex items-center justify-center h-full text-sm opacity-70 text-center">
 The run that discovered circular cross-sections can pass Stage 2 where
 generalized sections categorically cannot — but its own headline design
 would not survive the local-strain criterion introduced the very next run.
+
 </div>
 
 <!--
@@ -2904,13 +2757,10 @@ Fuller context:
 -->
 
 ---
-layout: two-cols-header
 class: summary-slide
 ---
 
 # Run `20260629T191754` — summary
-
-::left::
 
 <div class="text-sm leading-snug">
 
@@ -2924,15 +2774,11 @@ class: summary-slide
 | H6 | Stage-2 Riks test of H5's D4 design | ❌ | 32% strain, not 90%; folds into extended-J slide |
 | H7 | Stage-2 Riks test of H5's C4 design | ❌ | 9% strain, even worse; folds into extended-J slide |
 
-</div>
-
-::right::
-
-<div class="flex items-center justify-center h-full text-sm opacity-70 text-center">
 Three genuinely new mechanisms this run (multi-storey, n=5 longerons,
 extended-J hollow tube) — the extended-J family clears the Stage-1 sigma
 floor but categorically fails to actually coil (Stage 2), a pattern that
 reshapes every subsequent run's strategy toward circular cross-sections.
+
 </div>
 
 <!--
@@ -3180,13 +3026,10 @@ Fuller context:
 -->
 
 ---
-layout: two-cols-header
 class: summary-slide
 ---
 
 # Run `20260629T145434` — summary
-
-::left::
 
 <div class="text-sm leading-snug">
 
@@ -3195,14 +3038,10 @@ class: summary-slide
 | H1 | Pre-twisted longerons (twist_angle ∈ [π/6, π]) | ❔ | zero evals this run; resolved next run — suggestive negative, underpowered; own idea slide below |
 | H2 | n_longerons ∈ {4,5} — path past Bessa's fixed 3-longeron design | ✅ | zero evals this run; resolved next run as SUPPORTED (65.31–71.59 kPa, still below the 75.1 kPa floor) |
 
-</div>
-
-::right::
-
-<div class="flex items-center justify-center h-full text-sm opacity-60 text-center">
 This run proposed two new mechanisms (pre-twist, longeron count) but
 completed zero oracle evaluations of its own — both hypotheses were
 tested in the following run.
+
 </div>
 
 <!--
