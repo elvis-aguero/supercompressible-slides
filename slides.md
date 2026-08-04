@@ -897,7 +897,7 @@ class: idea-slide
   backing off avoids the wall while still beating baseline.
 - **Stats:** n=133 → 19 coil → 3 riks → 1 good (5.9× Bessa)
   p50/p90/p100 — σ_crit: .12/.65/.78 · mcs: 1.00/1.03/1.03 · mls: .0194/.0267/.0285
-  (only 3 converged Riks points — quartiles are just those 3, not a real distribution)
+  (quartiles from just those 3 points, not a real distribution)
   best good: n_segments=3 arch_rise=.10 → σ=.7765 mcs=1.03 mls=.0194
 - **Verdict:** falsified as an absence claim — one genuine 5-criteria
   counterexample beats the 0.7704 kPa baseline. Valid, but a mild curvature
@@ -1034,7 +1034,6 @@ class: idea-slide
   reach high axial stiffness without paying the local-bending-strain penalty
   the rectangle family pays.
 - **Stats:** n=91 → 90 coil → 0 riks → 0 good
-  (0 designs ever reached a converged Riks solve — see Verdict)
   best good: none (0/91 passed every criterion)
 - **Verdict:** FALSIFIED — a solve-completion wall, not a strain wall: all
   90 coilable designs failed to reach a converged Riks solution, so the
@@ -1635,7 +1634,6 @@ class: idea-slide
   fabricated citation.
 - **Stats:** n=45 &rarr; 37 coil &rarr; 37 riks &rarr; 8 good (5.44&times; Bessa)
   p50/p90/p100 — &sigma;_crit: .574/1.28/2.52 · mcs: 1.00/1.00/1.00 · mls: .0217/.0294/.0483
-  (8/37 converged designs pass every criterion — not a single knife-edge hit)
   best good: a=.0120 b=.0151 pitch=.618 top_d=.0351 psi=.5236 +1 more &rarr; &sigma;=.7111 mcs=1.00 mls=.0196
 - **Verdict:** INCONCLUSIVE — a genuinely feasible design existed and once
   cleared all four original criteria, but was later rejected on a separate
@@ -2288,8 +2286,7 @@ class: idea-slide
 - **Stats:** n=51 → 36 coil → 36 riks → 4 good (2.39× Bessa)
   p50/p90/p100 — σ_crit: 4.20/60.35/90.13 · mcs: .61/1.00/1.00 · mls: .043/.097/.151
   best good: a_out=.0184 b_out=.0543 t1=.003 t3=.002 pitch=.602 +1 more → σ=.3123 mcs=1.00 mls=.018
-  (still below the 0.3644 kPa solid-rectangle baseline;
-  high σ_crit p90/p100 likely a non-coiling stiff mode, not real progress)
+  (high σ_crit p90/p100 likely a non-coiling stiff mode, not real progress)
 - **Verdict:** INCONCLUSIVE by the strict adequacy bar, but a clear
   negative signal — a genuinely different (mode-switching) failure mode
   than the solid rectangle, yet the same practical conclusion: underperforms.
@@ -2735,8 +2732,8 @@ class: idea-slide
 - **Stats:** n=165 → 149 coil → 148 riks → 6 good (2.79× Bessa)
   p50/p90/p100 — σ_crit: .86/4.26/7.52 · mcs: .80/1.00/1.00 · mls: .022/.034/.043
   best good: a=.0092 b=.0188 pitch=.602 top_d=.038 → σ=.3644 mcs=1.00 mls=.0195
-  (6 pass every criterion; 3 of those also clear this run's own higher
-  0.196 kPa target — the headline design, σ_crit=0.3644 at slenderness=16.04)
+  (3 of the 6 also clear this run's own higher 0.196 kPa target; headline
+  slenderness=16.04)
 - **Verdict:** SUPPORTED — real, repeatable, non-fluke. This design
   becomes "run17_rectangle," the canonical anchor baseline reused
   throughout the rest of this deck (later refined to 0.7704 kPa, 5.9×
@@ -2975,8 +2972,8 @@ class: idea-slide
   concept, not drawn from an outside literature source.
 - **Stats:** n=32 → 9 coil → 0 riks → 0 good (mcs/mls never tracked this campaign)
   p50/p90/p100 — σ_crit (coilable only): 5.6/64.3/65.0 · mcs: not tracked · mls: not tracked
-  (best coilable, 64.9989 kPa, is 99.5% of the single-storey Bessa optimum
-  by Stage-1 σ_crit alone — never checked against real feasibility)
+  (best coilable is 99.5% of the single-storey Bessa optimum by Stage-1
+  σ_crit alone — never checked against real feasibility)
   best good: none (0/32 passed every criterion)
 - **Verdict:** INCONCLUSIVE — the topology recovers almost all of the
   single-storey Stage-1 performance without losing coilability, which is
