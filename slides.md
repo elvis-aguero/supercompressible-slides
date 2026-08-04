@@ -49,17 +49,50 @@ not meant to render. Read this before adding or editing any slide.
                       ("named theory, no single paper verified this run")
                       rather than invent a fake author/year/journal to look
                       more rigorous than the evidence actually is.
-     (c) Stats     — outcome numbers a reader with no mechanics or stats
-                      background can evaluate unaided: how many designs
-                      were tested and how many met every criterion, the
-                      best result's compression and local-strain numbers
-                      against the 80%/2% targets (see the baseline slide),
-                      and (when there are enough points for it to be
-                      meaningful, roughly n>=4) the spread of σ_cr,nd across
-                      the tested designs as low/median/high. Don't force a
-                      quartile onto a 5-point sweep — state the actual
-                      range instead when a formal quartile would be
-                      statistically meaningless.
+     (c) Stats     — a FIXED-FORMAT structured data line, not free prose
+                      (a deliberate, scoped exception to the plain-language
+                      bar below: this is a data readout meant to be read as
+                      numbers, not sentences — mechanistic reasoning about
+                      WHY still belongs in plain language, in the Verdict
+                      bullet). Exactly this shape (added 2026-08-04; applies
+                      to new/edited idea slides going forward, NOT
+                      retrofitted to every existing slide at once — the
+                      linter WARNS on deviation, it does not block):
+
+                        n=<N> → <C> coil → <R> riks → <G> good (<X>× Bessa)
+                        p50/p90/p100 — σ_crit: a/b/c · mcs: d/e/f · mls: g/h/i
+
+                      Funnel line: N = total designs evaluated; C = number
+                      that passed the coilability gate (Stage 1); R = number
+                      with a CONVERGED Riks solve (Stage 2 actually
+                      completed, not a non-converged salvage read — see
+                      Lessons learned on why this distinction matters); G =
+                      number that passed EVERY feasibility criterion. The
+                      Bessa multiplier attaches ONLY to G (the actual good/
+                      feasible design) — if G=0, omit it entirely ("0 good",
+                      nothing to compare). Always normalize against the
+                      fixed Bessa point (0.1306 kPa), NEVER a per-campaign
+                      "target" (2× Bessa, beat-0.7704, a specific registered
+                      floor, etc. all vary by campaign) — Bessa is the one
+                      constant every slide in this deck can be compared
+                      against directly.
+
+                      Quartile line: p50/p90/p100 (median, 90th percentile,
+                      max) for σ_crit, mcs, and mls, ALL THREE computed over
+                      the SAME population — the R (Riks-converged) design
+                      set, never a different population per metric (a
+                      reader tracking three different n's per slide defeats
+                      the point of a fixed format). State the p50/p90/p100
+                      legend once, here in the contract — individual slides
+                      leave it implicit (you're optimizing for scanning many
+                      slides in sequence, not reading one cold).
+
+                      Idea-specific findings that don't fit this shape (a
+                      correlation between one input and an outcome, a
+                      surrogate-adequacy R², a mechanistic aside) may still
+                      follow the funnel+quartile line as additional free
+                      text in the SAME bullet — the fixed format is a
+                      floor, not a ceiling.
      (d) Verdict   — one direct sentence explaining WHY the mechanism did
                       or didn't work, not a restatement of WHAT the verdict
                       is. "FALSIFIED — no folded regime exists" is circular
@@ -717,7 +750,7 @@ class: summary-slide
 
 | # | Claim | Verdict | Key evidence |
 |---|---|---|---|
-| H2 | Continuously-twisted rectangle cross-section ("twisted-strip" beam) | ❔ | existence search stopped at 43/~100-110 planned evals, 1/43 feasible — underpowered |
+| H2 | Continuously-twisted rectangle cross-section ("twisted-strip" beam) | ❌ | existence search stopped at 43/~100-110 planned evals, 1/43 feasible — underpowered; properly-powered 2026-08-03, see speaker notes |
 | H3 | The local-strain wall is intrinsic to coiling curvature demand, not a fixable cross-section problem | ✅ | 8-pt twist sweep 0-120°: mls only rises (1.99%→5.01%), σ twist-invariant (<0.07% drift) |
 | H4 | Fractal-order longeron centerline perturbation lowers peak strain | ❌ | matched quad, order 0-3: mls flat-to-slightly-increasing at every order |
 | H5 | Swap chiral brace planform for a true helical coil | ❔ | ligament strain falls 9.05%→6.00%, still 3× over the 2% limit |
@@ -731,7 +764,15 @@ this deck entirely per the format contract.
 
 H2 detail: existence-search prong self-corrected from an initial over-eager
 FALSIFIED back to INCONCLUSIVE once the validator flagged the campaign as
-short of its own pre-registered power bar.
+short of its own pre-registered power bar. Properly-powered out-of-band
+verification (2026-08-03, not a new agentic run): a 3-phase shrinking-zoom
+CEI-BO and a TuRBO trust-region search, 120 real evals each, against the same
+D005 oracle. 3-phase zoom found best sigma_crit=0.1106 (14.4% of the 0.7704
+target), improving monotonically each phase (0.040->0.069->0.111); TuRBO
+found 0.0332 (4.3%), plateauing early once its trust region shrank to its
+floor. Neither beats the target, so H2 stays FALSIFIED as an existence-beats-
+target claim, but the direction is now a real signal, not noise, and the
+verdict no longer rests on an underpowered campaign.
 
 H3 detail: this is a real, substantive analytical/mechanistic result, not a
 single-design test — it argues the mls wall is intrinsic to coiling
@@ -883,7 +924,7 @@ class: summary-slide
 |---|---|---|---|
 | H1 | Properly-powered re-test of the tapered-longeron family | ❌ | best 0.362763 kPa = 2.78× Bessa but only 47% of baseline |
 | H2 | Doubly-symmetric cruciform/I-beam cross-section | ❌ | own slide, this deck |
-| H3 | Continuous elastic chiral/auxetic bracing at a fixed host | ❔ | only 2/120 evals converged near the boundary — underpowered |
+| H3 | Continuous elastic chiral/auxetic bracing at a fixed host | ❌ | only 2/120 evals converged near the boundary — underpowered; properly-powered 2026-08-03, see speaker notes |
 | H4 | Jointly optimize host + chiral brace together | ❌ | numerically supported but not citable — brace strain 7.7–9.1%, same apples-to-apples violation as tensegrity |
 | H5 | Bistable snap-through segment near the ring joints | ⏳ | ran out of budget this run; tested the following run |
 | H6 | Among H4's designs, keep the brace ligament elastic too | ❌ | 440 evals; closest miss ligament strain 2.15%, just over the 2% limit |
@@ -896,6 +937,16 @@ class: summary-slide
 Run stats: all-Sonnet, 14h, GATED, evals_used=867, $59.50. Baseline unchanged
 at 0.7704 kPa this run. Explicitly steered toward genuinely novel mechanisms
 rather than resizing the known rectangle.
+
+H3 detail: properly-powered out-of-band verification (2026-08-03, not a new
+agentic run): a 3-phase shrinking-zoom CEI-BO and a TuRBO trust-region search,
+120 real evals each, against the same D007 oracle (host fixed at the
+run17_rectangle anchor, only the brace's own 4D geometry searched). Zero
+feasible designs in either -- the 3-phase zoom's own phase 1 (40 evals, full
+box) already found nothing and correctly declined to zoom further. Combined
+with the original 120 evals (D007+D008), that is 280 real evals across 3
+independent search strategies with zero feasible hits -- this is no longer an
+underpowered result, it is a clean negative.
 
 H4/H6 detail: H4's registered prediction covered only the host's own
 criteria (coilable, mcs, host mls, slenderness) and never mentioned brace
