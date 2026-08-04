@@ -682,7 +682,7 @@ layout: two-cols-header
 class: idea-slide
 ---
 
-# D24 &middot; Single bistable shallow-arch snap segment near the ring joint
+# D24 &middot; <u>Single bistable shallow-arch snap segment near the ring joint</u>
 
 ::left::
 
@@ -894,7 +894,7 @@ layout: two-cols-header
 class: idea-slide
 ---
 
-# D23 &middot; Chained mild pre-curved ("sub-bistable") arch-segment longeron
+# D23 &middot; <u>Chained mild pre-curved ("sub-bistable") arch-segment longeron</u>
 
 ::left::
 
@@ -1139,7 +1139,7 @@ class: idea-slide
 
 <div class="text-xs opacity-50 mb-2">Run 20260718T132852</div>
 
-# D21 &middot; Class-1 tensegrity strut-and-cable longeron replacement
+# D21 &middot; <u>Class-1 tensegrity strut-and-cable longeron replacement</u>
 
 ::left::
 
@@ -1364,7 +1364,7 @@ class: idea-slide
 
 <div class="text-xs opacity-50 mb-2">Run 20260718T031519</div>
 
-# D19 &middot; In-plane serpentine/meander longeron centerline
+# D19 &middot; <u>In-plane serpentine/meander longeron centerline</u>
 
 ::left::
 
@@ -1572,7 +1572,7 @@ class: idea-slide
 
 <div class="text-xs opacity-50 mb-2">Run 20260717T014507</div>
 
-# D17 &middot; Kresling/TCO two-segment bar-hinge longeron
+# D17 &middot; <u>Kresling/TCO two-segment bar-hinge longeron</u>
 
 ::left::
 
@@ -2103,7 +2103,7 @@ layout: two-cols-header
 class: idea-slide
 ---
 
-# D13 &middot; Flexure-hinge (piecewise stiff/thin) longeron
+# D13 &middot; <u>Flexure-hinge (piecewise stiff/thin) longeron</u>
 
 ::left::
 
@@ -2161,7 +2161,7 @@ layout: two-cols-header
 class: idea-slide
 ---
 
-# D12 &middot; BoxProfile hollow-tube cross-section
+# D12 &middot; <u>BoxProfile hollow-tube cross-section</u>
 
 ::left::
 
@@ -2211,7 +2211,7 @@ layout: two-cols-header
 class: idea-slide
 ---
 
-# D11 &middot; Heterogeneous (2 stiff + 1 compliant) longerons
+# D11 &middot; <u>Heterogeneous (2 stiff + 1 compliant) longerons</u>
 
 ::left::
 
@@ -2540,7 +2540,7 @@ layout: two-cols-header
 class: idea-slide
 ---
 
-# D7 &middot; Square (isotropic) cross-section
+# D7 &middot; <u>Square (isotropic) cross-section</u>
 
 ::left::
 
@@ -2595,7 +2595,7 @@ layout: two-cols-header
 class: idea-slide
 ---
 
-# D6 &middot; Anisotropic rectangle, reversed orientation (run17 anchor)
+# D6 &middot; <u>Anisotropic rectangle, reversed orientation (run17 anchor)</u>
 
 ::left::
 
