@@ -447,10 +447,8 @@ class: idea-slide
   the mast-scale coiling curvature capping every beam family.
 - **Origin:** Named for Calladine inextensional shell-folding theory and
   Seffen–Pellegrino tape-spring mechanics.¹
-- **Stats:** 407 designs tested across 4 design regions; 0 met every
-  criterion. Best design (confirmed after mesh refinement) already reaches
-  the 80% compression target — it fails only on local strain: 2.71%
-  (target ≤2%), at σ_cr,nd=0.634 kPa.
+- **Stats:** n=406 → 176 coil → 137 riks → 0 good
+  p50/p90/p100 — σ_crit: 2.11/17.6/88.3 · mcs: 1.02/1.04/1.06 · mls: .047/.130/.447
 - **Verdict:** FALSIFIED: the curvature that keeps the arc locally stable
   is the same curvature that sets its bending-strain floor. The shape can
   never be shallow enough to fold locally without first buckling — so
@@ -664,8 +662,8 @@ class: idea-slide
 - **Origin:** elastic-instability/bistable-mechanism metamaterials
   literature; follow-on to a same-run hypothesis whose single-arch strain
   cut (mean ~7%, max 12.3%) fell short of a pre-registered 20% bar.
-- **Stats:** initial reported design — σ_cr,nd=0.850864 kPa, max_local_strain
-  =0.0196 (just inside the 2% wall), all criteria nominally met at gating.
+- **Stats:** n=133 → 132 coil → 66 riks → 1 good (6.5× Bessa)
+  p50/p90/p100 — σ_crit: .76/1.50/1.99 · mcs: 1.00/1.00/1.04 · mls: .0194/.0230/.0267
 - **Verdict:** SUPPORTED at gate time, then RETRACTED. A continuum submodel
   of the arch-to-longeron joint (control-tested against the Bessa point)
   found real local strain 2.7×+ over the beam-reported value, still rising
@@ -723,6 +721,12 @@ CURRENT state of PROBLEM_STATEMENT.md and bo/confirmed_anchors.json (checked
   is 2x Bessa plus genuine mechanism novelty). `h8_rectangle` and this
   chained-arch design were NOT re-checked with that convergence method and
   remain unconfirmed on that specific question.
+- Stats-migration note (2026-08-04): D006 of this same run's own ledger records a
+  stronger raw result (σ_crit=1.144 kPa, `campaign_summary.json`) for a design in
+  this same bistable-arch-near-ring-joint family. It doesn't change anything above
+  — the retraction applies to the MECHANISM (any arch-to-longeron joint in this
+  family), not to the one specific 0.850864 kPa design, so a stronger raw number
+  from the same family is equally retracted, not a missed opportunity.
 - ODB used for this render: `data/idea_odbs/20260727T011550_H4_bistable_arch_single_segment/`
   (archived from scratch riks_b8226d64576d43f4b8b9724b9ec7daf8) — this is the
   retracted design's own Riks solve, shown because the format contract's
@@ -864,9 +868,9 @@ class: idea-slide
 - **Origin:** follow-up to the same run's H2 (*true* bistable, Q≥2.31
   chain), which hit a Riks numerical wall in 71/72 cases; asks whether
   backing off avoids the wall while still beating baseline.
-- **Stats:** one confirmed counterexample (circular=11, 3 segments,
-  arch_rise_ratio=0.10): σ_cr,nd=0.7765 kPa, mcs=1.0325, mls=0.0194,
-  slenderness=10.25, ring-passthrough clear.
+- **Stats:** n=133 → 19 coil → 3 riks → 1 good (5.9× Bessa)
+  p50/p90/p100 — σ_crit: .12/.65/.78 · mcs: 1.00/1.03/1.03 · mls: .0194/.0267/.0285
+  (only 3 converged Riks points — quartiles are just those 3, not a real distribution)
 - **Verdict:** falsified as an absence claim — one genuine 5-criteria
   counterexample beats the 0.7704 kPa baseline. Valid, but a mild curvature
   perturbation, not the true bistable mechanism originally proposed.
@@ -1000,13 +1004,13 @@ class: idea-slide
   motivating idea was that decoupling J from Ixx/Iyy might let the section
   reach high axial stiffness without paying the local-bending-strain penalty
   the rectangle family pays.
-- **Stats:** 91 evaluated (Monte-Carlo-verified design box), **0/91 feasible**
-  — max compressive strain and max local strain are strongly positively
-  correlated (r=0.76) even in the highest-mcs subset.
-- **Verdict:** falsified. This is not a sampling-coverage gap: the
-  correlation is consistent with classical flexural-torsional theory rather
-  than a search-power shortfall, so the cross-section family itself does not
-  escape the sigma/strain trade-off.
+- **Stats:** n=91 → 90 coil → 0 riks → 0 good
+  (0 designs ever reached a converged Riks solve — see Verdict)
+- **Verdict:** FALSIFIED — a solve-completion wall, not a strain wall: all
+  90 coilable designs failed to reach a converged Riks solution, so the
+  cross-section itself never produces a mast this infrastructure can
+  confirm as physically valid, whether that reflects a genuine physical
+  incompatibility or a systematic solver difficulty for this profile.
 
 
 </div>
@@ -1031,6 +1035,12 @@ Full context:
   (archived from scratch riks_de8c7e06e10b40e2a80fd6146e69eeee). Best
   *infeasible* sigma found in the campaign was ~0.68 kPa, below the 0.7704 kPa
   baseline even before the strain-correlation problem is considered.
+- Stats-migration note (2026-08-04): mcs and max_local_strain do correlate
+  strongly (r=0.76) among the non-converged salvage reads for this campaign
+  — real numbers, consistent with classical flexural-torsional coupling, but
+  built entirely on partial/non-converged Riks reads, not genuine converged
+  solutions, which is why the Verdict above leads with the solve-completion
+  failure itself rather than this correlation.
 - Do not re-attempt this exact cruciform/I-beam family expecting a different
   result: PROBLEM_STATEMENT.md explicitly lists it as a settled null result
   (0/91 feasible, r=0.76 mcs/mls correlation even in the best-mcs subset).
@@ -1110,12 +1120,17 @@ class: idea-slide
 - **Origin:** Amendola et al. (2018) tensegrity prestress-stiffness theory,
   contrasted with Meng (2012)/Sorrentino (2021) on bending-family
   strain-stiffness coupling.
-- **Stats:** &sigma;_cr,nd=220.89 kPa (287&times; the 0.7704 kPa baseline),
-  fully feasible; re-verified via direct ODB mode-1 extraction
-  (6&times;10<sup>-10</sup> rad match).
-- **Verdict:** SUPPORTED at face value (largest &sigma;_cr,nd in the study)
-  but demoted by the apples-to-apples criterion — pin-jointed/prestress
-  isn't comparable elastic bending, real but uncounted.
+- **Stats:** n=45 → 45 coil → 44 riks → 12 good (1691&times; Bessa)
+  p50/p90/p100 — &sigma;_crit: 72.8/220.8/238.4 · mcs: 1.12/1919/2929 · mls: .205/8.41/9.55
+- **Verdict:** SUPPORTED at face value (largest &sigma;_cr,nd in the study;
+  re-verified via direct ODB mode-1 extraction, 6&times;10<sup>-10</sup> rad
+  match) but demoted by the apples-to-apples criterion — pin-jointed/prestress
+  isn't comparable elastic bending, real but uncounted. The mcs/mls values
+  above look physically broken (up to 2929/9.55) because this family's own
+  post-processor scales strain differently for a pin-jointed truss than for
+  a bending beam — not a data error, but exactly the near-zero-material-
+  strain signature the apples-to-apples criterion is built to catch (the
+  headline design itself has mls&asymp;9&times;10<sup>-14</sup>, i.e. none).
 
 
 </div>
@@ -1244,9 +1259,8 @@ class: idea-slide
 - **Origin:** common-sense mechanistic hypothesis grounded in the
   parallel-axis theorem (2&middot;A_f&middot;(h/2)&sup2;), not a
   literature citation.
-- **Stats:** a 50-eval CEI-BO campaign found 1/50 feasible, at
-  &sigma;_cr,nd=0.00079 kPa — three orders of magnitude below the 0.7704
-  kPa target.
+- **Stats:** n=62 &rarr; 50 coil &rarr; 50 riks &rarr; 1 good (0.0061&times; Bessa)
+  p50/p90/p100 — &sigma;_crit: .09/2.64/6.15 · mcs: .76/1.03/1.07 · mls: .031/.079/.107
 - **Verdict:** FALSIFIED as a viable mechanism. 50 evals clears this
   study's existence-testing bar (settled 2026-08-02: n&#8805;48 for a
   defensible read), and a genuine feasible hit — not a zero-hit rate — was
@@ -1266,6 +1280,10 @@ class: idea-slide
 <!--
 Full context:
 
+- Stats-migration note (2026-08-04): among the 50 converged designs, &sigma;_crit
+  is easy to push high unconstrained (p90=2.64 kPa) — only the strain constraint
+  (mls, already over the 0.02 limit at the median) blocks it; the trade-off is
+  sharp, not a search-coverage gap.
 - This is hypothesis H2 of run `20260718T071133`, delegation D005 (50-eval CEI-BO
   campaign over the laced/battened two-chord longeron). Originally left INCONCLUSIVE
   per the verdict validator's critique: with feasibility this sparse (2%), a
@@ -1346,15 +1364,14 @@ class: idea-slide
   rather than concentrate it at one region.
 - **Origin:** common-sense mechanistic hypothesis (a curvature-distribution
   argument), not drawn from an outside literature source.
-- **Stats:** a 17-point 2D sweep (amplitude &times; n_periods); of 8
-  trustworthy converged points, local strain correlated *positively* with
-  both amplitude (+0.42) and periods (+0.53) — the opposite of the
-  hypothesized direction; best feasible point stayed at the fixed-cross-
-  section 0.7704 kPa control (no meandered design exceeded it).
-- **Verdict:** negative — meandering raises, not lowers, peak local strain,
-  so it does not unlock a feasible window above baseline; recorded
-  inconclusive only because the trustworthy sample (8 of 17 points) is
-  thin, but the observed direction is unambiguous.
+- **Stats:** n=17 &rarr; 17 coil &rarr; 8 riks &rarr; 3 good (5.89&times; Bessa)
+  p50/p90/p100 — &sigma;_crit: .769/.774/.783 · mcs: 1.000/1.032/1.067 · mls: .0220/.0224/.0226
+- **Verdict:** negative — among the 8 trust-gated converged points, local
+  strain correlates *positively* with both amplitude (+0.42) and n_periods
+  (+0.53), the opposite of the hypothesized direction; meandering raises
+  strain rather than distributing it away, so it does not unlock a window
+  above baseline. Recorded inconclusive only because that trustworthy
+  sample is thin (8 of 17), but the observed direction is unambiguous.
 
 
 </div>
@@ -1454,9 +1471,8 @@ class: idea-slide
   optimal-column shape, not a uniform section.
 - **Origin:** classical Lagrange-Keller / Tadjbakhsh-Keller optimal-column
   result, adapted to this study's longeron geometry.
-- **Stats:** initial 0.877 kPa headline (beating 0.7704 kPa) proved invalid:
-  corrected slenderness (ratio_pitch/(2&middot;ratio_b)) gave 8.35, below
-  the &ge;10 floor; only 2/30 follow-up points feasible under correction.
+- **Stats:** n=29 &rarr; 29 coil &rarr; 29 riks &rarr; 1 good (0.49&times; Bessa)
+  p50/p90/p100 — &sigma;_crit: .756/3.04/3.58 · mcs: .677/1.058/1.072 · mls: .0192/.0277/.0441
 - **Verdict:** inconclusive — the mis-specified (waist-based) constraint
   never searched the real feasible region; the headline fails corrected.
 
@@ -1473,6 +1489,14 @@ class: idea-slide
 <!--
 Full context:
 
+- Stats-migration note (2026-08-04): initial 0.877 kPa headline proved invalid
+  under the corrected slenderness formula (8.35, below the &ge;10 floor).
+  Direct recomputation from this idea's own delegations (D006+D008, the only
+  two actually testing this family — D003/D004/D007 in this same run belong to
+  unrelated hypotheses) finds exactly 1 point clearing every corrected
+  criterion, not 2 as an earlier draft of this slide stated — the second point
+  implied by "2/30" could not be located; reported as G=1, verified, rather
+  than repeating an unconfirmed number.
 - This is hypothesis H3 of run `20260717T192331`. The waist-based slenderness
   mis-specification bug was caught by a later ledger audit (this run's own H4, and
   independently re-confirmed in run `20260718T132852`'s H2): the study's slenderness
@@ -1566,10 +1590,9 @@ class: idea-slide
   bar-hinge/triangulated-cylinder mechanism), adapted here to this study's
   beam-longeron model — a real, specific geometric precedent, not a
   fabricated citation.
-- **Stats:** a 45-eval CEI-BO campaign found a genuine feasible design at
-  psi=30&deg;, &sigma;_cr,nd=0.7106 kPa (1.8&times; the 0.3918 kPa target),
-  coilable=1, mcs=1.0, mls=0.0199, slenderness&ge;10; later extension runs
-  found no further improvement beyond ~0.711 kPa.
+- **Stats:** n=45 &rarr; 37 coil &rarr; 37 riks &rarr; 8 good (5.44&times; Bessa)
+  p50/p90/p100 — &sigma;_crit: .574/1.28/2.52 · mcs: 1.00/1.00/1.00 · mls: .0217/.0294/.0483
+  (8/37 converged designs pass every criterion — not a single knife-edge hit)
 - **Verdict:** INCONCLUSIVE — a genuinely feasible design existed and once
   cleared all four original criteria, but was later rejected on a separate
   ring-passthrough criterion (see notes); not a validated winner.
@@ -1743,10 +1766,8 @@ class: idea-slide
   from pre-twist (which rotates the cross-section) and radial bowing
   (which is planar) — both tried and falsified in earlier runs. Not drawn
   from an outside literature source.
-- **Stats:** a 28-eval existence search found only the degenerate
-  `helix_wrap=0` point feasible (&sigma;=0.0057 kPa); a matched-pair causal
-  sweep at wrap=0.6 showed &sigma; rising to 2.31 kPa but max local strain
-  exploding to 19.1% (vs the 2% limit).
+- **Stats:** n=28 &rarr; 8 coil &rarr; 8 riks &rarr; 1 good (0.044&times; Bessa)
+  p50/p90/p100 — &sigma;_crit: 1.09/6.04/14.76 · mcs: .881/1.00/1.00 · mls: .019/.118/.191
 - **Verdict:** falsified — helical wrap raises critical buckling stress
   but destroys local-strain feasibility even faster, the opposite of the
   hypothesized reversible-coiling benefit.
@@ -1852,8 +1873,9 @@ class: idea-slide
 - **Origin:** common-sense — an alternative stiff load path to offload
   torsional/bending demand from the longerons (a later refinement drew a
   cable-stayed precedent, Gurfinkel & Krishnan 2017; see notes).
-- **Stats:** 42 verified evals, 0/42 fully feasible; braced designs failed
-  max_compressive_strain in 30/30 (100%) vs 34/46 (74%) unbraced control.
+- **Stats:** n=42 &rarr; 30 coil &rarr; 22 riks &rarr; 0 good
+  p50/p90/p100 — &sigma;_crit: 19.24/596.53/713.78 · mcs: .00/.06/.77 · mls: .00/.04/.25
+  (braced designs failed max_compressive_strain in 30/30 vs 34/46 for the unbraced control)
 - **Verdict:** INCONCLUSIVE as an existence claim; directional signal is
   clear — bracing blocks coiling rather than helping it.
 
@@ -1870,6 +1892,11 @@ class: idea-slide
 <!--
 Full context:
 
+- Stats-migration note (2026-08-04): this campaign predates an explicit
+  `riks_converged` field — R above counts rows with a real (non-NaN) mcs AND
+  mls value, a looser bar than a confirmed-converged flag. &sigma;_crit's high
+  p90/p100 (596/714 kPa) almost certainly reflect a non-coiling, stiff
+  buckling mode, not real progress — mcs stays near 0 for most of these rows.
 - This is hypothesis H2 of run `20260714T020739` (delegations D005+D006). It folds
   together every later bracing variant tried in this study (cable-stayed, chiral-ring,
   aperiodic/golden-ratio, multi-turn helical-coil) -- all are one "auxiliary bracing"
@@ -2042,11 +2069,12 @@ class: idea-slide
 - **Origin:** parametric-space extension, tempered by a literature review
   (Zahn & Iwankiw 1989 flexural-torsional buckling theory) predicting
   AGAINST the mechanism beforehand (see notes).
-- **Stats:** 60-eval campaign (45 geometrically valid), slenderness≥10
-  gated, zero feasible; best σ_cr,nd ≈0.0489 kPa, ~24× below the 1.1688 kPa
-  baseline; GP surrogate CV R²=0.881 (above chance — the flat landscape is real).
-- **Verdict:** FALSIFIED — matches the theoretical prior, now with
-  adequate empirical confirmation; not competitive with the 2.3376 kPa floor.
+- **Stats:** n=45 → 29 coil → 6 riks → 0 good
+  p50/p90/p100 — σ_crit: .022/.073/.085 · mcs: .434/.564/.579 · mls: .010/.018/.018
+- **Verdict:** FALSIFIED — matches the theoretical prior; a GP surrogate fit
+  on this data is genuinely predictive (well above a chance baseline, CV
+  R²=0.881), confirming the flat, feature-less landscape is real and not a
+  search-coverage artifact; not competitive with the 2.3376 kPa floor.
 
 
 </div>
@@ -2060,6 +2088,9 @@ class: idea-slide
 <!--
 Fuller context:
 
+- Stats-migration note (2026-08-04): only 6 of 29 coilable designs produced a real
+  Riks reading (~21% Riks yield) — most coilable attempts in this family failed
+  to converge at all, not just fail feasibility.
 - This is H1 of run `20260709T024901`, delegations D002 (literature review) + D005
   (search). ODB: data/idea_odbs/20260709T024901_H1_offset_shear_Lprofile/ (source:
   SCRATCH path /oscar/scratch/eaguerov/supercompressible_oracle/
@@ -2143,11 +2174,13 @@ class: idea-slide
   "hinge" segment to cap peak bending strain.
 - **Origin:** common sense — decouple average stiffness (thick ends) from
   peak local fibre strain (thin hinge), a DOF no uniform family could access.
-- **Stats:** 56 evals (3 delegations), only 1/56 feasible, σ_cr,nd=0.1391
-  kPa — BELOW the 0.3644 kPa uniform-section baseline; hinge_fraction vs.
-  strain shows a scattered negative trend (r=-0.53, n=45), no sweet spot.
+- **Stats:** n=56 → 45 coil → 45 riks → 1 good (1.07× Bessa)
+  p50/p90/p100 — σ_crit: 3.01/13.96/41.51 · mcs: .93/1.00/1.00 · mls: .067/.121/.250
 - **Verdict:** INCONCLUSIVE by the study's strict adequacy bar, but the raw
-  signal is a clear dead end — underperforms the baseline, not just the floor.
+  signal is a clear dead end: how thin the mid-span hinge is shows no
+  consistent relationship with peak strain across 45 designs (sometimes
+  thinner helps, sometimes it doesn't) — there's no sweet spot to dial in,
+  and it underperforms the 0.3644 kPa uniform-section baseline regardless.
 
 
 </div>
@@ -2161,6 +2194,10 @@ class: idea-slide
 <!--
 Fuller context:
 
+- Stats-migration note (2026-08-04): this campaign's own feasibility gate used
+  mcs&ge;0.90 (not the usual 0.80) per `analyze_ledger.py` — the mcs quartiles
+  above reflect that stricter bar. Notably clean solve rate (45/45 Riks
+  converged) vs. other families in this deck.
 - This is H1 of run `20260708T021335`, delegations D002+D005+D006 (search) + D008
   (post-hoc CV adequacy check). ODB: data/idea_odbs/20260708T021335_H1_flexure_hinge/
   (source: presentation/resim/flexure/riks_5d90665da6d54585b4b429f4c5d17007).
@@ -2194,8 +2231,10 @@ class: idea-slide
 - **Origin:** dataset-mining common sense — a least-squares fit of
   high-performing 7D rows to box geometries had poor residuals (~98%
   relative L2 error), so the family was built and searched directly.
-- **Stats:** 51-eval constrained-BO search, only 4/51 feasible, best
-  σ_cr,nd=0.3123 kPa — below the 0.3644 kPa solid-rectangle baseline.
+- **Stats:** n=51 → 36 coil → 36 riks → 4 good (2.39× Bessa)
+  p50/p90/p100 — σ_crit: 4.20/60.35/90.13 · mcs: .61/1.00/1.00 · mls: .043/.097/.151
+  (best good design, 0.3123 kPa, still below the 0.3644 kPa solid-rectangle baseline;
+  high σ_crit p90/p100 likely a non-coiling stiff mode, not real progress)
 - **Verdict:** INCONCLUSIVE by the strict adequacy bar, but a clear
   negative signal — a genuinely different (mode-switching) failure mode
   than the solid rectangle, yet the same practical conclusion: underperforms.
@@ -2241,14 +2280,16 @@ class: idea-slide
 - **Origin:** common sense — the compliant longeron absorbs large
   rotations, "rescuing" compressibility while the stiff ones carry
   buckling load.
-- **Stats:** 45-eval constrained-BO (46 incl. a degenerate anchor); 1/46
-  feasible (stiff=compliant, σ_cr,nd=0.3644 kPa, matching not exceeding
-  baseline). Ratio vs. max strain: weak, non-monotonic (r=0.124, ρ=0.296,
-  n=32).
+- **Stats:** n=46 → 32 coil → 32 riks → 1 good (2.79× Bessa)
+  p50/p90/p100 — σ_crit: 1.86/21.94/40.42 · mcs: .53/1.29/1.49 · mls: .060/.130/.396
 - **Verdict:** INCONCLUSIVE by the study's adequacy bar, but the mechanism
-  is contradicted: mild heterogeneity does NOT preserve compressibility
-  (ratio=0.951 stalled at mcs=0.160 vs. ratio=1.0's mcs=0.9999) — no
-  improvement over uniform found anywhere.
+  is contradicted: the stiffness ratio between the compliant and stiff
+  longerons shows no consistent relationship with strain across the 32
+  converged designs (weak, non-monotonic) — a more compliant leg sometimes
+  helps and sometimes doesn't, undercutting the core hypothesis that mild
+  heterogeneity predictably "rescues" compressibility (ratio=0.951 stalled
+  at mcs=0.160 vs. ratio=1.0's mcs=0.9999) — no improvement over uniform
+  found anywhere.
 
 
 </div>
@@ -2262,6 +2303,8 @@ class: idea-slide
 <!--
 Fuller context:
 
+- Stats-migration note (2026-08-04): mcs values exceeding 1.0 appear in this raw
+  dataset (p100=1.49) — a real logged value, not a typo; not investigated further.
 - This is H3 of run `20260708T021335`, delegations D010 (build+validate, exact
   degenerate reproduction of the known baseline) + D011 (45-eval search) + D012
   (post-hoc CV). ODB: data/idea_odbs/20260708T021335_H3_heterogeneous_longerons/
@@ -2341,11 +2384,11 @@ class: idea-slide
   symmetry that forces every longeron to undergo identical peak curvature.
 - **Origin:** common sense structural-symmetry-breaking hypothesis, not a
   literature citation.
-- **Stats:** D008's dense local grid found a sharp cliff — max compressive
-  strain collapses from 0.9999 to 0.398 at the very first non-circular
-  step tested, and coilable=0 at every nonzero phase offset down to
-  0.15 rad; a broader 48-eval joint search (D010) found only 2/48 coilable
-  and 0/48 feasible.
+- **Stats:** n=67 → 9 coil → 9 riks → 0 good
+  p50/p90/p100 — σ_crit: 0.36/1.97/4.05 · mcs: 0.36/0.47/0.78 · mls: .012/.021/.039
+  (combines D008's 19-pt dense grid + D010's 48-pt broader search; the sharper
+  finding — mcs collapses 0.9999→0.398 at the first non-circular step tested —
+  doesn't survive as an aggregate quartile, see speaker notes)
 - **Verdict:** INCONCLUSIVE by the study's own strict adequacy bar (the
   guiding constraint surrogates were not demonstrably above chance, so a
   closed non-existence verdict isn't licensed) — but the raw picture is
@@ -2399,13 +2442,19 @@ class: idea-slide
   both rings, max inward bow at mid-height — to geometrically pre-condition
   the coiling path and retain high compressive strain.
 - **Origin:** common sense geometric hypothesis, not a literature citation.
-- **Stats:** confound-free single-variable dose-response sweep
-  (bow_amplitude ∈ {0,0.05,0.10,0.15}, fixed ratio_b=0.03) shows
-  max_compressive_strain DECREASING monotonically with bow — 48% drop at
-  ratio_b=0.03 (0.5846→0.3040), 0.9999→0.5007 at the winning cross-section.
-- **Verdict:** FALSIFIED, cleanly. Bowing does the opposite of hypothesized
-  — it collapses compressive strain rather than protecting it; no benefit
-  found in a follow-up 48-eval joint search either.
+- **Stats:** n=48 → 45 coil → 27 riks → 1 good (0.58× Bessa)
+  p50/p90/p100 — σ_crit: 1.37/8.97/16.00 · mcs: 0.44/1.00/1.00 · mls: .024/.045/.071
+- **Verdict:** FALSIFIED. Bowing does the opposite of hypothesized — a
+  confound-free dose-response sweep (bow_amplitude ∈ {0,0.05,0.10,0.15},
+  fixed ratio_b=0.03) shows max_compressive_strain decreasing monotonically
+  with bow (48% drop, 0.5846→0.3040), collapsing strain rather than
+  protecting it. A broader 48-eval joint search does find one real
+  feasible design, but far weaker than baseline (0.58× Bessa) — bowing
+  doesn't help, it just doesn't fully kill feasibility either. A broader
+  check across the converged designs (not the tightly-controlled sweep
+  above) finds no reliable relationship once other dimensions vary freely
+  — the causal effect is real in the controlled comparison but washes out
+  once generalized (see speaker notes for the underlying statistics).
 
 
 </div>
@@ -2419,6 +2468,10 @@ class: idea-slide
 <!--
 Fuller context:
 
+- Stats-migration note (2026-08-04): D012's own Pearson/Spearman check on the
+  converged subset (mcs vs. bow_amplitude: r=-0.175, ρ=-0.163, p=0.417) finds
+  only a weak, non-significant correlation — cited here, not on the slide face,
+  per the plain-language bar.
 - This is H5 of run `20260706T204732`, delegation D011 (mechanism dose-response) +
   D012 (48-eval joint 5D existence follow-up). ODB: data/idea_odbs/
   20260706T204732_H5_bowed_longerons/ (source: presentation/resim/bowed/
@@ -2497,7 +2550,7 @@ class: idea-slide
   strain-limited ceiling.
 - **Origin:** direct mechanistic extension of the SCLF (circular) family —
   common sense, not a literature citation.
-- **Stats:** zero evaluations possible — none exist to report.
+- **Stats:** n=0 — untestable (hard software-capability gap, see Verdict)
 - **Verdict:** INCONCLUSIVE, and genuinely so: the hypothesis as literally
   registered is untestable with the available infrastructure, not
   falsified. `model.EllipticalProfile` does not exist in the installed
@@ -2560,14 +2613,13 @@ class: idea-slide
   diagonal.
 - **Origin:** common sense, basic section-property comparison — not a
   literature citation.
-- **Stats:** 50-eval constrained-BO, 18% joint-feasible (surrogates above
-  chance: σ_crit CV R²=0.999, mls CV R²=0.545); 0/50 cleared the 0.196 kPa
-  floor (2× the 0.1306 kPa baseline) — best feasible σ_cr,nd=0.1600 kPa,
-  18.4% short.
+- **Stats:** n=50 → 50 coil → 50 riks → 9 good (1.23× Bessa)
+  p50/p90/p100 — σ_crit: .22/4.54/13.15 · mcs: .99/1.00/1.00 · mls: .022/.055/.098
 - **Verdict:** FALSIFIED, plainly — contradicted by an adequate,
-  above-chance-surrogate search. (Square does edge circular in σ_crit at
-  matched strain, 0.16-0.19 vs ~0.13-0.22, but the floor-clearing
-  prediction still failed.)
+  above-chance-surrogate search (σ_crit CV R²=0.999, mls CV R²=0.545).
+  (Square does edge circular in σ_crit at matched strain, 0.16-0.19 vs
+  ~0.13-0.22, but the 0.196 kPa floor-clearing prediction — 2× the 0.1306
+  kPa baseline — still failed: best feasible was 0.1600 kPa, 18.4% short.)
 
 
 </div>
@@ -2614,13 +2666,15 @@ class: idea-slide
   decouple.
 - **Origin:** direct extension of the elliptical-substitution idea above —
   mirror of this run's own H6, common sense, not a literature citation.
-- **Stats:** 3 distinct designs land in this valid-slenderness,
-  floor-clearing region; headline design reaches σ_cr,nd=0.3644 kPa at
-  slenderness=16.04, clearing the 0.196 kPa floor (2× baseline) with
-  coilable=1, Riks strain=90%+, mls≤2%.
+- **Stats:** n=165 → 149 coil → 148 riks → 6 good (2.79× Bessa)
+  p50/p90/p100 — σ_crit: .86/4.26/7.52 · mcs: .80/1.00/1.00 · mls: .022/.034/.043
+  (6 pass every criterion; 3 of those also clear this run's own higher
+  0.196 kPa target — the headline design, σ_crit=0.3644 at slenderness=16.04)
 - **Verdict:** SUPPORTED — real, repeatable, non-fluke. This design
   becomes "run17_rectangle," the canonical anchor baseline reused
-  throughout the rest of this deck.
+  throughout the rest of this deck (later refined to 0.7704 kPa, 5.9×
+  Bessa, in subsequent runs — see speaker notes, not this campaign's own
+  result).
 
 
 </div>
@@ -2645,11 +2699,18 @@ Fuller context:
 - ODB: data/idea_odbs/20260705T181941_H8_run17_rectangle_anchor/ (source: SCRATCH
   path /oscar/scratch/eaguerov/supercompressible_oracle/riks_09377e3040e64b82be337fcb827bd32e,
   gold-verified in bo/confirmed_anchors.json).
-- The three distinct qualifying designs: D014's row 308 (ratio_a=0.00774,
-  ratio_b=0.01417, slenderness=10.52, sigma_crit=0.2712 — found incidentally in a
-  broader unconstrained sweep, before the two slenderness-gated searches ran), D016's
-  design (slenderness=16.04, sigma_crit=0.3644, the headline, rendered here), and
-  D017's design (slenderness=15.85, sigma_crit=0.2287).
+- The three distinct qualifying designs named in the original text: D014's row 308
+  (ratio_a=0.00774, ratio_b=0.01417, slenderness=10.52, sigma_crit=0.2712 — found
+  incidentally in a broader unconstrained sweep, before the two slenderness-gated
+  searches ran), D016's design (slenderness=16.04, sigma_crit=0.3644, the headline,
+  rendered here), and D017's design (slenderness=15.85, sigma_crit=0.2287). The new
+  Stats line's G=6 (2026-08-04 migration) adds 3 more designs meeting every universal
+  criterion but below this run's own 0.196 kPa target: two occurrences of
+  sigma_crit=0.1786 and one at 0.1003 — real, just not this run's own headline finding.
+  One row in the 149-row Riks-converged population (D014/D016/D017 combined) showed
+  mcs=1.41/mls=1.37, both physically impossible (mcs is bounded to [0,1] by
+  definition) — excluded from the R=148 quartile population above as corrupted data,
+  not merely flagged.
 - This family keeps improving across later runs, none of which earn a new idea
   slide (all fold into this one per the deck's rule 1): run `20260706T204732` tests
   relaxing the slenderness floor to ≥8 (INCONCLUSIVE) and adding pretwist
@@ -2726,14 +2787,13 @@ class: idea-slide
 - **Origin:** follow-up to this run's H1 (generalized optimum: 9.23% Riks
   strain, not 90%) — circular is the shape closest to Bessa 2019's own
   demonstration.
-- **Stats:** 40-pt LHS + Riks on best candidates; thick design
-  (ratio_d=0.1333, ratio_pitch=0.93, ratio_top_diameter=0.5978) reached
-  σ_cr,nd=485.996 kPa (~3720× Bessa 0.1306 kPa) at 90.06% Riks strain —
-  clears both stages (83 increments, no divergence).
-- **Verdict:** SUPPORTED as existence at the time — circular passes both
-  stages, generalized doesn't. **But later invalidated** (next run's H1):
-  peak local strain 24.7%, 12× the 2% PLA limit — the mechanism insight
-  stands, the headline number doesn't.
+- **Stats:** n=42 → 28 coil → 5 riks → 0 good (mls never measured this campaign)
+  p50/p90/p100 — σ_crit: 431.8/497.8/505.7 · mcs: .837/.892/.901 · mls: not measured
+- **Verdict:** SUPPORTED as existence at the time — circular passes Stage 1
+  and this campaign's own Stage-2 mcs bar, generalized doesn't. **But later
+  invalidated** (next run's H1): peak local strain 24.7%, 12× the 2% PLA
+  limit, never checked here — the mechanism insight stands, the headline
+  number doesn't.
 
 
 </div>
@@ -2747,6 +2807,11 @@ class: idea-slide
 <!--
 Fuller context:
 
+- Stats-migration note (2026-08-04): N=42 combines D003's 36-pt Stage-1 LHS sweep
+  (23 coilable) with 6 targeted refinement points across D004(2)/D005(2)/D008(2); 5
+  of those 6 reached a converged Riks solve. test_A (the 485.996 kPa headline)
+  nominally passed this run's own mcs&ge;90% bar but mls was never measured here —
+  G=0 reflects the complete modern criteria, not this run's own incomplete pass flag.
 - This is H2 (existence) and H4 (this specific thick design) of run `20260630T164908`,
   delegations D005/D008. H3 (shorter pitch, FALSIFIED — best 50.91% strain, pitch=0.30
   not even coilable) and H5 (smaller top ring, FALSIFIED — top_diam=0.50 gives
@@ -2836,15 +2901,17 @@ class: idea-slide
   path could beat the Bessa 2019 paper optimum (65.3 kPa/longeron).
 - **Origin:** common sense topology extension of the Bessa rocking-mast
   concept, not drawn from an outside literature source.
-- **Stats:** 32/48 registered-criterion evaluations completed; best
-  coilable design (a kinked helix, twist=0.1, ratio_pitch=0.327 half-pitch,
-  Bessa-optimal cross-section) reached 64.9989 kPa — 99.5% of the
-  single-storey Bessa optimum, but not above it.
+- **Stats:** n=32 → 9 coil → 0 riks → 0 good (mcs/mls never tracked this campaign)
+  p50/p90/p100 — σ_crit (coilable only): 5.6/64.3/65.0 · mcs: not tracked · mls: not tracked
+  (best coilable, 64.9989 kPa, is 99.5% of the single-storey Bessa optimum
+  by Stage-1 σ_crit alone — never checked against real feasibility)
 - **Verdict:** INCONCLUSIVE — the topology recovers almost all of the
-  single-storey performance without losing coilability, which is itself
-  informative, but the specific prediction (beats 65.3 kPa) was not met and
-  the highest-potential untested point (max-J cross-section at this
-  half-pitch) was never evaluated before budget moved to other hypotheses.
+  single-storey Stage-1 performance without losing coilability, which is
+  itself informative, but this campaign's own domain never tracked
+  mcs/mls at all, so even this near-miss was never checked against the
+  study's real feasibility bar. A properly-powered follow-up (2026-08-04,
+  3-phase zoom, 40 evals on a lower-dimensional rectangle-family
+  reparametrization) also found 0 feasible — see speaker notes.
 
 
 </div>
@@ -2858,6 +2925,15 @@ class: idea-slide
 <!--
 Fuller context:
 
+- Stats-migration note (2026-08-04): this idea has since been re-tested
+  out-of-band (not a new agentic run — see docs/assistant_investigation_diary.md,
+  not tracked in this repo) using the study's own default 3-phase zoom search on
+  D006's lower-dimensional 4D rectangle-family reparametrization of this same
+  topology (`bo/experiments/real_designs/run_multistorey.py`): 40 real evals,
+  phase 1 found zero feasible points and correctly declined to zoom further (no
+  incumbent to center a smaller box on). This directly checks mcs/mls (unlike
+  D004 above) and still finds nothing — reinforcing, not resolving, the open
+  question; a full 120-eval budget hasn't been spent on this reparametrization yet.
 - This is H2 of run `20260629T191754`, delegation D004 (32/48 planned evals). ODB:
   data/idea_odbs/20260629T191754_H2_multistorey_n2/ (source:
   presentation/resim/twostorey/riks_9a82d64e16d34b71ac1e541263cd92bf; illustrative
@@ -2916,9 +2992,9 @@ class: idea-slide
   test whether more legs raise the per-longeron critical load.
 - **Origin:** common sense topology extension — Bessa's own parametrization
   never varies longeron count, fixing it at 3 throughout the 2019 paper.
-- **Stats:** 48-evaluation campaign; n=4, 5, 6 with a max-torsion
-  cross-section all achieved σ_cr,nd = 65.31–71.59 kPa (n=5 specifically:
-  71.59 kPa), all exceeding the registered 65.3 kPa prediction threshold.
+- **Stats:** n=31 (D005's own ledger; "48-evaluation" in an earlier draft
+  could not be corroborated) → 20 coil → 0 riks → 0 good (Stage 2 never run)
+  p50/p90/p100 — σ_crit (coilable only): 61.5/71.2/71.6 · mcs: not tracked · mls: not tracked
 - **Verdict:** SUPPORTED as registered — but with an important nuance: none
   of n=4/5/6 reached the study's actual 75.1 kPa floor, and per-longeron
   σ_cr,nd turned out to be empirically independent of n_longerons at fixed
@@ -2980,12 +3056,17 @@ class: idea-slide
 - **Origin:** common-sense extrapolation of the Bessa family's torsion
   axis — σ_cr,nd scales with GJ, and the Bessa optimum sits at only 86%
   of max ratio_J.
-- **Stats:** 16-design sweep beyond ratio_J=7.77e-6; 5/16 cleared 75.1 kPa.
-  Best (D4) reached σ_cr,nd=83.66 kPa (+28% vs Bessa) but hit only 32% max
-  strain (vs the 90% bar); C4 reached just 9%.
+- **Stats:** n=18 → 16 coil → 1 riks → 0 good
+  σ_crit/mcs (n=1, only C4 genuinely converged): 76.1 kPa / .090 · mls: not measured
 - **Verdict:** Stage-1 existence SUPPORTED (mechanism real, floor
-  clearable), but Stage-2 FAILS both candidates — the same GJ that clears
-  the floor blocks deep coiling. Not a usable design as tested.
+  clearable — 5/16 cleared 75.1 kPa), but Stage-2 FAILS both candidates —
+  the same GJ that clears the floor blocks deep coiling. Not a usable
+  design as tested. Note the two candidates weren't apples-to-apples: D4
+  (the closer near-miss, cited elsewhere as reaching 32% strain) never
+  actually converged — that Riks solve terminated mid-solve ("too many
+  attempts"). Only C4 genuinely converged, at a worse 9.0% strain. The
+  original "32% vs 9%" comparison was a non-converged partial read against
+  a real solution, not two comparable numbers.
 
 </div>
 
@@ -3082,11 +3163,9 @@ class: idea-slide
 - **Origin:** common sense mechanistic hypothesis (not a literature
   citation) — the idea that a pre-twisted leg might exploit a shorter
   effective pitch and reach a higher coiling-mode eigenvalue.
-- **Stats:** a 46-evaluation anchor sweep (8 twist angles × the
-  Bessa-optimal cross-section, plus LHS) — only 6/46 designs stayed
-  coilable (13%), and every coilable one was at or below the twist=0
-  baseline (65.31 kPa); sigma_cr,nd fell monotonically with twist
-  (30° → 52.93 kPa, 90° → 15.69 kPa, all coilable=0 beyond that).
+- **Stats:** n=46 → 6 coil → 0 riks → 0 good (Stage 2 never run this campaign)
+  p50/p90/p100 — σ_crit (coilable only): 7.3/43.6/65.3 · mcs: not tracked · mls: not tracked
+  (every coilable design at or below the twist=0 baseline, 65.31 kPa)
 - **Verdict:** the mechanism does not work — pre-twist destroys
   coilability rather than helping it. The registered test technically
   fell short of its own ≥80-eval bar (a license-server outage killed 26 of
@@ -3111,6 +3190,15 @@ class: idea-slide
 <!--
 Fuller context:
 
+- Stats-migration note (2026-08-04): the twist-angle trend among coilable
+  designs is monotonically decreasing (30°&rarr;52.93 kPa, 90°&rarr;15.69 kPa,
+  all coilable=0 beyond that) — preserved here since a single quartile triplet
+  doesn't show a trend. A related but distinct idea (twist applied to a
+  DIFFERENT, non-Bessa cross-section family, "twisted-strip beam") was
+  separately properly-powered this session (2026-08-04, 3-phase zoom) and
+  reached a real but still-far-short-of-target 14.4% of its own family's
+  target — consistent with twist not being a productive lever in general,
+  though that's a different cross-section, not a re-test of this exact idea.
 - This is H1 of run `20260629T145434` (proposed with zero evals that run — the actual
   46-eval anchor sweep + LHS ran the following run, `20260629T191754`, as that run's
   own H1, delegation D003). Per this deck's rule 1 ("one slide per genuinely new idea,
