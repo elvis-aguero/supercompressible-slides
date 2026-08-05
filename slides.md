@@ -392,6 +392,197 @@ describe the design and show the gif, no reasoning/justification needed.
 class: summary-slide
 ---
 
+# Run `20260804T221559` — summary
+
+<div class="text-sm leading-snug">
+
+Four literature-grounded chirality/elastic-instability candidates tested against the newly-sharpened "not a cross-section resize" bar — two brand-new topologies (chiral shell tube, chiral shell vane) failed to coil at all, and two pretwist refinements found a numerically-passing design whose performance the agent's own regression attributed to resize dimensions, not chirality.
+
+| # | Claim | Verdict | Key evidence | Idea |
+|---|---|---|---|---|
+| H1 | A genuinely novel geometry/topology (not a cross-section resize) clears 2&times; Bessa with all feasibility criteria | &#10068; | 4 candidates tested; best numeric hit (D010, 0.4254 kPa) explained ~91% by resize dims, chirality lever p=0.145 — not credible as genuinely novel | D26, D27, D1, D6 |
+| H2 | This study's slender-beam elastic-instability space is capped near the resize ceiling (~0.77 kPa) — no genuinely novel topology clears 2&times; Bessa without breaking beam-validity or folding | &#10068; | Confounded test (Charter &sect;3): D010's clearing point can't cleanly separate resize-driven from chirality-driven performance; the other 3/4 candidates support H2's spirit outright | D26, D27, D1, D6 |
+
+</div>
+
+<!--
+Run stats: all-Sonnet, GATED on 4th critic attempt (1 CRITICAL doe-cell finding
+caught and fixed between calls 1-2, then clean), evals_used=301, ~8h wall of a
+12h budget. H-numbering note: unlike earlier runs, this run registered only 2
+top-level hypotheses (H1/H2) and tested 4 candidate families as evidence for/
+against both, rather than one H per candidate — D009/D010 don't get their own
+"H3"/"H4" rows here because they were run as sub-campaigns cited as evidence,
+not separately pre-registered claims.
+
+D004 (chiral_shell_tube, own slide D26): 80-pt sweep, 0/68 valid designs
+coilable (12/80 rejected by the thin-shell rt_over_t&ge;20 guard before that).
+Every lowest mode is a global lateral-bending/Euler-sway pair — a full
+monocoque tube is too stiff against global bending for the local torsional/
+coiling coupling to compete.
+
+D007 (chiral_shell_vane, own slide D27): follow-up after D004 — reverts to n
+discrete members (this study's usual sparse topology) while keeping each
+member a chirally-twisted doubly-curved shell "vane". 120-pt sweep, still
+0/115 coilable on the strict check; the weaker "coilable_legacy" proxy (same
+threshold convention every other family uses) passes 34/115, so the two
+coilability definitions disagree substantially here — worth watching if this
+family or a descendant gets revisited.
+
+D009 (circular pretwist, folds into the pretwisted-longerons idea, D1): 100%
+coilable, twist_angle coefficient -0.0093 (negligible) in the OLS regression.
+
+D010 (anisotropic-rectangle pretwist, folds into the run17-rectangle-anchor
+idea, D6): twist_angle coefficient grew to +0.0781 but still not significant
+(p=0.145) against ratio_a (0.9114) and ratio_b (0.3859) dominating. Found a
+feasible point at sigma_crit=0.425389 kPa (mcs=1.011151, mls=0.018075,
+twist_angle=0.073079) that numerically clears 2&times; Bessa — but per the
+regression, this is a resize-family point with a statistically
+non-contributing cosmetic twist, not evidence of a genuinely novel mechanism.
+Full critic-gate history: 4 review calls, 1 CRITICAL (doe cell had no real
+create/sampler branch — fixed) + 2 MAJOR (D009's regression never actually
+run despite being cited; a nonlinear/near-critical-point alternative
+mechanism from the cited literature never considered) at call_001, all three
+resolved for real by call_002, clean PASS at call_004.
+-->
+
+---
+layout: two-cols-header
+class: idea-slide
+---
+
+# D26 &middot; Chiral continuous-curved-shell tube
+
+::left::
+
+<div class="text-sm leading-snug">
+
+- **What:** Replaced all n discrete straight longerons with ONE continuous,
+  doubly-curved, multi-lobed shell tube connecting the two rigid rings, with
+  a built-in azimuthal twist of the lobe pattern from bottom to top —
+  chirality breaking mirror symmetry to try to couple axial compression into
+  global rotation.
+  Free: n_lobes&isin;[3,6] A_max&isin;[.05,.35] twist_chirality&isin;[0,3.14] t_shell&isin;[.5,2] ratio_pitch&isin;[.15,.8] +1 more | Fixed: rsm=.3677
+- **Origin:** Liu et al. 2025 (*Nature Communications* 16:11359), "chiral
+  multi-curved shell metamaterials integrating compression-torsion and
+  buckling mechanisms" — every prior family in this study keeps a discrete-
+  member load path; this removes the discreteness entirely.
+- **Stats:** n=80 &rarr; 0 coil &rarr; 0 riks &rarr; 0 good<br>
+  best good: none (0/80 passed every criterion)
+- **Verdict:** FALSIFIED as tested — the monocoque topology suppresses
+  coiling entirely. Every one of 68 valid designs' lowest buckling mode is a
+  global lateral-bending/sway pair (see gif), not top-ring rotation: a full
+  continuous shell tube is far stiffer against global lateral bending than
+  this study's successful sparse discrete-longeron families, so the local
+  torsional/coiling coupling never gets to compete. 12/80 designs were
+  additionally rejected by the thin-shell validity guard (rt_over_t&ge;20)
+  before ever reaching this check.
+
+
+</div>
+
+::right::
+
+<div class="flex flex-col items-center justify-center h-full gap-1">
+  <img src="/gifs/chiral_shell_tube_native.gif" class="max-h-85 rounded shadow-lg" />
+  <div class="text-xs opacity-50 text-center">Mode 1 (base &rarr; buckling shape) of a typical swept design — global sway, not coiling rotation.</div>
+</div>
+
+<!--
+Full context:
+
+- This is H1 of run `20260804T221559`, delegation D003 (build) + D004 (80-pt
+  LHS sweep, seed=0, 20 per n_lobes&isin;{3,4,5,6}). ODB archived at
+  data/idea_odbs/20260804T221559_D004_chiral_shell_tube/ (a TYPICAL member of
+  the sweep, not a "best" point — per this deck's no-winner convention;
+  n_lobes=3, A_max=0.1997, twist_chirality=2.521 rad, t_shell=0.978mm,
+  ratio_pitch=0.4292, ratio_top_diameter=0.1733).
+- Coilability check for this family is stricter than the shared
+  `supercompressible_lin_buckle_pp.py` convention used by every discrete-
+  member family: it requires the top ring's rotation AND axial descent to be
+  non-trivial RELATIVE TO the shell wall's own local deformation scale (not
+  just non-zero in absolute terms), specifically to rule out cases where the
+  wall's own local wrinkling dominates and a tiny absolute rotation is just
+  noise riding on top of it. Under the weaker, shared-convention "legacy"
+  threshold (rotation present AND near-zero absolute lateral displacement),
+  4/68 pass — so there is a genuine, unresolved daylight between the two
+  coilability definitions for this family, not fully adjudicated this run.
+- GIF: native Abaqus/CAE Viewer export of the LIN_BUCKLE step's Mode 1 frame,
+  rendered 2026-08-05. This is a *BUCKLE step (eigenvalue analysis, 21
+  frames = base + 20 requested modes), not a Riks history — required a fix
+  to `presentation/render/render_odb.py` (AUTO deformation scaling instead
+  of uniform x1, and restricting playback to frames [0,1] instead of
+  subsampling across all 20 unrelated eigenmodes) since neither existed
+  before this idea needed to render a non-coiling buckle-only result.
+-->
+
+---
+layout: two-cols-header
+class: idea-slide
+---
+
+# D27 &middot; Chiral shell vane longeron
+
+::left::
+
+<div class="text-sm leading-snug">
+
+- **What:** Reverted to n discrete members (this study's usual sparse
+  topology) after D26's monocoque tube suppressed coiling, but gave each
+  discrete longeron a genuinely new, non-beam shape: a twisting,
+  doubly-curved shell "vane" instead of a solid/thin-walled cross-section.
+  Free: t_shell&isin;[.2,2] W&isin;[3,15] B_max&isin;[1,8] twist_total&isin;[.2,1.5] ratio_pitch&isin;[.3,1] +1 more | Fixed: n_long=3 rsm=.3677
+- **Origin:** direct empirical follow-up to D26 — its own finding (full
+  monocoque tube too stiff against global lateral bending) predicts that
+  restoring low overall bending stiffness via discrete members should let a
+  coiling mode compete again, while keeping the chirality/twist mechanism.
+- **Stats:** n=120 &rarr; 0 coil &rarr; 0 riks &rarr; 0 good<br>
+  best good: none (0/120 passed every criterion)
+- **Verdict:** FALSIFIED as tested — reverting to discrete members did not
+  fix it: still 0/115 valid designs pass the strict coilability check, so
+  the sway failure mode isn't purely a monocoque-stiffness artifact as D26's
+  own finding predicted. The weaker "coilable_legacy" proxy (same threshold
+  convention every other family uses) passes 34/115 — a much bigger
+  strict-vs-legacy gap than D26's, suggesting this family's failure mode is
+  genuinely closer to (but still short of) real coiling than the tube's.
+
+
+</div>
+
+::right::
+
+<div class="flex flex-col items-center justify-center h-full gap-1">
+  <img src="/gifs/chiral_shell_vane_native.gif" class="max-h-85 rounded shadow-lg" />
+  <div class="text-xs opacity-50 text-center">Mode 1 of a typical swept design — 3 discrete twisting vanes, still non-coiling.</div>
+</div>
+
+<!--
+Full context:
+
+- This is H1 of run `20260804T221559`, delegation D006 (build) + D007
+  (120-pt LHS sweep, seed=2007). ODB archived at
+  data/idea_odbs/20260804T221559_D007_chiral_shell_vane/ (a representative
+  near-miss, not a "best" point — chosen because it clears the legacy
+  coilability proxy though not the strict one; n_longerons=3,
+  t_shell=1.313mm, W=4.225mm, B_max=5.977mm, twist_total=0.5157 rad,
+  ratio_pitch=0.7005, ratio_top_diameter=0.0742; sigma_crit=0.494 kPa, far
+  below target and not coilable regardless).
+- Fidelity gate: thin-shell validity on the vane's own peak local radius of
+  curvature (R_eff = L&sup2;/(&pi;&sup2;&middot;B_max)), requiring
+  R_eff/t_shell&ge;20 — this family's analog of the B31 slenderness&ge;10
+  floor / D25 tape-spring's R_tape/t_tape&ge;10 floor. 5/120 designs rejected
+  by this guard before the coilability check.
+- The per-longeron coupling (LOCAL_DATUM_i CARTESIAN, one local datum per
+  vane) reuses the tape-spring idea's (D25) coupling convention literally,
+  per this delegation's explicit instruction not to invent a new one.
+- GIF: same render_odb.py fix as D26 (AUTO scale, frames [0,1] only) applied
+  here too — this ODB is also a *BUCKLE step with 21 frames (base + 20
+  modes), not a Riks history.
+-->
+
+---
+class: summary-slide
+---
+
 # Run `20260730T020245` — summary
 
 <div class="text-sm leading-snug">
@@ -1047,7 +1238,7 @@ class: idea-slide
   motivating idea was that decoupling J from Ixx/Iyy might let the section
   reach high axial stiffness without paying the local-bending-strain penalty
   the rectangle family pays.
-- **Stats:** n=91 → 90 coil → 0 riks → 0 good
+- **Stats:** n=91 → 90 coil → 0 riks → 0 good<br>
   best good: none (0/91 passed every criterion)
 - **Verdict:** FALSIFIED — a solve-completion wall, not a strain wall: all
   90 coilable designs failed to reach a converged Riks solution, so the
@@ -2488,7 +2679,7 @@ class: idea-slide
   Free: none — untestable, see Verdict
 - **Origin:** direct mechanistic extension of the SCLF (circular) family —
   common sense, not a literature citation.
-- **Stats:** n=0 — untestable (hard software-capability gap, see Verdict)
+- **Stats:** n=0 — untestable (hard software-capability gap, see Verdict)<br>
   best good: none (0/0)
 - **Verdict:** INCONCLUSIVE, and genuinely so: the hypothesis as literally
   registered is untestable with the available infrastructure, not
@@ -2991,8 +3182,8 @@ class: idea-slide
 - **Origin:** common-sense extrapolation of the Bessa family's torsion
   axis — σ_cr,nd scales with GJ, and the Bessa optimum sits at only 86%
   of max ratio_J.
-- **Stats:** n=18 → 16 coil → 1 riks → 0 good
-  σ_crit/mcs (n=1, only C4 genuinely converged): 76.1 kPa / .090 · mls: not measured
+- **Stats:** n=18 → 16 coil → 1 riks → 0 good<br>
+  σ_crit/mcs (n=1, only C4 genuinely converged): 76.1 kPa / .090 · mls: not measured<br>
   best good: none (0/18 passed every criterion)
 - **Verdict:** Stage-1 existence SUPPORTED (mechanism real, floor
   clearable — 5/16 cleared 75.1 kPa), but Stage-2 FAILS both candidates —
