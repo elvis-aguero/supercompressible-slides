@@ -115,15 +115,75 @@ not meant to render. Read this before adding or editing any slide.
                       follow the funnel+quartile line as additional free
                       text in the SAME bullet — the fixed format is a
                       floor, not a ceiling.
-     (d) Verdict   — one direct sentence explaining WHY the mechanism did
-                      or didn't work, not a restatement of WHAT the verdict
-                      is. "FALSIFIED — no folded regime exists" is circular
-                      (that's the definition of FALSIFIED, not a reason);
-                      "FALSIFIED — the wall thickness needed for local
-                      stability is the same feature that sets the strain
-                      floor" is a reason. Don't repeat the baseline number
-                      or other Stats-bullet content here — Verdict's only
-                      job is the causal explanation. Still state negative
+     (d) Verdict   — a FIXED-FORMAT status line, then the causal reason
+                      (added 2026-08-05, same "new/edited slides going
+                      forward, linter WARNS not blocks" retrofit policy as
+                      Stats). Motivation: a formal Popperian status word
+                      alone ("INCONCLUSIVE") often hid a perfectly clear
+                      practical answer one level down in the prose ("but
+                      the raw signal is a clear dead end") — a reader
+                      had to parse the whole paragraph to learn whether an
+                      idea actually worked. Two independent axes, always
+                      in this order:
+
+                        <STATUS>[ (RETRACTED|DISQUALIFIED)] · <PRACTICAL>
+                        <1-3 sentence causal reason, plain language>
+
+                      STATUS: exactly one of SUPPORTED / FALSIFIED /
+                      INCONCLUSIVE, this capitalization, always the first
+                      word — the Popperian charter's own vocabulary,
+                      non-negotiable.
+
+                      Optional STATUS flag: (RETRACTED) when evidence that
+                      once supported this verdict was later found wrong
+                      (a continuum re-check, a corrected formula, etc. —
+                      the ORIGINAL verdict stood at the time on the
+                      evidence then available); (DISQUALIFIED) when the
+                      evidence still stands unchallenged but doesn't count
+                      per the apples-to-apples/novelty contract (a real
+                      number, wrong physical mechanism or not genuinely
+                      novel). Never use both — pick whichever actually
+                      happened.
+
+                      PRACTICAL: exactly one of WORKS / DEAD-END / WEAK /
+                      MIXED / UNTESTABLE — always the CURRENT, FINAL
+                      answer to "does this actually help build a real
+                      printable supercompressible mast", independent of
+                      STATUS and independent of how large a disqualified/
+                      retracted number looked. A (RETRACTED) or
+                      (DISQUALIFIED) verdict is ALWAYS practically
+                      DEAD-END, full stop, regardless of the raw figure —
+                      collapsing "big number, doesn't count" into anything
+                      but DEAD-END is exactly the confusion this format
+                      exists to prevent.
+                        WORKS      — mechanism is real, helps, no
+                                     disqualifying flag.
+                        DEAD-END   — mechanism doesn't help, actively
+                                     hurts, or the disqualifying flag
+                                     above applies.
+                        WEAK       — mechanism is real (physically/
+                                     statistically demonstrated) but the
+                                     effect is far below the target.
+                        MIXED      — inconsistent across designs (some
+                                     pass, some don't) with no reliable
+                                     predictive pattern — not a clean
+                                     dead end, not a clean win.
+                        UNTESTABLE — the registered hypothesis was never
+                                     validly put to a test at all, whether
+                                     a hard software-capability gap or a
+                                     methodology bug (e.g. a mis-specified
+                                     constraint) that invalidated the
+                                     search before it started.
+
+                      Reason line(s): causal explanation only, same bar as
+                      before — WHY the mechanism did or didn't work, not a
+                      restatement of the status. "FALSIFIED · DEAD-END —
+                      no folded regime exists" is circular (that restates
+                      the tags, not a reason); "FALSIFIED · DEAD-END — the
+                      wall thickness needed for local stability is the
+                      same feature that sets the strain floor" is a
+                      reason. Don't repeat the baseline number or other
+                      Stats-bullet content here. Still state negative
                       results as plainly and confidently as positive ones.
    PLAIN-LANGUAGE BAR (applies to all 4 bullets): no unexplained jargon in
    the visible slide body. Terms like a bare "ρ" or "r" (correlation/
@@ -468,7 +528,8 @@ class: idea-slide
   member load path; this removes the discreteness entirely.
 - **Stats:** n=80 &rarr; 0 coil &rarr; 0 riks &rarr; 0 good<br>
   best good: none (0/80 passed every criterion)
-- **Verdict:** FALSIFIED as tested — the monocoque topology suppresses
+- **Verdict:** FALSIFIED · DEAD-END<br>
+  The monocoque topology suppresses
   coiling entirely. Every one of 68 valid designs' lowest buckling mode is a
   global lateral-bending/sway pair (see gif), not top-ring rotation: a full
   continuous shell tube is far stiffer against global lateral bending than
@@ -537,7 +598,8 @@ class: idea-slide
   coiling mode compete again, while keeping the chirality/twist mechanism.
 - **Stats:** n=120 &rarr; 0 coil &rarr; 0 riks &rarr; 0 good<br>
   best good: none (0/120 passed every criterion)
-- **Verdict:** FALSIFIED as tested — reverting to discrete members did not
+- **Verdict:** FALSIFIED · DEAD-END<br>
+  Reverting to discrete members did not
   fix it: still 0/115 valid designs pass the strict coilability check, so
   the sway failure mode isn't purely a monocoque-stiffness artifact as D26's
   own finding predicted. The weaker "coilable_legacy" proxy (same threshold
@@ -668,7 +730,8 @@ class: idea-slide
 - **Stats:** n=406 → 176 coil → 137 riks → 0 good
   p50/p90/p100 — σ_crit: 2.11/17.6/88.3 · mcs: 1.02/1.04/1.06 · mls: .047/.130/.447
   best good: none (0/406 passed every criterion)
-- **Verdict:** FALSIFIED: the curvature that keeps the arc locally stable
+- **Verdict:** FALSIFIED · DEAD-END<br>
+  The curvature that keeps the arc locally stable
   is the same curvature that sets its bending-strain floor. The shape can
   never be shallow enough to fold locally without first buckling — so
   strain follows ordinary beam bending at every depth tested, not a fold.
@@ -889,7 +952,8 @@ class: idea-slide
 - **Stats:** n=133 → 132 coil → 66 riks → 1 good (6.5× Bessa)
   p50/p90/p100 — σ_crit: .76/1.50/1.99 · mcs: 1.00/1.00/1.04 · mls: .0194/.0230/.0267
   best good: a=.00961 b=.033165 arch_rise=.0343 arch_length=.4305 → σ=.8509 mcs=1.00 mls=.0196
-- **Verdict:** SUPPORTED at gate time, then RETRACTED. A continuum submodel
+- **Verdict:** SUPPORTED (RETRACTED) · DEAD-END<br>
+  A continuum submodel
   of the arch-to-longeron joint (control-tested against the Bessa point)
   found real local strain 2.7×+ over the beam-reported value, still rising
   with mesh refinement — likely exceeds the 2% criterion. Baseline stays
@@ -1102,7 +1166,8 @@ class: idea-slide
   p50/p90/p100 — σ_crit: .12/.65/.78 · mcs: 1.00/1.03/1.03 · mls: .0194/.0267/.0285
   (quartiles from just those 3 points, not a real distribution)
   best good: n_segments=3 arch_rise=.10 → σ=.7765 mcs=1.03 mls=.0194
-- **Verdict:** falsified as an absence claim — one genuine 5-criteria
+- **Verdict:** FALSIFIED · WEAK<br>
+  As an absence claim — one genuine 5-criteria
   counterexample beats the 0.7704 kPa baseline. Valid, but a mild curvature
   perturbation, not the true bistable mechanism originally proposed.
 
@@ -1240,7 +1305,8 @@ class: idea-slide
   the rectangle family pays.
 - **Stats:** n=91 → 90 coil → 0 riks → 0 good<br>
   best good: none (0/91 passed every criterion)
-- **Verdict:** FALSIFIED — a solve-completion wall, not a strain wall: all
+- **Verdict:** FALSIFIED · DEAD-END<br>
+  A solve-completion wall, not a strain wall: all
   90 coilable designs failed to reach a converged Riks solution, so the
   cross-section itself never produces a mast this infrastructure can
   confirm as physically valid, whether that reflects a genuine physical
@@ -1346,15 +1412,13 @@ class: idea-slide
 - **Stats:** n=45 → 45 coil → 44 riks → 12 good (1691&times; Bessa)
   p50/p90/p100 — &sigma;_crit: 72.8/220.8/238.4 · mcs: 1.12/1919/2929 · mls: .205/8.41/9.55
   best good: a_strut=.03 slen_strut=10.29 area_cable=.0046 mid_h=.523 prestrain=.0193 +2 more &rarr; &sigma;=220.89 mcs=1.15 mls&asymp;9e-14
-- **Verdict:** SUPPORTED at face value (largest &sigma;_cr,nd in the study;
-  re-verified via direct ODB mode-1 extraction, 6&times;10<sup>-10</sup> rad
-  match) but demoted by the apples-to-apples criterion — pin-jointed/prestress
-  isn't comparable elastic bending, real but uncounted. The mcs/mls values
-  above look physically broken (up to 2929/9.55) because this family's own
-  post-processor scales strain differently for a pin-jointed truss than for
-  a bending beam — not a data error, but exactly the near-zero-material-
-  strain signature the apples-to-apples criterion is built to catch (the
-  headline design itself has mls&asymp;9&times;10<sup>-14</sup>, i.e. none).
+- **Verdict:** SUPPORTED (DISQUALIFIED) · DEAD-END<br>
+  Largest &sigma;_cr,nd in the study (re-verified via direct ODB mode-1
+  extraction) — but pin-jointed/prestress isn't comparable elastic bending.
+  The mcs/mls values above look broken (up to 2929/9.55) because this
+  family's post-processor scales strain differently for a truss than a
+  bending beam — not an error, but the near-zero-material-strain signature
+  apples-to-apples is built to catch (headline mls&asymp;9&times;10<sup>-14</sup>, i.e. none).
 
 
 </div>
@@ -1476,7 +1540,8 @@ class: idea-slide
 - **Stats:** n=62 &rarr; 50 coil &rarr; 50 riks &rarr; 1 good (0.0061&times; Bessa)
   p50/p90/p100 — &sigma;_crit: .09/2.64/6.15 · mcs: .76/1.03/1.07 · mls: .031/.079/.107
   best good: rc=.0024 h=.0234 n_battens=2 pitch=.75 top_d=.13 &rarr; &sigma;=.00079 mcs=1.00 mls=.014
-- **Verdict:** FALSIFIED as a viable mechanism. 50 evals clears this
+- **Verdict:** FALSIFIED · WEAK<br>
+  As a viable mechanism. 50 evals clears this
   study's existence-testing bar (settled 2026-08-02: n&#8805;48 for a
   defensible read), and a genuine feasible hit — not a zero-hit rate — was
   found, so existence itself was never in question. The real finding is
@@ -1572,7 +1637,8 @@ class: idea-slide
 - **Stats:** n=17 &rarr; 17 coil &rarr; 8 riks &rarr; 3 good (5.89&times; Bessa)
   p50/p90/p100 — &sigma;_crit: .769/.774/.783 · mcs: 1.000/1.032/1.067 · mls: .0220/.0224/.0226
   best good: amplitude_rel=.0047 n_periods=3 &rarr; &sigma;=.7694 mcs=1.02 mls=.0198
-- **Verdict:** negative — among the 8 trust-gated converged points, local
+- **Verdict:** INCONCLUSIVE · DEAD-END<br>
+  Among the 8 trust-gated converged points, local
   strain correlates *positively* with both amplitude (+0.42) and n_periods
   (+0.53), the opposite of the hypothesized direction; meandering raises
   strain rather than distributing it away, so it does not unlock a window
@@ -1671,7 +1737,8 @@ class: idea-slide
 - **Stats:** n=29 &rarr; 29 coil &rarr; 29 riks &rarr; 1 good (0.49&times; Bessa)
   p50/p90/p100 — &sigma;_crit: .756/3.04/3.58 · mcs: .677/1.058/1.072 · mls: .0192/.0277/.0441
   best good: a_end=.0049 waist=.414 b=.0419 pitch=.870 top_d=.0385 &rarr; &sigma;=.0643 mcs=.95 mls=.013
-- **Verdict:** inconclusive — the mis-specified (waist-based) constraint
+- **Verdict:** INCONCLUSIVE · UNTESTABLE<br>
+  The mis-specified (waist-based) constraint
   never searched the real feasible region; the headline fails corrected.
 
 
@@ -1782,7 +1849,8 @@ class: idea-slide
 - **Stats:** n=45 &rarr; 37 coil &rarr; 37 riks &rarr; 8 good (5.44&times; Bessa)
   p50/p90/p100 — &sigma;_crit: .574/1.28/2.52 · mcs: 1.00/1.00/1.00 · mls: .0217/.0294/.0483
   best good: a=.0120 b=.0151 pitch=.618 top_d=.0351 psi=.5236 +1 more &rarr; &sigma;=.7111 mcs=1.00 mls=.0196
-- **Verdict:** INCONCLUSIVE — a genuinely feasible design existed and once
+- **Verdict:** INCONCLUSIVE · DEAD-END<br>
+  A genuinely feasible design existed and once
   cleared all four original criteria, but was later rejected on a separate
   ring-passthrough criterion (see notes); not a validated winner.
 
@@ -1937,7 +2005,8 @@ class: idea-slide
 - **Stats:** n=28 &rarr; 8 coil &rarr; 8 riks &rarr; 1 good (0.044&times; Bessa)
   p50/p90/p100 — &sigma;_crit: 1.09/6.04/14.76 · mcs: .881/1.00/1.00 · mls: .019/.118/.191
   best good: a=.003 b=.008 pitch=.30 top_d=0 wrap=0 (degenerate) &rarr; &sigma;=.0057 mcs=1.00 mls=.0066
-- **Verdict:** falsified — helical wrap raises critical buckling stress
+- **Verdict:** FALSIFIED · DEAD-END<br>
+  Helical wrap raises critical buckling stress
   but destroys local-strain feasibility even faster, the opposite of the
   hypothesized reversible-coiling benefit.
 
@@ -2035,7 +2104,8 @@ class: idea-slide
   p50/p90/p100 — &sigma;_crit: 19.24/596.53/713.78 · mcs: .00/.06/.77 · mls: .00/.04/.25
   best good: none (0/42 passed every criterion)
   (braced designs failed max_compressive_strain in 30/30 vs 34/46 for the unbraced control)
-- **Verdict:** INCONCLUSIVE as an existence claim; directional signal is
+- **Verdict:** INCONCLUSIVE · DEAD-END<br>
+  As an existence claim; directional signal is
   clear — bracing blocks coiling rather than helping it.
 
 
@@ -2212,7 +2282,8 @@ class: idea-slide
 - **Stats:** n=45 → 29 coil → 6 riks → 0 good
   p50/p90/p100 — σ_crit: .022/.073/.085 · mcs: .434/.564/.579 · mls: .010/.018/.018
   best good: none (0/45 passed every criterion)
-- **Verdict:** FALSIFIED — matches the theoretical prior; a GP surrogate fit
+- **Verdict:** FALSIFIED · DEAD-END<br>
+  Matches the theoretical prior; a GP surrogate fit
   on this data is genuinely predictive (well above a chance baseline, CV
   R²=0.881), confirming the flat, feature-less landscape is real and not a
   search-coverage artifact; not competitive with the 2.3376 kPa floor.
@@ -2309,7 +2380,8 @@ class: idea-slide
 - **Stats:** n=56 → 45 coil → 45 riks → 1 good (1.07× Bessa)
   p50/p90/p100 — σ_crit: 3.01/13.96/41.51 · mcs: .93/1.00/1.00 · mls: .067/.121/.250
   best good: a=.00452 b_end=.0712 b_hinge=.0200 hinge_frac=.380 pitch=.860 +1 more → σ=.1391 mcs=1.00 mls=.019
-- **Verdict:** INCONCLUSIVE by the study's strict adequacy bar, but the raw
+- **Verdict:** INCONCLUSIVE · DEAD-END<br>
+  By the study's strict adequacy bar, but the raw
   signal is a clear dead end: how thin the mid-span hinge is shows no
   consistent relationship with peak strain across 45 designs (sometimes
   thinner helps, sometimes it doesn't) — there's no sweet spot to dial in,
@@ -2369,7 +2441,8 @@ class: idea-slide
   p50/p90/p100 — σ_crit: 4.20/60.35/90.13 · mcs: .61/1.00/1.00 · mls: .043/.097/.151
   best good: a_out=.0184 b_out=.0543 t1=.003 t3=.002 pitch=.602 +1 more → σ=.3123 mcs=1.00 mls=.018
   (high σ_crit p90/p100 likely a non-coiling stiff mode, not real progress)
-- **Verdict:** INCONCLUSIVE by the strict adequacy bar, but a clear
+- **Verdict:** INCONCLUSIVE · DEAD-END<br>
+  By the strict adequacy bar, but a clear
   negative signal — a genuinely different (mode-switching) failure mode
   than the solid rectangle, yet the same practical conclusion: underperforms.
 
@@ -2418,7 +2491,8 @@ class: idea-slide
 - **Stats:** n=46 → 32 coil → 32 riks → 1 good (2.79× Bessa)
   p50/p90/p100 — σ_crit: 1.86/21.94/40.42 · mcs: .53/1.29/1.49 · mls: .060/.130/.396
   best good: a=.00920 b_stiff=.01875 b_compliant=.01875 pitch=.602 top_d=.038 → σ=.3644 mcs=1.00 mls=.020
-- **Verdict:** INCONCLUSIVE by the study's adequacy bar, but the mechanism
+- **Verdict:** INCONCLUSIVE · DEAD-END<br>
+  By the study's adequacy bar, but the mechanism
   is contradicted: the stiffness ratio between the compliant and stiff
   longerons shows no consistent relationship with strain across the 32
   converged designs (weak, non-monotonic) — a more compliant leg sometimes
@@ -2518,7 +2592,8 @@ class: idea-slide
   (combines D008's 19-pt dense grid + D010's 48-pt broader search; the sharper
   finding — mcs collapses 0.9999→0.398 at the first non-circular step tested —
   doesn't survive as an aggregate quartile, see speaker notes)
-- **Verdict:** INCONCLUSIVE by the study's own strict adequacy bar (the
+- **Verdict:** INCONCLUSIVE · DEAD-END<br>
+  By the study's own strict adequacy bar (the
   guiding constraint surrogates were not demonstrably above chance, so a
   closed non-existence verdict isn't licensed) — but the raw picture is
   about as close to a clean dead end as this deck sees short of a formal
@@ -2575,8 +2650,9 @@ class: idea-slide
 - **Stats:** n=48 → 45 coil → 27 riks → 1 good (0.58× Bessa)
   p50/p90/p100 — σ_crit: 1.37/8.97/16.00 · mcs: 0.44/1.00/1.00 · mls: .024/.045/.071
   best good: bow_amp=.087 a=.005 b=.013 pitch=.32 top_d=.35 → σ=.0757 mcs=1.00 mls=.013
-- **Verdict:** FALSIFIED. Bowing does the opposite of hypothesized — a
-  confound-free dose-response sweep (bow_amplitude ∈ {0,0.05,0.10,0.15},
+- **Verdict:** FALSIFIED · WEAK<br>
+  Bowing does the opposite of hypothesized — a
+  confound-free dose-response sweep (bow_amplitude &isin; &#123;0,0.05,0.10,0.15&#125;,
   fixed ratio_b=0.03) shows max_compressive_strain decreasing monotonically
   with bow (48% drop, 0.5846→0.3040), collapsing strain rather than
   protecting it. A broader 48-eval joint search does find one real
@@ -2681,7 +2757,8 @@ class: idea-slide
   common sense, not a literature citation.
 - **Stats:** n=0 — untestable (hard software-capability gap, see Verdict)<br>
   best good: none (0/0)
-- **Verdict:** INCONCLUSIVE, and genuinely so: the hypothesis as literally
+- **Verdict:** INCONCLUSIVE · UNTESTABLE<br>
+  Genuinely so: the hypothesis as literally
   registered is untestable with the available infrastructure, not
   falsified. `model.EllipticalProfile` does not exist in the installed
   Abaqus 2024 kernel, and `GeneralizedProfile` + `DURING_ANALYSIS` is
@@ -2747,7 +2824,8 @@ class: idea-slide
 - **Stats:** n=50 → 50 coil → 50 riks → 9 good (1.23× Bessa)
   p50/p90/p100 — σ_crit: .22/4.54/13.15 · mcs: .99/1.00/1.00 · mls: .022/.055/.098
   best good: side=.0097 pitch=.25 top_d=.218 → σ=.160 mcs=1.00 mls=.020
-- **Verdict:** FALSIFIED, plainly — contradicted by an adequate,
+- **Verdict:** FALSIFIED · WEAK<br>
+  Contradicted by an adequate,
   above-chance-surrogate search (σ_crit CV R²=0.999, mls CV R²=0.545).
   (Square does edge circular in σ_crit at matched strain, 0.16-0.19 vs
   ~0.13-0.22, but the 0.196 kPa floor-clearing prediction — 2× the 0.1306
@@ -2804,7 +2882,8 @@ class: idea-slide
   best good: a=.0092 b=.0188 pitch=.602 top_d=.038 → σ=.3644 mcs=1.00 mls=.0195
   (3 of the 6 also clear this run's own higher 0.196 kPa target; headline
   slenderness=16.04)
-- **Verdict:** SUPPORTED — real, repeatable, non-fluke. This design
+- **Verdict:** SUPPORTED · WORKS<br>
+  Real, repeatable, non-fluke. This design
   becomes "run17_rectangle," the canonical anchor baseline reused
   throughout the rest of this deck (later refined to 0.7704 kPa, 5.9×
   Bessa, in subsequent runs — see speaker notes, not this campaign's own
@@ -2917,9 +2996,10 @@ class: idea-slide
 - **Stats:** n=42 → 28 coil → 5 riks → 0 good (mls never measured this campaign)
   p50/p90/p100 — σ_crit: 431.8/497.8/505.7 · mcs: .837/.892/.901 · mls: not measured
   best good: none (0/42 passed every criterion)
-- **Verdict:** SUPPORTED as existence at the time — circular passes Stage 1
-  and this campaign's own Stage-2 mcs bar, generalized doesn't. **But later
-  invalidated** (next run's H1): peak local strain 24.7%, 12× the 2% PLA
+- **Verdict:** SUPPORTED (RETRACTED) · DEAD-END<br>
+  As existence at the time — circular passes Stage 1
+  and this campaign's own Stage-2 mcs bar, generalized doesn't. Later
+  invalidated (next run's H1): peak local strain 24.7%, 12× the 2% PLA
   limit, never checked here — the mechanism insight stands, the headline
   number doesn't.
 
@@ -3026,7 +3106,8 @@ class: idea-slide
   (best coilable is 99.5% of the single-storey Bessa optimum by Stage-1
   σ_crit alone — never checked against real feasibility)
   best good: none (0/32 passed every criterion)
-- **Verdict:** INCONCLUSIVE — the topology recovers almost all of the
+- **Verdict:** INCONCLUSIVE · DEAD-END<br>
+  The topology recovers almost all of the
   single-storey Stage-1 performance without losing coilability, which is
   itself informative, but this campaign's own domain never tracked
   mcs/mls at all, so even this near-miss was never checked against the
@@ -3119,7 +3200,8 @@ class: idea-slide
   could not be corroborated) → 20 coil → 0 riks → 0 good (Stage 2 never run)
   p50/p90/p100 — σ_crit (coilable only): 61.5/71.2/71.6 · mcs: not tracked · mls: not tracked
   best good: none (0/31 passed every criterion)
-- **Verdict:** SUPPORTED as registered — but with an important nuance: none
+- **Verdict:** SUPPORTED · DEAD-END<br>
+  As registered — but with an important nuance: none
   of n=4/5/6 reached the study's actual 75.1 kPa floor, and per-longeron
   σ_cr,nd turned out to be empirically independent of n_longerons at fixed
   cross-section (λ_cr ∝ n×J, and the /n normalization exactly cancels it) —
@@ -3185,7 +3267,8 @@ class: idea-slide
 - **Stats:** n=18 → 16 coil → 1 riks → 0 good<br>
   σ_crit/mcs (n=1, only C4 genuinely converged): 76.1 kPa / .090 · mls: not measured<br>
   best good: none (0/18 passed every criterion)
-- **Verdict:** Stage-1 existence SUPPORTED (mechanism real, floor
+- **Verdict:** SUPPORTED · DEAD-END<br>
+  Stage-1 existence supported (mechanism real, floor
   clearable — 5/16 cleared 75.1 kPa), but Stage-2 FAILS both candidates —
   the same GJ that clears the floor blocks deep coiling. Not a usable
   design as tested. Note the two candidates weren't apples-to-apples: D4
@@ -3243,7 +3326,7 @@ This run proposed two new mechanisms (pre-twist, longeron count) but completed z
 | # | Claim | Verdict | Key evidence | Idea |
 |---|---|---|---|---|
 | H1 | Pre-twisted longerons (twist_angle ∈ [π/6, π]) | ❔ | zero evals this run; resolved next run — suggestive negative, underpowered; own idea slide below | D1 |
-| H2 | n_longerons ∈ {4,5} — path past Bessa's fixed 3-longeron design | ✅ | zero evals this run; resolved next run as SUPPORTED (65.31–71.59 kPa, still below the 75.1 kPa floor) | D3 |
+| H2 | n_longerons &isin; &#123;4,5&#125; — path past Bessa's fixed 3-longeron design | ✅ | zero evals this run; resolved next run as SUPPORTED (65.31–71.59 kPa, still below the 75.1 kPa floor) | D3 |
 
 </div>
 
@@ -3287,7 +3370,8 @@ class: idea-slide
   p50/p90/p100 — σ_crit (coilable only): 7.3/43.6/65.3 · mcs: not tracked · mls: not tracked
   (every coilable design at or below the twist=0 baseline, 65.31 kPa)
   best good: none (0/46 passed every criterion)
-- **Verdict:** the mechanism does not work — pre-twist destroys
+- **Verdict:** INCONCLUSIVE · DEAD-END<br>
+  The mechanism does not work — pre-twist destroys
   coilability rather than helping it. The registered test technically
   fell short of its own ≥80-eval bar (a license-server outage killed 26 of
   the planned runs), so the formal status is INCONCLUSIVE, not FALSIFIED,
