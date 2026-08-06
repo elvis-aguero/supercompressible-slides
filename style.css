@@ -82,3 +82,22 @@
 .summary-slide table th {
   padding: 4px 8px;
 }
+
+/* Contract-history slide (`class: contract-slide`): a fourth slide identity
+   alongside idea / summary / baseline. It is a reader warning, not a result --
+   it states that the feasibility rules moved ~12 times before being versioned,
+   so verdicts from different runs are not directly comparable. Muted crimson,
+   distinct from the teal (idea), amber (summary) and indigo (baseline) so the
+   "stop and read this" slide is recognisable at a glance. Both selector forms
+   for the same reason documented on the title-color rule above. */
+.slidev-layout.contract-slide h1,
+.slidev-layout:has(.contract-slide) h1 {
+  color: #9e4a4a;
+}
+
+/* Same compaction as summary tables -- the contract-history table is 9 rows and
+   overflows the 552px canvas at the theme's default 12px vertical cell padding. */
+.contract-slide table td,
+.contract-slide table th {
+  padding: 3px 8px;
+}

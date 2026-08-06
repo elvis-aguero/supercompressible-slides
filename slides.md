@@ -126,7 +126,7 @@ not meant to render. Read this before adding or editing any slide.
                       idea actually worked. Two independent axes, always
                       in this order:
 
-                        <STATUS>[ (RETRACTED|DISQUALIFIED)] · <PRACTICAL>
+                        <STATUS>[ (RETRACTED|DISQUALIFIED|SUPERSEDED)] · <PRACTICAL>
                         <1-3 sentence causal reason, plain language>
 
                       STATUS: exactly one of SUPPORTED / FALSIFIED /
@@ -142,8 +142,36 @@ not meant to render. Read this before adding or editing any slide.
                       evidence still stands unchallenged but doesn't count
                       per the apples-to-apples/novelty contract (a real
                       number, wrong physical mechanism or not genuinely
-                      novel). Never use both — pick whichever actually
-                      happened.
+                      novel); (SUPERSEDED) (added 2026-08-06) when the
+                      evidence was right AND did count at the time, and
+                      the CONTRACT ITSELF has since changed in a way that
+                      could alter the conclusion — see the "How the rules
+                      changed" slide. It reads as "re-test me", not "I was
+                      wrong". Never use more than one — pick whichever
+                      actually happened.
+
+                      (SUPERSEDED) is the ONE flag that does NOT collapse
+                      PRACTICAL to DEAD-END: a superseded verdict's
+                      practical reality is genuinely unknown until it is
+                      re-tested, so PRACTICAL becomes the honest tag —
+                      MIXED where partial evidence survives the rule
+                      change, UNTESTABLE where the old result cannot speak
+                      to the new question at all. Only apply it after an
+                      explicit per-slide triage (does the specific rule
+                      that changed actually bear on THIS verdict?), never
+                      as a blanket stamp across the deck: a design
+                      falsified on strain, on slenderness, or for being a
+                      folding linkage is untouched by the 2026-08-06
+                      change and keeps its verdict unflagged.
+
+                      A design actually RE-TESTED under a new contract
+                      earns a NEW numbered slide whose Origin bullet names
+                      the superseded slide it descends from. Never edit an
+                      old verdict's STATUS to match a new contract — the
+                      record is append-only, because a verdict was a
+                      correct call under the rules of its own time and
+                      rewriting it destroys the audit trail future readers
+                      depend on.
 
                       PRACTICAL: exactly one of WORKS / DEAD-END / WEAK /
                       MIXED / UNTESTABLE — always the CURRENT, FINAL
@@ -446,6 +474,73 @@ Deliberately NOT following the 4-bullet What/Origin/Stats/Verdict idea-slide
 template -- this is not a hypothesis this study tested, it's an external
 reference point, so there is no verdict to render. Per explicit user instruction:
 describe the design and show the gif, no reasoning/justification needed.
+-->
+
+---
+class: contract-slide
+---
+
+# How the rules changed — read this before any verdict
+
+<div class="text-xs leading-snug">
+
+Every verdict below was decided under the rules in force that week, and the rules moved at
+least twelve times. **Verdicts from different runs are not directly comparable to each other.**
+Version numbering starts now: everything before 2026-08-06 is the *unversioned era*, and
+today's contract is **v1** — the first one actually pinned.
+
+| Date | What changed, and what it moved |
+|---|---|
+| 2026-07-16 | Reference design fixed at 0.1306 kPa (every "&times; Bessa" figure before this means something else). Contact with the ground **removed**, believed to be an artificial obstruction — it was not; see the last row |
+| 2026-07-17 | Compression target corrected 90% &rarr; 80%. Strain judged only up to that point, not over the whole squash. Stage 2 made damping-free by default, artificial damping opt-in and capped at 5% of strain energy |
+| 2026-07-18 | Folding linkages ruled out — reaching 80% by rotating rigid bars about joints, with almost no material stretch, stopped counting. Demoted the tensegrity design (1691&times;) |
+| 2026-07-20 | Material passing through a ring's own footprint became a failure. Demoted Kresling (5.4&times;) and the laced design |
+| 2026-07-22 | Bar lowered to 2&times; the reference design. The 5.9&times; result reframed as context, not a target to beat |
+| 2026-07-23 | Strain limit became Bessa's literal wording: 2% on *any* strain component, shear included |
+| 2026-07-28 | A joint-strain scare retracted one headline result, then a convergence study reconfirmed the 5.9&times; baseline. Two other designs were never re-checked and stay unconfirmed |
+| 2026-08-04 | Novelty must be a new *shape or arrangement*, not a resized cross-section |
+| **2026-08-06 (v1)** | **Contact with the ground restored** (Bessa always had it; we lost it 2026-07-16). Ring faces made solid. Load now read from the squash itself, not the cheap estimate. The valid window ends when strain reaches 2%, not at 80% compression |
+
+A verdict tagged **(SUPERSEDED)** means the evidence was right and did count at the time, and
+the rules have since changed in a way that could alter it — "re-test me", not "I was wrong".
+
+</div>
+
+<!--
+Reconstructed 2026-08-06 from `git log -- supercompressible-material/PROBLEM_STATEMENT.md`
+(~70 commits, of which these are the substantive contract changes as opposed to infra/doc
+edits). Same-date entries are merged into one row for space; the underlying commits are:
+
+- 2026-07-16: f400e27 (Bessa point reconciled to 0.1306) and 01c7e40 (NO-CONTACT oracle
+  adopted -- the removal now known to be based on a misidentification of ANALYTICAL_SURF,
+  see docs/self_contact_spec.md Part 7).
+- 2026-07-17: 9b926e9 (mcs 0.90 -> 0.80), 71cae19 + 261998b (mls evaluated only up to the
+  mcs threshold -- explicitly framed at the time as a deliberate Bessa superset departure),
+  841b41e (energy-free default + stabilization opt-in + the ALLSD/ALLSE < 0.05 gate).
+- 2026-07-18: 965e488 (apples-to-apples clause; tensegrity demoted to FAILED), ef82143.
+- 2026-07-20: 7fd6ac0 (ring-passthrough as criterion 5), 5f8cccd (second confirmed instance,
+  the built-up/laced family), 49ab551 (fixing "all four criteria" references left behind).
+- 2026-07-22: dc8c3a1 + 0a48fb5 (operative target lowered to 2x Bessa), ada094c (5.9x
+  reframed as context), d34573f (more conservative about what counts as a dead end).
+- 2026-07-23: 8c1a4a7 (Bessa's actual max(eps_ij) criterion implemented), a811852.
+- 2026-07-28: bf38e64 (headline retracted after the continuum check), c32b6b4 (run17
+  rectangle reconfirmed via the cut-distance convergence study), 0bee11f + 624970c (target
+  restored to 2x + novelty; the Nature-caliber test made concrete).
+- 2026-08-04: d4721d4 (novelty must be geometrical or topological).
+- 2026-08-06: this session -- see docs/self_contact_spec.md Parts 5-9 for the evidence
+  behind each of the four changes, and Part 9 for why three of them are fidelity repairs
+  and only the metric change is a genuine redefinition.
+
+Not shown, because they predate the deck's own coverage: criteria 2-5 did not exist at all
+for the earliest runs (the 5-longeron result from 20260629T191754 was decided when only
+criterion 1 existed), and the slenderness>=10 beam-validity floor was formalised around
+2026-07-17 (e5c956e) after being applied informally earlier.
+
+Why numbering starts now rather than retroactively labelling a "v1" and "v2": the pre-2026-08-06
+record is not one contract, it is at least twelve, and inventing a single retroactive version
+number for it would imply a coherence that did not exist. Calling it the unversioned era is
+the honest description and carries the operative warning -- do not compare verdicts across it
+without checking what the rules were at each date.
 -->
 
 ---
