@@ -661,7 +661,7 @@ this slide. Read the per-design slides that follow before proposing any of these
 
 | design | what changed | what was tested | result |
 |---|---|---|---|
-| **D25** tape spring | disc faces + cap added to its shell pre-processor | **68 designs** under contact (64 swept + 4 paired on/off) | **Settled.** Best design exceeds the 2% strain budget at **11% compression**, against 80% required |
+| **D25** tape spring | disc faces + cap added to its shell pre-processor | **330 designs** under contact, across two campaigns | **Settled.** Best of the 28 designs that reached a verdict gets to **21% compression** before the 2% strain budget runs out, against 80% required |
 | **D21** tensegrity | node-based contact (truss members carry no surface) | 1 design, contact on vs off | Floor now stops it; energy absorbed **+86%**, peak stress **unchanged**. Still blocked on printability |
 | **D17** Kresling | migrated by `_migrate_contact.py` | 1 design | Stalls at 75–77% compression. **Family untested** |
 | **D20** laced | migrated; deck verified | 1 design | Does not converge. **Family untested** |
@@ -697,21 +697,67 @@ class: restudy-slide
 - **What changed:** its shell pre-processor gained the two rigid disc faces and the
   compression-cap parameter. It already had thickness-aware general self-contact, so it was the
   closest of the five to ready.
-- **What was tested:** 64-design Sobol sweep with contact on, plus 4 paired designs solved with
-  contact on *and* off. 65% of the recorded parameter box had to be rejected first — it
-  describes strips wider than the mast, which cannot be meshed.
-- **Result:** **0 feasible.** Every usable design fails coilability, none fails on strain — they
-  all blow the 2% strain budget long before reaching 80% compression. Best of 9 usable designs
-  crosses 2% at **11% compression**. Contact moved that crossing by ~0.005, inconsistent in sign
-  across the paired designs — three orders of magnitude too small to matter.
+- **What was tested:** two campaigns, 330 designs, all with contact on — a 64-design pilot and
+  a 256-design Sobol sweep — plus 10 designs solved paired, contact on *and* off. Two thirds of
+  the recorded parameter box had to be rejected first: it describes strips wider than the mast,
+  which cannot be meshed.
+- **Result:** **0 feasible, and the binding criterion is unanimous.** Of the 28 designs that
+  reached a verdict, **28 fail on compression and 0 fail on strain** — they run out of strain
+  budget before they get anywhere. Median reaches 2.2% compression; the best reaches **21%**, against
+  the 80% required, i.e. short by 3.7×. Contact shifts that crossing by −0.002 on average
+  (n=4 decided pairs, sd 0.008, t = −0.60), and moves it *later* in only 2 of 4.
 - **Seed:** FERTILE — twist/chirality applied to the open-arc section. Partly attempted already:
   D27 reached 0/115 coilable, but Stage-1-only and pre-contact.
+
+<div class="text-xs opacity-60 mt-1">
+The effect of contact is too small to resolve at n=4 — and does not need resolving: the gap it
+would have to close is 3.7×, and it is moving the answer in the third decimal place.
+</div>
 
 </div>
 
 <!--
-Jobs 4791881 (invalid sampling, superseded), 4792435 (corrected), 4794837 (256-design
-significance sweep).
+Jobs 4791881 (invalid sampling, superseded), 4792435 (64-design pilot), 4794837 (256-design
+significance sweep, 1.01 h wall).
+
+THE 256-DESIGN SWEEP, in full: 256 evaluable designs drawn from 752 candidates (66% of the
+recorded box rejected as un-meshable or too thick) -> 50 coilable -> 36 that reached a verdict
+(35 of them salvaged from incomplete solves) -> 0 feasible. mcs percentiles over the 36:
+p0 0.0044, p50 0.0215, p90 0.0533, p100 0.2149. Binding criterion: mcs < 0.80 in 28 of 28,
+mls > 0.02 in 0 of 28, ring_passthrough in 8.
+
+THE JOB'S OWN PRINTOUT SAID 36 DECIDED, AND IT WAS WRONG. Eight of those 36 were EMPTY: a
+salvaged ODB holding zero usable increments, so window_n = 0, which satisfies the
+"window_n < history_n" test trivially and was recorded as "the window closed" on a response
+containing nothing. Each reported mcs = mls = sigma_peak = 0.0 -- and it was the oracle contract
+guard added the same day (bo/oracle_template.py) that flagged them, on its first run, as the
+sentinel-zero pattern. Fixed in bo/oracle_tape_spring.py: a window that closed must actually
+contain something. The corrected denominator is 28, and the verdict is unchanged.
+
+WHY THIS SLIDE COUNTS 28 AND NOT 37. The pilot campaign's own 9 usable designs are NOT added in.
+They predate the empty-response fix and cannot be re-audited for it, because the campaign script
+wrote its results to a fixed path (bo/campaign_tape_spring_result.json) and this run overwrote
+them. That is now job-stamped. 28 is the number that survives audit; 330 is the number of designs
+put through the oracle under contact, which is the right denominator for "how much was spent" and
+the wrong one for "how much was decided".
+
+WHY THE HEADLINE IS mcs AND NOT mls. The campaign's own first printout said "designs under the
+2% limit: 36 of 36", which sounds like every design passed and is in fact a tautology: windowed
+mls is bounded above by 0.02 BY CONSTRUCTION, because the window closes at the crossing. It
+carries no ranking information at all. The same script also ranked designs by min(mls) to find
+the "closest miss", which picks the design that stalled SOONEST -- it printed
+"closest miss: mls=0.000000 mcs=0.0000". Both are now fixed in
+bo/run_campaign_tape_spring.py, and phase 1 was re-analysed on strain_crossing_mcs; the numbers
+on this slide are the corrected ones. This is the same saturation trap that produced a wrong
+verdict on the pilot campaign, in a second disguise, which is why it is written up in
+docs/TRAPS.md section 3 rather than only fixed in code.
+
+ON "DECIDED" VS "USABLE". Only 36 of 256 reached a verdict, and that is the honest denominator.
+A design whose window closed before the solve failed is DECIDED -- the verdict lives entirely in
+the completed increments. One whose solve died before the window closed is TRUNCATED DATA, and
+counting it would be counting a stall as a small crossing. bo/oracle_tape_spring.py flags this
+per design (window_closed_before_failure); the paired test excludes any pair where either side
+is truncated, which is why n=4 and not n=6.
 
 WHY THE FIRST CAMPAIGN WAS THROWN AWAY: a blind Sobol sample of the bounds recorded on the D25
 slide put 55% of the budget into designs that crash the mesher ("Some regions cannot be
