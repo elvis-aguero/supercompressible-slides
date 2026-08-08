@@ -99,5 +99,26 @@
    overflows the 552px canvas at the theme's default 12px vertical cell padding. */
 .contract-slide table td,
 .contract-slide table th {
+  padding: 2px 8px;
+}
+
+/* Contract-history table: keep the date column on one line. With a long final row
+   the dates began wrapping ("2026-07-\n16"), adding a line to EVERY row and pushing
+   the slide 80px past the 552px canvas (measured 2026-08-06). */
+.contract-slide table td:first-child,
+.contract-slide table th:first-child {
+  white-space: nowrap;
+}
+
+/* Re-study slides (`class: restudy-slide`): a fifth identity alongside idea / summary /
+   baseline / contract. These record a design RE-EXAMINED under a changed contract, which is
+   neither a new idea nor a run recap. Muted teal-green, distinct from the other four. See
+   DECK FORMAT CONTRACT rule 8 -- deliberately NOT linted. */
+.slidev-layout.restudy-slide h1,
+.slidev-layout:has(.restudy-slide) h1 {
+  color: #3f7d6a;
+}
+.restudy-slide table td,
+.restudy-slide table th {
   padding: 3px 8px;
 }

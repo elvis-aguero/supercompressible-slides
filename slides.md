@@ -213,6 +213,49 @@ not meant to render. Read this before adding or editing any slide.
                       reason. Don't repeat the baseline number or other
                       Stats-bullet content here. Still state negative
                       results as plainly and confidently as positive ones.
+     (e) Seed      — OPTIONAL 5th bullet, added 2026-08-08. Answers a
+                      question the Verdict cannot: **can this IDEA still
+                      generate a new design?** That is independent of
+                      whether this experiment worked, and conflating the
+                      two causes two opposite failures — an agent
+                      re-running a settled search, and an agent spending a
+                      campaign optimising something that could never count.
+
+                      What is settled by a campaign is the EXPERIMENT — a
+                      parameter box, searched with some power. The Stats
+                      bullet already records that (its funnel IS the
+                      power), so Seed does not repeat it. Seed is about the
+                      ceiling of the idea's whole family of perturbations.
+
+                        FERTILE — <a perturbation that would count>
+                        BARREN  — <why no perturbation can clear the bar>
+
+                      FERTILE MUST NAME AN EXAMPLE PERTURBATION after the
+                      dash. Without one it is an invitation rather than a
+                      direction, and the point of the field is to hand the
+                      next agent somewhere to go. Where a candidate
+                      perturbation has already been partly attempted, say
+                      so and cite the slide — that is what stops an agent
+                      rediscovering a tested idea while "perturbing" a
+                      neighbouring one.
+
+                      The distinction that matters, worked:
+                        tape-spring arc (D25) — the 6-D arc box is
+                          exhausted (406 evals pre-contact + 68 under it),
+                          but a twisted/chiral open shell is a DIFFERENT
+                          design. FERTILE.
+                        rectangle (D6) — not barren because it was searched
+                          hard, but because EVERY variant is still a
+                          cross-section change at fixed topology. No number
+                          it produces can clear the novelty bar. BARREN.
+                      So BARREN is a claim about the idea's ceiling, never
+                      about how much evidence was gathered.
+
+                      Linter: accepted but NOT retrofitted, same as the
+                      Stats and Verdict formats before it — a slide without
+                      Seed WARNS, it does not block. Add it when editing a
+                      slide for any other reason.
+
    PLAIN-LANGUAGE BAR (applies to all 4 bullets): no unexplained jargon in
    the visible slide body. Terms like a bare "ρ" or "r" (correlation/
    regression coefficients), an unglossed "magnitude ratio", or a made-up
@@ -414,6 +457,64 @@ not meant to render. Read this before adding or editing any slide.
    `<div class="text-sm leading-snug">...</div>` — this is the font size
    the character budget in rule 3 is calibrated against; do not silently
    change the font size class without re-measuring the budget (see rule 3).
+
+8. RE-STUDY SLIDES (`class: restudy-slide`, added 2026-08-08).
+   When a design is re-tested under a changed contract, rule 7(d) says the
+   record is append-only and the re-test earns its own slide. But a re-test
+   is not a new IDEA, and forcing it into What/Origin/Stats/Verdict
+   misrepresents it — most re-tests establish that a family is now
+   TESTABLE without yet testing it, and inventing a Verdict for that would
+   be a lie with a fixed vocabulary.
+
+   So a re-study gets `class: restudy-slide` and these fields instead:
+     - **What changed:** the infrastructure change that made a re-test
+       possible at all.
+     - **What was tested:** exactly what ran, with its power. If one design
+       ran, say one design.
+     - **Result:** what is now known — including "nothing yet" where that
+       is the truth.
+     - **Seed:** as rule 3(e).
+
+   DELIBERATELY NOT LINTED. `lint_slides.py` keys its idea-slide checks on
+   `class: idea-slide`, so this class is ignored with no extra code, which
+   is the intent: these are the exception, not the rule, and a linter rule
+   per exception is how a linter becomes noise nobody reads. The format
+   above is still binding on whoever writes one — it is just enforced by
+   review rather than by machine.
+
+   These slides do NOT take a new D-number. A D-number marks a genuinely
+   new idea (rule 1); a re-study is the same idea re-examined, so it is
+   titled for the design it revisits (e.g. "D25 revisited") and the
+   original slide keeps its number, its data and its verdict, gaining
+   (SUPERSEDED) only where the contract change could actually alter it.
+
+7. PROVENANCE (added 2026-08-06, when the oracle's physics and metric both
+   changed and the deck had to survive it). Five rules:
+
+   (a) ONE PROVENANCE PER SLIDE. Every number on a slide and its gif must
+       come from the SAME oracle version. Never pair a re-rendered gif with
+       numbers from the oracle that preceded it, or new numbers with an old
+       gif. This is the rule that makes a bulk gif re-render WRONG as a
+       standalone action: re-rendering 27 gifs under the new oracle while
+       leaving 27 sets of old numbers in place would make every one of those
+       slides internally inconsistent. Re-render only as part of a full
+       re-test of that design.
+   (b) EVERY GIF TRACES TO AN ARCHIVED ODB, under
+       `data/idea_odbs/<id>/`, whose `PROVENANCE.txt` records the exact
+       inputs and the solve recipe used. A gif with no archived ODB behind it
+       cannot be re-derived and does not belong in the deck.
+   (c) EVERY NUMBER TRACES TO A RUN AND A DELEGATION, named in the slide's
+       speaker notes (e.g. "H1 of run 20260804T221559, delegation D006").
+   (d) CONTRACT CHANGES NEVER REWRITE AN EXISTING SLIDE'S DATA. Not its
+       numbers, not its gif, not its verdict STATUS. A re-test earns a NEW
+       slide; the old slide keeps everything it had and gains (SUPERSEDED)
+       (see rule 3(d)). Append-only, in the data as well as the verdicts.
+   (e) A CROSS-CUTTING CAVEAT IS STATED ONCE, on the "How the rules changed"
+       slide — not repeated in 27 captions, which is how such a caveat rots
+       out of date. The live instance: every gif predating 2026-08-06 was
+       rendered under the no-contact oracle, so longerons visibly pass
+       through the floor in them. That is a known artifact of the model as it
+       stood, not the design's behaviour.
 ============================================================================
 -->
 
@@ -484,25 +585,28 @@ class: contract-slide
 
 <div class="text-xs leading-snug">
 
-Every verdict below was decided under the rules in force that week, and the rules moved at
-least twelve times. **Verdicts from different runs are not directly comparable to each other.**
-Version numbering starts now: everything before 2026-08-06 is the *unversioned era*, and
-today's contract is **v1** — the first one actually pinned.
+Every verdict below was decided under the rules in force that week, and the rules moved at least
+twelve times — so **verdicts from different runs are not directly comparable.** Numbering starts now:
+everything before 2026-08-06 is the *unversioned era*; today's contract is **v1**, the first one pinned.
 
 | Date | What changed, and what it moved |
 |---|---|
 | 2026-07-16 | Reference design fixed at 0.1306 kPa (every "&times; Bessa" figure before this means something else). Contact with the ground **removed**, believed to be an artificial obstruction — it was not; see the last row |
-| 2026-07-17 | Compression target corrected 90% &rarr; 80%. Strain judged only up to that point, not over the whole squash. Stage 2 made damping-free by default, artificial damping opt-in and capped at 5% of strain energy |
-| 2026-07-18 | Folding linkages ruled out — reaching 80% by rotating rigid bars about joints, with almost no material stretch, stopped counting. Demoted the tensegrity design (1691&times;) |
+| 2026-07-17 | Compression target corrected 90% &rarr; 80%. Strain judged only up to that point, not over the whole squash. Stage 2 made damping-free by default, damping opt-in and capped at 5% of strain energy |
+| 2026-07-18 | Folding linkages ruled out — reaching 80% by rotating rigid bars, with almost no material stretch, stopped counting. Demoted tensegrity (1691&times;) |
 | 2026-07-20 | Material passing through a ring's own footprint became a failure. Demoted Kresling (5.4&times;) and the laced design |
 | 2026-07-22 | Bar lowered to 2&times; the reference design. The 5.9&times; result reframed as context, not a target to beat |
 | 2026-07-23 | Strain limit became Bessa's literal wording: 2% on *any* strain component, shear included |
-| 2026-07-28 | A joint-strain scare retracted one headline result, then a convergence study reconfirmed the 5.9&times; baseline. Two other designs were never re-checked and stay unconfirmed |
+| 2026-07-28 | A joint-strain scare retracted one headline, then a convergence study reconfirmed the 5.9&times; baseline; two other designs were never re-checked |
 | 2026-08-04 | Novelty must be a new *shape or arrangement*, not a resized cross-section |
-| **2026-08-06 (v1)** | **Contact with the ground restored** (Bessa always had it; we lost it 2026-07-16). Ring faces made solid. Load now read from the squash itself, not the cheap estimate. The valid window ends when strain reaches 2%, not at 80% compression |
+| **2026-08-06 (v1)** | **Contact with the ground restored** (Bessa always had it; we lost it 2026-07-16) and the disc faces made solid. Compression stops at 95%. Load read from the squash itself, not the cheap estimate, inside a window ending at 2% strain |
 
 A verdict tagged **(SUPERSEDED)** means the evidence was right and did count at the time, and
 the rules have since changed in a way that could alter it — "re-test me", not "I was wrong".
+**Every animation older than 2026-08-06 was made without a floor**, so longerons visibly sink through
+the base — an artifact of the model of the day, not the design. Under v1 the reference design measures
+**0.1122 kPa** (was 0.1306), so 2&times; = **0.2244**, and the 5.9&times; baseline becomes **0.6077 kPa = 5.42&times;**.
+Every &times;Bessa figure on the slides below is in the OLD metric, consistently so.
 
 </div>
 
@@ -541,6 +645,190 @@ record is not one contract, it is at least twelve, and inventing a single retroa
 number for it would imply a coherence that did not exist. Calling it the unversioned era is
 the honest description and carries the operative warning -- do not compare verdicts across it
 without checking what the rules were at each date.
+-->
+
+---
+class: restudy-slide
+---
+
+# Re-study under contact — what was retested, and what it settles
+
+<div class="text-xs leading-snug">
+
+Five designs were re-examined after ground+disc contact was restored (2026-08-06/08). **Three of
+them now have working infrastructure but no result** — that distinction is the whole point of
+this slide. Read the per-design slides that follow before proposing any of these again.
+
+| design | what changed | what was tested | result |
+|---|---|---|---|
+| **D25** tape spring | disc faces + cap added to its shell pre-processor | **68 designs** under contact (64 swept + 4 paired on/off) | **Settled.** Best design exceeds the 2% strain budget at **11% compression**, against 80% required |
+| **D21** tensegrity | node-based contact (truss members carry no surface) | 1 design, contact on vs off | Floor now stops it; energy absorbed **+86%**, peak stress **unchanged**. Still blocked on printability |
+| **D17** Kresling | migrated by `_migrate_contact.py` | 1 design | Stalls at 75–77% compression. **Family untested** |
+| **D20** laced | migrated; deck verified | 1 design | Does not converge. **Family untested** |
+| **D26** chiral shell | Stage-2 pre-processor **written** (never existed) | 1 design | Exceeded the 600 s budget. **Family untested** |
+
+**Do not read "we migrated it" as "we tested it."** One design cannot settle a family — the one
+design available is usually the winner of a search run *without* contact, which is the worst
+possible point to generalise from.
+
+</div>
+
+<!--
+Written 2026-08-08 at the advisor's request, so a future agent does not read "contact is now
+available" and re-propose these five as fresh ideas.
+
+The asymmetry in this table is deliberate and is the honest state of play. D25 is the only row
+carrying real statistical weight. D21 converged but its blocker was never geometric. The other
+three rows record ONLY that a code path now exists.
+
+Per-design detail on the slides that follow. Infrastructure provenance in
+docs/ORACLE_ERAS.md (which commit reproduces which oracle) and docs/self_contact_spec.md
+(Part 12 on why one design cannot settle a family).
+-->
+
+---
+class: restudy-slide
+---
+
+# D25 revisited — tape spring under contact
+
+<div class="text-sm leading-snug">
+
+- **What changed:** its shell pre-processor gained the two rigid disc faces and the
+  compression-cap parameter. It already had thickness-aware general self-contact, so it was the
+  closest of the five to ready.
+- **What was tested:** 64-design Sobol sweep with contact on, plus 4 paired designs solved with
+  contact on *and* off. 65% of the recorded parameter box had to be rejected first — it
+  describes strips wider than the mast, which cannot be meshed.
+- **Result:** **0 feasible.** Every usable design fails coilability, none fails on strain — they
+  all blow the 2% strain budget long before reaching 80% compression. Best of 9 usable designs
+  crosses 2% at **11% compression**. Contact moved that crossing by ~0.005, inconsistent in sign
+  across the paired designs — three orders of magnitude too small to matter.
+- **Seed:** FERTILE — twist/chirality applied to the open-arc section. Partly attempted already:
+  D27 reached 0/115 coilable, but Stage-1-only and pre-contact.
+
+</div>
+
+<!--
+Jobs 4791881 (invalid sampling, superseded), 4792435 (corrected), 4794837 (256-design
+significance sweep).
+
+WHY THE FIRST CAMPAIGN WAS THROWN AWAY: a blind Sobol sample of the bounds recorded on the D25
+slide put 55% of the budget into designs that crash the mesher ("Some regions cannot be
+Mapped"). Each longeron is an arc of radius R_tape spanning alpha_tape, swept along the
+joint-to-joint line -- a strip of width R_tape*alpha_tape. The recorded bounds allow 880 mm on a
+100 mm structure; three longerons share ~105 mm of circumference each. Wider strips overlap
+themselves and their neighbours, and Abaqus cannot tile a self-overlapping surface. Measured
+across 77 attempts: 0/26 failed below 50 mm, 13/13 failed above 400 mm. That is now a free
+geometric prefilter in bo/oracle_tape_spring.py, and it is why the original campaign sampled
+four named CORRIDORS rather than the box -- a fact lost when the bounds were copied onto the
+slide without it.
+
+WHY A STALLED SOLVE STILL DECIDES A DESIGN: this family's solves stall near 80% compression, but
+the reported window closes at the FIRST of 95% compression or 2% strain, and this family fails on
+STRAIN. A design crossing 2% at 11% compression is DECIDED. scripts/salvage_riks_odb.py
+post-processes the partial ODB; 8 of the 9 usable results came from stalled solves that would
+otherwise have been discarded, and the oracle marks `window_closed_before_failure` so a
+truncated response is never mistaken for a verdict.
+
+A MEASUREMENT TRAP, recorded because it produced a wrong verdict first: the paired test was
+initially run on WINDOWED mls, which is pinned just under 0.02 BY CONSTRUCTION -- the window
+closes at the 2% crossing, so its maximum cannot exceed it. Comparing it measures the ceiling,
+not the design. The unsaturated statistic is `strain_crossing_mcs`: at what compression does the
+design cross 2%.
+
+ON THE OLD "CLOSEST MISS" FRAMING: design C is recorded as failing only criterion 3, by 1.38x.
+Under the current window it exceeds the strain limit at 20% compression -- a quarter of the way
+to the requirement. Same curve, same verdict, but "1.38x over on strain" reads as a near miss and
+"blows the budget a fifth of the way down" is what the data says.
+-->
+
+---
+class: restudy-slide
+---
+
+# D21 revisited — tensegrity under contact
+
+<div class="text-sm leading-snug">
+
+- **What changed:** contact added by hand, not by the migration tool. Its struts are truss
+  members, which carry no cross-section geometry, so Abaqus cannot build a contact surface on
+  them at all. The secondary side is a **node region** instead, with the strut radius injected
+  explicitly.
+- **What was tested:** 1 design — the archived one — solved with contact on and off. Stage 1
+  reproduces the archive exactly, so every difference is attributable to contact alone.
+- **Result:** the floor now stops it: material that previously sank **50 mm below the base ring**
+  is held. Energy absorbed rose **+86%**; peak stress is **bit-identical**, because the peak
+  happens before contact engages. Strain went from 9&times;10<sup>-14</sup> (i.e. nothing strains
+  at all) to 3.4%.
+- **Seed:** BARREN — the mechanism needs prestressed cables and pin joints, which cannot be
+  monolithically printed. Contact does not touch that.
+
+</div>
+
+<!--
+Migrated by a subagent, commit 2979e35, jobs 4777817 / 4778543 / 4778788.
+
+THE STRAIN NUMBER IS THE WHOLE STORY. 9e-14 is not a small strain, it is NO strain: the structure
+reaches compression by rotating rigid struts about joints, which is the apples-to-apples clause's
+definition of a linkage rather than a supercompressible material. Contact forces real straining
+(3.4%), but a linkage that now touches the floor is still a linkage.
+
+sigma_peak being bit-identical with and without contact is the clearest demonstration yet of why
+energy_absorbed was added: the peak lands before contact engages, so a maximum cannot see what
+contact does. This is the first family where contact moved any reported number.
+
+TWO FINDINGS THAT GENERALISE BEYOND THIS FAMILY, both from the subagent:
+- `THE ANALYSIS HAS COMPLETED SUCCESSFULLY` is necessary but NOT sufficient. A Riks step that
+  inverted its path to LPF = -34 and climbed back still reported success, and the first probe
+  read it as converged with mcs = 34.2. Check the LPF path, not just the exit status.
+- A node region carries its own contact multiplier, so a node that is ALSO a kinematic-coupling
+  secondary is over-constrained by construction (zero pivot, contact force error -1.5e21). The
+  element-based families are not known to have this, but they have not been checked and their
+  top rings descend onto the same floor.
+-->
+
+---
+class: restudy-slide
+---
+
+# D17, D20, D26 revisited — testable now, untested still
+
+<div class="text-sm leading-snug">
+
+- **What changed:** **D17** (Kresling) and **D20** (laced) were migrated by
+  `scripts/_migrate_contact.py`. **D26** (chiral shell) had no Stage-2 pre-processor at all —
+  every design in its two campaigns failed the Stage-1 coilability gate, so one was never
+  written. One was written for it.
+- **What was tested:** one design each. That is enough to verify a code path, and not remotely
+  enough to say anything about a family.
+- **Result:** D17 stalls at 75–77% compression, on the floor its hinge used to pass through.
+  D20 builds a valid model but does not converge. D26 exceeded the 600 s solve budget — it
+  carries ~11,000 nodes against the reference family's ~1,000, so it needs a mesh-convergence
+  study before it is searchable at all.
+- **Seed:** FERTILE (all three) — none has been searched under contact. D17's own mechanism
+  depended on passing through the floor, so it has the most to lose and is the least promising.
+
+</div>
+
+<!--
+Commits 4ba6627 (D17), a235734 (D20, D25), and the D26 pre-processor.
+
+D17 is the sharpest illustration of why one design proves nothing about a family. The design
+tested is the anchor -- found by a search run against the FLOOR-FREE oracle, so it is the design
+most likely to have been selected precisely for exploiting floor passthrough. Its failure under a
+floor is close to tautological. Whether the Kresling family contains points that WORK under
+contact -- possibly points the old oracle rejected, since bearing on a disc is load-carrying it
+could not represent -- is untested.
+
+D26 is blocked on cost, not correctness: its deck asserts pass. The mesh is the lever
+(`mesh_seed_shell` is already a parameter), not the wall clock -- raising the budget does not
+make a family converge, and a family that cannot produce a result inside the per-solve cap is not
+searchable. See PROBLEM_STATEMENT.md's per-solve budget section.
+
+Also unmigrated and worth knowing: ~15 further families, plus supercompressible_riks_brace.py,
+which until 2026-08-08 had contact ACTIVE with allowSeparation=OFF -- the setting measured at
+9/95 Stage-2 convergence. Any brace-family result predating that fix is suspect.
 -->
 
 ---
@@ -830,6 +1118,8 @@ class: idea-slide
   is the same curvature that sets its bending-strain floor. The shape can
   never be shallow enough to fold locally without first buckling — so
   strain follows ordinary beam bending at every depth tested, not a fold.
+- **Seed:** FERTILE — twist the arc along the sweep, so no station carries the
+  full curvature. As stated, settled (68 more under contact, 0 feasible).
 
 <div class="text-xs opacity-50 mt-2">
 ¹ Named theories cited by the delegation; no single specific paper was looked up/verified this run.
@@ -844,6 +1134,14 @@ class: idea-slide
 </div>
 
 <!--
+SEED RATIONALE (added 2026-08-08, rule 3(e)). The arc is straight along the sweep, so every
+station carries the same section curvature and therefore the same bending-strain floor -- the
+mechanism this campaign falsified. A twist re-orients the section along the length, so the floor
+is not set everywhere at once. That is a genuine perturbation of the idea, not a re-run of it.
+Partly attempted already as D27 (chiral shell vane), which reached 0/115 coilable -- but that was
+STAGE-1 ONLY and PRE-CONTACT, so the mechanism is unrefuted rather than supported. Whoever picks
+this up should read the D25 re-study slide first: the idea AS STATED here is now settled under
+contact as well (68 further designs, 0 feasible).
 This is H2 of run `20260730T020245` (all-Sonnet, Opus-strategizer, GATED,
 evals_used=407, 14 delegations). H1 (oracle re-confirm, -0.0062% deviation)
 is excluded from this deck entirely per the format contract. H3–H8 are
@@ -1412,8 +1710,9 @@ class: idea-slide
 
 ::right::
 
-<div class="flex items-center justify-center h-full">
-  <img src="/gifs/cruciform_native.gif" class="max-h-100 rounded shadow-lg" />
+<div class="flex flex-col items-center justify-center h-full gap-1">
+  <img src="/gifs/cruciform_native.gif" class="max-h-85 rounded shadow-lg" />
+  <div class="text-xs opacity-50 text-center">From a <b>non-converged</b> solve — that is why Stats counts 0 riks (see notes).</div>
 </div>
 
 <!--
@@ -1510,11 +1809,10 @@ class: idea-slide
 - **Verdict:** SUPPORTED (DISQUALIFIED) · DEAD-END<br>
   Largest &sigma;_cr,nd in the study (re-verified via direct ODB mode-1
   extraction) — but pin-jointed/prestress isn't comparable elastic bending.
-  The mcs/mls values above look broken (up to 2929/9.55) because this
-  family's post-processor scales strain differently for a truss than a
-  bending beam — not an error, but the near-zero-material-strain signature
-  apples-to-apples is built to catch (headline mls&asymp;9&times;10<sup>-14</sup>, i.e. none).
-
+  The broken-looking mcs/mls above (up to 2929/9.55) are a truss-vs-beam
+  strain scaling, not an error — the real signal is the near-zero material
+  strain apples-to-apples exists to catch (mls&asymp;9&times;10<sup>-14</sup>, i.e. none).
+- **Seed:** BARREN — blocked on printability (prestressed cables, pin joints).
 
 </div>
 
@@ -2210,7 +2508,7 @@ class: idea-slide
 
 <div class="flex flex-col items-center justify-center h-full gap-1">
   <img src="/gifs/chiral_brace_native.gif" class="max-h-85 rounded shadow-lg" />
-  <div class="text-xs opacity-50 text-center">Undeformed configuration only — see speaker notes.</div>
+  <div class="text-xs opacity-50 text-center">Undeformed geometry only — this solve has no valid deformed state (see notes).</div>
 </div>
 
 <!--
@@ -2983,6 +3281,8 @@ class: idea-slide
   throughout the rest of this deck (later refined to 0.7704 kPa, 5.9×
   Bessa, in subsequent runs — see speaker notes, not this campaign's own
   result).
+- **Seed:** BARREN — it SUCCEEDED and became the floor. Beat
+  **run17_rectangle**, not Bessa.
 
 
 </div>
@@ -2994,6 +3294,11 @@ class: idea-slide
 </div>
 
 <!--
+SEED RATIONALE (added 2026-08-08, rule 3(e)). BARREN here does not mean "failed" -- it means
+SUCCEEDED and became the floor. Perturbations of the cross-section alone (aspect ratio,
+orientation, taper) are inside the box this family already searched, so a rectangle-only campaign
+that beats Bessa is re-deriving a settled result. The bar for a new slide is beating
+run17_rectangle, not beating Bessa.
 Fuller context:
 
 - This is H8 of run `20260705T181941` (the clean, minimal existence claim), following
