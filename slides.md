@@ -752,6 +752,21 @@ on this slide are the corrected ones. This is the same saturation trap that prod
 verdict on the pilot campaign, in a second disguise, which is why it is written up in
 docs/TRAPS.md section 3 rather than only fixed in code.
 
+WHICH KNOB ACTUALLY MATTERS. bo/campaign_summary.py over the 28 decided designs: of the six free
+parameters, exactly one moves the blocker -- alpha_tape, the arc angle (rho = -0.600 against
+compression reached, Holm-adjusted p = 0.003 across the six; every other parameter adjusts to
+p = 1.00, including thickness and R/t). Section depth, which alpha drives, correlates at
+rho = -0.665. The deepest half of the designs reach 0.9% compression at the median; the flattest
+half reach 3.4%.
+
+AND THE BEST DESIGNS SIT ON THE alpha_tape LOWER BOUND (the top quarter average 14% of the
+range). Normally that means "widen the bound, you have not measured this dimension". Here it
+means the opposite, and it is the strongest single argument for closing the family: the search
+is pushing toward the SHALLOWEST arc allowed, and the bound is already 0.05 rad. Widening it
+further does not find a better tape spring, it deletes the arc -- the best design in the whole
+campaign has 0.5 mm of section depth and is a flat strip, which is D6 territory and already
+searched. The optimiser's preferred direction exits the family.
+
 ON "DECIDED" VS "USABLE". Only 36 of 256 reached a verdict, and that is the honest denominator.
 A design whose window closed before the solve failed is DECIDED -- the verdict lives entirely in
 the completed increments. One whose solve died before the window closed is TRUNCATED DATA, and
