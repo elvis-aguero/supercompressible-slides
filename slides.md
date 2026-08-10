@@ -649,9 +649,11 @@ without checking what the rules were at each date.
 
 ---
 class: restudy-slide
+layout: default
 ---
 
 # Re-study under contact — what was retested, and what it settles
+
 
 <div class="text-xs leading-snug">
 
@@ -667,11 +669,19 @@ this slide. Read the per-design slides that follow before proposing any of these
 | **D20** laced | migrated; deck verified | 1 design | Does not converge. **Family untested** |
 | **D26** chiral shell | Stage-2 pre-processor **written** (never existed) | 1 design | Exceeded the 600 s budget. **Family untested** |
 
+<div class="flex items-center gap-4 mt-1">
+  <div class="flex-1">
+
 **Do not read "we migrated it" as "we tested it."** One design cannot settle a family — the one
 design available is usually the winner of a search run *without* contact, which is the worst
 possible point to generalise from.
 
+  </div>
+  <img src="/gifs/restudy_floor_contact.gif" class="max-h-36 rounded shadow" />
 </div>
+
+</div>
+
 
 <!--
 Written 2026-08-08 at the advisor's request, so a future agent does not read "contact is now
@@ -688,19 +698,20 @@ docs/ORACLE_ERAS.md (which commit reproduces which oracle) and docs/self_contact
 
 ---
 class: restudy-slide
+layout: two-cols-header
 ---
 
 # D25 revisited — tape spring under contact
 
+
+::left::
 <div class="text-sm leading-snug">
 
-- **What changed:** its shell pre-processor gained the two rigid disc faces and the
-  compression-cap parameter. It already had thickness-aware general self-contact, so it was the
-  closest of the five to ready.
-- **What was tested:** two campaigns, 330 designs, all with contact on — a 64-design pilot and
-  a 256-design Sobol sweep — plus 10 designs solved paired, contact on *and* off. Two thirds of
-  the recorded parameter box had to be rejected first: it describes strips wider than the mast,
-  which cannot be meshed.
+- **What changed:** gained the two rigid disc faces and the compression cap. It already had
+  thickness-aware general self-contact, so it was the closest of the five to ready.
+- **What was tested:** two campaigns, **330 designs**, contact on — a 64-design pilot and a
+  256-design Sobol sweep — plus 10 paired on/off. Two thirds of the recorded box had to be
+  rejected first: it describes strips wider than the mast, which cannot be meshed.
 - **Result:** **0 feasible, and the binding criterion is unanimous.** Of the 28 designs that
   reached a verdict, **28 fail on compression and 0 fail on strain** — they run out of strain
   budget before they get anywhere. Median reaches 2.2% compression; the best reaches **21%**, against
@@ -710,10 +721,17 @@ class: restudy-slide
   D27 reached 0/115 coilable, but Stage-1-only and pre-contact.
 
 <div class="text-xs opacity-60 mt-1">
-The effect of contact is too small to resolve at n=4 — and does not need resolving: the gap it
-would have to close is 3.7×, and it is moving the answer in the third decimal place.
+Contact's effect is unresolvable at n=4 and needs no resolving: the gap is 3.7×, and it moves the
+answer in the third decimal.
 </div>
 
+</div>
+
+::right::
+
+<div class="flex flex-col items-center justify-center h-full">
+  <img src="/gifs/restudy_tape_spring_contact.gif" class="max-h-80 rounded shadow-lg" />
+  <div class="text-xs opacity-60 mt-2 px-4 text-center">A tape-spring longeron under contact: the wrinkle localises almost immediately, which is why the strain budget is gone by ~2% compression.</div>
 </div>
 
 <!--
@@ -806,10 +824,13 @@ to the requirement. Same curve, same verdict, but "1.38x over on strain" reads a
 
 ---
 class: restudy-slide
+layout: two-cols-header
 ---
 
 # D21 revisited — tensegrity under contact
 
+
+::left::
 <div class="text-sm leading-snug">
 
 - **What changed:** contact added by hand, not by the migration tool. Its struts are truss
@@ -825,6 +846,13 @@ class: restudy-slide
 - **Seed:** BARREN — the mechanism needs prestressed cables and pin joints, which cannot be
   monolithically printed. Contact does not touch that.
 
+</div>
+
+::right::
+
+<div class="flex flex-col items-center justify-center h-full">
+  <img src="/gifs/restudy_tensegrity_contact.gif" class="max-h-80 rounded shadow-lg" />
+  <div class="text-xs opacity-60 mt-2 px-4 text-center">Contact on: the floor now holds it. Struts rotate to full collapse and land on the base ring instead of sinking 50&nbsp;mm through it.</div>
 </div>
 
 <!--
@@ -851,10 +879,13 @@ TWO FINDINGS THAT GENERALISE BEYOND THIS FAMILY, both from the subagent:
 
 ---
 class: restudy-slide
+layout: two-cols-header
 ---
 
 # D17, D20, D26 revisited — testable now, untested still
 
+
+::left::
 <div class="text-sm leading-snug">
 
 - **What changed:** **D17** (Kresling) and **D20** (laced) were migrated by
@@ -870,6 +901,13 @@ class: restudy-slide
 - **Seed:** FERTILE (all three) — none has been searched under contact. D17's own mechanism
   depended on passing through the floor, so it has the most to lose and is the least promising.
 
+</div>
+
+::right::
+
+<div class="flex flex-col items-center justify-center h-full">
+  <img src="/gifs/restudy_laced_contact.gif" class="max-h-80 rounded shadow-lg" />
+  <div class="text-xs opacity-60 mt-2 px-4 text-center">D20's laced longeron, coiling. The machinery builds and runs — one design is not a family.</div>
 </div>
 
 <!--
