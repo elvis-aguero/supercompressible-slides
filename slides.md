@@ -458,6 +458,19 @@ not meant to render. Read this before adding or editing any slide.
    the character budget in rule 3 is calibrated against; do not silently
    change the font size class without re-measuring the budget (see rule 3).
 
+7bis. SUMMARY-SLIDE `Idea` COLUMN (enforced 2026-08-10). Each row of a run
+   summary's hypothesis table ends with an `Idea` cell naming the idea
+   slide(s) that row produced. Two checks, because both halves failed once:
+   a `D<n>` that has no `# D<n>` slide is a BLOCKING error (a dangling
+   pointer), and a cell carrying PROSE instead of a D-number is a warning.
+   The prose case is the one that actually happened: run `20260809T230403`
+   tested the leaf-spring family, falsified it, and its summary row said
+   "archived" because nobody had written the slide — so a genuinely new
+   family became invisible to the next reader. One slide per genuinely new
+   idea REGARDLESS OF VERDICT; a family that FAILED is precisely what stops
+   it being re-proposed. A bare dash is correct and common: a hypothesis
+   about the whole design space has no idea slide of its own.
+
 8. RE-STUDY SLIDES (`class: restudy-slide`, added 2026-08-08).
    When a design is re-tested under a changed contract, rule 7(d) says the
    record is append-only and the re-test earns its own slide. But a re-test
@@ -595,7 +608,7 @@ objective was not met.**
 |---|---|---|---|---|
 | H1 | The straight-longeron two-ring topology is at its ceiling: coiling curvature is pinned to the ring radius (&kappa;&asymp;2/D<sub>1</sub>), capping winding-plane member depth near 2&nbsp;mm | &#10068; | Every escape attempt failed, but a ceiling claim cannot be established by four failures | — |
 | H2 | &sigma;_peak is **always** set by the pre-coil instability — a later contact-mediated rise cannot set the objective | &#10003; | mcs_at_peak &lt; 0.30 for every design. The 6 apparent late peaks (one at &sigma;=245.8 kPa) were **truncation artifacts**: `window_n == history_n`, peak at the last computed increment | — |
-| H7 | A multi-leaf (leaf-spring) longeron decouples depth from coiling curvature | &#10007; | `n_leaves=1` reproduced run-17 rectangle to 4 s.f.; `n_leaves=3` regressed 7.7&times; (&sigma;_eig 0.770&rarr;0.100) at 482&nbsp;s vs 84&nbsp;s | archived |
+| H7 | A multi-leaf (leaf-spring) longeron decouples depth from coiling curvature | &#10007; | `n_leaves=1` reproduced run-17 rectangle to 4 s.f.; `n_leaves=3` regressed 7.7&times; (&sigma;_eig 0.770&rarr;0.100) at 482&nbsp;s vs 84&nbsp;s | D28 |
 | H8/H9 | Coil-mode critical load is set by the **minimum** of winding-plane bending and torsional stiffness (fitted &sigma;_eig &prop; J<sup>0.96</sup>) | &#10003; | The run's one durable contribution — a mechanism law with an exponent, not a ranking | — |
 
 **Best feasible = 0.6071 kPa — the incumbent rectangle, rediscovered** as the leaf-spring family's own *regression control*.
@@ -656,6 +669,70 @@ The two leaf-spring pre-processors were ARCHIVED to scripts/superseded/ (family 
 preserved). Also filed: the literature provider was 403 rate-limited for the whole session, so
 Pellegrino/Pasini full texts were unreachable, and the critic could not Read pipeline.ipynb at any
 window size and fell back to line-anchored Grep.
+-->
+
+---
+class: idea-slide
+layout: two-cols-header
+---
+
+# D28 &middot; Multi-leaf (leaf-spring) longeron
+
+::left::
+
+<div class="text-sm leading-snug">
+
+- **What:** Split each longeron into `n_leaves` thin leaves stacked in the winding plane,
+  free to slide over one another — a leaf spring. The hope: total depth still carries the
+  load while each leaf bends at its own small depth, paying the strain penalty per-leaf.
+  Free: n_leaves&isin;{1,3,5} a&isin;[.004,.014] b&isin;[.01,.045] pitch&isin;[.25,1] | Fixed: rsm=.3677 n_long=3 n_storeys=1 twist=0
+- **Origin:** direct attack on this run's own H1 — coiling curvature is pinned to the
+  ring radius, so the only free lever is the depth that curvature acts on. Classical
+  laminated-leaf-spring practice, not a metamaterial citation.
+- **Stats:** n=3 &rarr; 3 coil &rarr; 2 riks &rarr; 1 good (5.41&times; Bessa)
+  n_leaves=1: &sigma;_peak .6071 &sigma;_eig .7704 mls .0199 &middot; n_leaves=3: &sigma;_peak nan &sigma;_eig .1004
+  best good: n_leaves=1 &rarr; **which is the run-17 rectangle**, matched to 4 s.f.
+- **Verdict:** FALSIFIED · DEAD-END<br>
+  `n_leaves=1` is the family's own *regression control* and reproduces the incumbent
+  exactly. The one genuinely multi-leaf point **regressed 7.7&times;** at 482&nbsp;s vs
+  84&nbsp;s: stacking leaves splits the depth that carries load without changing the
+  curvature that caps it, so it pays the strain penalty twice.
+- **Seed:** BARREN as stated. Decoupling leaf spacing from the winding radius would be a
+  different idea, needing a different argument than "more leaves".
+
+</div>
+
+::right::
+
+<div class="flex flex-col items-center justify-center h-full">
+  <img src="/gifs/leaf_spring_native.gif" class="max-h-80 rounded shadow-lg" />
+  <div class="text-xs opacity-60 mt-2 px-4 text-center">n_leaves=3 under contact — the leaves bend together, not independently, and the coil never tightens.</div>
+</div>
+
+<!--
+Run 20260809T230403, delegation D011, H7. Pre-processors archived to
+scripts/superseded/ (supercompressible_{lin_buckle,riks}_leaf_spring.py) rather than deleted:
+the family is settled, the machinery is not wrong, and building a Stage-2 pre-processor is most
+of the cost of testing a family -- D26 went two campaigns without one and was never testable at
+all.
+
+WHY THIS SLIDE EXISTS AT ALL, since the numbers are unflattering: the run's summary table pointed
+its Idea column at "archived" because there was no slide to point at, which is how a genuinely
+new family tested in a closed run ends up invisible to the next reader. The deck's rule is one
+slide per genuinely new idea REGARDLESS of verdict -- a family that failed is exactly what a
+future agent needs to not re-propose it. assets/lint_slides.py now blocks a summary row whose Idea cell
+does not resolve to a real D-slide, so this cannot recur silently.
+
+ON THE HEADLINE CONFUSION THIS CAUSED: n_leaves=1 topped the run's feasible ledger at 0.6071 kPa
+and was briefly reported (by the assistant) as a new family's best design. It is not -- it is the
+rectangle, arriving through a different generator. The critic checked whether it was a duplicate
+row and cleared it as "a genuinely different, independently-converged design (different
+n_longerons)", but it compared against D005's n_longerons=4 design rather than the ANCHOR, which
+is also n_longerons=3. Wrong pair. The notebook's prose reached the right conclusion regardless
+("the novelty half of the objective was NOT met").
+
+n_leaves=5 was budgeted but never run -- the campaign stopped after n_leaves=3 made the direction
+clear, which is the correct call and is why n=3 rather than a fuller sweep.
 -->
 
 ---
