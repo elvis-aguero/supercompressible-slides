@@ -896,6 +896,87 @@ which until 2026-08-08 had contact ACTIVE with allowSeparation=OFF -- the settin
 class: summary-slide
 ---
 
+# Run `20260809T230403` — summary
+
+<div class="text-sm leading-snug">
+
+First mixed-model run (**Opus 5 strategizer, Sonnet 5 workers**) and the first to take the contact
+bet seriously. It built a mechanism law for *why* the family is capped, tested four escape
+mechanisms and killed all four, then closed at 6.5 h of 12 h because the one remaining escape
+needed a solver regime the 600 s cap forbade. **Its own deliverable states the novelty half of the
+objective was not met.**
+
+| # | Claim | Verdict | Key evidence | Idea |
+|---|---|---|---|---|
+| H1 | The straight-longeron two-ring topology is at its ceiling: coiling curvature is pinned to the ring radius (&kappa;&asymp;2/D<sub>1</sub>), capping winding-plane member depth near 2&nbsp;mm | &#10068; | Every escape attempt failed, but a ceiling claim cannot be established by four failures | — |
+| H2 | &sigma;_peak is **always** set by the pre-coil instability — a later contact-mediated rise cannot set the objective | &#10003; | mcs_at_peak &lt; 0.30 for every design. The 6 apparent late peaks (one at &sigma;=245.8 kPa) were **truncation artifacts**: `window_n == history_n`, peak at the last computed increment | — |
+| H7 | A multi-leaf (leaf-spring) longeron decouples depth from coiling curvature | &#10007; | `n_leaves=1` reproduced run-17 rectangle to 4 s.f.; `n_leaves=3` regressed 7.7&times; (&sigma;_eig 0.770&rarr;0.100) at 482&nbsp;s vs 84&nbsp;s | archived |
+| H8/H9 | Coil-mode critical load is set by the **minimum** of winding-plane bending and torsional stiffness (fitted &sigma;_eig &prop; J<sup>0.96</sup>) | &#10003; | The run's one durable contribution — a mechanism law with an exponent, not a ranking | — |
+
+**Best feasible = 0.6071 kPa — the incumbent rectangle, rediscovered** as the leaf-spring family's own *regression control*.
+
+</div>
+
+<!--
+Run stats: GATED on the 3rd critic attempt (REJECT -> REVISE -> PASS), evals_used=306, 12
+delegations, 6.5 h of a 12 h budget, 1 ERROR_RETURN (a Confer-before-wake ordering slip on D004,
+recovered). Strategizer claude-opus-5 confirmed at the process level (--model in the spawned
+argv); all other nodes claude-sonnet-5 from config.yaml.
+
+WHY IT CLOSED WITH 5.7 h UNSPENT -- from the strategizer's own retrospective, because this is the
+most consequential thing the run revealed and it is about US, not about it: "PREMATURE
+CONVERGENCE explicitly forbids closing while an affordable experiment could move an open
+criterion... I made it because the mechanism law I had just established named the *only* remaining
+escape (a section whose torsional constant collapses on demand) and simultaneously showed it is
+unreachable here: beam elements carry one section per element, so it needs shells with
+self-contact, measured in this study at 243-5072 s per solve against a 600 s cap." And its own
+distinction: "'My search stopped improving' would not have justified closing; 'the one remaining
+mechanism requires a solver regime the infrastructure cannot afford' is a statement about the
+space and the tooling, not about my search."
+
+That reasoning is sound GIVEN what PROBLEM_STATEMENT.md said at the time -- which was that the cap
+is "a hard property" and that a family which cannot fit inside it "is not searchable, and the
+honest move is to say so". Both justifications for the cap are COST arguments; presenting one as a
+property of the oracle turned a budgeting default into a boundary on the design space. The PS has
+since been rewritten (the cap is a movable default, licence tokens are the hard constraint), and
+solves are now watchable and revocable in flight (bo/promises.py) with only FINISHED work counting
+toward budget -- so cancelling is free and a generous cap is safe. Runs 4.5-8.0 h against a 12 h
+budget, six in a row, was a symptom of this, not six independent judgement calls.
+
+DO NOT INHERIT H1 OR THE "ONLY REMAINING ESCAPE" AS A BOUNDARY. Both were derived inside the BEAM
+families this run searched. "The only escape needs shells with self-contact" locates where THIS
+SEARCH ran out, not where contact-mediated designs live in general -- the space of unexplored
+configurations is not indexed by element type. See docs/EVALUATION_UNDER_CONTACT.md.
+
+THE H2 ARTIFACT IS WORTH STUDYING. Six designs appeared to peak near 50% compression, one
+reporting sigma_peak = 245.8 kPa -- 400x the floor, and it would have been the headline. All six
+had window_n == history_n and mcs_at_peak == mcs, i.e. the "peak" was the last frame before the
+solve died: a truncated response, not a load rise. The strategizer found that signature itself and
+ran D007 as a targeted falsification rather than banking the number. The legitimate n=4 design
+shows the contrast (window_n 70 < history_n 73). This is exactly the window_closed_before_failure
+convention doing its job.
+
+CRITIC: call_001 REJECTed on notebook-ledger sync (H8 registered at 04:16 but absent from the
+notebook, so a reader of the deliverable alone would not know it existed); call_002 REVISE;
+call_003 PASS. One critic slip worth noting: its provenance check cleared the headline as "a
+genuinely different, independently-converged design (different n_longerons)" -- but it compared
+D011 against D005's n_longerons=4 design, not against the ANCHOR, which is also n_longerons=3. It
+checked the wrong pair. The notebook's prose reached the right conclusion anyway.
+
+INFRA DRIFT, classified: the Tier-1 self-clearance diagnostic (scripts/self_clearance.py + an
+opt-in hook in the Riks post-processor) was PROMOTED TO GOLD -- it catches designs whose coil
+interpenetrates, the same failure class as ring_passthrough one level down, at zero solve cost and
+inert unless SC_TIER1_RADII is set; validated on the Bessa anchor at 58.9 mm minimum clearance.
+The two leaf-spring pre-processors were ARCHIVED to scripts/superseded/ (family settled, machinery
+preserved). Also filed: the literature provider was 403 rate-limited for the whole session, so
+Pellegrino/Pasini full texts were unreachable, and the critic could not Read pipeline.ipynb at any
+window size and fell back to line-anchored Grep.
+-->
+
+---
+class: summary-slide
+---
+
 # Run `20260804T221559` — summary
 
 <div class="text-sm leading-snug">
