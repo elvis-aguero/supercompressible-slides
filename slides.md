@@ -458,6 +458,19 @@ not meant to render. Read this before adding or editing any slide.
    the character budget in rule 3 is calibrated against; do not silently
    change the font size class without re-measuring the budget (see rule 3).
 
+7ter. RUN COST (enforced 2026-08-10). Every run summary states what the run
+   cost in USD. It is the only number that makes "was this run worth it"
+   answerable, and the runs are not uniform — $20.68 to $54.45 across the
+   last six at comparable wall clock. WARNING only; the 22 older summary
+   slides are not retrofitted.
+   **The number is not simply telemetry's total.** `summary.json` omits the
+   strategizer — its persistent adapter never reports usage, so run
+   `20260809T230403` logged `total_cost_usd: None` / 1 call / 0 tokens for
+   the node that wrote 9 hypotheses off a 1.1 MB transcript. Every recorded
+   total therefore UNDERSTATES the run. Recover the strategizer's spend from
+   `debug/transcripts/strategizer/*.jsonl` (`cost_usd` per event) and add it
+   back: $54.45 recorded + $1.58 strategizer = $56.03 actual.
+
 7bis. SUMMARY-SLIDE `Idea` COLUMN (enforced 2026-08-10). Each row of a run
    summary's hypothesis table ends with an `Idea` cell naming the idea
    slide(s) that row produced. Two checks, because both halves failed once:
@@ -611,7 +624,8 @@ objective was not met.**
 | H7 | A multi-leaf (leaf-spring) longeron decouples depth from coiling curvature | &#10007; | `n_leaves=1` reproduced run-17 rectangle to 4 s.f.; `n_leaves=3` regressed 7.7&times; (&sigma;_eig 0.770&rarr;0.100) at 482&nbsp;s vs 84&nbsp;s | D28 |
 | H8/H9 | Coil-mode critical load is set by the **minimum** of winding-plane bending and torsional stiffness (fitted &sigma;_eig &prop; J<sup>0.96</sup>) | &#10003; | The run's one durable contribution — a mechanism law with an exponent, not a ranking | — |
 
-**Best feasible = 0.6071 kPa — the incumbent rectangle, rediscovered** as the leaf-spring family's own *regression control*.
+**Best feasible = 0.6071 kPa — the incumbent rectangle, rediscovered** as the leaf-spring
+family's own *regression control*. &nbsp;·&nbsp; **Cost: $56.03** (306 evals, 6.2 h)
 
 </div>
 
