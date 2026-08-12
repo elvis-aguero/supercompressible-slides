@@ -607,6 +607,72 @@ describe the design and show the gif, no reasoning/justification needed.
 class: summary-slide
 ---
 
+# Run `20260812T014026` — summary
+
+<div class="text-sm leading-snug">
+
+The run that **explained the study**: it falsified its own opening idea, then extracted from the
+failure a law accounting for all 28 backlogged families — and showed the incumbent is not a lucky
+design but the one that reached the ceiling.
+
+| # | Claim | Verdict | Key evidence | Idea |
+|---|---|---|---|---|
+| H1/H2 | A coaxial rigid **mandrel** the longerons wind onto creates a load-bearing second branch | &#10007; | The coiling mode is **radius-preserving** (envelope 47.79–50.00 mm) — internal confinement is unreachable *in principle*. Contact force **0.0 at all 70 samples**; every result bit-identical to its control | D29 |
+| **H5** | &kappa;_max is a **kinematic invariant** of the ring geometry, not of the member | &#10003; | `mls_full/c` = .021600/.021658/.021641/.021714 across a **2&times; depth change**; &plusmn;15% over a 24-pt LHS, residual tracks taper (Spearman .786) as &kappa;&asymp;1/R_mean predicts | — |
+| **H7** | That depth cap is **binding**, not descriptive | &#10003; | No straight-longeron design with c &ge; 1.00 mm reaches 80% inside the 2% budget — whatever is done with width, storey height or taper | — |
+| **H9** | The cap is 0.02/&kappa;_max, and **flaring moves it** | &#10003; | A depth infeasible at zero flare becomes feasible at taper &minus;0.45, purely because the cap moved. The run's only severe confirmation | — |
+| H4/H6 | **Pre-coiling** relieves the strain wall (strain is c &times; curvature *change*) | **?** | wrap 4.5 at c = 2 mm reached **61.5% compression at 0.45% strain**; the matched straight control blew 2% at 26.2% — **~5&times; relief**, stiffness cost unmeasured | D30 |
+
+**&sigma;_peak &prop; E·w·c³/L², c capped kinematically and w by slenderness&ge;10 — every
+member-varying family inherits both, and `run17_rectangle` sits at 99.7% of the cap.**
+&nbsp;·&nbsp; Best new design **0.3451 kPa = 3.08&times; Bessa** (clears the bar; not novel) &nbsp;·&nbsp; **Cost: $79.55**, 125 evals, 10.4 h of 18 h
+
+</div>
+
+<!--
+GATED on the 3rd critic attempt (NOTED -> NOTED -> PASS), 0 ERROR_RETURN across 14 diagnostics
+events. First run with a mixed roster where Opus 5 drove the strategizer and Sonnet 5 the workers.
+
+READ THE BAR CORRECTLY. Five NEW feasible designs cleared 2x Bessa this run -- 0.3451 (3.08x),
+0.2931, 0.2664, 0.2549, 0.2545 -- so the numeric half of the objective was met repeatedly. None is
+novel: the best sits at mcs_at_peak = 0.0645 (the same pre-buckling peak as everything else) with
+mandrel_engaged = 0, and oracle_mandrel's own docstring notes mandrel_ratio=0 reduces exactly to
+the rectangular family. Reporting this run as "nothing beat 0.6077" is the wrong yardstick -- the
+incumbent is context, not the bar -- but the novelty half failed for the third run running.
+
+WHY THE MANDREL FALSIFICATION IS WORTH MORE THAN THE DESIGNS. It is not "we tried and it didn't
+help": the coil never moves inward, so there is no radius for an internal body to govern. Nine
+confined evaluations, four mandrel radii up to the geometric limit, four cross-sections, and the
+contact force is identically zero in every history sample. That closes the whole class of
+internal-confinement ideas, not one design.
+
+THE COROLLARY NOBODY HAD STATED. Curvature is distributed, not localised: peak/mean strain along
+the member = 1.10, peak at arc ~0.35, never at a ring joint, and joint strain is 66-89% of peak.
+So there is no joint-compliance lever either -- the strain really is c*kappa, everywhere.
+
+WHY IT CLOSED WITH 7.6 h UNSPENT, in the strategizer's own words: "whether to keep spending budget
+on the flare thread after H8 stalled. It was clearly *not* the novel mechanism the problem
+statement demands... I continued because the run's own measured law made a sharp, falsifiable,
+out-of-sample prediction there... It produced the run's only genuinely severe confirmation (H9) and
+its best new design -- but it also spent ~3 h on a direction I knew in advance could not satisfy
+the novelty half of the objective, and I remain unsure that was the trade the system wanted."
+That is a real tension in the contract, not a defect in the run: the highest-value science
+available was testing a risky consequence of its own law inside a non-novel parameter range. The
+objective does not currently say whether that is worth doing. Until it does, the study's
+best-evidenced lever is unrewardable.
+
+INFRASTRUCTURE THE RUN LEFT BEHIND, now promoted to gold (commit 16c7e84): bo/oracle_mandrel.py and
+bo/oracle_helical.py with four scripts/ pre/post-processors -- ~$35 of build cost that the next
+fresh run would have deleted, and the only implementation of the pre-coil family. The agent added
+a MandrelOracle factory to bo/datagen.py in exactly the adapter's intended shape, and
+oracle_helical.evaluate takes max_solve_seconds -- both pieces of 2026-08-10 infrastructure used
+as designed by the first run that saw them.
+-->
+
+---
+class: summary-slide
+---
+
 # Run `20260809T230403` — summary
 
 <div class="text-sm leading-snug">
@@ -619,7 +685,7 @@ objective was not met.**
 
 | # | Claim | Verdict | Key evidence | Idea |
 |---|---|---|---|---|
-| H1 | The straight-longeron two-ring topology is at its ceiling: coiling curvature is pinned to the ring radius (&kappa;&asymp;2/D<sub>1</sub>), capping winding-plane member depth near 2&nbsp;mm | &#10068; | Every escape attempt failed, but a ceiling claim cannot be established by four failures | — |
+| H1 | The straight-longeron two-ring topology is at its ceiling: coiling curvature is pinned to the ring radius (&kappa;&asymp;2/D<sub>1</sub>), capping winding-plane member depth near 2&nbsp;mm | **?** | Every escape attempt failed, but a ceiling claim cannot be established by four failures | — |
 | H2 | &sigma;_peak is **always** set by the pre-coil instability — a later contact-mediated rise cannot set the objective | &#10003; | mcs_at_peak &lt; 0.30 for every design. The 6 apparent late peaks (one at &sigma;=245.8 kPa) were **truncation artifacts**: `window_n == history_n`, peak at the last computed increment | — |
 | H7 | A multi-leaf (leaf-spring) longeron decouples depth from coiling curvature | &#10007; | `n_leaves=1` reproduced run-17 rectangle to 4 s.f.; `n_leaves=3` regressed 7.7&times; (&sigma;_eig 0.770&rarr;0.100) at 482&nbsp;s vs 84&nbsp;s | D28 |
 | H8/H9 | Coil-mode critical load is set by the **minimum** of winding-plane bending and torsional stiffness (fitted &sigma;_eig &prop; J<sup>0.96</sup>) | &#10003; | The run's one durable contribution — a mechanism law with an exponent, not a ranking | — |
@@ -683,6 +749,132 @@ The two leaf-spring pre-processors were ARCHIVED to scripts/superseded/ (family 
 preserved). Also filed: the literature provider was 403 rate-limited for the whole session, so
 Pellegrino/Pasini full texts were unreachable, and the critic could not Read pipeline.ipynb at any
 window size and fell back to line-anchored Grep.
+-->
+
+---
+class: idea-slide
+layout: two-cols-header
+---
+
+# D30 &middot; Pre-coiled (helical) longeron
+
+::left::
+
+<div class="text-sm leading-snug">
+
+- **What:** Build the longeron already wound as a helix of `helix_wrap` turns about the mast
+  axis, instead of straight, so coiling supplies only the *remaining* curvature.
+  Free: helix_wrap&isin;[&minus;0.3,6.0] a&isin;[.004,.014] b&isin;[.01,.045] pitch&isin;[.25,1.5] | Fixed: n_long=3 rtd=0 n_storeys=1 imperfection=.067
+- **Origin:** this run's own law. Strain is c &times; curvature **change**, not curvature — a member
+  born at &kappa;&#8320; travels only &kappa;_max &minus; &kappa;&#8320;, so the cap 0.02/&Delta;&kappa; relaxes.
+- **Stats:** pre-coiled (wrap&gt;0): n=30 &rarr; 3 coil &rarr; 2 riks &rarr; 0 good — **both riks solves hit the 600 s cap**, so the family has no decided row
+  p50/p90/p100 — &sigma;_crit: .97/4.55/6.57 &middot; mcs: 0/0/.339 &middot; mls: unmeasured
+  best good: none — **but** wrap 4.5, c = 2 mm reached **61.5% compression at 0.45% strain**
+  in its raw history before the cap (windowed row 0 = undecided, not failed); the matched
+  straight control blew 2% at 26.2%. **~5&times; relief**
+- **Verdict:** INCONCLUSIVE &middot; MIXED<br>
+  The run's top lead. The wall that killed 28 families moves, and moves a lot. Two things are
+  unresolved: whether what is left carries load (&sigma;_eig fell 2.36 &rarr; 0.245 kPa), and
+  whether the family can be *decided* inside a 600 s budget.
+- **Seed:** FERTILE. `bo/oracle_helical.py` + four pre/post-processors are in gold — **do not
+  rebuild them.** Next test: stiffness, not strain.
+
+</div>
+
+::right::
+
+<div class="flex flex-col items-center justify-center h-full">
+  <img src="/gifs/precoil_wrap45_native.gif" class="max-h-80 rounded shadow-lg" />
+  <div class="text-xs opacity-60 mt-2 px-4 text-center">wrap 4.5 &mdash; the member starts curved, so 61.5% compression costs 0.45% strain. Green everywhere is the point.</div>
+</div>
+
+<!--
+Run 20260812T014026, H4/H6. The gif is the 839-increment solve (riks_847140cc): 785 frames in
+step, of which 268 fall inside the mcs<=0.95 render window.
+
+WHY "INCONCLUSIVE" AND NOT "SUPPORTED": the measurement is real and large, but it is one half of
+a trade. sigma_eig dropping 10x across the same sweep is exactly what a pre-curved member should
+do -- it is no longer a straight column, so its Euler load is not the relevant one -- and the
+question the run never got to is whether the POST-buckling branch recovers what the eigenvalue
+lost. This study has been burned before by reading a favourable half-measurement as a result
+(docs/FLAKY_DESIGNS.md keeps a list of them), so the verdict stays open on purpose.
+
+READ THE RELIEF NUMBER CORRECTLY. 5x is not the depth cap moving 5x -- it is Delta_kappa
+shrinking, which relaxes the cap on c for the SAME kappa_max. The kinematic invariant (H5) is
+untouched: the rings still set kappa_max. Pre-coil changes where the member STARTS, and flaring
+(H9) changes where it ENDS. They are independent levers on the same product, which is why testing
+both is worth more than testing either twice.
+
+WHY THIS IS PLAUSIBLY NOVEL where flaring is not: a negative ratio_top_diameter is a value inside
+the incumbent family's existing domain. helix_wrap is a new degree of freedom with a new
+pre-processor -- a member that is manufactured curved is a different design, not a different
+point. If the stiffness question comes back favourably this is the study's first genuinely new
+mechanism since the tapered longeron.
+
+The wrap<=0 rows (-0.3, -0.15, 0, 0.15, 0.3) are the sign-convention control: wrap=0 must
+reproduce the straight family exactly, and does. Built as `signcheck` before the sweep ran, which
+is why the sweep's numbers can be read as a curve rather than a scatter.
+-->
+
+---
+class: idea-slide
+layout: two-cols-header
+---
+
+# D29 &middot; Mandrel-confined coiling mast
+
+::left::
+
+<div class="text-sm leading-snug">
+
+- **What:** A coaxial rigid cylinder inside the mast for the longerons to wind onto — hoping it
+  governs the coiling curvature and adds a confined second load path once members bear on it.
+  Free: mandrel_ratio&isin;[0,0.83] a&isin;[.004,.014] b&isin;[.01,.045] pitch&isin;[.25,1.5] | Fixed: n_long=3 rtd=.04444 n_storeys=1
+- **Origin:** the run's opening hypothesis (H1/H2) — once the cross-section is capped, the only
+  lever left is what the member coils *against*.
+- **Stats:** confined: n=9 &rarr; 9 coil &rarr; 9 riks &rarr; 4 good (5.41&times; Bessa), radii .6/.7/.78/.83 (.83 = geometric limit)
+  p50/p90/p100 — &sigma;_crit: 1.98/3.25/4.65 &middot; mcs: .45/.91/.91 &middot; mls: .0198/.0198/.0198
+  best good: mandrel=.6 a=.00921 b=.03324 pitch=.68128 &rarr; &sigma;=.6071 — **the run-17
+  rectangle**: nine &sigma;_peak values take **four** levels, one per control, and contact force is
+  **0.0 at all 70 history samples**.
+- **Verdict:** FALSIFIED &middot; DEAD-END<br>
+  Mechanistically, the stronger kind. The coiling mode is **radius-preserving**: the envelope
+  stays at 47.79–50.00 mm over the stroke — it never moves inward, so there is no radius for an
+  internal body to govern and no mandrel can be touched. That closes the whole class.
+- **Seed:** BARREN — as is any *internal* confinement. Confining from outside, or moving the envelope (D30), is a different argument.
+
+</div>
+
+::right::
+
+<div class="flex flex-col items-center justify-center h-full">
+  <img src="/gifs/mandrel_confined_native.gif" class="max-h-72 rounded shadow-lg" />
+  <div class="text-xs opacity-60 mt-2 px-4 text-center">mandrel_ratio = 0.83, the largest that fits. The coil winds down, not in — it never reaches the cylinder.</div>
+</div>
+
+<!--
+Run 20260812T014026, delegations D002/D003/D005/D010/D013/D017, H1/H2. bo/oracle_mandrel.py and
+scripts/supercompressible_{lin_buckle,riks,riks_pp}_mandrel.py are promoted to gold (commit
+16c7e84) -- the family is closed, the machinery is not wrong, and mandrel_ratio=0 reduces it
+exactly to the contact-migrated rectangular family, which is what made the control pairs free.
+
+WHY THE BIT-IDENTICAL RESULT IS THE FINDING. A run that reports "the mandrel didn't help" has
+learned about one mandrel. A run that shows the contact force is identically zero at every
+sample, for every radius up to the geometric limit, has shown the mechanism cannot engage --
+which is a statement about every design of this kind, and it holds without a single further
+solve. The envelope diagnostic (D006) is what turned "no effect" into "unreachable in
+principle".
+
+THE SCOPE QUALIFIER, filed by the critic and worth keeping: the envelope was measured across four
+DEPTHS of one fixed cross-section family. Radius-preservation is a property of how the rocking
+mode works, so it is expected to generalise -- but a shell or open-section family whose coil
+collapses inward would fall outside this falsification and would have to be re-measured. The
+claim is "this coiling mode is radius-preserving", not "no coil ever moves inward".
+
+THE COROLLARY. Curvature along the member is distributed, not localised: peak/mean = 1.10, peak
+at arc ~0.35 (never at a ring joint), joint strain 66-89% of peak. So there is no
+joint-compliance lever hiding here either -- the strain really is c*kappa everywhere, which is
+what makes H5's cap binding rather than merely typical.
 -->
 
 ---
@@ -1116,8 +1308,8 @@ Four literature-grounded chirality/elastic-instability candidates tested against
 
 | # | Claim | Verdict | Key evidence | Idea |
 |---|---|---|---|---|
-| H1 | A genuinely novel geometry/topology (not a cross-section resize) clears 2&times; Bessa with all feasibility criteria | &#10068; | 4 candidates tested; best numeric hit (D010, 0.4254 kPa) explained ~91% by resize dims, chirality lever p=0.145 — not credible as genuinely novel | D26, D27, D1, D6 |
-| H2 | This study's slender-beam elastic-instability space is capped near the resize ceiling (~0.77 kPa) — no genuinely novel topology clears 2&times; Bessa without breaking beam-validity or folding | &#10068; | Confounded test (Charter &sect;3): D010's clearing point can't cleanly separate resize-driven from chirality-driven performance; the other 3/4 candidates support H2's spirit outright | D26, D27, D1, D6 |
+| H1 | A genuinely novel geometry/topology (not a cross-section resize) clears 2&times; Bessa with all feasibility criteria | **?** | 4 candidates tested; best numeric hit (D010, 0.4254 kPa) explained ~91% by resize dims, chirality lever p=0.145 — not credible as genuinely novel | D26, D27, D1, D6 |
+| H2 | This study's slender-beam elastic-instability space is capped near the resize ceiling (~0.77 kPa) — no genuinely novel topology clears 2&times; Bessa without breaking beam-validity or folding | **?** | Confounded test (Charter &sect;3): D010's clearing point can't cleanly separate resize-driven from chirality-driven performance; the other 3/4 candidates support H2's spirit outright | D26, D27, D1, D6 |
 
 </div>
 
