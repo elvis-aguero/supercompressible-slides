@@ -607,6 +607,65 @@ describe the design and show the gif, no reasoning/justification needed.
 class: summary-slide
 ---
 
+# Run `20260812T222030` — summary
+
+<div class="text-sm leading-snug">
+
+The run that **reversed yesterday's lead and then disqualified it** — and stopped at 3.3 h of an
+18 h budget because its own novelty hypothesis said the mechanism could not count.
+
+| # | Claim | Verdict | Key evidence | Idea |
+|---|---|---|---|---|
+| H1 | Flare + pre-coil together contain a feasible design clearing 2&times; Bessa | **&#8253;** | *Self-corrected to INCONCLUSIVE under the critic:* the campaign was **anchor-seeded**, so a point satisfying H1 existed before it ran. A test that cannot fail is not a test (Charter §2) | D30 |
+| **H2** | **Flare** is the dominant lever; pre-coil contributes little | &#10007; | **Reversed.** &rho;(helix_wrap, &sigma;_peak) = **&minus;0.392** vs &rho;(taper) = +0.287, Holm-corrected over 5 dims, n=36. Pre-coil is the *larger* effect — and its sign is **negative** | D30 |
+| **H3** | Neither lever clears the study's **originality** bar, even if it clears 2&times; Bessa | &#10003; | Pre-coil = intrinsic-curvature strain relief, **settled Kirchhoff-rod theory** (Drozdov &amp; Rabin 2000; Gomez &amp; Lauga 2024) transplanted into this host. Flaring = a **sign extension** of Bessa's own `ratio_top_diameter` on unchanged topology | — |
+| **H4** | Nothing in the *decided* flare+pre-coil region beats the incumbent | &#10003; | 22 feasible of 216, 20 with wrap&ne;0, **8 clear 2&times; Bessa**, best **0.5007 kPa = 4.46&times; Bessa** at wrap &minus;1.10 — but 82% of the 0.6077 incumbent. Rescoped: deep wrap is *excluded*, not counted | — |
+
+**The deep-wrap region (\|wrap\| 2–5) is numerically inaccessible, not bad:** of 107 rows, **zero**
+reached a coiling mode and 19/19 Stage-2 solves crashed before any finite &sigma;_peak. Reported OPEN.
+&nbsp;·&nbsp; **Cost: $14.59** (216 evals, 5 delegations, **3.3 h of 18 h**), GATED on the 4th attempt
+
+</div>
+
+<!--
+THE FINDING IS ABOUT THE CONTRACT, NOT THE DESIGNS. This run did the science well and then
+stopped early on purpose. The strategizer's own words on the least-certain call: it judged one
+25-point probe was right, "not so much that I was chasing a mechanism already independently
+disqualified on novelty (H3)". So the binding constraint on this study is no longer the search,
+the oracle, or the budget -- it is the objective. Two levers now have real evidence behind them
+and NEITHER can be rewarded as written. That is the reconciliation question, arriving as a
+measurement rather than an opinion.
+
+H2's reversal is the substantive scientific news and it CONTRADICTS the D30 slide written from
+the previous run. Yesterday pre-coil looked like the study's top lead on a ~5x strain-relief
+measurement. Measured against sigma_peak over 36 decided designs, more pre-coil means LESS load
+(rho = -0.392) -- which is exactly the trade the previous run flagged as unmeasured (sigma_eig
+falling 2.36 -> 0.245 kPa) and could not close before it ended. The strain relief is real; it
+just does not buy load. Note neither correlation survives Holm at p<0.05 (0.069 and 0.268), so
+this is a reversal of the PREDICTED ORDERING, not a confirmed strong driver.
+
+WHY H1 SELF-CORRECTED, and why it is a good sign: the strategizer first marked it SUPPORTED with
+a "degenerate but supported" caveat. The AskForFeedback critic called that a Charter §2/§3
+violation -- the search was seeded with the already-feasible anchor, so H1's existence claim was
+guaranteed before any solve. It reversed itself to INCONCLUSIVE and routed the substantive
+question to H4. Three AskForFeedback rounds each caught distinct real issues.
+
+THE BUG WORTH KEEPING. D004's worker computed feasibility with `rpt is False` against a ledger
+column stored as 0.0/1.0, so `feasible_recomputed` was False for every row and the analysis JSON
+reported 0 feasible designs where the true count was 21. Caught only because the delegation
+re-derived the predicate through QueryStore instead of trusting its own script's output. A
+post-hoc analysis script reading ledger data is not itself ledger-authoritative.
+
+Cost composition is the mirror image of the last run: implementer $7.29, critic $4.42,
+datagenerator $1.63, literature $1.25. Opus sat on the datagenerator, which was the cheapest
+substantive node here -- a $1.63 slot. The strategizer's own transcript cost is again absent from
+telemetry, so $14.59 remains a floor.
+-->
+
+---
+class: summary-slide
+---
+
 # Run `20260812T014026` — summary
 
 <div class="text-sm leading-snug">
@@ -762,22 +821,24 @@ layout: two-cols-header
 
 <div class="text-sm leading-snug">
 
-- **What:** Build the longeron already wound as a helix of `helix_wrap` turns about the mast
-  axis, instead of straight, so coiling supplies only the *remaining* curvature.
+- **What:** Build the longeron already wound as a helix of `helix_wrap` turns, so coiling
+  supplies only the *remaining* curvature.
   Free: helix_wrap&isin;[&minus;0.3,6.0] a&isin;[.004,.014] b&isin;[.01,.045] pitch&isin;[.25,1.5] | Fixed: n_long=3 rtd=0 n_storeys=1 imperfection=.067
 - **Origin:** this run's own law. Strain is c &times; curvature **change**, not curvature — a member
   born at &kappa;&#8320; travels only &kappa;_max &minus; &kappa;&#8320;, so the cap 0.02/&Delta;&kappa; relaxes.
 - **Stats:** pre-coiled (wrap&gt;0): n=30 &rarr; 3 coil &rarr; 2 riks &rarr; 0 good — **both riks solves hit the 600 s cap**, so the family has no decided row
   p50/p90/p100 — &sigma;_crit: .97/4.55/6.57 &middot; mcs: 0/0/.339 &middot; mls: unmeasured
-  best good: none — **but** wrap 4.5, c = 2 mm reached **61.5% compression at 0.45% strain**
-  in its raw history before the cap (windowed row 0 = undecided, not failed); the matched
-  straight control blew 2% at 26.2%. **~5&times; relief**
-- **Verdict:** INCONCLUSIVE &middot; MIXED<br>
-  The run's top lead. The wall that killed 28 families moves, and moves a lot. Two things are
-  unresolved: whether what is left carries load (&sigma;_eig fell 2.36 &rarr; 0.245 kPa), and
-  whether the family can be *decided* inside a 600 s budget.
-- **Seed:** FERTILE. `bo/oracle_helical.py` + four pre/post-processors are in gold — **do not
-  rebuild them.** Next test: stiffness, not strain.
+  best good: none — **but** wrap 4.5, c = 2 mm reached **61.5% compression at 0.45% strain** in
+  its raw history before the cap (windowed row 0 = undecided); the straight control blew 2% at
+  26.2%. **~5&times; relief**
+- **Verdict:** FALSIFIED &middot; MIXED &nbsp;<span class="opacity-60">(revised 2026-08-13)</span><br>
+  Written as the top lead; the next run answered both open questions against it. Over 36 decided
+  designs &rho;(wrap, &sigma;_peak) = **&minus;0.392** — more pre-coil, *less* load — and deep wrap
+  is numerically inaccessible: 0 of 107 rows reached a coiling mode. The relief is real and does
+  not buy load.
+- **Seed:** BARREN as a load mechanism, and **disqualified on novelty** — intrinsic-curvature
+  relief is settled Kirchhoff-rod theory (H3, next run). The deep-wrap Stage-2 crash is an open
+  solver problem, not a design lead.
 
 </div>
 
@@ -805,11 +866,14 @@ untouched: the rings still set kappa_max. Pre-coil changes where the member STAR
 (H9) changes where it ENDS. They are independent levers on the same product, which is why testing
 both is worth more than testing either twice.
 
-WHY THIS IS PLAUSIBLY NOVEL where flaring is not: a negative ratio_top_diameter is a value inside
-the incumbent family's existing domain. helix_wrap is a new degree of freedom with a new
-pre-processor -- a member that is manufactured curved is a different design, not a different
-point. If the stiffness question comes back favourably this is the study's first genuinely new
-mechanism since the tapered longeron.
+WHY THIS LOOKED NOVEL, AND WHY IT IS NOT (settled by run 20260812T222030, H3): the argument here
+was that helix_wrap is a new degree of freedom with a new pre-processor, so a member manufactured
+curved is a different design rather than a different point. The literature review answered it
+directly -- spontaneous/intrinsic-curvature strain relief is settled Kirchhoff-rod mechanics
+("general considerations concerning such naturally curved rods can already be found in the work
+of Kirchhoff"), i.e. a known-mechanism transplant into this host geometry. A new parameter is not
+a new mechanism. Left standing as written, because the reasoning that produced it is the exact
+reasoning the novelty bar has to arbitrate.
 
 The wrap<=0 rows (-0.3, -0.15, 0, 0.15, 0.3) are the sign-convention control: wrap=0 must
 reproduce the straight family exactly, and does. Built as `signcheck` before the sweep ran, which
