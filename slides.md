@@ -109,6 +109,34 @@ not meant to render. Read this before adding or editing any slide.
                       5-var cap with "+N more" beyond that. If G=0: "best
                       good: none (0/N passed every criterion)".
 
+                      CLEARED line (added 2026-08-14, advisor-specified —
+                      APPROVAL, NOT RANKING). The objective is a conjunction
+                      of two THRESHOLDS (σ_peak ≥ 2× Bessa = 0.2244 kPa AND
+                      a novel mechanism), so the question an idea answers is
+                      "did it clear?", not "where did it place?". Report it
+                      as a count, and separate the two gates because they
+                      fail independently:
+
+                        cleared: <K> of <R> decided ≥ 2× Bessa (0.2244)
+                                 · novel: yes | no <one-clause reason>
+
+                      If K=0: "cleared: none". If the designs that cleared
+                      are duplicates of the family's own control, say so —
+                      "cleared: 19, all bit-identical to the flat-disc
+                      control" — because a family whose only clearing member
+                      is its control has not been tested.
+
+                      WHY THIS REPLACED THE LEADERBOARD FRAMING: the "(X×
+                      Bessa)" multiplier attached to a single best design
+                      invited comparison against the INCUMBENT (0.6077 kPa,
+                      5.42×) rather than the bar, and that converts passes
+                      into failures. Documented case: 0.5007 kPa was
+                      reported as "82% of the incumbent" when it is 4.46×
+                      Bessa and one of eight designs that cleared. Keep the
+                      multiplier — it is informative — but the DECISION is
+                      the threshold. See the "The bar is a threshold, not a
+                      leaderboard" slide.
+
                       Idea-specific findings that don't fit this shape (a
                       correlation between one input and an outcome, a
                       surrogate-adequacy R², a mechanistic aside) may still
@@ -607,6 +635,70 @@ describe the design and show the gif, no reasoning/justification needed.
 class: summary-slide
 ---
 
+# The bar is a threshold, not a leaderboard
+
+<div class="text-sm leading-snug">
+
+The objective is **2&times; Bessa = 0.2244 kPa/longeron AND a genuinely novel mechanism.** Both, or
+it does not count. The bar is a **pass/fail line**, not a score to maximise — so the question every
+idea answers is *"did it clear?"*, and many ideas can clear at once. The incumbent's 0.6077 kPa
+(5.42&times;) is the **best number so far, not the target**: measuring against it turns a passed
+idea into a failed one and has repeatedly done so on this deck.
+
+| Idea | Feasible design? | **Clears 0.2244?** | **Novel mechanism?** | Approved |
+|---|---|---|---|---|
+| Flared rings (negative taper) | yes | **yes** — best 0.3451 (3.08&times;) | **no** — a sign extension of Bessa's own `ratio_top_diameter` | &#10007; |
+| D30 Pre-coiled longeron | yes, wrap&ne;0 | **yes** — 8 designs, best 0.5007 (**4.46&times;**) | **no** — intrinsic-curvature relief is settled Kirchhoff-rod theory | &#10007; |
+| D29 Mandrel confinement | yes, 4 | yes — but every value duplicates its unconfined control | **no** — mandrel never touched; mechanism absent | &#10007; |
+| D31 Secondary elastic stop | 2, both `n_stops=0` | yes — the control only | **untested** — the mechanism never engaged | &#10007; |
+| D32 Shaped conical disc | 19 | yes — all bit-identical to the flat-disc control | **n/a** — reshapes the *fixture*, not the design | &#10007; |
+| D28 Multi-leaf longeron | 1, `n_leaves=1` | yes — which *is* the run-17 rectangle | **no** — the control again | &#10007; |
+
+**Read the columns, not a ranking. The numeric bar has been cleared many times over. The novelty
+gate has never been cleared once** — and that, not the size of &sigma;_peak, is what is blocking
+this study.
+
+</div>
+
+<!--
+WHY THIS SLIDE EXISTS (added 2026-08-14, at the advisor's instruction). The deck had drifted into a
+leaderboard: every Stats bullet ends in "(X x Bessa)" attached to the single best design, and every
+verdict was implicitly argued against the incumbent's 0.6077. That framing corrupts the objective
+in a specific, repeatable way -- it converts PASSES into FAILURES. Worked example from this deck's
+own history: run 20260812T222030's best non-degenerate design, sigma_peak = 0.5007 kPa, was
+reported by the assistant as "82% of the incumbent", i.e. as a shortfall. Against the actual bar it
+is 4.46x Bessa and one of EIGHT designs that cleared, in a genuinely new parameterisation. Nothing
+about the measurement changed; only the denominator did, and the denominator was wrong.
+
+APPROVAL VOTING IS THE RIGHT MODEL and it is not a stylistic preference. The objective is a
+conjunction of two thresholds. Under a threshold objective every candidate is judged independently
+against the line -- there is no single winner and no ordering to defend -- so the honest summary of
+N ideas is a SET of approvals, not a maximum. Ranking would only be the right frame if the goal
+were "the largest sigma_peak we can find", which it explicitly is not (PROBLEM_STATEMENT.md: "A
+design that clears the numeral without clearing originality does not count, and vice versa").
+
+WHAT THIS TABLE COVERS AND WHAT IT DOES NOT. Only the contact-era ideas, whose numbers were
+re-derived from the run ledgers in this session and are quoted in the current sigma_peak metric.
+Pre-2026-08-06 idea slides are deliberately ABSENT rather than guessed: most carry their headline
+in the retired eigenvalue metric, and an automated sweep of the deck's own Stats lines returns
+values like "1691x Bessa" (D21, a tensegrity linkage artifact) and "0.0061x" (D20) that are not
+comparable to anything. Adding those rows would have produced a scoreboard that looks
+authoritative and is wrong -- the exact failure docs/FLAKY_DESIGNS.md's "claims that turned out to
+be false" section catalogues. When a pre-contact family is re-measured, it earns a row.
+
+THE COLUMN THAT DOES THE WORK is "Novel mechanism?", and note the three distinct ways it fails
+here: (1) genuinely non-novel by the contract (flaring, pre-coil -- known mechanism or known
+parameter); (2) mechanism ABSENT, so nothing was tested (mandrel never touched, stop never
+engaged); (3) not a design at all (the shaped disc reshapes Bessa's rigid platen -- a mast that
+only supercompresses against a purpose-built floor fails criterion 3). Only (1) is a real
+scientific verdict. (2) and (3) are build and scoping failures wearing a verdict's clothes, and
+they are where the last two runs went.
+-->
+
+---
+class: summary-slide
+---
+
 # Run `20260814T015148` — summary
 
 <div class="text-sm leading-snug">
@@ -895,10 +987,11 @@ layout: two-cols-header
 - **Origin:** analogy from shell-buckling and origami-confinement literature — and the *cheap*
   half of the run's contact program: it changes only the rigid surface, leaving the primary member
   and its coupling scheme exactly as validated.
-- **Stats:** n=26 &rarr; 26 coil &rarr; 19 riks &rarr; 19 good (5.41&times; Bessa) — and **all 19 return
-  the incumbent's &sigma;_peak to 16 significant figures**
+- **Stats:** n=26 &rarr; 26 coil &rarr; 19 riks &rarr; 19 good (5.41&times; Bessa)
   p50/p90/p100 — &sigma;_crit: .77/.77/.77 &middot; mcs: .91/.91/.91 &middot; mls: .0198/1/1
-  best good: **cone_rise_ratio = 0.0** — the *flat disc*, i.e. the family's own control
+  cleared: **19 of 19 &ge; 2&times; Bessa — all 19 the incumbent's &sigma;_peak to 16 s.f.**
+  &middot; novel: **no** — reshapes the rigid *fixture*, not the design
+  best good: **cone_rise_ratio = 0.0**, the flat disc — the family's own control
 - **Verdict:** INCONCLUSIVE &middot; UNTESTABLE<br>
   Below the onset (rise &le; 0.15) 18/18 converge with **CPRESS = 0** — the cone is there, never
   touched. At or past it (0.17–0.30) **7 of 8 diverge** on overclosure chatter. Nothing in this
@@ -951,8 +1044,10 @@ layout: two-cols-header
 - **Origin:** Florijn, Coulais &amp; van Hecke 2014, *Programmable Mechanical Metamaterials*. It
   attacks the kinematic law head-on: a *separate* member escapes the ring-rotation curvature
   compatibility (&kappa;_max &asymp; 1/R_mean) that caps one continuous longeron.
-- **Stats:** n=6 &rarr; 6 coil &rarr; 2 riks &rarr; 2 good (5.41&times; Bessa) — **both good rows are `n_stops = 0`**, the family's own control
+- **Stats:** n=6 &rarr; 6 coil &rarr; 2 riks &rarr; 2 good (5.41&times; Bessa)
   p50/p90/p100 — &sigma;_crit: .77/.77/.77 &middot; mcs: 0/.91/.91 &middot; mls: unmeasured
+  cleared: **2 of 2 decided &ge; 2&times; Bessa — but both are `n_stops = 0`**, the control
+  &middot; novel: **untested** — the stop never carried load
   best good: `n_stops = 0` &rarr; &sigma;=.6071 mcs=.91 — the run-17 rectangle again
 - **Verdict:** INCONCLUSIVE &middot; UNTESTABLE<br>
   20 solves, 6 delegations, two independent FE constructions (separate Part+Instance, then wire
@@ -1013,8 +1108,10 @@ layout: two-cols-header
   Free: helix_wrap&isin;[&minus;0.3,6.0] a&isin;[.004,.014] b&isin;[.01,.045] pitch&isin;[.25,1.5] | Fixed: n_long=3 rtd=0 n_storeys=1 imperfection=.067
 - **Origin:** this run's own law. Strain is c &times; curvature **change**, not curvature — a member
   born at &kappa;&#8320; travels only &kappa;_max &minus; &kappa;&#8320;, so the cap 0.02/&Delta;&kappa; relaxes.
-- **Stats:** pre-coiled (wrap&gt;0): n=30 &rarr; 3 coil &rarr; 2 riks &rarr; 0 good — **both riks solves hit the 600 s cap**, so the family has no decided row
+- **Stats:** pre-coiled (wrap&gt;0): n=30 &rarr; 3 coil &rarr; 2 riks &rarr; 0 good — **both riks solves hit the 600 s cap**
   p50/p90/p100 — &sigma;_crit: .97/4.55/6.57 &middot; mcs: 0/0/.339 &middot; mls: unmeasured
+  cleared: none here — **but the next run cleared 8 with wrap&ne;0, best 0.5007 = 4.46&times;
+  Bessa** &middot; novel: **no** (Kirchhoff-rod theory, H3)
   best good: none — **but** wrap 4.5, c = 2 mm reached **61.5% compression at 0.45% strain** in
   its raw history before the cap (windowed row 0 = undecided); the straight control blew 2% at
   26.2%. **~5&times; relief**
@@ -1023,9 +1120,8 @@ layout: two-cols-header
   designs &rho;(wrap, &sigma;_peak) = **&minus;0.392** — more pre-coil, *less* load — and deep wrap
   is numerically inaccessible: 0 of 107 rows reached a coiling mode. The relief is real and does
   not buy load.
-- **Seed:** BARREN as a load mechanism, and **disqualified on novelty** — intrinsic-curvature
-  relief is settled Kirchhoff-rod theory (H3, next run). The deep-wrap Stage-2 crash is an open
-  solver problem, not a design lead.
+- **Seed:** BARREN as a load mechanism, **disqualified on novelty** (Kirchhoff-rod theory, H3).
+  The deep-wrap Stage-2 crash is an open solver problem, not a design lead.
 
 </div>
 
@@ -1085,13 +1181,14 @@ layout: two-cols-header
   lever left is what the member coils *against*.
 - **Stats:** confined: n=9 &rarr; 9 coil &rarr; 9 riks &rarr; 4 good (5.41&times; Bessa), radii .6/.7/.78/.83 (.83 = geometric limit)
   p50/p90/p100 — &sigma;_crit: 1.98/3.25/4.65 &middot; mcs: .45/.91/.91 &middot; mls: .0198/.0198/.0198
+  cleared: **4 of 9 &ge; 2&times; Bessa — each duplicating its unconfined control** &middot; novel: **no**
   best good: mandrel=.6 a=.00921 b=.03324 pitch=.68128 &rarr; &sigma;=.6071 — **the run-17
   rectangle**: nine &sigma;_peak values take **four** levels, one per control, and contact force is
   **0.0 at all 70 history samples**.
 - **Verdict:** FALSIFIED &middot; DEAD-END<br>
-  Mechanistically, the stronger kind. The coiling mode is **radius-preserving**: the envelope
-  stays at 47.79–50.00 mm over the stroke — it never moves inward, so there is no radius for an
-  internal body to govern and no mandrel can be touched. That closes the whole class.
+  Mechanistically, the stronger kind. The coiling mode is **radius-preserving**: the envelope stays
+  at 47.79–50.00 mm over the stroke, never moving inward, so there is no radius for an internal body
+  to govern. That closes the whole class.
 - **Seed:** BARREN — as is any *internal* confinement. Confining from outside, or moving the envelope (D30), is a different argument.
 
 </div>
@@ -1147,13 +1244,12 @@ layout: two-cols-header
   ring radius, so the only free lever is the depth that curvature acts on. Classical
   laminated-leaf-spring practice, not a metamaterial citation.
 - **Stats:** n=3 &rarr; 3 coil &rarr; 2 riks &rarr; 1 good (5.41&times; Bessa)
+  cleared: **1 of 2 &ge; 2&times; Bessa — and it is `n_leaves=1`**, the run-17 rectangle &middot; novel: **no**
   n_leaves=1: &sigma;_peak .6071 &sigma;_eig .7704 mls .0199 &middot; n_leaves=3: &sigma;_peak nan &sigma;_eig .1004
-  best good: n_leaves=1 &rarr; **which is the run-17 rectangle**, matched to 4 s.f.
 - **Verdict:** FALSIFIED · DEAD-END<br>
-  `n_leaves=1` is the family's own *regression control* and reproduces the incumbent
-  exactly. The one genuinely multi-leaf point **regressed 7.7&times;** at 482&nbsp;s vs
-  84&nbsp;s: stacking leaves splits the depth that carries load without changing the
-  curvature that caps it, so it pays the strain penalty twice.
+  `n_leaves=1` is the family's own *regression control* and reproduces the incumbent exactly. The
+  one genuinely multi-leaf point **regressed 7.7&times;**: stacking leaves splits the depth that
+  carries load without changing the curvature that caps it, paying the strain penalty twice.
 - **Seed:** BARREN as stated. Decoupling leaf spacing from the winding radius would be a
   different idea, needing a different argument than "more leaves".
 
