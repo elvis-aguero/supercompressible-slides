@@ -764,6 +764,128 @@ and changed nothing, because prose cannot beat a terminal state.
 -->
 
 ---
+class: idea-slide
+layout: two-cols-header
+---
+
+# D32 &middot; Shaped (conical) ground-disc contact surface
+
+::left::
+
+<div class="text-sm leading-snug">
+
+- **What:** Replace the flat rigid ground disc with a shallow axisymmetric **cone**, so the coil
+  bears on a slope and the bearing point migrates as it descends.
+  Free: cone_rise_ratio&isin;&#91;0,0.30&#93; | Fixed: everything else at the incumbent (a=.00921 b=.03324 pitch=.68128 rtd=.04444 n_long=3)
+- **Origin:** analogy from shell-buckling and origami-confinement literature — and the *cheap*
+  half of the run's contact program: it changes only the rigid surface, leaving the primary member
+  and its coupling scheme exactly as validated.
+- **Stats:** n=26 &rarr; 26 coil &rarr; 19 riks &rarr; 19 good (5.41&times; Bessa)
+  p50/p90/p100 — &sigma;_crit: .77/.77/.77 &middot; mcs: .91/.91/.91 &middot; mls: .0198/1/1
+  cleared: **19 of 19 &ge; 2&times; Bessa — all 19 the incumbent's &sigma;_peak to 16 s.f.**
+  &middot; novel: **no** — reshapes the rigid *fixture*, not the design
+  best good: **cone_rise_ratio = 0.0**, the flat disc — the family's own control
+- **Verdict:** INCONCLUSIVE &middot; UNTESTABLE<br>
+  Below the onset (rise &le; 0.15) 18/18 converge with **CPRESS = 0** — the cone is there, never
+  touched. At or past it (0.17–0.30) **7 of 8 diverge** on overclosure chatter. Nothing in this
+  parameterisation both converges *and* engages: a **test failure, not a measured null**.
+- **Seed:** FERTILE but currently **unevaluable** — the blocker is contact conditioning at first
+  overclosure, a solver problem, not the idea.
+
+</div>
+
+::right::
+
+<div class="flex flex-col items-center justify-center h-full">
+  <img src="/gifs/shaped_disc_cone_native.gif" class="max-h-72 rounded shadow-lg" />
+  <div class="text-xs opacity-60 mt-2 px-4 text-center">rise 0.15, the largest that converges — re-rendered 2026-08-14 with the rigid surfaces shown, so the cone and top platen are finally visible. The coil passes above the cone the whole way; CPRESS never leaves zero.</div>
+</div>
+
+<!--
+Run 20260814T015148, delegations D008-D011 and D014, H3/H4. scripts/supercompressible_riks_shaped_disc.py.
+
+WHY THIS SLIDE MATTERS MORE THAN ITS OWN VERDICT: this family is what surfaced H5. Chasing why a
+cone never gets touched is what made somebody finally read CPRESS on the ANCHORS -- and find zero
+there too. The idea failed and produced the run's one durable finding.
+
+THE SHAPE OF THE WALL, worth internalising before proposing any contact mechanism here: the
+converging region and the engaging region appear to be DISJOINT in this parameterisation. Below
+onset the geometry guarantees no touch; at onset the solver meets a hard first-contact overclosure
+and quits. That is not "the cone does nothing" -- it is "the cone cannot be evaluated". D014 was
+specifically the severe re-test after the critic rejected the first, safety-margined sweep as
+inadequate, and it is the reason the verdict reads INCONCLUSIVE rather than FALSIFIED.
+
+The one converged point at rise 0.15 is genuinely useful as a null control: it proves the shaped
+disc is correctly built and inert, so the divergence at 0.17 is about contact conditioning and not
+about a broken model.
+-->
+
+---
+class: idea-slide
+layout: two-cols-header
+---
+
+# D31 &middot; Secondary elastic "stop" member
+
+::left::
+
+<div class="text-sm leading-snug">
+
+- **What:** Short stocky members carrying nothing at first, **engaging only once the primary
+  longerons near their 2%-strain limit** — a contact-triggered stiffness jump.
+  Free: ratio_stop_d&isin;&#91;.02,.03&#93; stop_engagement_fraction&isin;&#91;.5,.8&#93; stop_radial_ratio&isin;&#91;.4,.6&#93; n_stops = 0/1/3 | Fixed: primary at the incumbent
+- **Origin:** Florijn, Coulais &amp; van Hecke 2014, *Programmable Mechanical Metamaterials*. It
+  attacks the kinematic law head-on: a *separate* member escapes the ring-rotation curvature
+  compatibility (&kappa;_max &asymp; 1/R_mean) that caps one continuous longeron.
+- **Stats:** n=6 &rarr; 6 coil &rarr; 2 riks &rarr; 2 good (5.41&times; Bessa)
+  p50/p90/p100 — &sigma;_crit: .77/.77/.77 &middot; mcs: 0/.91/.91 &middot; mls: unmeasured
+  cleared: **2 of 2 decided &ge; 2&times; Bessa — but both are `n_stops = 0`**, the control
+  &middot; novel: **untested** — the stop never carried load
+  best good: `n_stops = 0` &rarr; &sigma;=.6071 mcs=.91 — the run-17 rectangle again
+- **Verdict:** INCONCLUSIVE &middot; UNTESTABLE<br>
+  20 solves, 6 delegations, two independent FE constructions (separate Part+Instance, then wire
+  edges on the *same* Part). The one solve whose stop engaged was **already decided against**: the
+  *primary's* strain crosses 2% at **5.9% compression**, mcs .910 &rarr; **.054**, ~600 increments early.
+- **Seed:** BARREN *as coupled here* — any added beam member tied to the ring reference points
+  destroys the primary's strain margin. Untested until that is fixed.
+
+</div>
+
+::right::
+
+<div class="flex flex-col items-center justify-center h-full">
+  <img src="/gifs/secondary_stop_native.gif" class="max-h-72 rounded shadow-lg" />
+  <div class="text-xs opacity-60 mt-2 px-4 text-center">n_stops = 1, the only build whose stop engaged. It <em>does</em> descend — 46.5% by the end — but topples sideways doing it, which is the broken model: the primary blew 2% strain at 5.9%.</div>
+</div>
+
+<!--
+Run 20260814T015148, delegations D003-D006 and D012-D013, H1/H2. 6 datagenerator delegations,
+$28.47 of the run's $35.83.
+
+THE FINDING IS THE COUPLING, NOT THE STOP. D012 refuted "separate-instance-ness" as the cause --
+n_stops=3 built as wire edges on the SAME Part still diverged, at an even earlier LPF 0.257, with
+the same causal fingerprint tied to the primary's own Kinematic-coupling hinge-release scheme. So
+the defect is not how the stop was attached but that ANY additional beam member coupled to those
+ring reference points collapses the primary's strain margin. docs/FLAKY_DESIGNS.md predicted
+exactly this exposure and recorded that nobody had checked it ("Element-based families + coupling
+-- the same over-constraint has NOT been checked... This row is here to say nobody has looked").
+Somebody has now looked. That row needs updating to n=1 with this run's evidence.
+
+WHY IT IS "UNTESTABLE" AND NOT "FALSIFIED": the mechanism's own prediction was never reached. The
+stop was supposed to engage AFTER the primary neared its strain limit; instead the primary blew
+its limit at 5.9% compression, which is a broken model, not a tested idea. D013's salvage is what
+established that -- and it was free, following docs/TRAPS.md's own "a stalled solve can still
+decide a design" logic on a partial solve nobody had planned to read.
+
+ON THE SIX DELEGATIONS. Each successive attempt was required to test a genuinely DIFFERENT cause
+(contact settings -> base DOF -> shared property -> arc-length control -> construction strategy),
+and the strategizer stopped only when two fundamentally different constructions both failed. That
+is a defensible discipline. It is also $28 and most of a run, and its own retrospective flags the
+missing signal: where the line sits between "keep debugging" and "this is a build wall, escalate
+it out of the run".
+-->
+
+---
 class: summary-slide
 ---
 
@@ -836,15 +958,15 @@ design but the one that reached the ceiling.
 
 | # | Claim | Verdict | Key evidence | Idea |
 |---|---|---|---|---|
-| H1/H2 | A coaxial rigid **mandrel** the longerons wind onto creates a load-bearing second branch | &#10007; | The coiling mode is **radius-preserving** (envelope 47.79–50.00 mm) — internal confinement is unreachable *in principle*. Contact force **0.0 at all 70 samples**; every result bit-identical to its control | D29 |
+| H1/H2 | A coaxial rigid **mandrel** the longerons wind onto creates a load-bearing second branch | &#10007; | The coiling mode is **radius-preserving** (envelope 47.79–50.00 mm), so internal confinement is unreachable *in principle*. Contact force **0.0 at all 70 samples** | D29 |
 | **H5** | &kappa;_max is a **kinematic invariant** of the ring geometry, not of the member | &#10003; | `mls_full/c` = .021600/.021658/.021641/.021714 across a **2&times; depth change**; &plusmn;15% over a 24-pt LHS, residual tracks taper (Spearman .786) as &kappa;&asymp;1/R_mean predicts | — |
 | **H7** | That depth cap is **binding**, not descriptive | &#10003; | No straight-longeron design with c &ge; 1.00 mm reaches 80% inside the 2% budget — whatever is done with width, storey height or taper | — |
 | **H9** | The cap is 0.02/&kappa;_max, and **flaring moves it** | &#10003; | A depth infeasible at zero flare becomes feasible at taper &minus;0.45, purely because the cap moved. The run's only severe confirmation | — |
-| H4/H6 | **Pre-coiling** relieves the strain wall (strain is c &times; curvature *change*) | **?** | wrap 4.5 at c = 2 mm reached **61.5% compression at 0.45% strain**; the matched straight control blew 2% at 26.2% — **~5&times; relief**, stiffness cost unmeasured | D30 |
+| H4/H6 | **Pre-coiling** relieves the strain wall (strain is c &times; curvature *change*) | **?** | **Corrected 2026-08-14:** wrap 4.5 at c = 2 mm reached **30.8% at 0.445% strain**, not the 61.5% first reported — that was `\|U3\|` counting upward travel as compression. Relief is real; its size is not ~5&times; | D30 |
 
-**&sigma;_peak &prop; E·w·c³/L², c capped kinematically and w by slenderness&ge;10 — every
-member-varying family inherits both, and `run17_rectangle` sits at 99.7% of the cap.**
-&nbsp;·&nbsp; Best new design **0.3451 kPa = 3.08&times; Bessa** (clears the bar; not novel) &nbsp;·&nbsp; **Cost: $79.55**, 125 evals, 10.4 h of 18 h
+**&sigma;_peak &prop; E·w·c³/L², c capped kinematically and w by slenderness&ge;10; `run17_rectangle`
+sits at 99.7% of the cap.**
+&nbsp;·&nbsp; Best new design **0.3451 kPa = 3.08&times; Bessa** (clears; not novel) &nbsp;·&nbsp; **Cost: $79.55**, 125 evals, 10.4 h of 18 h
 
 </div>
 
@@ -886,6 +1008,138 @@ fresh run would have deleted, and the only implementation of the pre-coil family
 a MandrelOracle factory to bo/datagen.py in exactly the adapter's intended shape, and
 oracle_helical.evaluate takes max_solve_seconds -- both pieces of 2026-08-10 infrastructure used
 as designed by the first run that saw them.
+-->
+
+---
+class: idea-slide
+layout: two-cols-header
+---
+
+# D30 &middot; Pre-coiled (helical) longeron
+
+::left::
+
+<div class="text-sm leading-snug">
+
+- **What:** Build the longeron already wound as a helix of `helix_wrap` turns, so coiling
+  supplies only the *remaining* curvature.
+  Free: helix_wrap&isin;&#91;&minus;0.3,6.0&#93; a&isin;&#91;.004,.014&#93; b&isin;&#91;.01,.045&#93; pitch&isin;&#91;.25,1.5&#93; | Fixed: n_long=3 rtd=0 n_storeys=1 imperfection=.067
+- **Origin:** this run's own law. Strain is c &times; curvature **change**, not curvature — a member
+  born at &kappa;&#8320; travels only &kappa;_max &minus; &kappa;&#8320;, so the cap 0.02/&Delta;&kappa; relaxes.
+- **Stats:** pre-coiled (wrap&gt;0): n=30 &rarr; 3 coil &rarr; 2 riks &rarr; 0 good — **both riks solves hit the 600 s cap**
+  p50/p90/p100 — &sigma;_crit: .97/4.55/6.57 &middot; mcs: 0/0/.339 &middot; mls: unmeasured
+  cleared: none here — the next run cleared 8 with wrap&ne;0, best 0.5007 = 4.46&times; Bessa
+  &middot; novel: **no** (Kirchhoff-rod theory, H3)
+  best good: none. **CORRECTED 2026-08-14:** wrap 4.5, c = 2 mm reached **30.8% compression at
+  0.445% strain**, then its loading point *reversed*; the "61.5%" first reported here was
+  `|U3|` counting 63 mm of **upward** travel as compression
+- **Verdict:** FALSIFIED &middot; MIXED &nbsp;<span class="opacity-60">(revised 2026-08-14)</span><br>
+  The relief is real — **0.445% strain at 30.8% compression**, where the matched straight control
+  had blown 2% by 26.2% — but it buys no load (&rho;(wrap, &sigma;_peak) = **&minus;0.392** over 36
+  decided designs), it is not novel, and the family never approached 80%.
+- **Seed:** BARREN as a load mechanism, **disqualified on novelty** (Kirchhoff-rod theory, H3).
+  The deep-wrap Stage-2 crash is an open solver problem, not a design lead.
+
+</div>
+
+::right::
+
+<div class="flex flex-col items-center justify-center h-full">
+  <img src="/gifs/precoil_wrap45_native.gif" class="max-h-80 rounded shadow-lg" />
+  <div class="text-xs opacity-60 mt-2 px-4 text-center">wrap 4.5, re-rendered 2026-08-14 and now stopping at the reversal (frame 156 of 785): 30.8% compression at 0.445% strain. Green everywhere is the point.</div>
+</div>
+
+<!--
+Run 20260812T014026, H4/H6. The gif is the 839-increment solve (riks_847140cc): 785 frames in
+step, of which 268 fall inside the mcs<=0.95 render window.
+
+WHY "INCONCLUSIVE" AND NOT "SUPPORTED": the measurement is real and large, but it is one half of
+a trade. sigma_eig dropping 10x across the same sweep is exactly what a pre-curved member should
+do -- it is no longer a straight column, so its Euler load is not the relevant one -- and the
+question the run never got to is whether the POST-buckling branch recovers what the eigenvalue
+lost. This study has been burned before by reading a favourable half-measurement as a result
+(docs/FLAKY_DESIGNS.md keeps a list of them), so the verdict stays open on purpose.
+
+READ THE RELIEF NUMBER CORRECTLY. 5x is not the depth cap moving 5x -- it is Delta_kappa
+shrinking, which relaxes the cap on c for the SAME kappa_max. The kinematic invariant (H5) is
+untouched: the rings still set kappa_max. Pre-coil changes where the member STARTS, and flaring
+(H9) changes where it ENDS. They are independent levers on the same product, which is why testing
+both is worth more than testing either twice.
+
+WHY THIS LOOKED NOVEL, AND WHY IT IS NOT (settled by run 20260812T222030, H3): the argument here
+was that helix_wrap is a new degree of freedom with a new pre-processor, so a member manufactured
+curved is a different design rather than a different point. The literature review answered it
+directly -- spontaneous/intrinsic-curvature strain relief is settled Kirchhoff-rod mechanics
+("general considerations concerning such naturally curved rods can already be found in the work
+of Kirchhoff"), i.e. a known-mechanism transplant into this host geometry. A new parameter is not
+a new mechanism. Left standing as written, because the reasoning that produced it is the exact
+reasoning the novelty bar has to arbitrate.
+
+The wrap<=0 rows (-0.3, -0.15, 0, 0.15, 0.3) are the sign-convention control: wrap=0 must
+reproduce the straight family exactly, and does. Built as `signcheck` before the sweep ran, which
+is why the sweep's numbers can be read as a curve rather than a scatter.
+-->
+
+---
+class: idea-slide
+layout: two-cols-header
+---
+
+# D29 &middot; Mandrel-confined coiling mast
+
+::left::
+
+<div class="text-sm leading-snug">
+
+- **What:** A coaxial rigid cylinder inside the mast for the longerons to wind onto — hoping it
+  governs the coiling curvature and adds a confined second load path once members bear on it.
+  Free: mandrel_ratio&isin;&#91;0,0.83&#93; a&isin;&#91;.004,.014&#93; b&isin;&#91;.01,.045&#93; pitch&isin;&#91;.25,1.5&#93; | Fixed: n_long=3 rtd=.04444 n_storeys=1
+- **Origin:** the run's opening hypothesis (H1/H2) — once the cross-section is capped, the only
+  lever left is what the member coils *against*.
+- **Stats:** confined: n=9 &rarr; 9 coil &rarr; 9 riks &rarr; 4 good (5.41&times; Bessa), radii .6/.7/.78/.83 (.83 = geometric limit)
+  p50/p90/p100 — &sigma;_crit: 1.98/3.25/4.65 &middot; mcs: .45/.91/.91 &middot; mls: .0198/.0198/.0198
+  cleared: **4 of 9 &ge; 2&times; Bessa — each duplicating its unconfined control** &middot; novel: **no**
+  best good: mandrel=.6 a=.00921 b=.03324 pitch=.68128 &rarr; &sigma;=.6071 — **the run-17
+  rectangle**: nine &sigma;_peak values take **four** levels, one per control, and contact force is
+  **0.0 at all 70 history samples**.
+- **Verdict:** FALSIFIED &middot; DEAD-END<br>
+  Mechanistically, the stronger kind. The coiling mode is **radius-preserving**: the envelope stays
+  at 47.79–50.00 mm over the stroke, never moving inward, so there is no radius for an internal body
+  to govern. That closes the whole class.
+- **Seed:** BARREN — as is any *internal* confinement. Confining from outside, or moving the envelope (D30), is a different argument.
+
+</div>
+
+::right::
+
+<div class="flex flex-col items-center justify-center h-full">
+  <img src="/gifs/mandrel_confined_native.gif" class="max-h-72 rounded shadow-lg" />
+  <div class="text-xs opacity-60 mt-2 px-4 text-center">mandrel_ratio = 0.83, the largest that fits. The coil winds down, not in — it never reaches the cylinder.</div>
+</div>
+
+<!--
+Run 20260812T014026, delegations D002/D003/D005/D010/D013/D017, H1/H2. bo/oracle_mandrel.py and
+scripts/supercompressible_{lin_buckle,riks,riks_pp}_mandrel.py are promoted to gold (commit
+16c7e84) -- the family is closed, the machinery is not wrong, and mandrel_ratio=0 reduces it
+exactly to the contact-migrated rectangular family, which is what made the control pairs free.
+
+WHY THE BIT-IDENTICAL RESULT IS THE FINDING. A run that reports "the mandrel didn't help" has
+learned about one mandrel. A run that shows the contact force is identically zero at every
+sample, for every radius up to the geometric limit, has shown the mechanism cannot engage --
+which is a statement about every design of this kind, and it holds without a single further
+solve. The envelope diagnostic (D006) is what turned "no effect" into "unreachable in
+principle".
+
+THE SCOPE QUALIFIER, filed by the critic and worth keeping: the envelope was measured across four
+DEPTHS of one fixed cross-section family. Radius-preservation is a property of how the rocking
+mode works, so it is expected to generalise -- but a shell or open-section family whose coil
+collapses inward would fall outside this falsification and would have to be re-measured. The
+claim is "this coiling mode is radius-preserving", not "no coil ever moves inward".
+
+THE COROLLARY. Curvature along the member is distributed, not localised: peak/mean = 1.10, peak
+at arc ~0.35 (never at a ring joint), joint strain 66-89% of peak. So there is no
+joint-compliance lever hiding here either -- the strain really is c*kappa everywhere, which is
+what makes H5's cap binding rather than merely typical.
 -->
 
 ---
@@ -975,291 +1229,40 @@ class: idea-slide
 layout: two-cols-header
 ---
 
-# D32 &middot; Shaped (conical) ground-disc contact surface
-
-::left::
-
-<div class="text-sm leading-snug">
-
-- **What:** Replace the flat rigid ground disc with a shallow axisymmetric **cone**, so the coil
-  bears on a slope and the bearing point migrates as it descends.
-  Free: cone_rise_ratio&isin;[0,0.30] | Fixed: everything else at the incumbent (a=.00921 b=.03324 pitch=.68128 rtd=.04444 n_long=3)
-- **Origin:** analogy from shell-buckling and origami-confinement literature — and the *cheap*
-  half of the run's contact program: it changes only the rigid surface, leaving the primary member
-  and its coupling scheme exactly as validated.
-- **Stats:** n=26 &rarr; 26 coil &rarr; 19 riks &rarr; 19 good (5.41&times; Bessa)
-  p50/p90/p100 — &sigma;_crit: .77/.77/.77 &middot; mcs: .91/.91/.91 &middot; mls: .0198/1/1
-  cleared: **19 of 19 &ge; 2&times; Bessa — all 19 the incumbent's &sigma;_peak to 16 s.f.**
-  &middot; novel: **no** — reshapes the rigid *fixture*, not the design
-  best good: **cone_rise_ratio = 0.0**, the flat disc — the family's own control
-- **Verdict:** INCONCLUSIVE &middot; UNTESTABLE<br>
-  Below the onset (rise &le; 0.15) 18/18 converge with **CPRESS = 0** — the cone is there, never
-  touched. At or past it (0.17–0.30) **7 of 8 diverge** on overclosure chatter. Nothing in this
-  parameterisation both converges *and* engages: a **test failure, not a measured null**.
-- **Seed:** FERTILE but currently **unevaluable** — the blocker is contact conditioning at first
-  overclosure, a solver problem, not the idea.
-
-</div>
-
-::right::
-
-<div class="flex flex-col items-center justify-center h-full">
-  <img src="/gifs/shaped_disc_cone_native.gif" class="max-h-72 rounded shadow-lg" />
-  <div class="text-xs opacity-60 mt-2 px-4 text-center">rise 0.15, the largest that converges. The cone is under it the whole way down and CPRESS never leaves zero.</div>
-</div>
-
-<!--
-Run 20260814T015148, delegations D008-D011 and D014, H3/H4. scripts/supercompressible_riks_shaped_disc.py.
-
-WHY THIS SLIDE MATTERS MORE THAN ITS OWN VERDICT: this family is what surfaced H5. Chasing why a
-cone never gets touched is what made somebody finally read CPRESS on the ANCHORS -- and find zero
-there too. The idea failed and produced the run's one durable finding.
-
-THE SHAPE OF THE WALL, worth internalising before proposing any contact mechanism here: the
-converging region and the engaging region appear to be DISJOINT in this parameterisation. Below
-onset the geometry guarantees no touch; at onset the solver meets a hard first-contact overclosure
-and quits. That is not "the cone does nothing" -- it is "the cone cannot be evaluated". D014 was
-specifically the severe re-test after the critic rejected the first, safety-margined sweep as
-inadequate, and it is the reason the verdict reads INCONCLUSIVE rather than FALSIFIED.
-
-The one converged point at rise 0.15 is genuinely useful as a null control: it proves the shaped
-disc is correctly built and inert, so the divergence at 0.17 is about contact conditioning and not
-about a broken model.
--->
-
----
-class: idea-slide
-layout: two-cols-header
----
-
-# D31 &middot; Secondary elastic "stop" member
-
-::left::
-
-<div class="text-sm leading-snug">
-
-- **What:** Short stocky members carrying nothing at first, **engaging only once the primary
-  longerons near their 2%-strain limit** — a contact-triggered stiffness jump.
-  Free: ratio_stop_d&isin;[.02,.03] stop_engagement_fraction&isin;[.5,.8] stop_radial_ratio&isin;[.4,.6] n_stops = 0/1/3 | Fixed: primary at the incumbent
-- **Origin:** Florijn, Coulais &amp; van Hecke 2014, *Programmable Mechanical Metamaterials*. It
-  attacks the kinematic law head-on: a *separate* member escapes the ring-rotation curvature
-  compatibility (&kappa;_max &asymp; 1/R_mean) that caps one continuous longeron.
-- **Stats:** n=6 &rarr; 6 coil &rarr; 2 riks &rarr; 2 good (5.41&times; Bessa)
-  p50/p90/p100 — &sigma;_crit: .77/.77/.77 &middot; mcs: 0/.91/.91 &middot; mls: unmeasured
-  cleared: **2 of 2 decided &ge; 2&times; Bessa — but both are `n_stops = 0`**, the control
-  &middot; novel: **untested** — the stop never carried load
-  best good: `n_stops = 0` &rarr; &sigma;=.6071 mcs=.91 — the run-17 rectangle again
-- **Verdict:** INCONCLUSIVE &middot; UNTESTABLE<br>
-  20 solves, 6 delegations, two independent FE constructions (separate Part+Instance, then wire
-  edges on the *same* Part). The one solve whose stop engaged was **already decided against**: the
-  *primary's* strain crosses 2% at **5.9% compression**, mcs .910 &rarr; **.054**, ~600 increments early.
-- **Seed:** BARREN *as coupled here* — any added beam member tied to the ring reference points
-  destroys the primary's strain margin. Untested until that is fixed.
-
-</div>
-
-::right::
-
-<div class="flex flex-col items-center justify-center h-full">
-  <img src="/gifs/secondary_stop_native.gif" class="max-h-72 rounded shadow-lg" />
-  <div class="text-xs opacity-60 mt-2 px-4 text-center">n_stops = 1, the only build whose stop ever engaged — and the primary had already blown 2% strain at 5.9% compression.</div>
-</div>
-
-<!--
-Run 20260814T015148, delegations D003-D006 and D012-D013, H1/H2. 6 datagenerator delegations,
-$28.47 of the run's $35.83.
-
-THE FINDING IS THE COUPLING, NOT THE STOP. D012 refuted "separate-instance-ness" as the cause --
-n_stops=3 built as wire edges on the SAME Part still diverged, at an even earlier LPF 0.257, with
-the same causal fingerprint tied to the primary's own Kinematic-coupling hinge-release scheme. So
-the defect is not how the stop was attached but that ANY additional beam member coupled to those
-ring reference points collapses the primary's strain margin. docs/FLAKY_DESIGNS.md predicted
-exactly this exposure and recorded that nobody had checked it ("Element-based families + coupling
--- the same over-constraint has NOT been checked... This row is here to say nobody has looked").
-Somebody has now looked. That row needs updating to n=1 with this run's evidence.
-
-WHY IT IS "UNTESTABLE" AND NOT "FALSIFIED": the mechanism's own prediction was never reached. The
-stop was supposed to engage AFTER the primary neared its strain limit; instead the primary blew
-its limit at 5.9% compression, which is a broken model, not a tested idea. D013's salvage is what
-established that -- and it was free, following docs/TRAPS.md's own "a stalled solve can still
-decide a design" logic on a partial solve nobody had planned to read.
-
-ON THE SIX DELEGATIONS. Each successive attempt was required to test a genuinely DIFFERENT cause
-(contact settings -> base DOF -> shared property -> arc-length control -> construction strategy),
-and the strategizer stopped only when two fundamentally different constructions both failed. That
-is a defensible discipline. It is also $28 and most of a run, and its own retrospective flags the
-missing signal: where the line sits between "keep debugging" and "this is a build wall, escalate
-it out of the run".
--->
-
----
-class: idea-slide
-layout: two-cols-header
----
-
-# D30 &middot; Pre-coiled (helical) longeron
-
-::left::
-
-<div class="text-sm leading-snug">
-
-- **What:** Build the longeron already wound as a helix of `helix_wrap` turns, so coiling
-  supplies only the *remaining* curvature.
-  Free: helix_wrap&isin;[&minus;0.3,6.0] a&isin;[.004,.014] b&isin;[.01,.045] pitch&isin;[.25,1.5] | Fixed: n_long=3 rtd=0 n_storeys=1 imperfection=.067
-- **Origin:** this run's own law. Strain is c &times; curvature **change**, not curvature — a member
-  born at &kappa;&#8320; travels only &kappa;_max &minus; &kappa;&#8320;, so the cap 0.02/&Delta;&kappa; relaxes.
-- **Stats:** pre-coiled (wrap&gt;0): n=30 &rarr; 3 coil &rarr; 2 riks &rarr; 0 good — **both riks solves hit the 600 s cap**
-  p50/p90/p100 — &sigma;_crit: .97/4.55/6.57 &middot; mcs: 0/0/.339 &middot; mls: unmeasured
-  cleared: none here — **but the next run cleared 8 with wrap&ne;0, best 0.5007 = 4.46&times;
-  Bessa** &middot; novel: **no** (Kirchhoff-rod theory, H3)
-  best good: none — **but** wrap 4.5, c = 2 mm reached **61.5% compression at 0.45% strain** in
-  its raw history before the cap (windowed row 0 = undecided); the straight control blew 2% at
-  26.2%. **~5&times; relief**
-- **Verdict:** FALSIFIED &middot; MIXED &nbsp;<span class="opacity-60">(revised 2026-08-13)</span><br>
-  Written as the top lead; the next run answered both open questions against it. Over 36 decided
-  designs &rho;(wrap, &sigma;_peak) = **&minus;0.392** — more pre-coil, *less* load — and deep wrap
-  is numerically inaccessible: 0 of 107 rows reached a coiling mode. The relief is real and does
-  not buy load.
-- **Seed:** BARREN as a load mechanism, **disqualified on novelty** (Kirchhoff-rod theory, H3).
-  The deep-wrap Stage-2 crash is an open solver problem, not a design lead.
-
-</div>
-
-::right::
-
-<div class="flex flex-col items-center justify-center h-full">
-  <img src="/gifs/precoil_wrap45_native.gif" class="max-h-80 rounded shadow-lg" />
-  <div class="text-xs opacity-60 mt-2 px-4 text-center">wrap 4.5 &mdash; the member starts curved, so 61.5% compression costs 0.45% strain. Green everywhere is the point.</div>
-</div>
-
-<!--
-Run 20260812T014026, H4/H6. The gif is the 839-increment solve (riks_847140cc): 785 frames in
-step, of which 268 fall inside the mcs<=0.95 render window.
-
-WHY "INCONCLUSIVE" AND NOT "SUPPORTED": the measurement is real and large, but it is one half of
-a trade. sigma_eig dropping 10x across the same sweep is exactly what a pre-curved member should
-do -- it is no longer a straight column, so its Euler load is not the relevant one -- and the
-question the run never got to is whether the POST-buckling branch recovers what the eigenvalue
-lost. This study has been burned before by reading a favourable half-measurement as a result
-(docs/FLAKY_DESIGNS.md keeps a list of them), so the verdict stays open on purpose.
-
-READ THE RELIEF NUMBER CORRECTLY. 5x is not the depth cap moving 5x -- it is Delta_kappa
-shrinking, which relaxes the cap on c for the SAME kappa_max. The kinematic invariant (H5) is
-untouched: the rings still set kappa_max. Pre-coil changes where the member STARTS, and flaring
-(H9) changes where it ENDS. They are independent levers on the same product, which is why testing
-both is worth more than testing either twice.
-
-WHY THIS LOOKED NOVEL, AND WHY IT IS NOT (settled by run 20260812T222030, H3): the argument here
-was that helix_wrap is a new degree of freedom with a new pre-processor, so a member manufactured
-curved is a different design rather than a different point. The literature review answered it
-directly -- spontaneous/intrinsic-curvature strain relief is settled Kirchhoff-rod mechanics
-("general considerations concerning such naturally curved rods can already be found in the work
-of Kirchhoff"), i.e. a known-mechanism transplant into this host geometry. A new parameter is not
-a new mechanism. Left standing as written, because the reasoning that produced it is the exact
-reasoning the novelty bar has to arbitrate.
-
-The wrap<=0 rows (-0.3, -0.15, 0, 0.15, 0.3) are the sign-convention control: wrap=0 must
-reproduce the straight family exactly, and does. Built as `signcheck` before the sweep ran, which
-is why the sweep's numbers can be read as a curve rather than a scatter.
--->
-
----
-class: idea-slide
-layout: two-cols-header
----
-
-# D29 &middot; Mandrel-confined coiling mast
-
-::left::
-
-<div class="text-sm leading-snug">
-
-- **What:** A coaxial rigid cylinder inside the mast for the longerons to wind onto — hoping it
-  governs the coiling curvature and adds a confined second load path once members bear on it.
-  Free: mandrel_ratio&isin;[0,0.83] a&isin;[.004,.014] b&isin;[.01,.045] pitch&isin;[.25,1.5] | Fixed: n_long=3 rtd=.04444 n_storeys=1
-- **Origin:** the run's opening hypothesis (H1/H2) — once the cross-section is capped, the only
-  lever left is what the member coils *against*.
-- **Stats:** confined: n=9 &rarr; 9 coil &rarr; 9 riks &rarr; 4 good (5.41&times; Bessa), radii .6/.7/.78/.83 (.83 = geometric limit)
-  p50/p90/p100 — &sigma;_crit: 1.98/3.25/4.65 &middot; mcs: .45/.91/.91 &middot; mls: .0198/.0198/.0198
-  cleared: **4 of 9 &ge; 2&times; Bessa — each duplicating its unconfined control** &middot; novel: **no**
-  best good: mandrel=.6 a=.00921 b=.03324 pitch=.68128 &rarr; &sigma;=.6071 — **the run-17
-  rectangle**: nine &sigma;_peak values take **four** levels, one per control, and contact force is
-  **0.0 at all 70 history samples**.
-- **Verdict:** FALSIFIED &middot; DEAD-END<br>
-  Mechanistically, the stronger kind. The coiling mode is **radius-preserving**: the envelope stays
-  at 47.79–50.00 mm over the stroke, never moving inward, so there is no radius for an internal body
-  to govern. That closes the whole class.
-- **Seed:** BARREN — as is any *internal* confinement. Confining from outside, or moving the envelope (D30), is a different argument.
-
-</div>
-
-::right::
-
-<div class="flex flex-col items-center justify-center h-full">
-  <img src="/gifs/mandrel_confined_native.gif" class="max-h-72 rounded shadow-lg" />
-  <div class="text-xs opacity-60 mt-2 px-4 text-center">mandrel_ratio = 0.83, the largest that fits. The coil winds down, not in — it never reaches the cylinder.</div>
-</div>
-
-<!--
-Run 20260812T014026, delegations D002/D003/D005/D010/D013/D017, H1/H2. bo/oracle_mandrel.py and
-scripts/supercompressible_{lin_buckle,riks,riks_pp}_mandrel.py are promoted to gold (commit
-16c7e84) -- the family is closed, the machinery is not wrong, and mandrel_ratio=0 reduces it
-exactly to the contact-migrated rectangular family, which is what made the control pairs free.
-
-WHY THE BIT-IDENTICAL RESULT IS THE FINDING. A run that reports "the mandrel didn't help" has
-learned about one mandrel. A run that shows the contact force is identically zero at every
-sample, for every radius up to the geometric limit, has shown the mechanism cannot engage --
-which is a statement about every design of this kind, and it holds without a single further
-solve. The envelope diagnostic (D006) is what turned "no effect" into "unreachable in
-principle".
-
-THE SCOPE QUALIFIER, filed by the critic and worth keeping: the envelope was measured across four
-DEPTHS of one fixed cross-section family. Radius-preservation is a property of how the rocking
-mode works, so it is expected to generalise -- but a shell or open-section family whose coil
-collapses inward would fall outside this falsification and would have to be re-measured. The
-claim is "this coiling mode is radius-preserving", not "no coil ever moves inward".
-
-THE COROLLARY. Curvature along the member is distributed, not localised: peak/mean = 1.10, peak
-at arc ~0.35 (never at a ring joint), joint strain 66-89% of peak. So there is no
-joint-compliance lever hiding here either -- the strain really is c*kappa everywhere, which is
-what makes H5's cap binding rather than merely typical.
--->
-
----
-class: idea-slide
-layout: two-cols-header
----
-
 # D28 &middot; Multi-leaf (leaf-spring) longeron
 
 ::left::
 
 <div class="text-sm leading-snug">
 
-- **What:** Split each longeron into `n_leaves` thin leaves stacked in the winding plane,
-  free to slide over one another — a leaf spring. The hope: total depth still carries the
-  load while each leaf bends at its own small depth, paying the strain penalty per-leaf.
-  Free: n_leaves&isin;{1,3,5} a&isin;[.004,.014] b&isin;[.01,.045] pitch&isin;[.25,1] | Fixed: rsm=.3677 n_long=3 n_storeys=1 twist=0
-- **Origin:** direct attack on this run's own H1 — coiling curvature is pinned to the
-  ring radius, so the only free lever is the depth that curvature acts on. Classical
-  laminated-leaf-spring practice, not a metamaterial citation.
+- **What:** Split each longeron into `n_leaves` thin leaves stacked in the winding plane, free to
+  slide — a leaf spring. The hope: total depth still carries load while each leaf bends at its own
+  small depth.
+  Free: n_leaves&isin;&#123;1,3,5&#125; a&isin;&#91;.004,.014&#93; b&isin;&#91;.01,.045&#93; pitch&isin;&#91;.25,1&#93; | Fixed: rsm=.3677 n_long=3 n_storeys=1 twist=0
+- **Origin:** direct attack on this run's own H1 — coiling curvature is pinned to the ring radius,
+  so the only free lever is the depth it acts on. Classical leaf-spring practice, not a
+  metamaterial citation.
 - **Stats:** n=3 &rarr; 3 coil &rarr; 2 riks &rarr; 1 good (5.41&times; Bessa)
-  cleared: **1 of 2 &ge; 2&times; Bessa — and it is `n_leaves=1`**, the run-17 rectangle &middot; novel: **no**
-  n_leaves=1: &sigma;_peak .6071 &sigma;_eig .7704 mls .0199 &middot; n_leaves=3: &sigma;_peak nan &sigma;_eig .1004
+  p50/p90/p100 — R=2, quartiles carry no information; both decided rows are below
+  cleared: **1 of 2 decided &ge; 2&times; Bessa (0.2244)** &middot; novel: **no** — it is `n_leaves=1`
+  best good: n_leaves=1 a=.00921 b=.03324 pitch=.68128 &rarr; &sigma;=.6071 mcs=.91 mls=.0199 — **the run-17 rectangle to 4 s.f.**
+  n_leaves=3 &rarr; &sigma;_peak nan &sigma;_eig .1004 (a 7.7&times; regression)
 - **Verdict:** FALSIFIED · DEAD-END<br>
   `n_leaves=1` is the family's own *regression control* and reproduces the incumbent exactly. The
-  one genuinely multi-leaf point **regressed 7.7&times;**: stacking leaves splits the depth that
-  carries load without changing the curvature that caps it, paying the strain penalty twice.
-- **Seed:** BARREN as stated. Decoupling leaf spacing from the winding radius would be a
-  different idea, needing a different argument than "more leaves".
+  one multi-leaf point **regressed 7.7&times;**: stacking splits the depth that carries load without
+  changing the curvature that caps it, paying the strain penalty twice.
+- **Seed:** BARREN as stated. Decoupling leaf spacing from the winding radius is a different idea,
+  needing a different argument than "more leaves".
 
 </div>
 
 ::right::
 
 <div class="flex flex-col items-center justify-center h-full">
-  <img src="/gifs/leaf_spring_native.gif" class="max-h-80 rounded shadow-lg" />
-  <div class="text-xs opacity-60 mt-2 px-4 text-center">n_leaves=3 under contact — the leaves bend together, not independently, and the coil never tightens.</div>
+  <img src="/gifs/leaf_spring_section.png" class="max-h-36 rounded shadow-lg bg-white" />
+  <div class="text-xs opacity-60 mt-1 px-4 text-center">The idea, true to scale: one 1.84&nbsp;mm bar vs three 0.61&nbsp;mm leaves.</div>
+  <img src="/gifs/leaf_spring_native.gif" class="max-h-36 rounded shadow-lg mt-1" />
+  <div class="text-xs opacity-60 mt-1 px-4 text-center">n_leaves=3 coiling — at mast scale the stack is indistinguishable from a solid bar.</div>
 </div>
 
 <!--
@@ -1716,7 +1719,7 @@ class: idea-slide
   a built-in azimuthal twist of the lobe pattern from bottom to top —
   chirality breaking mirror symmetry to try to couple axial compression into
   global rotation.
-  Free: n_lobes&isin;[3,6] A_max&isin;[.05,.35] twist_chirality&isin;[0,3.14] t_shell&isin;[.5,2] ratio_pitch&isin;[.15,.8] +1 more | Fixed: rsm=.3677
+  Free: n_lobes&isin;&#91;3,6&#93; A_max&isin;&#91;.05,.35&#93; twist_chirality&isin;&#91;0,3.14&#93; t_shell&isin;&#91;.5,2&#93; ratio_pitch&isin;&#91;.15,.8&#93; +1 more | Fixed: rsm=.3677
 - **Origin:** Liu et al. 2025 (*Nature Communications* 16:11359), "chiral
   multi-curved shell metamaterials integrating compression-torsion and
   buckling mechanisms" — every prior family in this study keeps a discrete-
@@ -1747,7 +1750,7 @@ class: idea-slide
 Full context:
 
 - This is H1 of run `20260804T221559`, delegation D003 (build) + D004 (80-pt
-  LHS sweep, seed=0, 20 per n_lobes&isin;{3,4,5,6}). ODB archived at
+  LHS sweep, seed=0, 20 per n_lobes&isin;&#123;3,4,5,6&#125;). ODB archived at
   data/idea_odbs/20260804T221559_D004_chiral_shell_tube/ (a TYPICAL member of
   the sweep, not a "best" point — per this deck's no-winner convention;
   n_lobes=3, A_max=0.1997, twist_chirality=2.521 rad, t_shell=0.978mm,
@@ -1786,7 +1789,7 @@ class: idea-slide
   topology) after D26's monocoque tube suppressed coiling, but gave each
   discrete longeron a genuinely new, non-beam shape: a twisting,
   doubly-curved shell "vane" instead of a solid/thin-walled cross-section.
-  Free: t_shell&isin;[.2,2] W&isin;[3,15] B_max&isin;[1,8] twist_total&isin;[.2,1.5] ratio_pitch&isin;[.3,1] +1 more | Fixed: n_long=3 rsm=.3677
+  Free: t_shell&isin;&#91;.2,2&#93; W&isin;&#91;3,15&#93; B_max&isin;&#91;1,8&#93; twist_total&isin;&#91;.2,1.5&#93; ratio_pitch&isin;&#91;.3,1&#93; +1 more | Fixed: n_long=3 rsm=.3677
 - **Origin:** direct empirical follow-up to D26 — its own finding (full
   monocoque tube too stiff against global lateral bending) predicts that
   restoring low overall bending stiffness via discrete members should let a
@@ -3301,7 +3304,7 @@ class: idea-slide
 - **What:** Added a diagonal chiral-bracing lattice of short auxiliary beam
   struts between adjacent longerons, layered on the slenderness-valid
   rectangular family (two verified CEI-BO campaigns; see notes).
-  Free: a&isin;[.0025,.20] b&isin;[.0025,.075] pitch&isin;[.25,1.5] top_d&isin;[0,.8] z_brace&isin;[.05,.95] +2 more | Fixed: circular=2 n_long=3 n_storeys=1 twist=0 rsm=.3677
+  Free: a&isin;&#91;.0025,.20&#93; b&isin;&#91;.0025,.075&#93; pitch&isin;&#91;.25,1.5&#93; top_d&isin;&#91;0,.8&#93; z_brace&isin;&#91;.05,.95&#93; +2 more | Fixed: circular=2 n_long=3 n_storeys=1 twist=0 rsm=.3677
 - **Origin:** common-sense — an alternative stiff load path to offload
   torsional/bending demand from the longerons (a later refinement drew a
   cable-stayed precedent, Gurfinkel & Krishnan 2017; see notes).
