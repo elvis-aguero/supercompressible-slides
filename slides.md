@@ -635,70 +635,6 @@ describe the design and show the gif, no reasoning/justification needed.
 class: summary-slide
 ---
 
-# The bar is a threshold, not a leaderboard
-
-<div class="text-sm leading-snug">
-
-The objective is **2&times; Bessa = 0.2244 kPa/longeron AND a genuinely novel mechanism.** Both, or
-it does not count. The bar is a **pass/fail line**, not a score to maximise — so the question every
-idea answers is *"did it clear?"*, and many ideas can clear at once. The incumbent's 0.6077 kPa
-(5.42&times;) is the **best number so far, not the target**: measuring against it turns a passed
-idea into a failed one and has repeatedly done so on this deck.
-
-| Idea | Feasible design? | **Clears 0.2244?** | **Novel mechanism?** | Approved |
-|---|---|---|---|---|
-| Flared rings (negative taper) | yes | **yes** — best 0.3451 (3.08&times;) | **no** — a sign extension of Bessa's own `ratio_top_diameter` | &#10007; |
-| D30 Pre-coiled longeron | yes, wrap&ne;0 | **yes** — 8 designs, best 0.5007 (**4.46&times;**) | **no** — intrinsic-curvature relief is settled Kirchhoff-rod theory | &#10007; |
-| D29 Mandrel confinement | yes, 4 | yes — but every value duplicates its unconfined control | **no** — mandrel never touched; mechanism absent | &#10007; |
-| D31 Secondary elastic stop | 2, both `n_stops=0` | yes — the control only | **untested** — the mechanism never engaged | &#10007; |
-| D32 Shaped conical disc | 19 | yes — all bit-identical to the flat-disc control | **n/a** — reshapes the *fixture*, not the design | &#10007; |
-| D28 Multi-leaf longeron | 1, `n_leaves=1` | yes — which *is* the run-17 rectangle | **no** — the control again | &#10007; |
-
-**Read the columns, not a ranking. The numeric bar has been cleared many times over. The novelty
-gate has never been cleared once** — and that, not the size of &sigma;_peak, is what is blocking
-this study.
-
-</div>
-
-<!--
-WHY THIS SLIDE EXISTS (added 2026-08-14, at the advisor's instruction). The deck had drifted into a
-leaderboard: every Stats bullet ends in "(X x Bessa)" attached to the single best design, and every
-verdict was implicitly argued against the incumbent's 0.6077. That framing corrupts the objective
-in a specific, repeatable way -- it converts PASSES into FAILURES. Worked example from this deck's
-own history: run 20260812T222030's best non-degenerate design, sigma_peak = 0.5007 kPa, was
-reported by the assistant as "82% of the incumbent", i.e. as a shortfall. Against the actual bar it
-is 4.46x Bessa and one of EIGHT designs that cleared, in a genuinely new parameterisation. Nothing
-about the measurement changed; only the denominator did, and the denominator was wrong.
-
-APPROVAL VOTING IS THE RIGHT MODEL and it is not a stylistic preference. The objective is a
-conjunction of two thresholds. Under a threshold objective every candidate is judged independently
-against the line -- there is no single winner and no ordering to defend -- so the honest summary of
-N ideas is a SET of approvals, not a maximum. Ranking would only be the right frame if the goal
-were "the largest sigma_peak we can find", which it explicitly is not (PROBLEM_STATEMENT.md: "A
-design that clears the numeral without clearing originality does not count, and vice versa").
-
-WHAT THIS TABLE COVERS AND WHAT IT DOES NOT. Only the contact-era ideas, whose numbers were
-re-derived from the run ledgers in this session and are quoted in the current sigma_peak metric.
-Pre-2026-08-06 idea slides are deliberately ABSENT rather than guessed: most carry their headline
-in the retired eigenvalue metric, and an automated sweep of the deck's own Stats lines returns
-values like "1691x Bessa" (D21, a tensegrity linkage artifact) and "0.0061x" (D20) that are not
-comparable to anything. Adding those rows would have produced a scoreboard that looks
-authoritative and is wrong -- the exact failure docs/FLAKY_DESIGNS.md's "claims that turned out to
-be false" section catalogues. When a pre-contact family is re-measured, it earns a row.
-
-THE COLUMN THAT DOES THE WORK is "Novel mechanism?", and note the three distinct ways it fails
-here: (1) genuinely non-novel by the contract (flaring, pre-coil -- known mechanism or known
-parameter); (2) mechanism ABSENT, so nothing was tested (mandrel never touched, stop never
-engaged); (3) not a design at all (the shaped disc reshapes Bessa's rigid platen -- a mast that
-only supercompresses against a purpose-built floor fails criterion 3). Only (1) is a real
-scientific verdict. (2) and (3) are build and scoping failures wearing a verdict's clothes, and
-they are where the last two runs went.
--->
-
----
-class: summary-slide
----
-
 # Run `20260814T015148` — summary
 
 <div class="text-sm leading-snug">
@@ -715,9 +651,11 @@ baseline rectangle wearing a new pre-processor.
 | **H5** | Ground/disc contact **never engages inside the evaluation window** for this study's feasible designs | &#10003;<span class="opacity-60">*</span> | **CPRESS = 0 at every frame** for BOTH confirmed anchors — `run17_rectangle` (rectangular) and `bessa_point` (circular), structurally unrelated — with COPEN pinned at each design's fabrication standoff throughout | — |
 
 **\*narrow verdict only.** H5 was self-corrected down from a whole-paradigm absence claim: two
-anchors are not search power over a continuous space (Charter §2). The two-anchor fact is solid;
-the mechanism behind it — `ground_offset` scaling with the same cross-section size that already
-bounds the coiling bow — is stated, not tested.
+anchors are not search power over a continuous space (Charter §2). The mechanism behind it —
+`ground_offset` scaling with the same size that bounds the coiling bow — is stated, not tested.
+**And the study's standing position, stated plainly: the 2&times;-Bessa bar has been cleared many
+times over; the novelty gate has never been cleared once.** That, not the size of &sigma;_peak, is
+the blocker.
 &nbsp;·&nbsp; **Cost: $35.83** (33 evals, 13 delegations, 5.8 h of 18 h), GATED on the 4th attempt
 
 </div>
