@@ -607,6 +607,74 @@ describe the design and show the gif, no reasoning/justification needed.
 class: summary-slide
 ---
 
+# Run `20260814T015148` — summary
+
+<div class="text-sm leading-snug">
+
+The run that found out **contact has never engaged.** Two contact-exploiting mechanisms, 33 evals,
+and **every one of the 21 finite &sigma;_peak values is the same number** — `0.6071319332676687`,
+the incumbent, bit-identical. Because nothing ever touched, every converged design *was* the
+baseline rectangle wearing a new pre-processor.
+
+| # | Claim | Verdict | Key evidence | Idea |
+|---|---|---|---|---|
+| H1/H2 | A secondary elastic **"stop"** engaging after the primary hits its strain limit adds a second load path (Florijn 2014) | **?** | 6 delegations, 20 solves, two FE constructions. When one finally engaged, salvage showed the design was already decided: **the primary crosses 2% strain at 5.9% compression** (mcs .910&rarr;.054), ~600 increments *before* the stop engages | D31 |
+| H3/H4 | A shallow **conical disc** changes where the coil bears and raises &sigma;_peak | **?** | Below the geometric onset 18/18 converge with **zero engagement**; at or past it **7 of 8 diverge** on overclosure chatter. No design both converges *and* engages | D32 |
+| **H5** | Ground/disc contact **never engages inside the evaluation window** for this study's feasible designs | &#10003;<span class="opacity-60">*</span> | **CPRESS = 0 at every frame** for BOTH confirmed anchors — `run17_rectangle` (rectangular) and `bessa_point` (circular), structurally unrelated — with COPEN pinned at each design's fabrication standoff throughout | — |
+
+**\*narrow verdict only.** H5 was self-corrected down from a whole-paradigm absence claim: two
+anchors are not search power over a continuous space (Charter §2). The two-anchor fact is solid;
+the mechanism behind it — `ground_offset` scaling with the same cross-section size that already
+bounds the coiling bow — is stated, not tested.
+&nbsp;·&nbsp; **Cost: $35.83** (33 evals, 13 delegations, 5.8 h of 18 h), GATED on the 4th attempt
+
+</div>
+
+<!--
+READ THE HEADLINE CORRECTLY, BECAUSE IT IS EASY TO UNDERSELL: this run produced no new design and
+no supported mechanism, and it is still the most consequential run in a fortnight -- because
+contact has been NOMINALLY ON since 2026-08-06 while being INERT for every feasible design. Every
+"contact-era" number this study has quoted for a feasible design is contact-free in substance. The
+2x2 recorded in docs/FLAKY_DESIGNS.md ("contact costs 1.54x wallclock and zero convergence") is
+consistent with that and now reads differently: of course it cost nothing, it never happened.
+
+WHY ALL FIVE VERDICTS ARE INCONCLUSIVE AND WHY THAT IS CORRECT. The strategizer self-corrected
+three of them DOWN from SUPPORTED/FALSIFIED under the validator, explicitly on Duhem-Quine
+grounds: a design that fails to converge has not measured the absence of an effect, it has failed
+to run the test. Its own words on H3: "that is a test failure (Duhem-Quine), not a measured
+absence of effect, and an untested gap remains at 0.16." That is the best epistemic behaviour in
+the series, and it is why the negative is trustworthy.
+
+THE DETAIL THAT DECIDES BOTH MECHANISMS. In the secondary-stop family the only FEASIBLE rows are
+n_stops = 0 -- the control. In the shaped-disc family the best feasible row is cone_rise_ratio =
+0.0 -- the flat disc, also the control. In both cases the mechanism-bearing designs either did not
+converge or did not engage. A family whose only feasible member is its own control has not been
+tested; it has been outlined.
+
+THE COUPLING FINDING, which is the one to act on: any additional beam member coupled to the ring
+reference points collapses the primary's strain margin almost immediately. That is the
+over-constraint docs/FLAKY_DESIGNS.md flags as UNCHECKED for element-based families ("their top
+rings descend onto the same floor, so the exposure exists. This row is here to say nobody has
+looked"). Somebody has now looked, and it bites.
+
+COST SHAPE TELLS THE STORY WITHOUT READING A WORD OF SCIENCE: datagenerator $28.47 across 11
+calls (79%) on build debugging; implementer $0.25, one call. No campaign ran. The strategizer's
+retrospective names the open question honestly -- it allowed 6 debugging delegations on one
+mechanism and says it has "no clean signal for where the 'stop debugging, it's a build wall not a
+science question' line should sit versus PREMATURE CONVERGENCE's instruction not to abandon a
+search too early."
+
+AND IT CLOSED WITH 12.2 h UNSPENT. Not from ignorance: D014's report ended "wall budget remaining:
+12.49h of 18.00h". But the transcript contains ZERO reasoning about the clock -- the agent's loop
+terminates when the deliverable passes the gate, and 1h40m of the run's tail was notebook
+write-up and four gate attempts. The 2026-08-13 PS line telling it to spend the budget was read
+and changed nothing, because prose cannot beat a terminal state.
+-->
+
+---
+class: summary-slide
+---
+
 # Run `20260812T222030` — summary
 
 <div class="text-sm leading-snug">
@@ -808,6 +876,126 @@ The two leaf-spring pre-processors were ARCHIVED to scripts/superseded/ (family 
 preserved). Also filed: the literature provider was 403 rate-limited for the whole session, so
 Pellegrino/Pasini full texts were unreachable, and the critic could not Read pipeline.ipynb at any
 window size and fell back to line-anchored Grep.
+-->
+
+---
+class: idea-slide
+layout: two-cols-header
+---
+
+# D32 &middot; Shaped (conical) ground-disc contact surface
+
+::left::
+
+<div class="text-sm leading-snug">
+
+- **What:** Replace the flat rigid ground disc with a shallow axisymmetric **cone**, so the coil
+  bears on a slope and the bearing point migrates as it descends.
+  Free: cone_rise_ratio&isin;[0,0.30] | Fixed: everything else at the incumbent (a=.00921 b=.03324 pitch=.68128 rtd=.04444 n_long=3)
+- **Origin:** analogy from shell-buckling and origami-confinement literature — and the *cheap*
+  half of the run's contact program: it changes only the rigid surface, leaving the primary member
+  and its coupling scheme exactly as validated.
+- **Stats:** n=26 &rarr; 26 coil &rarr; 19 riks &rarr; 19 good (5.41&times; Bessa) — and **all 19 return
+  the incumbent's &sigma;_peak to 16 significant figures**
+  p50/p90/p100 — &sigma;_crit: .77/.77/.77 &middot; mcs: .91/.91/.91 &middot; mls: .0198/1/1
+  best good: **cone_rise_ratio = 0.0** — the *flat disc*, i.e. the family's own control
+- **Verdict:** INCONCLUSIVE &middot; UNTESTABLE<br>
+  Below the onset (rise &le; 0.15) 18/18 converge with **CPRESS = 0** — the cone is there, never
+  touched. At or past it (0.17–0.30) **7 of 8 diverge** on overclosure chatter. Nothing in this
+  parameterisation both converges *and* engages: a **test failure, not a measured null**.
+- **Seed:** OPEN, blocked on infrastructure — the blocker is contact conditioning at first
+  overclosure, a solver problem, not the idea.
+
+</div>
+
+::right::
+
+<div class="flex flex-col items-center justify-center h-full">
+  <img src="/gifs/shaped_disc_cone_native.gif" class="max-h-72 rounded shadow-lg" />
+  <div class="text-xs opacity-60 mt-2 px-4 text-center">rise 0.15, the largest that converges. The cone is under it the whole way down and CPRESS never leaves zero.</div>
+</div>
+
+<!--
+Run 20260814T015148, delegations D008-D011 and D014, H3/H4. scripts/supercompressible_riks_shaped_disc.py.
+
+WHY THIS SLIDE MATTERS MORE THAN ITS OWN VERDICT: this family is what surfaced H5. Chasing why a
+cone never gets touched is what made somebody finally read CPRESS on the ANCHORS -- and find zero
+there too. The idea failed and produced the run's one durable finding.
+
+THE SHAPE OF THE WALL, worth internalising before proposing any contact mechanism here: the
+converging region and the engaging region appear to be DISJOINT in this parameterisation. Below
+onset the geometry guarantees no touch; at onset the solver meets a hard first-contact overclosure
+and quits. That is not "the cone does nothing" -- it is "the cone cannot be evaluated". D014 was
+specifically the severe re-test after the critic rejected the first, safety-margined sweep as
+inadequate, and it is the reason the verdict reads INCONCLUSIVE rather than FALSIFIED.
+
+The one converged point at rise 0.15 is genuinely useful as a null control: it proves the shaped
+disc is correctly built and inert, so the divergence at 0.17 is about contact conditioning and not
+about a broken model.
+-->
+
+---
+class: idea-slide
+layout: two-cols-header
+---
+
+# D31 &middot; Secondary elastic "stop" member
+
+::left::
+
+<div class="text-sm leading-snug">
+
+- **What:** Short stocky members carrying nothing at first, **engaging only once the primary
+  longerons near their 2%-strain limit** — a contact-triggered stiffness jump.
+  Free: ratio_stop_d, stop_engagement_fraction, stop_radial_ratio, n_stops = 0, 1 or 3 | Fixed: primary at the incumbent
+- **Origin:** Florijn, Coulais &amp; van Hecke 2014, *Programmable Mechanical Metamaterials*. It
+  attacks the kinematic law head-on: a *separate* member escapes the ring-rotation curvature
+  compatibility (&kappa;_max &asymp; 1/R_mean) that caps one continuous longeron.
+- **Stats:** n=6 &rarr; 6 coil &rarr; 2 riks &rarr; 2 good (5.41&times; Bessa) — **both good rows are `n_stops = 0`**, the family's own control
+  p50/p90/p100 — &sigma;_crit: .77/.77/.77 &middot; mcs: 0/.91/.91 &middot; mls: unmeasured
+  best good: `n_stops = 0` &rarr; &sigma;=.6071 mcs=.91 — the run-17 rectangle again
+- **Verdict:** INCONCLUSIVE &middot; UNTESTABLE<br>
+  20 solves, 6 delegations, two independent FE constructions (separate Part+Instance, then wire
+  edges on the *same* Part). The one solve whose stop engaged was **already decided against**: the
+  *primary's* strain crosses 2% at **5.9% compression**, mcs .910 &rarr; **.054** — ~600 increments
+  before the stop acts.
+- **Seed:** BARREN *as coupled here* — any added beam member tied to the ring reference points
+  destroys the primary's strain margin. Untested until that is fixed.
+
+</div>
+
+::right::
+
+<div class="flex flex-col items-center justify-center h-full">
+  <img src="/gifs/secondary_stop_native.gif" class="max-h-72 rounded shadow-lg" />
+  <div class="text-xs opacity-60 mt-2 px-4 text-center">n_stops = 1, the only build whose stop ever engaged — and the primary had already blown 2% strain at 5.9% compression.</div>
+</div>
+
+<!--
+Run 20260814T015148, delegations D003-D006 and D012-D013, H1/H2. 6 datagenerator delegations,
+$28.47 of the run's $35.83.
+
+THE FINDING IS THE COUPLING, NOT THE STOP. D012 refuted "separate-instance-ness" as the cause --
+n_stops=3 built as wire edges on the SAME Part still diverged, at an even earlier LPF 0.257, with
+the same causal fingerprint tied to the primary's own Kinematic-coupling hinge-release scheme. So
+the defect is not how the stop was attached but that ANY additional beam member coupled to those
+ring reference points collapses the primary's strain margin. docs/FLAKY_DESIGNS.md predicted
+exactly this exposure and recorded that nobody had checked it ("Element-based families + coupling
+-- the same over-constraint has NOT been checked... This row is here to say nobody has looked").
+Somebody has now looked. That row needs updating to n=1 with this run's evidence.
+
+WHY IT IS "UNTESTABLE" AND NOT "FALSIFIED": the mechanism's own prediction was never reached. The
+stop was supposed to engage AFTER the primary neared its strain limit; instead the primary blew
+its limit at 5.9% compression, which is a broken model, not a tested idea. D013's salvage is what
+established that -- and it was free, following docs/TRAPS.md's own "a stalled solve can still
+decide a design" logic on a partial solve nobody had planned to read.
+
+ON THE SIX DELEGATIONS. Each successive attempt was required to test a genuinely DIFFERENT cause
+(contact settings -> base DOF -> shared property -> arc-length control -> construction strategy),
+and the strategizer stopped only when two fundamentally different constructions both failed. That
+is a defensible discipline. It is also $28 and most of a run, and its own retrospective flags the
+missing signal: where the line sits between "keep debugging" and "this is a build wall, escalate
+it out of the run".
 -->
 
 ---
