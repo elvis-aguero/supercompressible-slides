@@ -903,7 +903,7 @@ layout: two-cols-header
   Below the onset (rise &le; 0.15) 18/18 converge with **CPRESS = 0** — the cone is there, never
   touched. At or past it (0.17–0.30) **7 of 8 diverge** on overclosure chatter. Nothing in this
   parameterisation both converges *and* engages: a **test failure, not a measured null**.
-- **Seed:** OPEN, blocked on infrastructure — the blocker is contact conditioning at first
+- **Seed:** FERTILE but currently **unevaluable** — the blocker is contact conditioning at first
   overclosure, a solver problem, not the idea.
 
 </div>
@@ -947,7 +947,7 @@ layout: two-cols-header
 
 - **What:** Short stocky members carrying nothing at first, **engaging only once the primary
   longerons near their 2%-strain limit** — a contact-triggered stiffness jump.
-  Free: ratio_stop_d, stop_engagement_fraction, stop_radial_ratio, n_stops = 0, 1 or 3 | Fixed: primary at the incumbent
+  Free: ratio_stop_d&isin;[.02,.03] stop_engagement_fraction&isin;[.5,.8] stop_radial_ratio&isin;[.4,.6] n_stops = 0/1/3 | Fixed: primary at the incumbent
 - **Origin:** Florijn, Coulais &amp; van Hecke 2014, *Programmable Mechanical Metamaterials*. It
   attacks the kinematic law head-on: a *separate* member escapes the ring-rotation curvature
   compatibility (&kappa;_max &asymp; 1/R_mean) that caps one continuous longeron.
@@ -957,8 +957,7 @@ layout: two-cols-header
 - **Verdict:** INCONCLUSIVE &middot; UNTESTABLE<br>
   20 solves, 6 delegations, two independent FE constructions (separate Part+Instance, then wire
   edges on the *same* Part). The one solve whose stop engaged was **already decided against**: the
-  *primary's* strain crosses 2% at **5.9% compression**, mcs .910 &rarr; **.054** — ~600 increments
-  before the stop acts.
+  *primary's* strain crosses 2% at **5.9% compression**, mcs .910 &rarr; **.054**, ~600 increments early.
 - **Seed:** BARREN *as coupled here* — any added beam member tied to the ring reference points
   destroys the primary's strain margin. Untested until that is fixed.
 
