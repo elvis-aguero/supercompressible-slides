@@ -1004,6 +1004,34 @@ untouched: the rings still set kappa_max. Pre-coil changes where the member STAR
 (H9) changes where it ENDS. They are independent levers on the same product, which is why testing
 both is worth more than testing either twice.
 
+THE 61.5% FIGURE WAS THE MAST GOING UP (post-mortem, 2026-08-14). This slide originally reported
+"61.5% compression at 0.45% strain" and a "~5x strain relief", and PROBLEM_STATEMENT.md carried the
+same sentence. Both were wrong. bo/response_metrics.py computed mcs from np.abs(U[2]), and
+magnitude cannot distinguish a loading point descending from one rising. Read directly off the ODB
+(sc_oracle_helical/riks_847140cc..., 785 history points, job 4972909):
+
+    U3 min (true max DESCENT)   -30.769 mm  -> mcs = 0.3077   frame 132, LPF 0.5783
+    crosses into POSITIVE                                     history pt 229, LPF 0.5894
+    U3 max (net ASCENT)         +63.485 mm  -> abs() says 0.6349
+    max |E| at the true peak     0.00445    (i.e. 0.445% strain)
+    max |E| at the abs() peak    0.01418    (1.42%, not 0.45%)
+
+So the design reached 30.8% compression at 0.445% strain, and the published pair took its
+compression from one frame and its strain from another. The straight control blowing 2% by 26.2%
+still stands, so relief is real -- but the two were never compared at equal compression and the
+factor was never measured, which is why "~5x" is gone rather than rescaled.
+
+Fixed in c79a524 (`np.clip(-U[2], 0, None)`, plus the renderer's readout and a reversal cutoff so
+a gif stops where the mast stops descending). Monotonic solves are unaffected, so no other
+published number moves. Found by the advisor from this slide's own gif: "mcs goes up but the
+design doesnt compress, instead it decompress. Possible bug."
+
+THE LESSON IS NOT "CHECK FOR REVERSAL" -- that is a rule fitted to one accident. The general
+failure is that this figure travelled from a delegation report into a run summary, into this
+slide, and into the PROBLEM_STATEMENT without one independent read off the primary artifact, and
+then steered two runs. docs/FLAKY_DESIGNS.md carries it under "claims that turned out to be
+false" for that reason.
+
 WHY THIS LOOKED NOVEL, AND WHY IT IS NOT (settled by run 20260812T222030, H3): the argument here
 was that helix_wrap is a new degree of freedom with a new pre-processor, so a member manufactured
 curved is a different design rather than a different point. The literature review answered it
