@@ -2405,12 +2405,14 @@ class: idea-slide
 - **Stats:** n=133 → 132 coil → 66 riks → 1 good (6.5× Bessa)
   p50/p90/p100 — σ_crit: .76/1.50/1.99 · mcs: 1.00/1.00/1.04 · mls: .0194/.0230/.0267
   best good: a=.00961 b=.033165 arch_rise=.0343 arch_length=.4305 → σ=.8509 mcs=1.00 mls=.0196
-- **Verdict:** SUPPORTED (RETRACTED) · DEAD-END<br>
-  A continuum submodel
-  of the arch-to-longeron joint (control-tested against the Bessa point)
-  found real local strain 2.7×+ over the beam-reported value, still rising
-  with mesh refinement — likely exceeds the 2% criterion. Baseline stays
-  0.7704 kPa (`run17_rectangle`).
+- **Verdict:** SUPPORTED · WORKS<br>
+  **Retraction reversed 2026-08-18** (in-place update, see speaker notes for why): the
+  decisive, boundary-artifact-free restrained-warping check — the same method that
+  resolved `run17_rectangle`'s identical scare — finds the corrected joint strain holds
+  at 1.96%, under the 2% ceiling. The continuum submodel's 2.7×+ finding does not
+  survive. **Caveat: σ=0.8509 kPa is the retired eigenvalue metric — never re-measured
+  under the current contact oracle/σ_peak, so not yet directly comparable to the
+  current incumbent (0.6071 kPa).**
 
 
 </div>
@@ -2469,6 +2471,37 @@ CURRENT state of PROBLEM_STATEMENT.md and bo/confirmed_anchors.json (checked
   — the retraction applies to the MECHANISM (any arch-to-longeron joint in this
   family), not to the one specific 0.850864 kPa design, so a stronger raw number
   from the same family is equally retracted, not a missed opportunity.
+
+- **2026-08-18 UPDATE — RETRACTION REVERSED, edited in place by explicit user
+  instruction ("update D24 slide in place for this time only").** This is a
+  deliberate, one-time exception to rule 3(d)/7(d)'s append-only convention (a
+  re-test would normally earn a new numbered slide, e.g. "D24 revisited"), made
+  because this is not a re-test under a changed contract — it is a correction of
+  the RETRACTION's own grounds, the same situation `run17_rectangle` resolved
+  same-day before any slide existed to show the interim wrong state. D24's
+  retracted state sat in this deck for weeks first, so there is no clean "final
+  state only" slide to write instead; this note preserves the full arc rather
+  than erasing it.
+  Ran `validation/warping_check/restrained_warping_check.py` (the exact tool and
+  method that reconfirmed `run17_rectangle`, Round 6) directly against this
+  design's own archived ODB (`data/idea_odbs/20260727T011550_H4_bistable_arch_single_segment/`,
+  confirmed still present with its `.inp` — no re-solve needed). Result
+  (`validation/warping_check/results/D24_bistable_arch_single_segment.json`):
+  `corrected_total_strain_at_global_peak = 0.019630` (1.963%), `verdict: "HOLDS UP
+  (below ceiling)"`. The correction at the global peak location is negligible
+  (`eps_extra_at_peak_location` ~1.8e-9); even at the joint zone specifically
+  (frame 818) the corrected strain is 1.856%, still under the 2% ceiling. This
+  does not confirm the archived continuum submodel's 2.7×+ amplification claim —
+  consistent with that submodel's own known failure mode (a driven cut boundary
+  contaminating the peak-strain location), the same artifact that caused
+  `run17_rectangle`'s own scare.
+  **What this does NOT do**: it does not re-measure this design under the
+  current σ_peak/contact-oracle infrastructure (this design predates 2026-08-06
+  and has only ever been reported in the retired eigenvalue metric), and it does
+  not change "The current baseline" section of `PROBLEM_STATEMENT.md` or
+  `bo/confirmed_anchors.json` — both still cite `run17_rectangle`. Whether this
+  design should be re-solved under the current oracle and potentially become a
+  new incumbent is a separate, larger decision, not made here.
 - ODB used for this render: `data/idea_odbs/20260727T011550_H4_bistable_arch_single_segment/`
   (archived from scratch riks_b8226d64576d43f4b8b9724b9ec7daf8) — this is the
   retracted design's own Riks solve, shown because the format contract's
