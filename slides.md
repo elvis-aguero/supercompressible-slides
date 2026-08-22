@@ -2280,8 +2280,9 @@ layout: two-cols-header
   D20 builds a valid model but does not converge. D26 exceeded the 600 s solve budget — it
   carries ~11,000 nodes against the reference family's ~1,000, so it needs a mesh-convergence
   study before it is searchable at all.
-- **Seed:** FERTILE (all three) — none has been searched under contact. D17's own mechanism
-  depended on passing through the floor, so it has the most to lose and is the least promising.
+- **Seed:** STALE, all three now resolved elsewhere — D17: DEAD-END (Kresling revisited, mesh
+  singularity, not floor-passthrough). D20: DEAD-END (run `20260819T022742` H11, 6 pts stuck
+  1.3&ndash;3.4%). D26: WEAK (run `20260804T221559`, 80-pt sweep, 0/80 coilable). None still open.
 
 </div>
 
