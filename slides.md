@@ -616,11 +616,16 @@ Verdict symbols used throughout: ✅ supported &middot; ❌ falsified &middot; �
 
 <!--
 Re-solved 2026-07-31 via the exact same two-stage NO-CONTACT pipeline
-test_nocontact_anchors.py uses for this anchor (energy-free StaticRiksStep,
-supercompressible_lin_buckle_pretwist.py -> supercompressible_riks_pretwist.py),
-specifically to render a native-Abaqus gif for this lead slide -- no ODB for this
-exact point existed in the permanent archive before now. Solved sigma_crit=0.1306
-kPa (expected 0.1306, exact match to 4 sig figs), mls=0.019795. ODB archived at
+test_nocontact_anchors.py uses for this anchor (energy-free StaticRiksStep -- "Riks" is the
+arc-length method, the standard way Abaqus traces a structure's full force-vs-compression curve
+through buckling and post-buckling, step by step, rather than just predicting where buckling
+starts; supercompressible_lin_buckle_pretwist.py -> supercompressible_riks_pretwist.py),
+specifically to render a native-Abaqus gif for this lead slide -- no ODB (Abaqus's output file
+holding the full solved simulation) for this exact point existed in the permanent archive before
+now. Solved sigma_crit=0.1306 kPa (the critical buckling stress -- the load per longeron at which
+the structure first buckles, from a quick linear eigenvalue analysis, as distinct from sigma_peak,
+the actual peak stress measured later from the full nonlinear Riks solve) (expected 0.1306, exact
+match to 4 sig figs), mls=0.019795. ODB archived at
 data/idea_odbs/bessa_baseline/ (PROVENANCE.txt has full inputs and the solve
 recipe). See PROBLEM_STATEMENT.md lines 133-137 for the original definition of
 this point and why it's the study's reference floor.
@@ -629,6 +634,480 @@ Deliberately NOT following the 4-bullet What/Origin/Stats/Verdict idea-slide
 template -- this is not a hypothesis this study tested, it's an external
 reference point, so there is no verdict to render. Per explicit user instruction:
 describe the design and show the gif, no reasoning/justification needed.
+-->
+
+---
+class: summary-slide
+---
+
+# Run `20260822T025309` — summary
+
+<div class="text-sm leading-snug">
+
+Built and hardened a fourth self-contact family from scratch, then used it to find the
+strongest mechanistic evidence yet against local bend-twist/rib coupling as a lever — and closed
+out kissing-pair's own last open gap the same way.
+
+| # | Claim | Verdict | Key evidence | Idea |
+|---|---|---|---|---|
+| H1 | The bend-twist self-locking scale-longeron mechanism (Dharmavaram et al. 2021) escapes the kinematic-depth-cap wall | **&#8253;** | 64 evals, 0% Stage-2 convergence; a causal-isolation control on the SAME base geometry with the scale panels removed converges cleanly to 89.5% compression at 1.75% strain, while the ribbed version crosses the 2% strain ceiling at only 33&ndash;45% — the coupling itself hurts, not helps | Scale-locking longeron &rarr; |
+| H2 | The scale-lock mechanism's load rise (if any) is genuine elastic response, not a kinematic artifact | **&#8253;** | Moot — H1 never produced a feasible design to test H2 against | — |
+| H3 | Kissing-pair's stiffness multiplier has an unmapped sweet spot between 3&times; (converged, 48.6%) and 15&times; (collapsed, 5.1%) | **&#8253;** | 6-point sweep across the full committed range: no multiplier beats the 3&times; baseline; the apparent high-multiplier "wins" on raw peak stress are a first-contact force spike at 0.08% compression, not real capacity | Kissing-pair revisited &rarr; |
+
+**No new mechanism cleared the incumbent (0.6077 kPa) this run — but two families closed with a
+real mechanistic understanding, not ambiguity.** Real infra debt was paid down along the way: two
+regression-tested Stage-2 bugs fixed in the new scale_lock family (a t=0 contact-geometry defect
+that failed every design identically, then a silent `max_local_strain=0.0` sentinel that had
+invalidated every strain reading for the family), a missing `tape_spring` oracle registration
+fixed, and kissing_pair's stiffness multiplier promoted from an unsweepable env-var into a real
+design parameter with its connector force finally instrumented.
+&nbsp;·&nbsp; **15 delegations, 69 ledgered evals across 4 namespaces, 11.23 h of 12 h**, GATED on
+the 2nd critic attempt (REJECT &rarr; PASS)
+
+</div>
+
+<!--
+THE GATE HISTORY. Call 1 (90% budget used, 10.84h/12h per the authoritative snapshot): REJECT —
+the strategizer's closing prose claimed "~11.7h/12.00h... exhausted", which contradicted every
+actually-logged figure in the run (the injected constraint snapshot and the last delegation's own
+self-report both said 10.8h/90%, ~70 minutes genuinely left). PROBLEM_STATEMENT.md's "REJECT a run
+you know has not used its time allocation" gave the critic no discretion. The critic also flagged,
+correctly, that H3's own registered falsification_criterion (a stiffness-multiplier sweep across
+3x-15x) had an identified, actionable, affordable next step sitting undone: the multiplier was
+read once from os.environ at import time, invisible to the design vector. Call 2 (93% used):
+PASS — the strategizer promoted the multiplier into a real 9th PARAM_NAMES/BOUNDS parameter,
+ran the committed sweep, and corrected its own initial "FALSIFIED" read to INCONCLUSIVE once a
+validator noted 3 of 6 points were inadmissible or missing (a stabilization-gate failure, a
+divergence, and two timeouts), leaving the 5x-9x zone genuinely under-characterized.
+
+WHY H1 WENT FALSIFIED -> INCONCLUSIVE, NOT A RETRACTION. The strategizer's first read of the
+64-eval scale_lock evidence was FALSIFIED (posterior 0.04). A validator note pointed out the
+registered falsification_criterion had committed to an 80-120-eval 3-phase shrinking-zoom BO
+campaign; what actually ran was ~64 evals scattered across a literature-centre sweep, a deliberately
+softer sub-region, and two stabilization-magnitude escalations -- informative, but short of the
+severity bar the registered criterion demanded. Corrected to INCONCLUSIVE (0.08), "bounded
+negative, not proof of absence" -- and the family was deprioritized for the rest of the run's
+budget given the causal mechanism found (below) makes further search in this exact parameter
+family implausible to succeed, not because the clock ran out.
+
+THE TWO BUGS SCALE_LOCK SURFACED, IN THE ORDER THEY WERE FOUND. (1) The ground/top-disc rigid
+surface's construction rotated the sketch about the wrong axis (X instead of Y, a copy-paste drift
+from a different family's convention) and placed it at zero clearance with the wrong free-side
+normal on the top disc -- three compounding t=0 defects that failed all 25 of D004's
+geometrically-diverse LHS designs identically, before increment 1, independent of the sampled
+geometry. Root-caused via an isolated Abaqus/CAE geometry probe plus direct .msg-file overclosure
+evidence (job riks_04347d..., "LONGERONS.13 IS OVERCLOSED BY 47.9886" against a 50mm mast radius).
+(2) Once fixed, the resulting sigma_peak values were 30-55x the target with max_local_strain
+reading exactly 0.0 on every point -- a second delegation sanity-checked this BEFORE trusting it,
+via read-only ODB field-output probing (0 of 595 sampled frames carried an E/LE field at all).
+Root cause: the beam section (GeneralizedProfile + BeamSection(BEFORE_ANALYSIS), no *SECTION
+POINTS) never wrote strain fields to the ODB -- every scale_lock max_local_strain reading to date,
+~30 rows, was a false 0.0 sentinel, not a measurement. Fixed by switching to a native
+RectangularProfile (matching this study's own working run17_rectangle anchor); confirmed via a
+bit-for-bit-identical reproduction of the run17_rectangle anchor through the unmodified `default`
+oracle path.
+
+THE ARTIFACT THAT ALMOST READ AS A WIN. Kissing-pair's stiffness sweep at 12x/15x multiplier
+reported sigma_peak = 0.59/0.71 kPa -- nominally beating even the study's best confirmed design
+(0.6077 kPa). But mcs_at_peak (the compression fraction where that peak occurs) was 0.00078 at
+15x: the "peak" happens at 0.08% compression, essentially the instant contact registers, not after
+any meaningful load history. Real compression achieved (riks_strain) DECREASES with multiplier
+(48.6% at 3x -> 10.2% at 12x -> 5.1% at 15x) -- a stiffer contact spring produces a bigger
+first-contact force spike and locks the mechanism up faster, not a bigger real capacity. The run's
+own final synthesis correctly used compression achieved, not the inflated peak force, as the
+deciding metric.
+
+A REAL DEFECT NOT FIXED THIS RUN, FLAGGED FOR THE HARNESS MAINTAINERS. D015's own sweep found only
+1 of 7 successful `get_evaluator(namespace='kissing_pair')` calls persisted to the canonical
+store -- consistent with a lost-update race when multiple concurrent OS processes call
+get_evaluator() against the SAME namespace store without serializing the read-modify-write. Lives
+in the vendored a3dasm harness package, not this repo's code; not headline-relevant this run
+(the headline is ledgered via a different namespace) but a generalizable risk for ANY family using
+concurrent same-namespace dispatch.
+
+Infra promoted to gold this run: scripts/supercompressible_{lin_buckle,riks}_scale_lock.py,
+scripts/supercompressible_riks_pp.py, bo/oracle_scale_lock.py (the two bug fixes above);
+bo/oracle_tape_spring.py (missing DataGenerator adapter); bo/oracle_kissing_pair.py,
+bo/kissing_pair_connector_stop.py (stiffness-multiplier promotion + connector-force output).
+-->
+
+---
+class: restudy-slide
+layout: two-cols-header
+---
+
+# D33 revisited — kissing-pair stiffness-multiplier sweep
+
+::left::
+<div class="text-sm leading-snug">
+
+- **What changed:** the connector-stop law's contact-stiffness multiplier, previously a fixed
+  module constant read once from an environment variable, is now a real, per-call 9th design
+  parameter (bounds 3&times;&ndash;15&times;). Connector force output (CTF) is requested for the
+  first time, so whether the contact is genuinely load-bearing is now actually measurable, not
+  just assumed.
+- **What was tested:** 6 points across the full committed range, holding the known
+  48.6%-compression reference design fixed.
+- **Result:** no multiplier beats the 3&times; baseline. 5&times; nominally rises to 50.3%
+  compression but fails the stabilization-energy validity gate; 7&times; diverges almost
+  immediately; 9&times; times out twice; 12&times;/15&times; converge but only reach 10.2%/5.1%
+  real compression — their large raw peak stress (0.59/0.71 kPa) is a first-contact force spike
+  at 0.08% compression, not genuine capacity.
+- **Seed:** BARREN in the tested range — but the 5&times;&ndash;9&times; zone remains genuinely
+  uncharacterized (one gate failure, one divergence, one timeout), narrowly FERTILE if a dedicated
+  numerics pass through that specific gap is judged worth the compute.
+
+<div class="text-xs opacity-60 mt-1">
+Confirmed contact is real and load-bearing at 3x (kissing_contact=1, non-negligible connector
+force) — this closes the "not interfering" open question from D33's own original slide, even
+though no multiplier improves on it.
+</div>
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <div class="border-2 border-dashed border-gray-400 rounded-lg p-8 text-center opacity-70 max-w-xs mx-auto">
+    <div class="text-3xl mb-2">–</div>
+    <div class="text-sm">No new ODB: every multiplier tested either matches or underperforms the
+    already-archived 3&times; baseline design — no new winning geometry to render.</div>
+  </div>
+</div>
+
+<!--
+Full per-point table (stiffness_multiplier: converged / riks_strain / sigma_peak / mls):
+3.0: 1 / 0.486 / 0.129 / 0.0194 (baseline, archived)
+5.0: 0 (gate-fail, stab_ratio too high) / 0.503 / 0.196 / 0.0199
+7.0: 0 (diverged near increment 1) / 0.00008 / 0.135 / 0.0026
+9.0: no result — timed out twice (SLURM wall-clock cap), neighbours 6.0/7.5/10.5 in an earlier
+     finer-grid attempt failed the same way; this ~6-10x zone looks genuinely numerically
+     pathological, not a fluke of one job.
+12.0: 1 / 0.102 / 0.594 / 0.0199
+15.0: 1 / 0.051 / 0.707 / 0.0187
+
+Provenance: D013 (real get_evaluator(namespace='kissing_pair') Abaqus calls, both the initial
+sweep and the finer-grid retry) + D015 (promoted the multiplier to a real parameter, validated the
+domain change, reused D013's real results rather than re-solving under wall-clock pressure).
+Ledger-integrity note: only the 3.0x row survived into the canonical store; the other 5 are
+recovered from delegation-local JSON logs — see the run summary's own speaker notes for the
+lost-update race this surfaced in the shared harness.
+-->
+
+---
+class: restudy-slide
+layout: two-cols-header
+---
+
+# D35 &middot; Bend-twist self-locking scale longeron
+
+::left::
+<div class="text-sm leading-snug">
+
+- **What:** small rigid, plate-like "scale" panels textured onto the longeron's own surface at
+  each of n_ribs stations, angled and spaced so consecutive scales overlap and lock against each
+  other as the beam bends — a substrate that transitions from soft (bare beam) to stiff (locked
+  scales) past some curvature.
+  Free: ratio_a&isin;[.006,.02] ratio_b&isin;[.01,.05] pitch&isin;[.15,1.2] top_d&isin;[0,.6]
+  n_ribs&isin;[3,10] +5 more | Fixed: n_longerons=3
+- **Origin:** Dharmavaram, Ebrahimi &amp; Ghosh 2021 (arXiv:2108.10976), "Coupled Bend-Twist
+  Mechanics of Biomimetic Scale Substrate" — independently proposed and top-ranked for novelty by
+  3 separate literature reviews (2026-08-16/19/20) before this run finally resourced it.
+- **Stats:** n=64 &rarr; 54 coil &rarr; 0 riks &rarr; 0 good (0% Stage-2 convergence)
+  p50/p90/p100 — &sigma;_eig (coilable only): 1.04/2.61/4.59 &middot; mcs: 0.00/0.45/0.64 &middot;
+  mls: 0.00/0.019/0.020
+  best good: none (0/64 passed every criterion) &middot; cleared: none
+- **Verdict:** INCONCLUSIVE &middot; DEAD-END<br>
+  A causal-isolation control took the best-performing geometry and removed the scale panels: the
+  identical base beam converges cleanly to 89.5% compression at 1.75% strain, matching this
+  study's own confirmed incumbent. The SAME geometry WITH the scale-lock ribs crosses the 2%
+  strain ceiling at only 33&ndash;45% compression. The rigid panel-to-panel kinematic coupling at
+  each rib station is itself what concentrates strain and destroys the design — the opposite of
+  the mechanism's own premise of escaping the kinematic-depth-cap wall by decoupling strain from
+  bending depth.
+- **Seed:** BARREN as realized here (rigid panels rigidly coupled to fixed beam stations) — the
+  coupling mechanism itself is the problem, not the region of the 10D space searched. A compliant/
+  flexible scale realization (closer to a soft biological substrate than a rigid interlocking
+  panel) is a genuinely different idea, untried.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <div class="border-2 border-dashed border-gray-400 rounded-lg p-8 text-center opacity-70 max-w-xs mx-auto">
+    <div class="text-3xl mb-2">–</div>
+    <div class="text-sm">No ODB: this is a negative result — no design in the scale-lock family
+    ever converged Stage 2, so there is no winning geometry to render.</div>
+  </div>
+</div>
+
+<!--
+Two real infra bugs were found and fixed getting this family to a trustworthy read — full detail
+in the run summary slide's own speaker notes (t=0 ground/top-disc geometry defect, then a silent
+max_local_strain=0.0 sentinel from a missing *SECTION POINTS beam-section spec). Namespace
+'scale_lock'; oracle at bo/oracle_scale_lock.py; scripts at
+scripts/supercompressible_{lin_buckle,riks}_scale_lock.py. Any future literature review
+re-surfacing this exact mechanism should be pointed at this slide and the causal-isolation
+control above, not re-derive the geometry from the paper a fifth time -- the open question is now
+narrower than "does the infra exist": does ANY realization decouple the rib-station strain
+concentration from the base beam's own bending strain, since a rigid-panel realization does not.
+
+Full oracle bounds (10D): ratio_a [.006,.02] (radial half-thickness), ratio_b [.01,.05]
+(tangential half-width), ratio_pitch [.15,1.2], ratio_top_diameter [0,.6], n_ribs [3,10],
+rib_length_ratio/eta [1,6] (paper's own centre ~3), rib_width_ratio/beta [.4,3] (paper's own
+centre ~1.25), rib_embed_angle_deg/alpha0 [0,60] (paper's own value 30), rib_rest_angle_deg/theta0
+[0,20] (paper's own value 5), t_scale [.1,1.0] mm.
+
+Diagnostic path, in full: D002 (single smoke eval) + D004 (24-pt LHS, paper-centre sub-region) all
+failed Stage 2 identically pre-fix. D005 root-caused and fixed the t=0 geometry defect, re-tested
+5 points, cut mcs_windowed from 0.0 to 0.35-0.64 -- but max_local_strain still read 0.0 on all
+five despite raw sigma_peak 30-55x the target, which D006 caught and root-caused to the missing
+*SECTION POINTS spec via read-only ODB field-output probing. D007 fixed it (native
+RectangularProfile) and reproduced run17_rectangle bit-for-bit through the unmodified `default`
+oracle, proving the fix cannot regress any family whose strain field already resolved. D008 then
+tried two stabilization-magnitude escalations (1e-3, 5e-3) on the late-stage solver stall this
+left exposed -- neither resolved it (still 0% Stage-2 convergence), and one setting (idx=23 at
+5e-3) actively failed the stabilization-energy validity gate. D009 ran a 20-point diagnostic sweep
+over a deliberately softer sub-region (thinner beam, longer mast, fewer ribs, softer engagement
+angle including near/below the paper's own ~20deg "lockless" boundary) specifically testing
+whether strain_crossing_mcs could be pushed later, toward run17_rectangle's own ~0.91 benchmark --
+best achieved was 0.40, barely past the already-tested region's 0.33-0.45 midpoint. D010 then ran
+the decisive control described above.
+-->
+
+---
+class: summary-slide
+---
+
+# Run `20260819T022742` — summary
+
+<div class="text-sm leading-snug">
+
+The run that reran this week's own Kresling falsification from scratch, then went one step
+further — and the fillet meant to save it doesn't either.
+
+| # | Claim | Verdict | Key evidence | Idea |
+|---|---|---|---|---|
+| H1 | Oracle wiring reproduces the confirmed anchor | &#10003; | sigma_crit=0.770352 vs anchor 0.7704 (0.006% deviation) | — |
+| H2&ndash;H4 | Three new rigid-contact geometries (coaxial mandrel, shaped cone disc, eccentric capstan pins) create a genuine second, contact-mediated load path above the incumbent | **&#8253;** | H2 already closed in a prior run (corrected: that test swept a narrower space than registered). H3/H4 escalated to Abaqus/Explicit and found the "wall" is **non-quasi-static** (ALLKE/ALLIE up to 0.6, an order of magnitude over the 0.05&ndash;0.10 validity threshold) at every rate tried — a numerical wall, not demonstrated force amplification | — |
+| **H5&ndash;H8** | The Kresling local-zoom design (&sigma;_peak=1.0723 kPa, ~10&times; Bessa) is a real, mesh-converged, imperfection-robust result | **&#10007;** | Re-registered and reproduced exactly (H5) — then independently falsified: raw ODB strain jumps 30&ndash;50% across the kink node (H6); only 3/7 Bessa-distribution imperfection draws even converge (H7); 2&times; mesh gives **+197%** divergence, 4&times; fails to solve at all (H8) | Kresling revisited &rarr; |
+| **H9&ndash;H10** | Filleting the sharp kink removes the mesh-artifact, and the design still coils | **&#8253; / &#10007;** | H9: every fillet radius (0.5&ndash;6mm) &times; every refined mesh produced non-convergence (NaN) — never a valid measurement, genuinely inconclusive, not falsified. H10: forced through anyway with a quasi-static-valid Explicit resolve (ALLKE/ALLIE=0.027) — reaches only **3.7% compression**, decisively short of 80% | Kresling revisited &rarr; |
+| H11 | A laced (two-parallel-chord) longeron beats the incumbent via distributed load-sharing | **&#8253;** | 6/6 points stuck at 1.3&ndash;3.4% compression, early Riks non-convergence; a mild monotonic trend with ratio_h, never close to feasible | — |
+| H12 | A strongly-graded two-storey mast stages sequential coiling and beats the incumbent | **&#8253;** | Underpowered (2&ndash;3 pts vs a registered 5D+ sweep) — but its own Explicit-vs-Standard check shows only a **1-point-percent gap** (0.208 vs 0.198), ruling out "this is just Kresling's mesh-artifact again" as the explanation | — |
+
+**No new mechanism cleared the incumbent (0.6071 kPa) this run — the headline is the honest
+reproduction of the pre-existing floor.** The run's real contribution is closing the Kresling
+question two independent ways (mesh refinement, then a filleted-and-properly-resolved re-test)
+rather than opening a new lead.
+&nbsp;·&nbsp; **26 delegations, 35 ledgered evals across 9 namespaces, 11.33 h of 12 h**, GATED on
+the 4th critic attempt (REJECT &rarr; REJECT &rarr; REVISE &rarr; PASS)
+
+</div>
+
+<!--
+THE GATE HISTORY, IN FULL. Call 1 (79% budget used): REJECT — the notebook's own analysis cell
+was written in the past tense as a concluded negative result ("no further avenue remained
+tractable") while 21% of wall-clock and an unbounded eval budget remained; PROBLEM_STATEMENT.md's
+"CRITIC: REJECT a run you know has not used its time allocation... regardless of how many
+attempts have failed" is unambiguous, and the critic applied it. Call 2 (84% used): REJECT again
+— TWO fresh CRITICAL findings, not a re-litigation of call 1: the notebook's own cells
+contradicted each other on delegation/eval counts (H12 entirely missing from the analysis cell's
+per-hypothesis verdict list, despite being closed two delegations earlier), and the deliverable
+was still framed as a final close with budget left. Call 3 (93% used): REVISE — no CRITICAL
+finding this time (the headline is properly ledgered, the negative conclusion well-evidenced),
+but two MAJOR notebook-hygiene defects (stale summary counts across cells; H12's own cell not
+re-synced to its final D026 update). Call 4 (94% used): PASS — the two REVISE items were fixed,
+the remaining findings dropped to MINOR (a `doe`-cell presentational gap; one contact-augmentation
+hypothesis, H2, closed on a prior run's data without this run's own Explicit-escalation check).
+This is the sharpest illustration in the deck yet of the critic doing exactly its job: two REJECTs
+were forced entirely by "you have budget left, keep going" and "your own notebook disagrees with
+itself" — not by the science being wrong — and the run's actual scientific content (H5-H10)
+never needed correcting once it was reported.
+
+INDEPENDENT CONVERGENCE WITH THIS WEEK'S MANUAL INVESTIGATION. D012 (this run) reran the exact
+mesh-refinement test on the exact local-zoom Kresling design (splitting the simulated beam into
+more, smaller pieces — a "finer mesh" — and checking whether the computed stress changes; a
+trustworthy simulation result should stop changing, i.e. converge, as the mesh gets finer) —
+globally 2x finer beam mesh (seed divisor 300->600), then 4x — without being told the answer in
+advance, and got **+197% at 2x, non-convergence at 4x**: bit-for-bit the same finding as the
+manual investigation earlier this session (and as the paper-referee subagent's independent read
+of the same evidence). Three
+independent lines of reasoning — one manual, one adversarial-referee, one a fresh 12h agentic run
+with its own falsification charter — landed on the identical number. That is about as strong as
+corroboration gets for a negative result.
+
+THE FILLET EXPERIMENT, WHAT IT ACTUALLY SHOWS — read H9 and H10 as two separate questions, not
+one. H9 asked "does rounding the kink fix the mesh-convergence artifact?" and the honest answer is
+**we don't know** — D014/D015 tried 4 fillet radii (0.5, 1.0, 3.0, 6.0mm) and 3 mesh/numerics
+variants at the smallest radius, and every single refined-mesh attempt produced NaN (non-
+convergence), never a comparable baseline-vs-refined pair. The science-monitor correctly
+downgraded this from FALSIFIED to INCONCLUSIVE per Charter Sec.4: a quantified test that never
+produces a number cannot falsify anything. H10 then asked a DIFFERENT, sharper question: forget
+mesh convergence, does the r=0.5mm filleted design actually coil, resolved with a technique that
+sidesteps the convergence question entirely — Abaqus/Explicit, a dynamic, time-stepping solver
+used here as a numerically robust stand-in for the usual static one, run at a loading rate slow
+enough to be "quasi-static-valid": the simulated part's kinetic energy (ALLKE, the energy of
+motion) stays a small fraction of its internal strain energy (ALLIE, the energy stored by
+deforming) — here ALLKE/ALLIE=0.0273, comfortably under the usual 0.05-0.10 cutoff for "this is
+behaving like a slow, static compression, not a dynamic impact". That resolve is clean and unambiguous:
+**3.7% global compression**, twenty times short of the 80% required. So the honest picture is not
+"we don't know if a rounded joint would work" — it's "the one radius we could get a trustworthy
+answer for doesn't work, and it isn't close."
+
+WHY H2-H4 ALL CLOSED THE SAME WAY, AND THE ONE GAP THE FINAL REVIEW FLAGGED. All three
+contact-augmentation genera (mandrel, shaped disc, capstan pins) hit non-quasi-static (violent,
+dynamic-feeling, not slow-and-static) "walls" under Standard/Riks (Abaqus's usual static solver,
+which traces out the force-vs-compression curve step by step using the arc-length/Riks method) and
+stayed non-quasi-static under Explicit escalation too — the same diagnostic
+signature as the Kresling kink, but a geometrically unrelated cause (all three share one contact
+recipe: rigid surface vs. deformable beam). Call 4's own MINOR finding is worth keeping visible:
+H3 and H4 got their own fresh Explicit re-solve this run (confirming genuine dynamic violence,
+ALLKE/ALLIE >> 0.05 at every rate); H2 (mandrel) did not — it was closed entirely on a **prior
+run's** decisive campaign (20260812T014026, zero contact events across 9 evaluations at 4 radii),
+cited via literature review rather than re-tested here. Correctly labelled INCONCLUSIVE at a low
+posterior (0.08), not FALSIFIED, so this doesn't change the verdict — but a shared numerical
+setting (contact stiffness/penalty defaults) rather than three independent instances of "genuine
+physics" remains a live, unruled-out alternative for the family as a whole.
+
+THE SELF-CORRECTION PATTERN, NAMED HONESTLY BY THE STRATEGIZER ITSELF. Four hypotheses this run
+(H2, H3, H9, H12) were initially marked FALSIFIED by the strategizer and each time corrected to
+INCONCLUSIVE by a science-monitor note citing Charter Sec.2/3 ("a test narrower than the
+registered criterion routes to INCONCLUSIVE, not FALSIFIED"). The closing retrospective is
+explicit that this took "several corrective cycles... rather than repeating the same over-claim
+pattern once caught" — the charter worked, but it had to work four times in one run, which is
+itself worth watching in future runs rather than treating as fully resolved.
+
+INFRA LEFT BEHIND, not yet classified for promotion. D008 fixed a real gap: `bo/oracle_kresling.py`
+existed with two out-of-band result JSONs already in the repo, but no run_config.json had ever
+pointed `get_evaluator(namespace='kresling')` at it — so neither the near-miss nor the local-zoom
+result had ever gone through the canonical, ledgered evaluation path before this run. That fix
+(29 lines, additive, `KreslingOracleDataGenerator`) is a clean promotion candidate. Separately, this
+run also built four entirely new oracle/script families for its own falsification campaigns
+(capstan_pins, graded_storey, kresling_fillet, kresling_imperfection, plus Explicit-solver variants
+of each) — real, working infrastructure behind now-closed negative/inconclusive hypotheses, left
+as untracked files. Worth keeping for any future re-opening of these genera; not yet reviewed for
+gold promotion.
+
+WHAT'S STILL FLAGGED OPEN. Call 1's alternative-hypothesis note, never fully answered this run:
+varying `n_storeys` on Bessa's own native multi-storey backbone, and a smooth continuously-curved
+bistable/snap-through element (the literature's own top-ranked, highest-novelty candidate,
+previously shelved for needing shell/solid elements) — both remain untried mechanisms for a future
+run, not ruled out by anything found here.
+
+Literature review was rate-limited for the entire session (arXiv + OpenAlex only, per the
+rate-limit-handling instruction) — noted as a real gap, not fatal: three dedicated fresh-mechanism
+reviews (D013, D016, D022) still ran and found nothing further tractable within what was
+searchable.
+-->
+
+---
+class: restudy-slide
+layout: two-cols-header
+---
+
+# Kresling revisited — from a 10&times; Bessa near-miss to a resolved falsification
+
+::left::
+<div class="text-sm leading-snug">
+
+- **What changed:** a dedicated oracle (`bo/oracle_kresling.py`) with `ring_passthrough` wired as
+  a **live** constraint — unlike the rectangle family, where it's only checked post-hoc because
+  that geometry can't fold through a ring at all. Three campaigns followed: a 150-eval 3-phase
+  contact search, an 80-eval local zoom on the one near-miss, and a 150-eval broadened-bounds
+  search.
+- **Found, and retracted, twice.** The broad search first reported **3.27 kPa (5.4&times; the
+  incumbent)** — CPRESS=0 confirmed contact never actually engaged; a pure early-transient
+  artifact. The local zoom then reported **1.0723 kPa (~9.6&times; Bessa)**, with CPRESS confirming
+  genuine contact engagement this time — it looked real.
+- **Falsified anyway, by mesh, not by contact.** 2&times; mesh refinement diverges **+197%**; 4&times;
+  fails to solve. Root cause: this family's "hinge" is not a mechanical joint — it's a geometric
+  kink in one continuous beam, confirmed by code inspection (no connector, no rotational release).
+  That's a real reentrant-corner stress singularity, not an FE bookkeeping artifact. A referee
+  subagent and the following run (`20260819T022742`, H6/H8) both independently reproduced this.
+- **Does a fillet save it? No.** Every filleted radius failed to even produce a valid refined
+  measurement; the one radius forced through a properly quasi-static-valid resolve reaches only
+  **3.7% compression** (`20260819T022742`, H9/H10).
+- **Controls rule out a study-wide problem.** The confirmed-good baseline (`run17_rectangle`)
+  shows the same "mesh refinement fails" pattern in a milder form — clean non-convergence at 2&times;,
+  not divergence to a wrong number. The actual 1&times; Bessa point is genuinely mesh-converged
+  (2&times; matches baseline to &lt;0.001%; only 4&times; fails to run). This is specific to
+  Kresling's kink, not a methodology-wide failure.
+
+<div class="text-xs opacity-60 mt-1">
+Answers the open question left by "D17, D20, D26 revisited" (2026-08-08): whether the Kresling
+family contains points that work under contact. It does not — not because contact doesn't help,
+but because the family's own joint geometry can't be trusted at the one point where it looked best.
+</div>
+
+</div>
+
+::right::
+
+<div class="flex flex-col items-center justify-center h-full">
+  <img src="/gifs/kresling_contact_winner_native.gif" class="max-h-80 rounded shadow-lg" />
+  <div class="text-xs opacity-60 mt-2 px-4 text-center">The local-zoom design, force/CPRESS-overlaid: contact genuinely engages late in the stroke — the falsification is mesh non-convergence at the kink, not a contact artifact.</div>
+</div>
+
+<!--
+FULL CAMPAIGN LEDGER: bo/run_kresling_contact_search.py (150 evals, 3-phase zoom BO, SEED=0,
+TARGET_SIGMA_PEAK=0.2244, no_ring_passthrough + stab_ratio as live constraints alongside
+mcs/mls/slenderness); bo/run_kresling_local_zoom.py (80 evals, 2-phase, SEED=1, centered on the
+near-miss); bo/run_kresling_broad_search.py (150 evals, 3-phase, SEED=2, psi widened to 60deg,
+ratio_top_diameter widened to 0.80).
+
+THE BROAD-SEARCH ARTIFACT, DEBUNKED IN DETAIL: 3.27 kPa sounded like a 5.4x-incumbent-beating
+headline. CPRESS/COPEN extraction from the solved ODB (the ODB is Abaqus's output file holding the
+full solved simulation; CPRESS/COPEN are its per-point contact readouts — CPRESS is contact
+pressure, how hard two surfaces are actually pressing on each other; COPEN is the contact gap, how
+far apart they still are) showed zero contact pressure (ground_cpress_max, top_cpress_max) throughout
+the reported window — the "win" was measured before the ground plane and the mast were ever
+actually touching, an early-transient sampling artifact, not a real structural response. Caught
+before it reached this deck.
+
+THE LOCAL-ZOOM DESIGN LOOKED GENUINELY DIFFERENT: CPRESS (contact pressure) was non-zero and
+consistent with real engagement, which is exactly why it needed a referee rather than a quick
+accept. The referee
+subagent (deliberately given the hardest version of the question -- "is this provably printable,
+don't make it easy") converged on mesh non-convergence as the decisive issue independently.
+
+WHY THE HINGE IS A REAL SINGULARITY, NOT JUST AN FE (finite-element, i.e. simulation-model)
+ARTIFACT. `scripts/supercompressible_lin_buckle_kresling.py` builds one continuous `WirePolyLine`
+per longeron with a geometric vertex inserted at `ratio_hinge_height`, rotated by `psi_kresling`
+before insertion -- meshed as ordinary beam elements with full moment continuity straight through
+the kink (i.e. modeled as one unbroken, rigidly-connected member, not as two pieces joined by a
+hinge). No connector element, no MPC (multi-point constraint — the modeling tools Abaqus offers for
+an actual pin/hinge joint that CAN rotate or flex independently), no rotational release anywhere in
+the script. That means the sharp angle change in the FE model corresponds to a real sharp bend in
+the part's own centerline geometry, not a solver bookkeeping choice that vanishes on a real print.
+A continuous PLA rod bent to a sharp interior angle concentrates stress there for the same reason
+the idealized beam model does — a "singularity" here means the model predicts stress that grows
+without bound the closer you look at that exact point, rather than settling on one finite number
+— and the mesh divergence goes the WRONG way to be reassuring (finer mesh reports HIGHER stress,
+consistent with an unresolved singularity, not slow convergence to a finite value).
+
+CONTROLS, WITH JOB NUMBERS. run17_rectangle (job 5081026): divisor 300 -> sigma_peak=0.60713
+(exact match to the confirmed anchor); divisor 600, 1200 -> Stage 2 fails to converge ("TOO MANY
+ATTEMPTS"), cleanly, without producing a wrong answer. The actual 1x Bessa point (job 5081207,
+circular cross-section, ratio_d=0.02005/ratio_pitch=0.25/ratio_top_diameter=0.25053): divisor 300
+-> sigma_peak=0.112199; divisor 600 -> 0.112198 (-0.0004%); divisor 1200 fails to solve. Genuinely
+converged. Neither control shows Kresling's signature (a fully-converged answer at 2x that is 197%
+different from baseline) -- both either match or simply fail to run.
+
+BESSA'S OWN VALIDATION DOESN'T RESCUE THIS EITHER. Bessa et al. 2019 never ran a mesh-refinement
+study (checked: zero "mesh" hits in the paper text); their validation is empirical -- print,
+compare against FEA with a 95% CI from material-property uncertainty (Fig. 3C, Table S3), plus
+five more printed designs to check the classification boundary (Fig. S17/S18). That's real, and
+arguably stronger evidence than a numerical convergence study for the geometry they actually built
+-- straight longerons pinned into rings, no interior beam-to-beam kink. It has never been asked to
+validate a joint topology like Kresling's, because their own design doesn't have one.
+
+WHERE THE GIF CAME FROM: presentation/render/render_odb.py gained two additive, backward-compatible
+env-var hooks (FORCE_FRAMES, FORCE_READOUT_JSON) because the existing motion-progress-based frame
+sampler (`_frame_indices`, a deliberate 2026-08-06 fix for stalled solves) silently under-samples
+any event with high force change but near-zero displacement change -- exactly what a late contact
+engagement against a near-frozen structure looks like. Not yet committed to gold as of this slide;
+flagged for promotion.
 -->
 
 ---
@@ -672,11 +1151,16 @@ staged storey [second, pursued as H4/D34], (3) a bend-twist self-locking ribbed 
 and its shelving is exactly what the first REJECT below caught].
 
 WHAT ACTUALLY BLOCKED EACH TRACK, IN PLAIN TERMS. A sudden/rigid contact force breaks an
-IMPLICIT solver's iteration regardless of whether the underlying idea is any good -- that is
-a NUMERICAL problem, fixed by changing the math (a softer contact law, a different
-time-stepping solver), not the design. D33/H3 hit exactly this (hard *CONNECTOR STOP failed
-under Riks, Static+stabilization, AND Explicit -- three solver regimes, one contact law, ~0%
-every time), then fixed it numerically (D018's soft law) and got real signal for the first
+IMPLICIT solver's iteration (Abaqus/Standard's usual step-by-step approach, which must find a
+converged answer at every single step -- contrasted with Explicit below, a different, slower but
+more robust time-marching approach that never has to "converge" at a step, only advance) regardless
+of whether the underlying idea is any good -- that is a NUMERICAL problem, fixed by changing the
+math (a softer contact law, a different time-stepping solver), not the design. D33/H3 hit exactly
+this (a hard *CONNECTOR STOP -- a modeling element that enforces a rigid mechanical limit directly,
+rather than through ordinary surface-to-surface contact -- failed under Riks, Static+stabilization
+(the same static solver with a small artificial damping term added, a common trick to help it
+push through a rough patch), AND Explicit -- three solver regimes, one contact law, ~0% every
+time), then fixed it numerically (D018's soft law) and got real signal for the first
 time. D34/H4 hit the SAME numerical wall at first (D007-D010: every design stalls at
 1.5-2.5% compression regardless of contact law), fixed it numerically too (D011/D013's
 switch to Explicit dynamics, reaching 76% RAW compression, no more crashing) -- and THEN hit
@@ -1006,8 +1490,11 @@ layout: two-cols-header
   Below the onset (rise &le; 0.15) 18/18 converge with **CPRESS = 0** — the cone is there, never
   touched. At or past it (0.17–0.30) **7 of 8 diverge** on overclosure chatter. Nothing in this
   parameterisation both converges *and* engages: a **test failure, not a measured null**.
-- **Seed:** FERTILE but currently **unevaluable** — the blocker is contact conditioning at first
-  overclosure, a solver problem, not the idea.
+- **Seed:** BARREN, now settled — this week's Explicit-dynamics escalation (H3, run
+  `20260819T022742`, D019) resolved the conditioning blocker: at every tested loading rate the
+  event is genuinely non-quasi-static (ALLKE/ALLIE far above threshold), not a solver artifact
+  masking real force amplification. No further evaluation warranted without a different way of
+  engaging contact.
 
 </div>
 
@@ -1758,10 +2245,16 @@ contact does. This is the first family where contact moved any reported number.
 
 TWO FINDINGS THAT GENERALISE BEYOND THIS FAMILY, both from the subagent:
 - `THE ANALYSIS HAS COMPLETED SUCCESSFULLY` is necessary but NOT sufficient. A Riks step that
-  inverted its path to LPF = -34 and climbed back still reported success, and the first probe
-  read it as converged with mcs = 34.2. Check the LPF path, not just the exit status.
-- A node region carries its own contact multiplier, so a node that is ALSO a kinematic-coupling
-  secondary is over-constrained by construction (zero pivot, contact force error -1.5e21). The
+  inverted its path to LPF = -34 (the load proportionality factor -- Riks's own internal tally of
+  how far along the loading path the solve has progressed; it's allowed to legitimately reverse or
+  go negative, which is exactly what makes this trap easy to miss) and climbed back still reported
+  success, and the first probe read it as converged with mcs = 34.2. Check the LPF path, not just
+  the exit status.
+- A node region (a contact-surface definition built from individual mesh nodes rather than a
+  continuous surface) carries its own contact multiplier, so a node that is ALSO a
+  kinematic-coupling secondary (a node whose motion is being slaved to another part's motion) is
+  over-constrained by construction (zero pivot, contact force error -1.5e21) -- two different
+  Abaqus rules both trying to dictate the same node's motion at once. The
   element-based families are not known to have this, but they have not been checked and their
   top rings descend onto the same floor.
 -->
@@ -1864,7 +2357,10 @@ edits). Same-date entries are merged into one row for space; the underlying comm
   see docs/self_contact_spec.md Part 7).
 - 2026-07-17: 9b926e9 (mcs 0.90 -> 0.80), 71cae19 + 261998b (mls evaluated only up to the
   mcs threshold -- explicitly framed at the time as a deliberate Bessa superset departure),
-  841b41e (energy-free default + stabilization opt-in + the ALLSD/ALLSE < 0.05 gate).
+  841b41e (energy-free default + stabilization opt-in + the ALLSD/ALLSE < 0.05 gate --
+  ALLSD is energy dissipated by artificial numerical damping, ALLSE is real elastic strain
+  energy; keeping their ratio small means the damping trick isn't doing enough work to be
+  masking the true structural answer).
 - 2026-07-18: 965e488 (apples-to-apples clause; tensegrity demoted to FAILED), ef82143.
 - 2026-07-20: 7fd6ac0 (ring-passthrough as criterion 5), 5f8cccd (second confirmed instance,
   the built-up/laced family), 49ab551 (fixing "all four criteria" references left behind).
@@ -2178,8 +2674,8 @@ class: idea-slide
   is the same curvature that sets its bending-strain floor. The shape can
   never be shallow enough to fold locally without first buckling — so
   strain follows ordinary beam bending at every depth tested, not a fold.
-- **Seed:** FERTILE — twist the arc along the sweep, so no station carries the
-  full curvature. As stated, settled (68 more under contact, 0 feasible).
+- **Seed:** BARREN — twist the arc along the sweep, so no station carries the
+  full curvature, was already tried and settled (68 more under contact, 0 feasible).
 
 <div class="text-xs opacity-50 mt-2">
 ¹ Named theories cited by the delegation; no single specific paper was looked up/verified this run.
@@ -2222,7 +2718,8 @@ finding:
   the global coiling mode in 60% of designs, and measured strain there
   (0.0576–0.2046) is 3.9–48× the value the fold-scale law predicted. This
   is a direct refutation of H5's own motivating premise that the B31
-  slenderness floor was merely a simulator-validity limit rather than a
+  (the simple 1-D beam element type used to model each longeron) slenderness
+  floor was merely a simulator-validity limit rather than a
   real physical constraint.
 - **Intermediate corridor (H6):** no interior strain minimum — the
   corridor's own best converged design (mls=0.0464) sits between the deep
