@@ -1343,9 +1343,11 @@ layout: two-cols-header
   windowed compression never exceeds 3.9%, because **storey 1's own material strain crosses
   Bessa's 2% limit almost immediately**, before the staged mechanism can engage. True under
   every solver and every contact law tried: a design limit, not a numerical one.
-- **Seed:** FERTILE — search storey 1's own strain ceiling (e.g. widen its section) as the
-  free variable, not another contact law; every formulation tried died for the same
-  design-specific reason.
+- **Seed:** FERTILE, narrower — widening storey 1 is now closed (H12's own `graded_storey`
+  oracle, 105 evals: mcs stuck at 35.6%, 2.2&times; short, unanimous single-criterion failure). A
+  *thinner* storey 1 showed a suggestive but statistically unconfirmed reversal (&rho;=&minus;0.35,
+  n=23, fails Holm correction) and remains untested. `staged_storey` (this slide's own oracle)
+  itself was not re-run — its dead end is the same root cause H12 just independently reproduced.
 
 </div>
 
