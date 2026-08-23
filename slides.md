@@ -1408,11 +1408,14 @@ layout: two-cols-header
   windowed compression never exceeds 3.9%, because **storey 1's own material strain crosses
   Bessa's 2% limit almost immediately**, before the staged mechanism can engage. True under
   every solver and every contact law tried: a design limit, not a numerical one.
-- **Seed:** FERTILE, narrower — widening storey 1 is now closed (H12's own `graded_storey`
-  oracle, 105 evals: mcs stuck at 35.6%, 2.2&times; short, unanimous single-criterion failure). A
-  *thinner* storey 1 showed a suggestive but statistically unconfirmed reversal (&rho;=&minus;0.35,
-  n=23, fails Holm correction) and remains untested. `staged_storey` (this slide's own oracle)
-  itself was not re-run — its dead end is the same root cause H12 just independently reproduced.
+- **Seed:** BARREN, fully — widening storey 1 closed first (105 evals, mcs stuck at 35.6%).
+  A follow-up gave the *thinner*-storey-1 signal proper power (120 more evals, same
+  unrestricted box): the correlation is real and strengthens (pooled &rho;=&minus;0.30,
+  p=0.0009) but every slenderness-linked dimension on BOTH storeys moves the same way — it's
+  the study's own already-closed kinematic-depth-cap wall reasserting itself, not a
+  storey-1-specific escape. Best achieved (20.5%) is worse than the wide-direction campaign's
+  own best. `staged_storey` (this slide's own oracle) was not re-run — same root cause,
+  independently confirmed twice now via a different oracle.
 
 </div>
 
