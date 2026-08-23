@@ -5552,3 +5552,4 @@ idea and every run's own summary, anti-chronological. `PROBLEM_STATEMENT.md`'s o
 "Backlog from previous runs" section still tracks open threads not yet resolved by a
 later run; for full per-hypothesis detail beyond what's in any slide's speaker notes,
 see `runs/*/debug/strategizer_notes/hypotheses.json`.
+<!-- safety-check test edit, will be reverted immediately -->
