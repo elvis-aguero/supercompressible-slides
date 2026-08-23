@@ -284,6 +284,43 @@ not meant to render. Read this before adding or editing any slide.
                       Seed WARNS, it does not block. Add it when editing a
                       slide for any other reason.
 
+3b. RESTUDY-SLIDES (`class: restudy-slide`) — codified 2026-08-23, not new
+    practice. A restudy-slide reports a follow-up test of an idea that
+    ALREADY has its own idea-slide (Rule 1's "genuinely new" bar wasn't
+    met, so no new D-number, but the follow-up is substantial enough to
+    earn more than a run-summary bullet). It is NOT an idea-slide with
+    different labels — the two report structurally different things: an
+    idea-slide introduces a mechanism from nothing (What/Origin/Stats/
+    Verdict); a restudy-slide reports a DELTA against an already-stated
+    baseline, so re-stating Origin is redundant and "what" becomes "what
+    changed". Four bullets, this exact order, this exact wording:
+
+      What changed    — the specific change from the original slide's own
+                         setup (new infra, a wider/narrower search box, a
+                         fixed bug) — one to two sentences, not a re-telling
+                         of the original idea.
+      What was tested — the actual campaign: n, method, what was held
+                         fixed. Same funnel-honesty bar as an idea-slide's
+                         Stats bullet, free prose rather than the fixed
+                         format (a restudy's "was it enough" question is
+                         usually about ONE parameter/direction, not a full
+                         6-line data readout).
+      Result          — the finding, plain language, same STATUS-then-
+                         reason discipline as an idea-slide's Verdict
+                         (state the practical outcome first, causal
+                         explanation second).
+      Seed            — identical semantics and FERTILE/BARREN vocabulary
+                         to rule 3(e) above.
+
+    This was already the majority practice (D25 revisited/tape-spring,
+    D21 revisited, D17&D20&D26 revisited, D33 revisited, D25 revisited
+    (twist)) before it was written down here — this entry documents
+    existing convention, it does not introduce a new one. One known
+    non-conforming outlier not yet migrated: "Kresling revisited" predates
+    this convention and uses a single free-form "What changed" bullet;
+    left as-is pending a dedicated migration pass, per the append-only
+    policy on not rewriting a prior verdict's own words casually.
+
    PLAIN-LANGUAGE BAR (applies to all 4 bullets): no unexplained jargon in
    the visible slide body. Terms like a bare "ρ" or "r" (correlation/
    regression coefficients), an unglossed "magnitude ratio", or a made-up
@@ -598,7 +635,8 @@ compression strain (mcs), and at most 2% maximum local strain (mls).
 
 - **Design:** circular longeron cross-section, 3 longerons, 1 storey. Circular top and bottom rings
 - **Geometry:** ratio_d=0.02005, ratio_pitch=0.25, ratio_top_diameter=0.2505.
-- **Result:** <u>&sigma;_cr,nd=0.1306 kPa/longeron</u>, mls=0.0198, mcs >= 0.8.
+- **Result:** <u>&sigma;_cr,nd=0.1306 kPa/longeron</u>, mls=0.0198 (inside the 2% cap),
+  fully reversible coiling.
 
 <div class="text-xs opacity-50 mt-2">
 Verdict symbols used throughout: ✅ supported &middot; ❌ falsified &middot; ❔ inconclusive &middot; ⏳ pending (registered, not yet tested this run).
@@ -649,9 +687,9 @@ out kissing-pair's own last open gap the same way.
 
 | # | Claim | Verdict | Key evidence | Idea |
 |---|---|---|---|---|
-| H1 | The bend-twist self-locking scale-longeron mechanism (Dharmavaram et al. 2021) escapes the kinematic-depth-cap wall | **&#8253;** | 64 evals, 0% Stage-2 convergence; a causal-isolation control on the SAME base geometry with the scale panels removed converges cleanly to 89.5% compression at 1.75% strain, while the ribbed version crosses the 2% strain ceiling at only 33&ndash;45% — the coupling itself hurts, not helps | Scale-locking longeron &rarr; |
+| H1 | The bend-twist self-locking scale-longeron mechanism (Dharmavaram et al. 2021) escapes the kinematic-depth-cap wall | **&#8253;** | 64 evals, 0% Stage-2 convergence; a causal-isolation control on the SAME base geometry with the scale panels removed converges cleanly to 89.5% compression at 1.75% strain, while the ribbed version crosses the 2% strain ceiling at only 33&ndash;45% — the coupling itself hurts, not helps | D35 |
 | H2 | The scale-lock mechanism's load rise (if any) is genuine elastic response, not a kinematic artifact | **&#8253;** | Moot — H1 never produced a feasible design to test H2 against | — |
-| H3 | Kissing-pair's stiffness multiplier has an unmapped sweet spot between 3&times; (converged, 48.6%) and 15&times; (collapsed, 5.1%) | **&#8253;** | 6-point sweep across the full committed range: no multiplier beats the 3&times; baseline; the apparent high-multiplier "wins" on raw peak stress are a first-contact force spike at 0.08% compression, not real capacity | Kissing-pair revisited &rarr; |
+| H3 | Kissing-pair's stiffness multiplier has an unmapped sweet spot between 3&times; (converged, 48.6%) and 15&times; (collapsed, 5.1%) | **&#8253;** | 6-point sweep across the full committed range: no multiplier beats the 3&times; baseline; the apparent high-multiplier "wins" on raw peak stress are a first-contact force spike at 0.08% compression, not real capacity | D33 |
 
 **No new mechanism cleared the incumbent (0.6077 kPa) this run — but two families closed with a
 real mechanistic understanding, not ambiguity.** Real infra debt was paid down along the way: two
@@ -859,7 +897,7 @@ left in an isolated worktree pending review.
 -->
 
 ---
-class: restudy-slide
+class: idea-slide
 layout: two-cols-header
 ---
 
@@ -1408,13 +1446,13 @@ layout: two-cols-header
   Bessa's 2% limit almost immediately**, before the staged mechanism can engage. True under
   every solver and every contact law tried: a design limit, not a numerical one.
 - **Seed:** BARREN, fully — widening storey 1 closed first (105 evals, mcs stuck at 35.6%).
-  A follow-up gave the *thinner*-storey-1 signal proper power (120 more evals, same
-  unrestricted box): the correlation is real and strengthens (pooled &rho;=&minus;0.30,
-  p=0.0009) but every slenderness-linked dimension on BOTH storeys moves the same way — it's
-  the study's own already-closed kinematic-depth-cap wall reasserting itself, not a
-  storey-1-specific escape. Best achieved (20.5%) is worse than the wide-direction campaign's
-  own best. `staged_storey` (this slide's own oracle) was not re-run — same root cause,
-  independently confirmed twice now via a different oracle.
+  A follow-up gave the *thinner*-storey-1 signal proper statistical power (120 more evals,
+  same unrestricted box): the effect is real and holds up under scrutiny, but every
+  slenderness-linked dimension on BOTH storeys moves the same way — it's the study's own
+  already-closed kinematic-depth-cap wall reasserting itself, not a storey-1-specific escape.
+  Best achieved (20.5%) is worse than the wide-direction campaign's own best. `staged_storey`
+  (this slide's own oracle) was not re-run — same root cause, independently confirmed twice
+  now via a different oracle.
 
 </div>
 
@@ -1461,6 +1499,19 @@ sigma_eigenvalue/mcs_windowed/mls_windowed quartiles cannot be reported over the
 converged population per contract rule 3(c) because that population is empty (riks_converged
 == 0 for all 62 rows in this run's ledger) -- stating a quartile line anyway would fabricate
 data from zero observations.
+
+WIDEN/THIN STOREY-1 FOLLOW-UP (2026-08-23, ad-hoc worktree-isolated investigations, not a
+registered run -- ran against H12's own `graded_storey` oracle, a distinct but mechanistically
+identical family, NOT this slide's own `staged_storey`). Widening storey 1's strain-relevant
+bounds: 105 evals, mcs stuck at 35.6% (2.2x short), unanimous single-criterion failure. A
+follow-up gave the *opposite* (thin storey-1) direction proper statistical power: 120 more
+evals over the same unrestricted box, pooled with the first campaign via Fisher-z
+meta-analysis -- rank correlation of ratio_d1 against mcs_windowed: pooled rho=-0.30,
+combined p=0.0009 (Holm-significant). But `ratio_pitch1` (+0.385), `ratio_pitch2` (+0.278),
+`ratio_d2` (-0.238), and `n_longerons` (+0.312) all move mcs_windowed the same direction at
+similar significance -- the signature of the study's own slenderness-driven kinematic-depth-cap
+relationship applying identically to both storeys, not a storey-1-specific mechanism. Best
+achieved at the thin extreme: mcs=20.5%, worse than the wide campaign's own 35.6%.
 -->
 
 ---
