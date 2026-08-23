@@ -802,6 +802,68 @@ class: restudy-slide
 layout: two-cols-header
 ---
 
+# D25 revisited (twist) — chirality on the tape-spring section
+
+::left::
+<div class="text-sm leading-snug">
+
+- **What changed:** `twist_angle` promoted from nonexistent to a real, 7th free design parameter
+  for this family (bounds &plusmn;90&deg;), threaded through the same helical-sweep construction
+  the base circular family and `oracle_helical.py` already use. Verified to bit-exactly reproduce
+  the historical untwisted (`twist_angle=0`) record before trusting any new result.
+- **What was tested:** a cheap Stage-1 kill-signal scan first (20/22 coilable across the full
+  twist range — not a D27-style collapse), then a full 105-design campaign under contact.
+- **Result:** 0/105 feasible, same unanimous compression-shortfall signature as the untwisted
+  family (mls never binds). Twist's correlation with both the objective and the binding
+  constraint is statistically indistinguishable from zero (Spearman &rho;&asymp;0, Holm-adjusted
+  p=1.000, n=15) — not a weak effect, no effect, in either twist direction.
+- **Seed:** BARREN — twist does not move this family's ceiling at all, let alone enough to
+  matter. The original D25/D25-revisited slides' own Seed tags disagreed on whether twist had
+  already been tried (it hadn't); this closes that ambiguity with a real result.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <div class="border-2 border-dashed border-gray-400 rounded-lg p-8 text-center opacity-70 max-w-xs mx-auto">
+    <div class="text-3xl mb-2">–</div>
+    <div class="text-sm">No ODB: 0/105 designs reached feasibility — no winning geometry to
+    render.</div>
+  </div>
+</div>
+
+<!--
+Full campaign: 70 broad-Sobol + 35 twist-sign-directed refinement, contact on, 20/105 coilable,
+15/105 reached a verdict. Best decided design: mcs=0.1133 (need 0.80, short 7.1x) at
+twist_angle=+5.8deg -- near zero, not at a large twist -- t_tape=0.5660, R_tape=27.805,
+alpha_tape=0.4682, beta_tape=1.1473, ratio_pitch=1.3343, ratio_top_diameter=0.7267,
+twist_angle=0.1018 rad. Vs. the twist=0 baseline (n=28, median mcs=0.022, best=0.21): this
+campaign's median (0.0273) is marginally higher but uninterpretable given the null correlation;
+its best is worse than the untwisted campaign's own best.
+
+Caveat disclosed by the investigating agent: phase-2's directional refinement (toward positive
+twist) was chosen from a phase-1 sub-sample contaminated by 2 sentinel-zero salvage rows in the
+negative-twist bucket. The pooled 105-eval correlation (the headline null finding) is unaffected,
+but a follow-up giving negative twist equal weight would close this residual gap.
+
+Documentation finding, reported not fixed here (append-only convention): the original D25 slide
+and "D25 revisited" (contact) disagree on this Seed tag (BARREN vs FERTILE). Traced via
+`git log -S` to commit 6ac0244, which misread an ambiguous sentence on the original slide as
+saying twist itself had been tested -- it hadn't; that 330-design campaign held twist_angle=0.0
+throughout. Left as a discrepancy on those two slides for the user's own correction.
+
+Infra: bo/oracle_tape_spring.py (PARAM_NAMES/BOUNDS grow a 7th entry),
+scripts/supercompressible_{lin_buckle,riks}_tape_spring.py, bo/campaign_tape_spring_twist.py,
+bo/_twist_stage1_scan.py, bo/_twist_kill_signal.py. Not committed to gold as of this slide --
+left in an isolated worktree pending review.
+-->
+
+---
+class: restudy-slide
+layout: two-cols-header
+---
+
 # D35 &middot; Bend-twist self-locking scale longeron
 
 ::left::
