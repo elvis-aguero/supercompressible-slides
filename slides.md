@@ -753,9 +753,12 @@ layout: two-cols-header
   immediately; 9&times; times out twice; 12&times;/15&times; converge but only reach 10.2%/5.1%
   real compression — their large raw peak stress (0.59/0.71 kPa) is a first-contact force spike
   at 0.08% compression, not genuine capacity.
-- **Seed:** BARREN in the tested range — but the 5&times;&ndash;9&times; zone remains genuinely
-  uncharacterized (one gate failure, one divergence, one timeout), narrowly FERTILE if a dedicated
-  numerics pass through that specific gap is judged worth the compute.
+- **Seed:** BARREN, fully — the 6&times;&ndash;10.5&times; gap was closed with a long-budget
+  follow-up (5h/point, no timeouts): every point decided cleanly, real compression falls
+  monotonically with stiffness (50.8%&rarr;17.9%), and the best of the zone (6&times;) is separately
+  disqualified by ring passthrough. A longer budget does not help — this is a mechanistic ceiling
+  (earlier 2% strain crossing at higher stiffness), not a truncation artifact. The multiplier range
+  is now fully characterized end to end; 3&times;'s 48.6% remains the family's best.
 
 <div class="text-xs opacity-60 mt-1">
 Confirmed contact is real and load-bearing at 3x (kissing_contact=1, non-negligible connector
