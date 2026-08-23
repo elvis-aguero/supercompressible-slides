@@ -806,12 +806,9 @@ though no multiplier improves on it.
 
 ::right::
 
-<div class="flex items-center justify-center h-full">
-  <div class="border-2 border-dashed border-gray-400 rounded-lg p-8 text-center opacity-70 max-w-xs mx-auto">
-    <div class="text-3xl mb-2">–</div>
-    <div class="text-sm">No new ODB: every multiplier tested either matches or underperforms the
-    already-archived 3&times; baseline design — no new winning geometry to render.</div>
-  </div>
+<div class="flex flex-col items-center justify-center h-full">
+  <img src="/gifs/kissing_pair_native.gif" class="max-h-72 rounded shadow-lg" />
+  <div class="text-xs opacity-60 mt-2 px-4 text-center">Same design as D33's own gif (3&times;, 48.6% compression) — every other multiplier tested either matches or underperforms it, so this remains the family's best geometry.</div>
 </div>
 
 <!--
@@ -861,12 +858,9 @@ layout: two-cols-header
 
 ::right::
 
-<div class="flex items-center justify-center h-full">
-  <div class="border-2 border-dashed border-gray-400 rounded-lg p-8 text-center opacity-70 max-w-xs mx-auto">
-    <div class="text-3xl mb-2">–</div>
-    <div class="text-sm">No ODB: 0/105 designs reached feasibility — no winning geometry to
-    render.</div>
-  </div>
+<div class="flex flex-col items-center justify-center h-full">
+  <img src="/gifs/tape_spring_twist_negative_native.gif" class="max-h-72 rounded shadow-lg" />
+  <div class="text-xs opacity-60 mt-2 px-4 text-center">A representative attempted design (the deepest-progressing real solve among the 105): the strip localises and runs out of the 2% strain budget long before 80% compression — not feasible, but a real geometry, not an absence of one.</div>
 </div>
 
 <!--
@@ -935,12 +929,9 @@ layout: two-cols-header
 
 ::right::
 
-<div class="flex items-center justify-center h-full">
-  <div class="border-2 border-dashed border-gray-400 rounded-lg p-8 text-center opacity-70 max-w-xs mx-auto">
-    <div class="text-3xl mb-2">–</div>
-    <div class="text-sm">No ODB: this is a negative result — no design in the scale-lock family
-    ever converged Stage 2, so there is no winning geometry to render.</div>
-  </div>
+<div class="flex flex-col items-center justify-center h-full">
+  <img src="/gifs/scale_lock_negative_native.gif" class="max-h-72 rounded shadow-lg" />
+  <div class="text-xs opacity-60 mt-2 px-4 text-center">D007's own re-tested idx=0 design, forensically confirmed real (strain rising smoothly 0.0&rarr;0.0197 over 1315 frames): mcs=45.0% before the stall — not feasible, but a genuine partial solve, not an absence of one.</div>
 </div>
 
 <!--
