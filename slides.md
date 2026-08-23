@@ -598,8 +598,7 @@ compression strain (mcs), and at most 2% maximum local strain (mls).
 
 - **Design:** circular longeron cross-section, 3 longerons, 1 storey. Circular top and bottom rings
 - **Geometry:** ratio_d=0.02005, ratio_pitch=0.25, ratio_top_diameter=0.2505.
-- **Result:** <u>&sigma;_cr,nd=0.1306 kPa/longeron</u>, mls=0.0198 (inside the 2% cap),
-  fully reversible coiling.
+- **Result:** <u>&sigma;_cr,nd=0.1306 kPa/longeron</u>, mls=0.0198, mcs >= 0.8.
 
 <div class="text-xs opacity-50 mt-2">
 Verdict symbols used throughout: ✅ supported &middot; ❌ falsified &middot; ❔ inconclusive &middot; ⏳ pending (registered, not yet tested this run).
