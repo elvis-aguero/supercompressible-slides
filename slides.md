@@ -1061,30 +1061,24 @@ layout: two-cols-header
 ::left::
 <div class="text-sm leading-snug">
 
-- **What:** each longeron position replaced by 2-3 slender B31 sub-beams on a circle matching the
-  study's own envelope diameter, tied together at discrete axial crosslink points.
+- **What:** each longeron replaced by 2-3 slender B31 sub-beams on the same envelope circle, tied
+  at discrete axial crosslink points.
   Free: ratio_d&isin;&#91;.004,.073&#93; ratio_r_sub_frac&isin;&#91;.05,.48&#93;
   ratio_pitch&isin;&#91;.25,1.5&#93; n_sub_beams&isin;&#91;2,3&#93; n_crosslinks&isin;&#91;0,5&#93;
   +3 more | Fixed: n_longerons&isin;&#91;3,6&#93; (categorical, searched)
-- **Origin:** Rathore &amp; Grason 2011 — bundle-level intrinsic torque/coupling in crosslinked
-  filament bundles, not reducible to a single continuous member's own bending-curvature law.
-- **Stats:** n=113 &rarr; 34+27+10+14+5 evaluated across 5 escalating campaigns (D015/D019/D020/
-  D021/D022) &rarr; majority Stage-1-coilable throughout &rarr; 0 good
-  quartiles unavailable per contract rule 3(c) (0 Riks-converged designs at the family's own
-  strictest reading; best salvaged/near-plateau reads reported in Verdict instead)
-  cleared: none (0 decided, 0/113 reached mcs&ge;0.80) &middot; novel: **yes** — a genuinely
-  distinct discrete-member topology from every cross-section/taper/storey variant tried before it
-  best good: none — best overall: mcs=0.7191, mls~0.003 (D020: ratio_d=.046729
-  ratio_r_sub_frac=.152878 ratio_pitch=.856914 ratio_top_diameter=.436454 n_sub_beams=2 +3 more),
-  sigma_peak not citable (no feasible design)
+- **Origin:** Rathore &amp; Grason 2011 — bundle-level intrinsic torque/coupling, not reducible to
+  a single member's own bending-curvature law.
+- **Stats:** n=113 &rarr; 34+27+10+14+5 (D015/D019/D020/D021/D022) &rarr; mostly Stage-1-coilable
+  &rarr; 0 good
+  quartiles n/a (0 Riks-converged; see Verdict) &middot; cleared: 0/113 (mcs&ge;0.80) &middot;
+  novel: **yes** — distinct from every prior family
+  best good: none — best overall: mcs=0.7191 (D020), mls~0.003 (geometry in notes' Timeline)
 - **Verdict:** INCONCLUSIVE &middot; WEAK<br>
-  Crosslinking a bundle of slender sub-beams preserves genuine global coiling as the lowest mode
-  in every configuration tested — unlike all four shell/ring families this run — and recovers a
-  real, measured 22&times; buckling-capacity gain over uncoupled sub-beams. The best design
-  reaches 71.9% compression on a genuine Riks snap-through plateau (max_local_strain never binds,
-  best 0.003 against the 0.02 cap) — a real geometric limit, not the usual early strain-budget
-  wall. Two independently-different crosslink realizations agree on where it stalls; pushing
-  either flagged direction further makes it worse, not better.
+  Preserves genuine global coiling as the lowest mode in every configuration — unlike every
+  shell/ring family this run — with a real 22&times; buckling-capacity gain over uncoupled
+  sub-beams. Reaches 71.9% compression on a genuine Riks snap-through plateau (mls never binds,
+  best 0.003 vs 0.02) — a real geometric limit, not the usual strain-budget wall. Two independent
+  crosslink realizations agree where it stalls; pushing further makes it worse.
 
 </div>
 
@@ -1125,8 +1119,10 @@ here as #9, not fixed in the vendored a3dasm harness.
 - D019 (27 designs, n_crosslinks&isin;{0,1}): instability does NOT afflict low-crosslink-count
   designs; reached mcs=0.7173, confirmed a real Riks snap-through via an extended-solve-budget
   check ruling out a wall-clock artifact.
-- D020 (10-point local refinement): confirmed mcs=0.7191 is a real local optimum; flagged two
-  untested directions.
+- D020 (10-point local refinement): confirmed mcs=0.7191 is a real local optimum (ratio_d=0.046729,
+  ratio_r_sub_frac=0.152878, ratio_pitch=0.856914, ratio_top_diameter=0.436454, n_sub_beams=2,
+  n_crosslinks=1, crosslink_stiffness_ratio=0.055981, n_longerons=4); flagged two untested
+  directions.
 - D021 (14-point decisive grid probe): falsified "push further" in both flagged directions.
 - D022: closed soft-stiffness-at-n=1 and n_sub_beams=3 — both collapse catastrophically.
 

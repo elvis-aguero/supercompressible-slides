@@ -65,10 +65,29 @@
 .slidev-layout:has(.idea-slide) {
   grid-template-columns: 3fr 2fr !important;
 }
-.col-right.idea-slide .flex.items-center.justify-center,
-.col-right.idea-slide .flex.flex-col.items-center.justify-center {
+.col-right.idea-slide .flex.items-center.justify-center:not(.flex-col) {
   justify-content: flex-end;
 }
+/* NOT the same rule as above: for a `flex-col` wrapper (image + caption stacked
+   vertically, used by every gif slide), `justify-content` is the VERTICAL axis and
+   `align-items` is the horizontal one -- the reverse of a plain row flex. The two
+   selectors used to share `justify-content: flex-end` (the row-flex selector had no
+   `:not(.flex-col)` exclusion, so a class selector for "flex items-center
+   justify-center" still matches an element that ALSO has flex-col -- a class
+   selector means "has this class among others", not "has exactly these classes",
+   so the two selectors were never actually mutually exclusive despite reading as
+   if they were), which for THIS wrapper means "push to the bottom", not "push
+   right" -- an unintended side effect that combined with grid row-stretch
+   (col-right inherits col-left's full height when the bullet text overflows the
+   canvas) to push the image below the visible 552px frame entirely. Found
+   2026-08-24, user: "the gif is outside the slide space of D40, i barely cant see
+   anything" -- confirmed via getComputedStyle + a manual document.styleSheets walk
+   showing BOTH selectors matching the same element before the `:not(.flex-col)`
+   fix. `align-items: flex-end` alone already achieves the intended "pin to the
+   right edge" for this wrapper; `justify-content` here must stay at its default
+   (center, from Tailwind's own `justify-center` class) so the image+caption block
+   centers vertically within whatever height col-right actually gets, rather than
+   pinning to a bottom edge that may be off-canvas. */
 .col-right.idea-slide .flex.flex-col.items-center.justify-center {
   align-items: flex-end;
 }
