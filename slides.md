@@ -853,12 +853,9 @@ layout: two-cols-header
 
 ::right::
 
-<div class="flex items-center justify-center h-full">
-  <div class="border-2 border-dashed border-gray-400 rounded-lg p-8 text-center opacity-70 max-w-xs mx-auto">
-    <div class="text-3xl mb-2">–</div>
-    <div class="text-sm">No ODB: 0/51 designs reached coilability — no winning geometry to
-    render.</div>
-  </div>
+<div class="flex flex-col items-center justify-center h-full">
+  <img src="/gifs/kirigami_shell_negative_native.gif" class="max-h-72 rounded shadow-lg" />
+  <div class="text-xs opacity-60 mt-2 px-4 text-center">A representative attempted design's own Stage-1 lin-buckle ODB: undeformed mesh, then its actual (local ligament/panel) lowest mode — the failure mode itself, not an absence of one. Only 2 frames exist because eigenvalue extraction has no incremental history to animate; no Stage 2 ever ran for this family.</div>
 </div>
 
 <!--
@@ -906,12 +903,9 @@ layout: two-cols-header
 
 ::right::
 
-<div class="flex items-center justify-center h-full">
-  <div class="border-2 border-dashed border-gray-400 rounded-lg p-8 text-center opacity-70 max-w-xs mx-auto">
-    <div class="text-3xl mb-2">–</div>
-    <div class="text-sm">No ODB: the family's own best design (mcs=0.7885) is not feasible and
-    its radius barely moved — no winning geometry to render.</div>
-  </div>
+<div class="flex flex-col items-center justify-center h-full">
+  <img src="/gifs/compliant_ring_negative_native.gif" class="max-h-72 rounded shadow-lg" />
+  <div class="text-xs opacity-60 mt-2 px-4 text-center">The family's own best design (mcs=0.7885, mls=0.01976) — its ODB is one of the 1/28 solves that fully Riks-converged, so this is a real, complete deformation history, not a partial salvage. Not feasible, but a genuine geometry, not an absence of one.</div>
 </div>
 
 <!--
@@ -957,12 +951,9 @@ layout: two-cols-header
 
 ::right::
 
-<div class="flex items-center justify-center h-full">
-  <div class="border-2 border-dashed border-gray-400 rounded-lg p-8 text-center opacity-70 max-w-xs mx-auto">
-    <div class="text-3xl mb-2">–</div>
-    <div class="text-sm">No ODB: 0/22 designs reached coilability — no winning geometry to
-    render.</div>
-  </div>
+<div class="flex flex-col items-center justify-center h-full">
+  <img src="/gifs/graded_shell_negative_native.gif" class="max-h-72 rounded shadow-lg" />
+  <div class="text-xs opacity-60 mt-2 px-4 text-center">A representative attempted design's own Stage-1 lin-buckle ODB: undeformed mesh, then its actual lowest mode. Only 2 frames exist because eigenvalue extraction has no incremental history to animate; no Stage 2 ever ran for this family.</div>
 </div>
 
 <!--
@@ -1009,12 +1000,9 @@ layout: two-cols-header
 
 ::right::
 
-<div class="flex items-center justify-center h-full">
-  <div class="border-2 border-dashed border-gray-400 rounded-lg p-8 text-center opacity-70 max-w-xs mx-auto">
-    <div class="text-3xl mb-2">–</div>
-    <div class="text-sm">No ODB: 0/5 configurations reached coilability — no winning geometry to
-    render.</div>
-  </div>
+<div class="flex flex-col items-center justify-center h-full">
+  <img src="/gifs/nested_double_wall_negative_native.gif" class="max-h-72 rounded shadow-lg" />
+  <div class="text-xs opacity-60 mt-2 px-4 text-center">A representative configuration's own Stage-1 lin-buckle ODB: undeformed mesh, then its actual lowest mode. Only 2 frames exist because eigenvalue extraction has no incremental history to animate; this diagnostic never escalated to Stage 2.</div>
 </div>
 
 <!--
@@ -1070,12 +1058,9 @@ layout: two-cols-header
 
 ::right::
 
-<div class="flex items-center justify-center h-full">
-  <div class="border-2 border-dashed border-gray-400 rounded-lg p-8 text-center opacity-70 max-w-xs mx-auto">
-    <div class="text-3xl mb-2">–</div>
-    <div class="text-sm">No ODB: best design (mcs=0.7191) never reached full Riks convergence —
-    a real render is queued as a follow-up, not fabricated here.</div>
-  </div>
+<div class="flex flex-col items-center justify-center h-full">
+  <img src="/gifs/crosslinked_bundle_negative_native.gif" class="max-h-72 rounded shadow-lg" />
+  <div class="text-xs opacity-60 mt-2 px-4 text-center">The family's own best design (D020, mcs=0.7191): a real, deep 30-frame Riks history reaching the genuine snap-through plateau where it stalls — not fabricated, and not a converged "good" result, but the actual geometry and collapse mode this run's headline finding is based on.</div>
 </div>
 
 <!--
