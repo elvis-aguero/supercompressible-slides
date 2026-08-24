@@ -241,48 +241,21 @@ not meant to render. Read this before adding or editing any slide.
                       reason. Don't repeat the baseline number or other
                       Stats-bullet content here. Still state negative
                       results as plainly and confidently as positive ones.
-     (e) Seed      — OPTIONAL 5th bullet, added 2026-08-08. Answers a
-                      question the Verdict cannot: **can this IDEA still
-                      generate a new design?** That is independent of
-                      whether this experiment worked, and conflating the
-                      two causes two opposite failures — an agent
-                      re-running a settled search, and an agent spending a
-                      campaign optimising something that could never count.
-
-                      What is settled by a campaign is the EXPERIMENT — a
-                      parameter box, searched with some power. The Stats
-                      bullet already records that (its funnel IS the
-                      power), so Seed does not repeat it. Seed is about the
-                      ceiling of the idea's whole family of perturbations.
-
-                        FERTILE — <a perturbation that would count>
-                        BARREN  — <why no perturbation can clear the bar>
-
-                      FERTILE MUST NAME AN EXAMPLE PERTURBATION after the
-                      dash. Without one it is an invitation rather than a
-                      direction, and the point of the field is to hand the
-                      next agent somewhere to go. Where a candidate
-                      perturbation has already been partly attempted, say
-                      so and cite the slide — that is what stops an agent
-                      rediscovering a tested idea while "perturbing" a
-                      neighbouring one.
-
-                      The distinction that matters, worked:
-                        tape-spring arc (D25) — the 6-D arc box is
-                          exhausted (406 evals pre-contact + 68 under it),
-                          but a twisted/chiral open shell is a DIFFERENT
-                          design. FERTILE.
-                        rectangle (D6) — not barren because it was searched
-                          hard, but because EVERY variant is still a
-                          cross-section change at fixed topology. No number
-                          it produces can clear the novelty bar. BARREN.
-                      So BARREN is a claim about the idea's ceiling, never
-                      about how much evidence was gathered.
-
-                      Linter: accepted but NOT retrofitted, same as the
-                      Stats and Verdict formats before it — a slide without
-                      Seed WARNS, it does not block. Add it when editing a
-                      slide for any other reason.
+     (e) Seed      — RETIRED as a visible bullet, 2026-08-24 (was: OPTIONAL
+                      5th bullet, added 2026-08-08). Rule 3 is now strictly
+                      the 4 bullets (a)-(d) above; Seed MOVED to the
+                      speaker notes — see rule 9, which is now the sole
+                      canonical definition of Seed's semantics and
+                      FERTILE/BARREN vocabulary. Reason for the move: rule
+                      3's own character budget (below) is a hard ceiling on
+                      the visible column, and Seed's content is a forward-
+                      looking research-strategy note, not part of reporting
+                      what this experiment found — it reads naturally as
+                      the first thing in the notes, not a 5th squeeze on
+                      the slide face. A slide still carrying Seed as a
+                      visible bullet is simply not yet migrated (rule 9's
+                      linter WARNS, does not block); move it down on next
+                      edit.
 
 3b. RESTUDY-SLIDES (`class: restudy-slide`) — codified 2026-08-23, not new
     practice. A restudy-slide reports a follow-up test of an idea that
@@ -293,7 +266,9 @@ not meant to render. Read this before adding or editing any slide.
     idea-slide introduces a mechanism from nothing (What/Origin/Stats/
     Verdict); a restudy-slide reports a DELTA against an already-stated
     baseline, so re-stating Origin is redundant and "what" becomes "what
-    changed". Four bullets, this exact order, this exact wording:
+    changed". Three bullets, this exact order, this exact wording (was
+    four through 2026-08-24; Seed moved to the speaker notes alongside
+    idea-slides' own — see rule 9, and rule 3(e)'s note on why):
 
       What changed    — the specific change from the original slide's own
                          setup (new infra, a wider/narrower search box, a
@@ -309,8 +284,6 @@ not meant to render. Read this before adding or editing any slide.
                          reason discipline as an idea-slide's Verdict
                          (state the practical outcome first, causal
                          explanation second).
-      Seed            — identical semantics and FERTILE/BARREN vocabulary
-                         to rule 3(e) above.
 
     This was already the majority practice (D25 revisited/tape-spring,
     D21 revisited, D17&D20&D26 revisited, D33 revisited, D25 revisited
@@ -606,6 +579,68 @@ not meant to render. Read this before adding or editing any slide.
        rendered under the no-contact oracle, so longerons visibly pass
        through the floor in them. That is a known artifact of the model as it
        stood, not the design's behaviour.
+
+9. SPEAKER-NOTES FORMAT (added 2026-08-24) — applies to idea-slides AND
+   restudy-slides (Seed's semantics are declared identical between the two
+   by rule 3b, so it moved for both at once). Before this rule, notes had
+   drifted into at least three incompatible ad-hoc shapes across different
+   authoring sessions — a bulleted "Fuller context:" list, one long
+   unstructured paragraph with inline glossary asides, and ALL-CAPS
+   sentence-leads standing in for headers that never visually separated
+   from the prose that followed — so a reader had to re-learn how to scan
+   every single slide. Exactly these five labels, bold Markdown
+   (`**Label:**`), one per paragraph, in this order when more than one is
+   present — all optional except Seed:
+
+     Input space — what the free parameters PHYSICALLY mean, beyond the
+                    bounds already in the visible What bullet's Free/Fixed
+                    line. Only when the names aren't self-explanatory
+                    (`side`, `pitch` need nothing; `ratio_r_sub_frac`,
+                    `crosslink_spacing_bias` do). Not a mandatory
+                    restatement — skip it when What's own names already
+                    carry the meaning.
+     Seed         — MOVED HERE from the old optional 5th visible bullet
+                    (rule 3(e)/3b, both retired 2026-08-24). Semantics and
+                    FERTILE/BARREN vocabulary unchanged from the original
+                    rule 3(e) text — only the location changed, to keep
+                    the visible slide at a strict 4-bullet (idea-slide) or
+                    3-bullet (restudy-slide) ceiling:
+
+                      FERTILE — <a perturbation that would count>
+                      BARREN  — <why no perturbation can clear the bar>
+
+                    FERTILE MUST NAME AN EXAMPLE PERTURBATION after the
+                    dash — without one it is an invitation, not a
+                    direction. Always present; the linter WARNS on a
+                    missing Seed, same not-retrofitted policy as below.
+     Deferred     — caveats, judgment calls, or infra bugs found but NOT
+                    resolved on this slide. Kept deliberately separate
+                    from Seed: Seed answers "is this idea worth another
+                    shot", Deferred answers "what's unresolved about THIS
+                    analysis" — a different reader question, and Deferred
+                    is rare enough (most slides have none) that merging it
+                    into Seed would bury it on the slides that do, not
+                    save space.
+     Timeline     — one line per delegation, `D0XX: <one-clause summary>`,
+                    even for a single delegation — this is what actually
+                    satisfies rule 7(c) ("every number traces to a run and
+                    a delegation"), and it is the part that reads fast: a
+                    short list of lines instead of one run-on sentence
+                    chained with "->". Do NOT restate the best design's
+                    own numbers here — that duplicates the Stats bullet's
+                    already-mandatory "best good:" line (rule 3(c)).
+     Infra        — where the model actually gets built and solved: the
+                    oracle module, the Stage-1/Stage-2 preprocessor
+                    scripts, the fidelity-gate function and its criteria
+                    (the pre-existing informal "Fidelity gate: ..." line
+                    many slides already carry — now just bolded/labeled,
+                    not a new requirement), and the archived ODB/scratch
+                    source path the slide's gif traces to (rule 7(b)).
+
+   Linter: WARN only, NOT retrofitted — same policy as every other
+   speaker-notes/bullet convention in this contract (3(c), 3(e), 3b before
+   it). A slide missing Seed in notes warns; a slide with these labels out
+   of the above relative order warns; nothing here blocks a commit.
 ============================================================================
 -->
 
@@ -1039,7 +1074,9 @@ layout: two-cols-header
   strictest reading; best salvaged/near-plateau reads reported in Verdict instead)
   cleared: none (0 decided, 0/113 reached mcs&ge;0.80) &middot; novel: **yes** — a genuinely
   distinct discrete-member topology from every cross-section/taper/storey variant tried before it
-  best good: none — best overall: mcs=0.7191 (D020), sigma_peak not citable (no feasible design)
+  best good: none — best overall: mcs=0.7191, mls~0.003 (D020: ratio_d=.046729
+  ratio_r_sub_frac=.152878 ratio_pitch=.856914 ratio_top_diameter=.436454 n_sub_beams=2 +3 more),
+  sigma_peak not citable (no feasible design)
 - **Verdict:** INCONCLUSIVE &middot; WEAK<br>
   Crosslinking a bundle of slender sub-beams preserves genuine global coiling as the lowest mode
   in every configuration tested — unlike all four shell/ring families this run — and recovers a
@@ -1048,11 +1085,6 @@ layout: two-cols-header
   best 0.003 against the 0.02 cap) — a real geometric limit, not the usual early strain-budget
   wall. Two independently-different crosslink realizations agree on where it stalls; pushing
   either flagged direction further makes it worse, not better.
-- **Seed:** BARREN at n_sub_beams&isin;{2,3} with this crosslink topology — both the soft
-  connector-stiffness axis and n_sub_beams=3 were closed decisively (catastrophic early collapse,
-  not a tuning shortfall). FERTILE if the snap-through itself is targeted directly (e.g. a
-  different crosslink placement/spacing rule, or accepting partial compression as a legitimate
-  design point rather than searching past it) — untried.
 
 </div>
 
@@ -1064,27 +1096,46 @@ layout: two-cols-header
 </div>
 
 <!--
-Full investigation chain: D014 (1 sample + N=0 control, validated the mechanism and the
-global-coiling-mode preservation) -> D015 (34-design campaign, found the "hard local instability"
-at higher crosslink counts) -> D016 (6-design follow-up) -> D017 (2-design decisive test: a genuine
-rigid kinematic *CONNECTOR with no meshed geometry reproduces the SAME instability as D014/D015's
-meshed beam-link batten, ruling out a meshing artifact) -> D018 (3-design soft-stiffness test at
-n_crosslinks=3, hit the InstrumentedDataGenerator dedup-on-write bug now in docs/TRAPS.md #9) ->
-D019 (27-design campaign restricted to n_crosslinks in {0,1}, found the instability does NOT
-afflict low-crosslink-count designs, reached mcs=0.7173, confirmed a real Riks snap-through via
-an extended-solve-budget check ruling out a wall-clock artifact) -> D020 (10-point local
-refinement, confirmed mcs=0.7191 is a real local optimum, flagged two untested directions) ->
-D021 (14-point decisive grid probe, falsified "push further" in both directions) -> D022 (closed
-soft-stiffness-at-n=1 and n_sub_beams=3, both collapse catastrophically).
+**Input space:** ratio_d is sub-beam diameter relative to the envelope; ratio_r_sub_frac is how
+far off the main envelope circle each sub-beam sits (0 = on the circle, larger = more spread
+within the local bundle footprint); ratio_pitch/ratio_top_diameter carry their usual per-storey-
+pitch/taper meaning from every other family; n_sub_beams (2 or 3) and n_crosslinks (0-5) are
+discrete topology choices, not continuous dials; crosslink_stiffness_ratio interpolates rigid (1)
+to soft (0) connector coupling; crosslink_spacing_bias shifts whether crosslinks cluster toward
+the top/bottom of the mast or sit evenly spaced; n_longerons (3-6, fixed/categorical) is searched
+but held constant within any one design.
 
-Best design found (D020/D021, unchanged through D022): ratio_d=0.046729, ratio_r_sub_frac=0.152878,
-ratio_pitch=0.856914, ratio_top_diameter=0.436455, n_sub_beams=2, n_crosslinks=1,
-crosslink_stiffness_ratio=0.055981, n_longerons=4. mcs=0.7191, max_local_strain~0.003.
+**Seed:** BARREN at n_sub_beams&isin;{2,3} with this crosslink topology — both the soft
+connector-stiffness axis and n_sub_beams=3 were closed decisively (catastrophic early collapse,
+not a tuning shortfall). FERTILE if the snap-through itself is targeted directly (e.g. a
+different crosslink placement/spacing rule, or accepting partial compression as a legitimate
+design point rather than searching past it) — untried.
 
-Fidelity gate: bo/prefilter.py:passes_crosslinked_bundle -- gates on the SUB-BEAM's own
-slenderness (never the envelope's), plus a neighbouring-sub-beam envelope-fit/no-touch check.
-namespace='crosslinked_bundle', oracle at bo/oracle_crosslinked_bundle.py, connector construction
-in bo/crosslinked_bundle_mpc.py.
+**Deferred:** InstrumentedDataGenerator's dedup-on-write can silently drop a corrected re-run
+under the same delegation ID (hit at D018) — same danger class as docs/TRAPS.md #8; documented
+here as #9, not fixed in the vendored a3dasm harness.
+
+**Timeline:**
+- D014 (1 sample + N=0 control): validated the mechanism and the global-coiling-mode preservation.
+- D015 (34 designs): found a "hard local instability" at higher crosslink counts.
+- D016 (6 designs): follow-up.
+- D017 (2 designs, decisive): a rigid kinematic *CONNECTOR with no meshed geometry reproduces the
+  SAME instability as D014/D015's meshed beam-link batten — rules out a meshing artifact.
+- D018 (3 designs, soft stiffness at n_crosslinks=3): hit the dedup-on-write bug (see Deferred).
+- D019 (27 designs, n_crosslinks&isin;{0,1}): instability does NOT afflict low-crosslink-count
+  designs; reached mcs=0.7173, confirmed a real Riks snap-through via an extended-solve-budget
+  check ruling out a wall-clock artifact.
+- D020 (10-point local refinement): confirmed mcs=0.7191 is a real local optimum; flagged two
+  untested directions.
+- D021 (14-point decisive grid probe): falsified "push further" in both flagged directions.
+- D022: closed soft-stiffness-at-n=1 and n_sub_beams=3 — both collapse catastrophically.
+
+**Infra:** bo/prefilter.py:passes_crosslinked_bundle -- gates on the SUB-BEAM's own slenderness
+(never the envelope's), plus a neighbouring-sub-beam envelope-fit/no-touch check. Oracle at
+bo/oracle_crosslinked_bundle.py (namespace='crosslinked_bundle'); connector construction in
+bo/crosslinked_bundle_mpc.py. GIF rendered from D020's own Riks ODB:
+/oscar/scratch/eaguerov/sc_oracle_crosslinked_bundle/riks_516824ed2260409398982f7735bfdc0d/
+SUPERCOMPRESSIBLE_RIKS.odb (340-frame history, 30 rendered).
 -->
 
 ---
