@@ -5842,13 +5842,9 @@ class: idea-slide
 
 ::right::
 
-<div class="flex items-center justify-center h-full">
-  <div class="border-2 border-dashed border-gray-400 rounded-lg p-8 text-center opacity-70 max-w-xs mx-auto">
-    <div class="text-3xl mb-2">–</div>
-    <div class="text-sm">No ODB: this is a negative result — no design in the pre-twist family
-    ever cleared the coilability bar worth preserving, so there is no
-    winning geometry to render.</div>
-  </div>
+<div class="flex flex-col items-center justify-center h-full">
+  <img src="/gifs/pretwisted_negative_native.gif" class="max-h-72 rounded shadow-lg" />
+  <div class="text-xs opacity-60 mt-2 px-4 text-center">One of D003's own 6 Stage-1-coilable designs (twist_angle=76&deg;), re-run fresh against the same generalized-cross-section+twist Stage-1 script since the original 2026-06-29 delegation's ODBs no longer exist on scratch (ephemeral sandbox cleanup, not a fabrication) — undeformed mesh, then its actual lowest mode.</div>
 </div>
 
 <!--
