@@ -36,33 +36,51 @@ not meant to render. Read this before adding or editing any slide.
 
 3. BULLET TEMPLATE AND ORDER (exactly 4 bullets, left column of a
    two-column layout — no more prose on the main slide):
-     (a) What      — precisely what was tried, plus a FIXED-FORMAT bounds
-                      line (added 2026-08-04, same scoped plain-language-bar
-                      exception as Stats — it's a data readout): the free
-                      search-space variables with their sampled bounds, and
-                      the fixed variables with their held values, e.g.
-                      "Free: a∈[.001,.05] b∈[.001,.06] pitch∈[.25,1.5]
-                      top_d∈[0,.8] | Fixed: n_storeys=2 twist=0 rsm=.3677" —
-                      drop the `ratio_` prefix (every variable in this study
-                      has it) and comma separators between bracket terms
-                      (each is already self-delimiting) to stay compact.
-                      Lets a reader check whether an outlier Stats quartile
-                      value is just a consequence of a wide sampled bound,
-                      not a real finding. Cap at 5 free vars listed; beyond
-                      that, list the first 5 and append "+N more" rather
-                      than let the line run long.
-     (b) Origin    — where the idea came from: a real, specific citation, or
-                      the honest "common sense / resize of family X" if
-                      that's actually what it was. Never fabricate a
-                      literature grounding that isn't real. If a real
-                      citation is claimed, add a numbered footnote (small
-                      text at the bottom of the slide, below the bullets)
-                      with the actual reference. If only a named theory/
-                      author was cited without a delegation verifying a
-                      specific paper, the footnote must say so plainly
-                      ("named theory, no single paper verified this run")
-                      rather than invent a fake author/year/journal to look
-                      more rigorous than the evidence actually is.
+     (a) What      — precisely what was tried, in plain physical terms: what
+                      changed about the design, what stayed the same. NO
+                      LONGER carries a numeric bounds line (retired
+                      2026-08-24 — was a FIXED-FORMAT "Free: ... | Fixed:
+                      ..." line, added 2026-08-04). Retired because it
+                      duplicated the same parameter names speaker notes'
+                      Input space (rule 9) already has to name and gloss
+                      with physical meaning — a reader had to mentally
+                      merge two separate lists of the same identifiers, one
+                      with numbers and no meaning, one with meaning and no
+                      numbers. The free/fixed parameter list with sampled
+                      bounds now lives ONLY in Input space, uncapped (no
+                      more "+N more" truncation — notes have no canvas
+                      budget). User: "We see a repeateing of the input
+                      parameters. Shall we demote it to the speaker notes?"
+                      Traded away deliberately: a reader can no longer check
+                      at a glance whether an outlier Stats quartile value is
+                      just a consequence of a wide sampled bound — that
+                      check now costs one click into notes, not zero.
+     (b) Origin    — where the idea came from, AND (added 2026-08-24,
+                      user: "the What or the Origin should explain the why
+                      that motivates the design, physically — citation if
+                      needed, but the physics is a must") the PHYSICAL
+                      MECHANISM that motivates it: why, mechanistically,
+                      would this change help the mast coil further, absorb
+                      more compression, or raise its stiffness? A citation
+                      is supporting EVIDENCE for that mechanism, not a
+                      substitute for stating it — "Rathore & Grason 2011"
+                      alone names a source, not a reason; "Rathore & Grason
+                      2011 — a crosslinked bundle carries an intrinsic
+                      torque a single member doesn't, because the
+                      crosslinks resist relative bending/twisting between
+                      sub-beams" states the mechanism the citation backs.
+                      Also: a real, specific citation, or the honest
+                      "common sense / resize of family X" if that's
+                      actually what it was. Never fabricate a literature
+                      grounding that isn't real. If a real citation is
+                      claimed, add a numbered footnote (small text at the
+                      bottom of the slide, below the bullets) with the
+                      actual reference. If only a named theory/author was
+                      cited without a delegation verifying a specific
+                      paper, the footnote must say so plainly ("named
+                      theory, no single paper verified this run") rather
+                      than invent a fake author/year/journal to look more
+                      rigorous than the evidence actually is.
      (c) Stats     — a FIXED-FORMAT structured data line, not free prose
                       (a deliberate, scoped exception to the plain-language
                       bar below: this is a data readout meant to be read as
@@ -101,12 +119,30 @@ not meant to render. Read this before adding or editing any slide.
                       leave it implicit (you're optimizing for scanning many
                       slides in sequence, not reading one cold).
 
+                      R=0 CASE (codified 2026-08-24 — already the majority
+                      practice across D34/D36/D37/D38/D39 before being
+                      written down; not a new convention): when NO design
+                      reached a converged Riks solve, the fixed p50/p90/p100
+                      shape has no population to compute over. State instead,
+                      on the same line:
+                        quartiles unavailable — <one-clause reason>
+                      e.g. "quartiles unavailable — 0/22 Stage-1 coilable,
+                      so Stage 2 never auto-escalated". This exact lead-in
+                      phrase, always — a slide that improvises different
+                      wording ("quartiles n/a (...)", "quartiles: N/A") is
+                      not yet conforming, even though the underlying fact is
+                      right; the point of a fixed format is that every
+                      slide's reader recognizes the SAME shape instantly.
+
                       Best-good line (added 2026-08-04): the actual best
                       GOOD (feasible) design's inputs and outputs, e.g.
                       "best good: a=.00774 b=.01417 pitch=.68 top_d=.044 →
-                      σ=.2712 mcs=.99 mls=.017" — same `ratio_` -stripping
-                      compaction as the What bullet's bounds line, same
-                      5-var cap with "+N more" beyond that. If G=0: "best
+                      σ=.2712 mcs=.99 mls=.017" — same `ratio_`-stripping
+                      compaction convention as Input space's own entries
+                      (rule 9), same 5-var cap with "+N more" beyond that
+                      (this line stays on the visible, canvas-budgeted
+                      slide, unlike Input space — the cap still applies
+                      here even though it was dropped there). If G=0: "best
                       good: none (0/N passed every criterion)".
 
                       CLEARED line (added 2026-08-14, advisor-specified —
@@ -590,15 +626,28 @@ not meant to render. Read this before adding or editing any slide.
    from the prose that followed — so a reader had to re-learn how to scan
    every single slide. Exactly these five labels, bold Markdown
    (`**Label:**`), one per paragraph, in this order when more than one is
-   present — all optional except Seed:
+   present — all optional except Seed and Input space:
 
-     Input space — what the free parameters PHYSICALLY mean, beyond the
-                    bounds already in the visible What bullet's Free/Fixed
-                    line. Only when the names aren't self-explanatory
-                    (`side`, `pitch` need nothing; `ratio_r_sub_frac`,
-                    `crosslink_spacing_bias` do). Not a mandatory
-                    restatement — skip it when What's own names already
-                    carry the meaning.
+     Input space — MANDATORY (changed 2026-08-24; was optional and bounds-
+                    free through 2026-08-24 — see rule 3(a)'s own retirement
+                    note). The SOLE home for the free/fixed parameter list
+                    with sampled bounds, moved here from the visible What
+                    bullet because it duplicated the same identifiers Input
+                    space already had to name and gloss with physical
+                    meaning. One line per free parameter, this shape:
+
+                      <var>&isin;[lo,hi] — <physical meaning>
+
+                    Meaning may be omitted for a self-explanatory name
+                    (`side`, `pitch` need nothing) but the BOUNDS may never
+                    be — every free parameter's sampled range is stated
+                    somewhere on the slide, and after 2026-08-24 this is the
+                    only somewhere. One trailing line for fixed parameters,
+                    same as the old What bounds line's own "Fixed: ..."
+                    half. UNCAPPED — speaker notes carry no canvas budget,
+                    so list every free parameter; the visible bullet's old
+                    5-var-then-"+N more" cap was a canvas-space compromise
+                    specific to THAT budget and does not carry over here.
      Seed         — MOVED HERE from the old optional 5th visible bullet
                     (rule 3(e)/3b, both retired 2026-08-24). Semantics and
                     FERTILE/BARREN vocabulary unchanged from the original
@@ -727,9 +776,6 @@ layout: two-cols-header
   family (mls never binds). Twist's correlation with both the objective and the binding
   constraint is statistically indistinguishable from zero (Spearman &rho;&asymp;0, Holm-adjusted
   p=1.000, n=15) — not a weak effect, no effect, in either twist direction.
-- **Seed:** BARREN — twist does not move this family's ceiling at all, let alone enough to
-  matter. The original D25/D25-revisited slides' own Seed tags disagreed on whether twist had
-  already been tried (it hadn't); this closes that ambiguity with a real result.
 
 </div>
 
@@ -741,6 +787,10 @@ layout: two-cols-header
 </div>
 
 <!--
+**Seed:** BARREN — twist does not move this family's ceiling at all, let alone enough to
+matter. The original D25/D25-revisited slides' own Seed tags disagreed on whether twist had
+already been tried (it hadn't); this closes that ambiguity with a real result.
+
 NOT part of run 20260822T025309 -- a separate, later, ad-hoc worktree-isolated investigation
 (2026-08-23, one day after that run closed), placed here (before that run's own summary) purely
 on chronology, per the deck's anti-chronological ordering rule. Do not read it as one of that
@@ -880,9 +930,6 @@ layout: two-cols-header
   ring-driven coiling mode the study needs — a qualitatively different failure from the earlier
   smooth chiral-shell family's uniform lateral sway, but the same outcome: the cuts avoided one
   failure mode and fell into another.
-- **Seed:** BARREN as tested — top designs cluster at the sampled box's own edges, so a wider box
-  is FERTILE in principle, but every direction tried so far makes local buckling worse, not
-  better, giving no reason to expect it reverses just outside the tested range.
 
 </div>
 
@@ -894,11 +941,23 @@ layout: two-cols-header
 </div>
 
 <!--
-Two independent draws: D006 (36 drawn, 24 valid Stage-1 verdicts) + D008 (30 drawn with a fixed
-geometry-packing gate, 27 valid) = 51 valid Stage-1 verdicts, meeting H3's registered ~40-80
-committed-campaign scale. D004's own single-sample validation first found the mechanism builds and
-solves cleanly at 14-25s/solve. Fidelity gate: bo/prefilter.py:passes_kirigami_ligament
-(r0_min/t_shell>=10, delta/t_shell>=3, l/delta>=2).
+**Input space:** l&isin;[1,300] — cut length (mm) of each kirigami slit. delta&isin;[1,50] —
+ligament width between adjacent cuts. t_shell&isin;[.3,3.5] — shell wall thickness.
+helical_twist_total&isin;[0,2&pi;] — total helical twist applied across the shell's height.
+ratio_pitch&isin;[.25,1.5], ratio_top_diameter&isin;[0,.6] — usual per-storey pitch/taper
+meaning from every other family. Fixed: ring radii held at the study's standard envelope.
+
+**Seed:** BARREN as tested — top designs cluster at the sampled box's own edges, so a wider box
+is FERTILE in principle, but every direction tried so far makes local buckling worse, not
+better, giving no reason to expect it reverses just outside the tested range.
+
+**Timeline:**
+- D004: single-sample validation — mechanism builds and solves cleanly, 14-25s/solve.
+- D006 (36 drawn, 24 valid Stage-1 verdicts): Sobol screen.
+- D008 (30 drawn, 27 valid): packing-fix top-up, meeting H3's registered ~40-80 campaign scale.
+
+**Infra:** bo/prefilter.py:passes_kirigami_ligament (r0_min/t_shell&ge;10, delta/t_shell&ge;3,
+l/delta&ge;2). scripts/supercompressible_{lin_buckle,riks}_kirigami_shell.py.
 -->
 
 ---
@@ -929,10 +988,6 @@ layout: two-cols-header
   strain-tightening direction dominates 3:1. The one dramatic growing outlier (+163%) is a real
   ring self-buckling event, but it happens at only 5.3% compression — an early failure, not a
   pathway to more. No design's &sigma;_peak exceeds its matched rigid-ring control.
-- **Seed:** BARREN as a ring-radius-growth mechanism — the direction the hypothesis needs is a
-  3:1 minority outcome that itself fails early when it does occur. The one near-feasible design
-  found (mcs=0.7885) had a flat radius, not a growing one — worth reusing as a starting geometry
-  for a *different* hypothesis, not evidence this one works.
 
 </div>
 
@@ -944,11 +999,26 @@ layout: two-cols-header
 </div>
 
 <!--
-D005's own single-sample validation: Stage 1 sigma_eig=0.1238 kPa vs. the matched bessa_point
-rigid-ring control's 0.1306 kPa (-5.2%), a modest, physically-expected compliance cost. D007's
-36-design Sobol screen (28/36 coilable, all auto-escalated to Stage 2) is the campaign referenced
-above. Fidelity gate: bo/prefilter.py:passes_compliant_ring (adds w_ring/t_ring>=10 to D36's own
-three gates, so the annulus doesn't degenerate into a 1-D ring/wire).
+**Input space:** t_ring&isin;[.3,1.5] — ring shell thickness. w_ring&isin;[8,25] — ring radial
+width. delta_ring&isin;[1.5,5] — ligament width between ring cuts. l_ring&isin;[3,15] — ring cut
+length. margin_frac_ring&isin;[.10,.25] — safety margin fraction on the ring's own geometric
+limits. ratio_d&isin;[.004,.073], ratio_pitch&isin;[.25,1.5], ratio_top_diameter&isin;[0,.8] —
+usual longeron/pitch/taper meaning, matched to the circular-family control. Fixed:
+n_longerons&isin;{3,4,5,6} (categorical, searched).
+
+**Seed:** BARREN as a ring-radius-growth mechanism — the direction the hypothesis needs is a
+3:1 minority outcome that itself fails early when it does occur. The one near-feasible design
+found (mcs=0.7885) had a flat radius, not a growing one — worth reusing as a starting geometry
+for a *different* hypothesis, not evidence this one works.
+
+**Timeline:**
+- D005: single-sample validation — Stage 1 sigma_eig=0.1238 kPa vs. the matched bessa_point
+  rigid-ring control's 0.1306 kPa (-5.2%), a modest, physically-expected compliance cost.
+- D007 (36 designs, 28 coilable, all auto-escalated to Stage 2): the campaign referenced in Stats.
+
+**Infra:** bo/prefilter.py:passes_compliant_ring (adds w_ring/t_ring&ge;10 to D36's own three
+gates, so the annulus doesn't degenerate into a 1-D ring/wire).
+scripts/supercompressible_{lin_buckle,riks}_compliant_ring.py.
 -->
 
 ---
@@ -977,10 +1047,6 @@ layout: two-cols-header
   asymmetrically by sign — a real, non-trivial effect (-60&deg; reaches 28&times; the plain
   reference; +60&deg; only 40&times; *below* it) — but the ceiling found (1.25e-4) sits ~400&times;
   below the 0.05 coilability threshold. The lever is real; the magnitude is nowhere close.
-- **Seed:** BARREN in the searched box — but the twist-phase asymmetry is a genuinely
-  under-explored signal (only sparsely probed here) rather than a flat null; FERTILE if a future
-  campaign specifically maps the twist-phase/magnitude surface near its own steepest gradient
-  instead of the broad Sobol-style screen used here.
 
 </div>
 
@@ -992,12 +1058,25 @@ layout: two-cols-header
 </div>
 
 <!--
-D010's own single-sample validation set up the shell/grading-field construction (reusing D004's
-kirigami_shell shell-element scripting at a=0). D011's 22-point sweep (grading contrast a in
-[0.3,0.5], helical twist +-4pi including small-angle probes, n_eff, phase, pitch/taper) is the
-campaign referenced above. Fidelity gate: bo/prefilter.py:passes_graded_shell (thin-shell validity
-evaluated at the THINNEST nominal wall t0*(1-a), not the mean/nominal t0, plus a
->=4-elements-per-grading-wavelength mesh-convergence floor).
+**Input space:** a&isin;[.3,.5] — grading contrast (0 = uniform-shell control). n_eff&isin;[3,8]
+— rotational order of the thickness field. t0&isin;[.5,3] — nominal (unmgraded) wall thickness.
+helical_twist_total&isin;[-4&pi;,4&pi;] — including small-angle probes. helical_phase0&isin;[0,2&pi;]
+— twist phase offset. ratio_pitch&isin;[.25,1.5], ratio_top_diameter&isin;[0,.6] — usual
+per-storey pitch/taper meaning.
+
+**Seed:** BARREN in the searched box — but the twist-phase asymmetry is a genuinely
+under-explored signal (only sparsely probed here) rather than a flat null; FERTILE if a future
+campaign specifically maps the twist-phase/magnitude surface near its own steepest gradient
+instead of the broad Sobol-style screen used here.
+
+**Timeline:**
+- D010: single-sample validation — set up the shell/grading-field construction (reusing D004's
+  kirigami_shell shell-element scripting at a=0).
+- D011 (22-point sweep): the campaign referenced in Stats.
+
+**Infra:** bo/prefilter.py:passes_graded_shell (thin-shell validity evaluated at the THINNEST
+nominal wall t0*(1-a), not the mean/nominal t0, plus a &ge;4-elements-per-grading-wavelength
+mesh-convergence floor). scripts/supercompressible_{lin_buckle,riks}_graded_shell.py.
 -->
 
 ---
@@ -1026,10 +1105,6 @@ layout: two-cols-header
   below the 0.05 threshold in every case, and more backing engagement does not even
   monotonically help it — a much stronger backing panel gave a LOWER signal than a weaker one.
   The mechanism does not show up at all, let alone favorably.
-- **Seed:** BARREN — the diagnostic deliberately bracketed the mechanism's entire viable
-  engagement range (collar-only through idealized-fully-engaged through a stronger idealized
-  case), not a sparse sample of an unbounded space, so there is no un-probed direction left to
-  call FERTILE.
 
 </div>
 
@@ -1041,14 +1116,32 @@ layout: two-cols-header
 </div>
 
 <!--
-D012's full diagnostic table: (a) outer shell alone (sigma_eig=1372.4, reproduces D38's a=0
-control bit-for-bit) -> (b1) collar-only, g0=0.05,t_in=1.0, no preload (+18.8%, ur3_ratio DOWN)
--> (c) idealised fully-engaged, g0=0.0,t_in=1.0 (+21.0%) -> (e) stronger idealised, g0=0.0,t_in=3.0,
-90% height (+204.6% eigenvalue, but ur3_ratio DOWN vs (c)) -> (d) preload infra check,
-g0=0.05,preload=0.3*lambda_a (ur3_ratio=2.90e-7, still far below threshold). Infra itself is
-clean: single orphan-mesh part with a welded-edge backing panel, general self-contact
+**Input space:** g0&isin;[0,1] — radial gap between outer shell and inner collar before
+engagement. t_in&isin;[.2,5] — collar thickness. with_backing&isin;{0,1} — control switch (0 =
+D38's uncut-shell control, bit-for-bit). backing_axial_extent&isin;[.05,1] — collar height as a
+fraction of the mast. preload_fraction&isin;[0,1] — optional preload feeding the *BUCKLE step.
+gap_taper_frac&isin;[0,.49], soft_contact&isin;{0,1} — contact-formulation controls, not searched
+this diagnostic. ratio_pitch&isin;[.25,1.5], ratio_top_diameter&isin;[0,.6] — usual per-storey
+pitch/taper meaning. Only 5 hand-picked configurations were run (not a DOE sweep of this box) —
+see Timeline.
+
+**Seed:** BARREN — the diagnostic deliberately bracketed the mechanism's entire viable
+engagement range (collar-only through idealized-fully-engaged through a stronger idealized
+case), not a sparse sample of an unbounded space, so there is no un-probed direction left to
+call FERTILE.
+
+**Timeline:**
+- D012, full diagnostic table: (a) outer shell alone (sigma_eig=1372.4, reproduces D38's a=0
+  control bit-for-bit) &rarr; (b1) collar-only, g0=0.05, t_in=1.0, no preload (+18.8%, ur3_ratio
+  DOWN) &rarr; (c) idealised fully-engaged, g0=0.0, t_in=1.0 (+21.0%) &rarr; (e) stronger
+  idealised, g0=0.0, t_in=3.0, 90% height (+204.6% eigenvalue, but ur3_ratio DOWN vs (c)) &rarr;
+  (d) preload infra check, g0=0.05, preload=0.3&times;lambda_a (ur3_ratio=2.90e-7, still far
+  below threshold).
+
+**Infra:** single orphan-mesh part with a welded-edge backing panel, general self-contact
 (softened, allowSeparation=ON, frictionless), general-STATIC preload feeding a *BUCKLE linear
-perturbation -- all ran without errors, 22-152s/job.
+perturbation — all ran without errors, 22-152s/job.
+scripts/supercompressible_{lin_buckle,riks}_nested_double_wall.py.
 -->
 
 ---
@@ -1063,15 +1156,14 @@ layout: two-cols-header
 
 - **What:** each longeron replaced by 2-3 slender B31 sub-beams on the same envelope circle, tied
   at discrete axial crosslink points.
-  Free: ratio_d&isin;&#91;.004,.073&#93; ratio_r_sub_frac&isin;&#91;.05,.48&#93;
-  ratio_pitch&isin;&#91;.25,1.5&#93; n_sub_beams&isin;&#91;2,3&#93; n_crosslinks&isin;&#91;0,5&#93;
-  +3 more | Fixed: n_longerons&isin;&#91;3,6&#93; (categorical, searched)
-- **Origin:** Rathore &amp; Grason 2011 — bundle-level intrinsic torque/coupling, not reducible to
-  a single member's own bending-curvature law.
+- **Origin:** Rathore &amp; Grason 2011 — a crosslinked bundle of slender filaments carries an
+  intrinsic torque an equivalent single member doesn't, because the crosslinks resist relative
+  bending/twisting between sub-beams; the hope was this extra coupling raises the mast's coiling
+  stiffness beyond a solid-longeron control at the same envelope diameter.
 - **Stats:** n=113 &rarr; 34+27+10+14+5 (D015/D019/D020/D021/D022) &rarr; mostly Stage-1-coilable
   &rarr; 0 good
-  quartiles n/a (0 Riks-converged; see Verdict) &middot; cleared: 0/113 (mcs&ge;0.80) &middot;
-  novel: **yes** — distinct from every prior family
+  quartiles unavailable — 0/113 Riks-converged (near-plateau reads in Verdict instead) &middot;
+  cleared: 0/113 (mcs&ge;0.80) &middot; novel: **yes** — distinct from every prior family
   best good: none — best overall: mcs=0.7191 (D020), mls~0.003 (geometry in notes' Timeline)
 - **Verdict:** INCONCLUSIVE &middot; WEAK<br>
   Preserves genuine global coiling as the lowest mode in every configuration — unlike every
@@ -1090,14 +1182,16 @@ layout: two-cols-header
 </div>
 
 <!--
-**Input space:** ratio_d is sub-beam diameter relative to the envelope; ratio_r_sub_frac is how
-far off the main envelope circle each sub-beam sits (0 = on the circle, larger = more spread
-within the local bundle footprint); ratio_pitch/ratio_top_diameter carry their usual per-storey-
-pitch/taper meaning from every other family; n_sub_beams (2 or 3) and n_crosslinks (0-5) are
-discrete topology choices, not continuous dials; crosslink_stiffness_ratio interpolates rigid (1)
-to soft (0) connector coupling; crosslink_spacing_bias shifts whether crosslinks cluster toward
-the top/bottom of the mast or sit evenly spaced; n_longerons (3-6, fixed/categorical) is searched
-but held constant within any one design.
+**Input space:** ratio_d&isin;[.004,.073] — sub-beam diameter relative to the envelope.
+ratio_r_sub_frac&isin;[.05,.48] — how far off the main envelope circle each sub-beam sits (0 = on
+the circle, larger = more spread within the local bundle footprint). ratio_pitch&isin;[.25,1.5],
+ratio_top_diameter&isin;[0,.8] — usual per-storey-pitch/taper meaning from every other family.
+n_sub_beams&isin;{2,3} — discrete topology choice, not a continuous dial. n_crosslinks&isin;{0,1,3,5}
+— number of discrete axial tie points. crosslink_stiffness_ratio&isin;[0,1] — interpolates rigid
+(1) to soft (0) connector coupling. crosslink_spacing_bias&isin;[-.9,.9] — shifts whether
+crosslinks cluster toward the top/bottom of the mast or sit evenly spaced. twist_angle&isin;[0,&pi;]
+— optional pretwist, same convention as D1. Fixed: n_longerons&isin;{3,4,5,6} (categorical,
+searched, held constant within any one design).
 
 **Seed:** BARREN at n_sub_beams&isin;{2,3} with this crosslink topology — both the soft
 connector-stiffness axis and n_sub_beams=3 were closed decisively (catastrophic early collapse,
@@ -1251,13 +1345,6 @@ layout: two-cols-header
   immediately; 9&times; times out twice; 12&times;/15&times; converge but only reach 10.2%/5.1%
   real compression — their large raw peak stress (0.59/0.71 kPa) is a first-contact force spike
   at 0.08% compression, not genuine capacity.
-- **Seed:** BARREN, fully — the 6&times;&ndash;10.5&times; gap was closed with a long-budget
-  follow-up (5h/point, no timeouts): every point decided cleanly, real compression falls
-  monotonically with stiffness (50.8%&rarr;17.9%), and the best of the zone (6&times;) is separately
-  disqualified by ring passthrough. A longer budget does not help — this is a mechanistic ceiling
-  (earlier 2% strain crossing at higher stiffness), not a truncation artifact. The multiplier range
-  is now fully characterized end to end; 3&times;'s 48.6% remains the family's best.
-
 <div class="text-xs opacity-60 mt-1">
 Confirmed contact is real and load-bearing at 3x (kissing_contact=1, non-negligible connector
 force) — this closes the "not interfering" open question from D33's own original slide, even
@@ -1274,6 +1361,13 @@ though no multiplier improves on it.
 </div>
 
 <!--
+**Seed:** BARREN, fully — the 6&times;&ndash;10.5&times; gap was closed with a long-budget
+follow-up (5h/point, no timeouts): every point decided cleanly, real compression falls
+monotonically with stiffness (50.8%&rarr;17.9%), and the best of the zone (6&times;) is separately
+disqualified by ring passthrough. A longer budget does not help — this is a mechanistic ceiling
+(earlier 2% strain crossing at higher stiffness), not a truncation artifact. The multiplier range
+is now fully characterized end to end; 3&times;'s 48.6% remains the family's best.
+
 Full per-point table (stiffness_multiplier: converged / riks_strain / sigma_peak / mls):
 3.0: 1 / 0.486 / 0.129 / 0.0194 (baseline, archived)
 5.0: 0 (gate-fail, stab_ratio too high) / 0.503 / 0.196 / 0.0199
@@ -1306,11 +1400,11 @@ layout: two-cols-header
   each of n_ribs stations, angled and spaced so consecutive scales overlap and lock against each
   other as the beam bends — a substrate that transitions from soft (bare beam) to stiff (locked
   scales) past some curvature.
-  Free: ratio_a&isin;[.006,.02] ratio_b&isin;[.01,.05] pitch&isin;[.15,1.2] top_d&isin;[0,.6]
-  n_ribs&isin;[3,10] +5 more | Fixed: n_longerons=3
 - **Origin:** Dharmavaram, Ebrahimi &amp; Ghosh 2021 (arXiv:2108.10976), "Coupled Bend-Twist
-  Mechanics of Biomimetic Scale Substrate" — independently proposed and top-ranked for novelty by
-  3 separate literature reviews (2026-08-16/19/20) before this run finally resourced it.
+  Mechanics of Biomimetic Scale Substrate" — overlapping rigid scales lock against each other past
+  a curvature threshold, in principle decoupling strain from bending depth the way biological
+  scale substrates do; independently proposed and top-ranked for novelty by 3 separate literature
+  reviews (2026-08-16/19/20) before this run finally resourced it.
 - **Stats:** n=64 &rarr; 54 coil &rarr; 0 riks &rarr; 0 good (0% Stage-2 convergence)
   p50/p90/p100 — &sigma;_eig (coilable only): 1.04/2.61/4.59 &middot; mcs: 0.00/0.45/0.64 &middot;
   mls: 0.00/0.019/0.020
@@ -1323,10 +1417,6 @@ layout: two-cols-header
   each rib station is itself what concentrates strain and destroys the design — the opposite of
   the mechanism's own premise of escaping the kinematic-depth-cap wall by decoupling strain from
   bending depth.
-- **Seed:** BARREN as realized here (rigid panels rigidly coupled to fixed beam stations) — the
-  coupling mechanism itself is the problem, not the region of the 10D space searched. A compliant/
-  flexible scale realization (closer to a soft biological substrate than a rigid interlocking
-  panel) is a genuinely different idea, untried.
 
 </div>
 
@@ -1338,37 +1428,49 @@ layout: two-cols-header
 </div>
 
 <!--
-Two real infra bugs were found and fixed getting this family to a trustworthy read — full detail
-in the run summary slide's own speaker notes (t=0 ground/top-disc geometry defect, then a silent
-max_local_strain=0.0 sentinel from a missing *SECTION POINTS beam-section spec). Namespace
-'scale_lock'; oracle at bo/oracle_scale_lock.py; scripts at
-scripts/supercompressible_{lin_buckle,riks}_scale_lock.py. Any future literature review
-re-surfacing this exact mechanism should be pointed at this slide and the causal-isolation
-control above, not re-derive the geometry from the paper a fifth time -- the open question is now
-narrower than "does the infra exist": does ANY realization decouple the rib-station strain
-concentration from the base beam's own bending strain, since a rigid-panel realization does not.
+**Input space:** ratio_a&isin;[.006,.02] — radial half-thickness. ratio_b&isin;[.01,.05] —
+tangential half-width. ratio_pitch&isin;[.15,1.2], ratio_top_diameter&isin;[0,.6] — usual
+per-storey pitch/taper meaning. n_ribs&isin;[3,10] — scale-station count.
+rib_length_ratio/eta&isin;[1,6] (paper's own centre ~3) — scale overlap length.
+rib_width_ratio/beta&isin;[.4,3] (paper's own centre ~1.25) — scale overlap width.
+rib_embed_angle_deg/alpha0&isin;[0,60] (paper's own value 30) — angle each scale is set into the
+beam surface. rib_rest_angle_deg/theta0&isin;[0,20] (paper's own value 5) — rest angle before
+locking engages. t_scale&isin;[.1,1.0] mm — scale panel thickness. Fixed: n_longerons=3.
 
-Full oracle bounds (10D): ratio_a [.006,.02] (radial half-thickness), ratio_b [.01,.05]
-(tangential half-width), ratio_pitch [.15,1.2], ratio_top_diameter [0,.6], n_ribs [3,10],
-rib_length_ratio/eta [1,6] (paper's own centre ~3), rib_width_ratio/beta [.4,3] (paper's own
-centre ~1.25), rib_embed_angle_deg/alpha0 [0,60] (paper's own value 30), rib_rest_angle_deg/theta0
-[0,20] (paper's own value 5), t_scale [.1,1.0] mm.
+**Seed:** BARREN as realized here (rigid panels rigidly coupled to fixed beam stations) — the
+coupling mechanism itself is the problem, not the region of the 10D space searched. A compliant/
+flexible scale realization (closer to a soft biological substrate than a rigid interlocking
+panel) is a genuinely different idea, untried.
 
-Diagnostic path, in full: D002 (single smoke eval) + D004 (24-pt LHS, paper-centre sub-region) all
-failed Stage 2 identically pre-fix. D005 root-caused and fixed the t=0 geometry defect, re-tested
-5 points, cut mcs_windowed from 0.0 to 0.35-0.64 -- but max_local_strain still read 0.0 on all
-five despite raw sigma_peak 30-55x the target, which D006 caught and root-caused to the missing
-*SECTION POINTS spec via read-only ODB field-output probing. D007 fixed it (native
-RectangularProfile) and reproduced run17_rectangle bit-for-bit through the unmodified `default`
-oracle, proving the fix cannot regress any family whose strain field already resolved. D008 then
-tried two stabilization-magnitude escalations (1e-3, 5e-3) on the late-stage solver stall this
-left exposed -- neither resolved it (still 0% Stage-2 convergence), and one setting (idx=23 at
-5e-3) actively failed the stabilization-energy validity gate. D009 ran a 20-point diagnostic sweep
-over a deliberately softer sub-region (thinner beam, longer mast, fewer ribs, softer engagement
-angle including near/below the paper's own ~20deg "lockless" boundary) specifically testing
-whether strain_crossing_mcs could be pushed later, toward run17_rectangle's own ~0.91 benchmark --
-best achieved was 0.40, barely past the already-tested region's 0.33-0.45 midpoint. D010 then ran
-the decisive control described above.
+**Deferred:** any future literature review re-surfacing this exact mechanism should be pointed at
+this slide and its causal-isolation control, not re-derive the geometry from the paper a fifth
+time — the open question is now narrower than "does the infra exist": does ANY realization
+decouple the rib-station strain concentration from the base beam's own bending strain, since a
+rigid-panel realization does not.
+
+**Timeline:**
+- D002 (single smoke eval) + D004 (24-pt LHS, paper-centre sub-region): both failed Stage 2
+  identically pre-fix.
+- D005: root-caused and fixed the t=0 geometry defect, re-tested 5 points, cut mcs_windowed from
+  0.0 to 0.35-0.64 — but max_local_strain still read 0.0 on all five despite raw sigma_peak
+  30-55&times; the target.
+- D006: root-caused the max_local_strain=0.0 sentinel to a missing *SECTION POINTS beam-section
+  spec via read-only ODB field-output probing.
+- D007: fixed it (native RectangularProfile) and reproduced run17_rectangle bit-for-bit through
+  the unmodified `default` oracle, proving the fix cannot regress any family whose strain field
+  already resolved.
+- D008: two stabilization-magnitude escalations (1e-3, 5e-3) on the late-stage solver stall this
+  left exposed — neither resolved it (still 0% Stage-2 convergence); one setting (idx=23 at 5e-3)
+  actively failed the stabilization-energy validity gate.
+- D009 (20-point diagnostic sweep, deliberately softer sub-region): tested whether
+  strain_crossing_mcs could be pushed later, toward run17_rectangle's own ~0.91 benchmark — best
+  achieved was 0.40, barely past the already-tested region's 0.33-0.45 midpoint.
+- D010: ran the decisive causal-isolation control described in Verdict.
+
+**Infra:** two real infra bugs found and fixed getting this family to a trustworthy read (full
+detail in the run summary slide's own speaker notes): the t=0 ground/top-disc geometry defect,
+then the missing *SECTION POINTS beam-section spec. Namespace 'scale_lock'; oracle at
+bo/oracle_scale_lock.py; scripts/supercompressible_{lin_buckle,riks}_scale_lock.py.
 -->
 
 ---
@@ -1743,9 +1845,9 @@ layout: two-cols-header
 
 - **What:** Replace each longeron with a **pair** of independently-anchored beams, pre-bowed
   to close a small gap and make frictionless surface contact partway through the coil — no
-  shared node with the ring, unlike the closed `secondary_stop` family.
-  Free: none (single validation point; only the contact law/solver varied) | Fixed: n_corners=3
-  ratio_d=.02 pitch=.75 top_d=.30 leg_offset=.05 gap0=.015
+  shared node with the ring, unlike the closed `secondary_stop` family. Single validation point
+  (n_corners=3, ratio_d=.02, pitch=.75, top_d=.30, leg_offset=.05, gap0=.015); only the contact
+  law/solver varied.
 - **Origin:** Liu, Ennis &amp; Coulais 2024&sup1; (measured stroke-triggered self-contact
   stiffening), Dharmavaram, Ebrahimi &amp; Ghosh 2021&sup2; (soft-to-stiff contact-locking in
   a bending filament), Hima, Bigoni &amp; Dal Corso 2022&sup3; (rigorous non-artefactual
@@ -1761,9 +1863,6 @@ layout: two-cols-header
   breaks the solver, not the physics). A soft, ramped connector law reached **48.6%
   compression**, far past every hard-stop attempt — but whether the contact is doing real
   load-bearing work, or merely not interfering, was never confirmed.
-- **Seed:** FERTILE — sweep the connector's stiffness multiplier as a free search dimension
-  around 3&times; (which converged) rather than point-probing 3&times;/15&times;; the
-  load-bearing range in between is unmapped.
 
 </div>
 
@@ -1775,6 +1874,13 @@ layout: two-cols-header
 </div>
 
 <!--
+**Input space:** none free — a single validation point (n_corners=3, ratio_d=.02, pitch=.75,
+top_d=.30, leg_offset=.05, gap0=.015); only the contact law/solver varied across delegations.
+
+**Seed:** FERTILE — sweep the connector's stiffness multiplier as a free search dimension
+around 3&times; (which converged) rather than point-probing 3&times;/15&times;; the
+load-bearing range in between is unmapped.
+
 Run 20260816T013744, delegations D003/D004/D006/D008 (hard stop, 3 solvers, all ~0%), D017
 (Explicit port, named the untried soft-connector lever), D018 (soft connector, 3x stiffness,
 48.6% -- ARCHIVED here, data/idea_odbs/20260816T013744_D33_kissing_pair/), D019 (soft
@@ -1822,8 +1928,6 @@ layout: two-cols-header
 - **What:** Storey 1 deliberately weaker (shorter pitch/thinner section), decoupled from
   storey 2 by a contact-only stop — storey 2 stays unstrained until storey 1 lands, then
   takes over. Contact-decoupled, unlike the closed `asym_storey` family's rigid coupling.
-  Free: ratio_d1&isin;&#91;.01,.04&#93; ratio_pitch1&isin;&#91;.13,1.04&#93; ratio_d2&isin;&#91;.023,.073&#93;
-  stop_engagement_fraction&isin;&#91;.05,.85&#93; n_longerons&isin;&#91;3,10&#93; +4 more | Fixed: rsm=.3677
 - **Origin:** Liu, Ennis &amp; Coulais 2024&sup1; — the same layer-by-layer programmed
   buckling sequence grounding D33, applied here as discrete storeys rather than a single
   member's self-contact.
@@ -1838,14 +1942,6 @@ layout: two-cols-header
   windowed compression never exceeds 3.9%, because **storey 1's own material strain crosses
   Bessa's 2% limit almost immediately**, before the staged mechanism can engage. True under
   every solver and every contact law tried: a design limit, not a numerical one.
-- **Seed:** BARREN, fully — widening storey 1 closed first (105 evals, mcs stuck at 35.6%).
-  A follow-up gave the *thinner*-storey-1 signal proper statistical power (120 more evals,
-  same unrestricted box): the effect is real and holds up under scrutiny, but every
-  slenderness-linked dimension on BOTH storeys moves the same way — it's the study's own
-  already-closed kinematic-depth-cap wall reasserting itself, not a storey-1-specific escape.
-  Best achieved (20.5%) is worse than the wide-direction campaign's own best. `staged_storey`
-  (this slide's own oracle) was not re-run — same root cause, independently confirmed twice
-  now via a different oracle.
 
 </div>
 
@@ -1857,6 +1953,22 @@ layout: two-cols-header
 </div>
 
 <!--
+**Input space:** ratio_d1&isin;[.01,.04], ratio_pitch1&isin;[.13,1.04] — storey 1 (deliberately
+weaker) section/pitch. ratio_d2&isin;[.023,.073], ratio_pitch2&isin;[.30,1.20] — storey 2
+section/pitch. twist_angle1, twist_angle2&isin;[0,&pi;/2] — per-storey pretwist.
+ratio_top_diameter&isin;[0,.8] — whole-mast taper, same range every family uses.
+stop_engagement_fraction&isin;[.05,.85] — solid-height at which storey 1 lands and storey 2
+begins carrying load. Fixed: n_longerons&isin;{3,4,5,6} (categorical), ratio_shear_modulus=.3677.
+
+**Seed:** BARREN, fully — widening storey 1 closed first (105 evals, mcs stuck at 35.6%). A
+follow-up gave the *thinner*-storey-1 signal proper statistical power (120 more evals, same
+unrestricted box): the effect is real and holds up under scrutiny, but every slenderness-linked
+dimension on BOTH storeys moves the same way — it's the study's own already-closed
+kinematic-depth-cap wall reasserting itself, not a storey-1-specific escape. Best achieved
+(20.5%) is worse than the wide-direction campaign's own best. `staged_storey` (this slide's own
+oracle) was not re-run — same root cause, independently confirmed twice now via a different
+oracle.
+
 Run 20260816T013744, delegations D005/D007/D009/D010/D011/D013/D014/D015. H4.
 
 FOOTNOTES: [1] Liu, Ennis & Coulais (2024), "Tuning the buckling sequences of metamaterials
@@ -1990,7 +2102,6 @@ layout: two-cols-header
 
 - **What:** Replace the flat rigid ground disc with a shallow axisymmetric **cone**, so the coil
   bears on a slope and the bearing point migrates as it descends.
-  Free: cone_rise_ratio&isin;&#91;0,0.30&#93; | Fixed: everything else at the incumbent (a=.00921 b=.03324 pitch=.68128 rtd=.04444 n_long=3)
 - **Origin:** analogy from shell-buckling and origami-confinement literature — and the *cheap*
   half of the run's contact program: it changes only the rigid surface, leaving the primary member
   and its coupling scheme exactly as validated.
@@ -2003,11 +2114,6 @@ layout: two-cols-header
   Below the onset (rise &le; 0.15) 18/18 converge with **CPRESS = 0** — the cone is there, never
   touched. At or past it (0.17–0.30) **7 of 8 diverge** on overclosure chatter. Nothing in this
   parameterisation both converges *and* engages: a **test failure, not a measured null**.
-- **Seed:** BARREN, now settled — this week's Explicit-dynamics escalation (H3, run
-  `20260819T022742`, D019) resolved the conditioning blocker: at every tested loading rate the
-  event is genuinely non-quasi-static (ALLKE/ALLIE far above threshold), not a solver artifact
-  masking real force amplification. No further evaluation warranted without a different way of
-  engaging contact.
 
 </div>
 
@@ -2019,6 +2125,16 @@ layout: two-cols-header
 </div>
 
 <!--
+**Input space:** cone_rise_ratio&isin;[0,.30] — cone height as a fraction of its base radius (0 =
+flat disc, the family's own control). Fixed: everything else at the incumbent (a=.00921,
+b=.03324, pitch=.68128, rtd=.04444, n_long=3).
+
+**Seed:** BARREN, now settled — this week's Explicit-dynamics escalation (H3, run
+`20260819T022742`, D019) resolved the conditioning blocker: at every tested loading rate the
+event is genuinely non-quasi-static (ALLKE/ALLIE far above threshold), not a solver artifact
+masking real force amplification. No further evaluation warranted without a different way of
+engaging contact.
+
 Run 20260814T015148, delegations D008-D011 and D014, H3/H4. scripts/supercompressible_riks_shaped_disc.py.
 
 WHY THIS SLIDE MATTERS MORE THAN ITS OWN VERDICT: this family is what surfaced H5. Chasing why a
@@ -2050,7 +2166,6 @@ layout: two-cols-header
 
 - **What:** Short stocky members carrying nothing at first, **engaging only once the primary
   longerons near their 2%-strain limit** — a contact-triggered stiffness jump.
-  Free: ratio_stop_d&isin;&#91;.02,.03&#93; stop_engagement_fraction&isin;&#91;.5,.8&#93; stop_radial_ratio&isin;&#91;.4,.6&#93; n_stops = 0/1/3 | Fixed: primary at the incumbent
 - **Origin:** Florijn, Coulais &amp; van Hecke 2014, *Programmable Mechanical Metamaterials*. It
   attacks the kinematic law head-on: a *separate* member escapes the ring-rotation curvature
   compatibility (&kappa;_max &asymp; 1/R_mean) that caps one continuous longeron.
@@ -2063,8 +2178,6 @@ layout: two-cols-header
   20 solves, 6 delegations, two independent FE constructions (separate Part+Instance, then wire
   edges on the *same* Part). The one solve whose stop engaged was **already decided against**: the
   *primary's* strain crosses 2% at **5.9% compression**, mcs .910 &rarr; **.054**, ~600 increments early.
-- **Seed:** BARREN *as coupled here* — any added beam member tied to the ring reference points
-  destroys the primary's strain margin. Untested until that is fixed.
 
 </div>
 
@@ -2076,6 +2189,15 @@ layout: two-cols-header
 </div>
 
 <!--
+**Input space:** ratio_stop_d&isin;[.02,.03] — stop member diameter. stop_engagement_fraction
+&isin;[.5,.8] — compression fraction at which the stop is meant to contact. stop_radial_ratio
+&isin;[.4,.6] — stop's radial placement between the mast axis and the primary longerons.
+n_stops&isin;{0,1,3} — discrete count, not a continuous dial. Fixed: primary longeron at the
+incumbent.
+
+**Seed:** BARREN *as coupled here* — any added beam member tied to the ring reference points
+destroys the primary's strain margin. Untested until that is fixed.
+
 Run 20260814T015148, delegations D003-D006 and D012-D013, H1/H2. 6 datagenerator delegations,
 $28.47 of the run's $35.83.
 
@@ -2240,7 +2362,6 @@ layout: two-cols-header
 
 - **What:** Build the longeron already wound as a helix of `helix_wrap` turns, so coiling
   supplies only the *remaining* curvature.
-  Free: helix_wrap&isin;&#91;&minus;0.3,6.0&#93; a&isin;&#91;.004,.014&#93; b&isin;&#91;.01,.045&#93; pitch&isin;&#91;.25,1.5&#93; | Fixed: n_long=3 rtd=0 n_storeys=1 imperfection=.067
 - **Origin:** this run's own law. Strain is c &times; curvature **change**, not curvature — a member
   born at &kappa;&#8320; travels only &kappa;_max &minus; &kappa;&#8320;, so the cap 0.02/&Delta;&kappa; relaxes.
 - **Stats:** pre-coiled (wrap&gt;0): n=30 &rarr; 3 coil &rarr; 2 riks &rarr; 0 good — **both riks solves hit the 600 s cap**
@@ -2254,8 +2375,6 @@ layout: two-cols-header
   The relief is real — **0.445% strain at 30.8% compression**, where the matched straight control
   had blown 2% by 26.2% — but it buys no load (&rho;(wrap, &sigma;_peak) = **&minus;0.392** over 36
   decided designs), it is not novel, and the family never approached 80%.
-- **Seed:** BARREN as a load mechanism, **disqualified on novelty** (Kirchhoff-rod theory, H3).
-  The deep-wrap Stage-2 crash is an open solver problem, not a design lead.
 
 </div>
 
@@ -2267,6 +2386,14 @@ layout: two-cols-header
 </div>
 
 <!--
+**Input space:** helix_wrap&isin;[-0.3,6.0] — pre-coiled turns built into the longeron before any
+compression is applied. a&isin;[.004,.014], b&isin;[.01,.045] — cross-section semi-axes.
+ratio_pitch&isin;[.25,1.5]. Fixed: n_longerons=3, ratio_top_diameter=0, n_storeys=1,
+imperfection=.067.
+
+**Seed:** BARREN as a load mechanism, **disqualified on novelty** (Kirchhoff-rod theory, H3).
+The deep-wrap Stage-2 crash is an open solver problem, not a design lead.
+
 Run 20260812T014026, H4/H6. The gif is the 839-increment solve (riks_847140cc): 785 frames in
 step, of which 268 fall inside the mcs<=0.95 render window.
 
@@ -2338,7 +2465,6 @@ layout: two-cols-header
 
 - **What:** A coaxial rigid cylinder inside the mast for the longerons to wind onto — hoping it
   governs the coiling curvature and adds a confined second load path once members bear on it.
-  Free: mandrel_ratio&isin;&#91;0,0.83&#93; a&isin;&#91;.004,.014&#93; b&isin;&#91;.01,.045&#93; pitch&isin;&#91;.25,1.5&#93; | Fixed: n_long=3 rtd=.04444 n_storeys=1
 - **Origin:** the run's opening hypothesis (H1/H2) — once the cross-section is capped, the only
   lever left is what the member coils *against*.
 - **Stats:** confined: n=9 &rarr; 9 coil &rarr; 9 riks &rarr; 4 good (5.41&times; Bessa), radii .6/.7/.78/.83 (.83 = geometric limit)
@@ -2351,7 +2477,6 @@ layout: two-cols-header
   Mechanistically, the stronger kind. The coiling mode is **radius-preserving**: the envelope stays
   at 47.79–50.00 mm over the stroke, never moving inward, so there is no radius for an internal body
   to govern. That closes the whole class.
-- **Seed:** BARREN — as is any *internal* confinement. Confining from outside, or moving the envelope (D30), is a different argument.
 
 </div>
 
@@ -2363,6 +2488,13 @@ layout: two-cols-header
 </div>
 
 <!--
+**Input space:** mandrel_ratio&isin;[0,.83] — mandrel radius as a fraction of the geometric limit
+(.83). a&isin;[.004,.014], b&isin;[.01,.045] — cross-section semi-axes. ratio_pitch&isin;[.25,1.5].
+Fixed: n_longerons=3, ratio_top_diameter=.04444, n_storeys=1.
+
+**Seed:** BARREN — as is any *internal* confinement. Confining from outside, or moving the
+envelope (D30), is a different argument.
+
 Run 20260812T014026, delegations D002/D003/D005/D010/D013/D017, H1/H2. bo/oracle_mandrel.py and
 scripts/supercompressible_{lin_buckle,riks,riks_pp}_mandrel.py are promoted to gold (commit
 16c7e84) -- the family is closed, the machinery is not wrong, and mandrel_ratio=0 reduces it
@@ -2483,7 +2615,6 @@ layout: two-cols-header
 - **What:** Split each longeron into `n_leaves` thin leaves stacked in the winding plane, free to
   slide — a leaf spring. The hope: total depth still carries load while each leaf bends at its own
   small depth.
-  Free: n_leaves&isin;&#123;1,3,5&#125; a&isin;&#91;.004,.014&#93; b&isin;&#91;.01,.045&#93; pitch&isin;&#91;.25,1&#93; | Fixed: rsm=.3677 n_long=3 n_storeys=1 twist=0
 - **Origin:** direct attack on this run's own H1 — coiling curvature is pinned to the ring radius,
   so the only free lever is the depth it acts on. Classical leaf-spring practice, not a
   metamaterial citation.
@@ -2496,8 +2627,6 @@ layout: two-cols-header
   `n_leaves=1` is the family's own *regression control* and reproduces the incumbent exactly. The
   one multi-leaf point **regressed 7.7&times;**: stacking splits the depth that carries load without
   changing the curvature that caps it, paying the strain penalty twice.
-- **Seed:** BARREN as stated. Decoupling leaf spacing from the winding radius is a different idea,
-  needing a different argument than "more leaves".
 
 </div>
 
@@ -2511,6 +2640,13 @@ layout: two-cols-header
 </div>
 
 <!--
+**Input space:** n_leaves&isin;{1,3,5} — discrete leaf count, not a continuous dial. a&isin;[.004,.014],
+b&isin;[.01,.045] — per-leaf cross-section semi-axes. ratio_pitch&isin;[.25,1]. Fixed:
+ratio_shear_modulus=.3677, n_longerons=3, n_storeys=1, twist_angle=0.
+
+**Seed:** BARREN as stated. Decoupling leaf spacing from the winding radius is a different idea,
+needing a different argument than "more leaves".
+
 Run 20260809T230403, delegation D011, H7. Pre-processors archived to
 scripts/superseded/ (supercompressible_{lin_buckle,riks}_leaf_spring.py) rather than deleted:
 the family is settled, the machinery is not wrong, and building a Stage-2 pre-processor is most
@@ -2606,9 +2742,6 @@ layout: two-cols-header
   budget before they get anywhere. Median reaches 2.2% compression; the best reaches **21%**, against
   the 80% required, i.e. short by 3.7×. Contact shifts that crossing by −0.002 on average
   (n=4 decided pairs, sd 0.008, t = −0.60), and moves it *later* in only 2 of 4.
-- **Seed:** FERTILE — twist/chirality applied to the open-arc section. Partly attempted already:
-  D27 reached 0/115 coilable, but Stage-1-only and pre-contact.
-
 <div class="text-xs opacity-60 mt-1">
 Contact's effect is unresolvable at n=4 and needs no resolving: the gap is 3.7×, and it moves the
 answer in the third decimal.
@@ -2624,6 +2757,9 @@ answer in the third decimal.
 </div>
 
 <!--
+**Seed:** FERTILE — twist/chirality applied to the open-arc section. Partly attempted already:
+D27 reached 0/115 coilable, but Stage-1-only and pre-contact.
+
 Jobs 4791881 (invalid sampling, superseded), 4792435 (64-design pilot), 4794837 (256-design
 significance sweep, 1.01 h wall).
 
@@ -2732,8 +2868,6 @@ layout: two-cols-header
   is held. Energy absorbed rose **+86%**; peak stress is **bit-identical**, because the peak
   happens before contact engages. Strain went from 9&times;10<sup>-14</sup> (i.e. nothing strains
   at all) to 3.4%.
-- **Seed:** BARREN — the mechanism needs prestressed cables and pin joints, which cannot be
-  monolithically printed. Contact does not touch that.
 
 </div>
 
@@ -2745,6 +2879,9 @@ layout: two-cols-header
 </div>
 
 <!--
+**Seed:** BARREN — the mechanism needs prestressed cables and pin joints, which cannot be
+monolithically printed. Contact does not touch that.
+
 Migrated by a subagent, commit 2979e35, jobs 4777817 / 4778543 / 4778788.
 
 THE STRAIN NUMBER IS THE WHOLE STORY. 9e-14 is not a small strain, it is NO strain: the structure
@@ -2793,11 +2930,6 @@ layout: two-cols-header
   D20 builds a valid model but does not converge. D26 exceeded the 600 s solve budget — it
   carries ~11,000 nodes against the reference family's ~1,000, so it needs a mesh-convergence
   study before it is searchable at all.
-- **Seed:** BARREN (all three, superseding this bullet's own prior FERTILE tag) — each has since
-  been searched under contact elsewhere and closed: D17 (Kresling revisited — mesh singularity,
-  not floor-passthrough), D20 (run `20260819T022742` H11 — 6 pts stuck 1.3&ndash;3.4%), D26 (run
-  `20260804T221559` — 80-pt sweep, 0/80 coilable). No perturbation left un-searched on any of the
-  three.
 
 </div>
 
@@ -2809,6 +2941,12 @@ layout: two-cols-header
 </div>
 
 <!--
+**Seed:** BARREN (all three, superseding this bullet's own prior FERTILE tag) — each has since
+been searched under contact elsewhere and closed: D17 (Kresling revisited — mesh singularity,
+not floor-passthrough), D20 (run `20260819T022742` H11 — 6 pts stuck 1.3&ndash;3.4%), D26 (run
+`20260804T221559` — 80-pt sweep, 0/80 coilable). No perturbation left un-searched on any of the
+three.
+
 Commits 4ba6627 (D17), a235734 (D20, D25), and the D26 pre-processor.
 
 D17 is the sharpest illustration of why one design proves nothing about a family. The design
@@ -2976,7 +3114,6 @@ class: idea-slide
   a built-in azimuthal twist of the lobe pattern from bottom to top —
   chirality breaking mirror symmetry to try to couple axial compression into
   global rotation.
-  Free: n_lobes&isin;&#91;3,6&#93; A_max&isin;&#91;.05,.35&#93; twist_chirality&isin;&#91;0,3.14&#93; t_shell&isin;&#91;.5,2&#93; ratio_pitch&isin;&#91;.15,.8&#93; +1 more | Fixed: rsm=.3677
 - **Origin:** Liu et al. 2025 (*Nature Communications* 16:11359), "chiral
   multi-curved shell metamaterials integrating compression-torsion and
   buckling mechanisms" — every prior family in this study keeps a discrete-
@@ -3004,6 +3141,11 @@ class: idea-slide
 </div>
 
 <!--
+**Input space:** n_lobes&isin;[3,6] — discrete lobe count. A_max&isin;[.05,.35] — lobe amplitude.
+twist_chirality&isin;[0,3.14] — azimuthal twist of the lobe pattern bottom-to-top. t_shell&isin;
+[.5,2] — shell wall thickness. ratio_pitch&isin;[.15,.8], ratio_top_diameter&isin;[0,.5] — usual
+per-storey pitch/taper meaning. Fixed: ratio_shear_modulus=.3677.
+
 Full context:
 
 - This is H1 of run `20260804T221559`, delegation D003 (build) + D004 (80-pt
@@ -3046,7 +3188,6 @@ class: idea-slide
   topology) after D26's monocoque tube suppressed coiling, but gave each
   discrete longeron a genuinely new, non-beam shape: a twisting,
   doubly-curved shell "vane" instead of a solid/thin-walled cross-section.
-  Free: t_shell&isin;&#91;.2,2&#93; W&isin;&#91;3,15&#93; B_max&isin;&#91;1,8&#93; twist_total&isin;&#91;.2,1.5&#93; ratio_pitch&isin;&#91;.3,1&#93; +1 more | Fixed: n_long=3 rsm=.3677
 - **Origin:** direct empirical follow-up to D26 — its own finding (full
   monocoque tube too stiff against global lateral bending) predicts that
   restoring low overall bending stiffness via discrete members should let a
@@ -3073,6 +3214,11 @@ class: idea-slide
 </div>
 
 <!--
+**Input space:** t_shell&isin;[.2,2] — shell wall thickness. W&isin;[3,15] — vane width. B_max&isin;
+[1,8] — vane curvature amplitude. twist_total&isin;[.2,1.5] — per-longeron twist over the mast
+height. ratio_pitch&isin;[.3,1], ratio_top_diameter&isin;[0,.4] — usual per-storey pitch/taper
+meaning. Fixed: n_longerons=3, ratio_shear_modulus=.3677.
+
 Full context:
 
 - This is H1 of run `20260804T221559`, delegation D006 (build) + D007
@@ -3179,7 +3325,6 @@ class: idea-slide
 - **What:** Replaced the solid B31 longeron with a thin-walled, open-arc S4R
   **shell** section, hypothesizing a *localized elastic fold* could escape
   the mast-scale coiling curvature capping every beam family.
-  Free: t_tape∈[.4,1.6] R_tape∈[6,400] alpha_tape∈[.05,2.2] beta_tape∈[0,3.14] pitch∈[.25,1.5] +1 more | Fixed: circular=17 n_long=3 n_st=1 twist=0 rsm=.3677
 - **Origin:** Named for Calladine inextensional shell-folding theory and
   Seffen–Pellegrino tape-spring mechanics.¹
 - **Stats:** n=406 → 176 coil → 137 riks → 0 good
@@ -3190,9 +3335,6 @@ class: idea-slide
   is the same curvature that sets its bending-strain floor. The shape can
   never be shallow enough to fold locally without first buckling — so
   strain follows ordinary beam bending at every depth tested, not a fold.
-- **Seed:** BARREN — twist the arc along the sweep, so no station carries the
-  full curvature, was already tried and settled (68 more under contact, 0 feasible).
-
 <div class="text-xs opacity-50 mt-2">
 ¹ Named theories cited by the delegation; no single specific paper was looked up/verified this run.
 </div>
@@ -3206,6 +3348,15 @@ class: idea-slide
 </div>
 
 <!--
+**Input space:** t_tape&isin;[.4,1.6] — tape thickness. R_tape&isin;[6,400] — arc radius.
+alpha_tape&isin;[.05,2.2] — arc angle subtended (section depth driver). beta_tape&isin;[0,3.14] —
+section orientation. ratio_pitch&isin;[.25,1.5], ratio_top_diameter&isin;[0,.8] — usual
+per-storey pitch/taper meaning. Fixed: circular=17 (cross-section-family switch), n_longerons=3,
+n_storeys=1, twist_angle=0, ratio_shear_modulus=.3677.
+
+**Seed:** BARREN — twist the arc along the sweep, so no station carries the
+full curvature, was already tried and settled (68 more under contact, 0 feasible).
+
 SEED RATIONALE (added 2026-08-08, rule 3(e)). The arc is straight along the sweep, so every
 station carries the same section curvature and therefore the same bending-strain floor -- the
 mechanism this campaign falsified. A twist re-orients the section along the length, so the floor
@@ -3411,7 +3562,6 @@ class: idea-slide
 - **What:** Spliced one bistable, shallow-arched snap-through segment near
   the bottom ring, jointly re-optimized with the base cross-section, to
   reinvest local-strain headroom into higher σ_cr,nd than 0.7704 kPa.
-  Free: a∈[.007,.012] b∈[.025,.045] arch_rise∈[.02,.09] arch_length∈[.25,.5] | Fixed: pitch=.681277 top_d=.04444 circular=15 stabilization=1 dual_arch=1
 - **Origin:** elastic-instability/bistable-mechanism metamaterials
   literature; follow-on to a same-run hypothesis whose single-arch strain
   cut (mean ~7%, max 12.3%) fell short of a pre-registered 20% bar.
@@ -3437,6 +3587,12 @@ class: idea-slide
 </div>
 
 <!--
+**Input space:** a&isin;[.007,.012], b&isin;[.025,.045] — base cross-section semi-axes, jointly
+re-optimized with the arch. arch_rise&isin;[.02,.09] — bistable snap-arch height. arch_length
+&isin;[.25,.5] — arch length along the longeron. Fixed: ratio_pitch=.681277,
+ratio_top_diameter=.04444, circular=15 (cross-section-family switch), stabilization=1,
+dual_arch=1.
+
 Full context — this is one of the most consequential, previously-contested
 results in the whole study; state it carefully and consistently with the
 CURRENT state of PROBLEM_STATEMENT.md and bo/confirmed_anchors.json (checked
@@ -3657,7 +3813,6 @@ class: idea-slide
 - **What:** Chain of N alternating-sign pre-curved shallow-arch segments,
   rise-to-thickness ratio (Q) kept *below* the bistability floor (Q≈2.31) —
   mild repeating curvature, not genuine snap-through.
-  Free: n_segments∈[2,6] arch_rise∈[.02,.3] | Fixed: a=.009213 b=.033238 pitch=.681277 top_d=.04444 circular=11
 - **Origin:** follow-up to the same run's H2 (*true* bistable, Q≥2.31
   chain), which hit a Riks numerical wall in 71/72 cases; asks whether
   backing off avoids the wall while still beating baseline.
@@ -3680,6 +3835,10 @@ class: idea-slide
 </div>
 
 <!--
+**Input space:** n_segments&isin;[2,6] — chain length (discrete). arch_rise&isin;[.02,.3] — per-
+segment rise, kept below the Q&asymp;2.31 bistability floor. Fixed: a=.009213, b=.033238,
+ratio_pitch=.681277, ratio_top_diameter=.04444, circular=11 (cross-section-family switch).
+
 Full context:
 
 - Registered as H3 of run `20260723T010834` (GATED, evals_used=206). H1 of
@@ -3796,7 +3955,6 @@ class: idea-slide
   open thin-walled cruciform/I-beam profile, chosen so torsional stiffness
   (J) is tunable independently of bending stiffness (Ixx/Iyy), unlike a solid
   rectangle where the two are coupled.
-  Free: b∈[.015,.05] h∈[.02,.08] tf∈[.002,.012] tw∈[.0015,.008] pitch∈[.3,1.5] +1 more | Fixed: circular=8 n_long=3 n_st=1 twist=0 rsm=.3677
 - **Origin:** classical flexural-torsional beam theory (common-sense
   cross-section engineering, not a specific outside citation) — the
   motivating idea was that decoupling J from Ixx/Iyy might let the section
@@ -3822,6 +3980,12 @@ class: idea-slide
 </div>
 
 <!--
+**Input space:** b&isin;[.015,.05] — flange width. h&isin;[.02,.08] — section height.
+tf&isin;[.002,.012] — flange thickness. tw&isin;[.0015,.008] — web thickness. ratio_pitch
+&isin;[.3,1.5], ratio_top_diameter&isin;[0,.3] — usual per-storey pitch/taper meaning. Fixed:
+circular=8 (cross-section-family switch), n_longerons=3, n_storeys=1, twist_angle=0,
+ratio_shear_modulus=.3677.
+
 Full context:
 
 - Registered as H2 of run `20260721T201733` (all-Sonnet, 14h, GATED,
@@ -3905,7 +4069,6 @@ class: idea-slide
 - **What:** Replaced the bending longeron with a pin-jointed, prestressed
   Class-1 tensegrity assembly — stiffness from prestress/geometry, not
   beam bending.
-  Free: a_strut∈[.001,.03] slen_strut∈[10,40] area_cable∈[1e-5,5e-3] mid_h∈[.1,.9] prestrain∈[.001,.02] +2 more | Fixed: circular=7 n_long=3 n_st=1 twist=0 rsm=.3677
 - **Origin:** Amendola et al. (2018) tensegrity prestress-stiffness theory,
   contrasted with Meng (2012)/Sorrentino (2021) on bending-family
   strain-stiffness coupling.
@@ -3918,7 +4081,6 @@ class: idea-slide
   The broken-looking mcs/mls above (up to 2929/9.55) are a truss-vs-beam
   strain scaling, not an error — the real signal is the near-zero material
   strain apples-to-apples exists to catch (mls&asymp;9&times;10<sup>-14</sup>, i.e. none).
-- **Seed:** BARREN — blocked on printability (prestressed cables, pin joints).
 
 </div>
 
@@ -3930,6 +4092,16 @@ class: idea-slide
 </div>
 
 <!--
+**Input space:** a_strut&isin;[.0001,.05], slen_strut (reparametrized from ratio_b_strut&isin;
+[.0001,.08] as pitch/(2*max(a,b))) — strut cross-section/slenderness. area_cable&isin;[1e-7,1e-2]
+— cable cross-section area. mid_h&isin;[.05,.95] — mid-height ratio of the tensegrity's waist.
+prestrain&isin;[-.05,.05] — cable pre-tension strain. ratio_pitch&isin;[.1,2],
+ratio_top_diameter&isin;[0,.8] — usual per-storey pitch/taper meaning. Fixed: circular=7
+(cross-section-family switch), n_longerons=3, n_storeys=1, twist_angle=0,
+ratio_shear_modulus=.3677.
+
+**Seed:** BARREN — blocked on printability (prestressed cables, pin joints).
+
 Full context:
 
 - This is hypothesis H3 of run `20260718T132852`, delegation D005 for the initial
@@ -4031,8 +4203,6 @@ class: idea-slide
   separated by a fixed gap (a laced/battened built-up member), aiming to
   set global bending stiffness by chord separation while peak local strain
   stays governed by each chord's own small radius.
-  Free: rc∈[.001,.02] h∈[.01,.15] n_battens∈[2,8] pitch∈[.25,1.5] top_d∈[0,.8]
-  | Fixed: circular=4 n_storeys=1 twist=0 rsm=.3677
 - **Origin:** common-sense mechanistic hypothesis grounded in the
   parallel-axis theorem (2&middot;A_f&middot;(h/2)&sup2;), not a
   literature citation.
@@ -4057,6 +4227,11 @@ class: idea-slide
 </div>
 
 <!--
+**Input space:** rc&isin;[.001,.02] — chord radius. h&isin;[.01,.15] — separation between the two
+chords. n_battens&isin;[2,8] — discrete batten count. ratio_pitch&isin;[.25,1.5],
+ratio_top_diameter&isin;[0,.8] — usual per-storey pitch/taper meaning. Fixed: circular=4
+(cross-section-family switch), n_storeys=1, twist_angle=0, ratio_shear_modulus=.3677.
+
 Full context:
 
 - Stats-migration note (2026-08-04): among the 50 converged designs, &sigma;_crit
@@ -4129,8 +4304,6 @@ class: idea-slide
   small-amplitude in-plane serpentine (meander) wave instead of a straight
   line, aiming to distribute bending curvature along the member's length
   rather than concentrate it at one region.
-  Free: amplitude_rel∈(0,.02] n_periods∈[1,6] | Fixed: host=run17_rectangle
-  (a=.009213 b=.033238 pitch=.681277 top_d=.04444)
 - **Origin:** common-sense mechanistic hypothesis (a curvature-distribution
   argument), not drawn from an outside literature source.
 - **Stats:** n=17 &rarr; 17 coil &rarr; 8 riks &rarr; 3 good (5.89&times; Bessa)
@@ -4154,6 +4327,10 @@ class: idea-slide
 </div>
 
 <!--
+**Input space:** amplitude_rel&isin;(0,.02] — meander amplitude relative to the mast diameter.
+n_periods&isin;[1,6] — number of wave periods along the longeron. Fixed: host geometry =
+run17_rectangle (a=.009213, b=.033238, ratio_pitch=.681277, ratio_top_diameter=.04444).
+
 Full context:
 
 - This is hypothesis H2 of run `20260718T031519`, delegation D007. Final correction
@@ -4229,8 +4406,6 @@ class: idea-slide
 - **What:** Tapered a longeron's radial thickness along its arc-length —
   thick at both ring ends, waisted at mid-span — a fixed-volume
   optimal-column shape, not a uniform section.
-  Free: a_end∈[.004,.02] waist∈[.30,.98] b∈[.012,.06] pitch∈[.4769,.8857]
-  top_d∈[.0311,.0578] | Fixed: circular=4 n_storeys=1 twist=0
 - **Origin:** classical Lagrange-Keller / Tadjbakhsh-Keller optimal-column
   result, adapted to this study's longeron geometry.
 - **Stats:** n=29 &rarr; 29 coil &rarr; 29 riks &rarr; 1 good (0.49&times; Bessa)
@@ -4251,6 +4426,12 @@ class: idea-slide
 </div>
 
 <!--
+**Input space:** a_end&isin;[.004,.02] — end (ring) cross-section radius. waist&isin;[.30,.98] —
+mid-span radius as a fraction of a_end. b&isin;[.012,.06] — secondary semi-axis.
+ratio_pitch&isin;[.4769,.8857], ratio_top_diameter&isin;[.0311,.0578] — usual per-storey
+pitch/taper meaning, narrowed for this campaign. Fixed: circular=4 (cross-section-family
+switch), n_storeys=1, twist_angle=0.
+
 Full context:
 
 - Stats-migration note (2026-08-04): initial 0.877 kPa headline proved invalid
@@ -4339,8 +4520,6 @@ class: idea-slide
   at an interior hinge node, offset circumferentially by angle
   `psi_kresling`, coupling axial compression to rigid-body strut
   re-orientation instead of relying purely on elastic bending.
-  Free: a∈[.006,.014] b∈[.008,.025] pitch∈[.25,1.5] top_d∈[0,.6] psi∈[0,.5236]
-  +1 more | Fixed: circular=2 n_storeys=1 twist=0
 - **Origin:** the Kresling origami folding pattern (a well-known
   bar-hinge/triangulated-cylinder mechanism), adapted here to this study's
   beam-longeron model — a real, specific geometric precedent, not a
@@ -4362,6 +4541,12 @@ class: idea-slide
 </div>
 
 <!--
+**Input space:** a&isin;[.006,.014], b&isin;[.008,.025] — cross-section semi-axes.
+ratio_pitch&isin;[.25,1.5], ratio_top_diameter&isin;[0,.6] — usual per-storey pitch/taper
+meaning. psi_kresling&isin;[0,.6] rad — hinge offset angle (0 = hinge off). ratio_hinge_height
+&isin;[0,1] — where along the longeron's length the hinge node sits. Fixed: circular=2
+(cross-section-family switch), n_storeys=1, twist_angle=0.
+
 Full context:
 
 - This is hypothesis H3 of run `20260717T014507`, delegation D007 (45 real, ledgered
@@ -4495,8 +4680,6 @@ class: idea-slide
 - **What:** Bent each longeron into a helix winding around the mast axis
   (a `helix_wrap` parameter), rather than a straight line, hypothesizing a
   spring-like geometry predisposed to reversible coiling.
-  Free: a∈[.003,.03] b∈[.008,.06] pitch∈[.30,1.5] top_d∈[0,.6] wrap∈[0,1.5708]
-  | Fixed: n_storeys=1 twist=0 rsm=.3677
 - **Origin:** common-sense mechanistic hypothesis, explicitly distinguished
   from pre-twist (which rotates the cross-section) and radial bowing
   (which is planar) — both tried and falsified in earlier runs. Not drawn
@@ -4519,6 +4702,11 @@ class: idea-slide
 </div>
 
 <!--
+**Input space:** a&isin;[.003,.03], b&isin;[.008,.06] — cross-section semi-axes.
+ratio_pitch&isin;[.30,1.5], ratio_top_diameter&isin;[0,.6] — usual per-storey pitch/taper
+meaning. helix_wrap&isin;[0,1.5708] rad — turns wound into the longeron before compression.
+Fixed: n_storeys=1, twist_angle=0, ratio_shear_modulus=.3677.
+
 Full context:
 
 - This is hypothesis H2 of run `20260715T002538`, delegation D007 (28-eval existence
@@ -4595,7 +4783,6 @@ class: idea-slide
 - **What:** Added a diagonal chiral-bracing lattice of short auxiliary beam
   struts between adjacent longerons, layered on the slenderness-valid
   rectangular family (two verified CEI-BO campaigns; see notes).
-  Free: a&isin;&#91;.0025,.20&#93; b&isin;&#91;.0025,.075&#93; pitch&isin;&#91;.25,1.5&#93; top_d&isin;&#91;0,.8&#93; z_brace&isin;&#91;.05,.95&#93; +2 more | Fixed: circular=2 n_long=3 n_storeys=1 twist=0 rsm=.3677
 - **Origin:** common-sense — an alternative stiff load path to offload
   torsional/bending demand from the longerons (a later refinement drew a
   cable-stayed precedent, Gurfinkel & Krishnan 2017; see notes).
@@ -4618,6 +4805,13 @@ class: idea-slide
 </div>
 
 <!--
+**Input space:** a&isin;[.0025,.20], b&isin;[.0025,.075] — longeron cross-section semi-axes.
+ratio_pitch&isin;[.25,1.5], ratio_top_diameter&isin;[0,.8] — usual per-storey pitch/taper
+meaning. z_brace&isin;[.05,.95] — axial position of the bracing lattice along the mast.
+ratio_brace_area&isin;[0,3.5e-4] — brace strut cross-section area. brace_prestrain&isin;[0,.01] —
+brace pre-tension strain. Fixed: circular=2 (cross-section-family switch), n_longerons=3,
+n_storeys=1, twist_angle=0, ratio_shear_modulus=.3677.
+
 Full context:
 
 - Stats-migration note (2026-08-04): this campaign predates an explicit
@@ -4774,7 +4968,6 @@ class: idea-slide
 - **What:** An open thin-walled longeron cross-section with an inherent
   shear-centre-to-centroid offset (Abaqus `LProfile`) — a DOF the Bessa
   parametrization fixes to zero, never accessed by any prior family.
-  Free: a∈[.002,.02] b∈[.01,.06] t_frac_a∈[.02,.5] t_frac_b∈[.02,.5] pitch_margin∈[0,1] +1 more | Fixed: n_long=3 rsm=.3677
 - **Origin:** parametric-space extension, tempered by a literature review
   (Zahn & Iwankiw 1989 flexural-torsional buckling theory) predicting
   AGAINST the mechanism beforehand (see notes).
@@ -4797,6 +4990,12 @@ class: idea-slide
 </div>
 
 <!--
+**Input space:** a&isin;[.002,.02], b&isin;[.01,.06] — outer L-profile leg dimensions.
+t_frac_a, t_frac_b&isin;[.02,.5] — wall thickness as a fraction of each leg's own outer
+dimension. ratio_pitch&isin;[.30,1.5], ratio_top_diameter&isin;[0,.3] — usual per-storey
+pitch/taper meaning (narrowed for this campaign). Fixed: n_longerons=3,
+ratio_shear_modulus=.3677.
+
 Fuller context:
 
 - Stats-migration note (2026-08-04): only 6 of 29 coilable designs produced a real
@@ -4873,7 +5072,6 @@ class: idea-slide
 - **What:** A spatially-varying longeron: thick `RectangularProfile` ends
   near both rings (global stiffness) with a deliberately thin mid-span
   "hinge" segment to cap peak bending strain.
-  Free: a∈[.003,.03] b_end∈[.010,.075] b_hinge∈[.005,.030] hinge_frac∈[.05,.9] pitch∈[.25,1.5] +1 more | Fixed: rsm=.3677
 - **Origin:** common sense — decouple average stiffness (thick ends) from
   peak local fibre strain (thin hinge), a DOF no uniform family could access.
 - **Stats:** n=56 → 45 coil → 45 riks → 1 good (1.07× Bessa)
@@ -4896,6 +5094,13 @@ class: idea-slide
 </div>
 
 <!--
+**Input space:** a&isin;[.003,.03] — leg cross-section. b_end&isin;[.010,.075] — thick end-segment
+depth (near the rings). b_hinge&isin;[.005,.030] — thin mid-span hinge depth. hinge_fraction
+&isin;[.05,.9] — fraction of the longeron's length occupied by the thin hinge segment.
+ratio_pitch&isin;[.25,1.5], ratio_top_diameter&isin;[0,.8] — usual per-storey pitch/taper
+meaning. Fixed: ratio_shear_modulus=.3677 (.334-.45 also swept as a free var in some runs of
+this campaign — see notes).
+
 Fuller context:
 
 - Stats-migration note (2026-08-04): this campaign's own feasibility gate used
@@ -4932,7 +5137,6 @@ class: idea-slide
 - **What:** A closed, thin-walled rectangular hollow-tube (`BoxProfile`)
   longeron, motivated by mining the 50,000-point Bessa 7D dataset for
   high-torsion/bending-stiffness combinations no solid family could reach.
-  Free: a_out∈[.006,.10] b_out∈[.006,.10] t1∈[.0005,.02] t3∈[.0005,.02] pitch∈[.25,1.5] +1 more | Fixed: rsm=.3677 circular=3
 - **Origin:** dataset-mining common sense — a least-squares fit of
   high-performing 7D rows to box geometries had poor residuals (~98%
   relative L2 error), so the family was built and searched directly.
@@ -4955,6 +5159,10 @@ class: idea-slide
 </div>
 
 <!--
+**Input space:** a_out, b_out&isin;[.006,.10] — outer box dimensions. t1, t3&isin;[.0005,.02] —
+wall thicknesses. ratio_pitch&isin;[.25,1.5], ratio_top_diameter&isin;[0,.8] — usual per-storey
+pitch/taper meaning. Fixed: ratio_shear_modulus=.3677, circular=3 (cross-section-family switch).
+
 Fuller context:
 
 - This is H2 of run `20260708T021335`, delegations D004 (build+validate) + D007
@@ -4983,7 +5191,6 @@ class: idea-slide
 - **What:** Made the 3 longerons non-identical: 2 stiff `RectangularProfile`
   + 1 compliant `RectangularProfile`, same radial dimension, unchanged
   rings.
-  Free: a∈[.003,.03] b_stiff∈[.010,.075] b_compliant∈[.005,.030] pitch∈[.25,1.5] top_d∈[0,.8] | Fixed: rsm=.3677
 - **Origin:** common sense — the compliant longeron absorbs large
   rotations, "rescuing" compressibility while the stiff ones carry
   buckling load.
@@ -5010,6 +5217,11 @@ class: idea-slide
 </div>
 
 <!--
+**Input space:** a&isin;[.003,.03] — radial dimension, shared by all 3 legs. b_stiff&isin;
+[.010,.075] — the 2 stiff legs' tangential dimension. b_compliant&isin;[.005,.030] — the 1
+compliant leg's tangential dimension. ratio_pitch&isin;[.25,1.5], ratio_top_diameter&isin;[0,.8]
+— usual per-storey pitch/taper meaning. Fixed: ratio_shear_modulus=.3677.
+
 Fuller context:
 
 - Stats-migration note (2026-08-04): mcs values exceeding 1.0 appear in this raw
@@ -5082,7 +5294,6 @@ class: idea-slide
   independently-parametrized ellipses plus a phase offset between the top
   and bottom ring's major-axis orientation, to break the rotational
   symmetry that forces every longeron to undergo identical peak curvature.
-  Free: ring_aspect∈[1,1.5] phase_offset∈[0,.2] a∈[.004,.02] b∈[.01,.045] pitch∈[.3,1] +1 more | Fixed: circular=2 n_long=3 n_storeys=1 twist=0 rsm=.3677
 - **Origin:** common sense structural-symmetry-breaking hypothesis, not a
   literature citation.
 - **Stats:** n=67 → 9 coil → 9 riks → 0 good
@@ -5109,6 +5320,13 @@ class: idea-slide
 </div>
 
 <!--
+**Input space:** ring_aspect_ratio&isin;[1,1.5] — ellipse major/minor axis ratio.
+ring_phase_offset&isin;[0,.2] rad — rotation between top and bottom ring's major axis.
+a&isin;[.004,.02], b&isin;[.01,.045] — longeron cross-section semi-axes. ratio_pitch&isin;
+[.3,1], ratio_top_diameter&isin;[0,.6] — usual per-storey pitch/taper meaning. Fixed:
+circular=2 (cross-section-family switch), n_longerons=3, n_storeys=1, twist_angle=0,
+ratio_shear_modulus=.3677.
+
 Fuller context:
 
 - This is H3 of run `20260706T204732`. ODB: data/idea_odbs/20260706T204732_H3_elliptical_rings/
@@ -5144,7 +5362,6 @@ class: idea-slide
 - **What:** Gave each longeron a smooth radial offset by height — zero at
   both rings, max inward bow at mid-height — to geometrically pre-condition
   the coiling path and retain high compressive strain.
-  Free: bow_amp∈[0,.2] a∈[.004,.02] b∈[.01,.045] pitch∈[.3,1] top_d∈[0,.6] | Fixed: circular=2 n_long=3 n_storeys=1 twist=0 rsm=.3677
 - **Origin:** common sense geometric hypothesis, not a literature citation.
 - **Stats:** n=48 → 45 coil → 27 riks → 1 good (0.58× Bessa)
   p50/p90/p100 — σ_crit: 1.37/8.97/16.00 · mcs: 0.44/1.00/1.00 · mls: .024/.045/.071
@@ -5172,6 +5389,12 @@ class: idea-slide
 </div>
 
 <!--
+**Input space:** bow_amp&isin;[0,.2] — max inward radial bow at mid-height (zero at both rings).
+a&isin;[.004,.02], b&isin;[.01,.045] — cross-section semi-axes. ratio_pitch&isin;[.3,1],
+ratio_top_diameter&isin;[0,.6] — usual per-storey pitch/taper meaning. Fixed: circular=2
+(cross-section-family switch), n_longerons=3, n_storeys=1, twist_angle=0,
+ratio_shear_modulus=.3677.
+
 Fuller context:
 
 - Stats-migration note (2026-08-04): D012's own Pearson/Spearman check on the
@@ -5317,7 +5540,6 @@ class: idea-slide
   half-width/fiber-distance, a square carries ~1.7× a circle's moment of
   inertia (I_square/I_circle=64/(12π)), bend axis on a flat side not a
   diagonal.
-  Free: side∈[.005,.025] pitch∈[.25,1] top_d∈[0,.6] | Fixed: rsm=.3677 circular=2 n_long=3 n_storeys=1 twist=0
 - **Origin:** common sense, basic section-property comparison — not a
   literature citation.
 - **Stats:** n=50 → 50 coil → 50 riks → 9 good (1.23× Bessa)
@@ -5340,6 +5562,11 @@ class: idea-slide
 </div>
 
 <!--
+**Input space:** side&isin;[.005,.025] — square side length. ratio_pitch&isin;[.25,1],
+ratio_top_diameter&isin;[0,.6] — usual per-storey pitch/taper meaning. Fixed:
+ratio_shear_modulus=.3677, circular=2 (cross-section-family switch), n_longerons=3,
+n_storeys=1, twist_angle=0.
+
 Fuller context:
 
 - This is H5 of run `20260705T181941`, delegations D011 (search) + D012 (surrogate
@@ -5373,7 +5600,6 @@ class: idea-slide
   tangential LONG — reverse of this run's earlier falsified orientation,
   at slenderness≥10, testing whether max_local_strain and sigma_crit
   decouple.
-  Free: a∈[.004,.014] b∈[.01,.045] pitch∈[.25,1] top_d∈[0,.6] | Fixed: rsm=.3677 circular=2 n_long=3 n_storeys=1 twist=0
 - **Origin:** direct extension of the elliptical-substitution idea above —
   mirror of this run's own H6, common sense, not a literature citation.
 - **Stats:** n=165 → 149 coil → 148 riks → 6 good (2.79× Bessa)
@@ -5387,9 +5613,6 @@ class: idea-slide
   throughout the rest of this deck (later refined to 0.7704 kPa, 5.9×
   Bessa, in subsequent runs — see speaker notes, not this campaign's own
   result).
-- **Seed:** BARREN — it SUCCEEDED and became the floor. Beat
-  **run17_rectangle**, not Bessa.
-
 
 </div>
 
@@ -5400,6 +5623,13 @@ class: idea-slide
 </div>
 
 <!--
+**Input space:** a&isin;[.004,.014] — radial (short) semi-axis. b&isin;[.01,.045] — tangential
+(long) semi-axis. ratio_pitch&isin;[.25,1], ratio_top_diameter&isin;[0,.6] — usual per-storey
+pitch/taper meaning. Fixed: ratio_shear_modulus=.3677, circular=2 (cross-section-family
+switch), n_longerons=3, n_storeys=1, twist_angle=0.
+
+**Seed:** BARREN — it SUCCEEDED and became the floor. Beat **run17_rectangle**, not Bessa.
+
 SEED RATIONALE (added 2026-08-08, rule 3(e)). BARREN here does not mean "failed" -- it means
 SUCCEEDED and became the floor. Perturbations of the cross-section alone (aspect ratio,
 orientation, taper) are inside the box this family already searched, so a rectangle-only campaign
@@ -5494,8 +5724,6 @@ class: idea-slide
 - **What:** Constrained the cross-section to a solid circle (ratio_d ∈
   [0.08,0.16], else free) after the generalized Bessa optimum failed
   Stage 2 categorically — testing whether J/I=2 is what Stage 2 needs.
-  Free: d∈[.04,.14] pitch∈[.25,1.5] top_d∈[0,.8] | Fixed: circular=1
-  n_longerons=3 twist=0 rsm=.43681 area=.00215 Ixx=1.35e-6 Iyy=1.24e-6 J=6.65e-6
 - **Origin:** follow-up to this run's H1 (generalized optimum: 9.23% Riks
   strain, not 90%) — circular is the shape closest to Bessa 2019's own
   demonstration.
@@ -5519,6 +5747,12 @@ class: idea-slide
 </div>
 
 <!--
+**Input space:** ratio_d&isin;[.08,.16] (constrained solid circle; else free) — cross-section
+diameter. ratio_pitch&isin;[.25,1.5], ratio_top_diameter&isin;[0,.8] — usual per-storey
+pitch/taper meaning. Fixed: circular=1 (cross-section-family switch), n_longerons=3,
+twist_angle=0, ratio_shear_modulus=.43681, and the generalized-optimum moments this campaign
+was testing against (area=.00215, Ixx=1.35e-6, Iyy=1.24e-6, J=6.65e-6).
+
 Fuller context:
 
 - Stats-migration note (2026-08-04): N=42 combines D003's 36-pt Stage-1 LHS sweep
@@ -5603,8 +5837,6 @@ class: idea-slide
   ring at mid-height, still 3 continuous longerons per storey — instead of
   Bessa's single-storey topology, to see if a shorter per-segment coiling
   path could beat the Bessa 2019 paper optimum (65.3 kPa/longeron).
-  Free: twist∈[.05,.35] pitch∈[.25,1.5] top_d∈[0,.8] rsm∈[.334,.45]
-  area∈[1.17e-5,4.1e-3] +3 more | Fixed: n_longerons=3 n_storeys=2
 - **Origin:** common sense topology extension of the Bessa rocking-mast
   concept, not drawn from an outside literature source.
 - **Stats:** n=32 → 9 coil → 0 riks → 0 good (mcs/mls never tracked this campaign)
@@ -5631,6 +5863,12 @@ class: idea-slide
 </div>
 
 <!--
+**Input space:** twist_angle&isin;[.05,.35] rad. ratio_pitch&isin;[.25,1.5], ratio_top_diameter
+&isin;[0,.8] — usual per-storey pitch/taper meaning. ratio_shear_modulus&isin;[.334,.45].
+ratio_area&isin;[1.17e-5,4.1e-3], ratio_Ixx&isin;[1e-7,1.4e-6], ratio_Iyy&isin;[1e-7,1.4e-6],
+ratio_J&isin;[1e-6,7.77e-6] — generalized cross-section moments (Bessa's own 7D
+parametrization). Fixed: n_longerons=3, n_storeys=2.
+
 Fuller context:
 
 - Stats-migration note (2026-08-04): this idea has since been re-tested
@@ -5698,8 +5936,6 @@ class: idea-slide
 - **What:** Increased the mast's rotational symmetry from Bessa's fixed 3
   longerons to 4, 5, and 6, at the same (near-optimal) 7D cross-section, to
   test whether more legs raise the per-longeron critical load.
-  Free: twist∈[0,π] area∈[1.17e-5,4.1e-3] Ixx∈[1e-7,1.4e-6] Iyy∈[1.13e-11,1.4e-6]
-  J∈[1e-6,7.77e-6] +3 more | Fixed: n_longerons=5 n_storeys=1 (main batch; anchors also test 4,6)
 - **Origin:** common sense topology extension — Bessa's own parametrization
   never varies longeron count, fixing it at 3 throughout the 2019 paper.
 - **Stats:** n=31 (D005's own ledger; "48-evaluation" in an earlier draft
@@ -5725,6 +5961,12 @@ class: idea-slide
 </div>
 
 <!--
+**Input space:** twist_angle&isin;[0,&pi;]. ratio_area&isin;[1.17e-5,4.1e-3], ratio_Ixx&isin;
+[1e-7,1.4e-6], ratio_Iyy&isin;[1.13e-11,1.4e-6], ratio_J&isin;[1e-6,7.77e-6] — generalized
+cross-section moments (Bessa's own 7D parametrization). ratio_pitch&isin;[.25,1.5],
+ratio_top_diameter&isin;[0,.8] — usual per-storey pitch/taper meaning. n_longerons&isin;[3,6] —
+the axis under test (main batch fixes it at 5; anchors also test 4, 6). Fixed: n_storeys=1.
+
 Fuller context:
 
 - This is H3 of run `20260629T191754`, delegation D005. ODB: data/idea_odbs/
@@ -5765,8 +6007,6 @@ class: idea-slide
 - **What:** Pushed torsional-stiffness ratio_J beyond the Bessa 7D
   dataset's own max (7.77e-6) — hollow/cellular cross-sections (e.g. a
   hollow tube) unreachable by any solid Bessa-parametrized material.
-  Free: twist∈[0,π] area∈[1.17e-5,4.1e-3] Ixx∈[1e-7,1.4e-6] Iyy∈[1.13e-11,1.4e-6]
-  J∈[1e-6,1.5e-5] +3 more | Fixed: n_longerons=3 n_storeys=1
 - **Origin:** common-sense extrapolation of the Bessa family's torsion
   axis — σ_cr,nd scales with GJ, and the Bessa optimum sits at only 86%
   of max ratio_J.
@@ -5794,6 +6034,13 @@ class: idea-slide
 </div>
 
 <!--
+**Input space:** twist_angle&isin;[0,&pi;]. ratio_area&isin;[1.17e-5,4.1e-3], ratio_Ixx&isin;
+[1e-7,1.4e-6], ratio_Iyy&isin;[1.13e-11,1.4e-6], ratio_J&isin;[1e-6,1.5e-5] — generalized
+cross-section moments, ratio_J pushed beyond the Bessa 7D dataset's own max (7.77e-6).
+ratio_pitch&isin;[.25,1.5], ratio_top_diameter&isin;[0,.8] — usual per-storey pitch/taper
+meaning (D006's Stage-1 screen; the Stage-2 anchors D4/C4 named in Timeline below fix these at
+specific points instead). Fixed: n_longerons=3, n_storeys=1.
+
 Fuller context:
 
 - This is H5 of run `20260629T191754`, delegation D006 (Stage-1 existence), with
@@ -5867,8 +6114,6 @@ class: idea-slide
   longeron of the standard 3-longeron mast, on top of the full 7D Bessa
   cross-section search, to see whether twisting the legs could beat the
   75.1 kPa/longeron study floor.
-  Free: twist∈[0,π] area∈[1.17e-5,4.1e-3] Ixx∈[1e-7,1.4e-6] Iyy∈[1e-7,1.4e-6]
-  J∈[1e-6,7.77e-6] +3 more | Fixed: n_longerons=3
 - **Origin:** common sense mechanistic hypothesis (not a literature
   citation) — the idea that a pre-twisted leg might exploit a shorter
   effective pitch and reach a higher coiling-mode eigenvalue.
@@ -5895,6 +6140,11 @@ class: idea-slide
 </div>
 
 <!--
+**Input space:** twist_angle&isin;[0,&pi;]. ratio_area&isin;[1.17e-5,4.1e-3], ratio_Ixx&isin;
+[1e-7,1.4e-6], ratio_Iyy&isin;[1e-7,1.4e-6], ratio_J&isin;[1e-6,7.77e-6] — generalized
+cross-section moments (Bessa's own 7D parametrization). ratio_pitch&isin;[.25,1.5],
+ratio_top_diameter&isin;[0,.8], ratio_shear_modulus&isin;[.334,.45]. Fixed: n_longerons=3.
+
 Fuller context:
 
 - Stats-migration note (2026-08-04): the twist-angle trend among coilable
