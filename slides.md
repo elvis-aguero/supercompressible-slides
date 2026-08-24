@@ -740,6 +740,372 @@ left in an isolated worktree pending review.
 class: summary-slide
 ---
 
+# Run `20260823T161229` — summary
+
+<div class="text-sm leading-snug">
+
+Four continuous-shell/ring mechanisms in a row died the same way — local panel buckling beating
+the global coiling mode — before the run pivoted to a discrete-member idea that didn't.
+
+| # | Claim | Verdict | Key evidence | Idea |
+|---|---|---|---|---|
+| H1 | Self-contact jamming (wider/less-tapered longerons) escapes the depth cap | re-tread | already attempted twice (D31, D33) under the same grounding literature | — |
+| H2 | Staged two-storey mast (upper storey bears on landed lower storey) | re-tread | attempted at least 5 times before (D34 + earlier H2/H12/H4) | — |
+| H3 | Kirigami-cut shell wall distributes rotation over many ligaments, not one beam's curvature | **&#8253;** | 0/51 Stage-1 coilable across two independent draws; top designs cluster at range edges — box not exhaustively covered | D36 &rarr; |
+| H4 | Compliant kirigami-cut top ring lets the effective ring radius grow favorably during compression | **&#10007;** | shrinking dominates growing 14:3; one design (mcs=0.7885, mls=0.01976) is this run's closest strain-side near-miss, but with an essentially flat radius — not the hypothesized mechanism | D37 &rarr; |
+| H5 | Helically-graded shell thickness reshapes the strain-vs-compression integral | **&#8253;** | 0/22 coilable; twist phase moves the rotation signal non-monotonically and asymmetrically by sign | D38 &rarr; |
+| H6 | Nested double-wall with an engaging backing collar raises effective stiffness | **&#10007;** | 0/5 coilable; more backing engagement does not even monotonically help the diagnostic signal | D39 &rarr; |
+| H7 | Crosslinked beam bundle generates bundle-level torque coupling beyond the single-beam depth cap | **&#8253;** | every configuration preserves genuine global coiling (unlike all 4 shells); crosslinking recovers a 22&times; buckling-capacity gain; best mcs=0.7191 — closest any novel mechanism has reached | D40 &rarr; |
+
+**No new mechanism cleared the incumbent (0.6077 kPa) — but H7 is the strongest near-miss this
+study has produced.** Every shell/ring topology this run tried failed identically (local buckling
+beats global coiling); the one that switched back to discrete members did not, and got within
+9 points of mcs of the coilability bar on a genuine, non-strain-limited plateau.
+&nbsp;·&nbsp; **22 delegations, 227 ledgered evals across 5 new namespaces, 10.8 h of 12 h**, GATED
+on the 3rd critic attempt (REJECT &rarr; REJECT &rarr; PASS)
+
+</div>
+
+<!--
+THE GATE HISTORY. Call 1: REJECT -- closing on a negative result with real wall-clock budget
+still unspent, a CRITICAL finding per PROBLEM_STATEMENT.md's own explicit critic instruction
+(independent of an otherwise-clean reproducibility gate). Call 2: REJECT again -- same charter
+defect in fact pattern even though the specific H7 sub-question flagged last time had since been
+properly, severely tested; told to either run the two named untested H7 axes or open a fresh
+mechanism with the ~1.6h remaining. Call 3: PASS -- both defects resolved with real, checkable
+ledger evidence (D021/D022), and the remaining budget (~10%) was correctly judged insufficient to
+responsibly ground and test a fresh mechanism from scratch.
+
+THE H7 INVESTIGATION, IN FULL (D014-D022, by far the largest share of this run's budget). D014
+validated the mechanism on one sample + its N=0 (uncoupled) control: crosslinking 3 unbraced,
+slender sub-beams recovers a 22x eigenvalue increase over uncoupled (rigid) / 19x (soft), reaching
+~76% of an equivalent solid single-beam's own eigenvalue at matched envelope -- and critically,
+the LOWEST vibration mode stayed the coherent global coiling mode in every configuration, unlike
+every shell family this run tried. D015 (34-design campaign) found Stage-2 converged for only a
+minority, with a genuine "hard local instability" signature at higher crosslink counts. D016-D018
+isolated the cause via two independently-different crosslink realizations (a meshed beam-link
+batten vs. a genuine rigid kinematic *CONNECTOR with no meshed geometry) and a soft-vs-rigid
+stiffness sweep -- both point to the SAME instability, ruling out a meshing artifact. D019
+(27-design campaign restricted to n_crosslinks in {0,1}, re-examining D015's own data) found the
+hard-instability pattern does NOT afflict low-crosslink-count designs, and reached mcs=0.7173 --
+a genuine Riks snap-through plateau, not a wall-clock artifact (confirmed via an extended
+solve-budget check), with max_local_strain never binding (best 0.003 against the 0.02 cap). D020
+(10-point local refinement) confirmed this is a real local optimum (mcs=0.7191) and flagged two
+untested directions. D021 (14-point decisive grid probe) found pushing FURTHER in both flagged
+directions makes it WORSE, falsifying the "push further" hypothesis rather than confirming it.
+D022 closed the two remaining named axes (soft connector stiffness at n_crosslinks=1; n_sub_beams=3)
+-- both collapse catastrophically via early Riks divergence, a qualitatively different failure mode
+than D020's near-0.72 salvages, confirming n_sub_beams=2/rigid is not merely a local optimum on
+that axis but structurally the winning configuration.
+
+WHY H4's NEAR-MISS DOESN'T RESCUE H4. D007's idx=15 design (mcs=0.7885, mls=0.01976, both just
+under their bars) is numerically the closest ANY design got to feasibility this run -- closer than
+H7's own 0.7191. But its ring radius barely moved (+0.0026%), the opposite of what H4 predicts
+(a favorably GROWING ring radius). It is a good geometry point on the compliant_ring family's own
+parameter space, not evidence for the hypothesized mechanism -- H4 is correctly FALSIFIED as a
+mechanism even though it produced the run's numerically-closest single design.
+
+TWO REAL INFRA BUGS SURFACED, NEITHER FIXED HERE (both in the vendored a3dasm harness, not this
+repo). `bo/campaign_summary.py`'s `decided_key` default reads a definitive Stage-1 "not coilable"
+verdict as "no verdict reached" for two-stage families, producing a false "nothing to summarise"
+on a fully-decided campaign (D006). `InstrumentedDataGenerator`'s dedup-on-write can silently drop
+a corrected re-run under the same delegation ID (D018) -- same class of danger as the
+`SlurmAsyncPool` discard-on-timeout bug already in `docs/TRAPS.md` #8; now also #9 there.
+
+A PRE-EXISTING DOC/CODE MISMATCH, ALSO NOT FIXED HERE. `bo/prefilter.py`'s `THINNESS_FLOOR=10.0`
+does not match several of these new families' own generator docstrings, which assert/document a
+>=20 thin-shell-validity floor (D008's retrospective). Which value is scientifically correct is a
+physics-validity judgment call, not picked here.
+-->
+
+---
+class: idea-slide
+layout: two-cols-header
+---
+
+# D36 &middot; Kirigami-cut continuous shell wall
+
+::left::
+<div class="text-sm leading-snug">
+
+- **What:** discrete straight longerons replaced by ONE continuous, periodically-cut PLA shell
+  wall — cut length `l`, ligament width `delta`, shell thickness `t_shell` free; ring radii fixed
+  to the study's standard envelope.
+- **Origin:** kirigami-cut shell metamaterials literature (cut networks that buckle/snap
+  out-of-plane at each ligament) — the idea being that many independent ligament rotations absorb
+  the ring's rotation-descent demand instead of one beam's curvature.
+- **Stats:** n=51 &rarr; 0 coil &rarr; 0 riks &rarr; 0 good
+  quartiles unavailable — zero designs this run reached Stage-1 coilability, under two
+  independent draws (D006 Sobol screen + D008 packing-fix top-up)
+  cleared: none (0 decided) &middot; novel: untested — the mechanism never got to demonstrate
+  anything
+  best good: none (0/51 passed every criterion)
+- **Verdict:** INCONCLUSIVE &middot; UNTESTABLE<br>
+  Every design's lowest vibration mode is a local ligament/panel buckling mode, not the global
+  ring-driven coiling mode the study needs — a qualitatively different failure from the earlier
+  smooth chiral-shell family's uniform lateral sway, but the same outcome: the cuts avoided one
+  failure mode and fell into another.
+- **Seed:** BARREN as tested — top designs cluster at the sampled box's own edges, so a wider box
+  is FERTILE in principle, but every direction tried so far makes local buckling worse, not
+  better, giving no reason to expect it reverses just outside the tested range.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <div class="border-2 border-dashed border-gray-400 rounded-lg p-8 text-center opacity-70 max-w-xs mx-auto">
+    <div class="text-3xl mb-2">–</div>
+    <div class="text-sm">No ODB: 0/51 designs reached coilability — no winning geometry to
+    render.</div>
+  </div>
+</div>
+
+<!--
+Two independent draws: D006 (36 drawn, 24 valid Stage-1 verdicts) + D008 (30 drawn with a fixed
+geometry-packing gate, 27 valid) = 51 valid Stage-1 verdicts, meeting H3's registered ~40-80
+committed-campaign scale. D004's own single-sample validation first found the mechanism builds and
+solves cleanly at 14-25s/solve. Fidelity gate: bo/prefilter.py:passes_kirigami_ligament
+(r0_min/t_shell>=10, delta/t_shell>=3, l/delta>=2).
+-->
+
+---
+class: idea-slide
+layout: two-cols-header
+---
+
+# D37 &middot; Compliant kirigami-cut top ring
+
+::left::
+<div class="text-sm leading-snug">
+
+- **What:** Bessa's rigid 0-D top ring replaced by an elastically-buckling, kirigami-cut annular
+  shell — ring cut length, ligament width, thickness, and radial width free; longeron geometry
+  unchanged from the matched circular-family control.
+- **Origin:** same kirigami-cut shell grounding as D36, applied to the ring rather than the
+  longerons — letting the effective ring radius evolve during compression instead of staying
+  fixed.
+- **Stats:** n=36 &rarr; 28 coil &rarr; 1 riks &rarr; 0 good
+  quartiles unavailable — only 1/28 Stage-2 solves reached full Riks convergence; 22/28 more
+  salvaged a partial radius trajectory off-ledger
+  cleared: none (0 decided) &middot; novel: untested — the one converged design didn't test the
+  hypothesized direction
+  best good: none (0/36 passed every criterion; closest was mcs=0.7885, mls=0.01976, disqualified
+  on mcs)
+- **Verdict:** FALSIFIED &middot; DEAD-END<br>
+  Ring radius shrinks in 14 of 23 usable trajectories vs. 3 that grow — the unfavorable,
+  strain-tightening direction dominates 3:1. The one dramatic growing outlier (+163%) is a real
+  ring self-buckling event, but it happens at only 5.3% compression — an early failure, not a
+  pathway to more. No design's &sigma;_peak exceeds its matched rigid-ring control.
+- **Seed:** BARREN as a ring-radius-growth mechanism — the direction the hypothesis needs is a
+  3:1 minority outcome that itself fails early when it does occur. The one near-feasible design
+  found (mcs=0.7885) had a flat radius, not a growing one — worth reusing as a starting geometry
+  for a *different* hypothesis, not evidence this one works.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <div class="border-2 border-dashed border-gray-400 rounded-lg p-8 text-center opacity-70 max-w-xs mx-auto">
+    <div class="text-3xl mb-2">–</div>
+    <div class="text-sm">No ODB: the family's own best design (mcs=0.7885) is not feasible and
+    its radius barely moved — no winning geometry to render.</div>
+  </div>
+</div>
+
+<!--
+D005's own single-sample validation: Stage 1 sigma_eig=0.1238 kPa vs. the matched bessa_point
+rigid-ring control's 0.1306 kPa (-5.2%), a modest, physically-expected compliance cost. D007's
+36-design Sobol screen (28/36 coilable, all auto-escalated to Stage 2) is the campaign referenced
+above. Fidelity gate: bo/prefilter.py:passes_compliant_ring (adds w_ring/t_ring>=10 to D36's own
+three gates, so the annulus doesn't degenerate into a 1-D ring/wire).
+-->
+
+---
+class: idea-slide
+layout: two-cols-header
+---
+
+# D38 &middot; Helically-graded shell thickness
+
+::left::
+<div class="text-sm leading-snug">
+
+- **What:** a mass-neutral, helically-graded thickness field t(&theta;,z) over an otherwise
+  UNCUT, smooth conical shell wall (a=0 collapses to the study's own uniform-shell control) —
+  grading contrast `a`, rotational order `n_eff`, helical twist, phase, pitch/taper free.
+- **Origin:** graded/hierarchical architected-metamaterial literature — the idea being that
+  reshaping the strain-vs-compression integral via a spatially-varying wall thickness could let
+  a design reach mcs&ge;0.80 within the 2% strain budget at a higher &sigma;_peak than a uniform
+  wall permits.
+- **Stats:** n=22 &rarr; 0 coil &rarr; 0 riks &rarr; 0 good
+  quartiles unavailable — 0/22 Stage-1 coilable, so Stage 2 never auto-escalated for any design
+  cleared: none (0 decided) &middot; novel: untested
+  best good: none (0/22 passed every criterion)
+- **Verdict:** INCONCLUSIVE &middot; WEAK<br>
+  Twist phase and magnitude move the rotation signal (ur3_ratio) non-monotonically and
+  asymmetrically by sign — a real, non-trivial effect (-60&deg; reaches 28&times; the plain
+  reference; +60&deg; only 40&times; *below* it) — but the ceiling found (1.25e-4) sits ~400&times;
+  below the 0.05 coilability threshold. The lever is real; the magnitude is nowhere close.
+- **Seed:** BARREN in the searched box — but the twist-phase asymmetry is a genuinely
+  under-explored signal (only sparsely probed here) rather than a flat null; FERTILE if a future
+  campaign specifically maps the twist-phase/magnitude surface near its own steepest gradient
+  instead of the broad Sobol-style screen used here.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <div class="border-2 border-dashed border-gray-400 rounded-lg p-8 text-center opacity-70 max-w-xs mx-auto">
+    <div class="text-3xl mb-2">–</div>
+    <div class="text-sm">No ODB: 0/22 designs reached coilability — no winning geometry to
+    render.</div>
+  </div>
+</div>
+
+<!--
+D010's own single-sample validation set up the shell/grading-field construction (reusing D004's
+kirigami_shell shell-element scripting at a=0). D011's 22-point sweep (grading contrast a in
+[0.3,0.5], helical twist +-4pi including small-angle probes, n_eff, phase, pitch/taper) is the
+campaign referenced above. Fidelity gate: bo/prefilter.py:passes_graded_shell (thin-shell validity
+evaluated at the THINNEST nominal wall t0*(1-a), not the mean/nominal t0, plus a
+>=4-elements-per-grading-wavelength mesh-convergence floor).
+-->
+
+---
+class: idea-slide
+layout: two-cols-header
+---
+
+# D39 &middot; Nested double-wall with engaging backing collar
+
+::left::
+<div class="text-sm leading-snug">
+
+- **What:** an outer continuous shell wall backed by an inner collar/panel that closes a gap and
+  engages via self-contact partway through compression, meant to raise effective stiffness only
+  after engagement — gap `g0`, collar thickness `t_in`, engagement height/preload free.
+- **Origin:** direct follow-up to D36/D38's shared failure mode — instead of cutting or grading
+  the wall itself, add a second wall that only helps once contact closes, hoping to avoid the
+  local-buckling competition both prior shell attempts hit.
+- **Stats:** n=5 &rarr; 0 coil &rarr; 0 riks &rarr; 0 good
+  quartiles unavailable — a bounded Stage-1-only diagnostic (5 configurations spanning the
+  mechanism's full engagement range), not a full campaign
+  cleared: none (0 decided) &middot; novel: untested
+  best good: none (0/5 passed every criterion)
+- **Verdict:** FALSIFIED &middot; DEAD-END<br>
+  0/5 configurations coilable; the rotation signal (ur3_ratio) stays 5-8 orders of magnitude
+  below the 0.05 threshold in every case, and more backing engagement does not even
+  monotonically help it — a much stronger backing panel gave a LOWER signal than a weaker one.
+  The mechanism does not show up at all, let alone favorably.
+- **Seed:** BARREN — the diagnostic deliberately bracketed the mechanism's entire viable
+  engagement range (collar-only through idealized-fully-engaged through a stronger idealized
+  case), not a sparse sample of an unbounded space, so there is no un-probed direction left to
+  call FERTILE.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <div class="border-2 border-dashed border-gray-400 rounded-lg p-8 text-center opacity-70 max-w-xs mx-auto">
+    <div class="text-3xl mb-2">–</div>
+    <div class="text-sm">No ODB: 0/5 configurations reached coilability — no winning geometry to
+    render.</div>
+  </div>
+</div>
+
+<!--
+D012's full diagnostic table: (a) outer shell alone (sigma_eig=1372.4, reproduces D38's a=0
+control bit-for-bit) -> (b1) collar-only, g0=0.05,t_in=1.0, no preload (+18.8%, ur3_ratio DOWN)
+-> (c) idealised fully-engaged, g0=0.0,t_in=1.0 (+21.0%) -> (e) stronger idealised, g0=0.0,t_in=3.0,
+90% height (+204.6% eigenvalue, but ur3_ratio DOWN vs (c)) -> (d) preload infra check,
+g0=0.05,preload=0.3*lambda_a (ur3_ratio=2.90e-7, still far below threshold). Infra itself is
+clean: single orphan-mesh part with a welded-edge backing panel, general self-contact
+(softened, allowSeparation=ON, frictionless), general-STATIC preload feeding a *BUCKLE linear
+perturbation -- all ran without errors, 22-152s/job.
+-->
+
+---
+class: idea-slide
+layout: two-cols-header
+---
+
+# D40 &middot; Crosslinked beam bundle
+
+::left::
+<div class="text-sm leading-snug">
+
+- **What:** each longeron position replaced by 2-3 slender B31 sub-beams on a circle matching the
+  study's own envelope diameter, tied together at discrete axial crosslink points.
+  Free: ratio_d&isin;&#91;.004,.073&#93; ratio_r_sub_frac&isin;&#91;.05,.48&#93;
+  ratio_pitch&isin;&#91;.25,1.5&#93; n_sub_beams&isin;&#91;2,3&#93; n_crosslinks&isin;&#91;0,5&#93;
+  +3 more | Fixed: n_longerons&isin;&#91;3,6&#93; (categorical, searched)
+- **Origin:** Rathore &amp; Grason 2011 — bundle-level intrinsic torque/coupling in crosslinked
+  filament bundles, not reducible to a single continuous member's own bending-curvature law.
+- **Stats:** n=113 &rarr; 34+27+10+14+5 evaluated across 5 escalating campaigns (D015/D019/D020/
+  D021/D022) &rarr; majority Stage-1-coilable throughout &rarr; 0 good
+  quartiles unavailable per contract rule 3(c) (0 Riks-converged designs at the family's own
+  strictest reading; best salvaged/near-plateau reads reported in Verdict instead)
+  cleared: none (0 decided, 0/113 reached mcs&ge;0.80) &middot; novel: **yes** — a genuinely
+  distinct discrete-member topology from every cross-section/taper/storey variant tried before it
+  best good: none — best overall: mcs=0.7191 (D020), sigma_peak not citable (no feasible design)
+- **Verdict:** INCONCLUSIVE &middot; WEAK<br>
+  Crosslinking a bundle of slender sub-beams preserves genuine global coiling as the lowest mode
+  in every configuration tested — unlike all four shell/ring families this run — and recovers a
+  real, measured 22&times; buckling-capacity gain over uncoupled sub-beams. The best design
+  reaches 71.9% compression on a genuine Riks snap-through plateau (max_local_strain never binds,
+  best 0.003 against the 0.02 cap) — a real geometric limit, not the usual early strain-budget
+  wall. Two independently-different crosslink realizations agree on where it stalls; pushing
+  either flagged direction further makes it worse, not better.
+- **Seed:** BARREN at n_sub_beams&isin;{2,3} with this crosslink topology — both the soft
+  connector-stiffness axis and n_sub_beams=3 were closed decisively (catastrophic early collapse,
+  not a tuning shortfall). FERTILE if the snap-through itself is targeted directly (e.g. a
+  different crosslink placement/spacing rule, or accepting partial compression as a legitimate
+  design point rather than searching past it) — untried.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <div class="border-2 border-dashed border-gray-400 rounded-lg p-8 text-center opacity-70 max-w-xs mx-auto">
+    <div class="text-3xl mb-2">–</div>
+    <div class="text-sm">No ODB: best design (mcs=0.7191) never reached full Riks convergence —
+    a real render is queued as a follow-up, not fabricated here.</div>
+  </div>
+</div>
+
+<!--
+Full investigation chain: D014 (1 sample + N=0 control, validated the mechanism and the
+global-coiling-mode preservation) -> D015 (34-design campaign, found the "hard local instability"
+at higher crosslink counts) -> D016 (6-design follow-up) -> D017 (2-design decisive test: a genuine
+rigid kinematic *CONNECTOR with no meshed geometry reproduces the SAME instability as D014/D015's
+meshed beam-link batten, ruling out a meshing artifact) -> D018 (3-design soft-stiffness test at
+n_crosslinks=3, hit the InstrumentedDataGenerator dedup-on-write bug now in docs/TRAPS.md #9) ->
+D019 (27-design campaign restricted to n_crosslinks in {0,1}, found the instability does NOT
+afflict low-crosslink-count designs, reached mcs=0.7173, confirmed a real Riks snap-through via
+an extended-solve-budget check ruling out a wall-clock artifact) -> D020 (10-point local
+refinement, confirmed mcs=0.7191 is a real local optimum, flagged two untested directions) ->
+D021 (14-point decisive grid probe, falsified "push further" in both directions) -> D022 (closed
+soft-stiffness-at-n=1 and n_sub_beams=3, both collapse catastrophically).
+
+Best design found (D020/D021, unchanged through D022): ratio_d=0.046729, ratio_r_sub_frac=0.152878,
+ratio_pitch=0.856914, ratio_top_diameter=0.436455, n_sub_beams=2, n_crosslinks=1,
+crosslink_stiffness_ratio=0.055981, n_longerons=4. mcs=0.7191, max_local_strain~0.003.
+
+Fidelity gate: bo/prefilter.py:passes_crosslinked_bundle -- gates on the SUB-BEAM's own
+slenderness (never the envelope's), plus a neighbouring-sub-beam envelope-fit/no-touch check.
+namespace='crosslinked_bundle', oracle at bo/oracle_crosslinked_bundle.py, connector construction
+in bo/crosslinked_bundle_mpc.py.
+-->
+
+---
+class: summary-slide
+---
+
 # Run `20260822T025309` — summary
 
 <div class="text-sm leading-snug">
