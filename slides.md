@@ -931,9 +931,13 @@ layout: two-cols-header
 
 ::right::
 
-<div class="flex flex-col items-center justify-center h-full gap-1">
-  <img src="/gifs/bistable_arch_rank3_native.gif" class="max-h-85 rounded shadow-lg" />
-  <div class="text-xs opacity-50 text-center">The Rank-3 candidate at its exact median draw (&sigma;_peak=1.6487 kPa, imperfection=3.39&deg;) — the run's own headline design, not cherry-picked.</div>
+<div class="flex flex-col gap-2" style="height: 460px">
+  <div class="flex items-center justify-center" style="height: 175px">
+    <img src="/gifs/rank3_sigma_mcs_mini.png" style="max-height: 175px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 277px">
+    <img src="/gifs/bistable_arch_rank3_landscape.gif" class="rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
+  </div>
 </div>
 
 <!--
