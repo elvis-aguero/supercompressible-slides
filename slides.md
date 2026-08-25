@@ -758,68 +758,229 @@ describe the design and show the gif, no reasoning/justification needed.
 -->
 
 ---
-class: restudy-slide
-layout: two-cols-header
+class: summary-slide
 ---
 
-# D25 revisited (twist) — chirality on the tape-spring section
+# Run `20260825T012642` — summary
 
-::left::
 <div class="text-sm leading-snug">
 
-- **What changed:** `twist_angle` promoted from nonexistent to a real, 7th free design parameter
-  for this family (bounds &plusmn;90&deg;), threaded through the same helical-sweep construction
-  the base circular family and `oracle_helical.py` already use. Verified to bit-exactly reproduce
-  the historical untwisted (`twist_angle=0`) record before trusting any new result.
-- **What was tested:** a cheap Stage-1 kill-signal scan first (20/22 coilable across the full
-  twist range — not a D27-style collapse), then a full 105-design campaign under contact.
-- **Result:** 0/105 feasible, same unanimous compression-shortfall signature as the untwisted
-  family (mls never binds). Twist's correlation with both the objective and the binding
-  constraint is statistically indistinguishable from zero (Spearman &rho;&asymp;0, Holm-adjusted
-  p=1.000, n=15) — not a weak effect, no effect, in either twist direction.
+This run's one new mechanism (chiral twist-buckling) hit a bounded negative — the actual headline
+came from re-testing an OLD backlog idea (D24) under the run's own contact oracle, closing a
+comparability caveat that idea's slide had left open since 2026-08-18.
+
+| # | Claim | Verdict | Key evidence | Idea |
+|---|---|---|---|---|
+| H1 | Literature has &ge;1 untried mechanism escaping the curvature cap | &#10003; | Fang et al. 2025 chiral twist-buckling | — |
+| H2 | Oracle-wiring reconfirm | &#10003; | 0.02% deviation | — |
+| H3 | Twist-buckling mast escapes the curvature cap | **&#8253;** | Bounded negative — twist fraction 4400&times; below the "dominant" bar, worsening not plateauing | D41 &rarr; |
+| H4 | Locking top-ring rotation forces rod-level twist instead | **&#8253;** | Confounded gate + a direct literature contradiction | — |
+| H5 | D24's exact original point still clears, under the current oracle | **&#8253;** | Reconfirmed (4.68&times;) — but its own wording turned unfixably ambiguous mid-campaign | D24 revisited &rarr; |
+| H6 | A refined "Rank-3" candidate clears the floor | &#10003; | Median 1.6487 kPa, 9 draws (7.35&times;) — a genuine severe test | D24 revisited &rarr; |
+
+**H6, not H3, is this run's real result** — reconfirming an old idea under a newer oracle is
+exactly the kind of result rule 1 asks this deck to carry, not discard.
+&nbsp;·&nbsp; **13 delegations, 97 ledgered evals, 10.3 h of 12 h**, GATED after 8 review rounds
+
+ &nbsp;&middot;&nbsp; **Cost: $48.67**
+</div>
+
+<!--
+THE GATE HISTORY, IN BRIEF (8 rounds, full detail on the D24-revisited slide that follows).
+Every round found something real and checkable: a duplicate-row/median miscount, an overstated
+strain-floor claim contradicted by rows inside the same population it described, an 8/10-vs-7/10
+feasible overclaim off by exactly the row the same paragraph flags as infeasible, and a
+gate-pass audit note that lagged 3 edit rounds before catching up to the file it described. None
+touched the headline number itself — call_008 independently re-derived it to 6 decimal places
+from a fresh ledger query and found no residual finding.
+
+THE LEDGER-UNDERCOUNTING DISCOVERY, THIS RUN'S REAL INFRASTRUCTURE FINDING. Four delegations
+(D008, D010, D011/D012, D013) independently rediscovered the same root cause: this study's own
+`OracleDataGenerator.execute()` (bo/datagen.py) records a per-call `imperfection` value only as
+an OUTPUT annotation (`_imperfection_rad`), never as a declared input — so a3dasm's dedup-on-write
+(which correctly keys on whatever's in `_input_data`, and is NOT itself buggy) cannot distinguish
+two imperfection draws at the same nominal geometry and silently keeps only the first. D014 alone
+disclosed 28 real Abaqus invocations behind just 11 ledgered rows. Root-caused and documented in
+`docs/TRAPS.md` #9 (2026-08-25 update) with the fix already precedented elsewhere in this repo
+(`bo/oracle_kresling_imperfection.py` promotes imperfection to a real domain parameter for exactly
+this reason) — not applied here, since it changes a shared wrapper 3 oracle files depend on.
+
+A SECOND, SMALLER CAPABILITY GAP: no tool exists to revise a hypothesis's own registered
+`prediction`/`falsification_criterion` text after proposal (only propose-new or retract-to-OPEN).
+H5's wording turned out ambiguous mid-campaign; the only compliant path was abandoning it for a
+freshly-worded H6 rather than fixing the wording in place, costing 3 wasted HypothesisUpdate
+round-trips before the workaround was found. This is a hypothesis-lifecycle change (CLAUDE.md
+Section 4 reserves that for the user's call), not something fixed here.
+
+INFRA NOT YET PROMOTED TO GOLD. `bo/oracle_bistable_arch.py`, `bo/oracle_twist_buckle.py`,
+`bo/oracle_twist_buckle_locked.py` (866 lines) + 6 supporting scripts (6339 lines), all built
+fresh this run. `bo/oracle_bistable_arch.py` in particular has never been committed despite
+bistable_arch/D24 existing in this deck's backlog since run `20260727T011550` — the prior build
+was wiped by run.sh's own gold-restore `git clean -fdq scripts bo` after that earlier run closed,
+and D008 had to re-migrate the pre-processor to ground+top-disc contact from scratch this run.
+Recommend committing so the next run touching either family doesn't repeat that cost.
+
+COST RECONCILIATION. telemetry/summary.json recorded $46.71 total, with an EMPTY strategizer
+entry in by_role (this run's strategizer transcript cost is entirely absent from that file, not
+merely undercounted). Summing directly from debug/transcripts/strategizer/*.jsonl gives $1.96.
+Actual: $46.71 + $1.96 = $48.67.
+-->
+
+---
+layout: two-cols-header
+class: idea-slide
+---
+
+# D41 &middot; <u>Chiral twist-buckling mast</u>
+
+::left::
+
+<div class="text-sm leading-snug">
+
+- **What:** 6 oblique, initially-straight rods between two rings free to relatively rotate,
+  engineered so rod-level TORSIONAL buckling drives the collapse instead of the bending-dominated
+  coiling every straight-longeron family here inherits.
+- **Origin:** Fang, Yu, Wen, Dai, Begley, Gao &amp; Gumbsch (2025), *Nature* 639 — torsional
+  strain energy scales ~8&times; more favorably with stress than bending does, which would
+  decouple load capacity from every prior family's curvature cap.
+- **Stats:** n=20 &rarr; 8 coil &rarr; 6 riks &rarr; 0 good
+  p50/p90/p100 — &sigma;_crit: 2.72/11.15/12.19 · mcs: .164/.221/.225 · mls: .053/.079/.080
+  cleared: 6 of 6 decided &ge; 2&times; Bessa (0.2244) &middot; novel: yes
+  best good: none (0/20 passed every criterion)
+- **Verdict:** INCONCLUSIVE · DEAD-END<br>
+  Bounded negative, not absence: twist_energy_fraction peaked at 1.13e-4 — 4400&times; below the
+  50% dominant-mode bar — and got WORSE at the taller aspect ratio Fang's paper prefers most.
+  Cause found: the joint ties rod torsion to bulk ring rotation, unmodified from the bending-only
+  family it came from.
 
 </div>
 
 ::right::
 
-<div class="flex flex-col items-center justify-center h-full">
-  <img src="/gifs/tape_spring_twist_negative_native.gif" class="max-h-72 rounded shadow-lg" />
-  <div class="text-xs opacity-60 mt-2 px-4 text-center">A representative attempted design (the deepest-progressing real solve among the 105): the strip localises and runs out of the 2% strain budget long before 80% compression — not feasible, but a real geometry, not an absence of one.</div>
+<div class="flex flex-col items-center justify-center h-full gap-1">
+  <img src="/gifs/twist_buckle_native.gif" class="max-h-85 rounded shadow-lg" />
+  <div class="text-xs opacity-50 text-center">Highest-twist-content converged design (twist_energy_fraction=1.13e-4, the campaign's own ceiling) — visibly still an ordinary bending/coiling collapse, not a twist-dominated one.</div>
 </div>
 
 <!--
-**Seed:** BARREN — twist does not move this family's ceiling at all, let alone enough to
-matter. The original D25/D25-revisited slides' own Seed tags disagreed on whether twist had
-already been tried (it hadn't); this closes that ambiguity with a real result.
+**Input space:** twist_angle&isin;[.035,1.05] rad (2&deg;-60&deg;, chirality pre-rotation angle
+&alpha;&#8320;). ratio_pitch&isin;[.5,1.5]. ratio_a, ratio_b&isin;[.021,.075] — rod cross-section
+(elliptical/RectangularProfile substitute for Abaqus's missing native ellipse). Fixed for this
+diagnostic: n_longerons=6, ratio_top_diameter=0 (R1&asymp;R2, matching Fang et al.'s own stated
+preference), ratio_shear_modulus=.3677, young_modulus=3500 MPa.
 
-NOT part of run 20260822T025309 -- a separate, later, ad-hoc worktree-isolated investigation
-(2026-08-23, one day after that run closed), placed here (before that run's own summary) purely
-on chronology, per the deck's anti-chronological ordering rule. Do not read it as one of that
-run's own hypotheses.
+**Seed:** FERTILE — the identified confound (rod torsional DOF wrongly coupled to bulk ring
+rotation) is a specific, named, untried fix, not a vague "try more parameters": decouple the
+joint so each rod can genuinely twist independently of the ring's own rigid-body rotation, then
+re-test whether twist_energy_fraction actually rises toward the paper's own regime.
 
-Full campaign: 70 broad-Sobol + 35 twist-sign-directed refinement, contact on, 20/105 coilable,
-15/105 reached a verdict. Best decided design: mcs=0.1133 (need 0.80, short 7.1x) at
-twist_angle=+5.8deg -- near zero, not at a large twist -- t_tape=0.5660, R_tape=27.805,
-alpha_tape=0.4682, beta_tape=1.1473, ratio_pitch=1.3343, ratio_top_diameter=0.7267,
-twist_angle=0.1018 rad. Vs. the twist=0 baseline (n=28, median mcs=0.022, best=0.21): this
-campaign's median (0.0273) is marginally higher but uninterpretable given the null correlation;
-its best is worse than the untwisted campaign's own best.
+Fuller context:
 
-Caveat disclosed by the investigating agent: phase-2's directional refinement (toward positive
-twist) was chosen from a phase-1 sub-sample contaminated by 2 sentinel-zero salvage rows in the
-negative-twist bucket. The pooled 105-eval correlation (the headline null finding) is unaffected,
-but a follow-up giving negative twist equal weight would close this residual gap.
+- This is H3 (free rotation, the true mechanism) + H4 (rotation-locked control) of run
+  `20260825T012642`, delegations D003 (oracle build) + D004 (12-point grid: ratio_pitch&isin;
+  {0.5,0.8}, slenderness=12, twist 2&ndash;60&deg;) + D005 (8-point grid at ratio_pitch=1.50, the
+  domain's max and the low end of Fang et al.'s own preferred h0/R=3&ndash;6 regime) + D006 (H4's
+  single diagnostic sample + the literature check that closed it).
+- H4 was briefly FALSIFIED, then corrected to INCONCLUSIVE per a Duhem-Quine confound: the legacy
+  coilability gate checks exactly the top-RP ur3 DOF H4 locked to zero, so it reads 0 by
+  construction regardless of whether rod-local twist buckling occurs, and Stage 2 (where
+  twist_energy_fraction is actually measured) was never reached on H4's own single sample. The
+  independent literature argument stands regardless: Fang et al.'s Extended Data Fig. 7/10
+  explicitly labels the locked/non-rotatable BC their own "nonchiral" comparison case, producing
+  ordinary bending, not more twist.
+- This is explicitly a BOUNDED diagnostic screening (21 evals total), not the pre-registered
+  ~60&ndash;100-eval falsification campaign — the strategizer judged the converging bounded
+  negative (worsening, not plateauing, toward the mechanism's own preferred regime) decisive
+  enough not to spend the full committed budget on the same joint-coupling realization.
+- GIF: native Abaqus/CAE Viewer export, standard pipeline. The design shown
+  (twist_energy_fraction=1.13e-4, this campaign's own ceiling) is the closest any tested point
+  came to the hypothesized mode — visibly an ordinary coiling collapse, not visibly "twisting,"
+  consistent with the numeric finding.
+-->
 
-Documentation finding, reported not fixed here (append-only convention): the original D25 slide
-and "D25 revisited" (contact) disagree on this Seed tag (BARREN vs FERTILE). Traced via
-`git log -S` to commit 6ac0244, which misread an ambiguous sentence on the original slide as
-saying twist itself had been tested -- it hadn't; that 330-design campaign held twist_angle=0.0
-throughout. Left as a discrepancy on those two slides for the user's own correction.
+---
+class: restudy-slide
+layout: two-cols-header
+---
 
-Infra: bo/oracle_tape_spring.py (PARAM_NAMES/BOUNDS grow a 7th entry),
-scripts/supercompressible_{lin_buckle,riks}_tape_spring.py, bo/campaign_tape_spring_twist.py,
-bo/_twist_stage1_scan.py, bo/_twist_kill_signal.py. Not committed to gold as of this slide --
-left in an isolated worktree pending review.
+# D24 revisited — Rank-3, reconfirmed under contact
+
+::left::
+<div class="text-sm leading-snug">
+
+- **What changed:** D24's own slide flagged its headline as "never re-measured under the
+  current contact oracle." This run closes that gap — the pre-processor was re-migrated to
+  ground+top-disc contact, D24's original optimum was reconfirmed, and a refined search found a
+  new leading candidate ("Rank-3").
+- **What was tested:** Rank-3's robustness to manufacturing imperfections, sampled from Bessa's
+  own lognormal(4&deg;,1.2&deg;) distribution across 3 independent seeds — a genuine severe test
+  (D014: seed=2, 10 fresh draws disjoint from every prior sample).
+- **Result:** SUPPORTED &middot; WORKS<br>
+  Median &sigma;_peak=**1.6487 kPa** across 9 independent draws (7.35&times; the floor), mls
+  holding at 95.3&ndash;97.1% of ceiling (never breached). **Caveat, engaged not hidden:** peak
+  occurs at mcs&asymp;0.1&ndash;0.5% of compression — an early elastic snap, argued comparable
+  but not universally so (see notes).
+
+</div>
+
+::right::
+
+<div class="flex flex-col items-center justify-center h-full gap-1">
+  <img src="/gifs/bistable_arch_rank3_native.gif" class="max-h-85 rounded shadow-lg" />
+  <div class="text-xs opacity-50 text-center">The Rank-3 candidate at its exact median draw (&sigma;_peak=1.6487 kPa, imperfection=3.39&deg;) — the run's own headline design, not cherry-picked.</div>
+</div>
+
+<!--
+**Input space:** Rank-3 candidate geometry: ratio_a=.009179, ratio_b=.029742,
+arch_rise_ratio=.021174, arch_length_ratio=.400188, ratio_pitch=.669962,
+ratio_top_diameter=.041530. Imperfection sampled from Bessa's lognormal(4&deg;,1.2&deg;)
+distribution, seeds 0/1/2 across D010/D013/D014.
+
+**Comparability argument in full (trimmed from the visible Result bullet):** same E, same
+beam/contact physics as the incumbent; stab_ratio&asymp;0.002 rules out an artificial-damping or
+prestress confound; the metric's own "max over the whole compression window" rule is applied
+identically to every family in this study, not specially loosened here. A stricter reader could
+still argue an early-transient elastic snap isn't "on the same footing" as a sustained coiling
+peak — this is engaged explicitly, not resolved unilaterally.
+
+**Seed:** FERTILE — H5 (D24's own original exact point) never reached a clean close because its
+own registered wording became ambiguous mid-campaign, not because the physics ran out; a fresh
+hypothesis re-registering that exact original point with unambiguous wording would settle it
+without repeating any real Abaqus solves (D008 already has the real data). Untested for Rank-3
+itself: whether the early-peak comparability caveat can be closed more decisively — e.g. a
+matched-conditions dose-response sweep isolating exactly when in the compression stroke the peak
+migrates, the same method this deck uses elsewhere for causal claims.
+
+Full campaign detail:
+
+- D008 (namespace migration + D24 base-point reconfirm): re-migrated the bistable-arch
+  pre-processor to ground+top-disc contact (never committed to gold after the family's original
+  build in an earlier run — this run had to rebuild it from scratch); the original D24 optimum
+  reconfirmed feasible at &sigma;_peak=1.0495 kPa (4.68&times; target).
+- D011 (46-eval BO campaign, ledger-traced throughout — `cei_core.run_cei_bo` used specifically
+  because the study's usual `SlurmAsyncPool` path calls the oracle off-ledger): found the Rank-3
+  candidate.
+- D010/D012/D013/D014 (imperfection-robustness sampling, 3 independent seeds): D010 (seed=0,
+  13 draws) and D013 (seed=1, 12 draws) both hit the dedup-on-write ledger gap documented in
+  `docs/TRAPS.md` #9 (root-caused this run — see that file's 2026-08-25 update). D014 (seed=2,
+  10 fresh draws) avoided the gap by self-reporting the true invocation count (28 real solves,
+  11 ledgered) rather than trusting the ledger. Median computed from the 11 ledgered
+  Rank-3-geometry rows, de-duplicated to 9 genuinely independent draws (2 bit-identical pairs
+  removed — D011/D012 both re-solved the exact default-imperfection point, and D014 logged one
+  draw twice).
+- Gate history: 8 review rounds, every one finding a real, checkable defect (never a false
+  positive) — a duplicate-row/median miscount (1.5921&rarr;1.6487 kPa once both pairs were
+  correctly excluded), an overstated "every one of 32 sits at 95%+" strain claim contradicted by
+  rows inside that same 32, an 8/10-vs-7/10-feasible overclaim off by the exact ring-passthrough
+  row the same paragraph flags, and a stale gate-pass audit note that lagged 3 edit rounds before
+  catching up. None touched the headline number itself.
+- Infra not yet promoted to gold: `bo/oracle_bistable_arch.py`, `bo/oracle_twist_buckle.py`,
+  `bo/oracle_twist_buckle_locked.py` + 6 supporting scripts, built fresh this run. Recommend
+  committing so the next run testing either family doesn't rebuild working,
+  adversarially-verified infrastructure from scratch.
+- GIF: native Abaqus/CAE Viewer export, standard pipeline. The Rank-3 candidate at its own
+  median-draw imperfection realization, matching the headline number exactly, not a cherry-picked
+  best-of-9.
 -->
 
 ---
@@ -1228,6 +1389,75 @@ bo/oracle_crosslinked_bundle.py (namespace='crosslinked_bundle'); connector cons
 bo/crosslinked_bundle_mpc.py. GIF rendered from D020's own Riks ODB:
 /oscar/scratch/eaguerov/sc_oracle_crosslinked_bundle/riks_516824ed2260409398982f7735bfdc0d/
 SUPERCOMPRESSIBLE_RIKS.odb (340-frame history, 30 rendered).
+-->
+
+---
+class: restudy-slide
+layout: two-cols-header
+---
+
+# D25 revisited (twist) — chirality on the tape-spring section
+
+::left::
+<div class="text-sm leading-snug">
+
+- **What changed:** `twist_angle` promoted from nonexistent to a real, 7th free design parameter
+  for this family (bounds &plusmn;90&deg;), threaded through the same helical-sweep construction
+  the base circular family and `oracle_helical.py` already use. Verified to bit-exactly reproduce
+  the historical untwisted (`twist_angle=0`) record before trusting any new result.
+- **What was tested:** a cheap Stage-1 kill-signal scan first (20/22 coilable across the full
+  twist range — not a D27-style collapse), then a full 105-design campaign under contact.
+- **Result:** 0/105 feasible, same unanimous compression-shortfall signature as the untwisted
+  family (mls never binds). Twist's correlation with both the objective and the binding
+  constraint is statistically indistinguishable from zero (Spearman &rho;&asymp;0, Holm-adjusted
+  p=1.000, n=15) — not a weak effect, no effect, in either twist direction.
+
+</div>
+
+::right::
+
+<div class="flex flex-col items-center justify-center h-full">
+  <img src="/gifs/tape_spring_twist_negative_native.gif" class="max-h-72 rounded shadow-lg" />
+  <div class="text-xs opacity-60 mt-2 px-4 text-center">A representative attempted design (the deepest-progressing real solve among the 105): the strip localises and runs out of the 2% strain budget long before 80% compression — not feasible, but a real geometry, not an absence of one.</div>
+</div>
+
+<!--
+**Seed:** BARREN — twist does not move this family's ceiling at all, let alone enough to
+matter. The original D25/D25-revisited slides' own Seed tags disagreed on whether twist had
+already been tried (it hadn't); this closes that ambiguity with a real result.
+
+NOT part of run 20260822T025309 -- a separate, later, ad-hoc worktree-isolated investigation.
+Committed 2026-08-23T12:28 UTC (git log -S), which sits between run 20260822T025309's close
+(2026-08-22T14:06 UTC) and run 20260823T161229's start (2026-08-23T16:12 UTC) -- placed here,
+between those two runs' sections, per the deck's anti-chronological ordering rule. Corrected
+2026-08-25: an earlier version of this note placed the slide ABOVE run 20260823T161229 on the
+mistaken belief that "one day after 20260822T025309 closed" made it newer than everything below
+it -- it never checked against 20260823T161229's own start time, which is later still. Do not
+read this slide as one of either run's own hypotheses.
+
+Full campaign: 70 broad-Sobol + 35 twist-sign-directed refinement, contact on, 20/105 coilable,
+15/105 reached a verdict. Best decided design: mcs=0.1133 (need 0.80, short 7.1x) at
+twist_angle=+5.8deg -- near zero, not at a large twist -- t_tape=0.5660, R_tape=27.805,
+alpha_tape=0.4682, beta_tape=1.1473, ratio_pitch=1.3343, ratio_top_diameter=0.7267,
+twist_angle=0.1018 rad. Vs. the twist=0 baseline (n=28, median mcs=0.022, best=0.21): this
+campaign's median (0.0273) is marginally higher but uninterpretable given the null correlation;
+its best is worse than the untwisted campaign's own best.
+
+Caveat disclosed by the investigating agent: phase-2's directional refinement (toward positive
+twist) was chosen from a phase-1 sub-sample contaminated by 2 sentinel-zero salvage rows in the
+negative-twist bucket. The pooled 105-eval correlation (the headline null finding) is unaffected,
+but a follow-up giving negative twist equal weight would close this residual gap.
+
+Documentation finding, reported not fixed here (append-only convention): the original D25 slide
+and "D25 revisited" (contact) disagree on this Seed tag (BARREN vs FERTILE). Traced via
+`git log -S` to commit 6ac0244, which misread an ambiguous sentence on the original slide as
+saying twist itself had been tested -- it hadn't; that 330-design campaign held twist_angle=0.0
+throughout. Left as a discrepancy on those two slides for the user's own correction.
+
+Infra: bo/oracle_tape_spring.py (PARAM_NAMES/BOUNDS grow a 7th entry),
+scripts/supercompressible_{lin_buckle,riks}_tape_spring.py, bo/campaign_tape_spring_twist.py,
+bo/_twist_stage1_scan.py, bo/_twist_kill_signal.py. Not committed to gold as of this slide --
+left in an isolated worktree pending review.
 -->
 
 ---
