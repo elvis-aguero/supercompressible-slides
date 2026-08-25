@@ -324,11 +324,12 @@ not meant to render. Read this before adding or editing any slide.
     This was already the majority practice (D25 revisited/tape-spring,
     D21 revisited, D17&D20&D26 revisited, D33 revisited, D25 revisited
     (twist)) before it was written down here — this entry documents
-    existing convention, it does not introduce a new one. One known
-    non-conforming outlier not yet migrated: "Kresling revisited" predates
-    this convention and uses a single free-form "What changed" bullet;
-    left as-is pending a dedicated migration pass, per the append-only
-    policy on not rewriting a prior verdict's own words casually.
+    existing convention, it does not introduce a new one. "Kresling
+    revisited" predated this convention (5 free-form bullets, no Seed) and
+    was migrated to the template 2026-08-24 — the append-only policy
+    protects a verdict's WORDS from being rewritten, not the bullet
+    structure carrying them; reformatting existing findings into the
+    fixed template changes no number and no conclusion.
 
    PLAIN-LANGUAGE BAR (applies to all 4 bullets): no unexplained jargon in
    the visible slide body. Terms like a bare "ρ" or "r" (correlation/
@@ -849,6 +850,7 @@ beats global coiling); the one that switched back to discrete members did not, a
 &nbsp;·&nbsp; **22 delegations, 227 ledgered evals across 5 new namespaces, 10.8 h of 12 h**, GATED
 on the 3rd critic attempt (REJECT &rarr; REJECT &rarr; PASS)
 
+ &nbsp;&middot;&nbsp; **Cost: $86.10**
 </div>
 
 <!--
@@ -1256,6 +1258,7 @@ design parameter with its connector force finally instrumented.
 &nbsp;·&nbsp; **15 delegations, 69 ledgered evals across 4 namespaces, 11.23 h of 12 h**, GATED on
 the 2nd critic attempt (REJECT &rarr; PASS)
 
+ &nbsp;&middot;&nbsp; **Cost: $38.57**
 </div>
 
 <!--
@@ -1500,6 +1503,7 @@ rather than opening a new lead.
 &nbsp;·&nbsp; **26 delegations, 35 ledgered evals across 9 namespaces, 11.33 h of 12 h**, GATED on
 the 4th critic attempt (REJECT &rarr; REJECT &rarr; REVISE &rarr; PASS)
 
+ &nbsp;&middot;&nbsp; **Cost: $71.06**
 </div>
 
 <!--
@@ -1610,32 +1614,28 @@ layout: two-cols-header
 
 - **What changed:** a dedicated oracle (`bo/oracle_kresling.py`) with `ring_passthrough` wired as
   a **live** constraint — unlike the rectangle family, where it's only checked post-hoc because
-  that geometry can't fold through a ring at all. Three campaigns followed: a 150-eval 3-phase
-  contact search, an 80-eval local zoom on the one near-miss, and a 150-eval broadened-bounds
-  search.
-- **Found, and retracted, twice.** The broad search first reported **3.27 kPa (5.4&times; the
-  incumbent)** — CPRESS=0 confirmed contact never actually engaged; a pure early-transient
-  artifact. The local zoom then reported **1.0723 kPa (~9.6&times; Bessa)**, with CPRESS confirming
-  genuine contact engagement this time — it looked real.
-- **Falsified anyway, by mesh, not by contact.** 2&times; mesh refinement diverges **+197%**; 4&times;
-  fails to solve. Root cause: this family's "hinge" is not a mechanical joint — it's a geometric
-  kink in one continuous beam, confirmed by code inspection (no connector, no rotational release).
-  That's a real reentrant-corner stress singularity, not an FE bookkeeping artifact. A referee
-  subagent and the following run (`20260819T022742`, H6/H8) both independently reproduced this.
-- **Does a fillet save it? No.** Every filleted radius failed to even produce a valid refined
-  measurement; the one radius forced through a properly quasi-static-valid resolve reaches only
-  **3.7% compression** (`20260819T022742`, H9/H10).
-- **Controls rule out a study-wide problem.** The confirmed-good baseline (`run17_rectangle`)
-  shows the same "mesh refinement fails" pattern in a milder form — clean non-convergence at 2&times;,
-  not divergence to a wrong number. The actual 1&times; Bessa point is genuinely mesh-converged
-  (2&times; matches baseline to &lt;0.001%; only 4&times; fails to run). This is specific to
-  Kresling's kink, not a methodology-wide failure.
-
-<div class="text-xs opacity-60 mt-1">
-Answers the open question left by "D17, D20, D26 revisited" (2026-08-08): whether the Kresling
-family contains points that work under contact. It does not — not because contact doesn't help,
-but because the family's own joint geometry can't be trusted at the one point where it looked best.
-</div>
+  that geometry can't fold through a ring at all.
+- **What was tested:** three campaigns, 380 evals total (a 150-eval 3-phase contact search, an
+  80-eval local zoom on the one near-miss, a 150-eval broadened-bounds search), plus a dedicated
+  mesh-refinement check (2&times;/4&times; density) and fillet variants on the near-miss design —
+  cross-checked by an independent referee subagent and reproduced in a later run
+  (`20260819T022742`, H6/H8/H9/H10).
+- **Result:** FALSIFIED · DEAD-END<br>
+  Found, and retracted, twice. The broad search first reported **3.27 kPa (5.4&times; the
+  incumbent)** — CPRESS=0 confirmed contact never actually engaged, a pure early-transient
+  sampling artifact. The local zoom then reported **1.0723 kPa (~9.6&times; Bessa)**, with CPRESS
+  confirming genuine contact engagement — it looked real, but falsified anyway, by mesh, not by
+  contact: 2&times; refinement diverges +197%, 4&times; fails to solve. Root cause is a real
+  reentrant-corner stress singularity — the "hinge" is a geometric kink in one continuous beam,
+  not a mechanical joint (confirmed by code inspection, an independent referee, and reproduction
+  in a later run). Filleting the kink doesn't rescue it either — every filleted radius failed a
+  valid refined measurement except one, which reached only 3.7% compression. Controls
+  (`run17_rectangle`, the true 1&times; Bessa point) rule out a study-wide meshing problem: both
+  either match exactly or simply fail to run, never diverging to a wrong number the way Kresling's
+  own near-miss does. Answers the open question left by "D17, D20, D26 revisited" (2026-08-08):
+  the Kresling family does not contain points that work under contact — not because contact
+  doesn't help, but because the family's own joint geometry can't be trusted at the one point
+  where it looked best.
 
 </div>
 
@@ -1647,6 +1647,14 @@ but because the family's own joint geometry can't be trusted at the one point wh
 </div>
 
 <!--
+**Seed:** BARREN — the singularity is intrinsic to modeling the hinge as one continuous,
+rigidly-connected beam with a geometric kink; mesh refinement, fillets, and an independent
+referee all confirm this is real, not a numerical artifact. Consistent with "D17, D20, D26
+revisited" closing this same family (its own Seed cites this exact finding). A genuinely
+different hinge REALIZATION — an actual pin/flexure joint, not a geometric kink in one
+continuous member — would be a different idea, not a perturbation of this one, and would need
+its own slide rather than a continuation here.
+
 FULL CAMPAIGN LEDGER: bo/run_kresling_contact_search.py (150 evals, 3-phase zoom BO, SEED=0,
 TARGET_SIGMA_PEAK=0.2244, no_ring_passthrough + stab_ratio as live constraints alongside
 mcs/mls/slenderness); bo/run_kresling_local_zoom.py (80 evals, 2-phase, SEED=1, centered on the
@@ -2371,8 +2379,8 @@ layout: two-cols-header
   best good: none. **CORRECTED 2026-08-14:** wrap 4.5, c = 2 mm reached **30.8% compression at
   0.445% strain**, then its loading point *reversed*; the "61.5%" first reported here was
   `|U3|` counting 63 mm of **upward** travel as compression
-- **Verdict:** FALSIFIED &middot; MIXED &nbsp;<span class="opacity-60">(revised 2026-08-14)</span><br>
-  The relief is real — **0.445% strain at 30.8% compression**, where the matched straight control
+- **Verdict:** FALSIFIED &middot; MIXED<br>
+  <span class="opacity-60">(revised 2026-08-14)</span> The relief is real — **0.445% strain at 30.8% compression**, where the matched straight control
   had blown 2% by 26.2% — but it buys no load (&rho;(wrap, &sigma;_peak) = **&minus;0.392** over 36
   decided designs), it is not novel, and the family never approached 80%.
 
@@ -3056,6 +3064,7 @@ Four literature-grounded chirality/elastic-instability candidates tested against
 | H1 | A genuinely novel geometry/topology (not a cross-section resize) clears 2&times; Bessa with all feasibility criteria | **?** | 4 candidates tested; best numeric hit (D010, 0.4254 kPa) explained ~91% by resize dims, chirality lever p=0.145 — not credible as genuinely novel | D26, D27, D1, D6 |
 | H2 | This study's slender-beam elastic-instability space is capped near the resize ceiling (~0.77 kPa) — no genuinely novel topology clears 2&times; Bessa without breaking beam-validity or folding | **?** | Confounded test (Charter &sect;3): D010's clearing point can't cleanly separate resize-driven from chirality-driven performance; the other 3/4 candidates support H2's spirit outright | D26, D27, D1, D6 |
 
+ &nbsp;&middot;&nbsp; **Cost: $21.13**
 </div>
 
 <!--
@@ -3119,6 +3128,8 @@ class: idea-slide
   buckling mechanisms" — every prior family in this study keeps a discrete-
   member load path; this removes the discreteness entirely.
 - **Stats:** n=80 &rarr; 0 coil &rarr; 0 riks &rarr; 0 good<br>
+  quartiles unavailable — 0/80 Stage-1 coilable, so Stage 2 never auto-escalated<br>
+  cleared: none (0 decided) &middot; novel: untested — no design ever reached a Riks solve<br>
   best good: none (0/80 passed every criterion)
 - **Verdict:** FALSIFIED · DEAD-END<br>
   The monocoque topology suppresses
@@ -3145,6 +3156,12 @@ class: idea-slide
 twist_chirality&isin;[0,3.14] — azimuthal twist of the lobe pattern bottom-to-top. t_shell&isin;
 [.5,2] — shell wall thickness. ratio_pitch&isin;[.15,.8], ratio_top_diameter&isin;[0,.5] — usual
 per-storey pitch/taper meaning. Fixed: ratio_shear_modulus=.3677.
+
+**Seed:** BARREN — the failure is topological, not parametric: a continuous chiral shell surface
+is stiff enough against global lateral bending to suppress coiling entirely, confirmed
+independently when D27 reverted to discrete members and still failed strict coilability.
+Further thinning the shell just converges toward an ordinary discrete beam cross-section,
+already tested extensively elsewhere in this study.
 
 Full context:
 
@@ -3193,6 +3210,8 @@ class: idea-slide
   restoring low overall bending stiffness via discrete members should let a
   coiling mode compete again, while keeping the chirality/twist mechanism.
 - **Stats:** n=120 &rarr; 0 coil &rarr; 0 riks &rarr; 0 good<br>
+  quartiles unavailable — 0/120 Stage-1 coilable, so Stage 2 never auto-escalated<br>
+  cleared: none (0 decided) &middot; novel: untested — no design ever reached a Riks solve<br>
   best good: none (0/120 passed every criterion)
 - **Verdict:** FALSIFIED · DEAD-END<br>
   Reverting to discrete members did not
@@ -3218,6 +3237,11 @@ class: idea-slide
 [1,8] — vane curvature amplitude. twist_total&isin;[.2,1.5] — per-longeron twist over the mast
 height. ratio_pitch&isin;[.3,1], ratio_top_diameter&isin;[0,.4] — usual per-storey pitch/taper
 meaning. Fixed: n_longerons=3, ratio_shear_modulus=.3677.
+
+**Seed:** FERTILE — the coilable_legacy gap (34/115 pass the looser proxy vs 0/115 strict)
+suggests this family is genuinely closer to real coiling than D26's monocoque tube. Untested:
+whether reducing twist_total and/or B_max toward the family's own lower bound continues that
+trend into strict coilability, rather than assuming the gap is unclosable.
 
 Full context:
 
@@ -3262,6 +3286,7 @@ same design family (see idea slide below) — none reached the 2% strain target.
 | H7 | Near-misses were partly a measurement bug | ❌ | bug confirmed and fixed, but the fix helped some designs and hurt others — none reached the target either way | D25 |
 | H8 | Dense search right around the closest miss | ❌ | best confirmed result: 2.7% strain, still 35% over the 2% target | D25 |
 
+ &nbsp;&middot;&nbsp; **Cost: $42.87**
 </div>
 
 <!--
@@ -3329,6 +3354,8 @@ class: idea-slide
   Seffen–Pellegrino tape-spring mechanics.¹
 - **Stats:** n=406 → 176 coil → 137 riks → 0 good
   p50/p90/p100 — σ_crit: 2.11/17.6/88.3 · mcs: 1.02/1.04/1.06 · mls: .047/.130/.447
+  cleared: 128 of 137 decided ≥ 2× Bessa (0.2244) · novel: yes — the σ threshold isn't the
+  gate here, mcs/mls (strain) are, so raw σ clears easily while every design still fails
   best good: none (0/406 passed every criterion)
 - **Verdict:** FALSIFIED · DEAD-END<br>
   The curvature that keeps the arc locally stable
@@ -3448,6 +3475,7 @@ into existing idea slides (chiral-brace, bistable-arch) as refinements.
 | H3 | Distribute bistable arch segments along the full longeron | ❔ | confounded — joint-discontinuity strain check never run; more transition joints than precedent | D24 |
 | H4 | Graded/staggered K=3 bistable arch chain | ❌ | reversal signals cluster at the bottom-ring segment at every K, not staggering-specific | D24 |
 
+ &nbsp;&middot;&nbsp; **Cost: $23.10**
 </div>
 
 <!--
@@ -3485,6 +3513,7 @@ Aperiodic bracing lowers ligament strain but not enough to clear the 2% wall —
 | H4 | Peak local bending strain is structurally coupled to member cross-section size/stiffness, across every family | ✅ | ρ=0.534/0.512/0.690 within all 3 sub-campaigns, all clearing the ρ>0.5, p<0.01 bar | — |
 | H5 | Tapering the brace ligament relieves ligament strain | ❔ | 10-pt diagnostic: strain fell only 14.3% while σ fell 22.4% — worsening trade-off, full campaign not run | D15 |
 
+ &nbsp;&middot;&nbsp; **Cost: $24.72**
 </div>
 
 <!--
@@ -3524,6 +3553,7 @@ The run's own headline design (H4, bistable-arch reinvestment beating baseline) 
 | H4 | Reinvest H2's mls headroom via joint cross-section+arch re-opt to beat 0.7704 kPa | ❌ | retracted post-hoc — continuum submodel found real joint strain 2.7×+ the beam value, see idea slide | D24 |
 | H5 | Second, independently-snapping arch at top ring further lowers mls | ❌ | top segment never actually snaps | D24 |
 
+ &nbsp;&middot;&nbsp; **Cost: $26.32**
 </div>
 
 <!--
@@ -3567,6 +3597,8 @@ class: idea-slide
   cut (mean ~7%, max 12.3%) fell short of a pre-registered 20% bar.
 - **Stats:** n=133 → 132 coil → 66 riks → 1 good (6.5× Bessa)
   p50/p90/p100 — σ_crit: .76/1.50/1.99 · mcs: 1.00/1.00/1.04 · mls: .0194/.0230/.0267
+  cleared: 66 of 66 decided ≥ 2× Bessa (0.2244) · novel: yes — genuinely varied arch geometry,
+  not duplicates; measured under the retired pre-contact eigenvalue metric (see notes)
   best good: a=.00961 b=.033165 arch_rise=.0343 arch_length=.4305 → σ=.8509 mcs=1.00 mls=.0196
 - **Verdict:** SUPPORTED · WORKS<br>
   **Retraction reversed 2026-08-18** (in-place update, see speaker notes for why): the
@@ -3592,6 +3624,11 @@ re-optimized with the arch. arch_rise&isin;[.02,.09] — bistable snap-arch heig
 &isin;[.25,.5] — arch length along the longeron. Fixed: ratio_pitch=.681277,
 ratio_top_diameter=.04444, circular=15 (cross-section-family switch), stabilization=1,
 dual_arch=1.
+
+**Seed:** FERTILE — re-solve this exact design (or a jointly-re-optimized variant) under the
+CURRENT contact oracle and &sigma;_peak metric; the headline 0.8509 kPa is the retired
+eigenvalue metric, never re-measured under contact, so whether it still beats the current
+0.6077 kPa incumbent is a real open question, not a settled one.
 
 Full context — this is one of the most consequential, previously-contested
 results in the whole study; state it carefully and consistently with the
@@ -3754,6 +3791,7 @@ Chained true-bistable snap-through segments hit a solve-completion wall, not a s
 | H2 | Chain of true-bistable (Q≥2.31) snap-through arch segments | ❌ | solve-completion wall, not a strain wall — 23/72 coilable, only 1 near-degenerate "success" | D23 |
 | H3 | (Absence claim) no valid chained mild pre-curved sub-bistable arch design exists | ✅ | refuted — real counterexample found, σ=0.776506 kPa, see idea slide | D23 |
 
+ &nbsp;&middot;&nbsp; **Cost: $18.00**
 </div>
 
 <!--
@@ -3819,6 +3857,8 @@ class: idea-slide
 - **Stats:** n=133 → 19 coil → 3 riks → 1 good (5.9× Bessa)
   p50/p90/p100 — σ_crit: .12/.65/.78 · mcs: 1.00/1.03/1.03 · mls: .0194/.0267/.0285
   (quartiles from just those 3 points, not a real distribution)
+  cleared: 1 of 3 decided ≥ 2× Bessa (0.2244) · novel: yes, thin — the one clearing point is
+  also the slide's own best-good design, too few points to call it a population
   best good: n_segments=3 arch_rise=.10 → σ=.7765 mcs=1.03 mls=.0194
 - **Verdict:** FALSIFIED · WEAK<br>
   As an absence claim — one genuine 5-criteria
@@ -3838,6 +3878,11 @@ class: idea-slide
 **Input space:** n_segments&isin;[2,6] — chain length (discrete). arch_rise&isin;[.02,.3] — per-
 segment rise, kept below the Q&asymp;2.31 bistability floor. Fixed: a=.009213, b=.033238,
 ratio_pitch=.681277, ratio_top_diameter=.04444, circular=11 (cross-section-family switch).
+
+**Seed:** FERTILE — apply the restrained-warping check that resolved D24's own numerical scare
+to H2's TRUE bistable (Q&ge;2.31) chain variant, which hit a Riks convergence wall in 71/72
+cases rather than a physics failure; untested whether that wall is the same class of solver
+artifact, not a real barrier.
 
 Full context:
 
@@ -3961,6 +4006,9 @@ class: idea-slide
   reach high axial stiffness without paying the local-bending-strain penalty
   the rectangle family pays.
 - **Stats:** n=91 → 90 coil → 0 riks → 0 good<br>
+  quartiles unavailable — 90/91 Stage-1 coilable, but all 90 failed to reach a converged Riks
+  solve, so Stage 2 has no population to compute over<br>
+  cleared: none (0 decided) &middot; novel: untested — no design ever reached a Riks solve<br>
   best good: none (0/91 passed every criterion)
 - **Verdict:** FALSIFIED · DEAD-END<br>
   A solve-completion wall, not a strain wall: all
@@ -3985,6 +4033,11 @@ tf&isin;[.002,.012] — flange thickness. tw&isin;[.0015,.008] — web thickness
 &isin;[.3,1.5], ratio_top_diameter&isin;[0,.3] — usual per-storey pitch/taper meaning. Fixed:
 circular=8 (cross-section-family switch), n_longerons=3, n_storeys=1, twist_angle=0,
 ratio_shear_modulus=.3677.
+
+**Seed:** FERTILE — untested whether the 0/90 Stage-2 convergence is a genuine physical
+incompatibility or a solver-specific difficulty; this deck's own Explicit-dynamics escalation
+resolved an analogous convergence wall for D29/D34 without changing the design, and was never
+tried here.
 
 Full context:
 
@@ -4030,6 +4083,7 @@ Two hypotheses fold into existing idea slides as refinements, while the run's on
 | H1 | Distributed N-cell (N&ge;3) flexure-hinge chain | ❌ | folds into the flexure-hinge idea's slide | D13 |
 | H2 | Smooth continuous taper vs. the piecewise "waisted" family | ❔ | folds into the waisted-tapered idea's slide | D18 |
 | H3 | Class-1 tensegrity strut-and-cable replacement (own slide) | ❌ | 220.89 kPa but demoted via the apples-to-apples criterion | D21 |
+ &nbsp;&middot;&nbsp; **Cost: $33.67**
 </div>
 
 <!--
@@ -4074,6 +4128,8 @@ class: idea-slide
   strain-stiffness coupling.
 - **Stats:** n=45 → 45 coil → 44 riks → 12 good (1691&times; Bessa)
   p50/p90/p100 — &sigma;_crit: 72.8/220.8/238.4 · mcs: 1.12/1919/2929 · mls: .205/8.41/9.55
+  cleared: 44 of 44 decided &ge; 2&times; Bessa (0.2244) &middot; novel: yes — 42 distinct designs
+  spanning 3 orders of magnitude in &sigma;, but disqualified on comparability (see Verdict)
   best good: a_strut=.03 slen_strut=10.29 area_cable=.0046 mid_h=.523 prestrain=.0193 +2 more &rarr; &sigma;=220.89 mcs=1.15 mls&asymp;9e-14
 - **Verdict:** SUPPORTED (DISQUALIFIED) · DEAD-END<br>
   Largest &sigma;_cr,nd in the study (re-verified via direct ODB mode-1
@@ -4163,6 +4219,7 @@ Mining an existing dataset and testing a 2-storey mast both come up empty; the o
 | H1 | Mine the Bessa 7D dataset for a real, realizable profile | ❔ | folds into the extended-J hollow-tube slide; 0/8 coilable rows pass all 4 criteria | D2 |
 | H2 | Laced/battened two-parallel-chord built-up longeron (own slide) | ❌ | existence confirmed (1/50 feasible, real hit); 1000x below target either way | D20 |
 | H3 | 2-storey mast reduces peak local strain | ❔ | folds into the multi-storey idea's slide; no clean signal | D4 |
+ &nbsp;&middot;&nbsp; **Cost: $16.87**
 </div>
 
 <!--
@@ -4208,6 +4265,8 @@ class: idea-slide
   literature citation.
 - **Stats:** n=62 &rarr; 50 coil &rarr; 50 riks &rarr; 1 good (0.0061&times; Bessa)
   p50/p90/p100 — &sigma;_crit: .09/2.64/6.15 · mcs: .76/1.03/1.07 · mls: .031/.079/.107
+  cleared: 20 of 50 decided &ge; 2&times; Bessa (0.2244) &middot; novel: yes — 20 distinct
+  designs varying rc/h/n_battens/pitch/top_d; mls (local strain) is the gate that blocks them
   best good: rc=.0024 h=.0234 n_battens=2 pitch=.75 top_d=.13 &rarr; &sigma;=.00079 mcs=1.00 mls=.014
 - **Verdict:** FALSIFIED · WEAK<br>
   As a viable mechanism. 50 evals clears this
@@ -4231,6 +4290,10 @@ class: idea-slide
 chords. n_battens&isin;[2,8] — discrete batten count. ratio_pitch&isin;[.25,1.5],
 ratio_top_diameter&isin;[0,.8] — usual per-storey pitch/taper meaning. Fixed: circular=4
 (cross-section-family switch), n_storeys=1, twist_angle=0, ratio_shear_modulus=.3677.
+
+**Seed:** BARREN — the one feasible design is 1000&times; below target; a gap this large is a
+mechanism ceiling, not an under-search artifact, and no perturbation within this parameter box
+plausibly closes three orders of magnitude.
 
 Full context:
 
@@ -4270,6 +4333,7 @@ Elliptical top/bottom rings are cleanly falsified again — every point in a 32-
 |---|---|---|---|---|
 | H1 | Elliptical top/bottom rings with phase offset, re-tested | ❌ | folds into the elliptical-rings slide; every point in a 32-point sweep was non-coilable | D10 |
 | H2 | In-plane serpentine/meander centerline perturbation (own slide) | ❔ | inconclusive | D19 |
+ &nbsp;&middot;&nbsp; **Cost: $17.46**
 </div>
 
 <!--
@@ -4308,6 +4372,8 @@ class: idea-slide
   argument), not drawn from an outside literature source.
 - **Stats:** n=17 &rarr; 17 coil &rarr; 8 riks &rarr; 3 good (5.89&times; Bessa)
   p50/p90/p100 — &sigma;_crit: .769/.774/.783 · mcs: 1.000/1.032/1.067 · mls: .0220/.0224/.0226
+  cleared: 8 of 8 decided &ge; 2&times; Bessa (0.2244) &middot; novel: no — every converged design
+  clears &sigma; near the baseline's own value; mls (local strain) is the gate that fails
   best good: amplitude_rel=.0047 n_periods=3 &rarr; &sigma;=.7694 mcs=1.02 mls=.0198
 - **Verdict:** INCONCLUSIVE · DEAD-END<br>
   Among the 8 trust-gated converged points, local
@@ -4330,6 +4396,11 @@ class: idea-slide
 **Input space:** amplitude_rel&isin;(0,.02] — meander amplitude relative to the mast diameter.
 n_periods&isin;[1,6] — number of wave periods along the longeron. Fixed: host geometry =
 run17_rectangle (a=.009213, b=.033238, ratio_pitch=.681277, ratio_top_diameter=.04444).
+
+**Seed:** BARREN — meandering raises local strain rather than distributing it away in both
+amplitude and period count, the opposite of the hypothesized direction; the sample is thin
+(8/17) but the direction is unambiguous, leaving no reason to expect a properly-powered
+re-test would reverse it.
 
 Full context:
 
@@ -4365,6 +4436,7 @@ The rectangle-anchor value reconfirms bit-identically and the Kresling ceiling h
 | H2 | Extend Kresling ψ ceiling beyond 30° | ❌ | no design in [0,60°] beat the 0.711 kPa anchor | D17 |
 | H3 | Smoothly radially-tapered ("waisted") longeron | ❔ | new idea, own slide below | D18 |
 | H4 | Local refinement near the 0.877 kPa waisted point | ❌ | point later invalid under corrected slenderness formula | D18 |
+ &nbsp;&middot;&nbsp; **Cost: $24.95**
 </div>
 
 <!--
@@ -4410,6 +4482,8 @@ class: idea-slide
   result, adapted to this study's longeron geometry.
 - **Stats:** n=29 &rarr; 29 coil &rarr; 29 riks &rarr; 1 good (0.49&times; Bessa)
   p50/p90/p100 — &sigma;_crit: .756/3.04/3.58 · mcs: .677/1.058/1.072 · mls: .0192/.0277/.0441
+  cleared: 26 of 29 decided &ge; 2&times; Bessa (0.2244) &middot; novel: yes — 26 distinct
+  waist_ratio/ratio_b combinations, not repeats of one baseline
   best good: a_end=.0049 waist=.414 b=.0419 pitch=.870 top_d=.0385 &rarr; &sigma;=.0643 mcs=.95 mls=.013
 - **Verdict:** INCONCLUSIVE · UNTESTABLE<br>
   The mis-specified (waist-based) constraint
@@ -4431,6 +4505,10 @@ mid-span radius as a fraction of a_end. b&isin;[.012,.06] — secondary semi-axi
 ratio_pitch&isin;[.4769,.8857], ratio_top_diameter&isin;[.0311,.0578] — usual per-storey
 pitch/taper meaning, narrowed for this campaign. Fixed: circular=4 (cross-section-family
 switch), n_storeys=1, twist_angle=0.
+
+**Seed:** FERTILE — the waist-based constraint that defined this campaign's search box was
+mis-specified, so the real feasible region was never actually searched; a corrected re-run
+(real slenderness formula, not the invalidated one) is untried.
 
 Full context:
 
@@ -4481,6 +4559,7 @@ This run finds the 0.7704 kPa rectangle-anchor design that becomes the study's c
 | H1 | Existence ≥0.3918 kPa in the rectangle family | ✅ | 0.7704 kPa found — becomes the study's canonical anchor | D6 |
 | H2 | Pretensioned diagonal cable-stay bracing | ❔ | 0/45 feasible — only the no-brace control was feasible | D15 |
 | H3 | Kresling/TCO bar-hinge longeron | ❔ | new idea, own slide below | D17 |
+ &nbsp;&middot;&nbsp; **Cost: $22.06**
 </div>
 
 <!--
@@ -4526,6 +4605,8 @@ class: idea-slide
   fabricated citation.
 - **Stats:** n=45 &rarr; 37 coil &rarr; 37 riks &rarr; 8 good (5.44&times; Bessa)
   p50/p90/p100 — &sigma;_crit: .574/1.28/2.52 · mcs: 1.00/1.00/1.00 · mls: .0217/.0294/.0483
+  cleared: 31 of 37 decided &ge; 2&times; Bessa (0.2244) &middot; novel: yes — the cleared set
+  spans 9 distinct nonzero psi values, not duplicates of the degenerate psi=0 case
   best good: a=.0120 b=.0151 pitch=.618 top_d=.0351 psi=.5236 +1 more &rarr; &sigma;=.7111 mcs=1.00 mls=.0196
 - **Verdict:** INCONCLUSIVE · DEAD-END<br>
   A genuinely feasible design existed and once
@@ -4546,6 +4627,12 @@ ratio_pitch&isin;[.25,1.5], ratio_top_diameter&isin;[0,.6] — usual per-storey 
 meaning. psi_kresling&isin;[0,.6] rad — hinge offset angle (0 = hinge off). ratio_hinge_height
 &isin;[0,1] — where along the longeron's length the hinge node sits. Fixed: circular=2
 (cross-section-family switch), n_storeys=1, twist_angle=0.
+
+**Seed:** BARREN — later resolved decisively: the bar-hinge kink is a real reentrant-corner
+stress singularity (confirmed via mesh refinement, fillets, and an independent referee — see
+"Kresling revisited"), not a numerical artifact and not floor-passthrough. No perturbation
+within this geometric-kink realization survives; a genuinely different hinge (an actual
+pin/flexure joint) would be a different idea.
 
 Full context:
 
@@ -4587,6 +4674,7 @@ No new idea this run — a rectangle-family ceiling check and a 5-family cross-c
 |---|---|---|---|---|
 | H1 | Rectangle family ceiling vs the 3× Bessa target | ❔ | high-σ points all fail mls (~0.032, well over the 0.02 limit) | D6 |
 | H2 | Any novel family decouples buckling stiffness from radial strain? | ❔ | bounded negative across 5 families — existence claim, can't be proven absent | — |
+ &nbsp;&middot;&nbsp; **Cost: $40.60**
 </div>
 
 <!--
@@ -4632,6 +4720,7 @@ Four hypotheses converge on the same conclusion — a σ-vs-feasibility barrier 
 | H2 | Helical (chiral) longeron path | ❌ | new idea, own slide below | D16 |
 | H3 | Feasible σ bound by the 2% local-strain limit | ❌ | knife-edge bifurcation, not a feasible window | — |
 | H4 | 2-storey escape from the σ↔feasibility barrier | ❌ | barrier holds — same conflict pattern as single-storey | D4 |
+ &nbsp;&middot;&nbsp; **Cost: $19.54**
 </div>
 
 <!--
@@ -4686,6 +4775,8 @@ class: idea-slide
   from an outside literature source.
 - **Stats:** n=28 &rarr; 8 coil &rarr; 8 riks &rarr; 1 good (0.044&times; Bessa)
   p50/p90/p100 — &sigma;_crit: 1.09/6.04/14.76 · mcs: .881/1.00/1.00 · mls: .019/.118/.191
+  cleared: 7 of 8 decided &ge; 2&times; Bessa (0.2244) &middot; novel: yes — 5 of the 7 carry a
+  genuinely nonzero wrap, not duplicates of the degenerate wrap=0 case; mls (local strain) is the gate
   best good: a=.003 b=.008 pitch=.30 top_d=0 wrap=0 (degenerate) &rarr; &sigma;=.0057 mcs=1.00 mls=.0066
 - **Verdict:** FALSIFIED · DEAD-END<br>
   Helical wrap raises critical buckling stress
@@ -4706,6 +4797,10 @@ class: idea-slide
 ratio_pitch&isin;[.30,1.5], ratio_top_diameter&isin;[0,.6] — usual per-storey pitch/taper
 meaning. helix_wrap&isin;[0,1.5708] rad — turns wound into the longeron before compression.
 Fixed: n_storeys=1, twist_angle=0, ratio_shear_modulus=.3677.
+
+**Seed:** BARREN — wrap raises buckling stress but destroys local-strain feasibility even
+faster than it helps, the opposite of the hypothesized benefit; the best good design is
+degenerate (wrap=0), meaning the mechanism actively hurts at any nonzero setting tested.
 
 Full context:
 
@@ -4741,6 +4836,7 @@ Both a hard-slenderness rectangle search and a diagonal chiral-bracing lattice s
 |---|---|---|---|---|
 | H1 | Hard slenderness≥10 floor on rectangle family vs 2.34 kPa target | ❔ | best feasible 0.058 kPa, trend still rising when campaign stopped | D6 |
 | H2 | Diagonal chiral-bracing lattice (see idea slide below) | ❔ | 0/42 feasible; braced 30/30 fail on strain vs 34/46 unbraced control | D15 |
+ &nbsp;&middot;&nbsp; **Cost: $26.57** (floor -- strategizer's own transcript cost unrecoverable)
 </div>
 
 <!--
@@ -4788,6 +4884,8 @@ class: idea-slide
   cable-stayed precedent, Gurfinkel & Krishnan 2017; see notes).
 - **Stats:** n=42 &rarr; 30 coil &rarr; 22 riks &rarr; 0 good
   p50/p90/p100 — &sigma;_crit: 19.24/596.53/713.78 · mcs: .00/.06/.77 · mls: .00/.04/.25
+  cleared: 22 of 22 decided &ge; 2&times; Bessa (0.2244) &middot; novel: yes, but not meaningful —
+  16/22 have mcs=0.0 exactly, consistent with a stiff non-coiling mode, not real headroom
   best good: none (0/42 passed every criterion)
   (braced designs failed max_compressive_strain in 30/30 vs 34/46 for the unbraced control)
 - **Verdict:** INCONCLUSIVE · DEAD-END<br>
@@ -4811,6 +4909,10 @@ meaning. z_brace&isin;[.05,.95] — axial position of the bracing lattice along 
 ratio_brace_area&isin;[0,3.5e-4] — brace strut cross-section area. brace_prestrain&isin;[0,.01] —
 brace pre-tension strain. Fixed: circular=2 (cross-section-family switch), n_longerons=3,
 n_storeys=1, twist_angle=0, ratio_shear_modulus=.3677.
+
+**Seed:** BARREN — braced designs failed max_compressive_strain in 30/30 vs 34/46 for the
+unbraced control; the directional signal is unambiguous even though the formal existence claim
+stays INCONCLUSIVE (thin decided sample) — bracing blocks coiling, it does not help it.
 
 Full context:
 
@@ -4881,6 +4983,7 @@ This run's H1 counterexample (2.5656 kPa) is this whole batch's best confirmed v
 | H1 | Fresh joint 4D search over the rectangle-anchor family (see idea slide below) | ❌ | counterexample found: σ_cr,nd=2.5656 kPa, all 3 criteria met — 2.2× prior best, >7× original anchor | D6 |
 | H2 | 2-storey mast, independent tangential dim per storey (see idea slide below) | ❔ | 0 confirmed-feasible, but persistent Riks NaN gap — not a clean negative | D4 |
 
+ &nbsp;&middot;&nbsp; **Cost: $47.10** (floor -- strategizer's own transcript cost unrecoverable)
 </div>
 
 <!--
@@ -4933,6 +5036,7 @@ One new family tested and cleanly falsified; the run's real finding is analytica
 | H2 | n_longerons variation within rectangle-anchor family (tested later, run `20260721T201733` H7) | ⏳ | proposed, 0 evals this run | — |
 | H3 | Rectangle-anchor optimum is bending-strain-limited, not under-searched | ✅ | both Riks criteria already at ceiling at 1.1688 kPa | D6 |
 
+ &nbsp;&middot;&nbsp; **Cost: $33.51** (floor -- strategizer's own transcript cost unrecoverable)
 </div>
 
 <!--
@@ -4973,6 +5077,8 @@ class: idea-slide
   AGAINST the mechanism beforehand (see notes).
 - **Stats:** n=45 → 29 coil → 6 riks → 0 good
   p50/p90/p100 — σ_crit: .022/.073/.085 · mcs: .434/.564/.579 · mls: .010/.018/.018
+  cleared: 0 of 6 decided ≥ 2× Bessa (0.2244) · novel: untested — σ itself never clears,
+  well below the theoretical prior's expected ceiling for this cross-section
   best good: none (0/45 passed every criterion)
 - **Verdict:** FALSIFIED · DEAD-END<br>
   Matches the theoretical prior; a GP surrogate fit
@@ -4995,6 +5101,10 @@ t_frac_a, t_frac_b&isin;[.02,.5] — wall thickness as a fraction of each leg's 
 dimension. ratio_pitch&isin;[.30,1.5], ratio_top_diameter&isin;[0,.3] — usual per-storey
 pitch/taper meaning (narrowed for this campaign). Fixed: n_longerons=3,
 ratio_shear_modulus=.3677.
+
+**Seed:** BARREN — matches the theoretical prior (Zahn & Iwankiw 1989) that predicted against
+this mechanism beforehand, and a GP surrogate confirms the flat landscape is real, not a
+search-coverage gap; the shear-centre offset genuinely does not help.
 
 Fuller context:
 
@@ -5041,6 +5151,7 @@ Three new cross-section families tried this run, all dead ends — but the run's
 | H3 | Heterogeneous (2 stiff + 1 compliant) longerons (see idea slide below) | ❔ | no improvement found | D11 |
 | H4 | Increase only the tangential dimension of the rectangle-anchor family | ✅ | new best-found design, 1.1688 kPa — 3.2× the 0.3644 kPa anchor | D6 |
 
+ &nbsp;&middot;&nbsp; **Cost: $97.39** (floor -- strategizer's own transcript cost unrecoverable)
 </div>
 
 <!--
@@ -5076,6 +5187,8 @@ class: idea-slide
   peak local fibre strain (thin hinge), a DOF no uniform family could access.
 - **Stats:** n=56 → 45 coil → 45 riks → 1 good (1.07× Bessa)
   p50/p90/p100 — σ_crit: 3.01/13.96/41.51 · mcs: .93/1.00/1.00 · mls: .067/.121/.250
+  cleared: 40 of 45 decided ≥ 2× Bessa (0.2244) · novel: yes — σ clears easily across this
+  family; mls (local strain) is the gate the hinge-thinness relationship never predicts
   best good: a=.00452 b_end=.0712 b_hinge=.0200 hinge_frac=.380 pitch=.860 +1 more → σ=.1391 mcs=1.00 mls=.019
 - **Verdict:** INCONCLUSIVE · DEAD-END<br>
   By the study's strict adequacy bar, but the raw
@@ -5100,6 +5213,10 @@ depth (near the rings). b_hinge&isin;[.005,.030] — thin mid-span hinge depth. 
 ratio_pitch&isin;[.25,1.5], ratio_top_diameter&isin;[0,.8] — usual per-storey pitch/taper
 meaning. Fixed: ratio_shear_modulus=.3677 (.334-.45 also swept as a free var in some runs of
 this campaign — see notes).
+
+**Seed:** BARREN — hinge thickness shows no consistent relationship with peak strain across 45
+converged designs (sometimes thinner helps, sometimes it doesn't) — there is no sweet spot to
+dial in, and every tested point underperforms the uniform-section baseline regardless.
 
 Fuller context:
 
@@ -5142,6 +5259,8 @@ class: idea-slide
   relative L2 error), so the family was built and searched directly.
 - **Stats:** n=51 → 36 coil → 36 riks → 4 good (2.39× Bessa)
   p50/p90/p100 — σ_crit: 4.20/60.35/90.13 · mcs: .61/1.00/1.00 · mls: .043/.097/.151
+  cleared: 33 of 36 decided ≥ 2× Bessa (0.2244) · novel: yes, but read cautiously — the high
+  end likely reflects the non-coiling stiff mode noted above, not 33 genuinely useful designs
   best good: a_out=.0184 b_out=.0543 t1=.003 t3=.002 pitch=.602 +1 more → σ=.3123 mcs=1.00 mls=.018
   (high σ_crit p90/p100 likely a non-coiling stiff mode, not real progress)
 - **Verdict:** INCONCLUSIVE · DEAD-END<br>
@@ -5162,6 +5281,11 @@ class: idea-slide
 **Input space:** a_out, b_out&isin;[.006,.10] — outer box dimensions. t1, t3&isin;[.0005,.02] —
 wall thicknesses. ratio_pitch&isin;[.25,1.5], ratio_top_diameter&isin;[0,.8] — usual per-storey
 pitch/taper meaning. Fixed: ratio_shear_modulus=.3677, circular=3 (cross-section-family switch).
+
+**Seed:** BARREN — the outer-tangential-dimension sweep's feasible windows (0.02, 0.054) sit in a
+sea of 6-of-8 infeasible points with no monotonic trend to climb; the mode-switch to a stiff,
+non-coiling behavior looks intrinsic to a closed thin-wall box profile (it resists the twist the
+coiling mechanism needs), not a parameter this search under-sampled.
 
 Fuller context:
 
@@ -5196,6 +5320,8 @@ class: idea-slide
   buckling load.
 - **Stats:** n=46 → 32 coil → 32 riks → 1 good (2.79× Bessa)
   p50/p90/p100 — σ_crit: 1.86/21.94/40.42 · mcs: .53/1.29/1.49 · mls: .060/.130/.396
+  cleared: 30 of 32 decided ≥ 2× Bessa (0.2244) · novel: no — σ clears easily across this
+  family; the ratio's non-monotonic relationship to strain is what actually blocks feasibility
   best good: a=.00920 b_stiff=.01875 b_compliant=.01875 pitch=.602 top_d=.038 → σ=.3644 mcs=1.00 mls=.020
 - **Verdict:** INCONCLUSIVE · DEAD-END<br>
   By the study's adequacy bar, but the mechanism
@@ -5221,6 +5347,11 @@ class: idea-slide
 [.010,.075] — the 2 stiff legs' tangential dimension. b_compliant&isin;[.005,.030] — the 1
 compliant leg's tangential dimension. ratio_pitch&isin;[.25,1.5], ratio_top_diameter&isin;[0,.8]
 — usual per-storey pitch/taper meaning. Fixed: ratio_shear_modulus=.3677.
+
+**Seed:** BARREN — the stiffness ratio between compliant and stiff legs shows no consistent
+relationship with strain across 32 converged designs (weak, non-monotonic: ratio=0.951 stalled
+at mcs=0.160 while ratio=1.0, i.e. uniform, hit mcs≈1.0) — there is no direction to dial the
+heterogeneity in, and the best-found point never beat the uniform baseline it was meant to rescue.
 
 Fuller context:
 
@@ -5259,6 +5390,7 @@ Every hypothesis this run either fails outright or is blocked by the same recurr
 | H4 | Scale ratio_b and pitch together at slenderness=10 | ❌ | folds into run17-rectangle idea slide; feasibility collapses past smallest tested width | D6 |
 | H5 | Radially bowed longerons | ❌ | own idea slide below | D9 |
 
+ &nbsp;&middot;&nbsp; **Cost: $75.28** (floor -- strategizer's own transcript cost unrecoverable)
 </div>
 
 <!--
@@ -5298,6 +5430,8 @@ class: idea-slide
   literature citation.
 - **Stats:** n=67 → 9 coil → 9 riks → 0 good
   p50/p90/p100 — σ_crit: 0.36/1.97/4.05 · mcs: 0.36/0.47/0.78 · mls: .012/.021/.039
+  cleared: 9 of 9 decided ≥ 2× Bessa (0.2244) · novel: no — every coilable design clears σ
+  trivially near the untwisted baseline's own 0.364 kPa; mcs (compressive strain) is the gate
   best good: none (0/67 passed every criterion)
   (combines D008's 19-pt dense grid + D010's 48-pt broader search; the sharper
   finding — mcs collapses 0.9999→0.398 at the first non-circular step tested —
@@ -5326,6 +5460,10 @@ a&isin;[.004,.02], b&isin;[.01,.045] — longeron cross-section semi-axes. ratio
 [.3,1], ratio_top_diameter&isin;[0,.6] — usual per-storey pitch/taper meaning. Fixed:
 circular=2 (cross-section-family switch), n_longerons=3, n_storeys=1, twist_angle=0,
 ratio_shear_modulus=.3677.
+
+**Seed:** BARREN — already re-run once (see below) with the phase offset re-tested directly and
+still FALSIFIED; the cliff at the first non-circular step is sharp and reproduced twice, leaving
+no untried perturbation of this idea rather than a genuinely different symmetry-breaking mechanism.
 
 Fuller context:
 
@@ -5365,6 +5503,8 @@ class: idea-slide
 - **Origin:** common sense geometric hypothesis, not a literature citation.
 - **Stats:** n=48 → 45 coil → 27 riks → 1 good (0.58× Bessa)
   p50/p90/p100 — σ_crit: 1.37/8.97/16.00 · mcs: 0.44/1.00/1.00 · mls: .024/.045/.071
+  cleared: 23 of 27 decided ≥ 2× Bessa (0.2244) · novel: no — clearing the σ bar is common
+  in this family, mcs (compressive strain) is the gate that bowing itself collapses
   best good: bow_amp=.087 a=.005 b=.013 pitch=.32 top_d=.35 → σ=.0757 mcs=1.00 mls=.013
 - **Verdict:** FALSIFIED · WEAK<br>
   Bowing does the opposite of hypothesized — a
@@ -5394,6 +5534,10 @@ a&isin;[.004,.02], b&isin;[.01,.045] — cross-section semi-axes. ratio_pitch&is
 ratio_top_diameter&isin;[0,.6] — usual per-storey pitch/taper meaning. Fixed: circular=2
 (cross-section-family switch), n_longerons=3, n_storeys=1, twist_angle=0,
 ratio_shear_modulus=.3677.
+
+**Seed:** BARREN — the dose-response sweep is a clean, monotonic causal result in the wrong
+direction (more bow → less strain retained), not a noisy or ambiguous one; there is no amplitude,
+sign, or profile of "bow" left to try that the mechanism itself doesn't already rule out.
 
 Fuller context:
 
@@ -5436,6 +5580,7 @@ The run that broke the SCLF "486 kPa" headline (real physics, invalid strain) an
 | H7 | Anisotropic rectangle, reversed (compound claim) | ❔ | under-powered; folds into run17-rectangle-anchor slide | D6 |
 | H8 | Anisotropic rectangle, reversed (clean existence claim) | ✅ | becomes the study's canonical anchor; own idea slide below | D6 |
 
+ &nbsp;&middot;&nbsp; **Cost: $65.62** (floor -- strategizer's own transcript cost unrecoverable)
 </div>
 
 <!--
@@ -5477,7 +5622,10 @@ class: idea-slide
   Free: none — untestable, see Verdict
 - **Origin:** direct mechanistic extension of the SCLF (circular) family —
   common sense, not a literature citation.
-- **Stats:** n=0 — untestable (hard software-capability gap, see Verdict)<br>
+- **Stats:** n=0 &rarr; 0 coil &rarr; 0 riks &rarr; 0 good — untestable (hard software-capability
+  gap, see Verdict)<br>
+  quartiles unavailable — no design was ever built, so there is no population to compute over<br>
+  cleared: none (0 decided) &middot; novel: untested — the geometry itself could never be built<br>
   best good: none (0/0)
 - **Verdict:** INCONCLUSIVE · UNTESTABLE<br>
   Genuinely so: the hypothesis as literally
@@ -5505,6 +5653,12 @@ class: idea-slide
 </div>
 
 <!--
+**Seed:** BARREN — reviving this literally requires an Abaqus kernel with a native
+`EllipticalProfile`/`DURING_ANALYSIS`-compatible section, an infra change outside this study's
+control; the mechanistic question it was asking (anisotropic torsional stiffening) was already
+substituted and tested as this run's H6 and came back FALSIFIED, so the physics question this
+idea wanted answered is closed even though the literal geometry was never built.
+
 Fuller context:
 
 - This is H4 of run `20260705T181941`, delegation D005 (introspection: confirmed
@@ -5544,6 +5698,8 @@ class: idea-slide
   literature citation.
 - **Stats:** n=50 → 50 coil → 50 riks → 9 good (1.23× Bessa)
   p50/p90/p100 — σ_crit: .22/4.54/13.15 · mcs: .99/1.00/1.00 · mls: .022/.055/.098
+  cleared: 23 of 50 decided ≥ 2× Bessa (0.2244) · novel: yes — a genuinely varied sweep over
+  side/pitch/top_diameter, not a repeated point; mls (local strain) is what blocks feasibility
   best good: side=.0097 pitch=.25 top_d=.218 → σ=.160 mcs=1.00 mls=.020
 - **Verdict:** FALSIFIED · WEAK<br>
   Contradicted by an adequate,
@@ -5566,6 +5722,11 @@ class: idea-slide
 ratio_top_diameter&isin;[0,.6] — usual per-storey pitch/taper meaning. Fixed:
 ratio_shear_modulus=.3677, circular=2 (cross-section-family switch), n_longerons=3,
 n_storeys=1, twist_angle=0.
+
+**Seed:** BARREN — the shortfall (18.4%) is the same radius^4-stiffness-vs-linear-strain trade-off
+this run's H2 established analytically for the circular family; the square section edges circular
+slightly at matched strain but doesn't escape the trade-off, and there is no reason a different
+cross-section shape family would either (each subsequent variant re-confirms the same ceiling).
 
 Fuller context:
 
@@ -5604,6 +5765,8 @@ class: idea-slide
   mirror of this run's own H6, common sense, not a literature citation.
 - **Stats:** n=165 → 149 coil → 148 riks → 6 good (2.79× Bessa)
   p50/p90/p100 — σ_crit: .86/4.26/7.52 · mcs: .80/1.00/1.00 · mls: .022/.034/.043
+  cleared: 131 of 148 decided ≥ 2× Bessa (0.2244) · novel: yes — spans 3 independent BO
+  campaigns over the same 4D box, not repeats of one point
   best good: a=.0092 b=.0188 pitch=.602 top_d=.038 → σ=.3644 mcs=1.00 mls=.0195
   (3 of the 6 also clear this run's own higher 0.196 kPa target; headline
   slenderness=16.04)
@@ -5691,6 +5854,7 @@ The run that discovered circular cross-sections can pass Stage 2 where generaliz
 | H4 | SCLF thick design (same finding as H2) | ❌ | same headline, later invalidated; see idea slide | D5 |
 | H5 | Smaller top-ring SCLF variant | ❌ | 83.68% strain — smaller ring makes h_min LARGER, opposite of predicted | D5 |
 
+ &nbsp;&middot;&nbsp; **Cost: $10.79** (floor -- strategizer's own transcript cost unrecoverable)
 </div>
 
 <!--
@@ -5729,6 +5893,8 @@ class: idea-slide
   demonstration.
 - **Stats:** n=42 → 28 coil → 5 riks → 0 good (mls never measured this campaign)
   p50/p90/p100 — σ_crit: 431.8/497.8/505.7 · mcs: .837/.892/.901 · mls: not measured
+  cleared: 5 of 5 decided ≥ 2× Bessa (0.2244) · novel: yes — 5 materially different refinement
+  points, not repeats; mls (never measured) is the gate that later invalidated all of them
   best good: none (0/42 passed every criterion)
 - **Verdict:** SUPPORTED (RETRACTED) · DEAD-END<br>
   As existence at the time — circular passes Stage 1
@@ -5752,6 +5918,10 @@ diameter. ratio_pitch&isin;[.25,1.5], ratio_top_diameter&isin;[0,.8] — usual p
 pitch/taper meaning. Fixed: circular=1 (cross-section-family switch), n_longerons=3,
 twist_angle=0, ratio_shear_modulus=.43681, and the generalized-optimum moments this campaign
 was testing against (area=.00215, Ixx=1.35e-6, Iyy=1.24e-6, J=6.65e-6).
+
+**Seed:** BARREN — the invalidating local-strain measurement (24.7%) is 12× over the 2% PLA
+limit, the same order-of-magnitude gap this deck treats as unclosable elsewhere; the design's
+real legacy is the three-criteria contract it forced into existence, not a refinement candidate.
 
 Fuller context:
 
@@ -5804,6 +5974,7 @@ Three genuinely new mechanisms this run (multi-storey, n=5 longerons, extended-J
 | H6 | Stage-2 Riks test of H5's D4 design | ❌ | 32% strain, not 90%; folds into extended-J slide | D2 |
 | H7 | Stage-2 Riks test of H5's C4 design | ❌ | 9% strain, even worse; folds into extended-J slide | D2 |
 
+ &nbsp;&middot;&nbsp; **Cost: $28.23** (floor -- strategizer's own transcript cost unrecoverable)
 </div>
 
 <!--
@@ -5843,6 +6014,7 @@ class: idea-slide
   p50/p90/p100 — σ_crit (coilable only): 5.6/64.3/65.0 · mcs: not tracked · mls: not tracked
   (best coilable is 99.5% of the single-storey Bessa optimum by Stage-1
   σ_crit alone — never checked against real feasibility)
+  cleared: none (0 decided) &middot; novel: untested — Stage 2 never ran this campaign
   best good: none (0/32 passed every criterion)
 - **Verdict:** INCONCLUSIVE · DEAD-END<br>
   The topology recovers almost all of the
@@ -5868,6 +6040,11 @@ class: idea-slide
 ratio_area&isin;[1.17e-5,4.1e-3], ratio_Ixx&isin;[1e-7,1.4e-6], ratio_Iyy&isin;[1e-7,1.4e-6],
 ratio_J&isin;[1e-6,7.77e-6] — generalized cross-section moments (Bessa's own 7D
 parametrization). Fixed: n_longerons=3, n_storeys=2.
+
+**Seed:** FERTILE — the lower-dimensional rectangle-family reparametrization that actually tracks
+mcs/mls has only spent 40 of its own planned 120-eval budget (phase 1 zero-feasible, correctly
+declined to zoom further with no incumbent); the max-J-at-half-pitch point extrapolated at ~75.9
+kPa (clearing both floors) was flagged as the natural next step and still hasn't been directly run.
 
 Fuller context:
 
@@ -5941,6 +6118,7 @@ class: idea-slide
 - **Stats:** n=31 (D005's own ledger; "48-evaluation" in an earlier draft
   could not be corroborated) → 20 coil → 0 riks → 0 good (Stage 2 never run)
   p50/p90/p100 — σ_crit (coilable only): 61.5/71.2/71.6 · mcs: not tracked · mls: not tracked
+  cleared: none (0 decided) &middot; novel: untested — Stage 2 never ran this campaign
   best good: none (0/31 passed every criterion)
 - **Verdict:** SUPPORTED · DEAD-END<br>
   As registered — but with an important nuance: none
@@ -5966,6 +6144,11 @@ class: idea-slide
 cross-section moments (Bessa's own 7D parametrization). ratio_pitch&isin;[.25,1.5],
 ratio_top_diameter&isin;[0,.8] — usual per-storey pitch/taper meaning. n_longerons&isin;[3,6] —
 the axis under test (main batch fixes it at 5; anchors also test 4, 6). Fixed: n_storeys=1.
+
+**Seed:** BARREN — the independence from n_longerons is analytical, not a search artifact
+(λ_cr ∝ n×J and the /n per-longeron normalization exactly cancels it), so no re-sweep of this
+axis at any other cross-section would change the conclusion; it is a dimension the design space
+can vary freely without it opening or closing performance, not a lead to chase further.
 
 Fuller context:
 
@@ -6011,7 +6194,10 @@ class: idea-slide
   axis — σ_cr,nd scales with GJ, and the Bessa optimum sits at only 86%
   of max ratio_J.
 - **Stats:** n=18 → 16 coil → 1 riks → 0 good<br>
-  σ_crit/mcs (n=1, only C4 genuinely converged): 76.1 kPa / .090 · mls: not measured<br>
+  quartiles unavailable — only 1 design genuinely converged (C4: σ_crit=76.1 kPa, mcs=.090,
+  mls not measured); D4's closer near-miss never reached a converged Riks solve (see notes)<br>
+  cleared: 1 of 1 decided ≥ 2× Bessa (0.2244) · novel: yes — C4 is a genuine hollow/cellular
+  cross-section point, not a duplicate of any baseline<br>
   best good: none (0/18 passed every criterion)
 - **Verdict:** SUPPORTED · DEAD-END<br>
   Stage-1 existence supported (mechanism real, floor
@@ -6040,6 +6226,11 @@ cross-section moments, ratio_J pushed beyond the Bessa 7D dataset's own max (7.7
 ratio_pitch&isin;[.25,1.5], ratio_top_diameter&isin;[0,.8] — usual per-storey pitch/taper
 meaning (D006's Stage-1 screen; the Stage-2 anchors D4/C4 named in Timeline below fix these at
 specific points instead). Fixed: n_longerons=3, n_storeys=1.
+
+**Seed:** FERTILE — D4, the closer near-miss (32% strain), never actually converged ("too many
+attempts" mid-solve); this deck has elsewhere (D5/H4) traced an identical Riks non-convergence to
+coarse arc-length settings rather than a real physics wall, so a finer-step re-solve of D4 alone
+would settle whether the GJ-vs-coiling tradeoff genuinely blocks it or was never properly tested.
 
 Fuller context:
 
@@ -6081,6 +6272,7 @@ This run proposed two new mechanisms (pre-twist, longeron count) but completed z
 | H1 | Pre-twisted longerons (twist_angle ∈ [π/6, π]) | ❔ | zero evals this run; resolved next run — suggestive negative, underpowered; own idea slide below | D1 |
 | H2 | n_longerons &isin; &#123;4,5&#125; — path past Bessa's fixed 3-longeron design | ✅ | zero evals this run; resolved next run as SUPPORTED (65.31–71.59 kPa, still below the 75.1 kPa floor) | D3 |
 
+ &nbsp;&middot;&nbsp; **Cost: $9.16** (floor -- strategizer's own transcript cost unrecoverable)
 </div>
 
 <!--
@@ -6120,6 +6312,7 @@ class: idea-slide
 - **Stats:** n=46 → 6 coil → 0 riks → 0 good (Stage 2 never run this campaign)
   p50/p90/p100 — σ_crit (coilable only): 7.3/43.6/65.3 · mcs: not tracked · mls: not tracked
   (every coilable design at or below the twist=0 baseline, 65.31 kPa)
+  cleared: none (0 decided) &middot; novel: untested — Stage 2 never ran this campaign
   best good: none (0/46 passed every criterion)
 - **Verdict:** INCONCLUSIVE · DEAD-END<br>
   The mechanism does not work — pre-twist destroys
@@ -6144,6 +6337,11 @@ class: idea-slide
 [1e-7,1.4e-6], ratio_Iyy&isin;[1e-7,1.4e-6], ratio_J&isin;[1e-6,7.77e-6] — generalized
 cross-section moments (Bessa's own 7D parametrization). ratio_pitch&isin;[.25,1.5],
 ratio_top_diameter&isin;[0,.8], ratio_shear_modulus&isin;[.334,.45]. Fixed: n_longerons=3.
+
+**Seed:** BARREN — technically underpowered (46/80 evals, license outage) but the trend among
+coilable designs is monotonically decreasing with twist (30°→52.93 kPa, 90°→15.69 kPa, then
+zero coilable beyond that), and a separately-powered test of twist on a different cross-section
+family found the same direction — completing the missing 34 evals would not change the sign.
 
 Fuller context:
 
