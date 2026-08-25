@@ -801,24 +801,30 @@ an OUTPUT annotation (`_imperfection_rad`), never as a declared input — so a3d
 (which correctly keys on whatever's in `_input_data`, and is NOT itself buggy) cannot distinguish
 two imperfection draws at the same nominal geometry and silently keeps only the first. D014 alone
 disclosed 28 real Abaqus invocations behind just 11 ledgered rows. Root-caused and documented in
-`docs/TRAPS.md` #9 (2026-08-25 update) with the fix already precedented elsewhere in this repo
-(`bo/oracle_kresling_imperfection.py` promotes imperfection to a real domain parameter for exactly
-this reason) — not applied here, since it changes a shared wrapper 3 oracle files depend on.
+`docs/TRAPS.md` #9. **FIXED 2026-08-25 (later the same day, post-run):** `_imperfection_rad` now
+stores `which="input"` when a real value is given (never for the non-sampling `imp=None` case —
+a NaN there would break dedup for every other oracle, since NaN != NaN defeats the dedup key).
+Self-tested, applied to all 3 call sites, committed.
 
-A SECOND, SMALLER CAPABILITY GAP: no tool exists to revise a hypothesis's own registered
-`prediction`/`falsification_criterion` text after proposal (only propose-new or retract-to-OPEN).
-H5's wording turned out ambiguous mid-campaign; the only compliant path was abandoning it for a
-freshly-worded H6 rather than fixing the wording in place, costing 3 wasted HypothesisUpdate
-round-trips before the workaround was found. This is a hypothesis-lifecycle change (CLAUDE.md
-Section 4 reserves that for the user's call), not something fixed here.
+A SECOND, SMALLER CAPABILITY GAP (RESOLVED, NO ACTION): no tool exists to revise a hypothesis's
+own registered `prediction`/`falsification_criterion` text after proposal. Considered adding one
+— rejected on review: it would let a hypothesis's wording be adjusted after seeing which evidence
+is favorable, which is goalpost-moving by another name. The propose-new/retract-old pattern H5→H6
+already used is the correct guard, not a workaround for a missing feature. No change.
 
-INFRA NOT YET PROMOTED TO GOLD. `bo/oracle_bistable_arch.py`, `bo/oracle_twist_buckle.py`,
-`bo/oracle_twist_buckle_locked.py` (866 lines) + 6 supporting scripts (6339 lines), all built
-fresh this run. `bo/oracle_bistable_arch.py` in particular has never been committed despite
-bistable_arch/D24 existing in this deck's backlog since run `20260727T011550` — the prior build
-was wiped by run.sh's own gold-restore `git clean -fdq scripts bo` after that earlier run closed,
-and D008 had to re-migrate the pre-processor to ground+top-disc contact from scratch this run.
-Recommend committing so the next run touching either family doesn't repeat that cost.
+INFRA PROMOTED TO GOLD (2026-08-25, later the same day). `bo/oracle_bistable_arch.py`,
+`bo/oracle_twist_buckle.py`, `bo/oracle_twist_buckle_locked.py` (866 lines) + 6 supporting scripts
+(6339 lines), all built fresh this run, committed so the next run touching either family doesn't
+rebuild from scratch.
+
+DEDUP POLICY (keep-first vs. keep-last): raised to the a3dasm maintainer. Initial take here was
+that keep-last "strictly dominates" (fixes the corrected-re-run case, no-ops elsewhere) — wrong,
+per the maintainer's correction: this study's Riks solves are not guaranteed deterministic (contact
++ stabilization + adaptive arc-length stepping), so a "last" call can just as easily be a flaky
+partial re-solve as a genuine fix. Under non-determinism, no *implicit* default-overwrite policy
+is safe in either direction — which is exactly why `supersede()` already exists as an explicit,
+audit-logged action instead of an automatic one. Not fixed here; a3dasm's write invariants are
+the maintainer's call, correctly.
 
 COST RECONCILIATION. telemetry/summary.json recorded $46.71 total, with an EMPTY strategizer
 entry in by_role (this run's strategizer transcript cost is entirely absent from that file, not
