@@ -6219,7 +6219,7 @@ The run that broke the SCLF "486 kPa" headline (real physics, invalid strain) an
 |---|---|---|---|---|
 | H1 | Re-test "thick SCLF" under the new local-strain criterion | ✅ | mls=24.7% — invalidates SCLF; see that slide | D5 |
 | H2 | SCLF family ceiling: stiffness-vs-strain trade-off (analytical) | ✅ | no circular design breaks it, 95 evals, above-chance surrogates | D5 |
-| H3 | n_storeys=2 lowers curvature/strain | ❌ | mechanism runs backwards — strain rose 13.5%; folds into multi-storey slide | D4 |
+| H3 | n_storeys=2 lowers curvature/strain | ❔ | mechanism runs backwards — strain rose 13.5%; folds into multi-storey slide | D4 |
 | H4 | Elliptical cross-section | ❔ | untestable — Abaqus 2024 has no EllipticalProfile; own idea slide below | D8 |
 | H5 | Square cross-section | ❌ | own idea slide below | D7 |
 | H6 | Anisotropic rectangle, original orientation | ❌ | folds into run17-rectangle-anchor slide | D6 |
@@ -6509,9 +6509,9 @@ The run that discovered circular cross-sections can pass Stage 2 where generaliz
 | # | Claim | Verdict | Key evidence | Idea |
 |---|---|---|---|---|
 | H1 | Generalized Bessa-optimum Stage-2 Riks test (J=6.65e-6) | ❌ | 9.23% strain, not 90%; motivates the SCLF pivot | D2 |
-| H2 | Solid Circular Longeron Family (SCLF), existence test | ❌ | 486 kPa at 90.06% strain — later invalidated (mls=24.7%, 12× the limit); own idea slide below | D5 |
+| H2 | Solid Circular Longeron Family (SCLF), existence test | ✅ | 486 kPa at 90.06% strain — later invalidated (mls=24.7%, 12× the limit); own idea slide below | D5 |
 | H3 | Shorter-pitch SCLF variant (ratio_pitch=0.30–0.40) | ❌ | best 50.91% strain; pitch=0.30 not even coilable | D5 |
-| H4 | SCLF thick design (same finding as H2) | ❌ | same headline, later invalidated; see idea slide | D5 |
+| H4 | SCLF thick design (same finding as H2) | ✅ | same headline, later invalidated; see idea slide | D5 |
 | H5 | Smaller top-ring SCLF variant | ❌ | 83.68% strain — smaller ring makes h_min LARGER, opposite of predicted | D5 |
 
  &nbsp;&middot;&nbsp; **Cost: $10.79** (floor -- strategizer's own transcript cost unrecoverable)
@@ -6929,8 +6929,8 @@ This run proposed two new mechanisms (pre-twist, longeron count) but completed z
 
 | # | Claim | Verdict | Key evidence | Idea |
 |---|---|---|---|---|
-| H1 | Pre-twisted longerons (twist_angle ∈ [π/6, π]) | ❔ | zero evals this run; resolved next run — suggestive negative, underpowered; own idea slide below | D1 |
-| H2 | n_longerons &isin; &#123;4,5&#125; — path past Bessa's fixed 3-longeron design | ✅ | zero evals this run; resolved next run as SUPPORTED (65.31–71.59 kPa, still below the 75.1 kPa floor) | D3 |
+| H1 | Pre-twisted longerons (twist_angle ∈ [π/6, π]) | ⏳ | zero evals this run; resolved next run — suggestive negative, underpowered; own idea slide below | D1 |
+| H2 | n_longerons &isin; &#123;4,5&#125; — path past Bessa's fixed 3-longeron design | ⏳ | zero evals this run; resolved next run as SUPPORTED (65.31–71.59 kPa, still below the 75.1 kPa floor) | D3 |
 
  &nbsp;&middot;&nbsp; **Cost: $9.16** (floor -- strategizer's own transcript cost unrecoverable)
 </div>
