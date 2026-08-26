@@ -3463,6 +3463,13 @@ TWO FINDINGS THAT GENERALISE BEYOND THIS FAMILY, both from the subagent:
   Abaqus rules both trying to dictate the same node's motion at once. The
   element-based families are not known to have this, but they have not been checked and their
   top rings descend onto the same floor.
+
+Verified 2026-08-26 (deck audit, item 1): pulled the raw on/off probe JSON from git history
+(commit 2979e35, debug/template_check/tensegrity_contact.json, not on main). All four headline
+numbers reproduce essentially exactly: ring_passthrough detail "node 6 below bottom ring by
+50.1528" (off) vs False (on); energy_absorbed 18.202->33.780 kPa = +85.6% (rounds to +86%);
+sigma_peak literally bit-identical (321.78315269057293 in both runs, to every digit shown); mls
+9.037e-14 (off, matches "9x10^-14" exactly) -> 0.033613 = 3.36% (rounds to 3.4%, on).
 -->
 
 ---
