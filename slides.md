@@ -4948,28 +4948,25 @@ ratio_top_diameter&isin;[0,.8] — usual per-storey pitch/taper meaning. Fixed: 
 mechanism ceiling, not an under-search artifact, and no perturbation within this parameter box
 plausibly closes three orders of magnitude.
 
-Full context:
+**Timeline:** Stats-migration note (2026-08-04): among the 50 converged designs, &sigma;_crit is
+easy to push high unconstrained (p90=2.64 kPa) — only the strain constraint (mls, already over
+the 0.02 limit at the median) blocks it; the trade-off is sharp, not a search-coverage gap. This is
+hypothesis H2 of run `20260718T071133`, delegation D005 (50-eval CEI-BO campaign over the
+laced/battened two-chord longeron). Originally left INCONCLUSIVE per the verdict validator's
+critique: with feasibility this sparse (2%), a zero-or-near-zero hit rate could have meant either
+"this mechanism is bad" or "the search never found where it's good" -- indistinguishable without
+more power. REVISED 2026-08-03 once the study settled a concrete existence-testing default
+(n_doe=48, giving p<=6.25% confidence on a zero-hit read): 50 evals already clears that bar, and
+unlike the zero-hit case this campaign found a REAL feasible point -- existence is directly
+observed, not inferred from an absence. The only open question was ever competitiveness, and a
+1000x gap from target is decisive on its own terms; no plausible amount of additional search
+closes three orders of magnitude from a single documented mechanism. Flipped INCONCLUSIVE ->
+FALSIFIED.
 
-- Stats-migration note (2026-08-04): among the 50 converged designs, &sigma;_crit
-  is easy to push high unconstrained (p90=2.64 kPa) — only the strain constraint
-  (mls, already over the 0.02 limit at the median) blocks it; the trade-off is
-  sharp, not a search-coverage gap.
-- This is hypothesis H2 of run `20260718T071133`, delegation D005 (50-eval CEI-BO
-  campaign over the laced/battened two-chord longeron). Originally left INCONCLUSIVE
-  per the verdict validator's critique: with feasibility this sparse (2%), a
-  zero-or-near-zero hit rate could have meant either "this mechanism is bad" or
-  "the search never found where it's good" -- indistinguishable without more power.
-  REVISED 2026-08-03 once the study settled a concrete existence-testing default
-  (n_doe=48, giving p<=6.25% confidence on a zero-hit read): 50 evals already clears
-  that bar, and unlike the zero-hit case this campaign found a REAL feasible point --
-  existence is directly observed, not inferred from an absence. The only open
-  question was ever competitiveness, and a 1000x gap from target is decisive on its
-  own terms; no plausible amount of additional search closes three orders of
-  magnitude from a single documented mechanism. Flipped INCONCLUSIVE -> FALSIFIED.
-- ODB: data/idea_odbs/20260718T071133_H2_laced_built_up/SUPERCOMPRESSIBLE_RIKS.odb,
-  sourced from presentation/resim/built_up/riks_4a8e6e6a4c504a5abfa2ef1b0d5f21c1.
-  Rendered cleanly through the full native pipeline; the twin-chord (two-parallel-rod)
-  construction of each longeron and its coiling motion are clearly visible.
+**Infra:** ODB: data/idea_odbs/20260718T071133_H2_laced_built_up/SUPERCOMPRESSIBLE_RIKS.odb,
+sourced from presentation/resim/built_up/riks_4a8e6e6a4c504a5abfa2ef1b0d5f21c1. Rendered cleanly
+through the full native pipeline; the twin-chord (two-parallel-rod) construction of each longeron
+and its coiling motion are clearly visible.
 -->
 
 ---
