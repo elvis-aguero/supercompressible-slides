@@ -3391,6 +3391,16 @@ ON THE OLD "CLOSEST MISS" FRAMING: design C is recorded as failing only criterio
 Under the current window it exceeds the strain limit at 20% compression -- a quarter of the way
 to the requirement. Same curve, same verdict, but "1.38x over on strain" reads as a near miss and
 "blows the budget a fifth of the way down" is what the data says.
+
+Verified 2026-08-26 (deck audit, item 1): pulled the raw 256-design sweep JSON from git history
+(commit 23cac27, renamed from job 4794837's original path -- not on main) and independently
+recomputed the full funnel: 256 evaluable -> 50 coilable -> 36 reached a verdict
+(window_closed_before_failure=1) -> 8 sentinel-zero -> 28 decided, all exact matches. mcs<0.80 in
+28/28, mls>0.02 in 0/28, ring_passthrough in 8/28, best mcs=0.2149 (21%) -- all exact. alpha_tape
+vs mcs: rho=-0.600 exact, raw p=0.0007 (Holm-adjusted across 6 params ~0.004, consistent with the
+cited 0.003). mcs percentiles p50/p90 (0.0203/0.0546 recomputed vs 0.0215/0.0533 cited) differ by
+2-6%, plausibly a different percentile-interpolation convention at n=28 -- not chased further,
+non-material to any claim on this slide.
 -->
 
 ---
