@@ -720,7 +720,8 @@ compression strain (mcs), and at most 2% maximum local strain (mls).
 
 - **Design:** circular longeron cross-section, 3 longerons, 1 storey. Circular top and bottom rings
 - **Geometry:** ratio_d=0.02005, ratio_pitch=0.25, ratio_top_diameter=0.2505.
-- **Result:** <u>&sigma;_cr,nd=0.1306 kPa/longeron</u>, mls=0.0198, mcs &gt;= 0.8.
+- **Result:** <u>&sigma;_peak=0.1122 kPa/longeron</u> (current metric; 0.1306 kPa in the retired
+  eigenvalue metric &mdash; same solve, see notes), mls=0.0198, mcs &gt;= 0.8.
 
 <div class="text-xs opacity-50 mt-2">
 Verdict symbols used throughout: ✅ supported &middot; ❌ falsified &middot; ❔ inconclusive &middot; ⏳ pending (registered, not yet tested this run).
@@ -755,6 +756,17 @@ Deliberately NOT following the 4-bullet What/Origin/Stats/Verdict idea-slide
 template -- this is not a hypothesis this study tested, it's an external
 reference point, so there is no verdict to render. Per explicit user instruction:
 describe the design and show the gif, no reasoning/justification needed.
+
+Corrected 2026-08-26 (deck audit, item 1): this slide's headline read sigma_cr,nd=0.1306 kPa
+unqualified -- the retired Stage-1 eigenvalue metric, per PROBLEM_STATEMENT.md's own text
+("0.1122 kPa/longeron in the current sigma_peak metric (0.1306 kPa in the retired eigenvalue
+metric)"). Every x-Bessa figure elsewhere in this deck is computed against 0.1122, so the deck's
+own foundational reference slide was showing a number inconsistent with what it is the reference
+FOR. Verified directly, not just from the PS's own prose: re-reduced the SAME archived ODB
+(data/idea_odbs/bessa_baseline/results.pkl, no new solve needed) via the current windowed
+sigma_peak methodology (peak of the real load-displacement response within the compression-cap
+window) -- gives 0.112199 kPa, matching PROBLEM_STATEMENT.md's 0.1122 to the digit. No new solve
+was run; this is the same 2026-07-31 ODB, read two ways.
 -->
 
 ---
