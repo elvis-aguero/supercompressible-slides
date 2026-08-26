@@ -5734,8 +5734,13 @@ class: idea-slide
 
 ::right::
 
-<div class="flex items-center justify-center h-full">
-  <img src="/gifs/flexure_hinge_native.gif" class="max-h-100 rounded shadow-lg" />
+<div class="flex flex-col gap-2" style="height: 460px">
+  <div class="flex items-center justify-center" style="height: 175px">
+    <img src="/gifs/flexure_hinge_mini.png" style="max-height: 175px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 277px">
+    <img src="/gifs/flexure_hinge_landscape.gif" class="rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
+  </div>
 </div>
 
 <!--
@@ -5870,8 +5875,13 @@ class: idea-slide
 
 ::right::
 
-<div class="flex items-center justify-center h-full">
-  <img src="/gifs/heterogeneous_longerons_native.gif" class="max-h-100 rounded shadow-lg" />
+<div class="flex flex-col gap-2" style="height: 460px">
+  <div class="flex items-center justify-center" style="height: 175px">
+    <img src="/gifs/heterogeneous_longerons_mini.png" style="max-height: 175px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 277px">
+    <img src="/gifs/heterogeneous_longerons_landscape.gif" class="rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
+  </div>
 </div>
 
 <!--
