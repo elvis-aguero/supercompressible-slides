@@ -2223,6 +2223,15 @@ sampler (`_frame_indices`, a deliberate 2026-08-06 fix for stalled solves) silen
 any event with high force change but near-zero displacement change -- exactly what a late contact
 engagement against a near-frozen structure looks like. Not yet committed to gold as of this slide;
 flagged for promotion.
+
+Verified 2026-08-26 (deck audit, item 1): the SLURM job artifacts (5081026/5081207) backing the
+mesh-refinement divisor table no longer exist on scratch (expected -- this predates the study's
+git-committed-JSON convention this audit relied on elsewhere), so those specific numbers were not
+independently re-derived. Instead, confirmed the claimed cross-run reproduction is real: read
+`runs/20260819T022742/debug/strategizer_notes/hypotheses.json` directly -- H6 FALSIFIED (strain
+reading not mesh-converged), H8 FALSIFIED (sigma_peak=1.0723 not mesh-converged), H9 INCONCLUSIVE
+(fillet did not cleanly rescue it), H10 FALSIFIED (even a quasi-static-validated Explicit solve
+fails to reach coilability) -- all four match this slide's narrative exactly.
 -->
 
 ---
