@@ -1140,28 +1140,30 @@ rotation) is a specific, named, untried fix, not a vague "try more parameters": 
 joint so each rod can genuinely twist independently of the ring's own rigid-body rotation, then
 re-test whether twist_energy_fraction actually rises toward the paper's own regime.
 
-Fuller context:
+**Deferred:** This is explicitly a BOUNDED diagnostic screening (21 evals total), not
+the pre-registered ~60&ndash;100-eval falsification campaign — the strategizer judged
+the converging bounded negative (worsening, not plateauing, toward the mechanism's own
+preferred regime) decisive enough not to spend the full committed budget on the same
+joint-coupling realization.
 
-- This is H3 (free rotation, the true mechanism) + H4 (rotation-locked control) of run
-  `20260825T012642`, delegations D003 (oracle build) + D004 (12-point grid: ratio_pitch&isin;
-  {0.5,0.8}, slenderness=12, twist 2&ndash;60&deg;) + D005 (8-point grid at ratio_pitch=1.50, the
-  domain's max and the low end of Fang et al.'s own preferred h0/R=3&ndash;6 regime) + D006 (H4's
-  single diagnostic sample + the literature check that closed it).
-- H4 was briefly FALSIFIED, then corrected to INCONCLUSIVE per a Duhem-Quine confound: the legacy
-  coilability gate checks exactly the top-RP ur3 DOF H4 locked to zero, so it reads 0 by
-  construction regardless of whether rod-local twist buckling occurs, and Stage 2 (where
-  twist_energy_fraction is actually measured) was never reached on H4's own single sample. The
-  independent literature argument stands regardless: Fang et al.'s Extended Data Fig. 7/10
-  explicitly labels the locked/non-rotatable BC their own "nonchiral" comparison case, producing
-  ordinary bending, not more twist.
-- This is explicitly a BOUNDED diagnostic screening (21 evals total), not the pre-registered
-  ~60&ndash;100-eval falsification campaign — the strategizer judged the converging bounded
-  negative (worsening, not plateauing, toward the mechanism's own preferred regime) decisive
-  enough not to spend the full committed budget on the same joint-coupling realization.
-- GIF: native Abaqus/CAE Viewer export, standard pipeline. The design shown
-  (twist_energy_fraction=1.13e-4, this campaign's own ceiling) is the closest any tested point
-  came to the hypothesized mode — visibly an ordinary coiling collapse, not visibly "twisting,"
-  consistent with the numeric finding.
+**Timeline:** This is H3 (free rotation, the true mechanism) + H4 (rotation-locked
+control) of run `20260825T012642`, delegations D003 (oracle build) + D004 (12-point
+grid: ratio_pitch&isin;{0.5,0.8}, slenderness=12, twist 2&ndash;60&deg;) + D005
+(8-point grid at ratio_pitch=1.50, the domain's max and the low end of Fang et al.'s
+own preferred h0/R=3&ndash;6 regime) + D006 (H4's single diagnostic sample + the
+literature check that closed it). H4 was briefly FALSIFIED, then corrected to
+INCONCLUSIVE per a Duhem-Quine confound: the legacy coilability gate checks exactly
+the top-RP ur3 DOF H4 locked to zero, so it reads 0 by construction regardless of
+whether rod-local twist buckling occurs, and Stage 2 (where twist_energy_fraction is
+actually measured) was never reached on H4's own single sample. The independent
+literature argument stands regardless: Fang et al.'s Extended Data Fig. 7/10
+explicitly labels the locked/non-rotatable BC their own "nonchiral" comparison case,
+producing ordinary bending, not more twist.
+
+**Infra:** GIF: native Abaqus/CAE Viewer export, standard pipeline. The design shown
+(twist_energy_fraction=1.13e-4, this campaign's own ceiling) is the closest any tested
+point came to the hypothesized mode — visibly an ordinary coiling collapse, not
+visibly "twisting," consistent with the numeric finding.
 -->
 
 ---
@@ -3797,29 +3799,27 @@ independently when D27 reverted to discrete members and still failed strict coil
 Further thinning the shell just converges toward an ordinary discrete beam cross-section,
 already tested extensively elsewhere in this study.
 
-Full context:
+**Deferred:** Coilability check for this family is stricter than the shared
+`supercompressible_lin_buckle_pp.py` convention used by every discrete-member family:
+it requires the top ring's rotation AND axial descent to be non-trivial RELATIVE TO
+the shell wall's own local deformation scale (not just non-zero in absolute terms),
+specifically to rule out cases where the wall's own local wrinkling dominates and a
+tiny absolute rotation is just noise riding on top of it. Under the weaker,
+shared-convention "legacy" threshold (rotation present AND near-zero absolute lateral
+displacement), 4/68 pass — so there is a genuine, unresolved daylight between the two
+coilability definitions for this family, not fully adjudicated this run.
 
-- This is H1 of run `20260804T221559`, delegation D003 (build) + D004 (80-pt
-  LHS sweep, seed=0, 20 per n_lobes&isin;&#123;3,4,5,6&#125;). ODB archived at
-  data/idea_odbs/20260804T221559_D004_chiral_shell_tube/ (a TYPICAL member of
-  the sweep, not a "best" point — per this deck's no-winner convention;
-  n_lobes=3, A_max=0.1997, twist_chirality=2.521 rad, t_shell=0.978mm,
-  ratio_pitch=0.4292, ratio_top_diameter=0.1733).
-- Coilability check for this family is stricter than the shared
-  `supercompressible_lin_buckle_pp.py` convention used by every discrete-
-  member family: it requires the top ring's rotation AND axial descent to be
-  non-trivial RELATIVE TO the shell wall's own local deformation scale (not
-  just non-zero in absolute terms), specifically to rule out cases where the
-  wall's own local wrinkling dominates and a tiny absolute rotation is just
-  noise riding on top of it. Under the weaker, shared-convention "legacy"
-  threshold (rotation present AND near-zero absolute lateral displacement),
-  4/68 pass — so there is a genuine, unresolved daylight between the two
-  coilability definitions for this family, not fully adjudicated this run.
-- GIF: native Abaqus/CAE Viewer export of the LIN_BUCKLE step's Mode 1 frame,
-  rendered 2026-08-05. This is a *BUCKLE step (eigenvalue analysis, 21
-  frames = base + 20 requested modes), not a Riks history — required a fix
-  to `presentation/render/render_odb.py` (AUTO deformation scaling instead
-  of uniform x1, and restricting playback to frames [0,1] instead of
+**Timeline:** This is H1 of run `20260804T221559`, delegation D003 (build) + D004
+(80-pt LHS sweep, seed=0, 20 per n_lobes&isin;&#123;3,4,5,6&#125;).
+
+**Infra:** ODB archived at data/idea_odbs/20260804T221559_D004_chiral_shell_tube/ (a
+TYPICAL member of the sweep, not a "best" point — per this deck's no-winner
+convention; n_lobes=3, A_max=0.1997, twist_chirality=2.521 rad, t_shell=0.978mm,
+ratio_pitch=0.4292, ratio_top_diameter=0.1733). GIF: native Abaqus/CAE Viewer export
+of the LIN_BUCKLE step's Mode 1 frame, rendered 2026-08-05. This is a *BUCKLE step
+(eigenvalue analysis, 21 frames = base + 20 requested modes), not a Riks history —
+required a fix to `presentation/render/render_odb.py` (AUTO deformation scaling
+instead of uniform x1, and restricting playback to frames [0,1] instead of
   subsampling across all 20 unrelated eigenmodes) since neither existed
   before this idea needed to render a non-coiling buckle-only result.
 -->
@@ -3877,27 +3877,23 @@ suggests this family is genuinely closer to real coiling than D26's monocoque tu
 whether reducing twist_total and/or B_max toward the family's own lower bound continues that
 trend into strict coilability, rather than assuming the gap is unclosable.
 
-Full context:
+**Timeline:** This is H1 of run `20260804T221559`, delegation D006 (build) + D007
+(120-pt LHS sweep, seed=2007).
 
-- This is H1 of run `20260804T221559`, delegation D006 (build) + D007
-  (120-pt LHS sweep, seed=2007). ODB archived at
-  data/idea_odbs/20260804T221559_D007_chiral_shell_vane/ (a representative
-  near-miss, not a "best" point — chosen because it clears the legacy
-  coilability proxy though not the strict one; n_longerons=3,
-  t_shell=1.313mm, W=4.225mm, B_max=5.977mm, twist_total=0.5157 rad,
-  ratio_pitch=0.7005, ratio_top_diameter=0.0742; sigma_crit=0.494 kPa, far
-  below target and not coilable regardless).
-- Fidelity gate: thin-shell validity on the vane's own peak local radius of
-  curvature (R_eff = L&sup2;/(&pi;&sup2;&middot;B_max)), requiring
-  R_eff/t_shell&ge;20 — this family's analog of the B31 slenderness&ge;10
-  floor / D25 tape-spring's R_tape/t_tape&ge;10 floor. 5/120 designs rejected
-  by this guard before the coilability check.
-- The per-longeron coupling (LOCAL_DATUM_i CARTESIAN, one local datum per
-  vane) reuses the tape-spring idea's (D25) coupling convention literally,
-  per this delegation's explicit instruction not to invent a new one.
-- GIF: same render_odb.py fix as D26 (AUTO scale, frames [0,1] only) applied
-  here too — this ODB is also a *BUCKLE step with 21 frames (base + 20
-  modes), not a Riks history.
+**Infra:** ODB archived at data/idea_odbs/20260804T221559_D007_chiral_shell_vane/ (a
+representative near-miss, not a "best" point — chosen because it clears the legacy
+coilability proxy though not the strict one; n_longerons=3, t_shell=1.313mm,
+W=4.225mm, B_max=5.977mm, twist_total=0.5157 rad, ratio_pitch=0.7005,
+ratio_top_diameter=0.0742; sigma_crit=0.494 kPa, far below target and not coilable
+regardless). Fidelity gate: thin-shell validity on the vane's own peak local radius of
+curvature (R_eff = L&sup2;/(&pi;&sup2;&middot;B_max)), requiring R_eff/t_shell&ge;20
+— this family's analog of the B31 slenderness&ge;10 floor / D25 tape-spring's
+R_tape/t_tape&ge;10 floor. 5/120 designs rejected by this guard before the
+coilability check. The per-longeron coupling (LOCAL_DATUM_i CARTESIAN, one local
+datum per vane) reuses the tape-spring idea's (D25) coupling convention literally,
+per this delegation's explicit instruction not to invent a new one. GIF: same
+render_odb.py fix as D26 (AUTO scale, frames [0,1] only) applied here too — this ODB
+is also a *BUCKLE step with 21 frames (base + 20 modes), not a Riks history.
 -->
 
 ---
@@ -4532,35 +4528,34 @@ to H2's TRUE bistable (Q&ge;2.31) chain variant, which hit a Riks convergence wa
 cases rather than a physics failure; untested whether that wall is the same class of solver
 artifact, not a real barrier.
 
-Full context:
+**Deferred:** 0.7765 kPa (this idea) is marginally above the 0.7704 kPa rectangle
+baseline (+0.8%) — a real but very thin margin, not a decisive win. IMPORTANT —
+continuum-verification caveat: per PROBLEM_STATEMENT.md's "More background" section
+and `bo/confirmed_anchors.json`'s `_README`, only `run17_rectangle` has been
+re-checked with the decisive cut-distance continuum-FE convergence study (Round 6)
+and reconfirmed valid (~1.05x local-strain amplification, well inside the 2%
+ceiling). `chained_arch` (this design) was explicitly NOT re-checked with that
+method — its 0.019394 beam-reported max_local_strain (a hair under the 2% wall) has
+never been independently verified against a continuum joint model. Treat it as an
+unconfirmed-but-not-yet-falsified counterexample, not a fully-cleared "beats
+baseline" claim, until it receives the same treatment run17_rectangle got.
 
-- Registered as H3 of run `20260723T010834` (GATED, evals_used=206). H1 of
-  this run is the oracle-wiring sanity check and is excluded from this deck
-  entirely, per the format contract. H2 (chain of TRUE bistable, Q>=2.31,
-  segments) is a refinement of this same chained-arch idea and is FALSIFIED
-  on a numerical-convergence wall (72 evals, 23/72 coilable, only 1/72
-  reaching mcs>=0.80, and that one a near-degenerate cross-section at
-  sigma=2.97e-5 kPa — not a real candidate); it does not get its own slide,
-  see this run's summary slide.
-- 0.7765 kPa (this idea) is marginally above the 0.7704 kPa rectangle
-  baseline (+0.8%) — a real but very thin margin, not a decisive win.
-- IMPORTANT — continuum-verification caveat: per PROBLEM_STATEMENT.md's
-  "More background" section and `bo/confirmed_anchors.json`'s `_README`,
-  only `run17_rectangle` has been re-checked with the decisive cut-distance
-  continuum-FE convergence study (Round 6) and reconfirmed valid (~1.05x
-  local-strain amplification, well inside the 2% ceiling). `chained_arch`
-  (this design) was explicitly NOT re-checked with that method — its
-  0.019394 beam-reported max_local_strain (a hair under the 2% wall) has
-  never been independently verified against a continuum joint model. Treat
-  it as an unconfirmed-but-not-yet-falsified counterexample, not a
-  fully-cleared "beats baseline" claim, until it receives the same
-  treatment run17_rectangle got.
-- ODB: `data/idea_odbs/20260723T010834_H3_chained_bistable_arch/` (archived
-  from scratch riks_adedcff397644c99a451e61cb6127f1b). Rendered fresh this
-  session; no native gif existed for this idea before (an old-pipeline
-  gif with a similar name does not exist under this slug — `bistable_winner.gif`
-  and `dual_arch_winner.gif` in the gifs directory belong to the different,
-  later single-arch idea below, not this chained-segment idea).
+**Timeline:** Registered as H3 of run `20260723T010834` (GATED, evals_used=206). H1 of
+this run is the oracle-wiring sanity check and is excluded from this deck entirely,
+per the format contract. H2 (chain of TRUE bistable, Q>=2.31, segments) is a
+refinement of this same chained-arch idea and is FALSIFIED on a numerical-convergence
+wall (D006's corrected campaign: 18 coilable, only 2/18 converged with valid
+stabilization, 1 met mcs/mls at sigma_crit=0.001622 kPa, ~475x below baseline — not a
+real candidate; corrected 2026-08-26 deck audit, this paragraph previously cited
+D005's own retracted 72-eval numbers); it does not get its own slide, see this run's
+summary slide.
+
+**Infra:** ODB: `data/idea_odbs/20260723T010834_H3_chained_bistable_arch/` (archived
+from scratch riks_adedcff397644c99a451e61cb6127f1b). Rendered fresh this session; no
+native gif existed for this idea before (an old-pipeline gif with a similar name does
+not exist under this slug — `bistable_winner.gif` and `dual_arch_winner.gif` in the
+gifs directory belong to the different, later single-arch idea below, not this
+chained-segment idea).
 -->
 
 ---
@@ -4687,33 +4682,30 @@ incompatibility or a solver-specific difficulty; this deck's own Explicit-dynami
 resolved an analogous convergence wall for D29/D34 without changing the design, and was never
 tried here.
 
-Full context:
+**Deferred:** Stats-migration note (2026-08-04): mcs and max_local_strain do correlate
+strongly (r=0.76) among the non-converged salvage reads for this campaign — real
+numbers, consistent with classical flexural-torsional coupling, but built entirely on
+partial/non-converged Riks reads, not genuine converged solutions, which is why the
+Verdict above leads with the solve-completion failure itself rather than this
+correlation. Do not re-attempt this exact cruciform/I-beam family expecting a
+different result: PROBLEM_STATEMENT.md explicitly lists it as a settled null result
+(0/91 feasible, r=0.76 mcs/mls correlation even in the best-mcs subset).
 
-- Registered as H2 of run `20260721T201733` (all-Sonnet, 14h, GATED,
-  evals_used=867, $59.50 for the whole run). Same run's H1 (properly-powered
-  128-eval re-test of the tapered-longeron family, best feasible 0.362763 kPa
-  = 2.78x Bessa but only 47% of the 0.7704 kPa rectangle baseline) is a
-  refinement of an idea that already has its own slide from an earlier run,
-  so it is NOT repeated here — see this run's own summary slide for its
-  one-line status.
-- ODB used for this render: `data/idea_odbs/20260721T201733_H2_cruciform_ibeam/`
-  (archived from scratch riks_de8c7e06e10b40e2a80fd6146e69eeee). Best
-  *infeasible* sigma found in the campaign was ~0.68 kPa, below the 0.7704 kPa
-  baseline even before the strain-correlation problem is considered.
-- Stats-migration note (2026-08-04): mcs and max_local_strain do correlate
-  strongly (r=0.76) among the non-converged salvage reads for this campaign
-  — real numbers, consistent with classical flexural-torsional coupling, but
-  built entirely on partial/non-converged Riks reads, not genuine converged
-  solutions, which is why the Verdict above leads with the solve-completion
-  failure itself rather than this correlation.
-- Do not re-attempt this exact cruciform/I-beam family expecting a different
-  result: PROBLEM_STATEMENT.md explicitly lists it as a settled null result
-  (0/91 feasible, r=0.76 mcs/mls correlation even in the best-mcs subset).
-- GIF: native Abaqus/CAE Viewer render via `presentation/render/render_odb.py`
-  (E11 strain coloring, top-right legend, schematic dashed-circle ring
-  overlay recomputed from COORD every frame, portrait 480-wide canvas), same
-  pipeline as the rest of this deck. Rendered fresh this session directly
-  from the archived ODB (no native gif existed for this idea before).
+**Timeline:** Registered as H2 of run `20260721T201733` (all-Sonnet, 14h, GATED,
+evals_used=867, $59.50 for the whole run). Same run's H1 (properly-powered 128-eval
+re-test of the tapered-longeron family, best feasible 0.362763 kPa = 2.78x Bessa but
+only 47% of the 0.7704 kPa rectangle baseline) is a refinement of an idea that already
+has its own slide from an earlier run, so it is NOT repeated here — see this run's own
+summary slide for its one-line status.
+
+**Infra:** ODB used for this render: `data/idea_odbs/20260721T201733_H2_cruciform_ibeam/`
+(archived from scratch riks_de8c7e06e10b40e2a80fd6146e69eeee). Best *infeasible* sigma
+found in the campaign was ~0.68 kPa, below the 0.7704 kPa baseline even before the
+strain-correlation problem is considered. GIF: native Abaqus/CAE Viewer render via
+`presentation/render/render_odb.py` (E11 strain coloring, top-right legend, schematic
+dashed-circle ring overlay recomputed from COORD every frame, portrait 480-wide
+canvas), same pipeline as the rest of this deck. Rendered fresh this session directly
+from the archived ODB (no native gif existed for this idea before).
 -->
 
 ---
@@ -4806,50 +4798,47 @@ ratio_shear_modulus=.3677.
 
 **Seed:** BARREN — blocked on printability (prestressed cables, pin joints).
 
-Full context:
+**Timeline:** This is hypothesis H3 of run `20260718T132852`, delegation D005 for the
+initial search plus D013 for a dedicated verification-only follow-up (0 new oracle
+evals -- direct inspection of already-archived Stage-1 ODBs). D013 settled an
+adversarial review's MAJOR finding: is the shared `coilable` flag (computed from the
+analytical reference point's UR3 rotation) a genuinely meaningful signal for the
+tensegrity topology, given its joint-to-ring coupling ties only translations
+(u1=u2=u3=ON, ur1=ur2=ur3=OFF)? D013 extracted the actual mode-1 displacement of the 3
+physical strut-top nodes directly and fit a rotation angle independently of the UR3
+field: winning design's fitted theta matched the reported UR3 to 5.8e-10 rad absolute
+difference (and a non-coiling control case matched to 1.5e-9 rad) -- the flag is
+confirmed genuine, not a reference-point artifact. DEMOTION, per project record (this
+study's "Artifact vs physical" / "Apples-to-apples criterion" policy): a comparable,
+apples-to-apples design must be (a) elastic, no folding/mechanism collapse, (b) a
+comparable stress measure, and (c) printable/realizable as a single continuous member
+family. A pin-jointed, prestress-driven tensegrity assembly fails (a) and (c) by
+construction (it is a mechanism assembly with rigid-body joint rotations, not a
+single continuously-bending elastic beam) -- so despite being a real, reproducible,
+fully-feasible 220.89 kPa design, it is excluded from this study's beam-family
+headline comparisons. WHY "fully feasible" IS trustworthy despite a real gate bug
+found mid-run: D009 (implementer, flagged) discovered the mls<=0.02 feasibility gate
+was computing a field that does not exist in this ODB and silently returning 0.0 for
+every one of 94 designs evaluated so far -- meaning the gate had never actually been
+enforced. D010 fixed the oracle (added the missing LE field request) and D011 then
+DELIBERATELY discarded all pre-fix ledger rows and re-ran the full campaign fresh
+against the corrected oracle (explicitly removing D009's own reuse/idempotency logic
+so no stale mls=0.0 row could leak back in). The reported 220.89 kPa / fully-feasible
+result is from that corrected, post-fix campaign. Separately, the critic flagged the
+287x-over-baseline magnitude itself as CRITICAL-severity implausible against this
+study's own commissioned literature review; the strategizer spent two further bounded
+delegations (D012 sweep, D013 mode-shape verification above) specifically to settle
+that concern with new evidence rather than soften the claim or drop it under time
+pressure (strategizer's own closing retrospective).
 
-- This is hypothesis H3 of run `20260718T132852`, delegation D005 for the initial
-  search plus D013 for a dedicated verification-only follow-up (0 new oracle evals --
-  direct inspection of already-archived Stage-1 ODBs). D013 settled an adversarial
-  review's MAJOR finding: is the shared `coilable` flag (computed from the analytical
-  reference point's UR3 rotation) a genuinely meaningful signal for the tensegrity
-  topology, given its joint-to-ring coupling ties only translations (u1=u2=u3=ON,
-  ur1=ur2=ur3=OFF)? D013 extracted the actual mode-1 displacement of the 3 physical
-  strut-top nodes directly and fit a rotation angle independently of the UR3 field:
-  winning design's fitted theta matched the reported UR3 to 5.8e-10 rad absolute
-  difference (and a non-coiling control case matched to 1.5e-9 rad) -- the flag is
-  confirmed genuine, not a reference-point artifact.
-- DEMOTION, per project record (this study's "Artifact vs physical" / "Apples-to-apples
-  criterion" policy): a comparable, apples-to-apples design must be (a) elastic, no
-  folding/mechanism collapse, (b) a comparable stress measure, and (c) printable/
-  realizable as a single continuous member family. A pin-jointed, prestress-driven
-  tensegrity assembly fails (a) and (c) by construction (it is a mechanism assembly
-  with rigid-body joint rotations, not a single continuously-bending elastic beam) --
-  so despite being a real, reproducible, fully-feasible 220.89 kPa design, it is
-  excluded from this study's beam-family headline comparisons.
-- WHY "fully feasible" IS trustworthy despite a real gate bug found mid-run: D009
-  (implementer, flagged) discovered the mls<=0.02 feasibility gate was computing a
-  field that does not exist in this ODB and silently returning 0.0 for every one of
-  94 designs evaluated so far -- meaning the gate had never actually been enforced.
-  D010 fixed the oracle (added the missing LE field request) and D011 then
-  DELIBERATELY discarded all pre-fix ledger rows and re-ran the full campaign fresh
-  against the corrected oracle (explicitly removing D009's own reuse/idempotency
-  logic so no stale mls=0.0 row could leak back in). The reported 220.89 kPa /
-  fully-feasible result is from that corrected, post-fix campaign. Separately, the
-  critic flagged the 287x-over-baseline magnitude itself as CRITICAL-severity
-  implausible against this study's own commissioned literature review; the
-  strategizer spent two further bounded delegations (D012 sweep, D013 mode-shape
-  verification above) specifically to settle that concern with new evidence rather
-  than soften the claim or drop it under time pressure (strategizer's own closing
-  retrospective).
-- GIF NOTE: this ODB (data/idea_odbs/20260718T132852_H3_tensegrity/tensegrity_RIKS.odb)
-  has no 'E' (beam bending strain) field output at all -- physically correct, since
-  T3D2 truss/cable elements have no bending strain concept. The render script's
-  primary contour variable was extended with a principled fallback (try E/E11 first;
-  if absent, use LE/LE11, axial logarithmic strain -- the truss-family analogue of the
-  same physical quantity) rather than leaving color off or fabricating a bending-strain
-  field that does not exist for this topology. Only 10 frames were available in this
-  ODB's Riks step (vs up to 30 elsewhere); all 10 rendered cleanly.
+**Infra:** GIF NOTE: this ODB (data/idea_odbs/20260718T132852_H3_tensegrity/tensegrity_RIKS.odb)
+has no 'E' (beam bending strain) field output at all -- physically correct, since
+T3D2 truss/cable elements have no bending strain concept. The render script's primary
+contour variable was extended with a principled fallback (try E/E11 first; if absent,
+use LE/LE11, axial logarithmic strain -- the truss-family analogue of the same
+physical quantity) rather than leaving color off or fabricating a bending-strain
+field that does not exist for this topology. Only 10 frames were available in this
+ODB's Riks step (vs up to 30 elsewhere); all 10 rendered cleanly.
 -->
 
 ---
@@ -5057,22 +5046,21 @@ amplitude and period count, the opposite of the hypothesized direction; the samp
 (8/17) but the direction is unambiguous, leaving no reason to expect a properly-powered
 re-test would reverse it.
 
-Full context:
+**Timeline:** D007: 17-point existence search; H2's headline correlation figures
+corrected by a third critic pass -- earlier-cited correlations (+0.522/+0.593) had
+wrongly included D003's unledgered pre-registration regression check (an amplitude=0
+"control" point never re-solved through get_evaluator()); recomputed using ONLY
+genuine ledgered D007 rows, trust-gated (converged==True AND
+stabilization_energy_ratio<0.05, n=8 of 17 -- 9 points never produced a trustworthy
+read at all): corr(amplitude, mls)=+0.419, corr(n_periods, mls)=+0.530, both clearly
+positive (unfavorable direction). Run `20260724T012622` H4: later
+hierarchical/fractal-order refinement of this idea, also falsified -- not in this
+batch's scope, noted here for continuity only.
 
-- This is hypothesis H2 of run `20260718T031519`, delegation D007. Final correction
-  (per a third critic pass): earlier-cited correlations of +0.522/+0.593 had included
-  D003's unledgered pre-registration regression check (an amplitude=0 "control" point
-  that was never re-solved through get_evaluator(), same convention issue as this
-  run's H1). Recomputed using ONLY genuine ledgered D007 rows, trust-gated
-  (converged==True AND stabilization_energy_ratio<0.05, n=8 of 17 tested points -- 9
-  points never produced a trustworthy read at all): corr(amplitude, mls)=+0.419,
-  corr(n_periods, mls)=+0.530. Both remain clearly positive (unfavorable direction).
-- This idea later got a hierarchical/fractal-order refinement in run `20260724T012622`
-  (H4), also falsified -- not in this batch's scope, noted here for continuity only.
-- ODB: data/idea_odbs/20260718T031519_H2_meander_serpentine/SUPERCOMPRESSIBLE_RIKS.odb,
-  sourced from presentation/resim/meander/riks_545d6f9df95a45a195e0991a7c74a888.
-  Rendered cleanly through the full native pipeline; the meander perturbation is subtle
-  at this (small, per-hypothesis) amplitude but visible along each longeron's length.
+**Infra:** ODB: data/idea_odbs/20260718T031519_H2_meander_serpentine/SUPERCOMPRESSIBLE_RIKS.odb,
+sourced from presentation/resim/meander/riks_545d6f9df95a45a195e0991a7c74a888. Rendered
+cleanly through the full native pipeline; the meander perturbation is subtle at this
+(small, per-hypothesis) amplitude but visible along each longeron's length.
 -->
 
 ---
