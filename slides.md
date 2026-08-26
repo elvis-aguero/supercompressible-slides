@@ -2863,7 +2863,7 @@ design but the one that reached the ceiling.
 | **H5** | &kappa;_max is a **kinematic invariant** of the ring geometry, not of the member | &#10003; | `mls_full/c` = .021600/.021658/.021641/.021714 across a **2&times; depth change**; &plusmn;15% over a 24-pt LHS, residual tracks taper (Spearman .786) as &kappa;&asymp;1/R_mean predicts | — |
 | **H7** | That depth cap is **binding**, not descriptive | &#10003; | No straight-longeron design with c &ge; 1.00 mm reaches 80% inside the 2% budget — whatever is done with width, storey height or taper | — |
 | **H9** | The cap is 0.02/&kappa;_max, and **flaring moves it** | &#10003; | A depth infeasible at zero flare becomes feasible at taper &minus;0.45, purely because the cap moved. The run's only severe confirmation | — |
-| H4/H6 | **Pre-coiling** relieves the strain wall (strain is c &times; curvature *change*) | **?** | **Corrected 2026-08-14:** wrap 4.5 at c = 2 mm reached **30.8% at 0.445% strain**, not the 61.5% first reported — that was `\|U3\|` counting upward travel as compression. Relief is real; its size is not ~5&times;. Separately retracted within-run (2026-08-12): the wrap&ge;3 designs' three longerons self-interpenetrate from mcs&asymp;0.39 onward (not modeled by this study), so even the corrected reading is trustworthy only up to that point | D30 |
+| H4/H6 | **Pre-coiling** relieves the strain wall (strain is c &times; curvature *change*) | **?** | **Corrected 2026-08-26 (deck audit):** wrap 4.5 at c = 2 mm reached **61.5% compression at 0.445% strain** — the 2026-08-14 "30.8%" correction used the wrong mast_height (100mm instead of the oracle's real 50mm), exactly halving it; the true value happens to be numerically close to the ORIGINAL pre-2026-08-14 "61.5%" figure this correction chain exists to debunk, which was wrong for an unrelated reason (`\|U3\|` counting upward travel as compression) — coincidence, not vindication. Relief is real; its size is not ~5&times;. Separately retracted within-run (2026-08-12): the wrap&ge;3 designs' three longerons self-interpenetrate from mcs&asymp;0.39 onward (not modeled by this study), so even the corrected reading is trustworthy only up to that point | D30 |
 
 **&sigma;_peak &prop; E·w·c³/L², c capped kinematically and w by slenderness&ge;10; `run17_rectangle`
 sits at 99.7% of the cap.**
@@ -2930,11 +2930,17 @@ layout: two-cols-header
   p50/p90/p100 — &sigma;_crit: .97/4.55/6.57 &middot; mcs: 0/0/.339 &middot; mls: unmeasured
   cleared: none here — the next run cleared 8 with wrap&ne;0, best 0.5007 = 4.46&times; Bessa
   &middot; novel: **no** (Kirchhoff-rod theory, H3)
-  best good: none. **CORRECTED 2026-08-14:** wrap 4.5, c = 2 mm reached **30.8% compression at
-  0.445% strain**, then its loading point *reversed*; the "61.5%" first reported here was
-  `|U3|` counting 63 mm of **upward** travel as compression
+  best good: none. **CORRECTED 2026-08-26 (deck audit):** wrap 4.5, c = 2 mm reached **61.5%
+  compression at 0.445% strain**, then its loading point *reversed* and travelled all the way back
+  past its own start (net +63.5mm ascent by the end of the 785-frame history); strain never
+  crosses 2% anywhere in that history. The 2026-08-14 correction's own arithmetic used
+  mast_height=100mm; the oracle's real formula (n_storeys&times;ratio_pitch&times;bottom_diameter,
+  confirmed against both the geometry script and the prescribed-displacement BC) is 50mm, exactly
+  halving the true reading to a reported "30.8%". (The pre-2026-08-14 "61.5%" figure this replaced
+  was independently wrong for an unrelated reason — `|U3|` counting upward travel as compression —
+  so this is a coincidental numeric match, not a vindication of that reading; see notes.)
 - **Verdict:** FALSIFIED &middot; MIXED<br>
-  <span class="opacity-60">(revised 2026-08-14)</span> The relief is real — **0.445% strain at 30.8% compression**, where the matched straight control
+  <span class="opacity-60">(revised 2026-08-26)</span> The relief is real — **0.445% strain at 61.5% compression**, where the matched straight control
   had blown 2% by 26.2% — but it buys no load (&rho;(wrap, &sigma;_peak) = **&minus;0.392** over 36
   decided designs), it is not novel, and the family never approached 80%.
 
@@ -2944,7 +2950,7 @@ layout: two-cols-header
 
 <div class="flex flex-col items-center justify-center h-full">
   <img src="/gifs/precoil_wrap45_native.gif" class="max-h-80 rounded shadow-lg" />
-  <div class="text-xs opacity-60 mt-2 px-4 text-center">wrap 4.5, re-rendered 2026-08-14 and now stopping at the reversal (frame 156 of 785): 30.8% compression at 0.445% strain. Green everywhere is the point.</div>
+  <div class="text-xs opacity-60 mt-2 px-4 text-center">wrap 4.5, re-rendered 2026-08-14 and now stopping at the reversal (frame 156 of 785): 61.5% compression at 0.445% strain (corrected 2026-08-26, deck audit -- was reported 30.8%, a mast_height error). Green everywhere is the point.</div>
 </div>
 
 <!--
@@ -2978,16 +2984,29 @@ same sentence. Both were wrong. bo/response_metrics.py computed mcs from np.abs(
 magnitude cannot distinguish a loading point descending from one rising. Read directly off the ODB
 (sc_oracle_helical/riks_847140cc..., 785 history points, job 4972909):
 
-    U3 min (true max DESCENT)   -30.769 mm  -> mcs = 0.3077   frame 132, LPF 0.5783
+    U3 min (true max DESCENT)   -30.769 mm  -> mcs = 0.6154   frame 132, LPF 0.5783
     crosses into POSITIVE                                     history pt 229, LPF 0.5894
     U3 max (net ASCENT)         +63.485 mm  -> abs() says 0.6349
     max |E| at the true peak     0.00445    (i.e. 0.445% strain)
     max |E| at the abs() peak    0.01418    (1.42%, not 0.45%)
 
-So the design reached 30.8% compression at 0.445% strain, and the published pair took its
+So the design reached 61.5% compression at 0.445% strain, and the published pair took its
 compression from one frame and its strain from another. The straight control blowing 2% by 26.2%
 still stands, so relief is real -- but the two were never compared at equal compression and the
 factor was never measured, which is why "~5x" is gone rather than rescaled.
+
+SECOND CORRECTION (2026-08-26, deck audit item 2): this paragraph originally reported mcs=0.3077
+for the -30.769mm descent, using mast_height=100mm. That number was never sourced from either the
+oracle's own metric-reduction formula or the geometry-construction script -- both independently
+compute mast_height = n_storeys * ratio_pitch * bottom_diameter = 1 * 0.5 * 100 = 50mm
+(bo/oracle_helical.py line 456; scripts/supercompressible_riks_pretwist_helical.py lines 158+179,
+and its own prescribed-displacement BC at line 816 uses the same 50mm). At the correct mast_height,
+the true reading is mcs=0.6154 (61.5%), not 30.8% -- exactly double. This is numerically close to
+the ORIGINAL, pre-2026-08-14 "61.5%" figure this whole postmortem exists to debunk, but that is a
+coincidence, not a vindication: the original number was wrong for an unrelated reason (abs(U3)
+counting the net +63.5mm ascent as compression), while this one is the true value at the actual
+point of maximum real descent. Strain never crosses 2% anywhere in the 785-frame history, so the
+"relief is real" conclusion is unchanged and, if anything, stronger than previously stated.
 
 Fixed in c79a524 (`np.clip(-U[2], 0, None)`, plus the renderer's readout and a reversal cutoff so
 a gif stops where the mast stops descending). Monotonic solves are unaffected, so no other
