@@ -5431,8 +5431,13 @@ class: idea-slide
 
 ::right::
 
-<div class="flex items-center justify-center h-full">
-  <img src="/gifs/helical_native.gif" class="max-h-100 rounded shadow-lg" />
+<div class="flex flex-col gap-2" style="height: 460px">
+  <div class="flex items-center justify-center" style="height: 175px">
+    <img src="/gifs/helical_mini.png" style="max-height: 175px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 277px">
+    <img src="/gifs/helical_landscape.gif" class="rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
+  </div>
 </div>
 
 <!--
@@ -5459,10 +5464,26 @@ Full context:
   max_local_strain=0.0209 at the same cross-section) -- the helical mechanism trades a
   large stiffness gain for a catastrophic strain penalty.
 - ODB: data/idea_odbs/20260715T002538_H2_helical_longeron_path/SUPERCOMPRESSIBLE_RIKS.odb,
-  sourced from presentation/resim/helical/riks_helical_76b431f83394417ea38e227d26171b56.
-  Rendered cleanly through the full 30-frame native pipeline (no COORD field output
-  gaps, no divergent nodes) -- both schematic rings and the coiling helix motion are
-  visible throughout the animation.
+  sourced from presentation/resim/helical/riks_helical_76b431f83394417ea38e227d26171b56 --
+  this is the wrap=0.6 matched-pair comparison point, not the "best good" degenerate wrap=0
+  design (which has no ODB in this archive).
+
+RESOLVED 2026-08-26 (deck audit item 2): this design was previously held/skipped for porting
+because mini_plot.py flags reversed=True and its unwindowed tail reaches an unphysical ~273x
+Bessa. Investigated properly rather than left held: the mast reverses at frame 93 (mcs~96%) and
+the reaction-force reading explodes to a frozen ~273x-Bessa plateau for 4900+ frames after that
+(ALLSD=0 throughout, ALLSE flat -- a genuine equilibrium-path degeneracy, not stabilization
+trickery, but not real load-bearing physics either: displacement stays essentially frozen while
+force keeps climbing). NONE OF THIS MATTERS for the citable number: the 2% strain-limit window
+closes at frame 16 (mcs=38.7%, sigma=0.5894 kPa peak, 5.25x Bessa), long before the reversal at
+frame 93 or the force explosion after frame 40. reversed=True is true of the full history and
+irrelevant to the windowed metric here -- unlike D30, where the reversal happened INSIDE the
+citable range and needed careful handling. Cross-verified: sigma_cr,nd=2.306 kPa reproduces
+exactly from the Stage-1 eigenvalue (loads[0]=54.339 N x to_kpa); max_local_strain=0.19521886
+(scalar field) matches the cited 19.1% to rounding. Landscape render (28 frames, mcs 0-95%)
+confirms clean, no clipping; the mini-plot uses --windowed-only (the post-reversal explosion is a
+numerical artifact, not real-but-noncitable physics, so showing it in muted grey the way other
+slides' full curves are shown would mislead rather than inform).
 -->
 
 ---
