@@ -6053,23 +6053,22 @@ relationship with strain across 32 converged designs (weak, non-monotonic: ratio
 at mcs=0.160 while ratio=1.0, i.e. uniform, hit mcs≈1.0) — there is no direction to dial the
 heterogeneity in, and the best-found point never beat the uniform baseline it was meant to rescue.
 
-Fuller context:
+**Deferred:** Stats-migration note (2026-08-04): mcs values exceeding 1.0 appear in
+this raw dataset (p100=1.49) — a real logged value, not a typo; not investigated
+further.
 
-- Stats-migration note (2026-08-04): mcs values exceeding 1.0 appear in this raw
-  dataset (p100=1.49) — a real logged value, not a typo; not investigated further.
-- This is H3 of run `20260708T021335`, delegations D010 (build+validate, exact
-  degenerate reproduction of the known baseline) + D011 (45-eval search) + D012
-  (post-hoc CV). ODB: data/idea_odbs/20260708T021335_H3_heterogeneous_longerons/
-  (source: presentation/resim/heterogeneous/riks_fb818885227f43fe888ec53eafa44a17,
-  representative point solved at sigma=0.867; the family's actual near-degenerate
-  best-found point was ~0.3644, i.e. the baseline itself).
-- D012's CV shows the same recurring pattern as this run's H1/H2: sigma_crit is
-  strongly learnable (R²=0.920), max_compressive_strain is moderately learnable
-  (R²=0.418, above chance but noisier).
-- GIF: native Abaqus/CAE Viewer export, standard pipeline. The visibly different
-  cross-section sizes among the three legs (two thick, one thin) are directly
-  visible in the rendered beam profiles — the asymmetric coiling behavior this
-  produces is real, not a rendering artifact.
+**Timeline:** D010: build + validate (exact degenerate reproduction of the known
+baseline). D011: 45-eval search (this run's H3). D012: post-hoc CV — shows the same
+recurring pattern as this run's H1/H2: sigma_crit is strongly learnable (R²=0.920),
+max_compressive_strain is moderately learnable (R²=0.418, above chance but noisier).
+
+**Infra:** ODB: data/idea_odbs/20260708T021335_H3_heterogeneous_longerons/ (source:
+presentation/resim/heterogeneous/riks_fb818885227f43fe888ec53eafa44a17, representative
+point solved at sigma=0.867; the family's actual near-degenerate best-found point was
+~0.3644, i.e. the baseline itself). GIF: native Abaqus/CAE Viewer export, standard
+pipeline. The visibly different cross-section sizes among the three legs (two thick,
+one thin) are directly visible in the rendered beam profiles — the asymmetric coiling
+behavior this produces is real, not a rendering artifact.
 -->
 
 ---
@@ -6170,25 +6169,26 @@ ratio_shear_modulus=.3677.
 still FALSIFIED; the cliff at the first non-circular step is sharp and reproduced twice, leaving
 no untried perturbation of this idea rather than a genuinely different symmetry-breaking mechanism.
 
-Fuller context:
+**Deferred:** Verdict history: the strategizer initially closed this FALSIFIED given
+the sharp cliff and zero-feasible broad search; the validator flagged (per Charter §2)
+that the guiding constraint surrogates (max_compressive_strain, max_local_strain,
+coilable) were NOT above chance (mean-fold R²=-0.036/-0.050, classifier below majority
+baseline) — Charter §2 requires ANY guiding surrogate to predict above chance before a
+non-existence verdict can close, and "near-chance surrogate performance is what you'd
+expect near an empty region anyway" is exactly the post-hoc plausibility argument the
+charter forecloses. Retracted to INCONCLUSIVE.
 
-- This is H3 of run `20260706T204732`. ODB: data/idea_odbs/20260706T204732_H3_elliptical_rings/
-  (source: presentation/resim/elliptical/riks_ellring_48e398830e1c4b4ca2e491e4da1e547d).
-- Verdict history: the strategizer initially closed this FALSIFIED given the sharp
-  cliff and zero-feasible broad search; the validator flagged (per Charter §2) that
-  the guiding constraint surrogates (max_compressive_strain, max_local_strain,
-  coilable) were NOT above chance (mean-fold R²=-0.036/-0.050, classifier below
-  majority baseline) — Charter §2 requires ANY guiding surrogate to predict above
-  chance before a non-existence verdict can close, and "near-chance surrogate
-  performance is what you'd expect near an empty region anyway" is exactly the
-  post-hoc plausibility argument the charter forecloses. Retracted to INCONCLUSIVE.
-- This idea was re-tested once more, outside this deck's batch range, in run
-  `20260718T031519` H1 (elliptical rings w/ phase offset re-test, FALSIFIED) — that
-  refinement folds into this same idea, but belongs to a later batch's summary slide.
-- GIF: native Abaqus/CAE Viewer export, standard pipeline. The rendered design shows
-  visibly incomplete/partial coiling (a mid-strain frame, not the collapsed cliff
-  case) — a representative, still-somewhat-coiling point from the family, per the
-  format contract's "typical, not necessarily best" no-winner convention.
+**Timeline:** This is H3 of run `20260706T204732`. This idea was re-tested once more,
+outside this deck's batch range, in run `20260718T031519` H1 (elliptical rings w/
+phase offset re-test, FALSIFIED) — that refinement folds into this same idea, but
+belongs to a later batch's summary slide.
+
+**Infra:** ODB: data/idea_odbs/20260706T204732_H3_elliptical_rings/ (source:
+presentation/resim/elliptical/riks_ellring_48e398830e1c4b4ca2e491e4da1e547d). GIF:
+native Abaqus/CAE Viewer export, standard pipeline. The rendered design shows visibly
+incomplete/partial coiling (a mid-strain frame, not the collapsed cliff case) — a
+representative, still-somewhat-coiling point from the family, per the format
+contract's "typical, not necessarily best" no-winner convention.
 -->
 
 ---
@@ -6249,33 +6249,26 @@ ratio_shear_modulus=.3677.
 direction (more bow → less strain retained), not a noisy or ambiguous one; there is no amplitude,
 sign, or profile of "bow" left to try that the mechanism itself doesn't already rule out.
 
-Fuller context:
+**Timeline:** D011: mechanism dose-response sweep (this run's H5). D012: 48-eval joint
+5D existence follow-up — Pearson/Spearman check on the converged subset (mcs vs.
+bow_amplitude: r=-0.175, ρ=-0.163, p=0.417) finds only a weak, non-significant
+correlation. This is one of the deck's clean mechanism falsifications, analogous in
+kind to the format-example twisted-strip slide's claim (a): a single-variable,
+matched-conditions, causal dose-response sweep is adequate on its own terms (no
+CV/surrogate check needed) because it is a designed experiment directly testing the
+causal claim, not a surrogate-guided search whose adequacy depends on above-chance CV.
+Deck-port pass (2026-08-26): σ corrected from .0757 kPa (pre-2026-08-06 Stage-1
+eigenvalue metric) to .0591 kPa (0.53× Bessa, current Stage-2 windowed sigma_peak) —
+78% of the old figure, consistent with response_metrics.py's own documented
+0.736-0.859 overprediction ratio for this metric-version change. mcs and mls both
+independently reproduce the cited values exactly (mls=.013256), confirming the same
+design point; only σ needed correction. Verdict (FALSIFIED · WEAK) unchanged either
+way.
 
-- Stats-migration note (2026-08-04): D012's own Pearson/Spearman check on the
-  converged subset (mcs vs. bow_amplitude: r=-0.175, ρ=-0.163, p=0.417) finds
-  only a weak, non-significant correlation — cited here, not on the slide face,
-  per the plain-language bar.
-- This is H5 of run `20260706T204732`, delegation D011 (mechanism dose-response) +
-  D012 (48-eval joint 5D existence follow-up). ODB: data/idea_odbs/
-  20260706T204732_H5_bowed_longerons/ (source: presentation/resim/bowed/
-  riks_bow_86c0a1b0a97a46e480420304ad196708).
-- This is one of the deck's clean mechanism falsifications, analogous in kind to the
-  format-example twisted-strip slide's claim (a): a single-variable, matched-
-  conditions, causal dose-response sweep is adequate on its own terms (no CV/surrogate
-  check needed) because it is a designed experiment directly testing the causal claim,
-  not a surrogate-guided search whose adequacy depends on above-chance CV.
-- σ correction (2026-08-26, deck-port pass): the "best good" line's σ was .0757 kPa,
-  computed pre-2026-08-06 under the old Stage-1 eigenvalue sigma_crit metric.
-  Recomputed here under the current Stage-2 windowed sigma_peak (bo/response_metrics.py,
-  the metric every other slide in this deck now uses) from the same ODB: peak load
-  actually occurs early (mcs≈6%, long before the compression cap), giving σ=.0591 kPa
-  (0.53× Bessa) — 78% of the old figure, consistent with response_metrics.py's own
-  documented 0.736-0.859 overprediction ratio for this metric-version change. mcs and mls
-  both independently reproduce the cited values exactly (mls=.013256), confirming this is
-  the same design point; only σ needed correction. Verdict (FALSIFIED · WEAK) is unchanged
-  either way — the design was already far below the 2× Bessa bar under both readings.
-- Landscape re-render (2026-08-26): clean, no clipping across the full window (mcs 0%→88%).
-  Replaces the old native-export gif with the split-panel layout; same underlying ODB.
+**Infra:** ODB: data/idea_odbs/20260706T204732_H5_bowed_longerons/ (source:
+presentation/resim/bowed/riks_bow_86c0a1b0a97a46e480420304ad196708). Landscape
+re-render (2026-08-26): clean, no clipping across the full window (mcs 0%→88%);
+replaces the old native-export gif with the split-panel layout, same underlying ODB.
 -->
 
 ---
@@ -6378,24 +6371,24 @@ control; the mechanistic question it was asking (anisotropic torsional stiffenin
 substituted and tested as this run's H6 and came back FALSIFIED, so the physics question this
 idea wanted answered is closed even though the literal geometry was never built.
 
-Fuller context:
+**Timeline:** D005: introspection — confirmed `model.EllipticalProfile` absent from
+the installed Abaqus 2024 kernel, and `GeneralizedProfile(...,
+integration=DURING_ANALYSIS)` rejected at input-file-write time (this run's H4).
+Originally the strategizer briefly closed this FALSIFIED before the validator/Charter
+§4 correction: an untestable literal claim cannot be falsified, only marked
+untestable. D010: the substituted, actually-tested idea (anisotropic
+RectangularProfile, radial-long/tangential-short orientation, registered as this same
+run's H6) — FALSIFIED via two decorrelated 1D sweeps showing max_local_strain
+tracking sigma_crit almost proportionally along the radial axis, the opposite of the
+intended decoupling; folds into the run17_rectangle_anchor idea's story, since the
+REVERSED orientation tested next (H7/H8) is what actually becomes the study's anchor
+family.
 
-- This is H4 of run `20260705T181941`, delegation D005 (introspection: confirmed
-  `model.EllipticalProfile` absent; `GeneralizedProfile(..., integration=DURING_ANALYSIS)`
-  rejected at input-file-write time). Originally the strategizer briefly closed this
-  FALSIFIED before the validator/Charter §4 correction: an untestable literal claim
-  cannot be falsified, only marked untestable.
-- The substituted, actually-tested idea (anisotropic RectangularProfile, radial-long/
-  tangential-short orientation) is registered as this same run's H6 — FALSIFIED (D010's
-  two decorrelated 1D sweeps show max_local_strain tracking sigma_crit almost
-  proportionally along the radial axis, the opposite of the intended decoupling) — and
-  folds into the run17_rectangle_anchor idea's story below, since the REVERSED
-  orientation tested next (H7/H8) is what actually becomes the study's anchor family.
-- This is one of only two ideas in the whole 25-idea "genuinely new" list with no ODB
-  by design (the other: pretwisted longerons, earlier this run-range). The tape-spring
-  idea (`20260730T020245` H2) previously belonged in this no-ODB group while that run
-  was still executing; it has since closed and its own ODB was archived — see its own
-  slide, elsewhere in this deck.
+**Infra:** No ODB, by design — one of only two ideas in the whole 25-idea "genuinely
+new" list with no ODB (the other: pretwisted longerons, earlier this run-range). The
+tape-spring idea (`20260730T020245` H2) previously belonged in this no-ODB group
+while that run was still executing; it has since closed and its own ODB was archived
+— see its own slide, elsewhere in this deck.
 -->
 
 ---
@@ -6447,36 +6440,35 @@ ratio_top_diameter&isin;[0,.6] — usual per-storey pitch/taper meaning. Fixed:
 ratio_shear_modulus=.3677, circular=2 (cross-section-family switch), n_longerons=3,
 n_storeys=1, twist_angle=0.
 
-**Mini-plot note (2026-08-26):** landscape re-render clips real content (one longeron's
-bottom end runs off-canvas at mcs=95% — this family's geometry is wider than the
-landscape frame is tuned for, same class of issue as D34/D41/D17). Kept the existing
-native-export gif; only added the &sigma;-vs-mcs mini-plot panel above it. Recomputed
-&sigma;_max=.1549 kPa (1.38&times; Bessa) directly from the ODB — close to but not exactly
-the cited .160 (mcs and mls both reproduce the cited values almost exactly: mcs_full=1.094,
-mls=.019773&asymp;.020), a small (~3%) discrepancy left unresolved since it doesn't change
-the FALSIFIED verdict either way.
-
 **Seed:** BARREN — the shortfall (18.4%) is the same radius^4-stiffness-vs-linear-strain trade-off
 this run's H2 established analytically for the circular family; the square section edges circular
 slightly at matched strain but doesn't escape the trade-off, and there is no reason a different
 cross-section shape family would either (each subsequent variant re-confirms the same ceiling).
 
-Fuller context:
+**Deferred:** σ recomputed directly from the ODB (2026-08-26) gives σ_max=.1549 kPa
+(1.38&times; Bessa) — close to but not exactly the cited .160 (mcs and mls both
+reproduce the cited values almost exactly: mcs_full=1.094, mls=.019773&asymp;.020), a
+small (~3%) discrepancy left unresolved since it doesn't change the FALSIFIED verdict
+either way.
 
-- This is H5 of run `20260705T181941`, delegations D011 (search) + D012 (surrogate
-  CV adequacy check). ODB: data/idea_odbs/20260705T181941_H5_square_section/ (source:
-  presentation/resim/square/riks_c91bd5835aaf40f99dc06a3228aa4411).
-- This run's H2 (SCLF family ceiling, meta/analytical) established the underlying
-  physical trade-off this idea (and every subsequent cross-section variant) runs
-  into: buckling stiffness scales with cross-section radius^4 while coiling-induced
-  local bending strain scales only linearly with radius×curvature — 90 evaluations
-  (D003+D006+D008, cross-validated by D009) found no circular-family design that
-  breaks this trade-off, and the square-section test is essentially the same
-  trade-off restated for a different section shape.
-- GIF: native Abaqus/CAE Viewer export, standard pipeline, no ODB-specific gotchas.
-  The square cross-section's flat-sided profile is visible in the rendered beam
-  geometry (renderBeamProfiles=ON), distinguishing it visually from the circular
-  SCLF renders elsewhere in this deck.
+**Timeline:** D011: search (this run's H5). D012: surrogate CV adequacy check. This
+run's H2 (SCLF family ceiling, meta/analytical) established the underlying physical
+trade-off this idea (and every subsequent cross-section variant) runs into: buckling
+stiffness scales with cross-section radius^4 while coiling-induced local bending
+strain scales only linearly with radius×curvature — 90 evaluations (D003+D006+D008,
+cross-validated by D009) found no circular-family design that breaks this trade-off,
+and the square-section test is essentially the same trade-off restated for a
+different section shape.
+
+**Infra:** ODB: data/idea_odbs/20260705T181941_H5_square_section/ (source:
+presentation/resim/square/riks_c91bd5835aaf40f99dc06a3228aa4411). GIF: native
+Abaqus/CAE Viewer export, standard pipeline, no ODB-specific gotchas — the square
+cross-section's flat-sided profile is visible in the rendered beam geometry
+(renderBeamProfiles=ON), distinguishing it visually from the circular SCLF renders
+elsewhere in this deck. Landscape re-render (2026-08-26) clips real content (one
+longeron's bottom end runs off-canvas at mcs=95% — this family's geometry is wider
+than the landscape frame is tuned for, same class of issue as D34/D41/D17); kept the
+existing native-export gif and only added the σ-vs-mcs mini-plot panel above it.
 -->
 
 ---
