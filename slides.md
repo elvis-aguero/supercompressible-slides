@@ -4758,8 +4758,13 @@ class: idea-slide
 
 ::right::
 
-<div class="flex flex-col items-center justify-center h-full gap-1">
-  <img src="/gifs/waisted_native.gif" class="max-h-85 rounded shadow-lg" />
+<div class="flex flex-col gap-1" style="height: 460px">
+  <div class="flex items-center justify-center" style="height: 165px">
+    <img src="/gifs/waisted_mini.png" style="max-height: 165px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 265px">
+    <img src="/gifs/waisted_landscape.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
+  </div>
   <div class="text-xs opacity-50 text-center">A typical member of the search, not the (later-invalidated) 0.877 kPa point.</div>
 </div>
 
@@ -4881,8 +4886,13 @@ class: idea-slide
 
 ::right::
 
-<div class="flex items-center justify-center h-full">
-  <img src="/gifs/kresling_native.gif" class="max-h-100 rounded shadow-lg" />
+<div class="flex flex-col gap-2" style="height: 460px">
+  <div class="flex items-center justify-center" style="height: 165px">
+    <img src="/gifs/kresling_mini.png" style="max-height: 165px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 285px">
+    <img src="/gifs/kresling_native.gif" class="rounded shadow-lg" style="max-height: 285px; max-width: 100%" />
+  </div>
 </div>
 
 <!--
@@ -5355,8 +5365,13 @@ class: idea-slide
 
 ::right::
 
-<div class="flex items-center justify-center h-full">
-  <img src="/gifs/offset_shear_lprofile_native.gif" class="max-h-100 rounded shadow-lg" />
+<div class="flex flex-col gap-2" style="height: 460px">
+  <div class="flex items-center justify-center" style="height: 175px">
+    <img src="/gifs/offset_shear_lprofile_mini.png" style="max-height: 175px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 277px">
+    <img src="/gifs/offset_shear_lprofile_landscape.gif" class="rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
+  </div>
 </div>
 
 <!--
