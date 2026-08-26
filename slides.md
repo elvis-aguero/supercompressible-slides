@@ -3557,10 +3557,10 @@ everything before 2026-08-06 is the *unversioned era*; today's contract is **v1*
 | 2026-07-16 | Reference design fixed at 0.1306 kPa (every "&times; Bessa" figure before this means something else). Contact with the ground **removed**, believed to be an artificial obstruction — it was not; see the last row |
 | 2026-07-17 | Compression target corrected 90% &rarr; 80%. Strain judged only up to that point, not over the whole squash. Stage 2 made damping-free by default, damping opt-in and capped at 5% of strain energy |
 | 2026-07-18 | Folding linkages ruled out — reaching 80% by rotating rigid bars, with almost no material stretch, stopped counting. Demoted tensegrity (1691&times;) |
-| 2026-07-20 | Material passing through a ring's own footprint became a failure. Demoted Kresling (5.4&times;) and the laced design |
+| 2026-07-20/21 | Material passing through a ring's own footprint became a failure. Demoted Kresling (5.4&times;) and the laced design |
 | 2026-07-22 | Bar lowered to 2&times; the reference design. The 5.9&times; result reframed as context, not a target to beat |
 | 2026-07-23 | Strain limit became Bessa's literal wording: 2% on *any* strain component, shear included |
-| 2026-07-28 | A joint-strain scare retracted one headline, then a convergence study reconfirmed the 5.9&times; baseline; two other designs were never re-checked |
+| 2026-07-27/28 | A joint-strain scare retracted one headline, then a convergence study reconfirmed the 5.9&times; baseline; two other designs were never re-checked |
 | 2026-08-04 | Novelty must be a new *shape or arrangement*, not a resized cross-section |
 | **2026-08-06 (v1)** | **Contact with the ground restored** (Bessa always had it; we lost it 2026-07-16) and the disc faces made solid. Compression stops at 95%. Load read from the squash itself, not the cheap estimate, inside a window ending at 2% strain |
 
@@ -3589,14 +3589,19 @@ edits). Same-date entries are merged into one row for space; the underlying comm
   energy; keeping their ratio small means the damping trick isn't doing enough work to be
   masking the true structural answer).
 - 2026-07-18: 965e488 (apples-to-apples clause; tensegrity demoted to FAILED), ef82143.
-- 2026-07-20: 7fd6ac0 (ring-passthrough as criterion 5), 5f8cccd (second confirmed instance,
-  the built-up/laced family), 49ab551 (fixing "all four criteria" references left behind).
+- 2026-07-20/21: 7fd6ac0 (2026-07-20, ring-passthrough as criterion 5), 49ab551 (2026-07-20,
+  fixing "all four criteria" references left behind), 5f8cccd (2026-07-21, second confirmed
+  instance, the built-up/laced family). Corrected 2026-08-26 (deck audit, item 1): this row
+  previously read "2026-07-20" for all three commits; 5f8cccd is actually dated 2026-07-21,
+  verified via `git show --format=%ci` (same class of error as the 07-27/28 row above).
 - 2026-07-22: dc8c3a1 + 0a48fb5 (operative target lowered to 2x Bessa), ada094c (5.9x
   reframed as context), d34573f (more conservative about what counts as a dead end).
 - 2026-07-23: 8c1a4a7 (Bessa's actual max(eps_ij) criterion implemented), a811852.
-- 2026-07-28: bf38e64 (headline retracted after the continuum check), c32b6b4 (run17
-  rectangle reconfirmed via the cut-distance convergence study), 0bee11f + 624970c (target
-  restored to 2x + novelty; the Nature-caliber test made concrete).
+- 2026-07-27/28: bf38e64 (2026-07-27, headline retracted after the continuum check), c32b6b4
+  (2026-07-28, run17 rectangle reconfirmed via the cut-distance convergence study), 0bee11f +
+  624970c (target restored to 2x + novelty; the Nature-caliber test made concrete). Corrected
+  2026-08-26 (deck audit, item 1): this row previously read "2026-07-28" for both commits;
+  bf38e64 is actually dated 2026-07-27, verified via `git show --format=%ci`.
 - 2026-08-04: d4721d4 (novelty must be geometrical or topological).
 - 2026-08-06: this session -- see docs/self_contact_spec.md Parts 5-9 for the evidence
   behind each of the four changes, and Part 9 for why three of them are fidelity repairs
