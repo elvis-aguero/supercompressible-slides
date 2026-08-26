@@ -6293,8 +6293,13 @@ class: idea-slide
 
 ::right::
 
-<div class="flex items-center justify-center h-full">
-  <img src="/gifs/square_section_native.gif" class="max-h-100 rounded shadow-lg" />
+<div class="flex flex-col gap-2" style="height: 460px">
+  <div class="flex items-center justify-center" style="height: 175px">
+    <img src="/gifs/square_section_mini.png" style="max-height: 175px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 277px">
+    <img src="/gifs/square_section_native.gif" class="max-h-100 rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
+  </div>
 </div>
 
 <!--
@@ -6302,6 +6307,15 @@ class: idea-slide
 ratio_top_diameter&isin;[0,.6] — usual per-storey pitch/taper meaning. Fixed:
 ratio_shear_modulus=.3677, circular=2 (cross-section-family switch), n_longerons=3,
 n_storeys=1, twist_angle=0.
+
+**Mini-plot note (2026-08-26):** landscape re-render clips real content (one longeron's
+bottom end runs off-canvas at mcs=95% — this family's geometry is wider than the
+landscape frame is tuned for, same class of issue as D34/D41/D17). Kept the existing
+native-export gif; only added the &sigma;-vs-mcs mini-plot panel above it. Recomputed
+&sigma;_max=.1549 kPa (1.38&times; Bessa) directly from the ODB — close to but not exactly
+the cited .160 (mcs and mls both reproduce the cited values almost exactly: mcs_full=1.094,
+mls=.019773&asymp;.020), a small (~3%) discrepancy left unresolved since it doesn't change
+the FALSIFIED verdict either way.
 
 **Seed:** BARREN — the shortfall (18.4%) is the same radius^4-stiffness-vs-linear-strain trade-off
 this run's H2 established analytically for the circular family; the square section edges circular
