@@ -929,13 +929,21 @@ boundary-condition accident specific to this disc's placement.
 PS &sect;6 self-check (2026-08-26): this family uses `RectangularProfile` (not circular) — the
 SAME profile type &sect;6 flags for the D24 splice, where the rectangular cross-section quietly
 cleared the bar with the "new" component contributing nothing. Re-running the ablation's own
-COPEN (contact-gap) field frame-by-frame settles that this is not the same pattern: with the
-rectangular cross-section held fixed and only amplitude_rel zeroed, the control's contact gap
-closes from 2.033mm (t=0) to only ~1.05mm by its own solve's deepest frame (mcs&asymp;100-102%,
-deeper than the serpentine ever needed) — it never reaches the disc, and &sigma; never exceeds
-0.002 kPa anywhere in that range. The serpentine's gap starts closing by mcs&asymp;64% and is
-fully closed by mcs&asymp;90%. Removing the wave collapses the score to ~0; it is not riding
-along on the cross-section the way D24's splice rode along on its baseline.
+COPEN (contact-gap) and &sigma; fields frame-by-frame settles that this is not the same pattern,
+but not for the reason first written here (corrected same day): the control does NOT sit near
+zero throughout. It has a normal early elastic peak at mcs&asymp;6% reaching &sigma;=0.119 kPa
+(1.06&times; Bessa) — matching this slide's own cited "incumbent floor (1.06&times;)" almost
+exactly — then decays smoothly and monotonically to near-zero by mcs&asymp;100%, the same
+coiling-then-fading response every straight-centerline family in this study shows. Its contact
+gap closes from 2.033mm (t=0) to only ~1.05mm by its own solve's deepest frame (mcs&asymp;100-102%),
+never reaching the disc — so it never gets the SECOND, contact-driven rise the serpentine gets
+(gap starts closing by mcs&asymp;64%, fully closed by mcs&asymp;90%, driving &sigma; to 5.76&times;).
+The corrected mechanism: the wave doesn't create load-bearing capacity where none existed — the
+rectangular cross-section alone already reaches the incumbent floor early — it adds a late,
+contact-driven SECOND event on top of that same baseline response. Removing the wave leaves the
+early peak intact but forfeits the late one; it is not riding along on the cross-section the way
+D24's splice rode along on its baseline, since the floor-clearing peak is common to both and the
+2&times;-Bessa-clearing margin is entirely the late event's own.
 
 **Timeline:**
 D001: literature review — found and distinguished the Shi et al. 2024 precedent from D19's
