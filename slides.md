@@ -1722,6 +1722,12 @@ Infra: bo/oracle_tape_spring.py (PARAM_NAMES/BOUNDS grow a 7th entry),
 scripts/supercompressible_{lin_buckle,riks}_tape_spring.py, bo/campaign_tape_spring_twist.py,
 bo/_twist_stage1_scan.py, bo/_twist_kill_signal.py. Not committed to gold as of this slide --
 left in an isolated worktree pending review.
+
+Verified 2026-08-26 (deck audit, item 1): independently recomputed n/coilable/decided counts,
+the best design (mcs=0.1133 @ twist=+5.8&deg;), and both Spearman correlations (&rho;=-0.0036 vs
+sigma_peak, &rho;=+0.0071 vs riks_strain, n=15) directly from the raw campaign JSON (commit
+13cc7c5, branch worktree-agent-a66caf1865bb9b16f, not on main) -- all reproduce to the cited
+precision.
 -->
 
 ---
