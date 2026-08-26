@@ -886,7 +886,8 @@ class: idea-slide
   headline number comes from the wave's shape bringing the member into contact with the rigid
   loading disc, not from the claimed bend-twist post-buckling channel — real and wave-caused (the
   control disproves a generic every-design-eventually-squishes story), but not yet understood well
-  enough to call a genuine, exploitable mechanism. See notes.
+  enough to call a genuine, exploitable mechanism. **Mesh check (2026-08-26):** &sigma;_peak itself
+  is not fully mesh-converged — see notes.
 
 </div>
 
@@ -963,6 +964,30 @@ contact-driven SECOND event on top of that same baseline response. Removing the 
 early peak intact but forfeits the late one; it is not riding along on the cross-section the way
 D24's splice rode along on its baseline, since the floor-clearing peak is common to both and the
 2&times;-Bessa-clearing margin is entirely the late event's own.
+
+MESH-REFINEMENT CHECK (2026-08-26, deck audit item 3 — offered twice earlier this session,
+run for real this time). Same design, same protocol as the Kresling mesh study: baseline mesh
+(divisor 300, matching the archived winner) vs. 2&times; (600) vs. 4&times; (1200), re-solved
+from scratch since the original winner's raw ODB no longer exists on scratch.
+
+    divisor   sigma_win (kPa)   mcs_win   max_local_strain (raw, unwindowed)
+    300           0.6463         0.9286        0.05007
+    600           0.5729         0.9260        0.05010
+    1200          did not converge ("TOO MANY ATTEMPTS") -- same failure mode as Kresling's own 4x
+
+sigma_peak (the actual headline metric) drops 11.4% under 2&times; refinement -- real, not noise,
+and larger than it looks against a 5.76&times;-Bessa headline. mcs_win is stable (-0.3%). The raw
+max_local_strain scalar is essentially perfectly converged (+0.06%) -- so the strain reading
+itself is fine; it's specifically the contact-pressure-driven sigma_peak that is mesh-sensitive,
+consistent with it coming from a late, sharp CPRESS spike rather than a smooth bending response.
+Unlike Kresling, there is no known geometric singularity here to explain it, and unlike Kresling
+there is no 3rd point: 4x fails to solve, so whether sigma_peak is settling toward a stable value
+or still drifting is UNRESOLVED, not ruled out. This does not overturn the existence claim -- even
+the 2x-refined value (0.5729 kPa = 5.11x Bessa) clears both the 2x-Bessa target and the incumbent
+floor comfortably -- but the precise headline multiplier (5.76x) should be read as accurate to
+roughly +-1 significant figure, not to 3, until a solver that can push past 2x refinement (finer
+local seeding near the contact patch specifically, rather than a uniform global divisor, is the
+likely next step) settles it.
 
 **Timeline:**
 D001: literature review — found and distinguished the Shi et al. 2024 precedent from D19's
