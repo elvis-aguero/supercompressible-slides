@@ -1893,9 +1893,14 @@ layout: two-cols-header
 
 ::right::
 
-<div class="flex flex-col items-center justify-center h-full">
-  <img src="/gifs/scale_lock_negative_native.gif" class="max-h-72 rounded shadow-lg" />
-  <div class="text-xs opacity-60 mt-2 px-4 text-center">D007's own re-tested idx=0 design, forensically confirmed real (strain rising smoothly 0.0&rarr;0.0197 over 1315 frames): mcs=45.0% before the stall — not feasible, but a genuine partial solve, not an absence of one.</div>
+<div class="flex flex-col gap-1" style="height: 460px">
+  <div class="flex items-center justify-center" style="height: 165px">
+    <img src="/gifs/scale_lock_mini.png" style="max-height: 165px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 265px">
+    <img src="/gifs/scale_lock_landscape.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">D007's own re-tested idx=0 design, forensically confirmed real (strain rising smoothly 0.0&rarr;0.0197 over 1315 frames): mcs=45.0% before the stall — not feasible, but a genuine partial solve.</div>
 </div>
 
 <!--
