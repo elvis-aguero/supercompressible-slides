@@ -921,11 +921,13 @@ layout: two-cols-header
 - **What was tested:** Rank-3's robustness to manufacturing imperfections, sampled from Bessa's
   own lognormal(4&deg;,1.2&deg;) distribution across 3 independent seeds — a genuine severe test
   (D014: seed=2, 10 fresh draws disjoint from every prior sample).
-- **Result:** SUPPORTED &middot; WORKS<br>
-  Median &sigma;_peak=**1.6487 kPa** across 9 independent draws (7.35&times; the floor), mls
-  holding at 95.3&ndash;97.1% of ceiling (never breached). **Caveat, engaged not hidden:** peak
-  occurs at mcs&asymp;0.1&ndash;0.5% of compression — an early elastic snap, argued comparable
-  but not universally so (see notes).
+- **Result:** SUPPORTED (existence) &middot; SPLICE NOT PULLING ITS WEIGHT<br>
+  Median &sigma;_peak=**1.6487 kPa** across 9 independent draws (7.35&times; the floor) clears
+  every criterion — but this number is the imperfection-sensitive snap-through spike at
+  mcs&asymp;0.1&ndash;0.5% of compression, not a sustained load. **Revised 2026-08-25 (see
+  PROBLEM_STATEMENT.md &sect;6):** the design's own *sustained* post-snap capacity (&asymp;0.51&ndash;0.52 kPa,
+  stable across draws) sits **below** the plain rectangle incumbent's own real peak (0.6071 kPa).
+  The splice clears the bar by riding the spike, not by improving on the host cross-section.
 
 </div>
 
@@ -949,9 +951,20 @@ distribution, seeds 0/1/2 across D010/D013/D014.
 **Comparability argument in full (trimmed from the visible Result bullet):** same E, same
 beam/contact physics as the incumbent; stab_ratio&asymp;0.002 rules out an artificial-damping or
 prestress confound; the metric's own "max over the whole compression window" rule is applied
-identically to every family in this study, not specially loosened here. A stricter reader could
-still argue an early-transient elastic snap isn't "on the same footing" as a sustained coiling
-peak — this is engaged explicitly, not resolved unilaterally.
+identically to every family in this study, not specially loosened here — the raw 1.6487 kPa
+number is real and not an artifact.
+
+**RESOLVED 2026-08-25 (advisor session, direct ODB re-extraction):** the early-transient-snap
+caveat above is no longer an open question. Plotting the design's own real sigma-vs-mcs Riks
+history (windowed_metrics(), not a paraphrase) across the D010/D013/D014 imperfection draws shows
+the 1.6487 kPa figure is a 1-2 sample spike at mcs&asymp;0.13%, and the *sustained* post-snap
+plateau (&asymp;0.51&ndash;0.52 kPa, stable across independent draws) is below run17_rectangle's own
+confirmed real peak (0.6071 kPa, `bo/confirmed_anchors.json`). So: does splicing pull its weight
+here? No — the design clears the numeric bar only because of the spike, and the spliced arch's
+own sustained contribution is *negative* relative to the unmodified host. This is the worked
+example behind PROBLEM_STATEMENT.md's Lessons-learned &sect;6 ("a strong baseline in disguise").
+The existence claim (a 5-criteria-feasible design was found) still stands; the "genuinely
+interesting new mechanism" claim does not.
 
 **Seed:** FERTILE — H5 (D24's own original exact point) never reached a clean close because its
 own registered wording became ambiguous mid-campaign, not because the physics ran out; a fresh
@@ -2195,9 +2208,14 @@ layout: two-cols-header
 
 ::right::
 
-<div class="flex flex-col items-center justify-center h-full">
-  <img src="/gifs/staged_storey_native.gif" class="max-h-72 rounded shadow-lg" />
-  <div class="text-xs opacity-60 mt-2 px-4 text-center">Standard solver, storey2_growth_ratio=31.7&times; — staging visibly working (storey 2 far less strained than storey 1). Not feasible: mcs=1.5%, far short of the 80% floor.</div>
+<div class="flex flex-col gap-1" style="height: 460px">
+  <div class="flex items-center justify-center" style="height: 165px">
+    <img src="/gifs/staged_storey_mini.png" style="max-height: 165px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 265px">
+    <img src="/gifs/staged_storey_native.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-60 text-center">Standard solver, storey2_growth_ratio=31.7&times; — staging visibly working. Not feasible: mcs=1.5%, far short of the 80% floor.</div>
 </div>
 
 <!--
@@ -2367,9 +2385,14 @@ layout: two-cols-header
 
 ::right::
 
-<div class="flex flex-col items-center justify-center h-full">
-  <img src="/gifs/shaped_disc_cone_native.gif" class="max-h-72 rounded shadow-lg" />
-  <div class="text-xs opacity-60 mt-2 px-4 text-center">rise 0.15, the largest that converges — re-rendered 2026-08-14 with the rigid surfaces shown, so the cone and top platen are finally visible. The coil passes above the cone the whole way; CPRESS never leaves zero.</div>
+<div class="flex flex-col gap-1" style="height: 460px">
+  <div class="flex items-center justify-center" style="height: 165px">
+    <img src="/gifs/shaped_disc_cone_mini.png" style="max-height: 165px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 265px">
+    <img src="/gifs/shaped_disc_cone_landscape.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-60 text-center">rise 0.15, the largest that converges. The coil passes above the cone the whole way; CPRESS never leaves zero.</div>
 </div>
 
 <!--
