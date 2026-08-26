@@ -906,13 +906,20 @@ amplitude_rel&isin;[.01,.08] — peak tangential wave offset / D1, lower-bounded
 genuine planform feature, not a near-straight re-test of the baseline. n_undulations — discrete
 wave-period count. Fixed: n_longerons=3, n_storeys=1, twist_angle=0, ratio_shear_modulus=.3677.
 
-**Seed:** FERTILE — WHY the wave's coiled shape reaches the rigid loading disc while the straight
-control's own coiled shape does not (same cross-section, same pitch) is untested: track the
-longeron's own 3D trajectory frame-by-frame near the contact-engagement point (mcs&asymp;85%) for
-both designs and see what geometric quantity actually diverges between them — axial position,
-radial excursion, or something else. That would settle whether this is an exploitable geometric
-lever or an accident of where D1=100mm happens to place the disc relative to this one design's
-own coil radius.
+**Seed:** FERTILE — narrowed (2026-08-26): a cross-section-swap probe (identical wave, isotropic
+CircularProfile substituted for RectangularProfile, radius matched to the SAME cross-sectional
+area) still drives the member into real disc contact (COPEN closes to exactly 0, both surfaces,
+mcs&asymp;65-70%) and produces the same qualitative late-&sigma; rise, so the effect is not specific
+to Shi et al.'s anisotropic bend-twist mode — it survives a completely different, isotropic
+cross-section as long as the WAVE is present. What's still untested: WHY the wave's coiled shape
+reaches the disc while the straight control's does not. Track the longeron's own 3D trajectory
+frame-by-frame near the contact-engagement point for both to see what geometric quantity actually
+diverges — axial position, radial excursion, or something else. That would settle whether this is
+an exploitable geometric lever or an accident of where D1=100mm places the disc relative to this
+design's own coil radius (one probe, not a swept campaign — the circular substitute is also
+substantially stiffer pre-contact, ~2.3&times; Bessa vs the rectangle's ~0.3-0.4&times;, since an
+isotropic circle at matched area is much stiffer than a highly-elongated anisotropic rectangle in
+its own weak/radial direction).
 
 **Deferred:** RESOLVED (2026-08-26, advisor session) — the causal-mechanism question the critic
 left open (call_002) is no longer just hedged. A direct ablation (identical design,
