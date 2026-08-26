@@ -1377,9 +1377,14 @@ layout: two-cols-header
 
 ::right::
 
-<div class="flex flex-col items-center justify-center h-full">
-  <img src="/gifs/compliant_ring_negative_native.gif" class="max-h-72 rounded shadow-lg" />
-  <div class="text-xs opacity-60 mt-2 px-4 text-center">The family's own best design (mcs=0.7885, mls=0.01976) — its ODB is one of the 1/28 solves that fully Riks-converged, so this is a real, complete deformation history, not a partial salvage. Not feasible, but a genuine geometry, not an absence of one.</div>
+<div class="flex flex-col gap-1" style="height: 460px">
+  <div class="flex items-center justify-center" style="height: 165px">
+    <img src="/gifs/compliant_ring_mini.png" style="max-height: 165px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 265px">
+    <img src="/gifs/compliant_ring_landscape.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">The family's own best design (mcs=0.7885, mls=0.01976) — the kirigami-cut ring itself is now shown (SHOW_INSTANCES=RING_TOP), not the schematic dashed circle used elsewhere. Not feasible, but a genuine geometry.</div>
 </div>
 
 <!--
@@ -1402,7 +1407,12 @@ for a *different* hypothesis, not evidence this one works.
 
 **Infra:** bo/prefilter.py:passes_compliant_ring (adds w_ring/t_ring&ge;10 to D36's own three
 gates, so the annulus doesn't degenerate into a 1-D ring/wire).
-scripts/supercompressible_{lin_buckle,riks}_compliant_ring.py.
+scripts/supercompressible_{lin_buckle,riks}_compliant_ring.py. ODB:
+/oscar/scratch/eaguerov/supercompressible_compliant_ring_oracle/riks_cring_8aaa945e46684ffdaa8ce1bf37a8b2a6/
+(the only one of 28 with a persisted results.pkl -- the rest are salvage-only reads). Rendered
+2026-08-26 with SHOW_INSTANCES=RING_TOP (a real, separately-meshed 960-element shell instance,
+distinct from the 0-D-point rings every other family in this study has) -- the actual kirigami-cut
+ring geometry, not the schematic dashed-circle placeholder used where no ring mesh exists.
 -->
 
 ---
