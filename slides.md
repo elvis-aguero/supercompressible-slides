@@ -926,6 +926,17 @@ straight member's shape does not, in the SAME compression range. Still open: WHY
 — and whether that contact-mediated load path is a real, exploitable structural lever or a
 boundary-condition accident specific to this disc's placement.
 
+PS &sect;6 self-check (2026-08-26): this family uses `RectangularProfile` (not circular) — the
+SAME profile type &sect;6 flags for the D24 splice, where the rectangular cross-section quietly
+cleared the bar with the "new" component contributing nothing. Re-running the ablation's own
+COPEN (contact-gap) field frame-by-frame settles that this is not the same pattern: with the
+rectangular cross-section held fixed and only amplitude_rel zeroed, the control's contact gap
+closes from 2.033mm (t=0) to only ~1.05mm by its own solve's deepest frame (mcs&asymp;100-102%,
+deeper than the serpentine ever needed) — it never reaches the disc, and &sigma; never exceeds
+0.002 kPa anywhere in that range. The serpentine's gap starts closing by mcs&asymp;64% and is
+fully closed by mcs&asymp;90%. Removing the wave collapses the score to ~0; it is not riding
+along on the cross-section the way D24's splice rode along on its baseline.
+
 **Timeline:**
 D001: literature review — found and distinguished the Shi et al. 2024 precedent from D19's
 already-closed meander family.
@@ -5991,8 +6002,13 @@ class: idea-slide
 
 ::right::
 
-<div class="flex items-center justify-center h-full">
-  <img src="/gifs/elliptical_rings_native.gif" class="max-h-100 rounded shadow-lg" />
+<div class="flex flex-col gap-2" style="height: 460px">
+  <div class="flex items-center justify-center" style="height: 175px">
+    <img src="/gifs/elliptical_rings_mini.png" style="max-height: 175px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 277px">
+    <img src="/gifs/elliptical_rings_landscape.gif" class="rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
+  </div>
 </div>
 
 <!--
@@ -6043,18 +6059,18 @@ class: idea-slide
   both rings, max inward bow at mid-height — to geometrically pre-condition
   the coiling path and retain high compressive strain.
 - **Origin:** common sense geometric hypothesis, not a literature citation.
-- **Stats:** n=48 → 45 coil → 27 riks → 1 good (0.58× Bessa)
+- **Stats:** n=48 → 45 coil → 27 riks → 1 good (0.53× Bessa)
   p50/p90/p100 — σ_crit: 1.37/8.97/16.00 · mcs: 0.44/1.00/1.00 · mls: .024/.045/.071
   cleared: 23 of 27 decided ≥ 2× Bessa (0.2244) · novel: no — clearing the σ bar is common
   in this family, mcs (compressive strain) is the gate that bowing itself collapses
-  best good: bow_amp=.087 a=.005 b=.013 pitch=.32 top_d=.35 → σ=.0757 mcs=1.00 mls=.013
+  best good: bow_amp=.087 a=.005 b=.013 pitch=.32 top_d=.35 → σ=.0591 mcs_full=1.00 mls=.013
 - **Verdict:** FALSIFIED · WEAK<br>
   Bowing does the opposite of hypothesized — a
   confound-free dose-response sweep (bow_amplitude &isin; &#123;0,0.05,0.10,0.15&#125;,
   fixed ratio_b=0.03) shows max_compressive_strain decreasing monotonically
   with bow (48% drop, 0.5846→0.3040), collapsing strain rather than
   protecting it. A broader 48-eval joint search does find one real
-  feasible design, but far weaker than baseline (0.58× Bessa) — bowing
+  feasible design, but far weaker than baseline (0.53× Bessa) — bowing
   doesn't help, it just doesn't fully kill feasibility either. A broader
   check across the converged designs (not the tightly-controlled sweep
   above) finds no reliable relationship once other dimensions vary freely
@@ -6066,8 +6082,13 @@ class: idea-slide
 
 ::right::
 
-<div class="flex items-center justify-center h-full">
-  <img src="/gifs/bowed_longerons_native.gif" class="max-h-100 rounded shadow-lg" />
+<div class="flex flex-col gap-2" style="height: 460px">
+  <div class="flex items-center justify-center" style="height: 175px">
+    <img src="/gifs/bowed_longerons_mini.png" style="max-height: 175px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 277px">
+    <img src="/gifs/bowed_longerons_landscape.gif" class="rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
+  </div>
 </div>
 
 <!--
@@ -6096,9 +6117,18 @@ Fuller context:
   conditions, causal dose-response sweep is adequate on its own terms (no CV/surrogate
   check needed) because it is a designed experiment directly testing the causal claim,
   not a surrogate-guided search whose adequacy depends on above-chance CV.
-- GIF: native Abaqus/CAE Viewer export, standard pipeline. The visible outward bow of
-  each leg before compression begins (frame 0) is the mechanism itself, not a
-  rendering artifact.
+- σ correction (2026-08-26, deck-port pass): the "best good" line's σ was .0757 kPa,
+  computed pre-2026-08-06 under the old Stage-1 eigenvalue sigma_crit metric.
+  Recomputed here under the current Stage-2 windowed sigma_peak (bo/response_metrics.py,
+  the metric every other slide in this deck now uses) from the same ODB: peak load
+  actually occurs early (mcs≈6%, long before the compression cap), giving σ=.0591 kPa
+  (0.53× Bessa) — 78% of the old figure, consistent with response_metrics.py's own
+  documented 0.736-0.859 overprediction ratio for this metric-version change. mcs and mls
+  both independently reproduce the cited values exactly (mls=.013256), confirming this is
+  the same design point; only σ needed correction. Verdict (FALSIFIED · WEAK) is unchanged
+  either way — the design was already far below the 2× Bessa bar under both readings.
+- Landscape re-render (2026-08-26): clean, no clipping across the full window (mcs 0%→88%).
+  Replaces the old native-export gif with the split-panel layout; same underlying ODB.
 -->
 
 ---
