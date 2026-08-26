@@ -4131,13 +4131,13 @@ class: summary-slide
 
 <div class="text-sm leading-snug">
 
-The run's own headline design (H4, bistable-arch reinvestment beating baseline) was retracted post-hoc once a continuum submodel showed the beam idealization understated real joint strain by 2.7×+.
+The run's own headline design (H4, bistable-arch reinvestment beating baseline) was retracted post-hoc once a continuum submodel showed the beam idealization understated real joint strain by 2.7×+ — that retraction was itself later reversed (2026-08-18, a restrained-warping check found corrected strain 1.963%, under the ceiling; see D24's own slide).
 
 | # | Claim | Verdict | Key evidence | Idea |
 |---|---|---|---|---|
 | H2 | Bistable shallow-arch snap segment near bottom ring cuts mls by ≥20% | ❌ | real effect (16/24 feasible, mean ~7%, max 12.3%) but short of the 20% bar | D24 |
 | H3 | mls is a near-invariant kinematic property of coiling, independent of cross-section/added segments | ✅ | same 24-pt grid; no design cleared the 20% refutation threshold | D24 |
-| H4 | Reinvest H2's mls headroom via joint cross-section+arch re-opt to beat 0.7704 kPa | ❌ | retracted post-hoc — continuum submodel found real joint strain 2.7×+ the beam value, see idea slide | D24 |
+| H4 | Reinvest H2's mls headroom via joint cross-section+arch re-opt to beat 0.7704 kPa | ✅ | retraction reversed 2026-08-18 — restrained-warping check found real joint strain 1.963%, under the ceiling; see D24's own slide | D24 |
 | H5 | Second, independently-snapping arch at top ring further lowers mls | ❌ | top segment never actually snaps | D24 |
 
  &nbsp;&middot;&nbsp; **Cost: $26.32**
@@ -4327,7 +4327,7 @@ Four attempts at escaping the strain ceiling all fail, and a dedicated twist-ang
 | H2 | Continuously-twisted rectangle cross-section ("twisted-strip" beam) | ❌ | existence search stopped at 43/~100-110 planned evals, 1/43 feasible — underpowered; properly-powered 2026-08-03, see speaker notes | — |
 | H3 | The local-strain wall is intrinsic to coiling curvature demand, not a fixable cross-section problem | ✅ | 8-pt twist sweep 0-120°: mls only rises (1.99%→5.01%), σ twist-invariant (<0.07% drift) | — |
 | H4 | Fractal-order longeron centerline perturbation lowers peak strain | ❌ | matched quad, order 0-3: mls flat-to-slightly-increasing at every order | — |
-| H5 | Swap chiral brace planform for a true helical coil | ❔ | ligament strain falls 9.05%→6.00%, still 3× over the 2% limit | D16, D15 |
+| H5 | Swap chiral brace planform for a true helical coil | ❔ | ligament strain falls 9.05%→6.00%, still 3× over the 2% limit (rests on 3 non-converged salvage reads, not settled) | D16, D15 |
 
 </div>
 
@@ -4375,7 +4375,7 @@ Chained true-bistable snap-through segments hit a solve-completion wall, not a s
 
 | # | Claim | Verdict | Key evidence | Idea |
 |---|---|---|---|---|
-| H2 | Chain of true-bistable (Q≥2.31) snap-through arch segments | ❌ | solve-completion wall, not a strain wall — 23/72 coilable, only 1 near-degenerate "success" | D23 |
+| H2 | Chain of true-bistable (Q≥2.31) snap-through arch segments | ❌ | solve-completion wall, not a strain wall — 18 coilable, only 2/18 converged with valid stabilization, 1 near-degenerate "success" | D23 |
 | H3 | (Absence claim) no valid chained mild pre-curved sub-bistable arch design exists | ✅ | refuted — real counterexample found, σ=0.776506 kPa, see idea slide | D23 |
 
  &nbsp;&middot;&nbsp; **Cost: $18.00**
@@ -4391,11 +4391,15 @@ equilibrium path) recurs across n_segments=2..6 and across 2+ orders of
 magnitude in cross-section size, matching a priori literature risk flagged
 during the run's own literature review (arXiv:2010.07850: snap-through is
 rate-dependent/delayed-bifurcation even in the ideal quasi-static elastic
-case). 6 matched energy-free/stabilized retry pairs in the data: stabilization
-never rescued convergence, made mcs worse or negligibly different every time.
-The one "success" (mcs>=0.80) is a near-degenerate cross-section
-(ratio_a=0.004616, ratio_b=0.00059) at sigma=2.97e-5 kPa, ~26,000x below the
-0.7704 kPa target — not a real candidate.
+case). Of 18 coilable (Stage-1-passed) true-bistable-regime designs, only
+2/18 converged with a valid stabilization-energy ratio, and of those only 1
+met both mcs>=0.80 and mls<=0.02 — a near-degenerate cross-section at
+sigma_crit=0.001622 kPa, ~475x below the 0.7704 kPa target — not a real
+candidate. (Corrected 2026-08-26, deck audit item 1: this paragraph
+previously quoted "23/72 coilable... sigma=2.97e-5 kPa" -- D005's numbers,
+the earlier 72-eval campaign the very next paragraph explains was retracted
+for being confounded. The numbers above are D006's, the actual corrected,
+validator-satisfying campaign this paragraph has always claimed to describe.)
 
 H2 self-correction (why this FALSIFIED is trustworthy, not premature): the
 strategizer's FIRST attempt at this verdict, based on an earlier 72-eval
