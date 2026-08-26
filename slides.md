@@ -1826,9 +1826,14 @@ though no multiplier improves on it.
 
 ::right::
 
-<div class="flex flex-col items-center justify-center h-full">
-  <img src="/gifs/kissing_pair_native.gif" class="max-h-72 rounded shadow-lg" />
-  <div class="text-xs opacity-60 mt-2 px-4 text-center">Same design as D33's own gif (3&times;, 48.6% compression) — every other multiplier tested either matches or underperforms it, so this remains the family's best geometry.</div>
+<div class="flex flex-col gap-1" style="height: 460px">
+  <div class="flex items-center justify-center" style="height: 165px">
+    <img src="/gifs/kissing_pair_mini.png" style="max-height: 165px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 265px">
+    <img src="/gifs/kissing_pair_landscape.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">Same design as D33's own gif (3&times;, 48.6% compression) — every other multiplier tested either matches or underperforms it, so this remains the family's best geometry.</div>
 </div>
 
 <!--
@@ -2349,9 +2354,14 @@ layout: two-cols-header
 
 ::right::
 
-<div class="flex flex-col items-center justify-center h-full">
-  <img src="/gifs/kissing_pair_native.gif" class="max-h-72 rounded shadow-lg" />
-  <div class="text-xs opacity-60 mt-2 px-4 text-center">3&times; stiffness soft connector (D018), the family's best-ever result: 48.6% compression, fully converged.</div>
+<div class="flex flex-col gap-1" style="height: 460px">
+  <div class="flex items-center justify-center" style="height: 165px">
+    <img src="/gifs/kissing_pair_mini.png" style="max-height: 165px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 265px">
+    <img src="/gifs/kissing_pair_landscape.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">3&times; stiffness soft connector (D018), the family's best-ever result: 48.6% compression, fully converged.</div>
 </div>
 
 <!--
