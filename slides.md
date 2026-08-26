@@ -1055,9 +1055,14 @@ class: idea-slide
 
 ::right::
 
-<div class="flex flex-col items-center justify-center h-full gap-1">
-  <img src="/gifs/twist_buckle_native.gif" class="max-h-85 rounded shadow-lg" />
-  <div class="text-xs opacity-50 text-center">Highest-twist-content converged design (twist_energy_fraction=1.13e-4, the campaign's own ceiling) — visibly still an ordinary bending/coiling collapse, not a twist-dominated one.</div>
+<div class="flex flex-col gap-1" style="height: 460px">
+  <div class="flex items-center justify-center" style="height: 165px">
+    <img src="/gifs/twist_buckle_mini.png" style="max-height: 165px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 265px">
+    <img src="/gifs/twist_buckle_native.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">Converged design, twist_angle=30&deg;, pitch=0.5 — visibly still an ordinary bending/coiling collapse, not a twist-dominated one.</div>
 </div>
 
 <!--
