@@ -1560,9 +1560,14 @@ layout: two-cols-header
 
 ::right::
 
-<div class="flex flex-col items-center justify-center h-full">
-  <img src="/gifs/crosslinked_bundle_negative_native.gif" class="max-h-72 rounded shadow-lg" />
-  <div class="text-xs opacity-60 mt-2 px-4 text-center">The family's own best design (D020, mcs=0.7191): a real, deep 30-frame Riks history reaching the genuine snap-through plateau where it stalls — not fabricated, and not a converged "good" result, but the actual geometry and collapse mode this run's headline finding is based on.</div>
+<div class="flex flex-col gap-1" style="height: 460px">
+  <div class="flex items-center justify-center" style="height: 165px">
+    <img src="/gifs/crosslinked_bundle_mini.png" style="max-height: 165px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 265px">
+    <img src="/gifs/crosslinked_bundle_landscape.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">The family's own best design (D020, mcs=0.7191): a real, deep 340-frame Riks history reaching the genuine snap-through plateau where it stalls — not a converged "good" result, but the actual geometry this run's headline finding is based on.</div>
 </div>
 
 <!--
@@ -1598,9 +1603,11 @@ here as #9, not fixed in the vendored a3dasm harness.
   designs; reached mcs=0.7173, confirmed a real Riks snap-through via an extended-solve-budget
   check ruling out a wall-clock artifact.
 - D020 (10-point local refinement): confirmed mcs=0.7191 is a real local optimum (ratio_d=0.046729,
-  ratio_r_sub_frac=0.152878, ratio_pitch=0.856914, ratio_top_diameter=0.436454, n_sub_beams=2,
+  ratio_r_sub_frac=0.152878, ratio_pitch=0.856914, ratio_top_diameter=0.363713, n_sub_beams=2,
   n_crosslinks=1, crosslink_stiffness_ratio=0.055981, n_longerons=4); flagged two untested
-  directions.
+  directions. (ratio_top_diameter corrected 2026-08-26 -- re-verified against this exact ODB's own
+  sim_info.pkl, 6 of 7 other parameters already matched to full precision; the prior 0.436454 was
+  a transcription error, not a different design.)
 - D021 (14-point decisive grid probe): falsified "push further" in both flagged directions.
 - D022: closed soft-stiffness-at-n=1 and n_sub_beams=3 — both collapse catastrophically.
 
