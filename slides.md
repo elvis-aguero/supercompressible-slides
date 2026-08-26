@@ -5983,18 +5983,17 @@ sea of 6-of-8 infeasible points with no monotonic trend to climb; the mode-switc
 non-coiling behavior looks intrinsic to a closed thin-wall box profile (it resists the twist the
 coiling mechanism needs), not a parameter this search under-sampled.
 
-Fuller context:
+**Timeline:** D004: build + validate the BoxProfile family. D007: search (this run's
+H2) — the outer-tangential-dimension sweep found feasible windows at ratio_b_out=0.02
+and 0.054 but infeasible at 6 of 8 other swept points, a genuinely different
+mechanical behavior from the solid-rectangle family's clean, monotonic collapse (this
+run's H4, which folds into the run17-rectangle-anchor idea), even though the net
+practical result (underperforms) matches.
 
-- This is H2 of run `20260708T021335`, delegations D004 (build+validate) + D007
-  (search). ODB: data/idea_odbs/20260708T021335_H2_box_hollow_tube/ (source:
-  presentation/resim/box/riks_c6f5fdb729c549fd93c5ddb53065dde3).
-- The outer-tangential-dimension sweep found feasible windows at ratio_b_out=0.02 and
-  0.054 but infeasible at 6 of 8 other swept points — a genuinely different mechanical
-  behavior from the solid-rectangle family's clean, monotonic collapse (this run's H4,
-  which folds into the run17-rectangle-anchor idea), even though the net practical
-  result (underperforms) matches.
-- GIF: native Abaqus/CAE Viewer export, standard pipeline. The hollow box's
-  rectangular tube profile is directly visible in the rendered beam cross-sections.
+**Infra:** ODB: data/idea_odbs/20260708T021335_H2_box_hollow_tube/ (source:
+presentation/resim/box/riks_c6f5fdb729c549fd93c5ddb53065dde3). GIF: native Abaqus/CAE
+Viewer export, standard pipeline. The hollow box's rectangular tube profile is
+directly visible in the rendered beam cross-sections.
 -->
 
 ---
