@@ -784,9 +784,9 @@ This run found a genuinely new mechanism that clears the incumbent for the first
 |---|---|---|---|---|
 | H2 | The kinematic-depth-cap wall holds generally, across families | &#10007; | Reconfirms prior findings; not a fresh mechanism test this run | — |
 | H4 | Chiral twist-buckling escapes the cap once the D41 joint confound is fixed | &#10007; | 0 strict feasible even with the rod genuinely free to twist; twist_energy_fraction still caps at 7.3% | D41 &rarr; |
-| H5 | Crosslinked beam bundle (D40's near-miss) escapes via targeted post-buckling shaping | &#10007; | 0/75 Stage-2 converged | D40 &rarr; |
+| H5 | Crosslinked beam bundle (D40's near-miss) escapes via targeted post-buckling shaping | &#10007; | 0/59 Stage-2 converged | D40 &rarr; |
 | H1/H3/H6 | Serpentine (wavy in-plane) longeron clears both floors (own slide) | &#10003; | &sigma;_peak=0.6460 kPa — 2.88&times; target, 1.06&times; incumbent | D42 &rarr; |
-| H7/H8 | Robust to manufacturing imperfection (8, 9 independent draws) | &#10003; | 6/8, 7/9 feasible; &sigma; 0.48&ndash;0.73 kPa across draws | D42 &rarr; |
+| H7/H8 | Robust to manufacturing imperfection (8, 8 independent draws) | &#10003; | 6/8, 7/8 feasible; &sigma; 0.48&ndash;0.73 kPa across draws | D42 &rarr; |
 | H9 | Peak local strain is not at a rigid joint | &#10003; | Peak at arc-length fraction 0.75 (mid-span); joint-zone strain 0.0122 vs 0.0190 windowed peak | D42 &rarr; |
 
 **Caught by its own critic, not by hindsight:** the notebook's first draft claimed the new
@@ -812,7 +812,7 @@ was not an artifact of the locked joint.
 
 H5 DETAIL (folds in here, refinement of D40 per rule 1). Delegation D010 targeted the crosslinked
 bundle's asymptotic post-buckling stiffness directly (shaping the crosslink connector's own
-stiffness curve, not just its magnitude) -- 0/75 Stage-2 converged, mcs-vs-lambda correlation
+stiffness curve, not just its magnitude) -- 0/59 Stage-2 converged, mcs-vs-lambda correlation
 0.02 (no relationship), best found mcs_windowed=0.081. D007's own retrospective flagged a real
 premise mismatch in its own task brief (assumed D40's 71.9% figure came from a finite/compliant
 connector; it came from D017's rigid kinematic tie) -- investigated with real diagnostic solves
@@ -1259,7 +1259,7 @@ the global coiling mode — before the run pivoted to a discrete-member idea tha
 | H2 | Staged two-storey mast (upper storey bears on landed lower storey) | re-tread | attempted at least 5 times before (D34 + earlier H2/H12/H4) | — |
 | H3 | Kirigami-cut shell wall distributes rotation over many ligaments, not one beam's curvature | **&#8253;** | 0/51 Stage-1 coilable across two independent draws; top designs cluster at range edges — box not exhaustively covered | D36 &rarr; |
 | H4 | Compliant kirigami-cut top ring lets the effective ring radius grow favorably during compression | **&#10007;** | shrinking dominates growing 14:3; one design (mcs=0.7885, mls=0.01976) is this run's closest strain-side near-miss, but with an essentially flat radius — not the hypothesized mechanism | D37 &rarr; |
-| H5 | Helically-graded shell thickness reshapes the strain-vs-compression integral | **&#8253;** | 0/22 coilable; twist phase moves the rotation signal non-monotonically and asymmetrically by sign | D38 &rarr; |
+| H5 | Helically-graded shell thickness reshapes the strain-vs-compression integral | **&#8253;** | 0/24 coilable; twist phase moves the rotation signal non-monotonically and asymmetrically by sign | D38 &rarr; |
 | H6 | Nested double-wall with an engaging backing collar raises effective stiffness | **&#10007;** | 0/5 coilable; more backing engagement does not even monotonically help the diagnostic signal | D39 &rarr; |
 | H7 | Crosslinked beam bundle generates bundle-level torque coupling beyond the single-beam depth cap | **&#8253;** | every configuration preserves genuine global coiling (unlike all 4 shells); crosslinking recovers a 22&times; buckling-capacity gain; best mcs=0.7191 — closest any novel mechanism has reached | D40 &rarr; |
 
@@ -2585,7 +2585,7 @@ baseline rectangle wearing a new pre-processor.
 |---|---|---|---|---|
 | H1/H2 | A secondary elastic **"stop"** engaging after the primary hits its strain limit adds a second load path (Florijn 2014) | **?** | 6 delegations, 20 solves, two FE constructions. When one finally engaged, salvage showed the design was already decided: **the primary crosses 2% strain at 5.9% compression** (mcs .910&rarr;.054), ~600 increments *before* the stop engages | D31 |
 | H3/H4 | A shallow **conical disc** changes where the coil bears and raises &sigma;_peak | **?** | Below the geometric onset 18/18 converge with **zero engagement**; at or past it **7 of 8 diverge** on overclosure chatter. No design both converges *and* engages | D32 |
-| **H5** | Ground/disc contact **never engages inside the evaluation window** for this study's feasible designs | &#10003;<span class="opacity-60">*</span> | **CPRESS = 0 at every frame** for BOTH confirmed anchors — `run17_rectangle` (rectangular) and `bessa_point` (circular), structurally unrelated — with COPEN pinned at each design's fabrication standoff throughout | — |
+| **H5** | Ground/disc contact **never engages inside the evaluation window** for this study's feasible designs | **?**<span class="opacity-60">*</span> | **CPRESS = 0 at every frame** for BOTH confirmed anchors — `run17_rectangle` (rectangular) and `bessa_point` (circular), structurally unrelated — with COPEN pinned at each design's fabrication standoff throughout | — |
 
 **\*narrow verdict only.** H5 was self-corrected down from a whole-paradigm absence claim: two
 anchors are not search power over a continuous space (Charter §2). The mechanism behind it —
