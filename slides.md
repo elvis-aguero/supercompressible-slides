@@ -761,6 +761,198 @@ describe the design and show the gif, no reasoning/justification needed.
 class: summary-slide
 ---
 
+# Run `20260826T012550` — summary
+
+<div class="text-sm leading-snug">
+
+This run found a genuinely new mechanism that clears the incumbent for the first time since
+`run17_rectangle` — and caught its own overclaim about why, before it shipped.
+
+| # | Claim | Verdict | Key evidence | Idea |
+|---|---|---|---|---|
+| H2 | The kinematic-depth-cap wall holds generally, across families | &#10007; | Reconfirms prior findings; not a fresh mechanism test this run | — |
+| H4 | Chiral twist-buckling escapes the cap once the D41 joint confound is fixed | &#10007; | 0 strict feasible even with the rod genuinely free to twist; twist_energy_fraction still caps at 7.3% | D41 &rarr; |
+| H5 | Crosslinked beam bundle (D40's near-miss) escapes via targeted post-buckling shaping | &#10007; | 0/75 Stage-2 converged | D40 &rarr; |
+| H1/H3/H6 | Serpentine (wavy in-plane) longeron clears both floors (own slide) | &#10003; | &sigma;_peak=0.6460 kPa — 2.88&times; target, 1.06&times; incumbent | D42 &rarr; |
+| H7/H8 | Robust to manufacturing imperfection (8, 9 independent draws) | &#10003; | 6/8, 7/9 feasible; &sigma; 0.48&ndash;0.73 kPa across draws | D42 &rarr; |
+| H9 | Peak local strain is not at a rigid joint | &#10003; | Peak at arc-length fraction 0.75 (mid-span); joint-zone strain 0.0122 vs 0.0190 windowed peak | D42 &rarr; |
+
+**Caught by its own critic, not by hindsight:** the notebook's first draft claimed the new
+post-buckling channel *causes* the 6% margin over the incumbent. Two of this run's own
+delegations had already reported the opposite (D005: "the evidence that 'more coupling &rarr;
+performance' is weak"; D008: the margin traces to zoom-BO refinement of the seeded incumbent,
+not the newly opened box). The critic's MAJOR finding (call_002) forced the causal claim down to
+"plausible ... but NOT demonstrated by a dose-response relationship" — the existence claim
+stands, the mechanism-causation claim does not, and D42's own slide says so.
+&nbsp;·&nbsp; **12 delegations, 279 ledgered evals, 7.5 h of 12 h**, GATED after 4 review rounds
+
+ &nbsp;&middot;&nbsp; **Cost: $75.70**
+</div>
+
+<!--
+H4 DETAIL (folds in here, refinement of D41 per rule 1). Delegation D006 rebuilt the chiral-twist
+joint so the rod is genuinely free to rotate independent of the ring's own rigid-body rotation --
+the exact confound diagnosed on D41's own slide. 45 ledgered evals, 0 strict feasible,
+twist_energy_fraction peaked at 0.0731 (still far below a 50% dominant-mode bar), and 21 of 45
+points reached a >=10x comparison bar on an unrelated axis without ever engaging twist. Closes
+the mechanism a second time, this time with the confound actually removed -- D41's own finding
+was not an artifact of the locked joint.
+
+H5 DETAIL (folds in here, refinement of D40 per rule 1). Delegation D010 targeted the crosslinked
+bundle's asymptotic post-buckling stiffness directly (shaping the crosslink connector's own
+stiffness curve, not just its magnitude) -- 0/75 Stage-2 converged, mcs-vs-lambda correlation
+0.02 (no relationship), best found mcs_windowed=0.081. D007's own retrospective flagged a real
+premise mismatch in its own task brief (assumed D40's 71.9% figure came from a finite/compliant
+connector; it came from D017's rigid kinematic tie) -- investigated with real diagnostic solves
+rather than accepted at face value, per this delegation's own CONSISTENCY-flagged retrospective.
+
+THE CRITIC'S FULL ARC (4 review rounds). call_001: no finding, verified provenance and the
+literature corpus entry. call_002: MAJOR -- the causal claim above overstated what D005/D008's
+own delegation reports established (quoted verbatim above). call_003: RESOLVED -- the notebook
+was rewritten to hedge the causal claim explicitly, re-verified against the raw transcripts, not
+just re-claimed. call_004: no CRITICAL/MAJOR remaining, GATED.
+
+RETROSPECTIVE FLAGS (4, all genuine, all resolved in-run except one). D001 (literature reviewer)
+flagged a real inconsistency between PROBLEM_STATEMENT.md's new Lessons-learned section 6 (the
+splice-in-disguise warning, added the same advisor session) and the D24-revisited slide's own
+Verdict text, which had not been updated to match -- fixed as its own commit, this session.
+D005/D006/D007 (implementers/datagenerator) each flagged a task-brief premise that didn't match
+the underlying code or a prior run's own mechanism, investigated and resolved with real evidence
+rather than trusted or silently worked around.
+
+BLOCKED (D006, matches TRAPS.md #9): a concurrent-write ledger-loss bug inside the vendored
+a3dasm harness dropped some of D006's own campaign rows mid-run. Recovered via the campaign's own
+aggregate JSON output (not lost, just not individually re-derivable from the ledger) -- the same
+class of bug already documented, not a new one.
+
+INFRA BUILT THIS RUN, not yet promoted to gold: bo/oracle_serpentine.py (the real result),
+bo/oracle_chiral_twist.py, bo/oracle_crosslink_bundle.py, matching scripts/ pre/post-processors,
+and a genuinely new addition to bo/prefilter.py -- a local-radius-of-curvature slenderness gate
+for wavy centerlines, extending the existing global beam-theory-validity check to a failure mode
+only a non-straight member can have. Promotion is the user's call.
+
+COST RECONCILIATION. telemetry/summary.json records $74.13 with an EMPTY strategizer entry in
+by_role (same gap as the prior run). Summing directly from the strategizer's own transcript:
+$1.57. Actual: $74.13 + $1.57 = $75.70.
+-->
+
+---
+layout: two-cols-header
+class: idea-slide
+---
+
+# D42 &middot; <u>Serpentine (wavy in-plane) longeron</u>
+
+::left::
+
+<div class="text-sm leading-snug">
+
+- **What:** Offset each longeron's centerline from the straight ring-to-ring chord by a sinusoid
+  in the TANGENTIAL direction — perpendicular to the mast's own coiling-bow plane, not within it
+  — with a strongly anisotropic cross-section (stiff in-plane, compliant out-of-plane).
+- **Origin:** Shi, Huang, Yu &amp; Li (2024)&sup1; — a serpentine strip whose cross-section is
+  stiff in-plane and compliant out-of-plane does not simply deepen its own waviness under axial
+  load; it buckles OUT of its own planform via a coupled bend-twist mode (a double-eigenvalue
+  bifurcation), a different post-buckling energy channel than the planar coiling every other
+  family in this study shares.
+- **Stats:** n=140 &rarr; 121 coil &rarr; 61 riks &rarr; 51 good (5.76&times; Bessa)
+  p50/p90/p100 — &sigma;_crit: .12/1.27/5.61 &middot; mcs: .85/.94/.95 &middot; mls: .041/.057/.097
+  cleared: 38 of 61 decided &ge; 2&times; Bessa (0.2244) &middot; novel: yes — a genuinely new
+  centerline topology, distinct from D19's already-closed in-plane meander (different offset
+  direction, different physical mechanism)
+  best good: pitch=.5327 top_d=.1298 a=.00622 b=.02033 amplitude=.03164 n_undulations=2 &rarr;
+  &sigma;=.6460 mcs=.93 mls=.019
+- **Verdict:** SUPPORTED &middot; MIXED<br>
+  Clears both the 2&times;-Bessa target (2.88&times;) and the incumbent floor (1.06&times;), holds
+  up under 2 independent imperfection studies, and peak strain sits mid-span — the existence claim
+  is solid. **Correction (2026-08-26, advisor session, direct ablation):** the claimed mechanism
+  is not what's actually happening. Re-solving the identical design with amplitude_rel&rarr;0 (a
+  straight-centerline control, same cross-section/pitch) shows the control's CPRESS at the rigid
+  loading disc stays exactly **0 for its entire history**, run all the way to full geometric
+  closure — it never reaches the disc. The serpentine design's late &sigma; rise (mcs&asymp;85% to
+  its window's close) tracks that SAME disc's CPRESS rising in lockstep (4&rarr;214 kPa). The
+  headline number comes from the wave's shape bringing the member into contact with the rigid
+  loading disc, not from the claimed bend-twist post-buckling channel — real and wave-caused (the
+  control disproves a generic every-design-eventually-squishes story), but not yet understood well
+  enough to call a genuine, exploitable mechanism. See notes.
+
+</div>
+
+::right::
+
+<div class="flex flex-col gap-2" style="height: 460px">
+  <div class="flex items-center justify-center" style="height: 175px">
+    <img src="/gifs/serpentine_mini.png" style="max-height: 175px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 277px">
+    <img src="/gifs/serpentine_landscape.gif" class="rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
+  </div>
+</div>
+
+<div class="text-xs opacity-50 mt-2">
+&sup1; Shi, X., Huang, W., Yu, H. &amp; Li, Y. (2024), "Double-eigenvalue bifurcation and
+multistability in serpentine strips" — cited and verified against the study's own literature
+corpus this run (CorpusList), not assumed.
+</div>
+
+<!--
+**Input space:** ratio_pitch&isin;[.35,1.20] — storey height / D1, narrowed at the low end where
+the new local-curvature gate binds hardest. ratio_top_diameter&isin;[0,.60] — taper, kept
+non-negative so this family's result is never confounded with the already-closed "flare the
+rings" lever. ratio_a&isin;[.003,.020] — OUT-of-plane (radial) cross-section half-dimension, kept
+small so radial bending/twisting stays the compliant channel. ratio_b&isin;[.015,.05] — IN-plane
+(tangential) half-dimension, kept large relative to ratio_a (aspect ratio spans ~1&ndash;16).
+amplitude_rel&isin;[.01,.08] — peak tangential wave offset / D1, lower-bounded so the wave is a
+genuine planform feature, not a near-straight re-test of the baseline. n_undulations — discrete
+wave-period count. Fixed: n_longerons=3, n_storeys=1, twist_angle=0, ratio_shear_modulus=.3677.
+
+**Seed:** FERTILE — WHY the wave's coiled shape reaches the rigid loading disc while the straight
+control's own coiled shape does not (same cross-section, same pitch) is untested: track the
+longeron's own 3D trajectory frame-by-frame near the contact-engagement point (mcs&asymp;85%) for
+both designs and see what geometric quantity actually diverges between them — axial position,
+radial excursion, or something else. That would settle whether this is an exploitable geometric
+lever or an accident of where D1=100mm happens to place the disc relative to this one design's
+own coil radius.
+
+**Deferred:** RESOLVED (2026-08-26, advisor session) — the causal-mechanism question the critic
+left open (call_002) is no longer just hedged. A direct ablation (identical design,
+amplitude_rel&rarr;0) disproves BOTH candidate explanations on the table: not the claimed
+bend-twist post-buckling channel (the control's own CPRESS at the loading disc is exactly zero
+throughout, so nothing about the anisotropic cross-section alone produces this), and not a
+generic "every design eventually bottoms out against the disc" story either (the control's
+&sigma; just monotonically fades toward zero, run all the way past mcs=100% nominal, with no late
+rise at all). The real cause: the wave's own shape brings the member into disc contact where the
+straight member's shape does not, in the SAME compression range. Still open: WHY (see Seed above)
+— and whether that contact-mediated load path is a real, exploitable structural lever or a
+boundary-condition accident specific to this disc's placement.
+
+**Timeline:**
+D001: literature review — found and distinguished the Shi et al. 2024 precedent from D19's
+already-closed meander family.
+D003: oracle build (bo/oracle_serpentine.py) + the local-radius-of-curvature slenderness gate
+(bo/prefilter.py) needed for a wavy, not just straight, member.
+D005: seed campaign (H3/H1) — 15 feasible, best 0.5639 kPa.
+D008: extended-box campaign (H6) — 36 new feasible, winning point 0.6460 kPa.
+D009/D011: imperfection-robustness studies (H7/H8) — 8 and 9 independent draws.
+D012: peak-strain-location check (H9) — confirmed mid-span, not joint.
+Advisor session (2026-08-26, post-run): direct ablation (amplitude_rel&rarr;0 control, identical
+cross-section/pitch, re-solved via bo/oracle_serpentine.py's own evaluate()) plus a CPRESS trace
+on both ODBs — disproved the run's own bend-twist claim and the generic-squish alternative,
+identified real disc-contact engagement as the actual cause of the late-compression rise.
+
+**Infra:** bo/oracle_serpentine.py (Stage-1/Stage-2 dispatch, windowed_metrics reduction, plus a
+serpentine_out_of_plane_fraction diagnostic that checks whether the bend-twist mode actually
+engages), scripts/supercompressible_lin_buckle_serpentine.py,
+scripts/supercompressible_riks_serpentine.py, scripts/supercompressible_riks_serpentine_pp.py.
+ODB: /oscar/scratch/eaguerov/sc_oracle_serpentine/riks_47facf20e3c342b692ebe3c32272f997/ (D008's
+own winning design — the run's own headline point, not a no-winner-convention "typical" pick,
+since this idea's own Result bullet already headlines this specific number).
+-->
+
+---
+class: summary-slide
+---
+
 # Run `20260825T012642` — summary
 
 <div class="text-sm leading-snug">
@@ -921,13 +1113,14 @@ layout: two-cols-header
 - **What was tested:** Rank-3's robustness to manufacturing imperfections, sampled from Bessa's
   own lognormal(4&deg;,1.2&deg;) distribution across 3 independent seeds — a genuine severe test
   (D014: seed=2, 10 fresh draws disjoint from every prior sample).
-- **Result:** SUPPORTED (existence) &middot; SPLICE NOT PULLING ITS WEIGHT<br>
+- **Result:** SUPPORTED &middot; DEAD-END<br>
   Median &sigma;_peak=**1.6487 kPa** across 9 independent draws (7.35&times; the floor) clears
   every criterion — but this number is the imperfection-sensitive snap-through spike at
   mcs&asymp;0.1&ndash;0.5% of compression, not a sustained load. **Revised 2026-08-25 (see
   PROBLEM_STATEMENT.md &sect;6):** the design's own *sustained* post-snap capacity (&asymp;0.51&ndash;0.52 kPa,
-  stable across draws) sits **below** the plain rectangle incumbent's own real peak (0.6071 kPa).
-  The splice clears the bar by riding the spike, not by improving on the host cross-section.
+  stable across draws) sits **below** the plain rectangle incumbent's own real peak (0.6071 kPa) —
+  the splice actively hurts once the spike is set aside. Existence claim stands; the mechanism
+  does not help.
 
 </div>
 
