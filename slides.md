@@ -2855,7 +2855,7 @@ design but the one that reached the ceiling.
 | **H5** | &kappa;_max is a **kinematic invariant** of the ring geometry, not of the member | &#10003; | `mls_full/c` = .021600/.021658/.021641/.021714 across a **2&times; depth change**; &plusmn;15% over a 24-pt LHS, residual tracks taper (Spearman .786) as &kappa;&asymp;1/R_mean predicts | — |
 | **H7** | That depth cap is **binding**, not descriptive | &#10003; | No straight-longeron design with c &ge; 1.00 mm reaches 80% inside the 2% budget — whatever is done with width, storey height or taper | — |
 | **H9** | The cap is 0.02/&kappa;_max, and **flaring moves it** | &#10003; | A depth infeasible at zero flare becomes feasible at taper &minus;0.45, purely because the cap moved. The run's only severe confirmation | — |
-| H4/H6 | **Pre-coiling** relieves the strain wall (strain is c &times; curvature *change*) | **?** | **Corrected 2026-08-14:** wrap 4.5 at c = 2 mm reached **30.8% at 0.445% strain**, not the 61.5% first reported — that was `\|U3\|` counting upward travel as compression. Relief is real; its size is not ~5&times; | D30 |
+| H4/H6 | **Pre-coiling** relieves the strain wall (strain is c &times; curvature *change*) | **?** | **Corrected 2026-08-14:** wrap 4.5 at c = 2 mm reached **30.8% at 0.445% strain**, not the 61.5% first reported — that was `\|U3\|` counting upward travel as compression. Relief is real; its size is not ~5&times;. Separately retracted within-run (2026-08-12): the wrap&ge;3 designs' three longerons self-interpenetrate from mcs&asymp;0.39 onward (not modeled by this study), so even the corrected reading is trustworthy only up to that point | D30 |
 
 **&sigma;_peak &prop; E·w·c³/L², c capped kinematically and w by slenderness&ge;10; `run17_rectangle`
 sits at 99.7% of the cap.**
@@ -3096,7 +3096,7 @@ objective was not met.**
 | H1 | The straight-longeron two-ring topology is at its ceiling: coiling curvature is pinned to the ring radius (&kappa;&asymp;2/D<sub>1</sub>), capping winding-plane member depth near 2&nbsp;mm | **?** | Every escape attempt failed, but a ceiling claim cannot be established by four failures | — |
 | H2 | &sigma;_peak is **always** set by the pre-coil instability — a later contact-mediated rise cannot set the objective | &#10003; | mcs_at_peak &lt; 0.30 for every design. The 6 apparent late peaks (one at &sigma;=245.8 kPa) were **truncation artifacts**: `window_n == history_n`, peak at the last computed increment | — |
 | H7 | A multi-leaf (leaf-spring) longeron decouples depth from coiling curvature | &#10007; | `n_leaves=1` reproduced run-17 rectangle to 4 s.f.; `n_leaves=3` regressed 7.7&times; (&sigma;_eig 0.770&rarr;0.100) at 482&nbsp;s vs 84&nbsp;s | D28 |
-| H8/H9 | Coil-mode critical load is set by the **minimum** of winding-plane bending and torsional stiffness (fitted &sigma;_eig &prop; J<sup>0.96</sup>) | &#10003; | The run's one durable contribution — a mechanism law with an exponent, not a ranking | — |
+| H8/H9 | H8: coil-mode critical load rises with torsional stiffness J (exponent&asymp;1). H9: set by the **strict minimum** of J vs. bending stiffness | H8 &#10003; / H9 &#10007; | H8: fitted d(log &sigma;_eig)/d(log J) = 0.9963, R&sup2;=1.0000, n=13. H9's sharp-minimum framing FALSIFIED — real behavior is a SOFT saturation once J exceeds bending stiffness by ~20&times;, not a hard minimum at parity | — |
 
 **Best feasible = 0.6071 kPa — the incumbent rectangle, rediscovered** as the leaf-spring
 family's own *regression control*. &nbsp;·&nbsp; **Cost: $56.03** (306 evals, 6.2 h)
