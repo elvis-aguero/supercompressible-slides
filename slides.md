@@ -5037,7 +5037,7 @@ The rectangle-anchor value reconfirms bit-identically and the Kresling ceiling h
 | H1 | Rectangle search extended beyond the known corner | ✅ | reconfirms 0.7704 kPa bit-identically | D6 |
 | H2 | Extend Kresling ψ ceiling beyond 30° | ❌ | no design in [0,60°] beat the 0.711 kPa anchor | D17 |
 | H3 | Smoothly radially-tapered ("waisted") longeron | ❔ | new idea, own slide below | D18 |
-| H4 | Local refinement near the 0.877 kPa waisted point | ❌ | point later invalid under corrected slenderness formula | D18 |
+| H4 | Local refinement near the 0.877 kPa waisted point | ❔ | point later invalid under corrected slenderness formula | D18 |
  &nbsp;&middot;&nbsp; **Cost: $24.95**
 </div>
 
@@ -5331,7 +5331,7 @@ Four hypotheses converge on the same conclusion — a σ-vs-feasibility barrier 
 | H1 | Closed thin-walled box cross-section at slenderness≥10 | ❔ | mechanism confirmed (high-J → high σ) but coilability fails | D12 |
 | H2 | Helical (chiral) longeron path | ❌ | new idea, own slide below | D16 |
 | H3 | Feasible σ bound by the 2% local-strain limit | ❌ | knife-edge bifurcation, not a feasible window | — |
-| H4 | 2-storey escape from the σ↔feasibility barrier | ❌ | barrier holds — same conflict pattern as single-storey | D4 |
+| H4 | 2-storey escape from the σ↔feasibility barrier | ❔ | barrier holds — same conflict pattern as single-storey | D4 |
  &nbsp;&middot;&nbsp; **Cost: $19.54**
 </div>
 
