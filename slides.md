@@ -6532,42 +6532,39 @@ SUCCEEDED and became the floor. Perturbations of the cross-section alone (aspect
 orientation, taper) are inside the box this family already searched, so a rectangle-only campaign
 that beats Bessa is re-deriving a settled result. The bar for a new slide is beating
 run17_rectangle, not beating Bessa.
-Fuller context:
+**Timeline:** H8 (this slide) of run `20260705T181941`, following H6 (original
+orientation, FALSIFIED — max_local_strain rises 4× with the radial axis, tracking
+sigma_crit almost proportionally, the opposite of decoupling; D010's two decorrelated
+1D sweeps) and H7 (reversed orientation, but an over-specific compound prediction
+demanding "multiple designs with meaningful margin" — INCONCLUSIVE, since only 1/46
+valid-slenderness evals cleared the floor, too little data to confirm or deny the
+compound claim). H8 registers only the clean, supported half of H7's claim: existence
+of at least one valid design. Three distinct qualifying designs: D014's row 308
+(ratio_a=0.00774, ratio_b=0.01417, slenderness=10.52, sigma_crit=0.2712 — found
+incidentally in a broader unconstrained sweep, before the two slenderness-gated
+searches ran), D016's design (slenderness=16.04, sigma_crit=0.3644, the headline,
+rendered here), and D017's design (slenderness=15.85, sigma_crit=0.2287). The 2026-08-04
+Stats-migration's G=6 adds 3 more designs meeting every universal criterion but below
+this run's own 0.196 kPa target: two occurrences of sigma_crit=0.1786 and one at
+0.1003 — real, just not this run's own headline finding. One row in the 149-row
+Riks-converged population (D014/D016/D017 combined) showed mcs=1.41/mls=1.37, both
+physically impossible (mcs is bounded to [0,1] by definition) — excluded from the
+R=148 quartile population above as corrupted data, not merely flagged. This family
+keeps improving across later runs, none of which earn a new idea slide (all fold into
+this one per the deck's rule 1): run `20260706T204732` tests relaxing the slenderness
+floor to ≥8 (INCONCLUSIVE) and adding pretwist (INCONCLUSIVE), run `20260708T021335`
+H4 raises the tangential dimension alone to a new best of 1.1688 kPa (SUPPORTED), and
+run `20260712T192155` H1 eventually finds a repeatable 2.5656 kPa counterexample
+(FALSIFIED against a tighter 2.3376 kPa floor introduced by then) — see those runs'
+own summary slides for detail.
 
-- This is H8 of run `20260705T181941` (the clean, minimal existence claim), following
-  H6 (original orientation, FALSIFIED — max_local_strain rises 4× with the radial
-  axis, tracking sigma_crit almost proportionally, the opposite of decoupling; D010's
-  two decorrelated 1D sweeps) and H7 (reversed orientation, but an over-specific
-  compound prediction demanding "multiple designs with meaningful margin" —
-  INCONCLUSIVE, since only 1/46 valid-slenderness evals cleared the floor, too little
-  data to confirm or deny the compound claim). H8 registers only the clean, supported
-  half of H7's claim: existence of at least one valid design.
-- ODB: data/idea_odbs/20260705T181941_H8_run17_rectangle_anchor/ (source: SCRATCH
-  path /oscar/scratch/eaguerov/supercompressible_oracle/riks_09377e3040e64b82be337fcb827bd32e,
-  gold-verified in bo/confirmed_anchors.json).
-- The three distinct qualifying designs named in the original text: D014's row 308
-  (ratio_a=0.00774, ratio_b=0.01417, slenderness=10.52, sigma_crit=0.2712 — found
-  incidentally in a broader unconstrained sweep, before the two slenderness-gated
-  searches ran), D016's design (slenderness=16.04, sigma_crit=0.3644, the headline,
-  rendered here), and D017's design (slenderness=15.85, sigma_crit=0.2287). The new
-  Stats line's G=6 (2026-08-04 migration) adds 3 more designs meeting every universal
-  criterion but below this run's own 0.196 kPa target: two occurrences of
-  sigma_crit=0.1786 and one at 0.1003 — real, just not this run's own headline finding.
-  One row in the 149-row Riks-converged population (D014/D016/D017 combined) showed
-  mcs=1.41/mls=1.37, both physically impossible (mcs is bounded to [0,1] by
-  definition) — excluded from the R=148 quartile population above as corrupted data,
-  not merely flagged.
-- This family keeps improving across later runs, none of which earn a new idea
-  slide (all fold into this one per the deck's rule 1): run `20260706T204732` tests
-  relaxing the slenderness floor to ≥8 (INCONCLUSIVE) and adding pretwist
-  (INCONCLUSIVE), run `20260708T021335` H4 raises the tangential dimension alone to a
-  new best of 1.1688 kPa (SUPPORTED), and run `20260712T192155` H1 eventually finds a
-  repeatable 2.5656 kPa counterexample (FALSIFIED against a tighter 2.3376 kPa floor
-  introduced by then) — see those runs' own summary slides for detail.
-- GIF: native Abaqus/CAE Viewer export, standard pipeline. This gif was re-rendered
-  fresh for this batch (an earlier square-canvas, unlabeled-legend version existed
-  from a prior rendering pass and has been replaced with the current
-  portrait/top-right-legend/schematic-ring pipeline to match this deck's contract).
+**Infra:** ODB: data/idea_odbs/20260705T181941_H8_run17_rectangle_anchor/ (source:
+SCRATCH path /oscar/scratch/eaguerov/supercompressible_oracle/riks_09377e3040e64b82be337fcb827bd32e,
+gold-verified in bo/confirmed_anchors.json). GIF: native Abaqus/CAE Viewer export,
+standard pipeline — re-rendered fresh for this batch (an earlier square-canvas,
+unlabeled-legend version existed from a prior rendering pass and has been replaced
+with the current portrait/top-right-legend/schematic-ring pipeline to match this
+deck's contract).
 -->
 
 ---
@@ -6657,35 +6654,33 @@ was testing against (area=.00215, Ixx=1.35e-6, Iyy=1.24e-6, J=6.65e-6).
 limit, the same order-of-magnitude gap this deck treats as unclosable elsewhere; the design's
 real legacy is the three-criteria contract it forced into existence, not a refinement candidate.
 
-Fuller context:
+**Timeline:** Stats-migration note (2026-08-04): N=42 combines D003's 36-pt Stage-1
+LHS sweep (23 coilable) with 6 targeted refinement points across D004(2)/D005(2)/
+D008(2); 5 of those 6 reached a converged Riks solve. test_A (the 485.996 kPa
+headline) nominally passed this run's own mcs&ge;90% bar but mls was never measured
+here — G=0 reflects the complete modern criteria, not this run's own incomplete pass
+flag. This is H2 (existence) and H4 (this specific thick design) of run
+`20260630T164908`, delegations D005/D008. H3 (shorter pitch, FALSIFIED — best 50.91%
+strain, pitch=0.30 not even coilable) and H5 (smaller top ring, FALSIFIED —
+top_diam=0.50 gives strain=83.68%, WORSE than the original 0.5978, because a smaller
+top ring produces a LARGER geometric coiling limit h_min, opposite of what was
+predicted) are both refinements of this same idea, folded in here. H1 this run
+(generalized Bessa optimum Stage-2 test, J=6.65e-6/Ixx=1.35e-6, sigma=65.31kPa): max
+compressive strain only 9.23% (RF3 peak -1165N then snap-back to -170N, not a coiling
+collapse) — this is what motivated the whole SCLF pivot and folds into the extended-J
+hollow-tube idea's story (same "generalized sections fail Stage 2" finding as H6/H7
+of the prior run). The invalidation (run `20260705T181941` H1, delegation D001):
+max_local_strain=0.24719 (24.7%), max_compressive_strain=0.89534 (barely below the
+0.90 Stage-2 threshold too, at these exact Riks settings) — fails TWO of the three
+criteria, not just one. This finding is what motivated the study's own formal
+adoption of the three-criteria feasibility contract (coilable, Riks strain≥90%,
+local strain≤2%) used in every subsequent run.
 
-- Stats-migration note (2026-08-04): N=42 combines D003's 36-pt Stage-1 LHS sweep
-  (23 coilable) with 6 targeted refinement points across D004(2)/D005(2)/D008(2); 5
-  of those 6 reached a converged Riks solve. test_A (the 485.996 kPa headline)
-  nominally passed this run's own mcs&ge;90% bar but mls was never measured here —
-  G=0 reflects the complete modern criteria, not this run's own incomplete pass flag.
-- This is H2 (existence) and H4 (this specific thick design) of run `20260630T164908`,
-  delegations D005/D008. H3 (shorter pitch, FALSIFIED — best 50.91% strain, pitch=0.30
-  not even coilable) and H5 (smaller top ring, FALSIFIED — top_diam=0.50 gives
-  strain=83.68%, WORSE than the original 0.5978, because a smaller top ring produces a
-  LARGER geometric coiling limit h_min, opposite of what was predicted) are both
-  refinements of this same idea, folded in here.
-- ODB: data/idea_odbs/20260630T164908_H4_SCLF_thick/ (source:
-  presentation/resim/thick_sclf/riks_6944016ddcca48608b995e9d6a4cbdfd).
-- H1 this run (generalized Bessa optimum Stage-2 test, J=6.65e-6/Ixx=1.35e-6,
-  sigma=65.31kPa): max compressive strain only 9.23% (RF3 peak -1165N then snap-back
-  to -170N, not a coiling collapse) — this is what motivated the whole SCLF pivot and
-  folds into the extended-J hollow-tube idea's story (same "generalized sections fail
-  Stage 2" finding as H6/H7 of the prior run).
-- The invalidation (run `20260705T181941` H1, delegation D001): max_local_strain=
-  0.24719 (24.7%), max_compressive_strain=0.89534 (barely below the 0.90 Stage-2
-  threshold too, at these exact Riks settings) — fails TWO of the three criteria, not
-  just one. This finding is what motivated the study's own formal adoption of the
-  three-criteria feasibility contract (coilable, Riks strain≥90%, local strain≤2%)
-  used in every subsequent run.
-- GIF: native Abaqus/CAE Viewer export, thick circular tube visibly coiling into a
-  tight double-helix, strain colored (E11), dashed schematic rings, portrait canvas —
-  standard pipeline, no gotchas specific to this ODB.
+**Infra:** ODB: data/idea_odbs/20260630T164908_H4_SCLF_thick/ (source:
+presentation/resim/thick_sclf/riks_6944016ddcca48608b995e9d6a4cbdfd). GIF: native
+Abaqus/CAE Viewer export, thick circular tube visibly coiling into a tight
+double-helix, strain colored (E11), dashed schematic rings, portrait canvas —
+standard pipeline, no gotchas specific to this ODB.
 -->
 
 ---
@@ -6780,57 +6775,54 @@ mcs/mls has only spent 40 of its own planned 120-eval budget (phase 1 zero-feasi
 declined to zoom further with no incumbent); the max-J-at-half-pitch point extrapolated at ~75.9
 kPa (clearing both floors) was flagged as the natural next step and still hasn't been directly run.
 
-Fuller context:
+**Timeline:** Stats-migration note (2026-08-04): this idea has since been re-tested
+out-of-band (not a new agentic run — see docs/assistant_investigation_diary.md, not
+tracked in this repo) using the study's own default 3-phase zoom search on D006's
+lower-dimensional 4D rectangle-family reparametrization of this same topology
+(`bo/experiments/real_designs/run_multistorey.py`): 40 real evals, phase 1 found zero
+feasible points and correctly declined to zoom further (no incumbent to center a
+smaller box on). This directly checks mcs/mls (unlike D004 above) and still finds
+nothing — reinforcing, not resolving, the open question; a full 120-eval budget
+hasn't been spent on this reparametrization yet. This is H2 of run `20260629T191754`,
+delegation D004 (32/48 planned evals). Linear-scaling extrapolation predicted the
+untested max-J-at-half-pitch point could reach ~75.9 kPa, potentially clearing BOTH
+the 65.3 kPa and 75.1 kPa floors — this was flagged as the natural next step and
+picked up by a later delegation testing max-J at n_storeys=1 (B1 anchor) before
+committing further n_storeys=2 budget. This idea keeps reappearing across later runs
+as a refinement target (an independent per-storey ratio_b variant in run
+`20260712T192155` H2, a strain-barrier escape attempt in run `20260715T002538` H4, a
+peak-local-strain reduction test in run `20260718T071133` H3) — all fold into this
+same slide per the deck's rule 1, none earn their own slide. Run `20260718T071133`
+H3, why INCONCLUSIVE (not FALSIFIED as first drafted): the strategizer's first pass
+marked H3 FALSIFIED on the delegation's own self-reported "4/36 feasible,
+best=0.1085 kPa, clear plateau" (diagnostics.jsonl VERDICT_SUBSTANCE_FLAG,
+2026-07-18T11:38:07). A critic pass (retrospective, critic node, 2026-07-18T13:07:02)
+caught two compounding problems by re-querying the ledger directly rather than
+trusting the report: (1) a slenderness-formula bug meant the true feasible count was
+3/36, not 4/36 -- one of the "feasible" rows didn't actually clear criterion 4; (2)
+more importantly, ALL of the rows counted as feasible had `converged=False` -- they
+were non-converged salvaged reads, not genuine Riks solutions. The strategizer's own
+closing retrospective (2026-07-18T13:23:20) calls this out directly: a sparse,
+non-converged-only "feasible" set cannot support a falsification claim per the
+Charter, and the verdict was downgraded to INCONCLUSIVE. Kept here rather than fixed
+silently, because it's a real instance of the adversarial-critic layer catching a
+genuine science-integrity error the automated validator did not flag on its own axis
+(it flagged sparsity; the critic separately caught the convergence issue).
 
-- Stats-migration note (2026-08-04): this idea has since been re-tested
-  out-of-band (not a new agentic run — see docs/assistant_investigation_diary.md,
-  not tracked in this repo) using the study's own default 3-phase zoom search on
-  D006's lower-dimensional 4D rectangle-family reparametrization of this same
-  topology (`bo/experiments/real_designs/run_multistorey.py`): 40 real evals,
-  phase 1 found zero feasible points and correctly declined to zoom further (no
-  incumbent to center a smaller box on). This directly checks mcs/mls (unlike
-  D004 above) and still finds nothing — reinforcing, not resolving, the open
-  question; a full 120-eval budget hasn't been spent on this reparametrization yet.
-- This is H2 of run `20260629T191754`, delegation D004 (32/48 planned evals). ODB:
-  data/idea_odbs/20260629T191754_H2_multistorey_n2/ (source:
-  presentation/resim/twostorey/riks_9a82d64e16d34b71ac1e541263cd92bf; illustrative
-  rectangular-family point, not bit-identical to the original run's anchor A5, but
-  representative of the n_storeys=2 mechanism).
-- Linear-scaling extrapolation predicted the untested max-J-at-half-pitch point could
-  reach ~75.9 kPa, potentially clearing BOTH the 65.3 kPa and 75.1 kPa floors — this
-  was flagged as the natural next step and picked up by a later delegation testing
-  max-J at n_storeys=1 (B1 anchor) before committing further n_storeys=2 budget.
-- This idea keeps reappearing across later runs as a refinement target (an
-  independent per-storey ratio_b variant in run `20260712T192155` H2, a strain-barrier
-  escape attempt in run `20260715T002538` H4, a peak-local-strain reduction test in
-  run `20260718T071133` H3) — all fold into this same slide per the deck's rule 1, none
-  earn their own slide.
-- Run `20260718T071133` H3, why INCONCLUSIVE (not FALSIFIED as first drafted): the
-  strategizer's first pass marked H3 FALSIFIED on the delegation's own self-reported
-  "4/36 feasible, best=0.1085 kPa, clear plateau" (diagnostics.jsonl VERDICT_SUBSTANCE_FLAG,
-  2026-07-18T11:38:07). A critic pass (retrospective, critic node, 2026-07-18T13:07:02)
-  caught two compounding problems by re-querying the ledger directly rather than
-  trusting the report: (1) a slenderness-formula bug meant the true feasible count was
-  3/36, not 4/36 -- one of the "feasible" rows didn't actually clear criterion 4; (2)
-  more importantly, ALL of the rows counted as feasible had `converged=False` -- they
-  were non-converged salvaged reads, not genuine Riks solutions. The strategizer's own
-  closing retrospective (2026-07-18T13:23:20) calls this out directly: a sparse,
-  non-converged-only "feasible" set cannot support a falsification claim per the
-  Charter, and the verdict was downgraded to INCONCLUSIVE. Kept here rather than
-  fixed silently, because it's a real instance of the adversarial-critic layer
-  catching a genuine science-integrity error the automated validator did not flag on
-  its own axis (it flagged sparsity; the critic separately caught the convergence
-  issue).
-- GIF: native Abaqus/CAE Viewer export (presentation/render/render_odb.py). Only 5-6
-  Riks increments are present in this archived ODB (a relatively shallow coiling test
-  at this twist/pitch combination), so the animation is short; the legs show very low
-  strain throughout (E11 range roughly ±1.6e-3), consistent with this being a modest,
-  not-yet-optimized point in the family rather than its best-found design. Structural
-  (beam-element) instance only, dashed schematic top/bottom ring annotation per the
-  format-contract convention (this render script draws only the true top/bottom rings
-  from the structural instance's own z-min/z-max — it does not know about or annotate
-  the intermediate mid-height ring specific to this n_storeys=2 topology, since that
-  ring is likewise a 0-D reference point with no solid geometry to render).
+**Infra:** ODB: data/idea_odbs/20260629T191754_H2_multistorey_n2/ (source:
+presentation/resim/twostorey/riks_9a82d64e16d34b71ac1e541263cd92bf; illustrative
+rectangular-family point, not bit-identical to the original run's anchor A5, but
+representative of the n_storeys=2 mechanism). GIF: native Abaqus/CAE Viewer export
+(presentation/render/render_odb.py). Only 5-6 Riks increments are present in this
+archived ODB (a relatively shallow coiling test at this twist/pitch combination), so
+the animation is short; the legs show very low strain throughout (E11 range roughly
+±1.6e-3), consistent with this being a modest, not-yet-optimized point in the family
+rather than its best-found design. Structural (beam-element) instance only, dashed
+schematic top/bottom ring annotation per the format-contract convention (this render
+script draws only the true top/bottom rings from the structural instance's own
+z-min/z-max — it does not know about or annotate the intermediate mid-height ring
+specific to this n_storeys=2 topology, since that ring is likewise a 0-D reference
+point with no solid geometry to render).
 -->
 
 ---
@@ -6884,30 +6876,29 @@ the axis under test (main batch fixes it at 5; anchors also test 4, 6). Fixed: n
 axis at any other cross-section would change the conclusion; it is a dimension the design space
 can vary freely without it opening or closing performance, not a lead to chase further.
 
-Fuller context:
+**Timeline:** This is H3 of run `20260629T191754`, delegation D005. n_longerons=5
+topology variant of the extended-J Bessa-7D family; Stage-1 sigma_cr,nd=71.59 kPa,
+matching the original finding, Riks re-solved fresh for this archive. Critical insight
+carried forward: this run's finding that σ per longeron is independent of n_longerons
+at matched cross-section directly motivated the extended-J search (H4/H5 next) as the
+actual lever for beating the Bessa optimum.
 
-- This is H3 of run `20260629T191754`, delegation D005. ODB: data/idea_odbs/
-  20260629T191754_H3_n5_longerons/ (source: presentation/resim/n5_longerons/
-  riks_60c367f12e3a4903839e9afe3127aa00). n_longerons=5 topology variant of the
-  extended-J Bessa-7D family; Stage-1 sigma_cr,nd=71.59 kPa, matching the original
-  finding, Riks re-solved fresh for this archive.
-- RENDERING BLOCKER, reported per this batch's instructions rather than skipped: this
-  archived ODB's Riks step only recorded RF/RM/U/UR field output — no `E` (strain)
-  field was ever requested when the resim was originally run. render_odb.py's
-  strain-coloring step (`setPrimaryVariable(variableLabel='E', ...)`) therefore fails
-  with "Primary Variable not available: 'E' at integration points" on this specific
-  ODB. This is a genuine data-provenance gap in the earlier resim pipeline for this
-  one family (confirmed identical in the un-archived source copy too, so it is not an
-  archiving mistake), not a bug in render_odb.py itself, and not something fixable
-  without a fresh Abaqus solve (out of scope for this rendering-only batch). The gif
-  shown is therefore rendered WITHOUT strain coloring (uniform shaded beam profiles,
-  no legend) — an explicit, honest degradation per the format contract's gotcha 5
-  ("if colour carries no data meaning, turn it off entirely"), not a fabricated
-  E11 contour. The same limitation affects one other idea in this batch (the
-  extended-J hollow-tube longeron, next).
-- Critical insight carried forward: this run's finding that σ per longeron is
-  independent of n_longerons at matched cross-section directly motivated the
-  extended-J search (H4/H5 next) as the actual lever for beating the Bessa optimum.
+**Infra:** ODB: data/idea_odbs/20260629T191754_H3_n5_longerons/ (source:
+presentation/resim/n5_longerons/riks_60c367f12e3a4903839e9afe3127aa00). RENDERING
+BLOCKER, reported per this batch's instructions rather than skipped: this archived
+ODB's Riks step only recorded RF/RM/U/UR field output — no `E` (strain) field was
+ever requested when the resim was originally run. render_odb.py's strain-coloring
+step (`setPrimaryVariable(variableLabel='E', ...)`) therefore fails with "Primary
+Variable not available: 'E' at integration points" on this specific ODB. This is a
+genuine data-provenance gap in the earlier resim pipeline for this one family
+(confirmed identical in the un-archived source copy too, so it is not an archiving
+mistake), not a bug in render_odb.py itself, and not something fixable without a
+fresh Abaqus solve (out of scope for this rendering-only batch). The gif shown is
+therefore rendered WITHOUT strain coloring (uniform shaded beam profiles, no legend)
+— an explicit, honest degradation per the format contract's gotcha 5 ("if colour
+carries no data meaning, turn it off entirely"), not a fabricated E11 contour. The
+same limitation affects one other idea in this batch (the extended-J hollow-tube
+longeron, next).
 -->
 
 ---
@@ -6966,29 +6957,28 @@ attempts" mid-solve); this deck has elsewhere (D5/H4) traced an identical Riks n
 coarse arc-length settings rather than a real physics wall, so a finer-step re-solve of D4 alone
 would settle whether the GJ-vs-coiling tradeoff genuinely blocks it or was never properly tested.
 
-Fuller context:
+**Timeline:** This is H5 of run `20260629T191754`, delegation D006 (Stage-1
+existence), with Stage-2 Riks tests as H4 (max-J single-longeron anchor, FALSIFIED,
+this same run), H6 (D4, FALSIFIED at 32% strain, delegation D007) and H7 (C4,
+FALSIFIED at 9% strain, delegation D008, run `20260630T164908`'s own H1 later
+reconfirms this 9%-strain failure pattern is categorical for ANY generalized-section
+design, not just this one). The D4 design specifically: n_longerons=3, twist=0,
+ratio_J=1.2e-5, ratio_Ixx=ratio_Iyy=1.4e-6, ratio_pitch=0.5,
+ratio_top_diameter=0.445325, ratio_shear_modulus=0.449. Key finding: coilability at
+J≥9.0e-6 REQUIRES max Iyy=1.4e-6 — lower-Iyy ("Set A") designs at the same J lost
+coilability entirely. This idea directly set up run `20260630T164908`'s H1
+(generalized-section optimum fails Stage 2 categorically, 9.23% strain) and
+motivated the pivot to the Solid Circular Longeron Family (next run) as the family
+that can actually pass Stage 2.
 
-- This is H5 of run `20260629T191754`, delegation D006 (Stage-1 existence), with
-  Stage-2 Riks tests as H4 (max-J single-longeron anchor, FALSIFIED, this same run),
-  H6 (D4, FALSIFIED at 32% strain, delegation D007) and H7 (C4, FALSIFIED at 9%
-  strain, delegation D008, run `20260630T164908`'s own H1 later reconfirms this
-  9%-strain failure pattern is categorical for ANY generalized-section design, not
-  just this one). ODB: data/idea_odbs/20260629T191754_H5_extended_J_hollow_tube_D4/
-  (source: presentation/resim/hollow_tube/riks_6b8f4808e5e2404fb8b7d33e75b28015),
-  the D4 design specifically: n_longerons=3, twist=0, ratio_J=1.2e-5,
-  ratio_Ixx=ratio_Iyy=1.4e-6, ratio_pitch=0.5, ratio_top_diameter=0.445325,
-  ratio_shear_modulus=0.449.
-- Key finding: coilability at J≥9.0e-6 REQUIRES max Iyy=1.4e-6 — lower-Iyy
-  ("Set A") designs at the same J lost coilability entirely.
-- Same rendering blocker as the n=5-longerons idea above: this ODB's Riks step
-  recorded no `E` field output (only RF/RM/U/UR), so render_odb.py's strain-coloring
-  step cannot run; rendered here without color as an honest degradation (format
-  contract gotcha 5), not fabricated. Both affected ODBs come from the same era of
-  the resim pipeline (2026-07-20), before `E` was added to the standard field-output
-  request list used by later resims.
-- This idea directly set up run `20260630T164908`'s H1 (generalized-section optimum
-  fails Stage 2 categorically, 9.23% strain) and motivated the pivot to the Solid
-  Circular Longeron Family (next run) as the family that can actually pass Stage 2.
+**Infra:** ODB: data/idea_odbs/20260629T191754_H5_extended_J_hollow_tube_D4/ (source:
+presentation/resim/hollow_tube/riks_6b8f4808e5e2404fb8b7d33e75b28015). Same rendering
+blocker as the n=5-longerons idea above: this ODB's Riks step recorded no `E` field
+output (only RF/RM/U/UR), so render_odb.py's strain-coloring step cannot run;
+rendered here without color as an honest degradation (format contract gotcha 5), not
+fabricated. Both affected ODBs come from the same era of the resim pipeline
+(2026-07-20), before `E` was added to the standard field-output request list used by
+later resims.
 -->
 
 ---
@@ -7077,40 +7067,41 @@ coilable designs is monotonically decreasing with twist (30°→52.93 kPa, 90°�
 zero coilable beyond that), and a separately-powered test of twist on a different cross-section
 family found the same direction — completing the missing 34 evals would not change the sign.
 
-Fuller context:
+**Deferred:** Full status history: prior 0.6 → 0.35 after the literature-review
+downgrade → 0.25 after a second literature check → briefly closed FALSIFIED by the
+strategizer, then the validator flagged that the registered falsification criterion
+required ≥80 evaluations and only 46 completed (26 Abaqus runs failed to
+license-server errors during delegation D003) → corrected to INCONCLUSIVE per the
+study's own charter §3 (an inadequate test cannot force a closed FALSIFIED verdict,
+however suggestive).
 
-- Stats-migration note (2026-08-04): the twist-angle trend among coilable
-  designs is monotonically decreasing (30°&rarr;52.93 kPa, 90°&rarr;15.69 kPa,
-  all coilable=0 beyond that) — preserved here since a single quartile triplet
-  doesn't show a trend. A related but distinct idea (twist applied to a
-  DIFFERENT, non-Bessa cross-section family, "twisted-strip beam") was
-  separately properly-powered this session (2026-08-04, 3-phase zoom) and
-  reached a real but still-far-short-of-target 14.4% of its own family's
-  target — consistent with twist not being a productive lever in general,
-  though that's a different cross-section, not a re-test of this exact idea.
-- This is H1 of run `20260629T145434` (proposed with zero evals that run — the actual
-  46-eval anchor sweep + LHS ran the following run, `20260629T191754`, as that run's
-  own H1, delegation D003). Per this deck's rule 1 ("one slide per genuinely new idea,
-  earned at the run where it first appears"), the idea's full slide is placed here at
-  its origination run; the numbers above are pulled forward from the run that actually
-  resolved it, exactly as the tapered-longeron format-example slide does.
-- Physical mechanism (per the run's own D002 literature review, Drozdov-Rabin 2000 +
-  Gomez-Lauga 2024): path-twist has no theoretical reason to raise the critical
-  buckling load for a near-circular cross-section (ν=I2/I1≈1); Gomez-Lauga's own
-  analysis shows helical path-twist actually REDUCES effective bending stiffness.
-  This is consistent with what the sweep found.
-- Full status history: prior 0.6 → 0.35 after the literature-review downgrade → 0.25
-  after a second literature check → briefly closed FALSIFIED by the strategizer, then
-  the validator flagged that the registered falsification criterion required ≥80
-  evaluations and only 46 completed (26 Abaqus runs failed to license-server errors
-  during delegation D003) → corrected to INCONCLUSIVE per the study's own charter
-  §3 (an inadequate test cannot force a closed FALSIFIED verdict, however suggestive).
-- No ODB exists for this family because no design was ever coilable+competitive enough
-  to be worth resimulating and archiving — this is one of only two ideas in the whole
-  25-idea "genuinely new" list with no ODB by design, not by omission (the other is the
-  elliptical cross-section, later this same run-range). The tape-spring idea was a third
-  member of this group while its run was still executing; it has since closed with its
-  own ODB archived — see its own slide, elsewhere in this deck.
+**Timeline:** Stats-migration note (2026-08-04): the twist-angle trend among coilable
+designs is monotonically decreasing (30°&rarr;52.93 kPa, 90°&rarr;15.69 kPa, all
+coilable=0 beyond that) — preserved here since a single quartile triplet doesn't show
+a trend. A related but distinct idea (twist applied to a DIFFERENT, non-Bessa
+cross-section family, "twisted-strip beam") was separately properly-powered this
+session (2026-08-04, 3-phase zoom) and reached a real but still-far-short-of-target
+14.4% of its own family's target — consistent with twist not being a productive
+lever in general, though that's a different cross-section, not a re-test of this
+exact idea. This is H1 of run `20260629T145434` (proposed with zero evals that run —
+the actual 46-eval anchor sweep + LHS ran the following run, `20260629T191754`, as
+that run's own H1, delegation D003). Per this deck's rule 1 ("one slide per genuinely
+new idea, earned at the run where it first appears"), the idea's full slide is placed
+here at its origination run; the numbers above are pulled forward from the run that
+actually resolved it, exactly as the tapered-longeron format-example slide does.
+Physical mechanism (per the run's own D002 literature review, Drozdov-Rabin 2000 +
+Gomez-Lauga 2024): path-twist has no theoretical reason to raise the critical
+buckling load for a near-circular cross-section (ν=I2/I1≈1); Gomez-Lauga's own
+analysis shows helical path-twist actually REDUCES effective bending stiffness. This
+is consistent with what the sweep found.
+
+**Infra:** No ODB exists for this family because no design was ever
+coilable+competitive enough to be worth resimulating and archiving — this is one of
+only two ideas in the whole 25-idea "genuinely new" list with no ODB by design, not
+by omission (the other is the elliptical cross-section, later this same run-range).
+The tape-spring idea was a third member of this group while its run was still
+executing; it has since closed with its own ODB archived — see its own slide,
+elsewhere in this deck.
 -->
 
 ---
