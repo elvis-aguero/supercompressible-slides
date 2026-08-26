@@ -3507,8 +3507,8 @@ layout: two-cols-header
 **Seed:** BARREN (all three, superseding this bullet's own prior FERTILE tag) — each has since
 been searched under contact elsewhere and closed: D17 (Kresling revisited — mesh singularity,
 not floor-passthrough), D20 (run `20260819T022742` H11 — 6 pts stuck 1.3&ndash;3.4%), D26 (run
-`20260804T221559` — 80-pt sweep, 0/80 coilable). No perturbation left un-searched on any of the
-three.
+`20260804T221559` — 80-pt sweep, 0/68 valid designs coilable). No perturbation left un-searched on
+any of the three.
 
 Commits 4ba6627 (D17), a235734 (D20, D25), and the D26 pre-processor.
 
@@ -3527,6 +3527,16 @@ searchable. See PROBLEM_STATEMENT.md's per-solve budget section.
 Also unmigrated and worth knowing: ~15 further families, plus supercompressible_riks_brace.py,
 which until 2026-08-08 had contact ACTIVE with allowSeparation=OFF -- the setting measured at
 9/95 Stage-2 convergence. Any brace-family result predating that fix is suspect.
+
+Verified 2026-08-26 (deck audit, item 1): D20's citation (run 20260819T022742 H11, "6 pts stuck
+1.3-3.4%") reproduces exactly from that hypothesis's own status_log comment. D26's citation did
+NOT: the source run's own H1 status_log records D004 as "80-pt sweep, 0/68 valid designs
+coilable" -- 68 is the evaluated denominator (12 of the 80 sampled points were rejected before
+dispatch), not 80. This slide read "0/80 coilable," conflating the sample size with the evaluated
+count, inconsistent with this deck's own house convention elsewhere (report against the
+valid/evaluated denominator, e.g. D25's "256 evaluable" phrasing). Corrected in the Seed line
+above. D17's citation points to Kresling revisited, independently verified separately on that
+slide.
 -->
 
 ---
