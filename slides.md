@@ -1836,6 +1836,14 @@ Infra promoted to gold this run: scripts/supercompressible_{lin_buckle,riks}_sca
 scripts/supercompressible_riks_pp.py, bo/oracle_scale_lock.py (the two bug fixes above);
 bo/oracle_tape_spring.py (missing DataGenerator adapter); bo/oracle_kissing_pair.py,
 bo/kissing_pair_connector_stop.py (stiffness-multiplier promotion + connector-force output).
+
+EVAL-COUNT DISCLOSURE (2026-08-26, deck audit item 1): the visible "69 ledgered evals" figure could
+not be independently reconciled. run_status.json's own evals_used=64; a naive sum of every
+delegation_log.jsonl entry's own "evals" field gives 60 (undercounts even 64, so per-delegation
+self-reports are themselves incomplete -- consistent with this study's known ledger-undercounting
+pattern elsewhere, see D42's own run summary). Unlike the cost figure on this slide (which has an
+explicit reconciliation), no clean accounting was found for 69 vs. 64 vs. 60 within the audit's
+time budget. Left as-is rather than replaced with an equally-unverified number.
 -->
 
 ---
@@ -2013,7 +2021,7 @@ further — and the fillet meant to save it doesn't either.
 |---|---|---|---|---|
 | H1 | Oracle wiring reproduces the confirmed anchor | &#10003; | sigma_crit=0.770352 vs anchor 0.7704 (0.006% deviation) | — |
 | H2&ndash;H4 | Three new rigid-contact geometries (coaxial mandrel, shaped cone disc, eccentric capstan pins) create a genuine second, contact-mediated load path above the incumbent | **&#8253;** | H2 already closed in a prior run (corrected: that test swept a narrower space than registered). H3/H4 escalated to Abaqus/Explicit and found the "wall" is **non-quasi-static** (ALLKE/ALLIE up to 0.6, an order of magnitude over the 0.05&ndash;0.10 validity threshold) at every rate tried — a numerical wall, not demonstrated force amplification | — |
-| **H5&ndash;H8** | The Kresling local-zoom design (&sigma;_peak=1.0723 kPa, ~10&times; Bessa) is a real, mesh-converged, imperfection-robust result | **&#10007;** | Re-registered and reproduced exactly (H5) — then independently falsified: raw ODB strain jumps 30&ndash;50% across the kink node (H6); only 3/7 Bessa-distribution imperfection draws even converge (H7); 2&times; mesh gives **+197%** divergence, 4&times; fails to solve at all (H8) | Kresling revisited &rarr; |
+| **H5&ndash;H8** | The Kresling local-zoom design (&sigma;_peak=1.0723 kPa, ~10&times; Bessa) is a real, mesh-converged, imperfection-robust result | **&#10007;** | Re-registered and reproduced exactly (H5) — then independently falsified: raw kink strain moves -13&ndash;28% under 2&times; refinement and the jump ratio across the kink node GROWS with refinement (1.18&times;&rarr;1.43&times;), not mesh-converged (H6); only 3/7 Bessa-distribution imperfection draws even converge (H7); 2&times; mesh gives **+197%** divergence, 4&times; fails to solve at all (H8) | Kresling revisited &rarr; |
 | **H9&ndash;H10** | Filleting the sharp kink removes the mesh-artifact, and the design still coils | **&#8253; / &#10007;** | H9: every fillet radius (0.5&ndash;6mm) &times; every refined mesh produced non-convergence (NaN) — never a valid measurement, genuinely inconclusive, not falsified. H10: forced through anyway with a quasi-static-valid Explicit resolve (ALLKE/ALLIE=0.027) — reaches only **3.7% compression**, decisively short of 80% | Kresling revisited &rarr; |
 | H11 | A laced (two-parallel-chord) longeron beats the incumbent via distributed load-sharing | **&#8253;** | 6/6 points stuck at 1.3&ndash;3.4% compression, early Riks non-convergence; a mild monotonic trend with ratio_h, never close to feasible | — |
 | H12 | A strongly-graded two-storey mast stages sequential coiling and beats the incumbent | **&#8253;** | Underpowered (2&ndash;3 pts vs a registered 5D+ sweep) — but its own Explicit-vs-Standard check shows only a **1-point-percent gap** (0.208 vs 0.198), ruling out "this is just Kresling's mesh-artifact again" as the explanation | — |
