@@ -5158,38 +5158,35 @@ switch), n_storeys=1, twist_angle=0.
 mis-specified, so the real feasible region was never actually searched; a corrected re-run
 (real slenderness formula, not the invalidated one) is untried.
 
-Full context:
+**Deferred:** FINAL SETTLEMENT (quoted from the run's own hypothesis log): "Settling
+here permanently (no further reversal), accepting the validator's final point: D006's
+CEI-BO search was guided by constraints built on the (my own mis-specified)
+waist-based slenderness, so it never searched FOR feasibility under the corrected,
+problem-statement-faithful ratio_b-based slenderness -- a search not aimed at the real
+constraint is not an adequate test of it, regardless of what a post-hoc recompute of
+the same data shows."
 
-- Stats-migration note (2026-08-04): initial 0.877 kPa headline proved invalid
-  under the corrected slenderness formula (8.35, below the &ge;10 floor).
-  Direct recomputation from this idea's own delegations (D006+D008, the only
-  two actually testing this family — D003/D004/D007 in this same run belong to
-  unrelated hypotheses) finds exactly 1 point clearing every corrected
-  criterion, not 2 as an earlier draft of this slide stated — the second point
-  implied by "2/30" could not be located; reported as G=1, verified, rather
-  than repeating an unconfirmed number.
-- This is hypothesis H3 of run `20260717T192331`. The waist-based slenderness
-  mis-specification bug was caught by a later ledger audit (this run's own H4, and
-  independently re-confirmed in run `20260718T132852`'s H2): the study's slenderness
-  criterion is defined on the tangential half-width ratio_b (ratio_pitch/(2*ratio_b)),
-  which a purely-radial taper does not touch -- so the taper family's self-reported
-  "slenderness" (computed off the tapered/waisted radial dimension, 33.7 for the 0.877
-  kPa point) was the wrong quantity entirely; recomputed correctly it is 8.351, failing
-  the >=10 floor.
-- FINAL SETTLEMENT (quoted from the run's own hypothesis log): "Settling here
-  permanently (no further reversal), accepting the validator's final point: D006's
-  CEI-BO search was guided by constraints built on the (my own mis-specified)
-  waist-based slenderness, so it never searched FOR feasibility under the corrected,
-  problem-statement-faithful ratio_b-based slenderness -- a search not aimed at the
-  real constraint is not an adequate test of it, regardless of what a post-hoc
-  recompute of the same data shows."
-- The rendered ODB (data/idea_odbs/20260717T192331_H3_waisted_tapered/
-  SUPERCOMPRESSIBLE_RIKS.odb, sourced from presentation/resim/waisted/
-  riks_b25001089f5c4baa82473915d82f8736) is a typical member of this family's search --
-  per the format contract's no-winner convention, not necessarily the single best (and
-  specifically NOT the later-invalidated 0.877 kPa point). Rendered cleanly through the
-  full native pipeline; the radial taper toward each longeron's mid-span waist is
-  visible even in the undeformed frame.
+**Timeline:** Stats-migration note (2026-08-04): initial 0.877 kPa headline proved
+invalid under the corrected slenderness formula (8.35, below the &ge;10 floor) — the
+study's slenderness criterion is defined on the tangential half-width ratio_b
+(ratio_pitch/(2*ratio_b)), which a purely-radial taper does not touch, so the taper
+family's self-reported "slenderness" (computed off the tapered/waisted radial
+dimension, 33.7 for the 0.877 kPa point) was the wrong quantity entirely. Direct
+recomputation from D006+D008 (the only two delegations actually testing this
+family — D003/D004/D007 in this same run belong to unrelated hypotheses) finds
+exactly 1 point clearing every corrected criterion, not 2 as an earlier draft of this
+slide stated — the second point implied by "2/30" could not be located; reported as
+G=1, verified, rather than repeating an unconfirmed number. This is hypothesis H3 of
+run `20260717T192331`. The mis-specification bug was caught by a later ledger audit
+(this run's own H4), and independently re-confirmed in run `20260718T132852`'s H2.
+
+**Infra:** ODB: data/idea_odbs/20260717T192331_H3_waisted_tapered/SUPERCOMPRESSIBLE_RIKS.odb,
+sourced from presentation/resim/waisted/riks_b25001089f5c4baa82473915d82f8736 -- a
+typical member of this family's search per the format contract's no-winner
+convention, not necessarily the single best (and specifically NOT the
+later-invalidated 0.877 kPa point). Rendered cleanly through the full native
+pipeline; the radial taper toward each longeron's mid-span waist is visible even in
+the undeformed frame.
 -->
 
 ---
@@ -5287,30 +5284,29 @@ stress singularity (confirmed via mesh refinement, fillets, and an independent r
 within this geometric-kink realization survives; a genuinely different hinge (an actual
 pin/flexure joint) would be a different idea.
 
-Full context:
+**Deferred:** The run's own gate critic FINAL SETTLEMENT (quoted): "the honest path...
+is to settle H3 at its last validator-endorsed INCONCLUSIVE and stop re-litigating" --
+reverting a subsequent (disputed) FALSIFIED flip back to the last validator-endorsed
+status, on the same D007 evidence, and stopping there. REJECTION, reported per the
+manifest/PROVENANCE.txt: this exact feasible design (psi=30deg, sigma=0.711 kPa) was
+later REJECTED in bo/confirmed_anchors.json (`_rejected.kresling_snap`) for failing
+criterion 5 (ring-passthrough) -- the bar-hinge kink lets the longeron's mid-span node
+pass through the ring's 0-D plane undetected during coiling, a failure mode this
+study's beam-only feasibility criteria (coilable/mcs/mls/slenderness) do not check
+for. So this idea passed every criterion it was originally tested against, then
+failed a criterion added later in the study -- an honest, still-open example of
+criteria evolving mid-study, not a contradiction.
 
-- This is hypothesis H3 of run `20260717T014507`, delegation D007 (45 real, ledgered
-  evals: 1 stabilized anchor re-run + fixed-geometry psi-sweep + 26-pt global
-  LHS/EI-lite BO + 16-pt local trust-region refinement, all slenderness>=10
-  pre-screened, meeting the registered >=30-eval budget). Best feasible design:
-  psi_kresling=30deg, sigma_cr,nd=0.7110618 kPa.
-- The run's own gate critic FINAL SETTLEMENT (quoted): "the honest path... is to
-  settle H3 at its last validator-endorsed INCONCLUSIVE and stop re-litigating" --
-  reverting a subsequent (disputed) FALSIFIED flip back to the last validator-endorsed
-  status, on the same D007 evidence, and stopping there.
-- REJECTION, reported per the manifest/PROVENANCE.txt: this exact feasible design
-  (psi=30deg, sigma=0.711 kPa) was later REJECTED in bo/confirmed_anchors.json
-  (`_rejected.kresling_snap`) for failing criterion 5 (ring-passthrough) -- the
-  bar-hinge kink lets the longeron's mid-span node pass through the ring's 0-D plane
-  undetected during coiling, a failure mode this study's beam-only feasibility
-  criteria (coilable/mcs/mls/slenderness) do not check for. So this idea passed every
-  criterion it was originally tested against, then failed a criterion added later in
-  the study -- an honest, still-open example of criteria evolving mid-study, not a
-  contradiction.
-- ODB: data/idea_odbs/20260717T014507_H3_kresling_bar_hinge/SUPERCOMPRESSIBLE_RIKS.odb,
-  sourced from presentation/resim/kresling_run17/riks_93eadc4e3f4f4c5fa20d3e80954e6b60.
-  Rendered cleanly through the full native pipeline; the bar-hinge kink partway up
-  each longeron is visible in the animation.
+**Timeline:** D007: 45 real, ledgered evals -- 1 stabilized anchor re-run +
+fixed-geometry psi-sweep + 26-pt global LHS/EI-lite BO + 16-pt local trust-region
+refinement, all slenderness>=10 pre-screened, meeting the registered >=30-eval budget
+(this is hypothesis H3 of run `20260717T014507`). Best feasible design:
+psi_kresling=30deg, sigma_cr,nd=0.7110618 kPa.
+
+**Infra:** ODB: data/idea_odbs/20260717T014507_H3_kresling_bar_hinge/SUPERCOMPRESSIBLE_RIKS.odb,
+sourced from presentation/resim/kresling_run17/riks_93eadc4e3f4f4c5fa20d3e80954e6b60.
+Rendered cleanly through the full native pipeline; the bar-hinge kink partway up each
+longeron is visible in the animation.
 -->
 
 ---
@@ -5460,40 +5456,41 @@ Fixed: n_storeys=1, twist_angle=0, ratio_shear_modulus=.3677.
 faster than it helps, the opposite of the hypothesized benefit; the best good design is
 degenerate (wrap=0), meaning the mechanism actively hurts at any nonzero setting tested.
 
-Full context:
+**Timeline:** D007: 28-eval existence search plus an independent matched-pair causal
+sweep at wrap=0.0/0.6 (hypothesis H2 of run `20260715T002538`). The registered
+falsification criterion was specifically the MECHANISM branch: "if no feasible
+helical design even exceeds the ~0.06 kPa rectangular ceiling, the helical mechanism
+confers no advantage." Only 1/28 designs was feasible at all, and it was the
+degenerate wrap=0 (i.e. straight) case -- no genuinely-helical design was feasible, so
+none exceeded the ceiling. The matched-pair sweep independently confirms the causal
+direction: at wrap=0.6, sigma_cr,nd=2.306 kPa (well above ceiling) but
+max_local_strain=0.191 (19.1%, vs the wrap=0 control's max_compressive_strain=0.976,
+max_local_strain=0.0209 at the same cross-section) -- the helical mechanism trades a
+large stiffness gain for a catastrophic strain penalty.
+Deck audit item 2 (2026-08-26): this design was previously held/skipped for porting
+because mini_plot.py flags reversed=True and its unwindowed tail reaches an unphysical
+~273x Bessa. Investigated properly rather than left held: the mast reverses at frame
+93 (mcs~96%) and the reaction-force reading explodes to a frozen ~273x-Bessa plateau
+for 4900+ frames after that (ALLSD=0 throughout, ALLSE flat -- a genuine
+equilibrium-path degeneracy, not stabilization trickery, but not real load-bearing
+physics either: displacement stays essentially frozen while force keeps climbing).
+None of this matters for the citable number: the 2% strain-limit window closes at
+frame 16 (mcs=38.7%, sigma=0.5894 kPa peak, 5.25x Bessa), long before the reversal at
+frame 93 or the force explosion after frame 40. reversed=True is true of the full
+history and irrelevant to the windowed metric here -- unlike D30, where the reversal
+happened INSIDE the citable range and needed careful handling. Cross-verified:
+sigma_cr,nd=2.306 kPa reproduces exactly from the Stage-1 eigenvalue (loads[0]=54.339
+N x to_kpa); max_local_strain=0.19521886 (scalar field) matches the cited 19.1% to
+rounding.
 
-- This is hypothesis H2 of run `20260715T002538`, delegation D007 (28-eval existence
-  search) plus an independent matched-pair causal sweep at wrap=0.0/0.6. The registered
-  falsification criterion was specifically the MECHANISM branch: "if no feasible
-  helical design even exceeds the ~0.06 kPa rectangular ceiling, the helical mechanism
-  confers no advantage." Only 1/28 designs was feasible at all, and it was the
-  degenerate wrap=0 (i.e. straight) case -- no genuinely-helical design was feasible,
-  so none exceeded the ceiling. The matched-pair sweep independently confirms the
-  causal direction: at wrap=0.6, sigma_cr,nd=2.306 kPa (well above ceiling) but
-  max_local_strain=0.191 (19.1%, vs the wrap=0 control's max_compressive_strain=0.976,
-  max_local_strain=0.0209 at the same cross-section) -- the helical mechanism trades a
-  large stiffness gain for a catastrophic strain penalty.
-- ODB: data/idea_odbs/20260715T002538_H2_helical_longeron_path/SUPERCOMPRESSIBLE_RIKS.odb,
-  sourced from presentation/resim/helical/riks_helical_76b431f83394417ea38e227d26171b56 --
-  this is the wrap=0.6 matched-pair comparison point, not the "best good" degenerate wrap=0
-  design (which has no ODB in this archive).
-
-RESOLVED 2026-08-26 (deck audit item 2): this design was previously held/skipped for porting
-because mini_plot.py flags reversed=True and its unwindowed tail reaches an unphysical ~273x
-Bessa. Investigated properly rather than left held: the mast reverses at frame 93 (mcs~96%) and
-the reaction-force reading explodes to a frozen ~273x-Bessa plateau for 4900+ frames after that
-(ALLSD=0 throughout, ALLSE flat -- a genuine equilibrium-path degeneracy, not stabilization
-trickery, but not real load-bearing physics either: displacement stays essentially frozen while
-force keeps climbing). NONE OF THIS MATTERS for the citable number: the 2% strain-limit window
-closes at frame 16 (mcs=38.7%, sigma=0.5894 kPa peak, 5.25x Bessa), long before the reversal at
-frame 93 or the force explosion after frame 40. reversed=True is true of the full history and
-irrelevant to the windowed metric here -- unlike D30, where the reversal happened INSIDE the
-citable range and needed careful handling. Cross-verified: sigma_cr,nd=2.306 kPa reproduces
-exactly from the Stage-1 eigenvalue (loads[0]=54.339 N x to_kpa); max_local_strain=0.19521886
-(scalar field) matches the cited 19.1% to rounding. Landscape render (28 frames, mcs 0-95%)
-confirms clean, no clipping; the mini-plot uses --windowed-only (the post-reversal explosion is a
-numerical artifact, not real-but-noncitable physics, so showing it in muted grey the way other
-slides' full curves are shown would mislead rather than inform).
+**Infra:** ODB: data/idea_odbs/20260715T002538_H2_helical_longeron_path/SUPERCOMPRESSIBLE_RIKS.odb,
+sourced from presentation/resim/helical/riks_helical_76b431f83394417ea38e227d26171b56
+-- this is the wrap=0.6 matched-pair comparison point, not the "best good" degenerate
+wrap=0 design (which has no ODB in this archive). Landscape render (28 frames, mcs
+0-95%) confirms clean, no clipping; the mini-plot uses --windowed-only (the
+post-reversal explosion is a numerical artifact, not real-but-noncitable physics, so
+showing it in muted grey the way other slides' full curves are shown would mislead
+rather than inform).
 -->
 
 ---
@@ -5588,58 +5585,58 @@ n_storeys=1, twist_angle=0, ratio_shear_modulus=.3677.
 unbraced control; the directional signal is unambiguous even though the formal existence claim
 stays INCONCLUSIVE (thin decided sample) — bracing blocks coiling, it does not help it.
 
-Full context:
+**Deferred:** Stats-migration note (2026-08-04): this campaign predates an explicit
+`riks_converged` field — R above counts rows with a real (non-NaN) mcs AND mls value,
+a looser bar than a confirmed-converged flag. &sigma;_crit's high p90/p100 (596/714
+kPa) almost certainly reflect a non-coiling, stiff buckling mode, not real progress —
+mcs stays near 0 for most of these rows. GIF LIMITATION, reported honestly per this
+task's instructions rather than skipped or faked: the archived ODB
+(data/idea_odbs/20260721T201733_H4_chiral_brace/SUPERCOMPRESSIBLE_RIKS.odb) has a
+genuine, ODB-specific rendering blocker. Two of its 2610 LONGERONS-instance nodes
+(labels 562, 1369 -- both endpoints of two T3D2 brace/truss elements, 554-555 and
+1363-1364) carry an Abaqus invalid/sentinel displacement value (magnitude 1e23-1e36)
+in the U field output from increment 1 onward (frame 0 is clean; every later frame
+checked -- 1,2,3,5,10,29,50,97 -- shows the identical two-node fault, so it is not a
+transient blip). Excluding those two elements from the display group (a native,
+non-fabricating fix -- same technique already used elsewhere in this pipeline to hide
+the non-structural ANALYTICAL_SURF instance) stopped the crash risk but did NOT
+restore the visible geometry: every frame after 0 still rendered fully blank
+(confirmed with contour off, with per-frame camera re-assertion, and with
+node-averaging disabled -- none fixed it), and rendering the same frame in plain
+wireframe (renderBeamProfiles=OFF) segfaults Abaqus/Viewer outright (signal 11) for
+this specific ODB. This appears to be a Mesa software-rendering depth/precision
+failure triggered by those two divergent nodes' astronomical coordinates propagating
+into the viewport's internal state even when the offending elements are excluded
+from display -- not something fixable within this pass without deeper
+Abaqus-internals investigation. Per this task's explicit instructions ("if you hit a
+genuine blocker... report that specifically rather than skip it silently"), the
+image shown is a genuine native Abaqus/CAE render of this same ODB's undeformed
+(frame 0) configuration only -- a real, unfabricated render, just not an animation. A
+full animated re-render of this idea remains open work.
 
-- Stats-migration note (2026-08-04): this campaign predates an explicit
-  `riks_converged` field — R above counts rows with a real (non-NaN) mcs AND
-  mls value, a looser bar than a confirmed-converged flag. &sigma;_crit's high
-  p90/p100 (596/714 kPa) almost certainly reflect a non-coiling, stiff
-  buckling mode, not real progress — mcs stays near 0 for most of these rows.
-- This is hypothesis H2 of run `20260714T020739` (delegations D005+D006). It folds
-  together every later bracing variant tried in this study (cable-stayed, chiral-ring,
-  aperiodic/golden-ratio, multi-turn helical-coil) -- all are one "auxiliary bracing"
-  mechanism family per the manifest's boundary rule. ODB provenance: the permanent
-  archive at data/idea_odbs/20260721T201733_H4_chiral_brace/ (folder named for a later
-  run because that is where the best-known illustrative bracing point's ODB was
-  recovered from; PROVENANCE.txt is explicit that this is "an illustrative bracing
-  point, not bit-identical to the H4 optimum" -- the exact 8D optimum's parameters were
-  never recoverable from that later run's own text). That later run's H4 (sigma=1.2457
-  kPa) was a more elaborate joint host+brace optimization that never passed full
-  apples-to-apples (its own H6 found the brace ligament itself over-strains) -- so the
-  mechanism's overall arc across the study stayed negative/inconclusive despite that
-  one nominally-positive number.
-- GIF LIMITATION, reported honestly per this task's instructions rather than skipped
-  or faked: the archived ODB (data/idea_odbs/20260721T201733_H4_chiral_brace/
-  SUPERCOMPRESSIBLE_RIKS.odb) has a genuine, ODB-specific rendering blocker. Two of its
-  2610 LONGERONS-instance nodes (labels 562, 1369 -- both endpoints of two T3D2
-  brace/truss elements, 554-555 and 1363-1364) carry an Abaqus invalid/sentinel
-  displacement value (magnitude 1e23-1e36) in the U field output from increment 1
-  onward (frame 0 is clean; every later frame checked -- 1,2,3,5,10,29,50,97 -- shows
-  the identical two-node fault, so it is not a transient blip). Excluding those two
-  elements from the display group (a native, non-fabricating fix -- same technique
-  already used elsewhere in this pipeline to hide the non-structural ANALYTICAL_SURF
-  instance) stopped the crash risk but did NOT restore the visible geometry: every
-  frame after 0 still rendered fully blank (confirmed with contour off, with per-frame
-  camera re-assertion, and with node-averaging disabled -- none fixed it), and
-  rendering the same frame in plain wireframe (renderBeamProfiles=OFF) segfaults
-  Abaqus/Viewer outright (signal 11) for this specific ODB. This appears to be a Mesa
-  software-rendering depth/precision failure triggered by those two divergent nodes'
-  astronomical coordinates propagating into the viewport's internal state even when
-  the offending elements are excluded from display -- not something fixable within
-  this pass without deeper Abaqus-internals investigation. Per this task's explicit
-  instructions ("if you hit a genuine blocker... report that specifically rather than
-  skip it silently"), the image shown is a genuine native Abaqus/CAE render of this
-  same ODB's undeformed (frame 0) configuration only -- a real, unfabricated render,
-  just not an animation. A full animated re-render of this idea remains open work.
-- Two small general-purpose fixes were made to the shared presentation/render/render_odb.py
-  during this investigation (kept, since they are principled and harmless for every
-  other ODB in this deck): (1) `_current_positions` now falls back to
-  undeformed-coordinates + U when an ODB has no COORD field output at all (needed for
-  this same bracing ODB's ring-schematic overlay, which DOES render correctly in every
-  frame); (2) a `_divergent_element_labels` helper excludes from display any element
-  touching a node with a >1e30-magnitude field value in any rendered frame, general
-  robustness for any future ODB with a similar localized divergence, not a
-  chiral-brace-specific hack.
+**Timeline:** D005+D006: hypothesis H2 of run `20260714T020739`. It folds together
+every later bracing variant tried in this study (cable-stayed, chiral-ring,
+aperiodic/golden-ratio, multi-turn helical-coil) -- all are one "auxiliary bracing"
+mechanism family per the manifest's boundary rule. That later run's H4 (sigma=1.2457
+kPa) was a more elaborate joint host+brace optimization that never passed full
+apples-to-apples (its own H6 found the brace ligament itself over-strains) -- so the
+mechanism's overall arc across the study stayed negative/inconclusive despite that
+one nominally-positive number.
+
+**Infra:** ODB provenance: the permanent archive at
+data/idea_odbs/20260721T201733_H4_chiral_brace/ (folder named for a later run because
+that is where the best-known illustrative bracing point's ODB was recovered from;
+PROVENANCE.txt is explicit that this is "an illustrative bracing point, not
+bit-identical to the H4 optimum" -- the exact 8D optimum's parameters were never
+recoverable from that later run's own text). Two small general-purpose fixes were
+made to the shared presentation/render/render_odb.py during this investigation
+(kept, since they are principled and harmless for every other ODB in this deck): (1)
+`_current_positions` now falls back to undeformed-coordinates + U when an ODB has no
+COORD field output at all (needed for this same bracing ODB's ring-schematic
+overlay, which DOES render correctly in every frame); (2) a
+`_divergent_element_labels` helper excludes from display any element touching a node
+with a >1e30-magnitude field value in any rendered frame, general robustness for any
+future ODB with a similar localized divergence, not a chiral-brace-specific hack.
 -->
 
 ---
@@ -5785,32 +5782,32 @@ ratio_shear_modulus=.3677.
 this mechanism beforehand, and a GP surrogate confirms the flat landscape is real, not a
 search-coverage gap; the shear-centre offset genuinely does not help.
 
-Fuller context:
+**Deferred:** Stats-migration note (2026-08-04): only 6 of 29 coilable designs
+produced a real Riks reading (~21% Riks yield) — most coilable attempts in this
+family failed to converge at all, not just fail feasibility. Verdict-history nuance:
+the strategizer's first pass called this INCONCLUSIVE (deprioritizing given the
+slenderness gate's potential to have excluded a narrow feasible region), but the
+validator corrected this: the registered falsification criterion explicitly
+specified the slenderness≥10 gate as part of the claim being tested, so the test as
+run WAS exactly the registered one, and the result (zero feasible, adequate
+coverage, above-chance surrogate) mandates FALSIFIED.
 
-- Stats-migration note (2026-08-04): only 6 of 29 coilable designs produced a real
-  Riks reading (~21% Riks yield) — most coilable attempts in this family failed
-  to converge at all, not just fail feasibility.
-- This is H1 of run `20260709T024901`, delegations D002 (literature review) + D005
-  (search). ODB: data/idea_odbs/20260709T024901_H1_offset_shear_Lprofile/ (source:
-  SCRATCH path /oscar/scratch/eaguerov/supercompressible_oracle/
-  riks_a581638a45ad4424b5da6a66baa0cf06).
-- D002's literature quote: "the lowest root is always less than either of the Euler
-  flexural buckling stresses... and the pure torsional buckling stress about the
-  shear center" — the coupling this hypothesis needed is a bug in classical FT
-  buckling theory, not a feature, and open sections also have inherently low
-  torsional constant J relative to closed/solid sections, trading away the dominant
-  sigma_crit lever this study has repeatedly found (per Bessa's own sensitivity
-  analysis) to gain a coupling term theory says can only hurt.
-- Verdict-history nuance: the strategizer's first pass called this INCONCLUSIVE
-  (deprioritizing given the slenderness gate's potential to have excluded a narrow
-  feasible region), but the validator corrected this: the registered falsification
-  criterion explicitly specified the slenderness≥10 gate as part of the claim being
-  tested, so the test as run WAS exactly the registered one, and the result (zero
-  feasible, adequate coverage, above-chance surrogate) mandates FALSIFIED.
-- GIF: native Abaqus/CAE Viewer export, standard pipeline, no ODB-specific gotchas.
-  The open L-shaped cross-section's asymmetric profile is directly visible in the
-  rendered beam geometry; the partial, incomplete coiling shown (max mcs=0.579
-  observed across the family) is a faithful, typical (not cherry-picked) result.
+**Timeline:** D002: literature review. Quote: "the lowest root is always less than
+either of the Euler flexural buckling stresses... and the pure torsional buckling
+stress about the shear center" — the coupling this hypothesis needed is a bug in
+classical FT buckling theory, not a feature, and open sections also have inherently
+low torsional constant J relative to closed/solid sections, trading away the
+dominant sigma_crit lever this study has repeatedly found (per Bessa's own
+sensitivity analysis) to gain a coupling term theory says can only hurt. D005:
+search (this is H1 of run `20260709T024901`).
+
+**Infra:** ODB: data/idea_odbs/20260709T024901_H1_offset_shear_Lprofile/ (source:
+SCRATCH path /oscar/scratch/eaguerov/supercompressible_oracle/
+riks_a581638a45ad4424b5da6a66baa0cf06). GIF: native Abaqus/CAE Viewer export,
+standard pipeline, no ODB-specific gotchas. The open L-shaped cross-section's
+asymmetric profile is directly visible in the rendered beam geometry; the partial,
+incomplete coiling shown (max mcs=0.579 observed across the family) is a faithful,
+typical (not cherry-picked) result.
 -->
 
 ---
@@ -5902,26 +5899,26 @@ this campaign — see notes).
 converged designs (sometimes thinner helps, sometimes it doesn't) — there is no sweet spot to
 dial in, and every tested point underperforms the uniform-section baseline regardless.
 
-Fuller context:
+**Deferred:** Stats-migration note (2026-08-04): this campaign's own feasibility gate
+used mcs&ge;0.90 (not the usual 0.80) per `analyze_ledger.py` — the mcs quartiles
+above reflect that stricter bar. Notably clean solve rate (45/45 Riks converged) vs.
+other families in this deck.
 
-- Stats-migration note (2026-08-04): this campaign's own feasibility gate used
-  mcs&ge;0.90 (not the usual 0.80) per `analyze_ledger.py` — the mcs quartiles
-  above reflect that stricter bar. Notably clean solve rate (45/45 Riks
-  converged) vs. other families in this deck.
-- This is H1 of run `20260708T021335`, delegations D002+D005+D006 (search) + D008
-  (post-hoc CV adequacy check). ODB: data/idea_odbs/20260708T021335_H1_flexure_hinge/
-  (source: presentation/resim/flexure/riks_5d90665da6d54585b4b429f4c5d17007).
-- D005's first attempt died silently after only 12/50 planned evals — traced to a
-  genuine `cei_core.py` NaN-handling bug (not a process crash), fixed and verified
-  before D006's corrected continuation.
-- D008's CV (Charter §2 adequacy check): sigma_crit objective GP is strongly above
-  chance (R²=0.940), but max_compressive_strain (R²=-0.461) and the coilable
-  classifier (identical to a majority-class dummy on every fold) are not — the same
-  binding-constraint-surrogate failure mode this run's own H2/H3 also hit.
-- GIF: native Abaqus/CAE Viewer export, standard pipeline. The alternating
-  thick/thin segments along each leg's length are directly visible in the rendered
-  beam profiles (renderBeamProfiles=ON) — the coiled, fully-collapsed frame shown
-  is the one feasible design found (σ_cr,nd=0.1391 kPa).
+**Timeline:** D002+D005+D006: search (this is H1 of run `20260708T021335`). D005's
+first attempt died silently after only 12/50 planned evals — traced to a genuine
+`cei_core.py` NaN-handling bug (not a process crash), fixed and verified before
+D006's corrected continuation. D008: post-hoc CV adequacy check (Charter §2):
+sigma_crit objective GP is strongly above chance (R²=0.940), but
+max_compressive_strain (R²=-0.461) and the coilable classifier (identical to a
+majority-class dummy on every fold) are not — the same binding-constraint-surrogate
+failure mode this run's own H2/H3 also hit.
+
+**Infra:** ODB: data/idea_odbs/20260708T021335_H1_flexure_hinge/ (source:
+presentation/resim/flexure/riks_5d90665da6d54585b4b429f4c5d17007). GIF: native
+Abaqus/CAE Viewer export, standard pipeline. The alternating thick/thin segments
+along each leg's length are directly visible in the rendered beam profiles
+(renderBeamProfiles=ON) — the coiled, fully-collapsed frame shown is the one
+feasible design found (σ_cr,nd=0.1391 kPa).
 -->
 
 ---
