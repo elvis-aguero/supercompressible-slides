@@ -2730,9 +2730,13 @@ layout: two-cols-header
 
 ::right::
 
-<div class="flex flex-col items-center justify-center h-full">
-  <img src="/gifs/mandrel_confined_native.gif" class="max-h-72 rounded shadow-lg" />
-  <div class="text-xs opacity-60 mt-2 px-4 text-center">mandrel_ratio = 0.83, the largest that fits. The coil winds down, not in — it never reaches the cylinder.</div>
+<div class="flex flex-col gap-2" style="height: 460px">
+  <div class="flex items-center justify-center" style="height: 175px">
+    <img src="/gifs/mandrel_confined_mini.png" style="max-height: 175px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 277px">
+    <img src="/gifs/mandrel_confined_landscape.gif" class="rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
+  </div>
 </div>
 
 <!--
@@ -3610,8 +3614,13 @@ class: idea-slide
 
 ::right::
 
-<div class="flex items-center justify-center h-full">
-  <img src="/gifs/tape_spring_native.gif" class="max-h-100 rounded shadow-lg" />
+<div class="flex flex-col gap-2" style="height: 460px">
+  <div class="flex items-center justify-center" style="height: 175px">
+    <img src="/gifs/tape_spring_mini.png" style="max-height: 175px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 277px">
+    <img src="/gifs/tape_spring_landscape.gif" class="rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
+  </div>
 </div>
 
 <!--
@@ -4110,8 +4119,13 @@ class: idea-slide
 
 ::right::
 
-<div class="flex items-center justify-center h-full">
-  <img src="/gifs/chained_bistable_arch_native.gif" class="max-h-100 rounded shadow-lg" />
+<div class="flex flex-col gap-2" style="height: 460px">
+  <div class="flex items-center justify-center" style="height: 175px">
+    <img src="/gifs/chained_bistable_arch_mini.png" style="max-height: 175px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 277px">
+    <img src="/gifs/chained_bistable_arch_landscape.gif" class="rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
+  </div>
 </div>
 
 <!--
@@ -4521,8 +4535,13 @@ class: idea-slide
 
 ::right::
 
-<div class="flex items-center justify-center h-full">
-  <img src="/gifs/built_up_native.gif" class="max-h-100 rounded shadow-lg" />
+<div class="flex flex-col gap-2" style="height: 460px">
+  <div class="flex items-center justify-center" style="height: 175px">
+    <img src="/gifs/built_up_mini.png" style="max-height: 175px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 277px">
+    <img src="/gifs/built_up_landscape.gif" class="rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
+  </div>
 </div>
 
 <!--
@@ -4628,8 +4647,13 @@ class: idea-slide
 
 ::right::
 
-<div class="flex items-center justify-center h-full">
-  <img src="/gifs/meander_native.gif" class="max-h-100 rounded shadow-lg" />
+<div class="flex flex-col gap-2" style="height: 460px">
+  <div class="flex items-center justify-center" style="height: 175px">
+    <img src="/gifs/meander_mini.png" style="max-height: 175px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 277px">
+    <img src="/gifs/meander_landscape.gif" class="rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
+  </div>
 </div>
 
 <!--
