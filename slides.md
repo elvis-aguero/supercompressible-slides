@@ -2396,12 +2396,12 @@ layout: two-cols-header
 
 <div class="flex flex-col gap-1" style="height: 460px">
   <div class="flex items-center justify-center" style="height: 165px">
-    <img src="/gifs/kresling_strain_history_mini.png" style="max-height: 165px; max-width: 100%" />
+    <img src="/gifs/kresling_sigma_history_mini.png" style="max-height: 165px; max-width: 100%" />
   </div>
   <div class="flex items-center justify-center" style="height: 265px">
     <img src="/gifs/kresling_contact_winner_native.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-50 text-center">Above: full-history local strain at the kink, 1&times; vs 2&times; mesh overlaid against compression — the two curves track within ~1% of each other even as each mesh's own windowed &sigma;_peak (reaction-force-based) diverges +197%, the falsification-defining number. Below: the local-zoom design, force/CPRESS-overlaid — contact genuinely engages late in the stroke; the falsification is the mesh, not the contact.</div>
+  <div class="text-xs opacity-50 text-center">Above: &sigma; vs compression, both meshes overlaid (line style) and colored by local &sigma; magnitude (grey&rarr;red) — nearly identical, low, and flat for the whole stroke, then a sharp late spike where the two meshes separate hard: 1.072 kPa (1&times;) vs 3.187 kPa (2&times;), +197%. Below: the local-zoom design, force/CPRESS-overlaid — contact genuinely engages late in the stroke; the falsification is the mesh, not the contact.</div>
 </div>
 
 <!--
@@ -2533,7 +2533,33 @@ disqualifying) but it sharpens WHERE the singularity's numerical symptom actuall
 equilibrium/reaction-force computation near the kink, not in the elemental strain output at that
 same location. Annotated directly on the chart (both meshes' own windowed sigma_peak is read at
 essentially the same compression, mcs&asymp;81%, where the two curves are still overlapping) rather
-than left as a caption-only claim.
+than left as a caption-only claim. **SUPERSEDED as the visible panel 2026-08-27** (same day,
+same review pass -- see below): the advisor asked for &sigma; vs compression instead of local
+strain, since the local-strain finding above, while real, is not what the family's own
+falsification is measured on. `kresling_strain_history_mini.png` is kept on disk, unreferenced,
+same not-delete convention as `kresling_meshconv_mini.png` above -- this is now the SECOND
+superseded panel on this slide, in order: divisor bar chart -> local-strain history -> sigma
+history (current).
+
+WHERE THE CURRENT (SIGMA-HISTORY) MINI PLOT CAME FROM (added 2026-08-27, replacing the local-
+strain panel per advisor review -- "why local strain? i wanted sigma as a function of
+compression... same red/grey color coding[,] and solid/dashed for mesh resolution"). Reused the
+SAME two `results.pkl` files the local-strain chart read (no new ODB access needed -- U/RF
+reference-point histories were already loaded there): &sigma;(t) = |RF3(t)| &times; 1000 /
+(&pi;&middot;D1&sup2;/4&middot;n_longerons), mcs(t) = clip(-U3(t), 0, &infin;) / mast_height,
+IDENTICAL formula to `bo/response_metrics.py:windowed_metrics` (called directly, not
+reimplemented, to guarantee the sigma_peak values plotted match the ones already cited on this
+slide to the digit: 1.072340266344733 / 3.186755229060794 kPa). Each curve is TRUNCATED at its
+own `window_n` (the frame where that mesh's own local strain first crosses the 2% cap,
+82.8%/83.2% mcs respectively, per `windowed_metrics`'s own windowing rule) -- plotting the full
+raw history past that point was tried first and is actively misleading: both meshes' raw RF3
+histories climb back up together to within 0.6% of each other by mcs=100% (4.474 vs 4.448 kPa),
+which would visually erase the divergence the family was actually falsified on. The color
+gradient (grey&rarr;red, `LinearSegmentedColormap` over `#9a9a9a`/`#d94f3a`/`#8c1a12`) encodes
+each point's own &sigma; magnitude via a `LineCollection`, shared min/max across both curves so
+"how red" is comparable between them; line style (solid/dashed) encodes mesh resolution,
+independent of color. Script: `kresling_sigma_history.py` (ad hoc, uncommitted, same convention
+as this slide's other mini-plot scripts).
 -->
 
 ---
