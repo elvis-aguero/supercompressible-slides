@@ -2180,7 +2180,7 @@ layout: two-cols-header
   <div class="flex items-center justify-center" style="height: 265px">
     <img src="/gifs/scale_lock_landscape.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-50 text-center">D007's own re-tested idx=0 design (strain rising smoothly 0.0&rarr;0.0197 over 1315 real frames, confirmed not a numerical artifact): mcs=45.0% before the stall. Shown here as bare longerons only — the rigid scale panels that are the actual subject of this idea are real 3D shell geometry in the model (not schematic), but this render's display group excludes them; nothing about the scale mechanism itself is visible in this GIF.</div>
+  <div class="text-xs opacity-50 text-center">D007's own re-tested idx=0 design (strain rising smoothly 0.0&rarr;0.0197 over 1315 real frames, confirmed not a numerical artifact): mcs=45.0% before the stall. Rigid scale panels now shown (render's display group includes the SCALES instance, real 3D S4R shell geometry, not schematic) — visibly rotating and overlapping against their neighbors at each rib station as the beam bends.</div>
 </div>
 
 <!--
