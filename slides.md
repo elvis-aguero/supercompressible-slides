@@ -277,6 +277,77 @@ not meant to render. Read this before adding or editing any slide.
                       reason. Don't repeat the baseline number or other
                       Stats-bullet content here. Still state negative
                       results as plainly and confidently as positive ones.
+
+                      TAG FORMAT SUPERSEDED 2026-08-27 (advisor session) for
+                      D25-D43: STATUS &middot; PRACTICAL replaced by
+                      CAMPAIGN &middot; IDEA &middot; SCOPE, because
+                      PRACTICAL was answering two different questions at
+                      once — "did the search reach the mechanism" and
+                      "should a future agent revisit this" — and letting a
+                      thin or blocked campaign borrow the same word
+                      ("DEAD-END") as a properly-tested one made the
+                      earlier tags read as more decisive than the
+                      underlying evidence supported. This is NOT a rewrite
+                      of any verdict's substance (append-only rule 7
+                      still applies) — it's the same conclusions, in a
+                      format that separates two questions that were always
+                      distinct:
+
+                        CAMPAIGN: did the search actually reach the
+                        mechanism with trustworthy numerics? One of
+                        POWERED (real n, right regime, trustworthy —
+                        unmarked/implicit when clearly true, per rule 3c's
+                        own economy-of-signal convention) / UNDERPOWERED
+                        (real data, but n too small or short of the
+                        discriminating regime) / BLOCKED (a solver/
+                        numerical wall, or the mechanism itself never
+                        engaged, prevented a fair test) / ARTIFACT (what
+                        was measured is now known contaminated by a
+                        specific bug, pending re-solve).
+
+                        IDEA: given everything now known, what should a
+                        future agent DO about this mechanism? One of
+                        VALIDATED (real, trust it, build on it) / REFUTED
+                        (tested with real power, the physical direction
+                        argues against it — not just "no design found")
+                        / FERTILE-PARAMETRIC (this point failed, untried
+                        territory in the SAME design space might not) /
+                        FERTILE-REWORK (the underlying theme is sound, this
+                        specific embodiment is the wrong vehicle — a future
+                        agent should build a different realization, not
+                        re-tune this one) / UNKNOWN-NO-EVIDENCE (the
+                        campaign never actually produced information about
+                        the mechanism itself — results are the control, not
+                        the tested feature).
+
+                        Exactly ONE IDEA value per slide, always — if a
+                        slide seems to need two, that's the tell it's
+                        actually two ideas, and rule 1 already says split
+                        it (a genuinely untested adjacent variant is a
+                        pointer in Seed for a FUTURE hypothesis, not a
+                        second tag on this one).
+
+                        SCOPE: a short noun phrase (not a sentence), naming
+                        EXACTLY which claim IDEA is judging — never the
+                        whole family name. "ring-radius growth", not
+                        "compliant rings"; "this 2-storey architecture", not
+                        "multi-storey masts". This is what stops a narrow,
+                        well-earned negative from reading as a verdict on
+                        the whole idea space.
+
+                      Where a slide's own comparability question is
+                      genuinely unresolved (does this result mean something
+                      beyond a property the reference floor itself already
+                      has?), that's a `novel:` question (Stats bullet, rule
+                      3c) — see D42, still open as of this writing — not a
+                      reason to weaken IDEA into a hedge.
+
+                      D24-D43 use this format now. Older slides (pre-D25)
+                      keep STATUS &middot; PRACTICAL until someone has
+                      reason to re-derive them individually — do not mass-
+                      convert on a find/replace, since CAMPAIGN and IDEA
+                      require actually re-checking what was tested, not a
+                      word-substitution table.
      (e) Seed      — RETIRED as a visible bullet, 2026-08-24 (was: OPTIONAL
                       5th bullet, added 2026-08-08). Rule 3 is now strictly
                       the 4 bullets (a)-(d) above; Seed MOVED to the
@@ -899,7 +970,7 @@ class: idea-slide
   cleared: none &middot; novel: yes — a literal chiral sub-lattice mesh, unlike D26/D27's shells
   or D41's twist joint
   best good: none (0/54 passed every criterion)
-- **Verdict:** FALSIFIED &middot; DEAD-END<br>
+- **Verdict:** POWERED &middot; FERTILE-REWORK &middot; chiral-lattice embodiment<br>
   Lowest mode stays global for some designs (54/119 pass Stage 1), but no Riks solve ever
   completes — the snap near full compression is a real obstacle, confirmed at scale (44
   dispatches; looser numerics rescued lower-mcs designs but not the finish), not a numerics
@@ -1333,7 +1404,7 @@ class: idea-slide
   p50/p90/p100 — &sigma;_crit: 2.72/11.15/12.19 · mcs: .164/.221/.225 · mls: .053/.079/.080
   cleared: 6 of 6 decided &ge; 2&times; Bessa (0.2244) &middot; novel: yes
   best good: none (0/20 passed every criterion)
-- **Verdict:** INCONCLUSIVE · DEAD-END<br>
+- **Verdict:** UNDERPOWERED · FERTILE-PARAMETRIC · joint decoupling<br>
   Bounded negative, not absence: twist_energy_fraction (the fraction of total strain energy
   actually stored in rod TWIST, vs. ordinary bending — this campaign's ceiling was 1.13e-4, i.e.
   0.011% twisting) peaked 4400&times; below the 50% bar a genuinely twist-dominated design would
@@ -1415,7 +1486,7 @@ layout: two-cols-header
 - **What was tested:** Rank-3's robustness to manufacturing imperfections, sampled from Bessa's
   own lognormal(4&deg;,1.2&deg;) distribution across 3 independent seeds — a genuine severe test
   (D014: seed=2, 10 fresh draws disjoint from every prior sample).
-- **Result:** SUPPORTED &middot; DEAD-END<br>
+- **Result:** POWERED &middot; FERTILE-PARAMETRIC &middot; Q&ge;2.31 targeting<br>
   Median &sigma;_peak=**1.6487 kPa** across 9 independent draws (7.35&times; the floor) clears
   every criterion — but this number is the imperfection-sensitive snap-through spike at
   mcs&asymp;0.1&ndash;0.5% of compression, not a sustained load. **Revised 2026-08-25 (see
@@ -1687,7 +1758,7 @@ layout: two-cols-header
   cleared: none (0 decided) &middot; novel: untested — the mechanism never got to demonstrate
   anything
   best good: none (0/51 passed every criterion)
-- **Verdict:** INCONCLUSIVE &middot; UNTESTABLE<br>
+- **Verdict:** BLOCKED &middot; FERTILE-PARAMETRIC &middot; panel stiffening<br>
   Every design's lowest vibration mode is a local ligament/panel buckling mode, not the global
   ring-driven coiling mode the study needs — a qualitatively different failure from the earlier
   smooth chiral-shell family's uniform lateral sway, but the same outcome: the cuts avoided one
@@ -1746,7 +1817,7 @@ layout: two-cols-header
   hypothesized direction
   best good: none (0/36 passed every criterion; closest was mcs=0.7885, mls=0.01976, disqualified
   on mcs)
-- **Verdict:** FALSIFIED &middot; DEAD-END<br>
+- **Verdict:** POWERED &middot; REFUTED &middot; ring-radius growth<br>
   Ring radius shrinks in 14 of 23 usable trajectories vs. 3 that grow — the unfavorable,
   strain-tightening direction dominates 3:1. The one dramatic growing outlier (+163%) is a real
   ring self-buckling event, but it happens at only 5.3% compression — an early failure, not a
@@ -1815,7 +1886,7 @@ layout: two-cols-header
   quartiles unavailable — 0/22 Stage-1 coilable, so Stage 2 never auto-escalated for any design
   cleared: none (0 decided) &middot; novel: untested
   best good: none (0/22 passed every criterion)
-- **Verdict:** INCONCLUSIVE &middot; WEAK<br>
+- **Verdict:** POWERED &middot; REFUTED &middot; twist-phase magnitude<br>
   Twist phase and magnitude move the rotation signal (ur3_ratio) non-monotonically and
   asymmetrically by sign — a real, non-trivial effect (-60&deg; reaches 28&times; the plain
   reference; +60&deg; only 40&times; *below* it) — but the ceiling found (1.25e-4) sits ~400&times;
@@ -1873,7 +1944,7 @@ layout: two-cols-header
   mechanism's full engagement range), not a full campaign
   cleared: none (0 decided) &middot; novel: untested
   best good: none (0/5 passed every criterion)
-- **Verdict:** FALSIFIED &middot; DEAD-END<br>
+- **Verdict:** UNDERPOWERED &middot; REFUTED &middot; backing-panel engagement<br>
   0/5 configurations coilable; the rotation signal (ur3_ratio) stays 5-8 orders of magnitude
   below the 0.05 threshold in every case, and more backing engagement does not even
   monotonically help it — a much stronger backing panel gave a LOWER signal than a weaker one.
@@ -1938,7 +2009,7 @@ layout: two-cols-header
   quartiles unavailable — 0/113 Riks-converged (near-plateau reads in Verdict instead) &middot;
   cleared: 0/113 (mcs&ge;0.80) &middot; novel: **yes** — distinct from every prior family
   best good: none — best overall: mcs=0.7191 (D020), mls~0.003 (geometry in notes' Timeline)
-- **Verdict:** INCONCLUSIVE &middot; WEAK<br>
+- **Verdict:** POWERED &middot; FERTILE-PARAMETRIC &middot; snap-through targeting<br>
   Preserves genuine global coiling as the lowest mode in every configuration — unlike every
   shell/ring family this run — with a real 22&times; buckling-capacity gain over uncoupled
   sub-beams. Reaches 71.9% compression on a genuine Riks snap-through plateau (mls never binds,
@@ -2492,7 +2563,7 @@ layout: two-cols-header
   mesh-refinement check (2&times;/4&times; density) and fillet variants on the near-miss design —
   cross-checked by an independent referee subagent and reproduced in a later run
   (`20260819T022742`, H6/H8/H9/H10).
-- **Result:** FALSIFIED · DEAD-END<br>
+- **Result:** POWERED · REFUTED · contact rescuing the strain floor<br>
   Found, and retracted, twice. The broad search first reported **3.27 kPa (5.4&times; the
   incumbent)** — CPRESS=0 confirmed contact never actually engaged, a pure early-transient
   sampling artifact. The local zoom then reported **1.0723 kPa (~9.6&times; Bessa)**, with CPRESS
@@ -2832,7 +2903,7 @@ layout: two-cols-header
   past 5.1% (mcs=.051), so it isn't feasible either &middot; novel: **untested** — contact-on
   vs contact-off self-clearance nearly identical (&minus;1.999 vs &minus;2.000mm)
   best good: none (0/2 decided passed every criterion)
-- **Verdict:** INCONCLUSIVE &middot; UNTESTABLE<br>
+- **Verdict:** BLOCKED &middot; UNKNOWN-NO-EVIDENCE &middot; self-contact load-bearing<br>
   A hard `*CONNECTOR STOP` failed under 3 solvers (~0% every time — the sudden contact force
   breaks the solver, not the physics). A soft, ramped connector law reached **48.6%
   compression**, far past every hard-stop attempt — but whether the contact is doing real
@@ -2919,7 +2990,7 @@ layout: two-cols-header
   cleared: **none** (0 decided) &middot; novel: **untested** — the mechanism never got to
   demonstrate a second rise
   best good: none (0/62 passed every criterion)
-- **Verdict:** INCONCLUSIVE &middot; UNTESTABLE<br>
+- **Verdict:** POWERED &middot; REFUTED &middot; this 2-storey architecture<br>
   Two different numbers, one real reason: the raw solver keeps running to 76% compression with
   no crashes, but this study only counts compression achieved BEFORE the first criterion
   violation (same windowing rule every slide in this deck uses) — and here **storey 1's own
@@ -3100,7 +3171,7 @@ layout: two-cols-header
   cleared: **19 of 19 &ge; 2&times; Bessa — all 19 the incumbent's &sigma;_peak to 16 s.f.**
   &middot; novel: **no** — reshapes the rigid *fixture*, not the design
   best good: **cone_rise_ratio = 0.0**, the flat disc — the family's own control
-- **Verdict:** INCONCLUSIVE &middot; UNTESTABLE<br>
+- **Verdict:** BLOCKED &middot; UNKNOWN-NO-EVIDENCE &middot; cone engagement<br>
   Below the onset (rise &le; 0.15) 18/18 converge with **CPRESS = 0** — the cone is there, never
   touched. At or past it (0.17–0.30) **7 of 8 diverge** on overclosure chatter. Nothing in this
   parameterisation both converges *and* engages: a **test failure, not a measured null**.
@@ -3169,7 +3240,7 @@ layout: two-cols-header
   cleared: **2 of 2 decided &ge; 2&times; Bessa — but both are `n_stops = 0`**, the control
   &middot; novel: **untested** — the stop never carried load
   best good: `n_stops = 0` &rarr; &sigma;=.6071 mcs=.91 — the run-17 rectangle again
-- **Verdict:** INCONCLUSIVE &middot; UNTESTABLE<br>
+- **Verdict:** BLOCKED &middot; UNKNOWN-NO-EVIDENCE &middot; stop engagement<br>
   20 solves, 6 delegations, two independent FE constructions (separate Part+Instance, then wire
   edges on the *same* Part). The one solve whose stop engaged was **already decided against**: the
   *primary's* strain crosses 2% at **5.9% compression**, mcs .910 &rarr; **.054**, ~600 increments early.
@@ -3372,7 +3443,7 @@ layout: two-cols-header
   halving the true reading to a reported "30.8%". (The pre-2026-08-14 "61.5%" figure this replaced
   was independently wrong for an unrelated reason — `|U3|` counting upward travel as compression —
   so this is a coincidental numeric match, not a vindication of that reading; see notes.)
-- **Verdict:** FALSIFIED &middot; MIXED<br>
+- **Verdict:** POWERED &middot; REFUTED &middot; wrap-vs-load (accessible depths)<br>
   <span class="opacity-60">(revised 2026-08-26)</span> The relief is real — **0.445% strain at 61.5% compression**, where the matched straight control
   had blown 2% by 26.2% — but it buys no load (&rho;(wrap, &sigma;_peak) = **&minus;0.392** over 36
   decided designs), it is not novel, and the family never approached 80%.
@@ -3487,7 +3558,7 @@ layout: two-cols-header
   best good: mandrel=.6 a=.00921 b=.03324 pitch=.68128 &rarr; &sigma;=.6071 — **the run-17
   rectangle**: nine &sigma;_peak values take **four** levels, one per control, and contact force is
   **0.0 at all 70 history samples**.
-- **Verdict:** FALSIFIED &middot; DEAD-END<br>
+- **Verdict:** POWERED &middot; REFUTED &middot; mandrel confinement<br>
   Mechanistically, the stronger kind. The coiling mode is **radius-preserving**: the envelope stays
   at 47.79–50.00 mm over the stroke, never moving inward, so there is no radius for an internal body
   to govern. That closes the whole class.
@@ -3641,7 +3712,7 @@ layout: two-cols-header
   cleared: **1 of 2 decided &ge; 2&times; Bessa (0.2244)** &middot; novel: **no** — it is `n_leaves=1`
   best good: n_leaves=1 a=.00921 b=.03324 pitch=.68128 &rarr; &sigma;=.6071 mcs=.91 mls=.0199 — **the run-17 rectangle to 4 s.f.**
   n_leaves=3 &rarr; &sigma;_peak nan &sigma;_eig .1004 (a 7.7&times; regression)
-- **Verdict:** FALSIFIED · DEAD-END<br>
+- **Verdict:** UNDERPOWERED · REFUTED · leaf splitting<br>
   `n_leaves=1` is the family's own *regression control* and reproduces the incumbent exactly. The
   one multi-leaf point **regressed 7.7&times;**: stacking splits the depth that carries load without
   changing the curvature that caps it, paying the strain penalty twice.
@@ -4307,7 +4378,7 @@ class: idea-slide
   quartiles unavailable — 0/80 Stage-1 coilable, so Stage 2 never auto-escalated<br>
   cleared: none (0 decided) &middot; novel: untested — no design ever reached a Riks solve<br>
   best good: none (0/80 passed every criterion)
-- **Verdict:** FALSIFIED · DEAD-END<br>
+- **Verdict:** POWERED · REFUTED · monocoque chirality<br>
   The monocoque topology suppresses
   coiling entirely. Every one of 68 valid designs' lowest buckling mode is a
   global lateral-bending/sway pair (see gif), not top-ring rotation: a full
@@ -4387,7 +4458,7 @@ class: idea-slide
   quartiles unavailable — 0/120 Stage-1 coilable, so Stage 2 never auto-escalated<br>
   cleared: none (0 decided) &middot; novel: untested — no design ever reached a Riks solve<br>
   best good: none (0/120 passed every criterion)
-- **Verdict:** FALSIFIED · DEAD-END<br>
+- **Verdict:** POWERED · REFUTED · discrete twisting vane<br>
   Reverting to discrete members did not
   fix it: still 0/115 valid designs pass the strict coilability check, so
   the sway failure mode isn't purely a monocoque-stiffness artifact as D26's
@@ -4527,7 +4598,7 @@ class: idea-slide
   cleared: 128 of 137 decided ≥ 2× Bessa (0.2244) · novel: yes — the σ threshold isn't the
   gate here, mcs/mls (strain) are, so raw σ clears easily while every design still fails
   best good: none (0/406 passed every criterion)
-- **Verdict:** FALSIFIED · DEAD-END<br>
+- **Verdict:** POWERED · REFUTED · localized elastic fold<br>
   The curvature that keeps the arc locally stable
   is the same curvature that sets its bending-strain floor. The shape can
   never be shallow enough to fold locally without first buckling — so
