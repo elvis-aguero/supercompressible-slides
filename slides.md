@@ -3650,14 +3650,24 @@ layout: two-cols-header
 Contact's effect is unresolvable at n=4 and needs no resolving: the gap is 3.7×, and it moves the
 answer in the third decimal.
 </div>
+<div class="text-xs opacity-60 mt-1">
+Design C (the campaign's own closest miss) re-solved alone under contact, 2026-08-27 — same
+failure: 2% strain crossed at 19% compression (&sigma;<sub>peak</sub> 0.316 kPa) vs 20% with
+contact off (0.318 kPa).
+</div>
 
 </div>
 
 ::right::
 
-<div class="flex flex-col items-center justify-center h-full">
-  <img src="/gifs/restudy_tape_spring_contact.gif" class="max-h-80 rounded shadow-lg" />
-  <div class="text-xs opacity-60 mt-2 px-4 text-center">A tape-spring longeron under contact: the wrinkle localises almost immediately, which is why the strain budget is gone by ~2% compression.</div>
+<div class="flex flex-col gap-1" style="height: 460px">
+  <div class="flex items-center justify-center" style="height: 165px">
+    <img src="/gifs/tape_spring_designC_contact_mini.png" style="max-height: 165px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 265px">
+    <img src="/gifs/restudy_tape_spring_contact.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">Above: design C's own &sigma; vs compression, contact off vs on overlaid (color = local &sigma; magnitude, grey&rarr;red) — the two curves are nearly indistinguishable; contact does not move this design's strain-limit crossing in any way that matters. Below: the 330-design campaign's own showcase clip, a different (near-flat-strip) design — not design C.</div>
 </div>
 
 <!--
@@ -3759,6 +3769,76 @@ vs mcs: rho=-0.600 exact, raw p=0.0007 (Holm-adjusted across 6 params ~0.004, co
 cited 0.003). mcs percentiles p50/p90 (0.0203/0.0546 recomputed vs 0.0215/0.0533 cited) differ by
 2-6%, plausibly a different percentile-interpolation convention at n=28 -- not chased further,
 non-material to any claim on this slide.
+
+DESIGN C, EXPLICITLY RE-SOLVED (added 2026-08-27, advisor request: the showcase GIF above is from
+the 330-design campaign's own Sobol sweep, a near-flat-strip design, NOT design C -- the original
+D25 slide's single closest-miss point had never been solved under contact on its own, only folded
+into this slide's n=4 paired-delta aggregate above). Design C = t_tape=0.419034, R_tape=19.675232,
+alpha_tape=0.638683, beta_tape=1.483305, ratio_pitch=0.844812, ratio_top_diameter=0.360376 (fixed:
+circular=17, n_longerons=3, n_storeys=1, twist_angle=0, ratio_shear_modulus=.3677) -- verbatim from
+data/idea_odbs/20260730T020245_H2_tape_spring/sim_info.pkl. Dispatched via
+bo/run_D25_designC_contact_resolve.py through the CURRENT get_evaluator(namespace='tape_spring')
+adapter chain (oracle_tape_spring.evaluate, ground_contact=True, imperfection default 0.067 rad),
+sbatch job 5409623 on a separate allocation, NOT the interactive node (2026-08-27, wall 302 s).
+
+RESULT: coilable=1 (Stage 1), converged=0 -- Stage 2 stalled and was salvaged
+(window_closed_before_failure=1, timed_out=0, so the salvage is a DECIDED verdict, not truncated
+data). sigma_peak=0.31554 kPa (via bo/response_metrics.py:windowed_metrics, the same reduction
+every number on this deck uses), sigma_eig=0.61667 kPa (Stage-1 eigenvalue estimate -- exactly
+reproduces the archive's own sigma_crit=0.616672, confirming Stage-1/geometry match exactly and
+that contact cannot touch a linear estimate that never engages it). mcs=0.19059, windowed
+mls=0.01972 (passes the 0.02 cap only because the window closes there by construction), unwindowed
+mls_full=0.02752 (matches the archive's 0.027516 to 4 decimal places -- same physical strain
+ceiling, reached by a different point in the same curve). strain_crossing_mcs=0.20342 (the actual
+2%-strain crossing, i.e. 20% compression). ring_passthrough=False, rt_over_t=46.95 (>=10, passes).
+Feasibility: mcs>=0.80 FAILS (0.191, short 4.2x), mls<=0.02 barely passes (construction artifact
+of the window, not a real margin), ring_passthrough and rt_over_t both pass -- feasible=False,
+binding criterion is mcs, the SAME criterion that binds the 28-design funnel above. Bit-identical
+(to the digit) to job 4794837's own phase-1 paired-ON row for "design_C_closest_miss" (still on
+scratch, /oscar/scratch/eaguerov/sc_oracle_tape_spring/riks_c0d9fdf53d314b299d1b69c27410d978/) --
+this design's oracle output has not changed since 2026-08-08 (git log on bo/oracle_tape_spring.py
+confirms the only changes since are an imperfection-as-argument refactor, default unchanged, and
+the unrelated window_n<=0 empty-salvage guard, which this design's window never hit), so this is a
+genuine independent re-confirmation, not new information from the code path -- and full JSON is
+saved at bo/design_C_contact_resolve_result.json.
+
+CONTACT-OFF CROSS-CHECK, same design, same current pipeline (job 4794837's own paired-OFF row,
+raw results.pkl still on scratch): sigma_peak=0.31801 kPa, mcs=0.18524, strain_crossing_mcs=0.19797
+(19.8%). Essentially identical to contact-on (sigma_peak differs 0.8%, crossing differs 0.5 points
+of compression) -- confirms the hypothesis this restudy was testing for design C specifically: the
+strain-floor failure is intrinsic to the arc's own curvature, not something an unmodeled contact
+surface was hiding. One caveat found in passing, NOT chased further (out of this delegation's
+scope): the contact-OFF replay's UNWINDOWED full-history mls_full reads 10.38 (nonsensical, vs the
+archive's graceful 0.0275 stall) -- ground_contact=False on the CURRENT (contact-migrated)
+pre-processor is evidently not a faithful reproduction of the true pre-contact numerics for THIS
+family past the reported window (oracle_tape_spring.py's own docstring already flags this
+equivalence as "verified to the digit on tensegrity", never claimed for tape_spring). Does not
+affect any number cited above -- every one is read from inside the window, before wherever that
+divergence happens -- but is a real, distinct finding for whoever next touches this family's
+ground_contact=False path.
+
+ON THE OLD ARCHIVED FRAMING, RECONCILED: the archived sigma_crit (0.6167 kPa) and max_local_strain
+(0.027516) are not directly comparable to sigma_peak/windowed-mls above -- sigma_crit is the
+Stage-1 linear-buckling eigenvalue (unaffected by contact or by the 2026-08-06 windowing change by
+construction), and the archive's own results.pkl (data/idea_odbs/20260730T020245_H2_tape_spring/
+results.pkl, pre-dates the 2026-08-06 per-frame strain history) recorded max_local_strain=0.027516
+as the peak strain reached by the SOLVE'S OWN STALL POINT (mcs=0.7877, per its
+max_local_strain_mcs_at_truncation field) rather than at the first 2%-strain crossing -- so "fails
+only criterion 3, by 1.38x" and "crosses 2% strain at 19-20% compression" describe the SAME curve
+under two different reporting conventions, not two different physical results. This is exactly
+what this slide's own "ON THE OLD CLOSEST MISS FRAMING" paragraph above already said in the
+abstract; this entry supplies the concrete re-solved numbers behind it.
+
+CHART: assets/public/gifs/tape_spring_designC_contact_mini.png (750x270, same convention as
+kresling_sigma_history_mini.png/tensegrity_strain_history_mini.png -- grey-to-red
+LinearSegmentedColormap over #9a9a9a/#d94f3a/#8c1a12 via a LineCollection encoding each point's own
+sigma magnitude, solid=contact-on/dashed=contact-off encoding the state comparison, both curves
+truncated at their own windowed_metrics() window_n). Built from job 4794837's own raw
+results.pkl (both still on scratch, paths above) via response_metrics.windowed_metrics, called
+directly, not reimplemented -- values printed by the script match both this delegation's own fresh
+JSON and the archived campaign JSON exactly. Script: ad hoc, uncommitted, same convention as this
+deck's other mini-plot scripts (not persisted in bo/ -- it is a plotting utility, not part of the
+oracle/campaign infrastructure those files are reserved for).
 -->
 
 ---
