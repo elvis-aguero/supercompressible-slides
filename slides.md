@@ -1406,19 +1406,26 @@ layout: two-cols-header
   mcs&asymp;0.1&ndash;0.5% of compression, not a sustained load. **Revised 2026-08-25 (see
   PROBLEM_STATEMENT.md &sect;6):** the design's own *sustained* post-snap capacity (&asymp;0.51&ndash;0.52 kPa,
   stable across draws) sits **below** the plain rectangle incumbent's own real peak (0.6071 kPa) —
-  the splice actively hurts once the spike is set aside. Existence claim stands; the mechanism
-  does not help.
+  the splice actively hurts once the spike is set aside. **Revised 2026-08-27 (advisor request, a
+  real finer-resolution re-solve, not a re-read):** the 1.6487 kPa spike itself is a NUMERICAL
+  ARTIFACT — re-solved 250&times; finer, the exact draw behind it does not even converge, and
+  Rank-3's own default-imperfection draw resolves to a smooth 0.5039 kPa peak, not a spike, right
+  at the sustained-plateau value already cited above. Existence claim stands; the mechanism does
+  not help; the headline number was never real to begin with — see notes for the full re-solve.
 
 </div>
 
 ::right::
 
 <div class="flex flex-col gap-2" style="height: 460px">
-  <div class="flex items-center justify-center" style="height: 175px">
-    <img src="/gifs/rank3_sigma_mcs_mini.png" style="max-height: 175px; max-width: 100%" />
+  <div class="flex items-center justify-center" style="height: 130px">
+    <img src="/gifs/rank3_sigma_mcs_mini.png" style="max-height: 130px; max-width: 100%" />
   </div>
-  <div class="flex items-center justify-center" style="height: 277px">
-    <img src="/gifs/bistable_arch_rank3_landscape.gif" class="rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
+  <div class="flex items-center justify-center" style="height: 130px">
+    <img src="/gifs/rank3_finegrid_earlyregion_mini.png" style="max-height: 130px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 184px">
+    <img src="/gifs/bistable_arch_rank3_landscape.gif" class="rounded shadow-lg" style="max-height: 184px; max-width: 100%" />
   </div>
 </div>
 
@@ -1431,8 +1438,12 @@ distribution, seeds 0/1/2 across D010/D013/D014.
 **Comparability argument in full (trimmed from the visible Result bullet):** same E, same
 beam/contact physics as the incumbent; stab_ratio&asymp;0.002 rules out an artificial-damping or
 prestress confound; the metric's own "max over the whole compression window" rule is applied
-identically to every family in this study, not specially loosened here — the raw 1.6487 kPa
-number is real and not an artifact.
+identically to every family in this study, not specially loosened here. **Corrected 2026-08-27:**
+the claim that follows this sentence historically said "the raw 1.6487 kPa number is real and not
+an artifact" — that is now known WRONG, superseded by the 2026-08-27 finegrid re-solve below: the
+number is specifically a numerical (increment-size) artifact. The comparability argument itself
+(same E, same physics, same windowing rule) still holds; it just isn't evidence the SPIKE was
+real, only that the metric wasn't being applied unfairly to this family.
 
 **RESOLVED 2026-08-25 (advisor session, direct ODB re-extraction):** the early-transient-snap
 caveat above is no longer an open question. Plotting the design's own real sigma-vs-mcs Riks
@@ -1445,6 +1456,60 @@ own sustained contribution is *negative* relative to the unmodified host. This i
 example behind PROBLEM_STATEMENT.md's Lessons-learned &sect;6 ("a strong baseline in disguise").
 The existence claim (a 5-criteria-feasible design was found) still stands; the "genuinely
 interesting new mechanism" claim does not.
+
+**RESOLVED 2026-08-27 (advisor session — "is the peak truly physical or a numerical
+artifact?", answered with a REAL finer-resolution re-solve, not a re-read of prior
+output):** the spike is a NUMERICAL ARTIFACT, not a real transient. Root cause: this
+family always solves Stage 2 as a general static step with automatic stabilization
+(`bo/oracle_bistable_arch.py` sets `stabilization=True` unconditionally), and the
+pre-processor's `initialInc=5e-3` sizes the FIRST increment of the whole step at 0.5%
+of the compression stroke — the same order of magnitude as the entire reported spike
+window (mcs&asymp;0.1&ndash;0.5%). Re-solved Rank-1 and Rank-3 on a separate sbatch
+allocation (job 5410570, `mbessa-condo`) with a one-line fork of the pre-processor
+(`initialInc` tightened 250&times;, 5e-3&rarr;2e-5), same designs, same imperfection
+draws already on record. Three results, all real Abaqus output:
+  1. The EXACT draw behind the cited 1.6487 kPa figure (D014 "rank3_fresh_draw6",
+     imperfection=0.05920295568871166 rad) DOES NOT CONVERGE at fine resolution —
+     Abaqus's own `.msg`: "TOO MANY ATTEMPTS MADE FOR THIS INCREMENT." The original
+     coarse solve's "successful" 1.6487 kPa reading came from an increment large enough
+     to step past a region the solver cannot actually resolve.
+  2. Rank-3's own default-imperfection draw (0.067 rad, on-record 1.592 kPa "spike")
+     DOES converge once resolved: sigma_peak drops to **0.5039 kPa at mcs=5.46%** (not
+     0.125%) — 34 real per-increment points inside mcs&le;2% trace a smooth,
+     monotonically RISING curve with no local peak anywhere; the resolved value lands
+     almost exactly on the sustained 0.51&ndash;0.52 kPa plateau already reported above.
+  3. Rank-1 (same D011 campaign, its own #1 candidate) reproduces the identical pattern
+     at its own default imperfection: the reported 3.775 kPa spike at mcs=0.25%
+     collapses to a genuine, monotonic **0.597 kPa peak at mcs=5.35%** once resolved.
+  New chart (right panel, middle): `/gifs/rank3_finegrid_earlyregion_mini.png` overlays
+  the original coarse curve (dashed, 1 real point in the spike window before it drops)
+  against the finegrid re-solve (solid, 43 points by mcs=6%) for the identical
+  design+imperfection pair — the coarse curve's one high point is not reproduced at any
+  resolution finer than the one that produced it.
+  **Raw files, preserved off `/oscar/scratch` per the advisor's explicit request** (full
+  ODB/.inp/.dat/.msg/.sta/results.pkl for every re-solve, each directory with its own
+  `PROVENANCE.txt`): `data/idea_odbs/20260827_D24revisited_finegrid_rank3_draw6_
+  nonconvergent/` (the non-convergent case), `.../20260827_D24revisited_finegrid_rank3_
+  default_0.067rad/`, `.../20260827_D24revisited_finegrid_rank1_default_0.067rad/`,
+  `.../20260827_D24revisited_finegrid_rank1_zero_imperfection/` (secondary check only —
+  stab_ratio=0.100 fails the family's own 0.05 gate, not read as evidence on the 1.6487
+  kPa question, see its own PROVENANCE.txt). The two ORIGINAL coarse ODBs (still on
+  scratch, archived here before they could be purged) that this finding is measured
+  against: `.../20260825_D24revisited_rank3_draw6_1.6487kpa_ORIGINAL_COARSE/`,
+  `.../20260825_D24revisited_rank3_default_0.067rad_ORIGINAL_COARSE/` (plus Rank-1's own,
+  `.../20260825_D24revisited_rank1_default_0.067rad_ORIGINAL_COARSE/`). Finegrid
+  pre-processor: `scripts/supercompressible_riks_bistable_arch_contact_finegrid.py` (a
+  one-line fork of the gold `..._contact.py`, NOT promoted to gold — a diagnostic, not
+  an infra change). Driver script, full per-increment curves (JSON), and the chart
+  script: `data/idea_odbs/SUMMARY_20260827_finegrid_investigation.json` /
+  `..._driver.py` / `..._earlyregion_chart_script.py`.
+  **This sharpens the slide's own claim, not just this note's caveat**: the "Revised
+  2026-08-25" text above (median 1.6487 kPa across 9 draws) should now be read as "that
+  9-draw median is itself built from spike readings a properly-resolved solve does not
+  reproduce" — the honest number for this design was always close to the
+  already-flagged 0.51&ndash;0.52 kPa sustained plateau, not 1.6487 kPa. Per the deck's
+  append-only rule (3(d)/7(d)) the original 1.6487 kPa figure and its 2026-08-25 caveat
+  are NOT deleted above; this note supersedes their reliability, not their text.
 
 **Seed:** FERTILE — H5 (D24's own original exact point) never reached a clean close because its
 own registered wording became ambiguous mid-campaign, not because the physics ran out; a fresh
