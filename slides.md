@@ -3562,6 +3562,7 @@ their &sigma; numbers may be cited against the current 0.1122 kPa floor without 
 this slide already demands for D17/D20/D21/D25/D26. D23 already flags this exact gap on its own
 slide ("never independently verified... until it receives the same treatment run17_rectangle
 got") — this note generalizes that one self-caveat to the other seven, which don't carry it.
+-->
 
 ---
 class: restudy-slide
