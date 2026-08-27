@@ -773,6 +773,200 @@ was run; this is the same 2026-07-31 ODB, read two ways.
 class: summary-slide
 ---
 
+# Run `20260826T233507` — summary
+
+<div class="text-sm leading-snug">
+
+This run closed the grain-beam family (H3) at n=44 real dispatches, and — from a completely
+different code path, read-only, zero new solves — independently re-derived the exact
+contact-artifact finding already on D42's slide. The correction is not a one-off analysis quirk.
+
+| # | Claim | Verdict | Key evidence | Idea |
+|---|---|---|---|---|
+| H1 | Serpentine reproduces its own headline in a fresh run, plus a widened box and imperfection robustness | &#10003; | &sigma;_peak=0.646302 kPa, 0.0% diff from D42's own value; box 8/28 feasible; imperfection 5/6 feasible (0.48&ndash;0.72 kPa) | D42 &rarr; |
+| H2 | A second, independent novel mechanism exists beyond serpentine | &#10007; | Literature-only scouting (11 papers); no candidate judged independent of grain-beam; best alternative (a self-contact family) flagged despite a weak prior track record (48.6% max compression) | &mdash; |
+| H3 | Grain-beam's literal chiral sub-lattice keeps its lowest buckling mode global, escaping the shell-based dead end | &#10007; | 44 real Stage-2 dispatches (tightened Riks settings); 0 converged; 1/44 clears mcs&ge;0.80 &amp; mls&le;0.02 but never reaches LPF=1.0 | D43 &rarr; |
+| H4 | Serpentine's late-&sigma; rise is genuine bend-twist post-buckling capacity | &#10007; | Independent CPRESS re-derivation (read-only, 0 new solves) on D004's own ODB reconfirms D42's 2026-08-26 correction: a contact artifact | D42 &rarr; |
+
+&nbsp;&middot;&nbsp; **10 delegations, 155 ledgered evals, 8.85 h of 10 h**, UNGATED after 3 review rounds
+
+ &nbsp;&middot;&nbsp; **Cost: $28.21**
+</div>
+
+<!--
+H1 DETAIL. D004 re-solved D42's exact winning design (bo/oracle_serpentine.py, now the canonical
+namespace='serpentine' entrypoint) and reproduced sigma_peak=0.646302 kPa to a 0.0% difference --
+this run's own point estimate, not a re-read of the archived ODB. A widened-box campaign (28 real
+Stage-2 dispatches) found 8/28 feasible, best 0.48059 kPa. A 6-draw imperfection-robustness study
+found 5/6 feasible (0.481644-0.717763 kPa); the 1 infeasible draw (3.14deg imperfection) failed
+Stage-2 convergence (salvaged partial ODB, riks_strain reached only 0.59) and is non-comparable,
+not folded into the feasible range.
+
+H2 DETAIL. D006 (backup-candidate scouting while the grain-beam campaign ran) reviewed 11 papers
+and evaluated 6 candidate second-mechanism families against PROBLEM_STATEMENT.md's own named
+exclusions (rigid-linkage reduction, over-stiff substitution suppressing global coiling) -- 4 of 6
+failed once actually read against a direct quote, not skimmed. The remaining top pick, a
+self-contact chiral-truss family (Farzaneh et al.), was recommended despite this study's existing
+self-contact family (D33/D34) having a weak track record (best-ever 48.6% compression, well under
+the 80% floor, never confirmed load-bearing). Scouting only -- not built or tested this run.
+
+H3 DETAIL. D003 inherited a partially-built grain-beam family from an earlier interrupted attempt
+(oracle, prefilter gate, Stage-1/Stage-2 scripts, an 8-point Stage-1 screen already complete) and
+root-caused a failed Stage-2 validation: the Riks surface `ALL_LONGERONS_SURF` was built from
+EVERY ring-hoop and bar edge, so interior grain-ring joint nodes (2 ring edges + 2 bar edges
+meeting) triggered Abaqus's own input-processor rejection ("MORE THAN TWO UNDERLYING ELEMENTS
+HAVING A COMMON NODE") before the job ever started. D005's first real campaign (70 dispatches,
+pre-fix settings) found 0/70 converged; D007 diagnosed the population as MIXED -- some designs are
+genuine settings-independent snap/bifurcation dead ends, others were merely settings-starved -- and
+tightened the Riks increment controls (maxNumInc=8000, initialArcInc=1e-3, minArcInc=1e-12,
+maxArcInc=0.05, MAX_SOLVE_SECONDS=2400s). D008 baked this into the canonical
+scripts/supercompressible_riks_grain_beam.py + bo/oracle_grain_beam.py. D009's follow-up campaign
+(44 real dispatches under the tightened settings, surviving a mid-campaign CEI-BO seed-diversity bug
+that wasted 13/15 solves on bit-identical re-proposals -- see BLOCKED below) genuinely rescued some
+previously-starved designs (1/44 now reaches mcs&ge;0.80 outright vs 0/70 before), but the
+family's snap/bifurcation behavior right at LPF=1 held as a real physical wall for every design
+tested, including the closest ("Point B": R=3.931, t=0.535, alpha=4.772, beta=1.526, chirality=-1,
+w=2.539; mcs=0.8178, mls=0.0197), which dies to "TIME INCREMENT REQUIRED IS LESS THAN THE MINIMUM
+SPECIFIED" just short of the finish line -- see D43's own slide.
+
+H4 DETAIL. D010 was a targeted, time-boxed (<15 min), read-only follow-up: the critic flagged that
+this run's notebook draft hadn't caught up with D42's own 2026-08-26 mechanism correction already
+on record in the deck. D010 opened D004's still-extant Riks ODB (no re-solve), extracted per-frame
+CPRESS/RF3 field output via a fresh script (a distinct code path from whatever produced the
+2026-08-26 slide correction), and found CPRESS is exactly 0.0 for frames 0-63 (spanning the entire
+genuine, contact-free buckling event and its post-buckling valley) and turns nonzero at frame 64,
+after which RF3 and CPRESS rise monotonically together to the final frame -- 26x larger than the
+true contact-free structural peak. Independent, second-code-path confirmation that D42's headline
+sigma_peak is driven by the wavy longeron contacting the rigid loading disc, not by bend-twist
+post-buckling capacity.
+
+THE CRITIC'S ARC (3 review rounds, never reached PASS). call_001: no CRITICAL finding. call_002:
+MAJOR -- the notebook's grain_beam funnel count (65 screened out / 54 reached Stage 2) was
+authoritative-sounding prose backed by a broken `campaign_summary.summarize()` call for this
+family's data (a `decided_key` default that doesn't exist in this family's schema), so the printed
+funnel would not reproduce those numbers if the notebook cell were actually executed -- the
+underlying 54-count is independently correct and verifiable via direct QueryStore, so the
+conclusion (H3 FALSIFIED, objective floor cleared) is not invalidated, but the "authoritative"
+framing overstated what the code actually derived. call_003: REVISE again -- the same
+`campaign_summary` call still had two independent bugs (`n_prefiltered` computed by string-matching
+a `note` field that never contains the word "prefilter" for this family; `is_decided()` defaulting
+to a `decided_key` column, `window_closed_before_failure`, that does not exist anywhere in the
+store). Fixable without new evaluations, but the run exhausted its 10h budget before a 4th pass
+could land -- UNGATED, not FAILED: the scientific verdicts stand, the notebook's own funnel-count
+code does not yet correctly reproduce them.
+
+RETROSPECTIVE FLAGS: none flagged this run (14/14 retrospectives clean) -- the closest to a genuine
+finding was D007's own FRICTION note (undocumented QOS cap on ad-hoc sbatch jobs outside the async
+dispatch machinery, worked around via `--account=mbessa-condo`), not rising to a deck-level issue.
+
+BLOCKED (D009, self-diagnosed, not a capability gap): a mid-campaign top-up batch landed only 1/15
+new real rows -- traced to `bo/cei_core.py`'s async CEI acquisition being near-deterministic once
+conditioned on similar training data, so a different outer `seed` only diversifies the initial
+Sobol DoE, not the ~74 subsequent CEI proposals; 73/80 candidates across two "differently seeded"
+runs were bit-identical, silently dedup-dropped, wasting real Abaqus compute. Worked around with a
+pure OS-entropy random top-up. Flagged for whoever owns `cei_core.py`, not fixed this run.
+
+INFRA BUILT THIS RUN, not yet promoted to gold: the grain-beam family itself (bo/oracle_grain_beam.py,
+bo/prefilter.py:passes_grain_beam_slenderness, scripts/supercompressible_{lin_buckle,riks}_grain_beam.py
++ pp), now falsified but real, reusable infra; the tightened Riks increment-control settings (D007/
+D008); D009's `campaign_summary.py`-adjacent `build_final_summary.py` (reusable funnel-count builder,
+the fix the critic wants applied to `campaign_summary.py` itself, not yet done). Promotion is the
+user's call.
+-->
+
+---
+layout: two-cols-header
+class: idea-slide
+---
+
+# D43 &middot; Grain-beam (chiral sub-lattice) longeron
+
+::left::
+
+<div class="text-sm leading-snug">
+
+- **What:** A literal, periodic B31 beam-element mesh along each longeron: repeating stiffer
+  "grain" inclusions (locally-enlarged cross-section) connected by slender, chirally-offset bar
+  pairs — a real discretized lattice, not a homogenized section.
+- **Origin:** Pancella &amp; D'Annibale (2025)&sup1; — a periodic chiral-grain lattice carries a
+  homogenized extension-shear/bend-twist coupling from material chirality itself (the grain-bar
+  offset), not from centerline geometry the way serpentine's coupling is — testing whether that
+  distinct channel keeps the lowest buckling mode GLOBAL coiling, not local grain/bar buckling,
+  the failure mode that killed this study's prior shell-based chiral attempts (D26/D27/D38).
+- **Stats:** n=119 &rarr; 54 coil &rarr; 0 riks &rarr; 0 good
+  quartiles unavailable — 0/54 Stage-2-eligible designs converged (44 real dispatches, tightened
+  settings; best mcs=.818, mls=.0197, never reaches LPF=1.0)
+  cleared: none &middot; novel: yes — a literal chiral sub-lattice mesh, unlike D26/D27's shells
+  or D41's twist joint
+  best good: none (0/54 passed every criterion)
+- **Verdict:** FALSIFIED &middot; DEAD-END<br>
+  Lowest mode stays global for some designs (54/119 pass Stage 1), but no Riks solve ever
+  completes — the snap near full compression is a real obstacle, confirmed at scale (44
+  dispatches; looser numerics rescued lower-mcs designs but not the finish), not a numerics
+  artifact.
+
+</div>
+
+::right::
+
+<div class="flex flex-col items-center justify-center h-full gap-1">
+  <img src="/gifs/grain_beam_native.gif" class="max-h-85 rounded shadow-lg" />
+  <div class="text-xs opacity-50 text-center">Stage-1 LIN_BUCKLE Mode 1, "Point B" (best-found design) — no Riks history exists for this family.</div>
+</div>
+
+<div class="text-xs opacity-50 mt-2">
+&sup1; Pancella, F. &amp; D'Annibale, F. (2025), "A Timoshenko-like equivalent beam model for the
+static analysis of a chiral metamaterial", <i>Continuum Mechanics and Thermodynamics</i> 37:59 —
+cited and verified against the study's own literature corpus this run (CorpusList), not assumed.
+</div>
+
+<!--
+**Input space:** n_cells&isin;[3,8] — discrete grain-inclusion count. R&isin;[3.0,4.0] — grain
+radius (relative). t&isin;[.40,.55] — bar thickness. w&isin;[2.0,3.5] — bar width. alpha&isin;
+[1,5], beta&isin;[1,5] — grain/bar chirality-offset shape parameters. chirality&isin;{-1,+1} —
+discrete handedness. Fixed: n_longerons=3, n_storeys=1, D1=100mm, ratio_shear_modulus=.3677.
+
+**Seed:** BARREN — the failure is not parametric within the tested box: D009's 44-point campaign
+(seed=1 continuation + seed=2 top-up, the latter mostly wasted on a near-deterministic CEI-BO
+acquisition re-proposing already-ledgered points — see notes) plus a pure-random top-up all
+converge on the same wall (0 designs reach LPF=1.0), and D007's diagnosis (genuinely different
+solver settings genuinely rescue SOME designs to mcs&ge;0.80, but not to full compression) rules
+out a numerics-only explanation. What's untested: whether a fundamentally different Riks
+stabilization strategy (energy-dissipation stabilization rather than pure arc-length control,
+which this study's charter otherwise avoids as a science-methodology change requiring approval)
+could push past the snap point at all, or whether the snap is a genuine structural dead end for
+this topology regardless of solver.
+
+**Deferred:** whether the 1/44 design that individually clears both mcs&ge;0.80 and mls&le;0.02
+sub-criteria ("Point B") represents a genuinely different structural regime from the other 43, or
+sits on the same wall by coincidence of being closest at time of failure — not adjudicated this
+run, would need a targeted local sweep around Point B's own coordinates specifically to answer.
+
+**Timeline:**
+D002: literature review — identified Pancella &amp; D'Annibale (2025) as the grounding citation,
+distinguished from Frenzel/Wu-Qi-Liao's 3D chiral-truss precedent (deferred to D006 as a possible
+H2 candidate, ultimately not pursued as independent of this family).
+D003 (this run): inherited a partial build, root-caused and fixed the Stage-2 contact-surface
+topology bug, completed the family's first real Stage-2 validation attempt.
+D005 (this run): first real campaign, 70 dispatches, pre-tightened-settings, 0/70 converged.
+D007 (this run): diagnostic — mixed-population diagnosis, tightened Riks increment controls.
+D008 (this run): baked D007's settings into the canonical oracle/scripts.
+D009 (this run): follow-up campaign, 44 real dispatches under tightened settings, 0/44 converged,
+1/44 clears both feasibility sub-criteria individually.
+
+**Infra:** bo/oracle_grain_beam.py, bo/prefilter.py:passes_grain_beam_slenderness,
+scripts/supercompressible_lin_buckle_grain_beam.py + _pp.py,
+scripts/supercompressible_riks_grain_beam.py (tightened increment controls: maxNumInc=8000,
+initialArcInc=1e-3, minArcInc=1e-12, maxArcInc=0.05, MAX_SOLVE_SECONDS=2400).
+ODB: /oscar/scratch/eaguerov/sc_oracle_grain_beam/lin_29e1c5e40f4a4905b8cbf9d17dfc8961/ (Point B's
+Stage-1 LIN_BUCKLE solve — the family's own best-found point, per this slide's no-Riks-history
+convention; no Stage-2/Riks ODB exists for this or any grain-beam design).
+-->
+
+---
+class: summary-slide
+---
+
 # Run `20260826T012550` — summary
 
 <div class="text-sm leading-snug">
@@ -869,9 +1063,7 @@ class: idea-slide
   family in this study shares.
 - **Stats:** n=140 &rarr; 121 coil &rarr; 61 riks &rarr; 51 good (5.76&times; Bessa)
   p50/p90/p100 — &sigma;_crit: .12/1.27/5.61 &middot; mcs: .85/.94/.95 &middot; mls: .041/.057/.097
-  cleared: 38 of 61 decided &ge; 2&times; Bessa (0.2244) &middot; novel: yes — a genuinely new
-  centerline topology, distinct from D19's already-closed in-plane meander (different offset
-  direction, different physical mechanism)
+  cleared: 38 of 61 decided &ge; 2&times; Bessa (0.2244) &middot; novel: yes
   best good: pitch=.5327 top_d=.1298 a=.00622 b=.02033 amplitude=.03164 n_undulations=2 &rarr;
   &sigma;=.6460 mcs=.93 mls=.019
 - **Verdict:** SUPPORTED &middot; MIXED<br>
@@ -887,7 +1079,10 @@ class: idea-slide
   loading disc, not from the claimed bend-twist post-buckling channel — real and wave-caused (the
   control disproves a generic every-design-eventually-squishes story), but not yet understood well
   enough to call a genuine, exploitable mechanism. **Mesh check (2026-08-26):** &sigma;_peak itself
-  is not fully mesh-converged — see notes.
+  is not fully mesh-converged — see notes. **Independently reconfirmed (run `20260826T233507`,
+  D010):** a second, unrelated CPRESS extraction on the same ODB — a distinct code path, zero new
+  solves — reproduces the identical frame-by-frame finding: contact-free through frame 63, CPRESS
+  and RF3 rising together from frame 64 on.
 
 </div>
 
@@ -1642,7 +1837,7 @@ layout: two-cols-header
   <div class="flex items-center justify-center" style="height: 265px">
     <img src="/gifs/crosslinked_bundle_landscape.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-50 text-center">The family's own best design (D020, mcs=0.7191): a real, deep 340-frame Riks history reaching the genuine snap-through plateau where it stalls — not a converged "good" result, but the actual geometry this run's headline finding is based on.</div>
+  <div class="text-xs opacity-50 text-center">The family's own best design (D020). The reported number is 71.9% compression (mcs=0.7191) — the point where the structure hits a real, physical snap-through and the solve's progress on the mode this study measures effectively ends. The animation itself may still show the solver continuing to move past that point (frames are only capped at a global 95% compression safety limit, not stopped at each design's own reported number) — that later motion is not what mcs=0.7191 describes. "Converged" in this deck means reaching the FULL compression target, which this design never does — the 71.9% figure is a real, physical stopping point, just not that one.</div>
 </div>
 
 <!--
@@ -1704,9 +1899,10 @@ layout: two-cols-header
 ::left::
 <div class="text-sm leading-snug">
 
-- **What changed:** `twist_angle` promoted from nonexistent to a real, 7th free design parameter
-  for this family (bounds &plusmn;90&deg;), threaded through the same helical-sweep construction
-  the base circular family and `oracle_helical.py` already use. Verified to bit-exactly reproduce
+- **What changed:** `twist_angle` — a helical PRE-twist: the tape-spring cross-section rotates
+  progressively along the member's own length, like a twisted ribbon, baked into the shape before
+  any load is applied (same convention as D1's pretwisted longerons) — promoted from nonexistent
+  to a real, 7th free design parameter (bounds &plusmn;90&deg;). Verified to bit-exactly reproduce
   the historical untwisted (`twist_angle=0`) record before trusting any new result.
 - **What was tested:** a cheap Stage-1 kill-signal scan first (20/22 coilable across the full
   twist range — not a D27-style collapse), then a full 105-design campaign under contact.
@@ -1912,7 +2108,7 @@ though no multiplier improves on it.
   <div class="flex items-center justify-center" style="height: 265px">
     <img src="/gifs/kissing_pair_landscape.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-50 text-center">Same design as D33's own gif (3&times;, 48.6% compression) — every other multiplier tested either matches or underperforms it, so this remains the family's best geometry.</div>
+  <div class="text-xs opacity-50 text-center">Same design AND same rendered gif as D33's own slide (3&times; multiplier, reported at 48.6% compression — see that slide's own caption for why the animation may visually appear to go further). Every other multiplier tested (5&times;, 7&times;, 9&times;, 12&times;, 15&times; — see notes) either matches or underperforms it, so this remains the family's best geometry.</div>
 </div>
 
 <!--
@@ -1984,7 +2180,7 @@ layout: two-cols-header
   <div class="flex items-center justify-center" style="height: 265px">
     <img src="/gifs/scale_lock_landscape.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-50 text-center">D007's own re-tested idx=0 design, forensically confirmed real (strain rising smoothly 0.0&rarr;0.0197 over 1315 frames): mcs=45.0% before the stall — not feasible, but a genuine partial solve.</div>
+  <div class="text-xs opacity-50 text-center">D007's own re-tested idx=0 design (strain rising smoothly 0.0&rarr;0.0197 over 1315 real frames, confirmed not a numerical artifact): mcs=45.0% before the stall. Shown here as bare longerons only — the rigid scale panels that are the actual subject of this idea are real 3D shell geometry in the model (not schematic), but this render's display group excludes them; nothing about the scale mechanism itself is visible in this GIF.</div>
 </div>
 
 <!--
@@ -2048,8 +2244,8 @@ further — and the fillet meant to save it doesn't either.
 |---|---|---|---|---|
 | H1 | Oracle wiring reproduces the confirmed anchor | &#10003; | sigma_crit=0.770352 vs anchor 0.7704 (0.006% deviation) | — |
 | H2&ndash;H4 | Three new rigid-contact geometries (coaxial mandrel, shaped cone disc, eccentric capstan pins) create a genuine second, contact-mediated load path above the incumbent | **&#8253;** | H2 already closed in a prior run (corrected: that test swept a narrower space than registered). H3/H4 escalated to Abaqus/Explicit and found the "wall" is **non-quasi-static** (ALLKE/ALLIE up to 0.6, an order of magnitude over the 0.05&ndash;0.10 validity threshold) at every rate tried — a numerical wall, not demonstrated force amplification | — |
-| **H5&ndash;H8** | The Kresling local-zoom design (&sigma;_peak=1.0723 kPa, ~10&times; Bessa) is a real, mesh-converged, imperfection-robust result | **&#10007;** | Re-registered and reproduced exactly (H5) — then independently falsified: raw kink strain moves -13&ndash;28% under 2&times; refinement and the jump ratio across the kink node GROWS with refinement (1.18&times;&rarr;1.43&times;), not mesh-converged (H6); only 3/7 Bessa-distribution imperfection draws even converge (H7); 2&times; mesh gives **+197%** divergence, 4&times; fails to solve at all (H8) | Kresling revisited &rarr; |
-| **H9&ndash;H10** | Filleting the sharp kink removes the mesh-artifact, and the design still coils | **&#8253; / &#10007;** | H9: every fillet radius (0.5&ndash;6mm) &times; every refined mesh produced non-convergence (NaN) — never a valid measurement, genuinely inconclusive, not falsified. H10: forced through anyway with a quasi-static-valid Explicit resolve (ALLKE/ALLIE=0.027) — reaches only **3.7% compression**, decisively short of 80% | Kresling revisited &rarr; |
+| **H5&ndash;H8** | The Kresling local-zoom design (&sigma;_peak=1.0723 kPa, ~10&times; Bessa) is a real, mesh-converged, imperfection-robust result | **&#10007;** | Re-registered and reproduced exactly (H5) — then independently falsified: raw kink strain moves -13&ndash;28% under 2&times; refinement and the jump ratio across the kink node GROWS with refinement (1.18&times;&rarr;1.43&times;), not mesh-converged (H6); only 3/7 Bessa-distribution imperfection draws even converge (H7); 2&times; mesh gives **+197%** divergence, 4&times; fails to solve at all (H8) | D17 revisited &rarr; |
+| **H9&ndash;H10** | Filleting the sharp kink removes the mesh-artifact, and the design still coils | **&#8253; / &#10007;** | H9: every fillet radius (0.5&ndash;6mm) &times; every refined mesh produced non-convergence (NaN) — never a valid measurement, genuinely inconclusive, not falsified. H10: forced through anyway with a quasi-static-valid Explicit resolve (ALLKE/ALLIE=0.027) — reaches only **3.7% compression**, decisively short of 80% | D17 revisited &rarr; |
 | H11 | A laced (two-parallel-chord) longeron beats the incumbent via distributed load-sharing | **&#8253;** | 6/6 points stuck at 1.3&ndash;3.4% compression, early Riks non-convergence; a mild monotonic trend with ratio_h, never close to feasible | — |
 | H12 | A strongly-graded two-storey mast stages sequential coiling and beats the incumbent | **&#8253;** | Underpowered (2&ndash;3 pts vs a registered 5D+ sweep) — but its own Explicit-vs-Standard check shows only a **1-point-percent gap** (0.208 vs 0.198), ruling out "this is just Kresling's mesh-artifact again" as the explanation | — |
 
@@ -2164,7 +2360,7 @@ class: restudy-slide
 layout: two-cols-header
 ---
 
-# Kresling revisited — from a 10&times; Bessa near-miss to a resolved falsification
+# D17 revisited — from a 10&times; Bessa near-miss to a resolved falsification
 
 ::left::
 <div class="text-sm leading-snug">
@@ -2198,9 +2394,14 @@ layout: two-cols-header
 
 ::right::
 
-<div class="flex flex-col items-center justify-center h-full">
-  <img src="/gifs/kresling_contact_winner_native.gif" class="max-h-80 rounded shadow-lg" />
-  <div class="text-xs opacity-60 mt-2 px-4 text-center">The local-zoom design, force/CPRESS-overlaid: contact genuinely engages late in the stroke — the falsification is mesh non-convergence at the kink, not a contact artifact.</div>
+<div class="flex flex-col gap-1" style="height: 460px">
+  <div class="flex items-center justify-center" style="height: 165px">
+    <img src="/gifs/kresling_meshconv_mini.png" style="max-height: 165px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 265px">
+    <img src="/gifs/kresling_contact_winner_native.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">Above: the falsification itself — &sigma;_peak at mesh divisor 300&rarr;600 diverges +197%, 4&times; refinement doesn't converge at all. Below: the local-zoom design, force/CPRESS-overlaid — contact genuinely engages late in the stroke; the falsification is the mesh, not the contact.</div>
 </div>
 
 <!--
@@ -2279,6 +2480,25 @@ independently re-derived. Instead, confirmed the claimed cross-run reproduction 
 reading not mesh-converged), H8 FALSIFIED (sigma_peak=1.0723 not mesh-converged), H9 INCONCLUSIVE
 (fillet did not cleanly rescue it), H10 FALSIFIED (even a quasi-static-validated Explicit solve
 fails to reach coilability) -- all four match this slide's narrative exactly.
+
+WHERE THE MINI PLOT CAME FROM (added 2026-08-27, format-conformance pass): unlike the job-number
+divisor table above, this data DID survive on disk and was verified directly, not re-typed from
+prose. `kresling_meshconv_mini.png` plots sigma_peak straight from
+`runs/20260819T022742/debug/delegations/D012/mesh_convergence_results.json` (divisor 300 ->
+1.072340266344733 kPa, converged; divisor 600 -> 3.186755229060794 kPa, converged; divisor 1200 ->
+solver exception, "TOO MANY ATTEMPTS MADE FOR THIS INCREMENT", no sigma_peak value exists) --
+the +197.18% figure comes straight from that same delegation's own `mesh_convergence_summary.json`.
+Deliberately NOT a sigma-vs-compression curve (which would visually read as "clean, trustworthy
+result") -- this panel is the falsification evidence itself: two converged points diverging, a
+third that produced no answer at all, marked as a solver failure rather than interpolated or
+omitted silently. Generated by a fresh, uncommitted ad hoc script (no committed generation script
+exists for this deck's mini plots, per the same convention as `rank3_sigma_mcs_mini.png` --
+04ace0a); style matched to the deck's other mini plots (firebrick #B2182B markers/line, white
+background, light gridlines) but the axes differ (mesh divisor vs sigma_peak in kPa, not
+sigma-vs-mcs normalized to Bessa) because the finding itself is about mesh sensitivity, not a
+compression-history shape. Saved as `kresling_meshconv_mini.png`, NOT `kresling_mini.png` --
+that filename is already taken by D17's own idea-slide mini plot (`/gifs/kresling_mini.png`,
+line ~5474); overwriting it would have silently broken that earlier slide.
 -->
 
 ---
@@ -2449,7 +2669,7 @@ layout: two-cols-header
   <div class="flex items-center justify-center" style="height: 265px">
     <img src="/gifs/kissing_pair_landscape.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-50 text-center">3&times; stiffness soft connector (D018), the family's best-ever result: 48.6% compression, fully converged.</div>
+  <div class="text-xs opacity-50 text-center">3&times; stiffness soft connector (D018), the family's best-ever result: Abaqus reports this Riks solve as converged at 48.6% compression (mcs=0.486) — that is the reported/citable number. If the animation appears to keep compressing past that, it's the render pipeline's global 95% safety cap (which only blocks physically meaningless Riks overshoot), not evidence of more real compression than 48.6% — this deck does not treat a solver's own "completed successfully" flag as proof it reached its actual load target without checking the load path (see D21-revisited's own finding on this exact trap). Still far short of the 80% mcs this study requires to call a design feasible.</div>
 </div>
 
 <!--
@@ -3331,7 +3551,17 @@ three rows record ONLY that a code path now exists.
 Per-design detail on the slides that follow. Infrastructure provenance in
 docs/ORACLE_ERAS.md (which commit reproduces which oracle) and docs/self_contact_spec.md
 (Part 12 on why one design cannot settle a family).
--->
+
+**Corrected 2026-08-27 (deck audit, item 4):** this table's own "do not read 'we migrated it' as
+'we tested it'" warning covers 5 designs; it does not cover 8 MORE idea slides that carry the
+identical gap for the identical reason and were never added here: D6, D7, D9, D11, D12, D13, D19,
+D23 all report &sigma; from before this same 2026-08-06 contact change and have never been
+re-solved under it either. None are wrong on their own terms (each has an independent,
+metric-orthogonal reason its family was abandoned — see each slide's own Verdict), but none of
+their &sigma; numbers may be cited against the current 0.1122 kPa floor without the same re-solve
+this slide already demands for D17/D20/D21/D25/D26. D23 already flags this exact gap on its own
+slide ("never independently verified... until it receives the same treatment run17_rectangle
+got") — this note generalizes that one self-caveat to the other seven, which don't carry it.
 
 ---
 class: restudy-slide
@@ -3571,7 +3801,7 @@ layout: two-cols-header
 
 <!--
 **Seed:** BARREN (all three, superseding this bullet's own prior FERTILE tag) — each has since
-been searched under contact elsewhere and closed: D17 (Kresling revisited — mesh singularity,
+been searched under contact elsewhere and closed: D17 (see "D17 revisited" — mesh singularity,
 not floor-passthrough), D20 (run `20260819T022742` H11 — 6 pts stuck 1.3&ndash;3.4%), D26 (run
 `20260804T221559` — 80-pt sweep, 0/68 valid designs coilable). No perturbation left un-searched on
 any of the three.
@@ -3601,7 +3831,7 @@ coilable" -- 68 is the evaluated denominator (12 of the 80 sampled points were r
 dispatch), not 80. This slide read "0/80 coilable," conflating the sample size with the evaluated
 count, inconsistent with this deck's own house convention elsewhere (report against the
 valid/evaluated denominator, e.g. D25's "256 evaluable" phrasing). Corrected in the Seed line
-above. D17's citation points to Kresling revisited, independently verified separately on that
+above. D17's citation points to "D17 revisited", independently verified separately on that
 slide.
 -->
 
@@ -5280,7 +5510,7 @@ meaning. psi_kresling&isin;[0,.6] rad — hinge offset angle (0 = hinge off). ra
 
 **Seed:** BARREN — later resolved decisively: the bar-hinge kink is a real reentrant-corner
 stress singularity (confirmed via mesh refinement, fillets, and an independent referee — see
-"Kresling revisited"), not a numerical artifact and not floor-passthrough. No perturbation
+"D17 revisited"), not a numerical artifact and not floor-passthrough. No perturbation
 within this geometric-kink realization survives; a genuinely different hinge (an actual
 pin/flexure joint) would be a different idea.
 
