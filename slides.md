@@ -2387,9 +2387,7 @@ layout: two-cols-header
   strain ceiling at only 33&ndash;45% compression. The rigid panel-to-panel kinematic coupling at
   each rib station is itself what concentrates strain and destroys the design — the opposite of
   the mechanism's own premise of escaping the kinematic-depth-cap wall by decoupling strain from
-  bending depth. 2026-08-27 diagnostic: 3.6&times; more wall-clock plus tightened numerics
-  reproduced the identical stall (see notes) — confirmed genuine, not settings-starved like
-  grain-beam (D43).
+  bending depth.
 
 </div>
 
