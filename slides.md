@@ -1141,6 +1141,21 @@ straight member's shape does not, in the SAME compression range. Still open: WHY
 — and whether that contact-mediated load path is a real, exploitable structural lever or a
 boundary-condition accident specific to this disc's placement.
 
+THE COMPRESSION-LIMIT CONSTRAINT, EXPLAINED (added 2026-08-27, expanding the advisor caveat
+below into an actual physical account, not just a flag). Why would ANY design's &sigma; rise late
+in compression, independent of what its own "novel" feature is doing? Because &sigma;_peak is the
+MAXIMUM reaction force over the whole compression window, and once a design's own members run out
+of room to bend/coil freely — either by geometrically exhausting their own coiling motion, or (as
+here) by physically contacting a rigid surface — continuing to advance the prescribed compression
+means pushing against something far stiffer than the original compliant structure: a hard
+kinematic limit, not a buckling member. That's a generic "running out of give" effect, the
+mechanical equivalent of a spring reaching solid height, and it says nothing in itself about
+WHATEVER specific feature (a wave, a twist, a splice) the design under test happens to have — any
+design pushed far enough toward its own compression ceiling will show some version of this same
+late rise. The ablation control above already demonstrates the generic case directly: even the
+STRAIGHT centerline control shows a real early elastic peak (&sigma;=0.119 kPa at mcs&asymp;6%,
+1.06&times; Bessa) before fading — an ordinary compression response with no wave involved at all.
+
 ADVISOR CAVEAT (2026-08-27, PI review — not actioned, recorded for the deck's eventual verdict
 pass): a high &sigma;_peak reached simply because a design approaches ITS OWN compression limit
 is technically valid but not novel by itself — Bessa's own original baseline already has this
@@ -1417,16 +1432,14 @@ layout: two-cols-header
 
 ::right::
 
-<div class="flex flex-col gap-2" style="height: 460px">
-  <div class="flex items-center justify-center" style="height: 130px">
-    <img src="/gifs/rank3_sigma_mcs_mini.png" style="max-height: 130px; max-width: 100%" />
+<div class="flex flex-col gap-1" style="height: 460px">
+  <div class="flex items-center justify-center" style="height: 165px">
+    <img src="/gifs/rank3_coarse_vs_fine_full_mini.png" style="max-height: 165px; max-width: 100%" />
   </div>
-  <div class="flex items-center justify-center" style="height: 130px">
-    <img src="/gifs/rank3_finegrid_earlyregion_mini.png" style="max-height: 130px; max-width: 100%" />
+  <div class="flex items-center justify-center" style="height: 265px">
+    <img src="/gifs/bistable_arch_rank3_landscape.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
   </div>
-  <div class="flex items-center justify-center" style="height: 184px">
-    <img src="/gifs/bistable_arch_rank3_landscape.gif" class="rounded shadow-lg" style="max-height: 184px; max-width: 100%" />
-  </div>
+  <div class="text-xs opacity-50 text-center">Above: &sigma; vs compression, full range, coarse vs fine-grid overlaid — the spike is one isolated coarse point near mcs=0; every other point on both curves tracks together. Below: Rank-3's own converged design.</div>
 </div>
 
 <!--
@@ -1481,11 +1494,17 @@ draws already on record. Three results, all real Abaqus output:
   3. Rank-1 (same D011 campaign, its own #1 candidate) reproduces the identical pattern
      at its own default imperfection: the reported 3.775 kPa spike at mcs=0.25%
      collapses to a genuine, monotonic **0.597 kPa peak at mcs=5.35%** once resolved.
-  New chart (right panel, middle): `/gifs/rank3_finegrid_earlyregion_mini.png` overlays
-  the original coarse curve (dashed, 1 real point in the spike window before it drops)
-  against the finegrid re-solve (solid, 43 points by mcs=6%) for the identical
-  design+imperfection pair — the coarse curve's one high point is not reproduced at any
-  resolution finer than the one that produced it.
+  **SUPERSEDED 2026-08-27 (same day, consolidated per advisor review):** this originally
+  pointed at a separate early-region-only zoom chart, stacked as a 3rd panel above the
+  slide's own pre-existing full-range plot. Both prior images
+  (`/gifs/rank3_sigma_mcs_mini.png`, `/gifs/rank3_finegrid_earlyregion_mini.png`) are kept
+  on disk, unreferenced, not deleted — replaced by one consolidated full-range chart,
+  `/gifs/rank3_coarse_vs_fine_full_mini.png`, coarse (dashed) vs fine-grid (solid)
+  overlaid across the ENTIRE compression history (0-100%+ mcs), same
+  design+imperfection pair, same data sources as below. The full-range view makes the
+  finding visually undeniable in a way the zoom-only chart couldn't: the coarse curve's
+  one high point near mcs=0 is a single, isolated outlier — every other point on both
+  curves, across the rest of the entire solve, tracks together almost exactly.
   **Raw files, preserved off `/oscar/scratch` per the advisor's explicit request** (full
   ODB/.inp/.dat/.msg/.sta/results.pkl for every re-solve, each directory with its own
   `PROVENANCE.txt`): `data/idea_odbs/20260827_D24revisited_finegrid_rank3_draw6_
@@ -1511,13 +1530,25 @@ draws already on record. Three results, all real Abaqus output:
   append-only rule (3(d)/7(d)) the original 1.6487 kPa figure and its 2026-08-25 caveat
   are NOT deleted above; this note supersedes their reliability, not their text.
 
-**Seed:** FERTILE — H5 (D24's own original exact point) never reached a clean close because its
+**Seed:** FERTILE, and more fundamentally than previously stated (strengthened 2026-08-27, advisor
+review: "the proposed design did not achieve bistability, thus we can't say bistability itself is
+uninteresting"). Checked directly against the 2026-08-27 finegrid re-solve's own `arch_snap_reversal`
+field — the diagnostic this family's own oracle uses to detect a genuine two-equilibrium snap:
+**both Rank-3 and Rank-1's properly-resolved solves read `arch_snap_reversal=0`** (no snap
+detected at all). The ORIGINAL coarse Rank-3 solve had read `arch_snap_reversal=1` — a FALSE
+POSITIVE, the same numerical artifact that produced the fake 1.6487 kPa spike also spuriously
+registered a "snap" that the properly-resolved curve shows never happened. Combined with D24's
+own H5 (`arch_snap_reversal_top=0`, already on that slide) and D23's explicitly sub-bistable
+(Q&lt;2.31, deliberately NOT true bistable) framing, NO design tested anywhere in this family's
+history has ever demonstrated a genuine two-equilibrium snap in a properly-resolved solve — so
+whether bistability itself (as opposed to these specific splice/rank-optimization attempts) is an
+interesting mechanism for this problem remains genuinely OPEN, not falsified. A future test would
+need to deliberately target the true-bistable regime (Q&ge;2.31, per D24's own original H2/H3
+framing) with a resolution tight enough to trust the snap-detection field, not just the stress
+reading. H5 (D24's own original exact point) separately never reached a clean close because its
 own registered wording became ambiguous mid-campaign, not because the physics ran out; a fresh
-hypothesis re-registering that exact original point with unambiguous wording would settle it
-without repeating any real Abaqus solves (D008 already has the real data). Untested for Rank-3
-itself: whether the early-peak comparability caveat can be closed more decisively — e.g. a
-matched-conditions dose-response sweep isolating exactly when in the compression stroke the peak
-migrates, the same method this deck uses elsewhere for causal claims.
+hypothesis re-registering that exact original point with unambiguous wording (and the tightened
+initialInc this session's re-solve validated) would settle it without guessing at settings again.
 
 Full campaign detail:
 
