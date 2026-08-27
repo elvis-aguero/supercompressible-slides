@@ -1134,10 +1134,14 @@ class: idea-slide
   family in this study shares.
 - **Stats:** n=140 &rarr; 121 coil &rarr; 61 riks &rarr; 51 good (5.76&times; Bessa)
   p50/p90/p100 — &sigma;_crit: .12/1.27/5.61 &middot; mcs: .85/.94/.95 &middot; mls: .041/.057/.097
-  cleared: 38 of 61 decided &ge; 2&times; Bessa (0.2244) &middot; novel: yes
+  cleared: 38 of 61 decided &ge; 2&times; Bessa (0.2244) &middot; novel: yes — Bessa's own
+  reference point, re-solved under the current contact oracle (2026-08-27), never engages
+  disc contact at all (CPRESS=0, all 63 frames) and peaks EARLY (mcs&asymp;15%), fading to
+  near-zero by full compression — categorically different from this design's late,
+  contact-driven rise; see notes
   best good: pitch=.5327 top_d=.1298 a=.00622 b=.02033 amplitude=.03164 n_undulations=2 &rarr;
   &sigma;=.6460 mcs=.93 mls=.019
-- **Verdict:** SUPPORTED &middot; MIXED<br>
+- **Verdict:** POWERED &middot; VALIDATED &middot; wave-driven disc contact<br>
   Clears both the 2&times;-Bessa target (2.88&times;) and the incumbent floor (1.06&times;), holds
   up under 2 independent imperfection studies, and peak strain sits mid-span — the existence claim
   is solid. **Correction (2026-08-26, advisor session, direct ablation):** the claimed mechanism
@@ -1148,8 +1152,12 @@ class: idea-slide
   its window's close) tracks that SAME disc's CPRESS rising in lockstep (4&rarr;214 kPa). The
   headline number comes from the wave's shape bringing the member into contact with the rigid
   loading disc, not from the claimed bend-twist post-buckling channel — real and wave-caused (the
-  control disproves a generic every-design-eventually-squishes story), but not yet understood well
-  enough to call a genuine, exploitable mechanism. **Mesh check (2026-08-26):** &sigma;_peak itself
+  control disproves a generic every-design-eventually-squishes story). **Novelty resolved
+  (2026-08-27):** re-solved the actual Bessa reference point (not just the matched-cross-section
+  control) under the same contact oracle — it never touches the disc anywhere in its own history,
+  and its own peak occurs early (mcs&asymp;15%) before decaying monotonically to near-zero, the
+  opposite shape from D42's late rise. The floor does not do what D42 does; this is a genuinely
+  distinct, contact-mediated channel. **Mesh check (2026-08-26):** &sigma;_peak itself
   is not fully mesh-converged — see notes. **Independently reconfirmed (run `20260826T233507`,
   D010):** a second, unrelated CPRESS extraction on the same ODB — a distinct code path, zero new
   solves — reproduces the identical frame-by-frame finding: contact-free through frame 63, CPRESS
@@ -1235,6 +1243,28 @@ at mcs&asymp;6%, unrelated to any wave). What would make D42 genuinely new is sh
 contact-driven LATE rise is a distinct, exploitable phenomenon beyond "any design close enough to
 the disc eventually sees &sigma; rise" — not yet settled either way. No new evidence gathered
 this entry; this is a scoping note for whoever writes the family's final verdict, not a finding.
+
+**RESOLVED 2026-08-27 (same day, real re-solve, not more argument):** re-solved the ACTUAL Bessa
+reference point (ratio_d=.02005, ratio_pitch=.25, ratio_top_diameter=.25053, imperfection=.067 --
+not the matched-cross-section proxy control used above) through `bo/oracle_circular.py`'s CURRENT
+contact-enabled oracle -- the archived reference ODB (`data/idea_odbs/bessa_baseline/`) was solved
+2026-07-31 via an explicitly NO-CONTACT pipeline, so this is the FIRST time the study's own
+normalization anchor has been checked under the same physics D42 was. sbatch job 5420896, separate
+allocation; raw ODB/results archived at `data/idea_odbs/20260827_bessa_point_contact_resolve/`
+(the sbatch wrapper itself misreported this job as FAILED -- the Abaqus solve completed cleanly
+regardless; see that directory's own PROVENANCE.txt).
+sigma_peak=0.112199 kPa -- matches the archived no-contact figure to 6 significant figures;
+contact changes nothing about the reference floor's own headline number. CPRESS extracted
+read-only at all 63 Riks frames: **exactly 0.0 at every frame** -- the Bessa point never touches
+the disc, anywhere in its compression history. Full sigma-vs-mcs shape (from the same results.pkl):
+peaks EARLY at mcs&asymp;13-18% (&sigma;&asymp;0.1120 kPa), then decays MONOTONICALLY to near-zero
+(&sigma;&asymp;0.003 kPa) by mcs&asymp;98-101% -- the opposite shape from D42's late, contact-driven
+rise, and consistent with (stronger evidence than, since this is the literal anchor, not a proxy)
+the matched-cross-section ablation control's own early-peak-then-fade behavior already documented
+above. **The caveat is resolved, not just scoped**: the reference floor does not do what D42 does.
+D42's contact-driven late rise is a genuinely distinct channel, not a re-discovery of a property
+Bessa's own design already has. `novel:` promoted from an unqualified assertion to a directly
+tested one -- see the Stats bullet's own novel: line and the main Verdict above, both updated.
 
 PS &sect;6 self-check (2026-08-26): this family uses `RectangularProfile` (not circular) — the
 SAME profile type &sect;6 flags for the D24 splice, where the rectangular cross-section quietly
@@ -2350,14 +2380,16 @@ layout: two-cols-header
   p50/p90/p100 — &sigma;_eig (coilable only): 1.04/2.61/4.59 &middot; mcs: 0.00/0.45/0.64 &middot;
   mls: 0.00/0.019/0.020
   best good: none (0/64 passed every criterion) &middot; cleared: none
-- **Verdict:** INCONCLUSIVE &middot; DEAD-END<br>
+- **Verdict:** POWERED &middot; FERTILE-REWORK &middot; rigid interlocking-panel embodiment<br>
   A causal-isolation control took the best-performing geometry and removed the scale panels: the
   identical base beam converges cleanly to 89.5% compression at 1.75% strain, matching this
   study's own confirmed incumbent. The SAME geometry WITH the scale-lock ribs crosses the 2%
   strain ceiling at only 33&ndash;45% compression. The rigid panel-to-panel kinematic coupling at
   each rib station is itself what concentrates strain and destroys the design — the opposite of
   the mechanism's own premise of escaping the kinematic-depth-cap wall by decoupling strain from
-  bending depth.
+  bending depth. 2026-08-27 diagnostic: 3.6&times; more wall-clock plus tightened numerics
+  reproduced the identical stall (see notes) — confirmed genuine, not settings-starved like
+  grain-beam (D43).
 
 </div>
 
@@ -2392,7 +2424,11 @@ panel) is a genuinely different idea, untried.
 this slide and its causal-isolation control, not re-derive the geometry from the paper a fifth
 time — the open question is now narrower than "does the infra exist": does ANY realization
 decouple the rib-station strain concentration from the base beam's own bending strain, since a
-rigid-panel realization does not.
+rigid-panel realization does not. A separate question, raised post-run by the advisor (is the
+0/64 Stage-2 non-convergence itself a numerics/wall-clock artifact, the way part of D43/
+grain-beam's own population turned out to be?), is now closed as of 2026-08-27 (see Timeline):
+it is not — every design forensically examined (idx=0/10/23, 3 of 3) shows the same
+settings-independent physical wall.
 
 **Timeline:**
 - D002 (single smoke eval) + D004 (24-pt LHS, paper-centre sub-region): both failed Stage 2
@@ -2412,6 +2448,22 @@ rigid-panel realization does not.
   strain_crossing_mcs could be pushed later, toward run17_rectangle's own ~0.91 benchmark — best
   achieved was 0.40, barely past the already-tested region's 0.33-0.45 midpoint.
 - D010: ran the decisive causal-isolation control described in Verdict.
+- 2026-08-27 post-run diagnostic (PI-requested, outside this run's own D-numbering): scale_lock's
+  Stage-2 step is a general STATIC+stabilization, never Riks (self_contact_spec.md Lesson 2 —
+  HARD contact+Riks measured a 7&times; convergence collapse, 9.5% vs 64%), so D43/grain-beam's
+  own Riks arc-length tightening doesn't transfer directly here; the equivalent lever
+  (minInc/wall-clock) had never actually been touched for this family, only
+  stabilization_magnitude (D008: 2e-4/1e-3/5e-3). Re-solved idx=0 (the pictured design) at
+  stabilization=5e-3, minInc=1e-12 (was 1e-10), wall-clock=10800s (3.6&times; D008's 3000s):
+  step_time advanced only 0.850&rarr;0.859 — 3.6&times; the time bought +0.9 points of progress,
+  burning 558 increment cutbacks down to ~1&micro;s increments with 33 negative-eigenvalue
+  warnings and repeated "SOLUTION APPEARS TO BE DIVERGING" notes en route — the same
+  genuine-instability signature D006 found for idx=23 (escalating 2&rarr;10 negative eigenvalues
+  before its own stall). 3/3 forensically-examined designs (idx=0, 10, 23) show a
+  settings-independent physical wall, unlike D43/grain-beam's own MIXED population (part
+  genuinely settings-starved, part genuine dead end) — this family did not give up early;
+  diagnostic script/results kept out-of-repo (non-canonical, no ledger write, same precedent as
+  D43's own D007 diagnostic).
 
 **Infra:** two real infra bugs found and fixed getting this family to a trustworthy read (full
 detail in the run summary slide's own speaker notes): the t=0 ground/top-disc geometry defect,
