@@ -1141,6 +1141,15 @@ straight member's shape does not, in the SAME compression range. Still open: WHY
 — and whether that contact-mediated load path is a real, exploitable structural lever or a
 boundary-condition accident specific to this disc's placement.
 
+ADVISOR CAVEAT (2026-08-27, PI review — not actioned, recorded for the deck's eventual verdict
+pass): a high &sigma;_peak reached simply because a design approaches ITS OWN compression limit
+is technically valid but not novel by itself — Bessa's own original baseline already has this
+property (its own ablation control above shows an ordinary early elastic peak, &sigma;=0.119 kPa
+at mcs&asymp;6%, unrelated to any wave). What would make D42 genuinely new is showing the
+contact-driven LATE rise is a distinct, exploitable phenomenon beyond "any design close enough to
+the disc eventually sees &sigma; rise" — not yet settled either way. No new evidence gathered
+this entry; this is a scoping note for whoever writes the family's final verdict, not a finding.
+
 PS &sect;6 self-check (2026-08-26): this family uses `RectangularProfile` (not circular) — the
 SAME profile type &sect;6 flags for the D24 splice, where the rectangular cross-section quietly
 cleared the bar with the "new" component contributing nothing. Re-running the ablation's own
@@ -1293,21 +1302,32 @@ class: idea-slide
 
 <div class="text-sm leading-snug">
 
-- **What:** 6 oblique, initially-straight rods between two rings free to relatively rotate,
-  engineered so rod-level TORSIONAL buckling drives the collapse instead of the bending-dominated
-  coiling every straight-longeron family here inherits.
+- **What:** 6 rods set at an ANGLE to the mast's axis (not straight/axial like every other
+  longeron here), deliberately thickened well past this study's usual cross-section, engineered
+  so rod-level TORSIONAL buckling competes for control of the collapse instead of the
+  bending-dominated coiling every straight-longeron family here inherits. The two rings still
+  rotate relative to each other during compression — that's ordinary coiling, common to every
+  family — what's different here is whether each ROD can twist about its OWN axis independent
+  of that ring rotation.
 - **Origin:** Fang, Yu, Wen, Dai, Begley, Gao &amp; Gumbsch (2025), *Nature* 639 — torsional
   strain energy scales ~8&times; more favorably with stress than bending does, which would
-  decouple load capacity from every prior family's curvature cap.
+  decouple load capacity from every prior family's curvature cap. Thickened deliberately: a
+  slender rod always buckles in bending first, so torsion never gets a chance to compete unless
+  the bending threshold is raised — thickening does that faster than it raises the torsional one.
 - **Stats:** n=20 &rarr; 8 coil &rarr; 6 riks &rarr; 0 good
   p50/p90/p100 — &sigma;_crit: 2.72/11.15/12.19 · mcs: .164/.221/.225 · mls: .053/.079/.080
   cleared: 6 of 6 decided &ge; 2&times; Bessa (0.2244) &middot; novel: yes
   best good: none (0/20 passed every criterion)
 - **Verdict:** INCONCLUSIVE · DEAD-END<br>
-  Bounded negative, not absence: twist_energy_fraction peaked at 1.13e-4 — 4400&times; below the
-  50% dominant-mode bar — and got WORSE at the taller aspect ratio Fang's paper prefers most.
-  Cause found: the joint ties rod torsion to bulk ring rotation, unmodified from the bending-only
-  family it came from.
+  Bounded negative, not absence: twist_energy_fraction (the fraction of total strain energy
+  actually stored in rod TWIST, vs. ordinary bending — this campaign's ceiling was 1.13e-4, i.e.
+  0.011% twisting) peaked 4400&times; below the 50% bar a genuinely twist-dominated design would
+  need, and got WORSE at the taller aspect ratio Fang's paper prefers most. Cause found: the
+  joint ties each rod's own twist rigidly to the ring's bulk rotation, unmodified from the
+  bending-only family it came from — so every design here is really just an ordinary bending
+  collapse wearing a thickened, angled rod. mls sits 3-4&times; this study's usual ceiling for the
+  same reason the rods were thickened: strain scales with cross-section half-depth at fixed
+  curvature, and these rods are the thickest tested.
 
 </div>
 
@@ -1336,10 +1356,12 @@ joint so each rod can genuinely twist independently of the ring's own rigid-body
 re-test whether twist_energy_fraction actually rises toward the paper's own regime.
 
 **Deferred:** This is explicitly a BOUNDED diagnostic screening (21 evals total), not
-the pre-registered ~60&ndash;100-eval falsification campaign — the strategizer judged
-the converging bounded negative (worsening, not plateauing, toward the mechanism's own
-preferred regime) decisive enough not to spend the full committed budget on the same
-joint-coupling realization.
+the pre-registered ~60&ndash;100-eval falsification campaign — NOT a budget shortfall (this
+study's runs carry no fixed per-hypothesis eval-count budget; only a whole-run WALL-CLOCK cap,
+and this run closed with budget still unspent elsewhere). The strategizer's own judgment call:
+the effect was WORSENING, not plateauing, as the aspect ratio moved toward the mechanism's own
+preferred regime — a clean, converging bounded negative, decisive enough not to spend more evals
+re-testing the same confounded joint-coupling realization rather than fixing the joint itself.
 
 **Timeline:** This is H3 (free rotation, the true mechanism) + H4 (rotation-locked
 control) of run `20260825T012642`, delegations D003 (oracle build) + D004 (12-point
@@ -1621,8 +1643,9 @@ layout: two-cols-header
   longerons — letting the effective ring radius evolve during compression instead of staying
   fixed.
 - **Stats:** n=36 &rarr; 28 coil &rarr; 1 riks &rarr; 0 good
-  quartiles unavailable — only 1/28 Stage-2 solves reached full Riks convergence; 22/28 more
-  salvaged a partial radius trajectory off-ledger
+  quartiles unavailable — only 1/28 reached strict full convergence (LPF=1.0), but 22/28 MORE
+  stopped early with enough real, usable data to read a ring-radius trajectory from (23 usable
+  total feeding the Verdict below) — 5/28 produced nothing usable at all
   cleared: none (0 decided) &middot; novel: untested — the one converged design didn't test the
   hypothesized direction
   best good: none (0/36 passed every criterion; closest was mcs=0.7885, mls=0.01976, disqualified
@@ -2785,9 +2808,12 @@ layout: two-cols-header
 
 <div class="text-sm leading-snug">
 
-- **What:** Storey 1 deliberately weaker (shorter pitch/thinner section), decoupled from
-  storey 2 by a contact-only stop — storey 2 stays unstrained until storey 1 lands, then
-  takes over. Contact-decoupled, unlike the closed `asym_storey` family's rigid coupling.
+- **What:** A two-storey mast (storeys stacked longeron segments, joined by an intermediate
+  ring) where storey 1 is deliberately weaker (shorter pitch/thinner section) and physically
+  separated from storey 2 by a gap that only closes by CONTACT — storey 2 carries zero load
+  until storey 1 fully collapses and the gap closes, then storey 2 starts absorbing compression
+  fresh, like a second spring engaging only once the first bottoms out. Contact-decoupled, unlike
+  the closed `asym_storey` family, which rigidly ties the two storeys' motion together from t=0.
 - **Origin:** Liu, Ennis &amp; Coulais 2024&sup1; — the same layer-by-layer programmed
   buckling sequence grounding D33, applied here as discrete storeys rather than a single
   member's self-contact.
@@ -2798,9 +2824,12 @@ layout: two-cols-header
   demonstrate a second rise
   best good: none (0/62 passed every criterion)
 - **Verdict:** INCONCLUSIVE &middot; UNTESTABLE<br>
-  Explicit dynamics reaches **76% raw compression**, no more solver crashes — but the citable
-  windowed compression never exceeds 3.9%, because **storey 1's own material strain crosses
-  Bessa's 2% limit almost immediately**, before the staged mechanism can engage. True under
+  Two different numbers, one real reason: the raw solver keeps running to 76% compression with
+  no crashes, but this study only counts compression achieved BEFORE the first criterion
+  violation (same windowing rule every slide in this deck uses) — and here **storey 1's own
+  material strain crosses Bessa's 2% limit almost immediately**, capping the CITABLE compression
+  at 3.9%, long before storey 1 could ever fully land and hand off to storey 2. The staged
+  mechanism never gets to demonstrate anything; storey 1 fails on its own terms first. True under
   every solver and every contact law tried: a design limit, not a numerical one.
 
 </div>
