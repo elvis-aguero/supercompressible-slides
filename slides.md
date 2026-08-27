@@ -2396,12 +2396,12 @@ layout: two-cols-header
 
 <div class="flex flex-col gap-1" style="height: 460px">
   <div class="flex items-center justify-center" style="height: 165px">
-    <img src="/gifs/kresling_meshconv_mini.png" style="max-height: 165px; max-width: 100%" />
+    <img src="/gifs/kresling_strain_history_mini.png" style="max-height: 165px; max-width: 100%" />
   </div>
   <div class="flex items-center justify-center" style="height: 265px">
     <img src="/gifs/kresling_contact_winner_native.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-50 text-center">Above: the falsification itself — &sigma;_peak at mesh divisor 300&rarr;600 diverges +197%, 4&times; refinement doesn't converge at all. Below: the local-zoom design, force/CPRESS-overlaid — contact genuinely engages late in the stroke; the falsification is the mesh, not the contact.</div>
+  <div class="text-xs opacity-50 text-center">Above: full-history local strain at the kink, 1&times; vs 2&times; mesh overlaid against compression — the two curves track within ~1% of each other even as each mesh's own windowed &sigma;_peak (reaction-force-based) diverges +197%, the falsification-defining number. Below: the local-zoom design, force/CPRESS-overlaid — contact genuinely engages late in the stroke; the falsification is the mesh, not the contact.</div>
 </div>
 
 <!--
@@ -2498,7 +2498,42 @@ background, light gridlines) but the axes differ (mesh divisor vs sigma_peak in 
 sigma-vs-mcs normalized to Bessa) because the finding itself is about mesh sensitivity, not a
 compression-history shape. Saved as `kresling_meshconv_mini.png`, NOT `kresling_mini.png` --
 that filename is already taken by D17's own idea-slide mini plot (`/gifs/kresling_mini.png`,
-line ~5474); overwriting it would have silently broken that earlier slide.
+line ~5474); overwriting it would have silently broken that earlier slide. **SUPERSEDED as the
+visible panel 2026-08-27** (see below) -- the file is kept on disk, just no longer referenced by
+this slide, per the user's own instruction not to delete it.
+
+WHERE THE CURRENT (STRAIN-HISTORY) MINI PLOT CAME FROM (added 2026-08-27, replacing the divisor
+bar chart above per advisor review -- "I rather we have the strain history plot than that
+refinement plot which can be easily read in prose"). Both mesh divisors' raw solved ODBs still
+existed on scratch (`/oscar/scratch/eaguerov/sc_meshcheck_kresling/riks_baseline_300_79100c7e/` and
+`riks_finer_2x_600_0fe3ffb7/SUPERCOMPRESSIBLE_RIKS.odb`) -- opened read-only
+(`session.openOdb(readOnly=True)`, `abaqus python`, no re-solve). The kink-adjacent element pair
+(`elem_before_kink`/`elem_after_kink`, one B31 element on each side of the chain-walked kink node)
+is reused VERBATIM from D012's own single-frame `kink_probe.py` output
+(`<label>_kink_probe.json`) -- not re-derived -- extended to walk EVERY frame of the Riks step
+(152 frames at divisor 300, 294 at divisor 600) instead of one, reading the "E" field's peak
+|component| at those two elements per frame plus the ZTOP_REF_POINT reference point's U3 HISTORY
+output (interpolated onto the field-output frame grid by step time, same alignment convention as
+`bo/response_metrics.py`) to get compression (mcs) at that same frame. Script:
+`kink_strain_history.py` (ad hoc, not committed -- same not-yet-promoted-to-gold status as the
+GIF env-var hooks noted above).
+
+REAL FINDING FROM THE FULL HISTORY, not anticipated going in: the local strain at the kink itself
+does NOT diverge between meshes the way sigma_peak does. At matched compression the two curves
+track within ~1% of each other for the ENTIRE Riks history (e.g. mcs=80%: 1.685% vs 1.684%;
+mcs=95%: 3.58% vs 3.62%; final frame, mcs=100%: 6.187% vs 6.190%) -- consistent with
+`mesh_convergence_summary.json`'s own already-recorded `mls` comparison (0.019500 vs 0.019419,
+-0.42%) and even the single-frame `kink_strain_before`/`kink_strain_after` numbers (-13%/-28%,
+i.e. LOWER on the finer mesh, the opposite direction from amplification). So the +197% divergence
+that falsifies this design lives specifically in the GLOBAL sigma_peak reading (nominal stress
+from the total reaction force at ZTOP_REF_POINT) -- not in the local strain-component readout at
+the kink's own adjacent elements. This does not change the verdict (sigma_peak is the study's own
+reported headline metric, and it demonstrably fails to converge under refinement -- that alone is
+disqualifying) but it sharpens WHERE the singularity's numerical symptom actually shows up: in the
+equilibrium/reaction-force computation near the kink, not in the elemental strain output at that
+same location. Annotated directly on the chart (both meshes' own windowed sigma_peak is read at
+essentially the same compression, mcs&asymp;81%, where the two curves are still overlapping) rather
+than left as a caption-only claim.
 -->
 
 ---
@@ -3726,9 +3761,14 @@ layout: two-cols-header
 
 ::right::
 
-<div class="flex flex-col items-center justify-center h-full">
-  <img src="/gifs/restudy_tensegrity_contact.gif" class="max-h-80 rounded shadow-lg" />
-  <div class="text-xs opacity-60 mt-2 px-4 text-center">Contact on: the floor now holds it. Struts rotate to full collapse and land on the base ring instead of sinking 50&nbsp;mm through it.</div>
+<div class="flex flex-col gap-1" style="height: 460px">
+  <div class="flex items-center justify-center" style="height: 165px">
+    <img src="/gifs/tensegrity_strain_history_mini.png" style="max-height: 165px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 265px">
+    <img src="/gifs/restudy_tensegrity_contact.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">Above: full-history strut local strain vs compression, contact off vs on overlaid — flat at ~0 either way until the floor engages near mcs&asymp;70%, then contact-on climbs to 3.4% while contact-off never leaves zero. Below: contact on — the floor now holds it. Struts rotate to full collapse and land on the base ring instead of sinking 50&nbsp;mm through it.</div>
 </div>
 
 <!--
@@ -3767,6 +3807,44 @@ numbers reproduce essentially exactly: ring_passthrough detail "node 6 below bot
 50.1528" (off) vs False (on); energy_absorbed 18.202->33.780 kPa = +85.6% (rounds to +86%);
 sigma_peak literally bit-identical (321.78315269057293 in both runs, to every digit shown); mls
 9.037e-14 (off, matches "9x10^-14" exactly) -> 0.033613 = 3.36% (rounds to 3.4%, on).
+
+WHERE THE STRAIN-HISTORY MINI PLOT CAME FROM (added 2026-08-27, "Can we add strain history of the
+tensegrity design?"). `/oscar/scratch/eaguerov/sc_tensegrity_contact_probe/` still held four solved
+Riks ODBs (listed, not assumed): `riks_37a83c58...` (`ground_contact=False` explicit in its
+`sim_info.pkl` -- the OFF case), `riks_53ce7b2b...` and `riks_dd06d71c...` (`ground_contact` absent
+-> defaults True per `scripts/supercompressible_riks_tensegrity.py` line 520 -- both converged,
+numerically IDENTICAL to each other, the ON case), and `riks_6288d6e1...` (also default-True but a
+runaway/diverged extra attempt -- 48 increments vs the other three's 10, final U3=+3461&nbsp;mm,
+`max_local_strain`=21.5 -- excluded as a non-physical failed solve, not used for anything here).
+Matched to job numbers by exact-digit reproduction, not filename: sigma_peak/mls from
+`riks_53ce7b2b.../results.pkl` reproduce 321.78315269057293 / 0.033613044768571854 to every digit
+shown above, and `riks_37a83c58.../results.pkl` reproduces 9.037215420448774e-14 -- the same
+numbers this slide already cited from the archived probe JSON, so this is the correct pair.
+Per-frame data was READ DIRECTLY, not re-derived: `results.pkl` (written by
+`scripts/supercompressible_riks_pp.py` when these jobs originally solved) already carries the full
+`strain_per_frame`/`strain_frame_values` history (peak |E or LE component| at each frame, restricted
+to `ALL_LONGERONS` -- struts only, see the caveat below) and the `U`/`RF` reference-point history
+used to compute mcs, exactly per `bo/response_metrics.py`'s own convention. Spot-verified against
+the raw ODBs directly (`abaqus python`, read-only, `session.openOdb(readOnly=True)` implicit via
+`odbAccess.openOdb`) at every one of the 10 frames each solve has -- field-output peak strain and
+history-output U3 both reproduce `results.pkl` to the digit. mast_height = n_storeys &times;
+ratio_pitch &times; bottom_diameter = 1 &times; 1.0118551314319302 &times; 100 = 101.1855&nbsp;mm.
+
+STRUT-ONLY, BY CONSTRUCTION -- NOT A CHOICE MADE FOR THIS CHART. Both ODBs' only field output
+request (`LONGERON_STRAINS`, `scripts/supercompressible_riks_tensegrity.py` ~line 566) is scoped to
+`ALL_LONGERONS` (the STRUT segments) alone; `ALL_CABLES` exists as a geometry/section set but was
+never given a field output request when these jobs solved, so cable strain is not present in either
+archived ODB at all -- extracting it would need a new solve, which is out of scope here. The chart
+therefore shows exactly the family's own already-reported `mls` metric (strut strain only), nothing
+broader, and the caption above says so.
+
+Only 10 field-output frames exist per solve (coarse Riks increment schedule, not a subsampling
+choice made here) -- both curves are real data at every plotted point, just few of them. The
+divergence itself is unambiguous regardless: both curves sit at machine-zero strain (1e-12-1e-14,
+floating-point noise) through mcs&asymp;56%, THEN contact-on breaks away at mcs&asymp;70% (0.357%) and
+climbs to 3.36% at its final frame (mcs&asymp;106%) while contact-off never leaves zero anywhere in
+its own history (max 9.04e-12) -- a genuinely late, sharp onset, not a gradual one, consistent with
+the floor only being reached well into the compression stroke.
 -->
 
 ---
