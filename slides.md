@@ -2418,6 +2418,15 @@ rib_embed_angle_deg/alpha0&isin;[0,60] (paper's own value 30) — angle each sca
 beam surface. rib_rest_angle_deg/theta0&isin;[0,20] (paper's own value 5) — rest angle before
 locking engages. t_scale&isin;[.1,1.0] mm — scale panel thickness. Fixed: n_longerons=3.
 
+**Scale-geometry vs. outcome, real data (2026-08-28, Spearman rank correlation, n=54
+coilable designs, `runs/20260822T025309/experiment_data/scale_lock/`):**
+rib_length_ratio vs mcs_windowed: &rho;=&minus;0.26 (p=.054); vs &sigma;_eig: &rho;=+0.44 (p=.001).
+t_scale vs mcs_windowed: &rho;=&minus;0.29 (p=.035); vs &sigma;_eig: &rho;=+0.54 (p&lt;.001).
+n_ribs vs mcs_windowed: &rho;=&minus;0.21 (p=.13); vs &sigma;_eig: &rho;=+0.42 (p=.002).
+rib_embed_angle_deg vs mcs_windowed: &rho;=&minus;0.01 (p=.97); vs &sigma;_eig: &rho;=+0.48 (p&lt;.001).
+rib_width_ratio vs mcs_windowed: &rho;=+0.26 (p=.056); vs &sigma;_eig: &rho;=+0.07 (p=.62).
+rib_rest_angle_deg vs mcs_windowed: &rho;=+0.39 (p=.003); vs &sigma;_eig: &rho;=&minus;0.44 (p=.001).
+
 **Seed:** BARREN as realized here (rigid panels rigidly coupled to fixed beam stations) — the
 coupling mechanism itself is the problem, not the region of the 10D space searched. A compliant/
 flexible scale realization (closer to a soft biological substrate than a rigid interlocking
