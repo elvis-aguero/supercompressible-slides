@@ -2214,17 +2214,13 @@ out kissing-pair's own last open gap the same way.
 | H2 | The scale-lock mechanism's load rise (if any) is genuine elastic response, not a kinematic artifact | **&#8253;** | Moot — H1 never produced a feasible design to test H2 against | — |
 | H3 | Kissing-pair's stiffness multiplier has an unmapped sweet spot between 3&times; (converged, 48.6%) and 15&times; (collapsed, 5.1%) | **&#8253;** | 6-point sweep across the full committed range: no multiplier beats the 3&times; baseline; the apparent high-multiplier "wins" on raw peak stress are a first-contact force spike at 0.08% compression, not real capacity | D33 |
 
-**No new mechanism cleared the incumbent (0.6077 kPa) this run — but two families closed with a
-real mechanistic understanding, not ambiguity.** Real infra debt was paid down along the way: two
-regression-tested Stage-2 bugs fixed in the new scale_lock family (a t=0 contact-geometry defect
-that failed every design identically, then a silent `max_local_strain=0.0` sentinel that had
-invalidated every strain reading for the family), a missing `tape_spring` oracle registration
-fixed, and kissing_pair's stiffness multiplier promoted from an unsweepable env-var into a real
-design parameter with its connector force finally instrumented.
-&nbsp;·&nbsp; **15 delegations, 69 ledgered evals across 4 namespaces, 11.23 h of 12 h**, GATED on
-the 2nd critic attempt (REJECT &rarr; PASS)
-
- &nbsp;&middot;&nbsp; **Cost: $38.57**
+**No new mechanism cleared the incumbent (0.6077 kPa) — but two families closed with real
+mechanistic understanding, not ambiguity.** Real infra debt paid down: two Stage-2 bugs fixed in
+scale_lock (a t=0 contact-geometry defect, then a silent `max_local_strain=0.0` sentinel), a
+missing `tape_spring` oracle registration, and kissing_pair's stiffness multiplier promoted into
+a real design parameter.
+&nbsp;·&nbsp; **15 delegations, 69 evals, 4 namespaces, 11.23/12 h, GATED (2 attempts)**
+&nbsp;&middot;&nbsp; **Cost: $38.57**
 </div>
 
 <!--
@@ -2484,28 +2480,24 @@ class: summary-slide
 
 # Run `20260819T022742` — summary
 
-<div class="text-sm leading-snug">
+<div class="text-sm leading-tight">
 
-The run that reran this week's own Kresling falsification from scratch, then went one step
-further — and the fillet meant to save it doesn't either.
+The run that reran this week's Kresling falsification from scratch, then went one step
+further — the fillet meant to save it doesn't either.
 
 | # | Claim | Verdict | Key evidence | Idea |
 |---|---|---|---|---|
 | H1 | Oracle wiring reproduces the confirmed anchor | &#10003; | sigma_crit=0.770352 vs anchor 0.7704 (0.006% deviation) | — |
-| H2&ndash;H4 | Three new rigid-contact geometries (coaxial mandrel, shaped cone disc, eccentric capstan pins) create a genuine second, contact-mediated load path above the incumbent | **&#8253;** | H2 already closed in a prior run (corrected: that test swept a narrower space than registered). H3/H4 escalated to Abaqus/Explicit and found the "wall" is **non-quasi-static** (ALLKE/ALLIE up to 0.6, an order of magnitude over the 0.05&ndash;0.10 validity threshold) at every rate tried — a numerical wall, not demonstrated force amplification | — |
-| **H5&ndash;H8** | The Kresling local-zoom design (&sigma;_peak=1.0723 kPa, ~10&times; Bessa) is a real, mesh-converged, imperfection-robust result | **&#10007;** | Re-registered and reproduced exactly (H5) — then independently falsified: raw kink strain moves -13&ndash;28% under 2&times; refinement and the jump ratio across the kink node GROWS with refinement (1.18&times;&rarr;1.43&times;), not mesh-converged (H6); only 3/7 Bessa-distribution imperfection draws even converge (H7); 2&times; mesh gives **+197%** divergence, 4&times; fails to solve at all (H8) | D17 revisited &rarr; |
-| **H9&ndash;H10** | Filleting the sharp kink removes the mesh-artifact, and the design still coils | **&#8253; / &#10007;** | H9: every fillet radius (0.5&ndash;6mm) &times; every refined mesh produced non-convergence (NaN) — never a valid measurement, genuinely inconclusive, not falsified. H10: forced through anyway with a quasi-static-valid Explicit resolve (ALLKE/ALLIE=0.027) — reaches only **3.7% compression**, decisively short of 80% | D17 revisited &rarr; |
-| H11 | A laced (two-parallel-chord) longeron beats the incumbent via distributed load-sharing | **&#8253;** | 6/6 points stuck at 1.3&ndash;3.4% compression, early Riks non-convergence; a mild monotonic trend with ratio_h, never close to feasible | — |
-| H12 | A strongly-graded two-storey mast stages sequential coiling and beats the incumbent | **&#8253;** | Underpowered (2&ndash;3 pts vs a registered 5D+ sweep) — but its own Explicit-vs-Standard check shows only a **1-point-percent gap** (0.208 vs 0.198), ruling out "this is just Kresling's mesh-artifact again" as the explanation | — |
+| H2&ndash;H4 | Three new rigid-contact geometries (coaxial mandrel, shaped cone disc, eccentric capstan pins) create a genuine second, contact-mediated load path above the incumbent | **&#8253;** | H2 already closed. H3/H4 escalated to Explicit: non-quasi-static (ALLKE/ALLIE up to 0.6, 10&times; over threshold) at every rate — a numerical wall, not force amplification | — |
+| **H5&ndash;H8** | The Kresling local-zoom design (&sigma;_peak=1.0723 kPa, ~10&times; Bessa) is a real, mesh-converged, imperfection-robust result | **&#10007;** | Reproduced exactly (H5), then falsified: kink strain moves -13&ndash;28% under 2&times; refinement, jump ratio GROWS with refinement (H6); only 3/7 imperfection draws converge (H7); 2&times; mesh gives +197%, 4&times; fails to solve (H8) | D17 revisited &rarr; |
+| **H9&ndash;H10** | Filleting the sharp kink removes the mesh-artifact, and the design still coils | **&#8253; / &#10007;** | H9: every fillet radius &times; mesh non-converged (NaN) — inconclusive. H10: forced via valid Explicit — reaches only 3.7% compression, far short of 80% | D17 revisited &rarr; |
+| H11 | A laced (two-parallel-chord) longeron beats the incumbent via distributed load-sharing | **&#8253;** | 6/6 stuck at 1.3&ndash;3.4% compression, early non-convergence; mild trend with ratio_h, never close to feasible | — |
+| H12 | A strongly-graded two-storey mast stages sequential coiling and beats the incumbent | **&#8253;** | Underpowered (2&ndash;3 pts vs 5D+ registered) — but its own Explicit-vs-Standard check shows only a 1pp gap, ruling out a Kresling-style mesh artifact | — |
 
-**No new mechanism cleared the incumbent (0.6071 kPa) this run — the headline is the honest
-reproduction of the pre-existing floor.** The run's real contribution is closing the Kresling
-question two independent ways (mesh refinement, then a filleted-and-properly-resolved re-test)
-rather than opening a new lead.
-&nbsp;·&nbsp; **26 delegations, 35 ledgered evals across 9 namespaces, 11.33 h of 12 h**, GATED on
-the 4th critic attempt (REJECT &rarr; REJECT &rarr; REVISE &rarr; PASS)
-
- &nbsp;&middot;&nbsp; **Cost: $71.06**
+**No new mechanism cleared the incumbent (0.6071 kPa)** — the real contribution is closing the
+Kresling question two independent ways, not opening a new lead.
+&nbsp;·&nbsp; **26 delegations, 35 evals, 9 namespaces, 11.33/12 h, GATED (4 attempts)**
+&nbsp;&middot;&nbsp; **Cost: $71.06**
 </div>
 
 <!--
@@ -2617,40 +2609,30 @@ layout: two-cols-header
 - **What changed:** a dedicated oracle (`bo/oracle_kresling.py`) with `ring_passthrough` wired as
   a **live** constraint — unlike the rectangle family, where it's only checked post-hoc because
   that geometry can't fold through a ring at all.
-- **What was tested:** three campaigns, 380 evals total (a 150-eval 3-phase contact search, an
-  80-eval local zoom on the one near-miss, a 150-eval broadened-bounds search), plus a dedicated
-  mesh-refinement check (2&times;/4&times; density) and fillet variants on the near-miss design —
-  cross-checked by an independent referee subagent and reproduced in a later run
-  (`20260819T022742`, H6/H8/H9/H10).
+- **What was tested:** three campaigns, 380 evals (150-eval contact search, 80-eval local zoom,
+  150-eval broadened-bounds search), plus mesh-refinement (2&times;/4&times;) and fillet variants
+  on the near-miss — cross-checked by an independent referee, reproduced in run
+  `20260819T022742` (H6/H8/H9/H10).
 - **Result:** POWERED · REFUTED · contact rescuing the strain floor<br>
-  Found, and retracted, twice. The broad search first reported **3.27 kPa (5.4&times; the
-  incumbent)** — CPRESS=0 confirmed contact never actually engaged, a pure early-transient
-  sampling artifact. The local zoom then reported **1.0723 kPa (~9.6&times; Bessa)**, with CPRESS
-  confirming genuine contact engagement — it looked real, but falsified anyway, by mesh, not by
-  contact: 2&times; refinement diverges +197%, 4&times; fails to solve. Root cause is a real
-  reentrant-corner stress singularity — the "hinge" is a geometric kink in one continuous beam,
-  not a mechanical joint (confirmed by code inspection, an independent referee, and reproduction
-  in a later run). Filleting the kink doesn't rescue it either — every filleted radius failed a
-  valid refined measurement except one, which reached only 3.7% compression. Controls
-  (`run17_rectangle`, the true 1&times; Bessa point) rule out a study-wide meshing problem: both
-  either match exactly or simply fail to run, never diverging to a wrong number the way Kresling's
-  own near-miss does. Answers the open question left by "D17, D20, D26 revisited" (2026-08-08):
-  the Kresling family does not contain points that work under contact — not because contact
-  doesn't help, but because the family's own joint geometry can't be trusted at the one point
-  where it looked best.
+  Found, and retracted, twice. A broad-search 3.27 kPa "win" was an early-transient artifact
+  (CPRESS=0). A local-zoom 1.0723 kPa "win" had genuine contact but failed mesh refinement
+  (2&times; diverges +197%, 4&times; fails to solve): a real reentrant-corner singularity in the
+  hinge's kink, not a mechanical joint. Filleting doesn't rescue it. Controls rule out a
+  study-wide meshing problem — the Kresling family's own joint geometry can't be trusted at the
+  one point where it looked best; full ledger in notes.
 
 </div>
 
 ::right::
 
-<div class="flex flex-col gap-1" style="height: 460px">
-  <div class="flex items-center justify-center" style="height: 165px">
-    <img src="/gifs/kresling_sigma_history_mini.png" style="max-height: 165px; max-width: 100%" />
+<div class="flex flex-col gap-1" style="height: 415px">
+  <div class="flex items-center justify-center" style="height: 140px">
+    <img src="/gifs/kresling_sigma_history_mini.png" style="max-height: 140px; max-width: 100%" />
   </div>
-  <div class="flex items-center justify-center" style="height: 265px">
-    <img src="/gifs/kresling_contact_winner_native.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
+  <div class="flex items-center justify-center" style="height: 240px">
+    <img src="/gifs/kresling_contact_winner_native.gif" class="rounded shadow-lg" style="max-height: 240px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-50 text-center">Above: &sigma; vs compression, both meshes overlaid (line style) and colored by local &sigma; magnitude (grey&rarr;red) — nearly identical, low, and flat for the whole stroke, then a sharp late spike where the two meshes separate hard: 1.072 kPa (1&times;) vs 3.187 kPa (2&times;), +197%. Below: the local-zoom design, force/CPRESS-overlaid — contact genuinely engages late in the stroke; the falsification is the mesh, not the contact.</div>
+  <div class="text-xs opacity-50 text-center">Above: &sigma; vs compression, both meshes overlaid — nearly identical and flat, then a sharp late spike where they separate: 1.072 kPa (1&times;) vs 3.187 kPa (2&times;), +197%. Below: the local-zoom design — contact genuinely engages late; the falsification is the mesh, not the contact.</div>
 </div>
 
 <!--
@@ -2817,11 +2799,10 @@ class: summary-slide
 
 # Run `20260816T013744` — summary
 
-<div class="text-sm leading-snug">
+<div class="text-sm leading-tight">
 
 The run that used 95% of its budget on two contact-mediated tracks, produced the first
-non-zero **kissing-pair** result, and never formally closed — a harness bug crashed the
-run's own closing check, not the science.
+non-zero **kissing-pair** result, and never formally closed — a harness bug, not the science.
 
 | # | Claim | Verdict | Key evidence | Idea |
 |---|---|---|---|---|
@@ -2830,14 +2811,12 @@ run's own closing check, not the science.
 | H5 | A smoothly graded (non-uniform) longeron cross-section, no contact, beats a uniform member | &#10007; | Predicted to fail (no literature basis for grading alone adding capacity); confirmed: 0/10 feasible, &sigma;_peak 0.79&ndash;1.01&times; the uniform baseline, never exceeding it | D18 |
 | H1/H2 | Oracle wiring unchanged &middot; literature has an untried mechanism | &#10003; | Anchor reproduced to 4 s.f. &middot; 14 papers surveyed, 3 candidates ranked, grounding H3/H4 above | — |
 
-**The critic caught the run trying to close early, twice.** At 80% budget spent (candidate
-3 — a bend-twist ribbed cross-section — still unexplored) and again at 87% (claiming "every
-lever exhausted" while D017's own report named the untried soft-connector lever). Both
-REJECTed; the run then produced its only positive result (D018) in direct response. The
-third review found nothing wrong (`NOTED`) — but `Done()`, the formal close, then crashed 21
-times on a harness bug (`sorted()` comparing a float to a string in a3dasm's ledger-hashing
-routine), and the run closed **UNGATED** at 17h10m of 18h.
-&nbsp;·&nbsp; **Cost: $192.82** (79 evals, 17 delegations, 17.2 h of 18 h), UNGATED (harness bug, not a science or budget failure) after 3 gate reviews
+**The critic caught the run trying to close early, twice** — at 80% budget (candidate 3 still
+unexplored) and again at 87% (claiming "every lever exhausted" while an untried lever was on
+record). Both REJECTed; the run then produced its only positive result (D018) in response. The
+third review found nothing wrong, but `Done()` then crashed 21 times on a harness bug (`sorted()`
+comparing a float to a string), closing **UNGATED** at 17h10m of 18h.
+&nbsp;·&nbsp; **Cost: $192.82**, 79 evals, 17.2/18 h, UNGATED (harness bug, not science/budget)
 
 </div>
 
@@ -3431,7 +3410,7 @@ design but the one that reached the ceiling.
 | **H5** | &kappa;_max is a **kinematic invariant** of the ring geometry, not of the member | &#10003; | `mls_full/c` = .021600/.021658/.021641/.021714 across a **2&times; depth change**; &plusmn;15% over a 24-pt LHS, residual tracks taper (Spearman .786) as &kappa;&asymp;1/R_mean predicts | — |
 | **H7** | That depth cap is **binding**, not descriptive | &#10003; | No straight-longeron design with c &ge; 1.00 mm reaches 80% inside the 2% budget — whatever is done with width, storey height or taper | — |
 | **H9** | The cap is 0.02/&kappa;_max, and **flaring moves it** | &#10003; | A depth infeasible at zero flare becomes feasible at taper &minus;0.45, purely because the cap moved. The run's only severe confirmation | — |
-| H4/H6 | **Pre-coiling** relieves the strain wall (strain is c &times; curvature *change*) | **?** | **Corrected 2026-08-26 (deck audit):** wrap 4.5 at c = 2 mm reached **61.5% compression at 0.445% strain** — the 2026-08-14 "30.8%" correction used the wrong mast_height (100mm instead of the oracle's real 50mm), exactly halving it; the true value happens to be numerically close to the ORIGINAL pre-2026-08-14 "61.5%" figure this correction chain exists to debunk, which was wrong for an unrelated reason (`\|U3\|` counting upward travel as compression) — coincidence, not vindication. Relief is real; its size is not ~5&times;. Separately retracted within-run (2026-08-12): the wrap&ge;3 designs' three longerons self-interpenetrate from mcs&asymp;0.39 onward (not modeled by this study), so even the corrected reading is trustworthy only up to that point | D30 |
+| H4/H6 | **Pre-coiling** relieves the strain wall (strain is c &times; curvature *change*) | **?** | Corrected 2026-08-26: wrap 4.5 reached 61.5% compression at 0.445% strain (a mast_height arithmetic error, not a ~5&times; relief). Also retracted within-run: wrap&ge;3 designs self-interpenetrate from mcs&asymp;0.39 on — full detail on D30's own slide | D30 |
 
 **&sigma;_peak &prop; E·w·c³/L², c capped kinematically and w by slenderness&ge;10; `run17_rectangle`
 sits at 99.7% of the cap.**
@@ -3933,7 +3912,7 @@ contact off (0.318 kPa).
   <div class="flex items-center justify-center" style="height: 265px">
     <img src="/gifs/restudy_tape_spring_contact.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-50 text-center">Above: design C's own &sigma; vs compression, contact off vs on overlaid (color = local &sigma; magnitude, grey&rarr;red) — the two curves are nearly indistinguishable; contact does not move this design's strain-limit crossing in any way that matters. Below: the 330-design campaign's own showcase clip, a different (near-flat-strip) design — not design C.</div>
+  <div class="text-xs opacity-50 text-center">Above: design C's &sigma; vs compression, contact off vs on overlaid — nearly indistinguishable; contact doesn't move the strain-limit crossing. Below: the campaign's own showcase clip, a different (near-flat-strip) design — not design C.</div>
 </div>
 
 <!--
@@ -4118,29 +4097,28 @@ layout: two-cols-header
 ::left::
 <div class="text-sm leading-snug">
 
-- **What changed:** contact added by hand, not by the migration tool. Its struts are truss
-  members, which carry no cross-section geometry, so Abaqus cannot build a contact surface on
-  them at all. The secondary side is a **node region** instead, with the strut radius injected
-  explicitly.
+- **What changed:** contact added by hand, not by the migration tool — its struts are truss
+  members with no cross-section geometry, so Abaqus can't build a contact surface on them. The
+  secondary side is a **node region** instead, with the strut radius injected explicitly.
 - **What was tested:** 1 design — the archived one — solved with contact on and off. Stage 1
   reproduces the archive exactly, so every difference is attributable to contact alone.
-- **Result:** the floor now stops it: material that previously sank **50 mm below the base ring**
-  is held. Energy absorbed rose **+86%**; peak stress is **bit-identical**, because the peak
-  happens before contact engages. Strain went from 9&times;10<sup>-14</sup> (i.e. nothing strains
-  at all) to 3.4%.
+- **Result:** the floor now stops it: material that previously sank **50 mm below the base
+  ring** is held. Energy absorbed rose **+86%**; peak stress is **bit-identical** (the peak
+  happens before contact engages). Strain went from 9&times;10<sup>-14</sup> (nothing strains)
+  to 3.4%.
 
 </div>
 
 ::right::
 
-<div class="flex flex-col gap-1" style="height: 460px">
-  <div class="flex items-center justify-center" style="height: 165px">
-    <img src="/gifs/tensegrity_strain_history_mini.png" style="max-height: 165px; max-width: 100%" />
+<div class="flex flex-col gap-1" style="height: 402px">
+  <div class="flex items-center justify-center" style="height: 127px">
+    <img src="/gifs/tensegrity_strain_history_mini.png" style="max-height: 127px; max-width: 100%" />
   </div>
-  <div class="flex items-center justify-center" style="height: 265px">
-    <img src="/gifs/restudy_tensegrity_contact.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
+  <div class="flex items-center justify-center" style="height: 240px">
+    <img src="/gifs/restudy_tensegrity_contact.gif" class="rounded shadow-lg" style="max-height: 240px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-50 text-center">Above: full-history strut local strain vs compression, contact off vs on overlaid — flat at ~0 either way until the floor engages near mcs&asymp;70%, then contact-on climbs to 3.4% while contact-off never leaves zero. Below: contact on — the floor now holds it. Struts rotate to full collapse and land on the base ring instead of sinking 50&nbsp;mm through it.</div>
+  <div class="text-xs opacity-50 text-center">Above: strut local strain, contact off vs on overlaid — flat until the floor engages near mcs&asymp;70%, then contact-on climbs to 3.4% while contact-off stays zero. Below: contact on — struts rotate to collapse instead of sinking through the floor.</div>
 </div>
 
 <!--
