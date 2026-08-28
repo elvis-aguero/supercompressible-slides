@@ -980,15 +980,15 @@ class: idea-slide
 
 ::right::
 
-<div class="flex flex-col items-center justify-center h-full gap-1">
-  <img src="/gifs/grain_beam_native.gif" class="max-h-85 rounded shadow-lg" />
+<div class="flex flex-col items-center justify-center gap-1" style="height: 400px">
+  <img src="/gifs/grain_beam_native.gif" style="max-height: 340px; max-width: 100%" class="rounded shadow-lg" />
   <div class="text-xs opacity-50 text-center">Stage-1 LIN_BUCKLE Mode 1, "Point B" (best-found design) — no Riks history exists for this family.</div>
 </div>
 
-<div class="text-xs opacity-50 mt-2">
-&sup1; Pancella, F. &amp; D'Annibale, F. (2025), "A Timoshenko-like equivalent beam model for the
-static analysis of a chiral metamaterial", <i>Continuum Mechanics and Thermodynamics</i> 37:59 —
-cited and verified against the study's own literature corpus this run (CorpusList), not assumed.
+<div class="text-xs opacity-50 mt-1">
+&sup1; Pancella &amp; D'Annibale (2025), "A Timoshenko-like equivalent beam model for the static
+analysis of a chiral metamaterial", <i>Continuum Mechanics and Thermodynamics</i> 37:59 — cited
+&amp; verified against the study's own literature corpus (CorpusList).
 </div>
 
 <!--
@@ -1040,30 +1040,26 @@ class: summary-slide
 
 # Run `20260826T012550` — summary
 
-<div class="text-sm leading-snug">
+<div class="text-sm leading-tight">
 
-This run found a genuinely new mechanism that clears the incumbent for the first time since
-`run17_rectangle` — and caught its own overclaim about why, before it shipped.
+This run found a genuinely new mechanism clearing the incumbent for the first time since
+`run17_rectangle`, and caught its own overclaim about why before it shipped.
 
 | # | Claim | Verdict | Key evidence | Idea |
 |---|---|---|---|---|
 | H2 | The kinematic-depth-cap wall holds generally, across families | &#10007; | Reconfirms prior findings; not a fresh mechanism test this run | — |
-| H4 | Chiral twist-buckling escapes the cap once the D41 joint confound is fixed | &#10007; | 0 strict feasible even with the rod genuinely free to twist; twist_energy_fraction still caps at 7.3% | D41 &rarr; |
+| H4 | Chiral twist-buckling escapes the cap once the D41 joint confound is fixed | &#10007; | 0 strict feasible even with the rod free to twist; twist_energy_fraction caps at 7.3% | D41 &rarr; |
 | H5 | Crosslinked beam bundle (D40's near-miss) escapes via targeted post-buckling shaping | &#10007; | 0/59 Stage-2 converged | D40 &rarr; |
 | H1/H3/H6 | Serpentine (wavy in-plane) longeron clears both floors (own slide) | &#10003; | &sigma;_peak=0.6460 kPa — 2.88&times; target, 1.06&times; incumbent | D42 &rarr; |
 | H7/H8 | Robust to manufacturing imperfection (8, 8 independent draws) | &#10003; | 6/8, 7/8 feasible; &sigma; 0.48&ndash;0.73 kPa across draws | D42 &rarr; |
 | H9 | Peak local strain is not at a rigid joint | &#10003; | Peak at arc-length fraction 0.75 (mid-span); joint-zone strain 0.0122 vs 0.0190 windowed peak | D42 &rarr; |
 
-**Caught by its own critic, not by hindsight:** the notebook's first draft claimed the new
-post-buckling channel *causes* the 6% margin over the incumbent. Two of this run's own
-delegations had already reported the opposite (D005: "the evidence that 'more coupling &rarr;
-performance' is weak"; D008: the margin traces to zoom-BO refinement of the seeded incumbent,
-not the newly opened box). The critic's MAJOR finding (call_002) forced the causal claim down to
-"plausible ... but NOT demonstrated by a dose-response relationship" — the existence claim
-stands, the mechanism-causation claim does not, and D42's own slide says so.
-&nbsp;·&nbsp; **12 delegations, 279 ledgered evals, 7.5 h of 12 h**, GATED after 4 review rounds
-
- &nbsp;&middot;&nbsp; **Cost: $75.70**
+**Caught by its own critic, not by hindsight:** the first draft claimed the new post-buckling
+channel *causes* the 6% margin — but two delegations had already reported the opposite (margin
+traces to zoom-BO refinement, not the newly opened box). The critic's MAJOR finding forced the
+claim down to "plausible, not demonstrated" — existence stands, causation doesn't, D42 says so.
+&nbsp;·&nbsp; **12 delegations, 279 evals, 7.5/12 h**, GATED after 4 review rounds
+&nbsp;&middot;&nbsp; **Cost: $75.70**
 </div>
 
 <!--
@@ -1127,59 +1123,38 @@ class: idea-slide
 - **What:** Offset each longeron's centerline from the straight ring-to-ring chord by a sinusoid
   in the TANGENTIAL direction — perpendicular to the mast's own coiling-bow plane, not within it
   — with a strongly anisotropic cross-section (stiff in-plane, compliant out-of-plane).
-- **Origin:** Shi, Huang, Yu &amp; Li (2024)&sup1; — a serpentine strip whose cross-section is
-  stiff in-plane and compliant out-of-plane does not simply deepen its own waviness under axial
-  load; it buckles OUT of its own planform via a coupled bend-twist mode (a double-eigenvalue
-  bifurcation), a different post-buckling energy channel than the planar coiling every other
-  family in this study shares.
+- **Origin:** Shi, Huang, Yu &amp; Li (2024)&sup1; — an anisotropic serpentine strip buckles OUT
+  of its own planform via a coupled bend-twist mode (a double-eigenvalue bifurcation), a
+  different post-buckling channel than the planar coiling every other family here shares.
 - **Stats:** n=140 &rarr; 121 coil &rarr; 61 riks &rarr; 51 good (5.76&times; Bessa)
   p50/p90/p100 — &sigma;_crit: .12/1.27/5.61 &middot; mcs: .85/.94/.95 &middot; mls: .041/.057/.097
   cleared: 38 of 61 decided &ge; 2&times; Bessa (0.2244) &middot; novel: yes — Bessa's own
-  reference point, re-solved under the current contact oracle (2026-08-27), never engages
-  disc contact at all (CPRESS=0, all 63 frames) and peaks EARLY (mcs&asymp;15%), fading to
-  near-zero by full compression — categorically different from this design's late,
-  contact-driven rise; see notes
+  reference re-solved under contact never engages the disc and peaks early instead; see Verdict
   best good: pitch=.5327 top_d=.1298 a=.00622 b=.02033 amplitude=.03164 n_undulations=2 &rarr;
   &sigma;=.6460 mcs=.93 mls=.019
 - **Verdict:** POWERED &middot; VALIDATED &middot; wave-driven disc contact<br>
-  Clears both the 2&times;-Bessa target (2.88&times;) and the incumbent floor (1.06&times;), holds
-  up under 2 independent imperfection studies, and peak strain sits mid-span — the existence claim
-  is solid. **Correction (2026-08-26, advisor session, direct ablation):** the claimed mechanism
-  is not what's actually happening. Re-solving the identical design with amplitude_rel&rarr;0 (a
-  straight-centerline control, same cross-section/pitch) shows the control's CPRESS at the rigid
-  loading disc stays exactly **0 for its entire history**, run all the way to full geometric
-  closure — it never reaches the disc. The serpentine design's late &sigma; rise (mcs&asymp;85% to
-  its window's close) tracks that SAME disc's CPRESS rising in lockstep (4&rarr;214 kPa). The
-  headline number comes from the wave's shape bringing the member into contact with the rigid
-  loading disc, not from the claimed bend-twist post-buckling channel — real and wave-caused (the
-  control disproves a generic every-design-eventually-squishes story). **Novelty resolved
-  (2026-08-27):** re-solved the actual Bessa reference point (not just the matched-cross-section
-  control) under the same contact oracle — it never touches the disc anywhere in its own history,
-  and its own peak occurs early (mcs&asymp;15%) before decaying monotonically to near-zero, the
-  opposite shape from D42's late rise. The floor does not do what D42 does; this is a genuinely
-  distinct, contact-mediated channel. **Mesh check (2026-08-26):** &sigma;_peak itself
-  is not fully mesh-converged — see notes. **Independently reconfirmed (run `20260826T233507`,
-  D010):** a second, unrelated CPRESS extraction on the same ODB — a distinct code path, zero new
-  solves — reproduces the identical frame-by-frame finding: contact-free through frame 63, CPRESS
-  and RF3 rising together from frame 64 on.
+  Clears both targets (2.88&times;, 1.06&times; floor). **Correction (2026-08-26):**
+  contact-driven, not bend-twist — an ablation control never touches the disc; this design's
+  late &sigma; tracks the disc's CPRESS. **Confirmed novel (2026-08-27):** Bessa's reference also
+  never touches the disc, peaking early instead. Reconfirmed independently; mesh convergence
+  open — see notes.
 
 </div>
 
 ::right::
 
-<div class="flex flex-col gap-2" style="height: 460px">
-  <div class="flex items-center justify-center" style="height: 175px">
-    <img src="/gifs/serpentine_mini.png" style="max-height: 175px; max-width: 100%" />
+<div class="flex flex-col gap-2" style="height: 420px">
+  <div class="flex items-center justify-center" style="height: 155px">
+    <img src="/gifs/serpentine_mini.png" style="max-height: 155px; max-width: 100%" />
   </div>
-  <div class="flex items-center justify-center" style="height: 277px">
-    <img src="/gifs/serpentine_landscape.gif" class="rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
+  <div class="flex items-center justify-center" style="height: 257px">
+    <img src="/gifs/serpentine_landscape.gif" class="rounded shadow-lg" style="max-height: 257px; max-width: 100%" />
   </div>
 </div>
 
-<div class="text-xs opacity-50 mt-2">
-&sup1; Shi, X., Huang, W., Yu, H. &amp; Li, Y. (2024), "Double-eigenvalue bifurcation and
-multistability in serpentine strips" — cited and verified against the study's own literature
-corpus this run (CorpusList), not assumed.
+<div class="text-xs opacity-50 mt-1">
+&sup1; Shi et al. (2024), "Double-eigenvalue bifurcation and multistability in serpentine
+strips" — cited &amp; verified against the study's own literature corpus (CorpusList).
 </div>
 
 <!--
@@ -1192,6 +1167,28 @@ small so radial bending/twisting stays the compliant channel. ratio_b&isin;[.015
 amplitude_rel&isin;[.01,.08] — peak tangential wave offset / D1, lower-bounded so the wave is a
 genuine planform feature, not a near-straight re-test of the baseline. n_undulations — discrete
 wave-period count. Fixed: n_longerons=3, n_storeys=1, twist_angle=0, ratio_shear_modulus=.3677.
+
+**Verdict, full text (trimmed from the visible bullet 2026-08-28 to fix a confirmed 514px
+render clip, headless-measured):** the existence claim (clears both the 2&times;-Bessa target
+2.88&times; and the incumbent floor 1.06&times;, holds up under 2 independent imperfection
+studies, peak strain mid-span) is solid. **Correction (2026-08-26, advisor session, direct
+ablation):** the claimed mechanism is not what's actually happening. Re-solving the identical
+design with amplitude_rel&rarr;0 (a straight-centerline control, same cross-section/pitch) shows
+the control's CPRESS at the rigid loading disc stays exactly 0 for its entire history, run all the
+way to full geometric closure — it never reaches the disc. The serpentine design's late &sigma;
+rise (mcs&asymp;85% to its window's close) tracks that SAME disc's CPRESS rising in lockstep
+(4&rarr;214 kPa). The headline number comes from the wave's shape bringing the member into
+contact with the rigid loading disc, not from the claimed bend-twist post-buckling channel — real
+and wave-caused (the control disproves a generic every-design-eventually-squishes story).
+**Novelty resolved (2026-08-27):** re-solved the actual Bessa reference point (not just the
+matched-cross-section control) under the same contact oracle — it never touches the disc anywhere
+in its own history, and its own peak occurs early (mcs&asymp;15%) before decaying monotonically
+to near-zero, the opposite shape from D42's late rise. The floor does not do what D42 does; this
+is a genuinely distinct, contact-mediated channel. **Mesh check (2026-08-26):** &sigma;_peak
+itself is not fully mesh-converged — see below. **Independently reconfirmed (run
+`20260826T233507`, D010):** a second, unrelated CPRESS extraction on the same ODB — a distinct
+code path, zero new solves — reproduces the identical frame-by-frame finding: contact-free
+through frame 63, CPRESS and RF3 rising together from frame 64 on.
 
 **Seed:** FERTILE — narrowed (2026-08-26): a cross-section-swap probe (identical wave, isotropic
 CircularProfile substituted for RectangularProfile, radius matched to the SAME cross-sectional
@@ -1418,43 +1415,35 @@ class: idea-slide
 
 <div class="text-sm leading-snug">
 
-- **What:** 6 rods set at an ANGLE to the mast's axis (not straight/axial like every other
-  longeron here), deliberately thickened well past this study's usual cross-section, engineered
-  so rod-level TORSIONAL buckling competes for control of the collapse instead of the
-  bending-dominated coiling every straight-longeron family here inherits. The two rings still
-  rotate relative to each other during compression — that's ordinary coiling, common to every
-  family — what's different here is whether each ROD can twist about its OWN axis independent
-  of that ring rotation.
-- **Origin:** Fang, Yu, Wen, Dai, Begley, Gao &amp; Gumbsch (2025), *Nature* 639 — torsional
-  strain energy scales ~8&times; more favorably with stress than bending does, which would
-  decouple load capacity from every prior family's curvature cap. Thickened deliberately: a
-  slender rod always buckles in bending first, so torsion never gets a chance to compete unless
-  the bending threshold is raised — thickening does that faster than it raises the torsional one.
+- **What:** 6 rods set at an ANGLE to the mast's axis (not straight/axial), deliberately
+  thickened past this study's usual cross-section, so rod-level TORSIONAL buckling competes with
+  the bending-dominated coiling every straight-longeron family inherits — the question is whether
+  each ROD twists about its OWN axis, independent of the rings' own relative rotation.
+- **Origin:** Fang et al. (2025), *Nature* 639 — torsional strain energy scales ~8&times; more
+  favorably with stress than bending, decoupling load capacity from every family's curvature cap.
+  Thickened deliberately: a slender rod buckles in bending first, so torsion can't compete unless
+  the bending threshold rises faster than the torsional one.
 - **Stats:** n=20 &rarr; 8 coil &rarr; 6 riks &rarr; 0 good
   p50/p90/p100 — &sigma;_crit: 2.72/11.15/12.19 · mcs: .164/.221/.225 · mls: .053/.079/.080
   cleared: 6 of 6 decided &ge; 2&times; Bessa (0.2244) &middot; novel: yes
   best good: none (0/20 passed every criterion)
 - **Verdict:** UNDERPOWERED · FERTILE-PARAMETRIC · joint decoupling<br>
-  Bounded negative, not absence: twist_energy_fraction (the fraction of total strain energy
-  actually stored in rod TWIST, vs. ordinary bending — this campaign's ceiling was 1.13e-4, i.e.
-  0.011% twisting) peaked 4400&times; below the 50% bar a genuinely twist-dominated design would
-  need, and got WORSE at the taller aspect ratio Fang's paper prefers most. Cause found: the
-  joint ties each rod's own twist rigidly to the ring's bulk rotation, unmodified from the
-  bending-only family it came from — so every design here is really just an ordinary bending
-  collapse wearing a thickened, angled rod. mls sits 3-4&times; this study's usual ceiling for the
-  same reason the rods were thickened: strain scales with cross-section half-depth at fixed
-  curvature, and these rods are the thickest tested.
+  Bounded negative, not absence: twist_energy_fraction (rod TWIST share of strain energy) peaked
+  at 1.13e-4 — 4400&times; below the 50% a twist-dominated design needs — and got WORSE toward
+  Fang's preferred aspect ratio. Cause: the joint ties each rod's twist rigidly to the ring's
+  bulk rotation, so every design is an ordinary bending collapse wearing a thickened, angled rod.
+  mls sits 3-4&times; the usual ceiling: these rods are the thickest tested.
 
 </div>
 
 ::right::
 
-<div class="flex flex-col gap-1" style="height: 460px">
-  <div class="flex items-center justify-center" style="height: 165px">
-    <img src="/gifs/twist_buckle_mini.png" style="max-height: 165px; max-width: 100%" />
+<div class="flex flex-col gap-1" style="height: 430px">
+  <div class="flex items-center justify-center" style="height: 150px">
+    <img src="/gifs/twist_buckle_mini.png" style="max-height: 150px; max-width: 100%" />
   </div>
-  <div class="flex items-center justify-center" style="height: 265px">
-    <img src="/gifs/twist_buckle_native.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
+  <div class="flex items-center justify-center" style="height: 245px">
+    <img src="/gifs/twist_buckle_native.gif" class="rounded shadow-lg" style="max-height: 245px; max-width: 100%" />
   </div>
   <div class="text-xs opacity-50 text-center">Converged design, twist_angle=30&deg;, pitch=0.5 — visibly still an ordinary bending/coiling collapse, not a twist-dominated one.</div>
 </div>
@@ -1517,30 +1506,25 @@ layout: two-cols-header
   own lognormal(4&deg;,1.2&deg;) distribution across 3 independent seeds — a genuine severe test
   (D014: seed=2, 10 fresh draws disjoint from every prior sample).
 - **Result:** POWERED &middot; FERTILE-PARAMETRIC &middot; Q&ge;2.31 targeting<br>
-  Median &sigma;_peak=**1.6487 kPa** across 9 independent draws (7.35&times; the floor) clears
-  every criterion — but this number is the imperfection-sensitive snap-through spike at
-  mcs&asymp;0.1&ndash;0.5% of compression, not a sustained load. **Revised 2026-08-25 (see
-  PROBLEM_STATEMENT.md &sect;6):** the design's own *sustained* post-snap capacity (&asymp;0.51&ndash;0.52 kPa,
-  stable across draws) sits **below** the plain rectangle incumbent's own real peak (0.6071 kPa) —
-  the splice actively hurts once the spike is set aside. **Revised 2026-08-27 (advisor request, a
-  real finer-resolution re-solve, not a re-read):** the 1.6487 kPa spike itself is a NUMERICAL
-  ARTIFACT — re-solved 250&times; finer, the exact draw behind it does not even converge, and
-  Rank-3's own default-imperfection draw resolves to a smooth 0.5039 kPa peak, not a spike, right
-  at the sustained-plateau value already cited above. Existence claim stands; the mechanism does
-  not help; the headline number was never real to begin with — see notes for the full re-solve.
+  The cited 1.6487 kPa spike (9-draw median, mcs&asymp;0.1&ndash;0.5%) is a NUMERICAL ARTIFACT:
+  re-solved 250&times; finer, the exact draw behind it does not even converge, and Rank-3's own
+  default draw resolves instead to a smooth 0.5039 kPa peak — matching the already-flagged
+  sustained plateau (&asymp;0.51&ndash;0.52 kPa), itself below the incumbent rectangle's real peak
+  (0.6071 kPa). Existence claim stands; the splice doesn't help; the headline number was never
+  real — full revision history in notes.
 
 </div>
 
 ::right::
 
-<div class="flex flex-col gap-1" style="height: 460px">
-  <div class="flex items-center justify-center" style="height: 165px">
-    <img src="/gifs/rank3_coarse_vs_fine_full_mini.png" style="max-height: 165px; max-width: 100%" />
+<div class="flex flex-col gap-1" style="height: 430px">
+  <div class="flex items-center justify-center" style="height: 150px">
+    <img src="/gifs/rank3_coarse_vs_fine_full_mini.png" style="max-height: 150px; max-width: 100%" />
   </div>
-  <div class="flex items-center justify-center" style="height: 265px">
-    <img src="/gifs/bistable_arch_rank3_landscape.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
+  <div class="flex items-center justify-center" style="height: 245px">
+    <img src="/gifs/bistable_arch_rank3_landscape.gif" class="rounded shadow-lg" style="max-height: 245px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-50 text-center">Above: &sigma; vs compression, full range, coarse vs fine-grid overlaid — the spike is one isolated coarse point near mcs=0; every other point on both curves tracks together. Below: Rank-3's own converged design.</div>
+  <div class="text-xs opacity-50 text-center">Coarse vs fine-grid overlay — the spike is one isolated coarse point near mcs=0. Below: Rank-3's converged design.</div>
 </div>
 
 <!--
@@ -1548,6 +1532,20 @@ layout: two-cols-header
 arch_rise_ratio=.021174, arch_length_ratio=.400188, ratio_pitch=.669962,
 ratio_top_diameter=.041530. Imperfection sampled from Bessa's lognormal(4&deg;,1.2&deg;)
 distribution, seeds 0/1/2 across D010/D013/D014.
+
+**Result, full revision history (trimmed from the visible bullet 2026-08-28 to fix a confirmed
+134px render clip, headless-measured):** median &sigma;_peak=1.6487 kPa across 9 independent
+draws (7.35&times; the floor) clears every criterion — but this number is the
+imperfection-sensitive snap-through spike at mcs&asymp;0.1&ndash;0.5% of compression, not a
+sustained load. **Revised 2026-08-25 (see PROBLEM_STATEMENT.md &sect;6):** the design's own
+sustained post-snap capacity (&asymp;0.51&ndash;0.52 kPa, stable across draws) sits below the
+plain rectangle incumbent's own real peak (0.6071 kPa) — the splice actively hurts once the
+spike is set aside. **Revised 2026-08-27 (advisor request, a real finer-resolution re-solve, not
+a re-read):** the 1.6487 kPa spike itself is a NUMERICAL ARTIFACT — re-solved 250&times; finer,
+the exact draw behind it does not even converge, and Rank-3's own default-imperfection draw
+resolves to a smooth 0.5039 kPa peak, not a spike, right at the sustained-plateau value already
+cited above. Existence claim stands; the mechanism does not help; the headline number was never
+real to begin with.
 
 **Comparability argument in full (trimmed from the visible Result bullet):** same E, same
 beam/contact physics as the incumbent; stab_ratio&asymp;0.002 rules out an artificial-damping or
@@ -1691,27 +1689,23 @@ class: summary-slide
 
 <div class="text-sm leading-snug">
 
-Four continuous-shell/ring mechanisms in a row died the same way — local panel buckling beating
-the global coiling mode — before the run pivoted to a discrete-member idea that didn't.
+Four continuous-shell/ring mechanisms died to local buckling beating global coiling, before
+the run pivoted to a discrete-member idea that didn't.
 
 | # | Claim | Verdict | Key evidence | Idea |
 |---|---|---|---|---|
-| H1 | Self-contact jamming (wider/less-tapered longerons) escapes the depth cap | re-tread | already attempted twice (D31, D33) under the same grounding literature | — |
-| H2 | Staged two-storey mast (upper storey bears on landed lower storey) | re-tread | attempted at least 5 times before (D34 + earlier H2/H12/H4) | — |
-| H3 | Kirigami-cut shell wall distributes rotation over many ligaments, not one beam's curvature | **&#8253;** | 0/51 Stage-1 coilable across two independent draws; top designs cluster at range edges — box not exhaustively covered | D36 &rarr; |
-| H4 | Compliant kirigami-cut top ring lets the effective ring radius grow favorably during compression | **&#10007;** | shrinking dominates growing 14:3; one design (mcs=0.7885, mls=0.01976) is this run's closest strain-side near-miss, but with an essentially flat radius — not the hypothesized mechanism | D37 &rarr; |
-| H5 | Helically-graded shell thickness reshapes the strain-vs-compression integral | **&#8253;** | 0/24 coilable; twist phase moves the rotation signal non-monotonically and asymmetrically by sign | D38 &rarr; |
-| H6 | Nested double-wall with an engaging backing collar raises effective stiffness | **&#10007;** | 0/5 coilable; more backing engagement does not even monotonically help the diagnostic signal | D39 &rarr; |
-| H7 | Crosslinked beam bundle generates bundle-level torque coupling beyond the single-beam depth cap | **&#8253;** | every configuration preserves genuine global coiling (unlike all 4 shells); crosslinking recovers a 22&times; buckling-capacity gain; best mcs=0.7191 — closest any novel mechanism has reached | D40 &rarr; |
+| H1 | Self-contact jamming escapes the depth cap | re-tread | already attempted twice (D31, D33) | — |
+| H2 | Staged two-storey mast (upper bears on landed lower) | re-tread | attempted 5+ times before (D34 + H2/H12/H4) | — |
+| H3 | Kirigami-cut shell wall distributes rotation over many ligaments | **&#8253;** | 0/51 Stage-1 coilable, two draws; top designs cluster at range edges | D36 &rarr; |
+| H4 | Compliant kirigami-cut top ring lets ring radius grow favorably | **&#10007;** | shrinking dominates growing 14:3; near-miss has an essentially flat radius | D37 &rarr; |
+| H5 | Helically-graded shell thickness reshapes the strain integral | **&#8253;** | 0/24 coilable; twist phase moves rotation non-monotonically | D38 &rarr; |
+| H6 | Nested double-wall with engaging backing collar raises stiffness | **&#10007;** | 0/5 coilable; more engagement doesn't even help monotonically | D39 &rarr; |
+| H7 | Crosslinked beam bundle generates bundle-level torque coupling | **&#8253;** | preserves global coiling (unlike all 4 shells); 22&times; buckling-capacity gain; best mcs=0.7191 | D40 &rarr; |
 
-**No new mechanism cleared the incumbent (0.6077 kPa) — but H7 is the strongest near-miss this
-study has produced.** Every shell/ring topology this run tried failed identically (local buckling
-beats global coiling); the one that switched back to discrete members did not, and got within
-9 points of mcs of the coilability bar on a genuine, non-strain-limited plateau.
-&nbsp;·&nbsp; **22 delegations, 227 ledgered evals across 5 new namespaces, 10.8 h of 12 h**, GATED
-on the 3rd critic attempt (REJECT &rarr; REJECT &rarr; PASS)
-
- &nbsp;&middot;&nbsp; **Cost: $86.10**
+**No mechanism cleared the incumbent (0.6077 kPa); H7 is the strongest near-miss** — the only
+one preserving global coiling, within 9 pts of the bar.
+&nbsp;·&nbsp; **22 delegations, 227 evals, 5 namespaces, 10.8/12 h, GATED**
+&nbsp;&middot;&nbsp; **Cost: $86.10**
 </div>
 
 <!--
@@ -2371,36 +2365,34 @@ layout: two-cols-header
   each of n_ribs stations, angled and spaced so consecutive scales overlap and lock against each
   other as the beam bends — a substrate that transitions from soft (bare beam) to stiff (locked
   scales) past some curvature.
-- **Origin:** Dharmavaram, Ebrahimi &amp; Ghosh 2021 (arXiv:2108.10976), "Coupled Bend-Twist
-  Mechanics of Biomimetic Scale Substrate" — overlapping rigid scales lock against each other past
-  a curvature threshold, in principle decoupling strain from bending depth the way biological
-  scale substrates do; independently proposed and top-ranked for novelty by 3 separate literature
-  reviews (2026-08-16/19/20) before this run finally resourced it.
+- **Origin:** Dharmavaram, Ebrahimi &amp; Ghosh 2021 (arXiv:2108.10976) — overlapping rigid
+  scales lock past a curvature threshold, decoupling strain from bending depth the way
+  biological scale substrates do; independently top-ranked for novelty by 3 separate literature
+  reviews (2026-08-16/19/20) before this run resourced it.
 - **Stats:** n=64 &rarr; 54 coil &rarr; 0 riks &rarr; 0 good (0% Stage-2 convergence)
   p50/p90/p100 — &sigma;_eig (coilable only): 1.04/2.61/4.59 &middot; mcs: 0.00/0.45/0.64 &middot;
   mls: 0.00/0.019/0.020
   best good: none (0/64 passed every criterion) &middot; cleared: none
 - **Verdict:** POWERED &middot; FERTILE-REWORK &middot; rigid interlocking-panel embodiment<br>
-  A causal-isolation control took the best-performing geometry and removed the scale panels: the
+  A causal-isolation control removed the scale panels from the best-performing geometry: the
   identical base beam converges cleanly to 89.5% compression at 1.75% strain, matching this
-  study's own confirmed incumbent. The SAME geometry WITH the scale-lock ribs crosses the 2%
-  strain ceiling at only 33&ndash;45% compression. The rigid panel-to-panel kinematic coupling at
-  each rib station is itself what concentrates strain and destroys the design — the opposite of
-  the mechanism's own premise of escaping the kinematic-depth-cap wall by decoupling strain from
-  bending depth.
+  study's confirmed incumbent. The SAME geometry WITH the scale-lock ribs crosses the 2% strain
+  ceiling at only 33&ndash;45% compression — the rigid panel-to-panel coupling at each rib
+  station is itself what concentrates strain and destroys the design, the opposite of the
+  mechanism's own premise.
 
 </div>
 
 ::right::
 
-<div class="flex flex-col gap-1" style="height: 460px">
-  <div class="flex items-center justify-center" style="height: 165px">
-    <img src="/gifs/scale_lock_mini.png" style="max-height: 165px; max-width: 100%" />
+<div class="flex flex-col gap-1" style="height: 425px">
+  <div class="flex items-center justify-center" style="height: 145px">
+    <img src="/gifs/scale_lock_mini.png" style="max-height: 145px; max-width: 100%" />
   </div>
-  <div class="flex items-center justify-center" style="height: 265px">
-    <img src="/gifs/scale_lock_landscape.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
+  <div class="flex items-center justify-center" style="height: 245px">
+    <img src="/gifs/scale_lock_landscape.gif" class="rounded shadow-lg" style="max-height: 245px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-50 text-center">D007's own re-tested idx=0 design (strain rising smoothly 0.0&rarr;0.0197 over 1315 real frames, confirmed not a numerical artifact): mcs=45.0% before the stall. Rigid scale panels now shown (render's display group includes the SCALES instance, real 3D S4R shell geometry, not schematic) — visibly rotating and overlapping against their neighbors at each rib station as the beam bends.</div>
+  <div class="text-xs opacity-50 text-center">D007's re-tested idx=0 design (strain rising smoothly 0.0&rarr;0.0197 over 1315 real frames, not a numerical artifact): mcs=45.0% before the stall. Real 3D S4R shell scale panels visibly rotate and overlap at each rib station as the beam bends.</div>
 </div>
 
 <!--
@@ -2940,9 +2932,8 @@ layout: two-cols-header
 
 - **What:** Replace each longeron with a **pair** of independently-anchored beams, pre-bowed
   to close a small gap and make frictionless surface contact partway through the coil — no
-  shared node with the ring, unlike the closed `secondary_stop` family. Single validation point
-  (n_corners=3, ratio_d=.02, pitch=.75, top_d=.30, leg_offset=.05, gap0=.015); only the contact
-  law/solver varied.
+  shared node with the ring, unlike the closed `secondary_stop` family. Single validation
+  point; only the contact law/solver varied (see Input space).
 - **Origin:** Liu, Ennis &amp; Coulais 2024&sup1; (measured stroke-triggered self-contact
   stiffening), Dharmavaram, Ebrahimi &amp; Ghosh 2021&sup2; (soft-to-stiff contact-locking in
   a bending filament), Hima, Bigoni &amp; Dal Corso 2022&sup3; (rigorous non-artefactual
@@ -2963,19 +2954,27 @@ layout: two-cols-header
 
 ::right::
 
-<div class="flex flex-col gap-1" style="height: 460px">
-  <div class="flex items-center justify-center" style="height: 165px">
-    <img src="/gifs/kissing_pair_mini.png" style="max-height: 165px; max-width: 100%" />
+<div class="flex flex-col gap-1" style="height: 430px">
+  <div class="flex items-center justify-center" style="height: 150px">
+    <img src="/gifs/kissing_pair_mini.png" style="max-height: 150px; max-width: 100%" />
   </div>
-  <div class="flex items-center justify-center" style="height: 265px">
-    <img src="/gifs/kissing_pair_landscape.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
+  <div class="flex items-center justify-center" style="height: 245px">
+    <img src="/gifs/kissing_pair_landscape.gif" class="rounded shadow-lg" style="max-height: 245px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-50 text-center">3&times; stiffness soft connector (D018), the family's best-ever result: Abaqus reports this Riks solve as converged at 48.6% compression (mcs=0.486) — that is the reported/citable number. If the animation appears to keep compressing past that, it's the render pipeline's global 95% safety cap (which only blocks physically meaningless Riks overshoot), not evidence of more real compression than 48.6% — this deck does not treat a solver's own "completed successfully" flag as proof it reached its actual load target without checking the load path (see D21-revisited's own finding on this exact trap). Still far short of the 80% mcs this study requires to call a design feasible.</div>
+  <div class="text-xs opacity-50 text-center">3&times; stiffness soft connector (D018), the family's best-ever result: converged at 48.6% compression (mcs=0.486) — still far short of the 80% mcs this study requires. If the animation appears to run past that, it's the render pipeline's 95% safety cap, not real compression — see notes.</div>
 </div>
 
 <!--
 **Input space:** none free — a single validation point (n_corners=3, ratio_d=.02, pitch=.75,
 top_d=.30, leg_offset=.05, gap0=.015); only the contact law/solver varied across delegations.
+
+**Render-cap caveat, full text (trimmed from the visible caption 2026-08-28 to fix a confirmed
+27px render clip, headless-measured):** Abaqus reports this Riks solve as converged at 48.6%
+compression (mcs=0.486) — that is the reported/citable number. If the animation appears to keep
+compressing past that, it's the render pipeline's global 95% safety cap (which only blocks
+physically meaningless Riks overshoot), not evidence of more real compression than 48.6% — this
+deck does not treat a solver's own "completed successfully" flag as proof it reached its actual
+load target without checking the load path (see D21-revisited's own finding on this exact trap).
 
 **Seed:** FERTILE — sweep the connector's stiffness multiplier as a free search dimension
 around 3&times; (which converged) rather than point-probing 3&times;/15&times;; the
@@ -3025,42 +3024,40 @@ layout: two-cols-header
 
 <div class="text-sm leading-snug">
 
-- **What:** A two-storey mast (storeys stacked longeron segments, joined by an intermediate
-  ring) where storey 1 is deliberately weaker (shorter pitch/thinner section) and physically
-  separated from storey 2 by a gap that only closes by CONTACT — storey 2 carries zero load
-  until storey 1 fully collapses and the gap closes, then storey 2 starts absorbing compression
-  fresh, like a second spring engaging only once the first bottoms out. Contact-decoupled, unlike
-  the closed `asym_storey` family, which rigidly ties the two storeys' motion together from t=0.
+- **What:** A two-storey mast where storey 1 (deliberately weaker: shorter pitch/thinner
+  section) is physically separated from storey 2 by a gap that only closes by CONTACT — storey 2
+  carries zero load until storey 1 fully collapses, then absorbs compression fresh, like a second
+  spring engaging once the first bottoms out. Contact-decoupled, unlike the closed `asym_storey`
+  family, which rigidly ties both storeys' motion from t=0.
 - **Origin:** Liu, Ennis &amp; Coulais 2024&sup1; — the same layer-by-layer programmed
   buckling sequence grounding D33, applied here as discrete storeys rather than a single
   member's self-contact.
 - **Stats:** n=62 &rarr; 22 coil &rarr; 0 riks &rarr; 0 good
-  quartiles unavailable — **zero designs this run reached formal Riks convergence**, under
-  any of 3 contact laws or 2 solvers
-  cleared: **none** (0 decided) &middot; novel: **untested** — the mechanism never got to
-  demonstrate a second rise
+  quartiles unavailable — **zero designs reached formal Riks convergence**, under 3 contact
+  laws / 2 solvers
+  cleared: **none** (0 decided) &middot; novel: **untested** — never got to demonstrate a
+  second rise
   best good: none (0/62 passed every criterion)
 - **Verdict:** POWERED &middot; REFUTED &middot; this 2-storey architecture<br>
-  Two different numbers, one real reason: the raw solver keeps running to 76% compression with
-  no crashes, but this study only counts compression achieved BEFORE the first criterion
-  violation (same windowing rule every slide in this deck uses) — and here **storey 1's own
-  material strain crosses Bessa's 2% limit almost immediately**, capping the CITABLE compression
-  at 3.9%, long before storey 1 could ever fully land and hand off to storey 2. The staged
-  mechanism never gets to demonstrate anything; storey 1 fails on its own terms first. True under
-  every solver and every contact law tried: a design limit, not a numerical one.
+  Two numbers, one reason: the raw solver runs to 76% compression with no crashes, but this
+  study only counts compression BEFORE the first criterion violation — storey 1's own material
+  strain crosses Bessa's 2% limit almost immediately, capping the CITABLE compression at 3.9%,
+  long before storey 1 could land and hand off to storey 2. The staged mechanism never
+  demonstrates anything: storey 1 fails first, under every solver/contact law — a design limit,
+  not a numerical one.
 
 </div>
 
 ::right::
 
-<div class="flex flex-col gap-1" style="height: 460px">
-  <div class="flex items-center justify-center" style="height: 165px">
-    <img src="/gifs/staged_storey_mini.png" style="max-height: 165px; max-width: 100%" />
+<div class="flex flex-col gap-1" style="height: 415px">
+  <div class="flex items-center justify-center" style="height: 140px">
+    <img src="/gifs/staged_storey_mini.png" style="max-height: 140px; max-width: 100%" />
   </div>
-  <div class="flex items-center justify-center" style="height: 265px">
-    <img src="/gifs/staged_storey_native.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
+  <div class="flex items-center justify-center" style="height: 240px">
+    <img src="/gifs/staged_storey_native.gif" class="rounded shadow-lg" style="max-height: 240px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-60 text-center">Standard solver, storey2_growth_ratio=31.7&times; — staging visibly working. Not feasible: mcs=1.5%, far short of the 80% floor.</div>
+  <div class="text-xs opacity-60 text-center">storey2_growth_ratio=31.7&times; — staging working, but mcs=1.5%, far short of the 80% floor.</div>
 </div>
 
 <!--
@@ -3484,15 +3481,9 @@ layout: two-cols-header
   p50/p90/p100 — &sigma;_crit: .97/4.55/6.57 &middot; mcs: 0/0/.339 &middot; mls: unmeasured
   cleared: none here — the next run cleared 8 with wrap&ne;0, best 0.5007 = 4.46&times; Bessa
   &middot; novel: **no** (Kirchhoff-rod theory, H3)
-  best good: none. **CORRECTED 2026-08-26 (deck audit):** wrap 4.5, c = 2 mm reached **61.5%
-  compression at 0.445% strain**, then its loading point *reversed* and travelled all the way back
-  past its own start (net +63.5mm ascent by the end of the 785-frame history); strain never
-  crosses 2% anywhere in that history. The 2026-08-14 correction's own arithmetic used
-  mast_height=100mm; the oracle's real formula (n_storeys&times;ratio_pitch&times;bottom_diameter,
-  confirmed against both the geometry script and the prescribed-displacement BC) is 50mm, exactly
-  halving the true reading to a reported "30.8%". (The pre-2026-08-14 "61.5%" figure this replaced
-  was independently wrong for an unrelated reason — `|U3|` counting upward travel as compression —
-  so this is a coincidental numeric match, not a vindication of that reading; see notes.)
+  best good: none. wrap 4.5 reached 61.5% compression at 0.445% strain before its loading point
+  reversed (strain never crosses 2%) — corrected 2026-08-26 for a mast_height arithmetic error;
+  full audit trail in notes.
 - **Verdict:** POWERED &middot; REFUTED &middot; wrap-vs-load (accessible depths)<br>
   <span class="opacity-60">(revised 2026-08-26)</span> The relief is real — **0.445% strain at 61.5% compression**, where the matched straight control
   had blown 2% by 26.2% — but it buys no load (&rho;(wrap, &sigma;_peak) = **&minus;0.392** over 36
@@ -3502,9 +3493,9 @@ layout: two-cols-header
 
 ::right::
 
-<div class="flex flex-col items-center justify-center h-full">
-  <img src="/gifs/precoil_wrap45_native.gif" class="max-h-80 rounded shadow-lg" />
-  <div class="text-xs opacity-60 mt-2 px-4 text-center">wrap 4.5, re-rendered 2026-08-14 and now stopping at the reversal (frame 156 of 785): 61.5% compression at 0.445% strain (corrected 2026-08-26, deck audit -- was reported 30.8%, a mast_height error). Green everywhere is the point.</div>
+<div class="flex flex-col items-center justify-center" style="height: 420px">
+  <img src="/gifs/precoil_wrap45_native.gif" style="max-height: 340px; max-width: 100%" class="rounded shadow-lg" />
+  <div class="text-xs opacity-60 mt-1 px-4 text-center">wrap 4.5, stopping at the reversal (frame 156 of 785): 61.5% compression at 0.445% strain. Green everywhere is the point.</div>
 </div>
 
 <!--
@@ -3512,6 +3503,18 @@ layout: two-cols-header
 compression is applied. a&isin;[.004,.014], b&isin;[.01,.045] — cross-section semi-axes.
 ratio_pitch&isin;[.25,1.5]. Fixed: n_longerons=3, ratio_top_diameter=0, n_storeys=1,
 imperfection=.067.
+
+**Stats correction, full audit trail (trimmed from the visible bullet 2026-08-28 to fix a
+confirmed 88px render clip, headless-measured):** **CORRECTED 2026-08-26 (deck audit):** wrap
+4.5, c = 2 mm reached 61.5% compression at 0.445% strain, then its loading point reversed and
+travelled all the way back past its own start (net +63.5mm ascent by the end of the 785-frame
+history); strain never crosses 2% anywhere in that history. The 2026-08-14 correction's own
+arithmetic used mast_height=100mm; the oracle's real formula
+(n_storeys&times;ratio_pitch&times;bottom_diameter, confirmed against both the geometry script
+and the prescribed-displacement BC) is 50mm, exactly halving the true reading to a reported
+"30.8%". (The pre-2026-08-14 "61.5%" figure this replaced was independently wrong for an
+unrelated reason — `|U3|` counting upward travel as compression — so this is a coincidental
+numeric match, not a vindication of that reading.)
 
 **Seed:** BARREN as a load mechanism, **disqualified on novelty** (Kirchhoff-rod theory, H3).
 The deep-wrap Stage-2 crash is an open solver problem, not a design lead.
@@ -4649,11 +4652,10 @@ class: idea-slide
   gate here, mcs/mls (strain) are, so raw σ clears easily while every design still fails
   best good: none (0/406 passed every criterion)
 - **Verdict:** POWERED · REFUTED · localized elastic fold<br>
-  The curvature that keeps the arc locally stable
-  is the same curvature that sets its bending-strain floor. The shape can
-  never be shallow enough to fold locally without first buckling — so
-  strain follows ordinary beam bending at every depth tested, not a fold.
-<div class="text-xs opacity-50 mt-2">
+  The curvature keeping the arc locally stable is the same curvature setting its
+  bending-strain floor — it can never be shallow enough to fold locally without first
+  buckling, so strain follows ordinary beam bending at every depth, not a fold.
+<div class="text-xs opacity-50 mt-1">
 ¹ Named theories cited by the delegation; no single specific paper was looked up/verified this run.
 </div>
 
@@ -4661,12 +4663,12 @@ class: idea-slide
 
 ::right::
 
-<div class="flex flex-col gap-2" style="height: 460px">
-  <div class="flex items-center justify-center" style="height: 175px">
-    <img src="/gifs/tape_spring_mini.png" style="max-height: 175px; max-width: 100%" />
+<div class="flex flex-col gap-2" style="height: 450px">
+  <div class="flex items-center justify-center" style="height: 170px">
+    <img src="/gifs/tape_spring_mini.png" style="max-height: 170px; max-width: 100%" />
   </div>
-  <div class="flex items-center justify-center" style="height: 277px">
-    <img src="/gifs/tape_spring_landscape.gif" class="rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
+  <div class="flex items-center justify-center" style="height: 272px">
+    <img src="/gifs/tape_spring_landscape.gif" class="rounded shadow-lg" style="max-height: 272px; max-width: 100%" />
   </div>
 </div>
 
@@ -4897,13 +4899,12 @@ class: idea-slide
   not duplicates; measured under the retired pre-contact eigenvalue metric (see notes)
   best good: a=.00961 b=.033165 arch_rise=.0343 arch_length=.4305 → σ=.8509 mcs=1.00 mls=.0196
 - **Verdict:** SUPPORTED · WORKS<br>
-  **Retraction reversed 2026-08-18** (in-place update, see speaker notes for why): the
-  decisive, boundary-artifact-free restrained-warping check — the same method that
-  resolved `run17_rectangle`'s identical scare — finds the corrected joint strain holds
-  at 1.96%, under the 2% ceiling. The continuum submodel's 2.7×+ finding does not
-  survive. **Caveat: σ=0.8509 kPa is the retired eigenvalue metric — never re-measured
-  under the current contact oracle/σ_peak, so not yet directly comparable to the
-  current incumbent (0.6071 kPa).**
+  **Retraction reversed 2026-08-18** (see speaker notes for why): the decisive,
+  boundary-artifact-free restrained-warping check — same method that resolved
+  `run17_rectangle`'s identical scare — finds the corrected joint strain holds at 1.96%, under
+  the 2% ceiling; the continuum submodel's 2.7&times;+ finding does not survive. **Caveat:**
+  &sigma;=0.8509 kPa is the retired eigenvalue metric, never re-measured under the current
+  contact oracle — not yet comparable to the incumbent (0.6071 kPa).
 
 
 </div>
@@ -5170,12 +5171,12 @@ class: idea-slide
 
 ::right::
 
-<div class="flex flex-col gap-2" style="height: 460px">
-  <div class="flex items-center justify-center" style="height: 175px">
-    <img src="/gifs/chained_bistable_arch_mini.png" style="max-height: 175px; max-width: 100%" />
+<div class="flex flex-col gap-2" style="height: 450px">
+  <div class="flex items-center justify-center" style="height: 170px">
+    <img src="/gifs/chained_bistable_arch_mini.png" style="max-height: 170px; max-width: 100%" />
   </div>
-  <div class="flex items-center justify-center" style="height: 277px">
-    <img src="/gifs/chained_bistable_arch_landscape.gif" class="rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
+  <div class="flex items-center justify-center" style="height: 272px">
+    <img src="/gifs/chained_bistable_arch_landscape.gif" class="rounded shadow-lg" style="max-height: 272px; max-width: 100%" />
   </div>
 </div>
 
@@ -5567,24 +5568,22 @@ class: idea-slide
   designs varying rc/h/n_battens/pitch/top_d; mls (local strain) is the gate that blocks them
   best good: rc=.0024 h=.0234 n_battens=2 pitch=.75 top_d=.13 &rarr; &sigma;=.00079 mcs=1.00 mls=.014
 - **Verdict:** FALSIFIED · WEAK<br>
-  As a viable mechanism. 50 evals clears this
-  study's existence-testing bar (settled 2026-08-02: n&#8805;48 for a
-  defensible read), and a genuine feasible hit — not a zero-hit rate — was
-  found, so existence itself was never in question. The real finding is
-  competitiveness: the one feasible design is 1000&times; below target,
-  too large a gap to blame on under-search rather than the mechanism.
+  As a viable mechanism. 50 evals clears this study's existence bar (n&#8805;48, settled
+  2026-08-02), and a genuine feasible hit was found, so existence was never in question. The
+  real finding is competitiveness: the one feasible design is 1000&times; below target, too
+  large a gap to blame on under-search rather than the mechanism.
 
 
 </div>
 
 ::right::
 
-<div class="flex flex-col gap-2" style="height: 460px">
-  <div class="flex items-center justify-center" style="height: 175px">
-    <img src="/gifs/built_up_mini.png" style="max-height: 175px; max-width: 100%" />
+<div class="flex flex-col gap-2" style="height: 430px">
+  <div class="flex items-center justify-center" style="height: 160px">
+    <img src="/gifs/built_up_mini.png" style="max-height: 160px; max-width: 100%" />
   </div>
-  <div class="flex items-center justify-center" style="height: 277px">
-    <img src="/gifs/built_up_landscape.gif" class="rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
+  <div class="flex items-center justify-center" style="height: 262px">
+    <img src="/gifs/built_up_landscape.gif" class="rounded shadow-lg" style="max-height: 262px; max-width: 100%" />
   </div>
 </div>
 
@@ -6858,17 +6857,12 @@ class: idea-slide
   in this family, mcs (compressive strain) is the gate that bowing itself collapses
   best good: bow_amp=.087 a=.005 b=.013 pitch=.32 top_d=.35 → σ=.0591 mcs_full=1.00 mls=.013
 - **Verdict:** FALSIFIED · WEAK<br>
-  Bowing does the opposite of hypothesized — a
-  confound-free dose-response sweep (bow_amplitude &isin; &#123;0,0.05,0.10,0.15&#125;,
-  fixed ratio_b=0.03) shows max_compressive_strain decreasing monotonically
-  with bow (48% drop, 0.5846→0.3040), collapsing strain rather than
-  protecting it. A broader 48-eval joint search does find one real
-  feasible design, but far weaker than baseline (0.53× Bessa) — bowing
-  doesn't help, it just doesn't fully kill feasibility either. A broader
-  check across the converged designs (not the tightly-controlled sweep
-  above) finds no reliable relationship once other dimensions vary freely
-  — the causal effect is real in the controlled comparison but washes out
-  once generalized (see speaker notes for the underlying statistics).
+  Bowing does the opposite of hypothesized — a confound-free dose-response sweep shows
+  max_compressive_strain decreasing monotonically with bow (48% drop, 0.5846→0.3040),
+  collapsing strain rather than protecting it. A broader 48-eval joint search finds one real
+  feasible design, but far weaker than baseline (0.53× Bessa). Across the full converged
+  population the effect washes out once other dimensions vary freely — real in the controlled
+  comparison, not generalizable (see notes).
 
 
 </div>
@@ -6973,11 +6967,9 @@ class: idea-slide
 <div class="text-sm leading-snug">
 
 - **What:** Proposed an elliptical longeron cross-section (Abaqus-native
-  `EllipticalProfile`, `DURING_ANALYSIS` section integration), oriented so
-  its short semi-axis lies in the plane of dominant coiling-induced
-  bending, to raise torsional stiffness beyond the circular family's
-  strain-limited ceiling.
-  Free: none — untestable, see Verdict
+  `EllipticalProfile`, `DURING_ANALYSIS` integration), oriented so its short axis lies in the
+  plane of dominant coiling bending, to raise torsional stiffness past the circular family's
+  strain ceiling. Free: none — untestable, see Verdict
 - **Origin:** direct mechanistic extension of the SCLF (circular) family —
   common sense, not a literature citation.
 - **Stats:** n=0 &rarr; 0 coil &rarr; 0 riks &rarr; 0 good — untestable (hard software-capability
@@ -6986,15 +6978,11 @@ class: idea-slide
   cleared: none (0 decided) &middot; novel: untested — the geometry itself could never be built<br>
   best good: none (0/0)
 - **Verdict:** INCONCLUSIVE · UNTESTABLE<br>
-  Genuinely so: the hypothesis as literally
-  registered is untestable with the available infrastructure, not
-  falsified. `model.EllipticalProfile` does not exist in the installed
-  Abaqus 2024 kernel, and `GeneralizedProfile` + `DURING_ANALYSIS` is
-  rejected at `.inp`-write time. This is a hard software-capability gap,
-  not a negative physics result — a genuinely different question
-  (substituting `RectangularProfile` as the closest available real
-  geometry) was registered separately as its own hypothesis rather than
-  silently reinterpreting this one.
+  Genuinely so: the hypothesis as registered is untestable, not falsified —
+  `model.EllipticalProfile` doesn't exist in the installed Abaqus 2024 kernel, and
+  `GeneralizedProfile` + `DURING_ANALYSIS` is rejected at `.inp`-write time. A hard
+  software-capability gap, not a negative physics result; substituting `RectangularProfile` was
+  registered separately as its own hypothesis, not a silent reinterpretation.
 
 
 </div>
@@ -7562,22 +7550,18 @@ class: idea-slide
   cross-section point, not a duplicate of any baseline<br>
   best good: none (0/18 passed every criterion)
 - **Verdict:** SUPPORTED · DEAD-END<br>
-  Stage-1 existence supported (mechanism real, floor
-  clearable — 5/16 cleared 75.1 kPa), but Stage-2 FAILS both candidates —
-  the same GJ that clears the floor blocks deep coiling. Not a usable
-  design as tested. Note the two candidates weren't apples-to-apples: D4
-  (the closer near-miss, cited elsewhere as reaching 32% strain) never
-  actually converged — that Riks solve terminated mid-solve ("too many
-  attempts"). Only C4 genuinely converged, at a worse 9.0% strain. The
-  original "32% vs 9%" comparison was a non-converged partial read against
-  a real solution, not two comparable numbers.
+  Stage-1 existence supported (5/16 cleared 75.1 kPa), but Stage-2 FAILS both candidates — the
+  same GJ that clears the floor blocks deep coiling. Not usable as tested. The two candidates
+  weren't apples-to-apples: D4 (the closer near-miss, 32% strain) never actually converged
+  (Riks terminated "too many attempts"); only C4 genuinely converged, at a worse 9.0% strain —
+  the original "32% vs 9%" comparison was a non-converged partial read against a real solution.
 
 </div>
 
 ::right::
 
-<div class="flex flex-col items-center justify-center h-full gap-1">
-  <img src="/gifs/hollow_tube_D4_native.gif" class="max-h-85 rounded shadow-lg" />
+<div class="flex flex-col items-center justify-center gap-1" style="height: 420px">
+  <img src="/gifs/hollow_tube_D4_native.gif" style="max-height: 340px; max-width: 100%" class="rounded shadow-lg" />
   <div class="text-xs opacity-50 text-center">Native Abaqus render — no strain coloring (see notes). D4 design, Stage-2 diverges at 32% strain.</div>
 </div>
 
