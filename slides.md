@@ -3760,27 +3760,43 @@ layout: two-cols-header
   p50/p90/p100 — R=2, quartiles carry no information; both decided rows are below
   cleared: **1 of 2 decided &ge; 2&times; Bessa (0.2244)** &middot; novel: **no** — it is `n_leaves=1`
   best good: n_leaves=1 a=.00921 b=.03324 pitch=.68128 &rarr; &sigma;=.6071 mcs=.91 mls=.0199 — **the run-17 rectangle to 4 s.f.**
-  n_leaves=3 &rarr; &sigma;_peak nan &sigma;_eig .1004 (a 7.7&times; regression)
+  n_leaves=3 &rarr; ledgered &sigma;_peak=NaN (non-convergent, unmeasured by policy) — real
+  measured &sigma;_peak=.0870 at mcs=.02, mls=.0064; see chart
 - **Verdict:** UNDERPOWERED · REFUTED · leaf splitting<br>
   `n_leaves=1` is the family's own *regression control* and reproduces the incumbent exactly. The
-  one multi-leaf point **regressed 7.7&times;**: stacking splits the depth that carries load without
-  changing the curvature that caps it, paying the strain penalty twice.
+  one multi-leaf point's real recovered stress history — not just the &sigma;_eig proxy previously
+  cited here — peaks at 0.0870 kPa, a measured 7.0&times; drop from 0.6071, at 0.64% strain
+  (nowhere near the 2% ceiling): a genuine load-capacity collapse, not a strain-limited one.
 
 </div>
 
 ::right::
 
-<div class="flex flex-col items-center justify-center h-full">
-  <img src="/gifs/leaf_spring_section.png" class="max-h-36 rounded shadow-lg bg-white" />
-  <div class="text-xs opacity-60 mt-1 px-4 text-center">The idea, true to scale: one 1.84&nbsp;mm bar vs three 0.61&nbsp;mm leaves.</div>
-  <img src="/gifs/leaf_spring_native.gif" class="max-h-36 rounded shadow-lg mt-1" />
-  <div class="text-xs opacity-60 mt-1 px-4 text-center">n_leaves=3 coiling — at mast scale the stack is indistinguishable from a solid bar.</div>
+<div class="flex flex-col items-center justify-center gap-1" style="height: 440px">
+  <img src="/gifs/leaf_spring_sigma_mini.png" style="max-height: 155px; max-width: 100%" />
+  <div class="text-xs opacity-60 text-center">&sigma; vs compression, recovered directly from each design's own ODB — n_leaves=1 (solid, the run-17 rectangle) vs n_leaves=3 (dashed, stops at 51.6% where the real solve ends).</div>
+  <img src="/gifs/leaf_spring_section.png" style="max-height: 85px; max-width: 100%" class="rounded shadow-lg bg-white" />
+  <img src="/gifs/leaf_spring_native.gif" style="max-height: 100px; max-width: 100%" class="rounded shadow-lg" />
+  <div class="text-xs opacity-60 text-center">Section true to scale (one 1.84mm bar vs three 0.61mm leaves) and n_leaves=3 coiling.</div>
 </div>
 
 <!--
 **Input space:** n_leaves&isin;{1,3,5} — discrete leaf count, not a continuous dial. a&isin;[.004,.014],
 b&isin;[.01,.045] — per-leaf cross-section semi-axes. ratio_pitch&isin;[.25,1]. Fixed:
 ratio_shear_modulus=.3677, n_longerons=3, n_storeys=1, twist_angle=0.
+
+**REAL CHART ADDED 2026-08-28 (user request: a coiling GIF with no companion stress chart is
+the same gap D38 has, but worse here — real Stage-2 data exists and was never plotted).** The
+ledger's `sigma_peak=NaN` for n_leaves=3 is not "uncomputable" -- it is the oracle's own policy
+(`oracle_template.py`: an unmeasured objective is NaN whenever Stage 2 doesn't converge,
+regardless of whether partial data exists) applied to a design that DID produce 76 real Riks
+frames. Recomputed both curves directly from each design's own `results.pkl` (still on scratch:
+n_leaves=1 `/oscar/scratch/eaguerov/supercompressible_oracle/riks_549eaf38.../`, n_leaves=3
+`.../riks_220ffd56.../`) with the exact `bo/response_metrics.windowed_metrics` formula -- both
+recovered values (0.6071, 0.0870 kPa) match the ledger/windowed figures exactly where the ledger
+has one. The real curve shows the drop is a genuine measured load-capacity collapse at 0.64%
+strain, not a strain-ceiling failure and not merely an eigenvalue proxy -- strengthens, not
+changes, the REFUTED call.
 
 **Seed:** BARREN as stated. Decoupling leaf spacing from the winding radius is a different idea,
 needing a different argument than "more leaves".
