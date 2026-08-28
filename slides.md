@@ -1128,16 +1128,17 @@ class: idea-slide
   different post-buckling channel than the planar coiling every other family here shares.
 - **Stats:** n=140 &rarr; 121 coil &rarr; 61 riks &rarr; 51 good (5.76&times; Bessa)
   p50/p90/p100 — &sigma;_crit: .12/1.27/5.61 &middot; mcs: .85/.94/.95 &middot; mls: .041/.057/.097
-  cleared: 38 of 61 decided &ge; 2&times; Bessa (0.2244) &middot; novel: yes — Bessa's own
-  reference re-solved under contact never engages the disc and peaks early instead; see Verdict
+  cleared: 38 of 61 decided &ge; 2&times; Bessa (0.2244) &middot; novel: qualified — a peak
+  alone isn't distinctive (Bessa has one too); see Verdict
   best good: pitch=.5327 top_d=.1298 a=.00622 b=.02033 amplitude=.03164 n_undulations=2 &rarr;
   &sigma;=.6460 mcs=.93 mls=.019
 - **Verdict:** POWERED &middot; VALIDATED &middot; wave-driven disc contact<br>
   Clears both targets (2.88&times;, 1.06&times; floor). **Correction (2026-08-26):**
   contact-driven, not bend-twist — an ablation control never touches the disc; this design's
-  late &sigma; tracks the disc's CPRESS. **Confirmed novel (2026-08-27):** Bessa's reference also
-  never touches the disc, peaking early instead. Reconfirmed independently; mesh convergence
-  open — see notes.
+  late &sigma; tracks the disc's CPRESS. **Novelty qualified (2026-08-28, PI review):** a peak
+  isn't distinctive — Bessa has one too (early, ordinary buckling, then decays; CPRESS=0
+  throughout). Novel is deferring it to late compression via real contact, under the 2% strain
+  ceiling throughout. Mesh convergence open — see notes.
 
 </div>
 
@@ -1190,6 +1191,21 @@ itself is not fully mesh-converged — see below. **Independently reconfirmed (r
 code path, zero new solves — reproduces the identical frame-by-frame finding: contact-free
 through frame 63, CPRESS and RF3 rising together from frame 64 on.
 
+**Sharpened 2026-08-28 (PI review, actioning the ADVISOR CAVEAT below):** the PI pointed out that
+Bessa's own design also has a stress peak, so "novel because it has a late peak" was never a
+precise enough claim — every compressed member peaks somewhere over its own loading history,
+Bessa's included. The comparison that actually matters is not "does it peak" but "what KIND of
+peak is it." Bessa's is an ordinary early elastic-buckling maximum (mcs&asymp;15%) followed by
+monotonic softening (&sigma; decaying toward zero) — the textbook post-buckling signature, with
+zero contact anywhere (CPRESS=0, all 63 frames) and nothing that looks like a design running out
+of room. D42's is a late, contact-driven RISE (&sigma; climbing in lockstep with CPRESS from
+frame 64 on) that stays under the 2% local-strain ceiling the entire time it's happening — a
+qualitatively different event (stiffening against a hard kinematic limit, not softening after a
+critical load), and one Bessa's own design never exhibits at any point in its history. So: having
+"a peak" is not what's novel (concede that point fully); reaching one LATE, via genuine contact,
+without ever breaching the strain ceiling, is — and Bessa's own re-solved reference is the direct
+evidence that this specific combination is not something "any design eventually does."
+
 **Seed:** FERTILE — narrowed (2026-08-26): a cross-section-swap probe (identical wave, isotropic
 CircularProfile substituted for RectangularProfile, radius matched to the SAME cross-sectional
 area) still drives the member into real disc contact (COPEN closes to exactly 0, both surfaces,
@@ -1232,8 +1248,9 @@ late rise. The ablation control above already demonstrates the generic case dire
 STRAIGHT centerline control shows a real early elastic peak (&sigma;=0.119 kPa at mcs&asymp;6%,
 1.06&times; Bessa) before fading — an ordinary compression response with no wave involved at all.
 
-ADVISOR CAVEAT (2026-08-27, PI review — not actioned, recorded for the deck's eventual verdict
-pass): a high &sigma;_peak reached simply because a design approaches ITS OWN compression limit
+ADVISOR CAVEAT (2026-08-27, PI review — ACTIONED 2026-08-28, see "Sharpened" note above and the
+visible Stats/Verdict wording): a high &sigma;_peak reached simply because a design approaches
+ITS OWN compression limit
 is technically valid but not novel by itself — Bessa's own original baseline already has this
 property (its own ablation control above shows an ordinary early elastic peak, &sigma;=0.119 kPa
 at mcs&asymp;6%, unrelated to any wave). What would make D42 genuinely new is showing the
