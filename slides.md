@@ -3301,9 +3301,11 @@ layout: two-cols-header
 
 ::right::
 
-<div class="flex flex-col items-center justify-center h-full">
-  <img src="/gifs/secondary_stop_native.gif" class="max-h-72 rounded shadow-lg" />
-  <div class="text-xs opacity-60 mt-2 px-4 text-center">n_stops = 1, the only build whose stop engaged. It <em>does</em> descend — 46.5% by the end — but topples sideways doing it, which is the broken model: the primary blew 2% strain at 5.9%.</div>
+<div class="flex flex-col items-center justify-center gap-1" style="height: 440px">
+  <img src="/gifs/secondary_stop_sigma_mini.png" style="max-height: 150px; max-width: 100%" />
+  <div class="text-xs opacity-60 text-center">&sigma; vs compression, recovered directly from each design's own ODB — n_stops=0 (solid, the run-17 rectangle) vs n_stops=1 (dashed). Real strain crosses 2% at mcs=6.46%, close to the 5.9%/mcs=.054 already cited; the raw solve continues past that, unwindowed, to mcs=68.3% (46.53mm descent) before ending.</div>
+  <img src="/gifs/secondary_stop_native.gif" style="max-height: 200px; max-width: 100%" class="rounded shadow-lg" />
+  <div class="text-xs opacity-60 text-center">n_stops = 1, the only build whose stop engaged. It topples sideways past the point where the primary already blew 2% strain.</div>
 </div>
 
 <!--
@@ -3312,6 +3314,19 @@ layout: two-cols-header
 &isin;[.4,.6] — stop's radial placement between the mast axis and the primary longerons.
 n_stops&isin;{0,1,3} — discrete count, not a continuous dial. Fixed: primary longeron at the
 incumbent.
+
+**REAL CHART ADDED 2026-08-28 (same gap as D28/D38 -- a coiling GIF with no companion stress
+chart).** n_stops=1's real ODB
+(`/oscar/scratch/eaguerov/sc_oracle_secondary_stop/riks_459047fed9ee43a48e7ce61ec6784c12/`, 102
+frames, no `results.pkl` -- extracted directly via read-only Abaqus field-output access, U/RF at
+`ZTOP_REF_POINT` and `E` across all elements) does not have a corresponding entry in this
+family's own `experiment_data` ledger (6 rows, all n_stops=1/3 unconverged with no `riks_odb`) --
+it is a separate render-job re-solve (job 4961555), not one of the 6 ledgered points. Corrects
+the previous caption's "46.5% by the end": that number was the raw 46.53mm descent divided
+incorrectly -- the real value is mcs=68.3% raw (unwindowed), with strain crossing 2% at
+mcs=6.46%, independently confirming the 5.9%/mcs=.054 figure already in the Verdict to within
+this extraction's own precision (a cruder max-principal-or-component strain measure than the
+study's own beam-section-point convention).
 
 **Seed:** BARREN *as coupled here* — any added beam member tied to the ring reference points
 destroys the primary's strain margin. Untested until that is fixed.
