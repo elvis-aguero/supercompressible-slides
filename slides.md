@@ -841,6 +841,133 @@ was run; this is the same 2026-07-31 ODB, read two ways.
 -->
 
 ---
+class: summary-slide
+---
+
+# Run `20260829T005522` — summary
+
+<div class="text-sm leading-snug">
+
+One real bug fix (H2, twist-buckling) and one real reproducibility collapse (H3/H9,
+crosslinked-bundle). Everything else closed FALSIFIED/INCONCLUSIVE; no design cleared
+feasibility this run.
+
+</div>
+
+<div class="text-xs leading-tight">
+
+| # | Claim | Verdict | Key evidence | Idea |
+|---|---|---|---|---|
+| H1 | Corrected-joint mast can reach feasibility | **&#8253;** | 2/20 decided, both fail badly (mcs=.12/.55) | D41 rev. &rarr; |
+| H2 | Corrected joint lets Fang's twist mechanism engage | &#10003; | twist_energy_fraction 1.13e-4&rarr;0.1218, 1078&times; | D41 rev. &rarr; |
+| H3 | Shifting crosslink position defers the snap past 80% | **&#8253;** | bias=0.0 baseline is a genuine divergence, not a plateau | D40 rev. &rarr; |
+| H4 | High-Q bistable-arch Riks failures hide a real snap | **&#8253;** | "Convergence" under Explicit is inertia noise (ALLKE/ALLIE 21-23&times; over cap) | D24 &rarr; |
+| H5 | Longeron-midspan stop avoids the ring-RP defect | **&#8253;** | Still diverges at mcs~0.51; rules out shared ring-RP DOF | D31 &rarr; |
+| H6 | Point B is a genuinely different structural regime | **&#8253;** | "Load reversal" criterion is genuinely ambiguous as stated | D43 &rarr; |
+| H7 | Coilability failure driven by twist_angle too large | &#10007; | Shrinking twist_angle LOSES coilability — opposite of predicted | D41 rev. &rarr; |
+| H8 | Full 6D search finds a real bistable snap | &#10007; | 13/42 converged; the one "snap" is a known artifact | D24 &rarr; |
+| H9 | Full 10D search finds a feasible design | &#10007; | 48 dispatched, 1 converged, that one infeasible (mcs=.242) | D40 rev. &rarr; |
+| H10 | Capacity comes from the arch, not host geometry | **&#8253;** | Registered test came back infeasible/artifactual | D24 &rarr; |
+| H11 | Adaptive BO finds a feasible grain-beam design | **&#8253;** | 21 points, near-random — no incumbent to guide search | D43 &rarr; |
+| H12 | Full search of fixed joint finds a feasible design | **&#8253;** | 2/20 decided, both infeasible | D41 rev. &rarr; |
+
+</div>
+
+<div class="text-sm leading-snug">
+
+&nbsp;&middot;&nbsp; **44 delegations, 171 ledgered evals, 10.87 h of 12 h**, GATED after 4 review rounds
+
+ &nbsp;&middot;&nbsp; **Cost: $68.28**
+</div>
+
+<!--
+H1/H2/H7/H12 DETAIL (twist_buckle). D002 found and fixed a real joint-DOF bug: the inherited
+local datum released rotation about the joint's own approximate radial direction, not each
+oblique rod's own bottom-to-top axis, structurally suppressing Fang et al.'s twist mechanism
+regardless of geometry. Fixed (four coupling variants tried; see D41 revisited's own Infra
+note), validated: twist_energy_fraction rose 1078x. But the corrected design still only
+reaches mcs=0.03 (H1). D011 (H7) tested whether SMALLER twist_angle recovers coilability --
+it does not; all 8 points fail Stage-1 outright, the opposite of the predicted recovery. D019
+(H12) ran a full 20-design adaptive search of the corrected-joint family: only 2/20 dispatches
+ever reached a decided verdict (5 Stage-1 rejects, 13 unresolved non-convergence), both
+infeasible. Twist and coilability trade off sharply in this family; whether any point
+resolves that trade-off is still open.
+
+H3/H9 DETAIL (crosslinked_bundle). D004's own 9-point crosslink_spacing_bias sweep at the
+D020 optimum found its own bias=0.0 reconfirmation salvaged (non-converged), with mcs=0.7173
+(not 0.7191). D008's stabilization + 1800s escalation didn't fix it (0/5 riks_converged=1).
+D012 (decisive): re-solved the SAME point on the plain, non-stabilized path at 9x the time
+budget (5400s) -- still fails, returning in only 1197s with a confirmed genuine arc-length
+divergence ("TIME INCREMENT REQUIRED IS LESS THAN THE MINIMUM SPECIFIED"), matching D004's
+own reading to 6+ significant figures. D015 (H9) ran a real 48-eval BO campaign over the
+family's full 10D box -- 38/48 reached Stage 2, only 1/48 (2.6%) ever converged, and that one
+design was infeasible (mcs=0.242). No design in this family is currently confirmed working.
+
+H4/H8/H10 DETAIL (bistable_arch). D010 (H4) escalated the 3 non-converged high-Q points to
+Abaqus/Explicit dynamics -- all 3 "complete" numerically but fail the quasi-static-validity
+gate hard (ALLKE/ALLIE 21-23x over the 0.05 threshold), i.e. inertia/impact noise, not a
+legitimate reading. D014 (H8) ran a real, adaptive 42-point 3-phase zoom-BO campaign over the
+family's full 6D box -- 13 converged, 11 strictly feasible (genuinely working designs exist),
+but exactly 1 shows any snap-reversal and it is the same documented coarse-increment spike
+artifact. D016 (H10) tried to attribute the best non-snap design's capacity to the arch
+mechanism specifically vs. host cross-section/pitch alone -- the registered test came back
+infeasible/artifactual (stab_ratio 2.2x its own cap); the host-alone comparison is a separate,
+unregistered measurement, reported but not a clean answer to what was asked.
+
+H5 DETAIL (secondary_stop). D017 attached the stop to a genuine FE node on the primary
+longeron's own mesh (stop_attachment="longeron_midspan") instead of ZTOP_REF_POINT or a driven
+surface -- zero shared equations with the ring reference point -- and it still diverges at
+the identical mcs~0.51 with the identical residual signature every construction has shown
+since D003. Conclusively rules out "shared ring-RP DOF set" as the cause across five
+independent attachment/base variants now. One combination remains untried:
+stop_construction="same_part" WITH this longeron-midspan attachment (each tested individually,
+never together) -- outside this delegation's authorized scope, flagged for a future run.
+
+H6/H11 DETAIL (grain_beam). D009 (H6) targeted "Point B" specifically -- the exact open
+question flagged on D43's own prior slide. Result: genuinely ambiguous under the registered
+falsification criterion, whose "load reversal" definition didn't match this study's own
+established compression-only convention used elsewhere. D018 (H11) ran a further real
+adaptive BO campaign (21 points) over the family's full 7D box -- found nothing, but thin: no
+feasible/converged incumbent ever existed to seed the acquisition, so it fell back to
+near-random Sobol sampling rather than a GP-guided search.
+
+THE GATE HISTORY (4 rounds). call_001: REJECT -- CRITICAL, pipeline.ipynb was missing its
+mandatory verdict/analysis cells entirely (a forward reference to "the Verdict cell" that did
+not exist), plus a stale Hypotheses cell (H4 shown as "pending", H5/H6 entirely absent despite
+being closed). call_002: REJECT -- both cell-structure findings resolved (independently
+re-derived both headline numbers from the ledger and confirmed a match), but a NEW critical
+surfaced: the notebook closed on a negative result with 19% of the wall-clock budget still
+unspent, directly against PROBLEM_STATEMENT.md's explicit "exhaust the time limit... REJECT
+a run you know has not used its time allocation" clause. call_003: REJECT -- still 11%
+budget remaining (89% used) on a negative result, plus a specific literature-identified
+alternative explanation for H2 (the ring's own bulk rotation, not the rod-joint DOF) left
+unaddressed. call_004: PASS -- budget now at 91% used with one more genuine delegation (D020)
+closing H5's last untried construction since call_003, and H2's alternative explanation
+resolved by direct code inspection (the top ring's reference point carries no rotational BC
+at all, confirmed against the bottom ring's explicit ur1/ur2/ur3=0). One MINOR finding
+survived uncorrected: the Verdict cell's own hypothesis-count language (7/11/12) should read
+"twelve" throughout -- cosmetic, does not affect any conclusion.
+
+RETROSPECTIVE FLAGS (8 of 44 delegations flagged, all CONSISTENCY, none BLOCKED). Two are
+worth a future run's attention, neither resolved here: (1) D009's flag that
+bo/oracle_grain_beam.py's convergence gate (requires literal Riks completion) is stricter
+than bo/oracle_circular.py's (the PROBLEM_STATEMENT-named reference oracle, which had no such
+distinction at all) -- FIXED post-run, see below. (2) D004's flag that a prior claim
+("mls~0.003" at the crosslinked_bundle D020 baseline) didn't reproduce -- this run's own
+re-solve of the same point got mls~0.0205, just over the 0.02 ceiling; the stale figure has
+been removed from D40's slide. D001's flag (whether H2's "confound" framing matches Fang et
+al.'s own model) was resolved the same run by direct code inspection (see H1/H2 detail above).
+
+INFRA PROMOTED TO GOLD, POST-RUN (2026-08-29, later the same day, user-authorized). The H2
+joint-DOF fix (commit 4c3da12); the secondary_stop D007/D017 diagnostic infra (commit
+2b2f8b1); the grain_beam DataGenerator registration wrapper (commit a016152). Separately, the
+window-closed-before-failure convention was applied uniformly to oracle_circular.py and
+oracle_grain_beam.py (commit d5aa47e) -- resolving retrospective flag (1) above: a result is
+now decided if the specific quantity feasibility is judged on reflects real data confirmed
+before any solver failure, on every family, not just the newer ones that already had this.
+-->
+
+---
 class: restudy-slide
 layout: two-cols-header
 ---
