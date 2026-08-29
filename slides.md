@@ -841,6 +841,132 @@ was run; this is the same 2026-07-31 ODB, read two ways.
 -->
 
 ---
+class: restudy-slide
+layout: two-cols-header
+---
+
+# D41 revisited — corrected joint lets the rod genuinely twist
+
+::left::
+<div class="text-sm leading-snug">
+
+- **What changed:** the longeron-ring joint's released rotation was corrected from the
+  joint's own approximate radial direction (inherited unchanged from every straight-longeron
+  family) to each oblique rod's own bottom-to-top axis — the actual axis Fang et al.'s
+  mechanism needs to twist about, not a direction shared by the whole ring.
+- **What was tested:** the family's own matched validation point (n_longerons=6,
+  ratio_pitch=0.85, twist_angle=30&deg;, ratio_a=ratio_b=0.0417) re-solved under the
+  corrected joint, then a 20-design follow-up search of the same family with the fix in
+  place.
+- **Result:** at the validation point, the fraction of strain energy going into genuine rod
+  twisting rose from 0.011% to 12.2% of the total — 1078&times; — confirming the mechanism
+  now actually engages, not "an ordinary bending collapse wearing an angled rod" as the
+  original slide found. But that same design still only compresses to 3% before failing
+  (need 80%). The 20-design follow-up found only 2 designs that reached a clear answer, and
+  both failed just as badly (12% and 55% compression). The joint bug is fixed; whether
+  twisting and coiling can ever coexist in this family is the open question now, not whether
+  the joint works.
+
+</div>
+
+::right::
+
+<div class="flex flex-col items-center justify-center h-full gap-2 px-4">
+  <div class="text-sm opacity-70 text-center">No new video: the corrected design's own
+  failure point (3% compression) is visually indistinguishable from the undeformed mast — a
+  render would show nothing a number doesn't already say. See the original D41 slide for
+  what an ordinary (uncorrected-joint) collapse in this family looks like.</div>
+</div>
+
+<!--
+**Seed:** FERTILE, narrower now than the original slide's own Seed note — the joint-DOF fix
+is done and confirmed working (see Result). What remains untested is whether ANY point in
+this family's design space reaches feasibility (mcs>=0.80) with the corrected joint; a
+20-design search found none, but explored only a thin slice (2/20 reached a decided
+result). The open question is now specifically the twist/coilability trade-off, not the
+joint construction.
+
+**Timeline:** D002 (run 20260829T005522, H2): the joint fix + matched-point validation.
+H12 (same run): a 20-design follow-up search using the fixed joint -- 5 Stage-1 rejects, 13
+unresolved non-convergence, 2 decided (both infeasible, mcs=.12/.55). Routed to H2 SUPPORTED
+/ H1 & H12 INCONCLUSIVE per runs/20260829T005522/debug/strategizer_notes/hypotheses.json.
+
+**Infra:** the joint fix lives in scripts/supercompressible_riks_twist_buckle.py and
+supercompressible_lin_buckle_twist_buckle.py (promoted to gold, commit 4c3da12) -- see
+either file's own module docstring for the full four-variant derivation of why a naive
+"release twist at both ends" choice is a rigid-body mechanism, not a fix.
+-->
+
+---
+class: restudy-slide
+layout: two-cols-header
+---
+
+# D40 revisited — the family's own best result does not reproduce
+
+::left::
+<div class="text-sm leading-snug">
+
+- **What changed:** re-solved the family's own best-cited design (D020, 71.9% compression)
+  under two independently different solver configurations to test whether it genuinely
+  converges, then ran a full adaptive search of the whole design space to see if anything
+  else in the family does.
+- **What was tested:** the D020 point re-solved once at a 9&times; larger time budget
+  (5400s vs. the original 600s) and once on a different, non-stabilized solver path;
+  separately, a 48-design adaptive search (seeded + active) spanning the family's full
+  10-parameter space.
+- **Result:** the D020 point does not reproduce as a converged result under either
+  re-solve — the two re-solves agree with each other to 6+ significant figures
+  (mcs=0.7173), but not with the original archived 71.9% as a converged read at all: both
+  are a real, confirmed solver failure (the arc-length step genuinely breaks down), not a
+  timeout and not a fluke. The wider search found only 1 of 48 designs that ever converged
+  at all, and even that one fell far short of the target (24% compression vs. 80% needed).
+  No design in this family is currently confirmed working.
+
+</div>
+
+::right::
+
+<div class="flex flex-col gap-1" style="height: 440px">
+  <div class="flex items-center justify-center" style="height: 140px">
+    <img src="/gifs/crosslinked_bundle_revisited_mini.png" style="max-height: 140px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 245px">
+    <img src="/gifs/crosslinked_bundle_landscape.gif" class="rounded shadow-lg" style="max-height: 245px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-60 text-center px-2">&sigma; vs compression, D012's own 340-frame
+  re-solve; dotted line = where it matches D004's reading to 6+ sig figs. Same D020
+  design/animation as the original slide — not a converged stopping point after all.</div>
+</div>
+
+<!--
+**Seed:** FERTILE — the family's own construction, not this one design point, is the open question
+now: something prevents a clean Riks solve near this optimum, and no confirmed working
+design currently exists anywhere in the space searched. Untried: whether a different
+crosslink placement/spacing entirely (outside the neighborhood re-tested here) avoids
+whatever this design point is hitting.
+
+**Timeline:** D004 (run 20260829T005522, H3): 9-point crosslink_spacing_bias sweep at the
+D020 optimum, best mcs=0.7173 at bias=0.0 (the baseline itself) -- all 9 points salvaged
+(non-converged). D008: stabilization + 1800s escalation on the same 5 points, 0/5 reached
+riks_converged=1. D012 (decisive): re-solved the bias=0.0 baseline on the plain,
+non-stabilized path at 9x the time budget (5400s) -- returned in 1197s with a confirmed
+genuine arc-length divergence ("TIME INCREMENT REQUIRED IS LESS THAN THE MINIMUM
+SPECIFIED"), matching D004's own reading to 6+ significant figures. D015 (H9): a real
+48-eval constrained-BO campaign (24-point seeded DoE + 24 active) over the full 10D box --
+38/48 reached Stage 2, 1/48 (2.6%) reached riks_converged=1, and that one design was
+infeasible (mcs=0.242).
+
+**Infra:** no code changed for this family this run -- oracle_crosslinked_bundle.py and its
+Riks script are unchanged. The finding is entirely about this specific design point's own
+reproducibility, not a construction bug. Sigma-history chart built from D012's own real,
+340-frame salvaged history:
+/oscar/scratch/eaguerov/sc_oracle_crosslinked_bundle/riks_26dc76db026249d093d739469e0dc99a/
+results.pkl (reduced with this study's usual sigma = |RF[2]|*1000/(pi*D1^2/4*n_longerons_
+effective) formula, n_longerons_effective=8 for n_longerons=4 x n_sub_beams=2).
+-->
+
+---
 class: summary-slide
 ---
 
@@ -1012,6 +1138,11 @@ this topology regardless of solver.
 sub-criteria ("Point B") represents a genuinely different structural regime from the other 43, or
 sits on the same wall by coincidence of being closest at time of failure — not adjudicated this
 run, would need a targeted local sweep around Point B's own coordinates specifically to answer.
+Still open as of 2026-08-29 (run 20260829T005522, H6 -- see Timeline below): a targeted
+re-examination of Point B found the answer genuinely ambiguous under the registered
+falsification criterion, not a clean confirm/refute -- Point B's status cannot move past
+INCONCLUSIVE until that criterion's "load reversal" definition is resolved to a single,
+stated meaning.
 
 **Timeline:**
 D002: literature review — identified Pancella &amp; D'Annibale (2025) as the grounding citation,
@@ -1024,6 +1155,16 @@ D007 (this run): diagnostic — mixed-population diagnosis, tightened Riks incre
 D008 (this run): baked D007's settings into the canonical oracle/scripts.
 D009 (this run): follow-up campaign, 44 real dispatches under tightened settings, 0/44 converged,
 1/44 clears both feasibility sub-criteria individually.
+D009 (run 20260829T005522, H6 -- different run, same delegation number): targeted
+re-examination of "Point B" specifically, the exact open question this slide's own Deferred
+note above raised. Result: genuinely ambiguous under the registered falsification criterion --
+its "load reversal" definition didn't match this study's own established compression-only
+convention used elsewhere -- routed to INCONCLUSIVE, not a clean confirm/refute of Point B's
+regime.
+D018 (run 20260829T005522, H11): a further real adaptive BO campaign (21 points) over the
+family's full 7D box -- found nothing, but thin: no feasible/converged incumbent ever existed
+to seed the acquisition, so it fell back to near-random Sobol sampling rather than a
+GP-guided search.
 
 **Infra:** bo/oracle_grain_beam.py, bo/prefilter.py:passes_grain_beam_slenderness,
 scripts/supercompressible_lin_buckle_grain_beam.py + _pp.py,
@@ -2049,12 +2190,11 @@ layout: two-cols-header
   &rarr; 0 good
   quartiles unavailable — 0/113 Riks-converged (near-plateau reads in Verdict instead) &middot;
   cleared: 0/113 (mcs&ge;0.80) &middot; novel: **yes** — distinct from every prior family
-  best good: none — best overall: mcs=0.7191 (D020), mls~0.003 (geometry in notes' Timeline)
+  best good: none — best overall: mcs=0.7191 (D020) (geometry in notes' Timeline)
 - **Verdict:** POWERED &middot; FERTILE-PARAMETRIC &middot; snap-through targeting<br>
   Preserves genuine global coiling as the lowest mode in every configuration — unlike every
   shell/ring family this run — with a real 22&times; buckling-capacity gain over uncoupled
-  sub-beams. Reaches 71.9% compression on a genuine Riks snap-through plateau (mls never binds,
-  best 0.003 vs 0.02) — a real geometric limit, not the usual strain-budget wall. Two independent
+  sub-beams. Reaches 71.9% compression on a genuine Riks snap-through plateau — a real geometric limit, not the usual strain-budget wall. Two independent
   crosslink realizations agree where it stalls; pushing further makes it worse.
 
 </div>
@@ -3330,6 +3470,18 @@ study's own beam-section-point convention).
 
 **Seed:** BARREN *as coupled here* — any added beam member tied to the ring reference points
 destroys the primary's strain margin. Untested until that is fixed.
+
+**2026-08-29 update (run 20260829T005522, D007/D017):** the fix named above WAS tried. D017
+attached the stop to a genuine FE node on the primary longeron's own mesh instead of any ring
+reference point or driven surface -- zero shared equations with ZTOP_REF_POINT -- and it still
+diverges at the identical mcs~0.51 with the identical residual signature every other
+construction has shown since D003. This conclusively rules out "shared ring-RP DOF set" as the
+cause across five independent attachment/base variants now (D004 x4, D007's contact, D017's
+primary-node coupling); the standing explanation is that ANY new Part+Instance perturbs
+Abaqus's own internal equation numbering, independent of what it connects to. One combination
+remains untried: `stop_construction="same_part"` combined with this longeron-midspan
+attachment (each tested individually, never together) -- flagged as the most promising
+untried lead, not attempted (outside that delegation's authorized scope).
 
 Run 20260814T015148, delegations D003-D006 and D012-D013, H1/H2. 6 datagenerator delegations,
 $28.47 of the run's $35.83.
@@ -4961,6 +5113,17 @@ dual_arch=1.
 CURRENT contact oracle and &sigma;_peak metric; the headline 0.8509 kPa is the retired
 eigenvalue metric, never re-measured under contact, so whether it still beats the current
 0.6077 kPa incumbent is a real open question, not a settled one.
+
+**2026-08-29 update (run 20260829T005522, H4/H8/H10 -- a broader family search, NOT the same
+design as above):** a real, adaptive 42-design search of the bistable-arch family's full 6D box
+found 13 converged designs, 11 passing every feasibility criterion -- genuinely working designs
+exist elsewhere in this family. The best clears 2x Bessa (~2.4x). But the actual bistable-snap
+mechanism was not confirmed in any of them: only 1 showed any snap-reversal, and it is a known
+near-zero-compression numerical artifact (mcs_at_peak=0.00125). Whether the good designs' capacity
+comes from the snap idea specifically, or from ordinary cross-section/pitch geometry, remains
+unresolved (H10, which asked exactly this, was itself confounded). Does not change the
+retraction/reconfirmation history below, which concerns a single, different, already-litigated
+design point.
 
 Full context — this is one of the most consequential, previously-contested
 results in the whole study; state it carefully and consistently with the
