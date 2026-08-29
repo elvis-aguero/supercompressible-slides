@@ -1460,7 +1460,7 @@ class: idea-slide
     <img src="/gifs/twist_buckle_mini.png" style="max-height: 150px; max-width: 100%" />
   </div>
   <div class="flex items-center justify-center" style="height: 245px">
-    <img src="/gifs/twist_buckle_native.gif" class="rounded shadow-lg" style="max-height: 245px; max-width: 100%" />
+    <img src="/gifs/twist_buckle_landscape.gif" class="rounded shadow-lg" style="max-height: 245px; max-width: 100%" />
   </div>
   <div class="text-xs opacity-50 text-center">Converged design, twist_angle=30&deg;, pitch=0.5 — visibly still an ordinary bending/coiling collapse, not a twist-dominated one.</div>
 </div>
