@@ -948,9 +948,9 @@ layout: two-cols-header
 
 ::right::
 
-<div class="flex flex-col items-center justify-center h-full gap-2 px-4">
-  <div class="text-sm opacity-70 text-center">No new video yet — real solved data exists
-  (job path in notes) but hasn't been rendered. Ask if you want it built.</div>
+<div class="flex flex-col items-center justify-center h-full gap-1">
+  <img src="/gifs/mid_span_bistable_landscape.gif" class="max-h-85 rounded shadow-lg" />
+  <div class="text-xs opacity-50 text-center">The winning point (D17), real solved motion — the mid-span insert snapping through as the mast compresses, both ring joints staying straight throughout.</div>
 </div>
 
 <!--
@@ -1040,9 +1040,9 @@ class: idea-slide
 
 ::right::
 
-<div class="flex flex-col items-center justify-center h-full gap-2 px-4">
-  <div class="text-sm opacity-70 text-center">No render yet — 99 real converged solves exist
-  across this campaign; none has been rendered to video. Ask if you want one built.</div>
+<div class="flex flex-col items-center justify-center h-full gap-1">
+  <img src="/gifs/chained_arch_landscape.gif" class="max-h-85 rounded shadow-lg" />
+  <div class="text-xs opacity-50 text-center">D032 (rtd=-0.40, end_rise_scale=0.4) — the one point in this family confirmed genuinely sustained, not a spike. Fails the joint-strain check by 11%; shown here for the mechanism itself, not as the credited result.</div>
 </div>
 
 <!--
