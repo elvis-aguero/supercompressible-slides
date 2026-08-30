@@ -364,6 +364,38 @@ not meant to render. Read this before adding or editing any slide.
                       linter WARNS, does not block); move it down on next
                       edit.
 
+3a-VIS. RIGHT-COLUMN MEDIA — codified 2026-08-30 (was never written down; this
+        gap let a real requirement get skipped twice in the same session
+        before it was caught). This is NOT a new requirement -- rule 1's own
+        opening line already says it ("the first time it's tested with real
+        data, you see its compression video") -- this entry exists because
+        that line alone wasn't enough to stop it being missed.
+
+        A compression video is REQUIRED, not optional, for the first slide
+        reporting a genuinely new idea or a substantial restudy, whenever the
+        design underwent real, visible deformation. The ONLY valid exception
+        is a design whose own real deformation is visually indistinguishable
+        from undeformed (e.g. a design that fails at ~3% compression) -- and
+        that exception must be STATED, not silently defaulted to. "No render
+        yet, ask if you want one built" is NEVER an acceptable substitute for
+        an actually-required video: if a real solved ODB exists, render it;
+        if the video would show nothing, say why in one sentence, in the
+        SAME visual slot the video would occupy.
+
+        A real sigma-vs-compression chart (mini.png, the grey-to-red
+        LineCollection convention with per-frame o/x markers -- see any
+        existing `*_mini.png` for the exact style, log-scale y-axis when the
+        dynamic range spans more than ~1 order of magnitude, e.g. a
+        numerical-spike comparison) is REQUIRED alongside the video whenever
+        a chart would show something the video's own caption can't -- most
+        commonly: a two-design comparison (with/without a mechanism, before/
+        after a fix, genuine/ambiguous), or a stress history the reader would
+        otherwise have to take on faith from the Stats bullet's numbers
+        alone. This grew as an emergent, un-codified pattern across many
+        slides (D28, D31, D35, D38, D40 revisited, ...) via one-off user
+        requests before being written here -- it is now the standing rule,
+        not merely precedent to notice if you happen to look.
+
 3b. RESTUDY-SLIDES (`class: restudy-slide`) — codified 2026-08-23, not new
     practice. A restudy-slide reports a follow-up test of an idea that
     ALREADY has its own idea-slide (Rule 1's "genuinely new" bar wasn't
@@ -948,9 +980,14 @@ layout: two-cols-header
 
 ::right::
 
-<div class="flex flex-col items-center justify-center h-full gap-1">
-  <img src="/gifs/mid_span_bistable_landscape.gif" class="max-h-85 rounded shadow-lg" />
-  <div class="text-xs opacity-50 text-center">The winning point (D17), real solved motion — the mid-span insert snapping through as the mast compresses, both ring joints staying straight throughout.</div>
+<div class="flex flex-col gap-1" style="height: 440px">
+  <div class="flex items-center justify-center" style="height: 150px">
+    <img src="/gifs/mid_span_bistable_mini.png" style="max-height: 150px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 245px">
+    <img src="/gifs/mid_span_bistable_landscape.gif" class="rounded shadow-lg" style="max-height: 245px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center px-2">&sigma; vs compression (log scale) — with insert (solid) vs the ablated host (dashed, =run17_rectangle). The dashed spike above 10&times; is the numerical artifact; past it, the two curves are nearly identical for the rest of compression. Below: the winning point (D17)'s real solved motion.</div>
 </div>
 
 <!--
@@ -1040,9 +1077,14 @@ class: idea-slide
 
 ::right::
 
-<div class="flex flex-col items-center justify-center h-full gap-1">
-  <img src="/gifs/chained_arch_landscape.gif" class="max-h-85 rounded shadow-lg" />
-  <div class="text-xs opacity-50 text-center">D032 (rtd=-0.40, end_rise_scale=0.4) — the one point in this family confirmed genuinely sustained, not a spike. Fails the joint-strain check by 11%; shown here for the mechanism itself, not as the credited result.</div>
+<div class="flex flex-col gap-1" style="height: 440px">
+  <div class="flex items-center justify-center" style="height: 150px">
+    <img src="/gifs/chained_arch_mini.png" style="max-height: 150px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 245px">
+    <img src="/gifs/chained_arch_landscape.gif" class="rounded shadow-lg" style="max-height: 245px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center px-2">&sigma; vs compression (log scale) — D032, confirmed genuinely sustained (solid), vs H12's flare-rescued but ambiguous point (dashed). The two track closely; the distinguishing test is in the 10-80%-compression median, not a visible spike difference. Below: D032's real solved motion — fails the joint-strain check by 11%, shown for the mechanism itself, not as the credited result.</div>
 </div>
 
 <!--
