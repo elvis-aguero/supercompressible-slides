@@ -14,786 +14,528 @@ mdc: true
 
 <!--
 ============================================================================
-DECK FORMAT CONTRACT (advisor-specified, agreed 2026-07-29) — durable
-reference for any future edit session. This comment is not a slide; it is
-not meant to render. Read this before adding or editing any slide.
+DECK FORMAT CONTRACT (advisor-specified, agreed 2026-07-29; reorganized by
+importance and de-staled 2026-08-30) — durable reference for any future
+edit session. This comment is not a slide; it is not meant to render.
+Read this before adding or editing any slide. Rules are numbered by how
+fundamental they are, not by the date they were written.
 ============================================================================
 
-1. ONE SLIDE PER GENUINELY NEW IDEA.
-   A new full slide is earned only by a genuinely new design idea that has
-   never had its own slide before. A hypothesis that is just a minor
-   resizing/retry/refinement of an idea that ALREADY got its own slide in an
-   earlier run does NOT get a new slide — it folds into that later run's
-   run-summary slide instead, as one bullet point (one line, "idea X:
-   retried/refined, result Y"), with any detailed stats for that bullet
-   living in the run-summary slide's own speaker notes, not its main body.
+1. ONE SLIDE PER GENUINELY NEW IDEA, NUMBERED D<n>. REVISITS OF THE SAME
+   IDEA ARE D<n>-2, D<n>-3, ... — SAME SLIDE, MAJOR.MINOR VERSIONING.
+   (Renumbering scheme adopted 2026-08-30, replacing the old separate
+   `class: restudy-slide` category — see the migration note at the end of
+   this rule for why.)
 
-2. H1-AS-ORACLE-WIRING-CHECK IS EXCLUDED FROM THE DECK, ENTIRELY, ALWAYS.
+   A new BASE number (D<n>) is earned only by a genuinely new design idea
+   that has never had a slide before. A follow-up test of that SAME idea
+   — a wider search, a bug fix, a contact migration, a different position
+   for the same mechanism — is not a new idea; it is `D<n>-2` (or `-3`,
+   `-4`, ...: count up from the base idea = implicit "-1"). Think
+   major.minor versioning: the major number is the mechanism, the minor
+   number is which pass at testing it this is.
+
+   A revisit slide is a FULL idea-slide (rule 2's template, `class:
+   idea-slide`, all linting rules apply) — not a lighter format. It uses
+   the SAME 4 bullets (What/Origin/Stats/Verdict); Origin becomes "what
+   prompted THIS revisit" (a contract change, a new infra capability, a
+   consistency check) rather than re-explaining the base mechanism, which
+   already has its own D<n> slide to point back to. If a revisit's own
+   Stats funnel is thin (one validation point, one imperfection sweep),
+   report it honestly at that size — n=1 is a valid Stats line, not a
+   reason to skip the format.
+
+   H1-AS-ORACLE-WIRING-CHECK IS EXCLUDED FROM THE DECK, ENTIRELY, ALWAYS.
    Several runs' H1 is not a design hypothesis at all — it is the run's
-   one-time oracle-wiring sanity check. That kind of H1 gets NO slide,
+   one-time oracle-wiring sanity check. That kind of H1 gets no slide,
    ever. (This does NOT mean every hypothesis literally numbered "H1" is
    excluded — plenty of runs' H1 is a real, substantive design test.)
 
-3. BULLET TEMPLATE AND ORDER (exactly 4 bullets, left column of a
-   two-column layout — no more prose on the main slide):
-     (a) What      — precisely what was tried, in plain physical terms: what
-                      changed about the design, what stayed the same. NO
-                      LONGER carries a numeric bounds line (retired
-                      2026-08-24 — was a FIXED-FORMAT "Free: ... | Fixed:
-                      ..." line, added 2026-08-04). Retired because it
-                      duplicated the same parameter names speaker notes'
-                      Input space (rule 9) already has to name and gloss
-                      with physical meaning — a reader had to mentally
-                      merge two separate lists of the same identifiers, one
-                      with numbers and no meaning, one with meaning and no
-                      numbers. The free/fixed parameter list with sampled
-                      bounds now lives ONLY in Input space, uncapped (no
-                      more "+N more" truncation — notes have no canvas
-                      budget). User: "We see a repeateing of the input
-                      parameters. Shall we demote it to the speaker notes?"
-                      Traded away deliberately: a reader can no longer check
-                      at a glance whether an outlier Stats quartile value is
-                      just a consequence of a wide sampled bound — that
-                      check now costs one click into notes, not zero.
-     (b) Origin    — where the idea came from, AND (added 2026-08-24,
-                      user: "the What or the Origin should explain the why
-                      that motivates the design, physically — citation if
-                      needed, but the physics is a must") the PHYSICAL
-                      MECHANISM that motivates it: why, mechanistically,
-                      would this change help the mast coil further, absorb
-                      more compression, or raise its stiffness? A citation
-                      is supporting EVIDENCE for that mechanism, not a
+   MIGRATION NOTE (2026-08-30): before this date, a revisit got `class:
+   restudy-slide` and a lighter 3-bullet format (What changed/What was
+   tested/Result), titled "D<n> revisited". That class is retired — full
+   migration completed 2026-08-30 (see git log for the commit), every
+   revisit in this deck now carries a real D<n>-<k> number and the full
+   4-bullet template. One deliberate simplification made during that
+   migration: where a single slide covered thin, incidental revisits of
+   several different base ideas at once (one design each, "enough to
+   verify a code path, not a family"), the whole slide was folded into
+   the numbering of whichever idea it was substantively about, rather
+   than split into several near-empty slides — a judgment call, not a
+   rule, apply the same way only when a genuine split would produce
+   slides with nothing real to say.
+
+2. THE 4-BULLET TEMPLATE (exactly 4 bullets, left column of a two-column
+   layout — no more prose on the main slide, for every idea-slide
+   including every D<n>-<k> revisit):
+     (a) What      — precisely what was tried, in plain physical terms:
+                      what changed about the design, what stayed the
+                      same. Free/fixed parameter bounds live ONLY in the
+                      speaker notes' Input space (rule 9), never
+                      duplicated here.
+     (b) Origin    — where the idea came from, AND the PHYSICAL MECHANISM
+                      that motivates it: why, mechanistically, would this
+                      help the mast coil further, absorb more
+                      compression, or raise its stiffness? A citation is
+                      supporting evidence for that mechanism, not a
                       substitute for stating it — "Rathore & Grason 2011"
-                      alone names a source, not a reason; "Rathore & Grason
-                      2011 — a crosslinked bundle carries an intrinsic
-                      torque a single member doesn't, because the
-                      crosslinks resist relative bending/twisting between
-                      sub-beams" states the mechanism the citation backs.
-                      Also: a real, specific citation, or the honest
-                      "common sense / resize of family X" if that's
-                      actually what it was. Never fabricate a literature
-                      grounding that isn't real. If a real citation is
-                      claimed, add a numbered footnote (small text at the
-                      bottom of the slide, below the bullets) with the
-                      actual reference. If only a named theory/author was
-                      cited without a delegation verifying a specific
-                      paper, the footnote must say so plainly ("named
-                      theory, no single paper verified this run") rather
-                      than invent a fake author/year/journal to look more
-                      rigorous than the evidence actually is.
+                      alone names a source, not a reason; "Rathore &
+                      Grason 2011 — a crosslinked bundle carries an
+                      intrinsic torque a single member doesn't, because
+                      the crosslinks resist relative bending/twisting
+                      between sub-beams" states the mechanism the
+                      citation backs. Use a real, specific citation, or
+                      the honest "common sense / resize of family X" if
+                      that's actually what it was — never fabricate a
+                      literature grounding that isn't real. If a real
+                      citation is claimed, add a numbered footnote below
+                      the bullets with the actual reference; if only a
+                      named theory/author was cited without a delegation
+                      verifying a specific paper, the footnote must say
+                      so plainly rather than invent a fake
+                      author/year/journal. For a D<n>-<k> revisit, Origin
+                      is what prompted THIS pass (a fix, a contract
+                      change, a new capability) — the base mechanism
+                      lives on D<n>'s own slide.
      (c) Stats     — a FIXED-FORMAT structured data line, not free prose
-                      (a deliberate, scoped exception to the plain-language
-                      bar below: this is a data readout meant to be read as
-                      numbers, not sentences — mechanistic reasoning about
-                      WHY still belongs in plain language, in the Verdict
-                      bullet). Exactly this shape (added 2026-08-04; applies
-                      to new/edited idea slides going forward, NOT
-                      retrofitted to every existing slide at once — the
-                      linter WARNS on deviation, it does not block):
+                      (a deliberate, scoped exception to the
+                      plain-language bar below — this is a data readout
+                      meant to be read as numbers; mechanistic reasoning
+                      about WHY still belongs in the Verdict bullet).
+                      Exactly this shape:
 
                         n=<N> → <C> coil → <R> riks → <G> good (<X>× Bessa)
                         p50/p90/p100 — σ_crit: a/b/c · mcs: d/e/f · mls: g/h/i
 
                       Funnel line: N = total designs evaluated; C = number
-                      that passed the coilability gate (Stage 1); R = number
-                      with a CONVERGED Riks solve (Stage 2 actually
-                      completed, not a non-converged salvage read — see
-                      Lessons learned on why this distinction matters); G =
-                      number that passed EVERY feasibility criterion. The
-                      Bessa multiplier attaches ONLY to G (the actual good/
-                      feasible design) — if G=0, omit it entirely ("0 good",
-                      nothing to compare). Always normalize against the
-                      fixed Bessa point (0.1306 kPa), NEVER a per-campaign
-                      "target" (2× Bessa, beat-0.7704, a specific registered
-                      floor, etc. all vary by campaign) — Bessa is the one
-                      constant every slide in this deck can be compared
-                      against directly.
+                      that passed the coilability gate (Stage 1); R =
+                      number with a CONVERGED Riks solve (Stage 2 actually
+                      completed — a non-converged salvage read does not
+                      count toward R, even when its own measured quantity
+                      is trustworthy under rule 2b below); G = number that
+                      passed EVERY feasibility criterion. The Bessa
+                      multiplier attaches ONLY to G — if G=0, omit it
+                      entirely ("0 good", nothing to compare). Always
+                      normalize against the fixed Bessa point (0.1306
+                      kPa), NEVER a per-campaign "target" or the current
+                      incumbent record — Bessa is the one constant every
+                      slide in this deck can be compared against
+                      directly, and the incumbent changes every time a
+                      run closes.
 
-                      Quartile line: p50/p90/p100 (median, 90th percentile,
-                      max) for σ_crit, mcs, and mls, ALL THREE computed over
-                      the SAME population — the R (Riks-converged) design
-                      set, never a different population per metric (a
-                      reader tracking three different n's per slide defeats
-                      the point of a fixed format). State the p50/p90/p100
-                      legend once, here in the contract — individual slides
-                      leave it implicit (you're optimizing for scanning many
-                      slides in sequence, not reading one cold).
+                      Quartile line: p50/p90/p100 (median, 90th
+                      percentile, max) for σ_crit, mcs, and mls, ALL THREE
+                      computed over the SAME population — the R
+                      (Riks-converged) design set, never a different
+                      population per metric.
 
-                      R=0 CASE (codified 2026-08-24 — already the majority
-                      practice across D34/D36/D37/D38/D39 before being
-                      written down; not a new convention): when NO design
-                      reached a converged Riks solve, the fixed p50/p90/p100
-                      shape has no population to compute over. State instead,
-                      on the same line:
+                      R=0 CASE: when no design reached a converged Riks
+                      solve, state instead, on the same line:
                         quartiles unavailable — <one-clause reason>
-                      e.g. "quartiles unavailable — 0/22 Stage-1 coilable,
-                      so Stage 2 never auto-escalated". This exact lead-in
-                      phrase, always — a slide that improvises different
-                      wording ("quartiles n/a (...)", "quartiles: N/A") is
-                      not yet conforming, even though the underlying fact is
-                      right; the point of a fixed format is that every
-                      slide's reader recognizes the SAME shape instantly.
+                      This exact lead-in phrase, always.
 
-                      Best-good line (added 2026-08-04): the actual best
-                      GOOD (feasible) design's inputs and outputs, e.g.
-                      "best good: a=.00774 b=.01417 pitch=.68 top_d=.044 →
-                      σ=.2712 mcs=.99 mls=.017" — same `ratio_`-stripping
-                      compaction convention as Input space's own entries
-                      (rule 9), same 5-var cap with "+N more" beyond that
-                      (this line stays on the visible, canvas-budgeted
-                      slide, unlike Input space — the cap still applies
-                      here even though it was dropped there). If G=0: "best
-                      good: none (0/N passed every criterion)".
+                      Best-good line: the actual best GOOD (feasible)
+                      design's inputs and outputs, e.g. "best good:
+                      a=.00774 b=.01417 pitch=.68 top_d=.044 → σ=.2712
+                      mcs=.99 mls=.017" (same `ratio_`-stripping
+                      compaction as Input space, 5-var cap with "+N more"
+                      beyond that — this line stays on the visible,
+                      canvas-budgeted slide). If G=0: "best good: none
+                      (0/N passed every criterion)".
 
-                      CLEARED line (added 2026-08-14, advisor-specified —
-                      APPROVAL, NOT RANKING). The objective is a conjunction
-                      of two THRESHOLDS (σ_peak ≥ 2× Bessa = 0.2244 kPa AND
-                      a novel mechanism), so the question an idea answers is
-                      "did it clear?", not "where did it place?". Report it
-                      as a count, and separate the two gates because they
-                      fail independently:
+                      CLEARED line — APPROVAL, NOT RANKING. The objective
+                      is a conjunction of two THRESHOLDS (σ_peak ≥ 2×
+                      Bessa = 0.2244 kPa AND a novel mechanism), so the
+                      question an idea answers is "did it clear?", not
+                      "where did it place?":
 
                         cleared: <K> of <R> decided ≥ 2× Bessa (0.2244)
                                  · novel: yes | no <one-clause reason>
 
-                      If K=0: "cleared: none". If the designs that cleared
-                      are duplicates of the family's own control, say so —
-                      "cleared: 19, all bit-identical to the flat-disc
-                      control" — because a family whose only clearing member
-                      is its control has not been tested.
-
-                      WHY THIS REPLACED THE LEADERBOARD FRAMING: the "(X×
-                      Bessa)" multiplier attached to a single best design
-                      invited comparison against the INCUMBENT (0.6077 kPa,
-                      5.42×) rather than the bar, and that converts passes
-                      into failures. Documented case: 0.5007 kPa was
-                      reported as "82% of the incumbent" when it is 4.46×
-                      Bessa and one of eight designs that cleared. Keep the
-                      multiplier — it is informative — but the DECISION is
-                      the threshold. See the "The bar is a threshold, not a
-                      leaderboard" slide.
+                      If K=0: "cleared: none". If the designs that
+                      cleared are duplicates of the family's own control,
+                      say so — a family whose only clearing member is its
+                      control has not been tested. Keep the "(X× Bessa)"
+                      multiplier on the best-good line — it's
+                      informative — but the DECISION is the threshold,
+                      never a comparison against the current incumbent
+                      (which converts passes into apparent failures as
+                      the incumbent drifts).
 
                       Idea-specific findings that don't fit this shape (a
-                      correlation between one input and an outcome, a
-                      surrogate-adequacy R², a mechanistic aside) may still
-                      follow the funnel+quartile line as additional free
-                      text in the SAME bullet — the fixed format is a
-                      floor, not a ceiling.
-     (d) Verdict   — a FIXED-FORMAT status line, then the causal reason
-                      (added 2026-08-05, same "new/edited slides going
-                      forward, linter WARNS not blocks" retrofit policy as
-                      Stats). Motivation: a formal Popperian status word
-                      alone ("INCONCLUSIVE") often hid a perfectly clear
-                      practical answer one level down in the prose ("but
-                      the raw signal is a clear dead end") — a reader
-                      had to parse the whole paragraph to learn whether an
-                      idea actually worked. Two independent axes, always
-                      in this order:
+                      correlation, a surrogate-adequacy R², a mechanistic
+                      aside) may follow the funnel+quartile line as
+                      additional free text in the SAME bullet — the fixed
+                      format is a floor, not a ceiling.
+     (d) Verdict   — a FIXED-FORMAT status line, then 1-3 sentences of
+                      causal reason, plain language. Two independent axes,
+                      always in this order:
 
                         <STATUS>[ (RETRACTED|DISQUALIFIED|SUPERSEDED)] · <PRACTICAL>
-                        <1-3 sentence causal reason, plain language>
+                        <causal reason>
+
+                      or, for D24-D43-and-later slides using the newer
+                      taxonomy:
+
+                        <CAMPAIGN> · <IDEA> · <SCOPE>
+                        <causal reason>
 
                       STATUS: exactly one of SUPPORTED / FALSIFIED /
-                      INCONCLUSIVE, this capitalization, always the first
-                      word — the Popperian charter's own vocabulary,
-                      non-negotiable.
-
-                      Optional STATUS flag: (RETRACTED) when evidence that
-                      once supported this verdict was later found wrong
-                      (a continuum re-check, a corrected formula, etc. —
-                      the ORIGINAL verdict stood at the time on the
-                      evidence then available); (DISQUALIFIED) when the
-                      evidence still stands unchallenged but doesn't count
-                      per the apples-to-apples/novelty contract (a real
-                      number, wrong physical mechanism or not genuinely
-                      novel); (SUPERSEDED) (added 2026-08-06) when the
-                      evidence was right AND did count at the time, and
-                      the CONTRACT ITSELF has since changed in a way that
-                      could alter the conclusion — see the "How the rules
-                      changed" slide. It reads as "re-test me", not "I was
-                      wrong". Never use more than one — pick whichever
-                      actually happened.
-
-                      (SUPERSEDED) is the ONE flag that does NOT collapse
-                      PRACTICAL to DEAD-END: a superseded verdict's
-                      practical reality is genuinely unknown until it is
-                      re-tested, so PRACTICAL becomes the honest tag —
-                      MIXED where partial evidence survives the rule
-                      change, UNTESTABLE where the old result cannot speak
-                      to the new question at all. Only apply it after an
-                      explicit per-slide triage (does the specific rule
-                      that changed actually bear on THIS verdict?), never
-                      as a blanket stamp across the deck: a design
-                      falsified on strain, on slenderness, or for being a
-                      folding linkage is untouched by the 2026-08-06
-                      change and keeps its verdict unflagged.
-
-                      A design actually RE-TESTED under a new contract
-                      earns a NEW numbered slide whose Origin bullet names
-                      the superseded slide it descends from. Never edit an
-                      old verdict's STATUS to match a new contract — the
-                      record is append-only, because a verdict was a
-                      correct call under the rules of its own time and
-                      rewriting it destroys the audit trail future readers
-                      depend on.
+                      INCONCLUSIVE — the Popperian charter's own
+                      vocabulary, non-negotiable, always the first word.
+                      Optional flag: (RETRACTED) when evidence that once
+                      supported this verdict was later found wrong (the
+                      original verdict stood correctly at the time);
+                      (DISQUALIFIED) when the evidence still stands but
+                      doesn't count per the apples-to-apples/novelty
+                      contract; (SUPERSEDED) when the evidence was right
+                      AND counted at the time, but the contract itself
+                      has since changed in a way that could alter the
+                      conclusion ("re-test me", not "I was wrong"). Never
+                      more than one flag.
 
                       PRACTICAL: exactly one of WORKS / DEAD-END / WEAK /
-                      MIXED / UNTESTABLE — always the CURRENT, FINAL
-                      answer to "does this actually help build a real
-                      printable supercompressible mast", independent of
-                      STATUS and independent of how large a disqualified/
-                      retracted number looked. A (RETRACTED) or
-                      (DISQUALIFIED) verdict is ALWAYS practically
-                      DEAD-END, full stop, regardless of the raw figure —
-                      collapsing "big number, doesn't count" into anything
-                      but DEAD-END is exactly the confusion this format
-                      exists to prevent.
+                      MIXED / UNTESTABLE — the CURRENT, FINAL answer to
+                      "does this actually help build a real printable
+                      supercompressible mast", independent of STATUS. A
+                      (RETRACTED) or (DISQUALIFIED) verdict is ALWAYS
+                      practically DEAD-END, full stop, regardless of the
+                      raw figure.
                         WORKS      — mechanism is real, helps, no
                                      disqualifying flag.
                         DEAD-END   — mechanism doesn't help, actively
                                      hurts, or the disqualifying flag
                                      above applies.
-                        WEAK       — mechanism is real (physically/
-                                     statistically demonstrated) but the
-                                     effect is far below the target.
-                        MIXED      — inconsistent across designs (some
-                                     pass, some don't) with no reliable
-                                     predictive pattern — not a clean
-                                     dead end, not a clean win.
+                        WEAK       — mechanism is real but the effect is
+                                     far below the target.
+                        MIXED      — inconsistent across designs, no
+                                     reliable predictive pattern.
                         UNTESTABLE — the registered hypothesis was never
-                                     validly put to a test at all, whether
-                                     a hard software-capability gap or a
-                                     methodology bug (e.g. a mis-specified
-                                     constraint) that invalidated the
-                                     search before it started.
+                                     validly put to a test at all.
 
-                      Reason line(s): causal explanation only, same bar as
-                      before — WHY the mechanism did or didn't work, not a
-                      restatement of the status. "FALSIFIED · DEAD-END —
-                      no folded regime exists" is circular (that restates
-                      the tags, not a reason); "FALSIFIED · DEAD-END — the
-                      wall thickness needed for local stability is the
-                      same feature that sets the strain floor" is a
-                      reason. Don't repeat the baseline number or other
-                      Stats-bullet content here. Still state negative
-                      results as plainly and confidently as positive ones.
+                      CAMPAIGN (D24-and-later taxonomy): did the search
+                      actually reach the mechanism with trustworthy
+                      numerics? One of POWERED (real n, right regime,
+                      trustworthy — unmarked/implicit when clearly true)
+                      / UNDERPOWERED (real data, but n too small or short
+                      of the discriminating regime) / BLOCKED (a
+                      solver/numerical wall, or the mechanism never
+                      engaged, prevented a fair test) / ARTIFACT (what
+                      was measured is now known contaminated by a
+                      specific bug, pending re-solve).
 
-                      TAG FORMAT SUPERSEDED 2026-08-27 (advisor session) for
-                      D25-D43: STATUS &middot; PRACTICAL replaced by
-                      CAMPAIGN &middot; IDEA &middot; SCOPE, because
-                      PRACTICAL was answering two different questions at
-                      once — "did the search reach the mechanism" and
-                      "should a future agent revisit this" — and letting a
-                      thin or blocked campaign borrow the same word
-                      ("DEAD-END") as a properly-tested one made the
-                      earlier tags read as more decisive than the
-                      underlying evidence supported. This is NOT a rewrite
-                      of any verdict's substance (append-only rule 7
-                      still applies) — it's the same conclusions, in a
-                      format that separates two questions that were always
-                      distinct:
+                      IDEA: given everything now known, what should a
+                      future agent DO about this mechanism? One of
+                      VALIDATED (real, trust it, build on it) / REFUTED
+                      (tested with real power, the physical direction
+                      argues against it) / FERTILE-PARAMETRIC (this point
+                      failed, untried territory in the SAME design space
+                      might not) / FERTILE-REWORK (the theme is sound,
+                      this embodiment is the wrong vehicle — build a
+                      different realization) / UNKNOWN-NO-EVIDENCE (the
+                      campaign never actually produced information about
+                      the mechanism itself). Exactly ONE IDEA value per
+                      slide — if a slide seems to need two, split it
+                      (rule 1).
 
-                        CAMPAIGN: did the search actually reach the
-                        mechanism with trustworthy numerics? One of
-                        POWERED (real n, right regime, trustworthy —
-                        unmarked/implicit when clearly true, per rule 3c's
-                        own economy-of-signal convention) / UNDERPOWERED
-                        (real data, but n too small or short of the
-                        discriminating regime) / BLOCKED (a solver/
-                        numerical wall, or the mechanism itself never
-                        engaged, prevented a fair test) / ARTIFACT (what
-                        was measured is now known contaminated by a
-                        specific bug, pending re-solve).
+                      SCOPE: a short noun phrase naming EXACTLY which
+                      claim IDEA is judging — never the whole family
+                      name. "ring-radius growth", not "compliant rings".
 
-                        IDEA: given everything now known, what should a
-                        future agent DO about this mechanism? One of
-                        VALIDATED (real, trust it, build on it) / REFUTED
-                        (tested with real power, the physical direction
-                        argues against it — not just "no design found")
-                        / FERTILE-PARAMETRIC (this point failed, untried
-                        territory in the SAME design space might not) /
-                        FERTILE-REWORK (the underlying theme is sound, this
-                        specific embodiment is the wrong vehicle — a future
-                        agent should build a different realization, not
-                        re-tune this one) / UNKNOWN-NO-EVIDENCE (the
-                        campaign never actually produced information about
-                        the mechanism itself — results are the control, not
-                        the tested feature).
+                      Reason line(s): causal explanation only — WHY the
+                      mechanism did or didn't work, not a restatement of
+                      the status, and not a repeat of the Stats bullet's
+                      own numbers.
 
-                        Exactly ONE IDEA value per slide, always — if a
-                        slide seems to need two, that's the tell it's
-                        actually two ideas, and rule 1 already says split
-                        it (a genuinely untested adjacent variant is a
-                        pointer in Seed for a FUTURE hypothesis, not a
-                        second tag on this one).
+                      APPEND-ONLY: never edit an old verdict's STATUS or
+                      words to match new evidence or a new contract — the
+                      record is append-only, because a verdict was a
+                      correct call under the rules/evidence of its own
+                      time and rewriting it destroys the audit trail
+                      future readers depend on. New evidence earns a new
+                      D<n>-<k> slide (rule 1), whose Origin names what
+                      prompted it. Reformatting an existing slide's
+                      STRUCTURE (e.g. migrating an old free-form restudy
+                      into this template) is allowed and does not violate
+                      append-only, provided no number and no conclusion
+                      changes — the policy protects a verdict's WORDS,
+                      not the container carrying them.
 
-                        SCOPE: a short noun phrase (not a sentence), naming
-                        EXACTLY which claim IDEA is judging — never the
-                        whole family name. "ring-radius growth", not
-                        "compliant rings"; "this 2-storey architecture", not
-                        "multi-storey masts". This is what stops a narrow,
-                        well-earned negative from reading as a verdict on
-                        the whole idea space.
+                      D24-D43-and-later slides use CAMPAIGN·IDEA·SCOPE.
+                      Older slides keep STATUS·PRACTICAL until someone
+                      has reason to re-derive them individually — never
+                      mass-convert on a find/replace, since CAMPAIGN and
+                      IDEA require actually re-checking what was tested.
 
-                      Where a slide's own comparability question is
-                      genuinely unresolved (does this result mean something
-                      beyond a property the reference floor itself already
-                      has?), that's a `novel:` question (Stats bullet, rule
-                      3c) — see D42, still open as of this writing — not a
-                      reason to weaken IDEA into a hedge.
+2a. ABLATION / CONTROL FAIRNESS (added 2026-08-30, after a real miss this
+    same session). When a slide claims a mechanism "is responsible for"
+    a reading via a with/without comparison, the ablated/control
+    baseline MUST be a minimal, non-cherry-picked reference — never this
+    study's own best-known incumbent design, chosen for reasons unrelated
+    to the mechanism under test. A design that reads "with insert: X, without
+    insert: Y, therefore the insert does/doesn't matter" is only a fair
+    test if "without insert" is a plain, unremarkable version of the
+    host — not the single best design the whole study has ever found. If
+    a literal "start from the study's actual reference baseline (e.g.
+    circular Bessa) + this mechanism" comparison isn't buildable at all —
+    for instance because the mechanism structurally requires a cross-
+    section family the reference baseline doesn't use — that must be
+    stated plainly in the slide's own notes, not silently sidestepped by
+    comparing against whatever already-optimized design the mechanism
+    happened to be grafted onto. See D24-3's own Verdict/notes for the
+    worked example this rule is grounded in.
 
-                      D24-D43 use this format now. Older slides (pre-D25)
-                      keep STATUS &middot; PRACTICAL until someone has
-                      reason to re-derive them individually — do not mass-
-                      convert on a find/replace, since CAMPAIGN and IDEA
-                      require actually re-checking what was tested, not a
-                      word-substitution table.
-     (e) Seed      — RETIRED as a visible bullet, 2026-08-24 (was: OPTIONAL
-                      5th bullet, added 2026-08-08). Rule 3 is now strictly
-                      the 4 bullets (a)-(d) above; Seed MOVED to the
-                      speaker notes — see rule 9, which is now the sole
-                      canonical definition of Seed's semantics and
-                      FERTILE/BARREN vocabulary. Reason for the move: rule
-                      3's own character budget (below) is a hard ceiling on
-                      the visible column, and Seed's content is a forward-
-                      looking research-strategy note, not part of reporting
-                      what this experiment found — it reads naturally as
-                      the first thing in the notes, not a 5th squeeze on
-                      the slide face. A slide still carrying Seed as a
-                      visible bullet is simply not yet migrated (rule 9's
-                      linter WARNS, does not block); move it down on next
-                      edit.
+2b. NOVELTY, TWO KINDS (added 2026-08-30). The Stats bullet's `novel:`
+    field and the Verdict's SCOPE must distinguish which kind of novel is
+    being claimed, whenever the distinction matters:
+      MECHANISM NOVELTY  — a genuinely new physical principle, never
+                            applied to this rocking-mast problem before.
+                            This is the strong bar PROBLEM_STATEMENT.md's
+                            "Challenge" section actually asks for.
+      POSITIONAL/PARAMETRIC NOVELTY — an already-tried mechanism,
+                            relocated, retuned, or re-combined (e.g. the
+                            same bistable insert moved from near a ring
+                            joint to mid-span). Real, useful, evidenced —
+                            but it does NOT by itself satisfy the strong
+                            novelty bar, and a slide must say so rather
+                            than let a positional finding read as if it
+                            were a new mechanism. If a future agent could
+                            reasonably ask "haven't we already tried this
+                            mechanism?", the honest answer belongs on the
+                            slide, not just in the notes.
 
-3a-VIS. RIGHT-COLUMN MEDIA — codified 2026-08-30 (was never written down; this
-        gap let a real requirement get skipped twice in the same session
-        before it was caught). This is NOT a new requirement -- rule 1's own
-        opening line already says it ("the first time it's tested with real
-        data, you see its compression video") -- this entry exists because
-        that line alone wasn't enough to stop it being missed.
+2c-VIS. RIGHT-COLUMN MEDIA (codified 2026-08-30; this rule existed as an
+        idea but was never written down before this date — the gap let a
+        real requirement get skipped twice in one session before it was
+        caught, and is now also enforced by `lint_slides.py`, see below).
 
-        A compression video is REQUIRED, not optional, for the first slide
-        reporting a genuinely new idea or a substantial restudy, whenever the
-        design underwent real, visible deformation. The ONLY valid exception
-        is a design whose own real deformation is visually indistinguishable
-        from undeformed (e.g. a design that fails at ~3% compression) -- and
-        that exception must be STATED, not silently defaulted to. "No render
-        yet, ask if you want one built" is NEVER an acceptable substitute for
-        an actually-required video: if a real solved ODB exists, render it;
-        if the video would show nothing, say why in one sentence, in the
-        SAME visual slot the video would occupy.
+        A compression video is REQUIRED, not optional, for the first
+        slide reporting a genuinely new idea or ANY D<n>-<k> revisit,
+        whenever the design underwent real, visible deformation. The
+        ONLY valid exception is a design whose own real deformation is
+        visually indistinguishable from undeformed (e.g. failure at ~3%
+        compression) — and that exception must be STATED, not silently
+        defaulted to, in the same visual slot the video would occupy.
+        "No render yet, ask if you want one built" is NEVER an
+        acceptable substitute: if a real solved ODB exists, render it.
 
-        A real sigma-vs-compression chart (mini.png, the grey-to-red
-        LineCollection convention with per-frame o/x markers -- see any
-        existing `*_mini.png` for the exact style, log-scale y-axis when the
-        dynamic range spans more than ~1 order of magnitude, e.g. a
-        numerical-spike comparison) is REQUIRED alongside the video whenever
-        a chart would show something the video's own caption can't -- most
-        commonly: a two-design comparison (with/without a mechanism, before/
-        after a fix, genuine/ambiguous), or a stress history the reader would
-        otherwise have to take on faith from the Stats bullet's numbers
-        alone. This grew as an emergent, un-codified pattern across many
-        slides (D28, D31, D35, D38, D40 revisited, ...) via one-off user
-        requests before being written here -- it is now the standing rule,
-        not merely precedent to notice if you happen to look.
+        A real sigma-vs-compression chart (`*_mini.png`, the grey-to-red
+        LineCollection convention with per-frame o/x markers, log-scale
+        y-axis when the dynamic range spans more than ~1 order of
+        magnitude) is REQUIRED alongside the video whenever a chart would
+        show something the caption can't — most commonly a two-design
+        comparison (with/without a mechanism, before/after a fix,
+        genuine/ambiguous) or a stress history the reader would otherwise
+        have to take on faith from the Stats numbers alone.
 
-3b. RESTUDY-SLIDES (`class: restudy-slide`) — codified 2026-08-23, not new
-    practice. A restudy-slide reports a follow-up test of an idea that
-    ALREADY has its own idea-slide (Rule 1's "genuinely new" bar wasn't
-    met, so no new D-number, but the follow-up is substantial enough to
-    earn more than a run-summary bullet). It is NOT an idea-slide with
-    different labels — the two report structurally different things: an
-    idea-slide introduces a mechanism from nothing (What/Origin/Stats/
-    Verdict); a restudy-slide reports a DELTA against an already-stated
-    baseline, so re-stating Origin is redundant and "what" becomes "what
-    changed". Three bullets, this exact order, this exact wording (was
-    four through 2026-08-24; Seed moved to the speaker notes alongside
-    idea-slides' own — see rule 9, and rule 3(e)'s note on why):
+        `lint_slides.py` WARNS (does not block) when an idea-slide's
+        right column has no `<img>` reference to a `.gif`/`.png` at all —
+        this catches an entirely missing media slot mechanically, though
+        it cannot judge whether a chart is needed for a given slide's
+        own comparison; that judgment stays a review-time call.
 
-      What changed    — the specific change from the original slide's own
-                         setup (new infra, a wider/narrower search box, a
-                         fixed bug) — one to two sentences, not a re-telling
-                         of the original idea.
-      What was tested — the actual campaign: n, method, what was held
-                         fixed. Same funnel-honesty bar as an idea-slide's
-                         Stats bullet, free prose rather than the fixed
-                         format (a restudy's "was it enough" question is
-                         usually about ONE parameter/direction, not a full
-                         6-line data readout).
-      Result          — the finding, plain language, same STATUS-then-
-                         reason discipline as an idea-slide's Verdict
-                         (state the practical outcome first, causal
-                         explanation second).
+3. THE PLAIN-LANGUAGE BAR (applies to all 4 bullets): no unexplained
+   jargon in the visible slide body. A bare "ρ" or "r", an unglossed
+   "magnitude ratio", or a made-up proper noun for a parameter sub-range
+   does not belong on the slide face — a reader with no solid-mechanics
+   or statistics background must parse every bullet without asking "what
+   does that mean?". Two ways to satisfy this: (1) speak in
+   physical/outcome terms instead of the underlying statistic — this is
+   preferred; or (2) if a technical term is unavoidable on-slide, define
+   it in the same clause the first time it appears. Reserve ρ/r/p-values
+   for speaker notes. Everything else — reasoning, caveats, provenance
+   history, full parameter dumps, technical asides — MUST go in the
+   slide's Slidev speaker notes (an HTML comment immediately after the
+   slide content, before the next `---`), never in the slide body. (Do
+   not write that comment's own open/close delimiters literally inside
+   THIS contract comment — a literal closing sequence anywhere in this
+   text terminates the contract comment itself early.)
 
-    This was already the majority practice (D25 revisited/tape-spring,
-    D21 revisited, D17&D20&D26 revisited, D33 revisited, D25 revisited
-    (twist)) before it was written down here — this entry documents
-    existing convention, it does not introduce a new one. "Kresling
-    revisited" predated this convention (5 free-form bullets, no Seed) and
-    was migrated to the template 2026-08-24 — the append-only policy
-    protects a verdict's WORDS from being rewritten, not the bullet
-    structure carrying them; reformatting existing findings into the
-    fixed template changes no number and no conclusion.
-
-   PLAIN-LANGUAGE BAR (applies to all 4 bullets): no unexplained jargon in
-   the visible slide body. Terms like a bare "ρ" or "r" (correlation/
-   regression coefficients), an unglossed "magnitude ratio", or a made-up
-   proper noun like "corridor" for a parameter sub-range do not belong on
-   the slide face — a reader with no solid-mechanics or statistics
-   background must be able to parse every bullet without asking "what does
-   that mean?". Two ways to satisfy this: (1) speak in physical/outcome
-   terms instead of the underlying statistic (percentages, physical units,
-   plain descriptions of a design region) -- this is preferred; or (2) if a
-   technical term is unavoidable on-slide, define it in the same clause the
-   first time it appears. Reserve ρ/r/p-values and similar for speaker
-   notes, where a reader who wants the underlying statistics can find them.
-   Everything else — reasoning, caveats, provenance history, full parameter
-   dumps, technical asides — MUST go in the slide's Slidev speaker notes (an
-   HTML comment immediately after the slide content, before the next
-   `---`), never in the slide body. (Do not write that comment's own open/
-   close delimiters literally inside THIS contract comment — a literal
-   closing sequence anywhere in this text terminates the contract comment
-   itself early, dumping the rest of it as visible text on whichever slide
-   holds it.)
-
-   CHARACTER BUDGET, measured not guessed (2026-07-31): this deck's
-   canvas is 980x552px. Rendered headlessly (playwright, real DOM, real
-   font metrics) at `layout: two-cols-header` + a `text-sm leading-snug`
-   wrapper on the bullet list, the left column has 416px of usable height
-   below the header, at a measured line-height of 25.2px -> a hard ceiling
-   of ~16.5 lines total across all 4 bullets before the column overflows
-   the canvas (verified: content taller than this clips silently, no
-   scroll, no auto-shrink — Slidev does not fit content to the frame).
-   Measured wrap rate in the deck's actual body font at this size is ~62
-   characters/line in the ~419px-wide left column. Target ~14-15 lines
-   total (small margin under the 16.5-line ceiling for cross-browser font
-   rendering variance) => a working budget of ~190 characters PER BULLET,
-   INCLUDING the bold label ("**Stats:** "). This is a target, not a
-   license — a bullet at exactly 190 characters with 3 other bullets also
-   at 190 will overflow; distribute the ~14-15 line total across the 4
-   bullets by how much each one actually needs, and cut real content into
-   speaker notes rather than let any slide clip. Re-verify after edits: the
-   only trustworthy check is rendering the built deck and measuring
-   `scrollHeight` vs the 552px canvas — reading the markdown is not
-   sufficient, wrapping depends on real font metrics.
+   CHARACTER BUDGET, measured not guessed: this deck's canvas is
+   980x552px. Rendered headlessly at `layout: two-cols-header` + a
+   `text-sm leading-snug` wrapper, the left column has 416px of usable
+   height below the header, at a measured line-height of 25.2px -> a
+   hard ceiling of ~16.5 lines total across all 4 bullets (content
+   taller than this clips silently — Slidev does not fit content to the
+   frame). Measured wrap rate is ~62 characters/line in the ~419px-wide
+   left column. Target ~14-15 lines total => a working budget of ~190
+   characters PER BULLET, INCLUDING the bold label. This is a target,
+   not a license — distribute the ~14-15 line total across the 4 bullets
+   by how much each one actually needs, and cut real content into
+   speaker notes rather than let any slide clip. Re-verify after edits:
+   the only trustworthy check is rendering the built deck and measuring
+   `scrollHeight` vs the 552px canvas (`assets/_m6.mjs`) — reading the
+   markdown is not sufficient, wrapping depends on real font metrics.
 
 4. GIF REQUIREMENT: NATIVE ABAQUS/CAE VIEWER EXPORT ONLY.
    The right half of the two-column layout is one image or GIF exported
-   NATIVELY from Abaqus/CAE's own Viewer/visualization module
-   (session.viewports[...].odbDisplay, session.printToFile per frame) —
-   never the matplotlib/COORD-field-reconstruction pipeline used elsewhere
-   in this repo (presentation/render/extract_odb.py + render_frames.py).
-   The point is source truth directly from the simulation tool, with no
-   custom re-derivation of geometry between the ODB and the image. The
-   renderer lives at presentation/render/render_odb.py. Known gotchas,
-   solved once and documented here so nobody has to rediscover them a third
-   time:
+   NATIVELY from Abaqus/CAE's own Viewer/visualization module — never
+   the matplotlib/COORD-field-reconstruction pipeline used elsewhere in
+   this repo. The point is source truth directly from the simulation
+   tool, with no custom re-derivation of geometry between the ODB and
+   the image. The renderer lives at presentation/render/render_odb.py.
+   Known gotchas, solved once and documented here so nobody has to
+   rediscover them a third time:
      1. `vp.setValues(displayedObject=odb)` raises "TypeError:
         displayedObject; found Odb, expecting StubType" unless
-        `from viewerModules import *` is imported first — that import
-        registers the visualization kernel plugin that recognizes an Odb as
-        a displayable stub. Opening the odb and reading data from it works
-        fine without this import; only *displaying* it needs it.
-     2. This study's rings have NO solid geometry at all — each is a 0-D
-        reference point (see PROBLEM_STATEMENT.md's Simulator behaviour
-        section) — and the model's `ANALYTICAL_SURF` instance is an
-        oversized, idealized rigid plane used only for the Riks boundary
-        condition/coupling, not physical ring geometry; left visible it
-        fills the frame and hides the actual longerons. Fix: restrict the
-        display group to the actual structural (beam-element) instance via
-        `displayGroupOdbToolset.LeafFromPartInstance`. We also checked
-        whether the model's bare reference-point nodes could stand in as an
-        honest "here's the ring" marker — they can't: they sit well outside
-        the mast's own z-extent (load-application points, not ring-plane
-        markers), so we don't render them. If a future ODB genuinely has no
-        faithful way to show ring position, say so in the speaker notes
-        rather than fabricate ring geometry that isn't in the simulation.
-     3. `renderStyle=FEATURE` is not a valid Abaqus constant — use `SHADED`.
+        `from viewerModules import *` is imported first.
+     2. This study's rings have NO solid geometry — each is a 0-D
+        reference point — and `ANALYTICAL_SURF` is an oversized,
+        idealized rigid plane for the Riks BC, not physical ring
+        geometry; left visible it fills the frame. Fix: restrict the
+        display group to the structural (beam-element) instance via
+        `displayGroupOdbToolset.LeafFromPartInstance`. If a future ODB
+        genuinely has no faithful way to show ring position, say so in
+        the speaker notes rather than fabricate ring geometry.
+     3. `renderStyle=FEATURE` is not a valid Abaqus constant — use
+        `SHADED`.
      4. B31 beam elements render as bare centerline wireframe unless
         `vp.odbDisplay.basicOptions.setValues(renderBeamProfiles=ON)` is
-        set — note `basicOptions`, not `commonOptions`.
-     5. Colour the model by a physically meaningful field, not an
-        unexplained default — this study lives or dies on local bending
-        strain, so contour on `E`, component `E11`
-        (`setPrimaryVariable(variableLabel='E',
-        outputPosition=INTEGRATION_POINT, refinement=(COMPONENT, 'E11'))`),
-        with the legend left ON (`viewportAnnotationOptions(legend=ON)`). If
-        colour carries no data meaning, turn it off entirely — never leave
-        it unexplained. CONFIRMED on a second family (2026-07-30, the tape-spring
-        S4R shell ODB, `data/idea_odbs/20260730T020245_H2_tape_spring/`):
-        that ODB has no `E` field output at all — only `LE` (plus `S`,
-        RF/RM/U/UR, COORD, contact vars, since self-contact is enabled for
-        this family). The script's existing try-E-else-LE fallback (already
-        built for the pin-jointed tensegrity truss, which has no bending
-        strain field either) picked `LE11` automatically with zero code
-        change and rendered correctly. So this is not strictly a
-        beam-vs-shell split — it's whichever field the family's own
-        pre/post-processor actually requested — but it's now exercised by
-        two structurally different families, which is why the fallback
-        stays generic (probe the ODB's own fieldOutputs, never hardcode by
-        element type). If colour carries no data meaning at all, turn it
-        off entirely — never leave an unexplained colour on a research
-        slide.
-     6. Camera: Abaqus's generic `session.views['Iso']` preset does NOT
-        reliably give a usable angle for this mast geometry (it can render
-        nearly edge-on). Compute an explicit camera from the structural
-        instance's own bounding box — an elevated 3/4 view (elev=22°,
-        azim=-50°, z-up, parallel projection) matches the look of this
-        deck's existing matplotlib gifs and reliably reads the rings as
-        near-horizontal arcs. Held fixed across all frames (fit once on the
-        first/undeformed frame) so any visible rotation in the gif is the
-        structure's own real coiling motion, not an artificial orbiting
-        camera.
-     7. Legend placement/size: the default legend renders bottom-left-of-
-        center at full size and overlaps the model. Move it clear of the
-        geometry into the top-right corner with
-        `viewportAnnotationOptions.setValues(legendPosition=(x, y))` (x/y
-        are percent of the viewport; tune per canvas aspect so the box
-        doesn't clip off the edge — e.g. (60, 97) worked for a 2:3 portrait
-        canvas) and shrink it to fit
-        (`contourOptions.setValues(numIntervals=6)`, a smaller
-        `legendFont`, `legendNumberFormat=SCIENTIFIC`,
-        `legendDecimalPlaces=2`). Trap: several of these `setValues()` calls
-        succeed silently even when a value/kwarg is subtly wrong for the
-        current view — a call not raising is not proof the pixels moved.
-        Always re-render and LOOK at the PNG after any legend/camera tweak.
-     8. Portrait canvas: this sits in the right half of a two-column slide,
-        and the mast is tall and thin, so render portrait (~2:3
-        width:height, e.g. 600x900), not square — set the viewport's own
-        `width`/`height` (matching the target aspect) BEFORE calling
-        `fitView()`, and set `session.pngOptions.setValues(imageSize=...)`
-        to the same aspect, or Abaqus letterboxes/distorts the frame.
-     9. Ring annotation: this study's rings have NO simulated geometry to
-        natively render (gotcha 2) — but we DO know which longeron end
-        nodes are each ring's joints (identified once from the undeformed
-        mesh: the nodes at the structural instance's own z-min/z-max). A
-        smooth circle drawn through those joints' CURRENT positions is an
-        honest schematic, not fabricated output, because every point it
-        passes through is a real, currently-solved node position. Draw it
-        entirely OUTSIDE Abaqus, in a PIL post-process pass over each
-        exported PNG (never mixed into the ODB's own displayGroup), as a
-        thin DASHED, semi-transparent, neutral-gray circle with an explicit
-        "ring (schematic)" text label — visually nothing like the solid
-        shaded/strain-colored beam profiles, so it can never be mistaken for
-        simulated output. To make the overlay line up with Abaqus's own
-        render, replay its camera: read back
-        `vp.view.width`/`.cameraPosition`/`.cameraTarget`/`.cameraUpVector`
-        (readable attributes after any view change, incl. after
-        `fitView()`) and build a standard orthographic camera basis
-        (forward = normalize(target-position); right =
-        normalize(cross(forward, upVector)); screenUp = cross(right,
-        forward)).
-        — **A WRONG FIRST ATTEMPT, recorded precisely so it isn't repeated:**
-        the first version computed each ring's 3-D circle ONCE outside the
-        frame loop, from `inst.nodes[i].coordinates`, then reused that same
-        static geometry for every output frame. `node.coordinates` is
-        ALWAYS the UNDEFORMED mesh position — calling
-        `vp.odbDisplay.setFrame(...)` changes what Abaqus's viewport
-        DISPLAYS, it does not change what a direct node-coordinate query
-        returns. Result: the ring silently stayed frozen at the structure's
-        initial position for the whole animation while the real,
-        natively-rendered longeron geometry visibly coiled and compressed —
-        invisible in early frames (little deformation yet), obviously wrong
-        by mid/late compression, and exactly the kind of bug that looks fine
-        in a spot-check of frame 0 and wrong to a user looking at the actual
-        gif. THE FIX: read each frame's `fieldOutputs['COORD']` (current
-        nodal position — the same technique used elsewhere in this study's
-        ODB analyses) for the joint node labels, INSIDE the per-frame loop,
-        and refit the ring's center/in-plane orientation/radius from those
-        current positions every single frame (a best-fit circle through the
-        current joint points via their centroid + a normal from two edge
-        vectors, not a rigid horizontal circle — a ring can translate,
-        rotate and tilt between frames). Do not assume which ring (if
-        either) is fixed: check via COORD. In this model the bottom ring
-        turned out to stay exactly fixed (a Riks BC artifact of this
-        particular model, not a general rule) while the top ring
-        translates, rotates, and its z can cross past the bottom ring's
-        plane by full compression — both are still recomputed from COORD
-        every frame regardless, on principle, not because we assumed one
-        was static. General rule worth keeping: for ANY animated overlay
-        that isn't Abaqus's own native per-frame render, recompute its
-        geometry from field-output data inside the frame loop — never from
-        a node/mesh attribute read once outside it.
+        set (`basicOptions`, not `commonOptions`).
+     5. Colour by a physically meaningful field, not an unexplained
+        default — contour on `E11` where it exists
+        (`setPrimaryVariable(variableLabel='E', outputPosition=
+        INTEGRATION_POINT, refinement=(COMPONENT, 'E11'))`), legend ON.
+        Probe the ODB's own fieldOutputs and fall back to `LE11` when
+        `E` doesn't exist (shells, pin-jointed trusses) — never hardcode
+        by element type. If colour carries no data meaning, turn it off
+        entirely.
+     6. Camera: the generic `session.views['Iso']` preset does not
+        reliably give a usable angle for this mast geometry. Compute an
+        explicit camera from the structural instance's own bounding box
+        (elev=22°, azim=-50°, z-up, parallel projection), held fixed
+        across all frames (fit once on frame 0) so any visible rotation
+        is the structure's own real coiling motion.
+     7. Legend placement/size: move it clear of the geometry
+        (`viewportAnnotationOptions.setValues(legendPosition=(x, y))`,
+        percent of viewport, tuned per canvas aspect) and shrink it to
+        fit (`numIntervals=6`, smaller `legendFont`,
+        `legendNumberFormat=SCIENTIFIC`, `legendDecimalPlaces=2`). A
+        `setValues()` call not raising is not proof the pixels moved —
+        always re-render and LOOK at the PNG after any legend/camera
+        tweak.
+     8. Portrait canvas (~2:3, e.g. 600x900) for the default layout;
+        LANDSCAPE mode (design-left, legend-right, 900x600) is the
+        newer, preferred layout for designs wider than they are tall —
+        set the viewport's own `width`/`height` BEFORE `fitView()`, and
+        after `fitView()`, project the design's own full-animation
+        bounding box through the fitted camera basis and zoom out if the
+        design's real screen-space half-width would leave less margin
+        than the legend's own share of the canvas needs (a fixed-
+        geometry family this was tuned against will get a no-op; a
+        wider family gets the margin it needs).
+     9. Ring annotation: draw a schematic circle through each ring's
+        joint nodes' CURRENT positions (read from `fieldOutputs['COORD']`
+        INSIDE the per-frame loop, never from a node/mesh attribute read
+        once outside it — `node.coordinates` is always the UNDEFORMED
+        position). Draw entirely OUTSIDE Abaqus in a PIL post-process
+        pass, as a thin dashed, semi-transparent, neutral-gray circle —
+        visually nothing like the solid shaded/strain-colored beam
+        profiles, never mixed into the ODB's own displayGroup, no
+        in-image text label (the styling itself is the signal). Recompute
+        from field-output data every single frame, for ANY animated
+        overlay that isn't Abaqus's own native per-frame render — never
+        assume which ring (if either) is fixed; check via COORD.
    No-winner convention: always show a faithful native-Abaqus image of a
    TYPICAL (not necessarily the single best) design from that idea's
    search — never leave an empty image slot for a negative result.
 
-5. ORDERING: anti-chronological across runs (most recent run first). WITHIN
-   a run: the run-summary slide comes FIRST, then that run's own idea
-   slide(s) immediately after it (the overview before the deep dive) --
-   fixed 2026-07-31 (was backwards: idea slide(s) then summary). Any
-   speaker-note text that says "see the idea slide above" from a
-   run-summary slide is WRONG under this ordering; it must say "below".
-
-6. LAYOUT DIRECTIVE: `layout: two-cols-header`, NOT `layout: two-cols`.
-   Under plain `two-cols`, the `# Title` line lives inside the split and
-   only spans the LEFT column's half-width — a real bug found 2026-07-31
-   (title rendered squeezed into ~45% of the slide). `two-cols-header`
-   gives the title its own full-width row above the split; the body below
-   still needs explicit `::left::` then `::right::` markers (unlike plain
-   `two-cols`, which treats everything before `::right::` as the left
-   column implicitly). Wrap the left column's bullet list in
-   `<div class="text-sm leading-snug">...</div>` — this is the font size
-   the character budget in rule 3 is calibrated against; do not silently
-   change the font size class without re-measuring the budget (see rule 3).
-
-7ter. RUN COST (enforced 2026-08-10). Every run summary states what the run
-   cost in USD. It is the only number that makes "was this run worth it"
-   answerable, and the runs are not uniform — $20.68 to $54.45 across the
-   last six at comparable wall clock. WARNING only; the 22 older summary
-   slides are not retrofitted.
-   **The number is not simply telemetry's total.** `summary.json` omits the
-   strategizer — its persistent adapter never reports usage, so run
-   `20260809T230403` logged `total_cost_usd: None` / 1 call / 0 tokens for
-   the node that wrote 9 hypotheses off a 1.1 MB transcript. Every recorded
-   total therefore UNDERSTATES the run. Recover the strategizer's spend from
-   `debug/transcripts/strategizer/*.jsonl` (`cost_usd` per event) and add it
-   back: $54.45 recorded + $1.58 strategizer = $56.03 actual.
-
-7bis. SUMMARY-SLIDE `Idea` COLUMN (enforced 2026-08-10). Each row of a run
-   summary's hypothesis table ends with an `Idea` cell naming the idea
-   slide(s) that row produced. Two checks, because both halves failed once:
-   a `D<n>` that has no `# D<n>` slide is a BLOCKING error (a dangling
-   pointer), and a cell carrying PROSE instead of a D-number is a warning.
-   The prose case is the one that actually happened: run `20260809T230403`
-   tested the leaf-spring family, falsified it, and its summary row said
-   "archived" because nobody had written the slide — so a genuinely new
-   family became invisible to the next reader. One slide per genuinely new
-   idea REGARDLESS OF VERDICT; a family that FAILED is precisely what stops
-   it being re-proposed. A bare dash is correct and common: a hypothesis
-   about the whole design space has no idea slide of its own.
-
-8. RE-STUDY SLIDES (`class: restudy-slide`, added 2026-08-08).
-   When a design is re-tested under a changed contract, rule 7(d) says the
-   record is append-only and the re-test earns its own slide. But a re-test
-   is not a new IDEA, and forcing it into What/Origin/Stats/Verdict
-   misrepresents it — most re-tests establish that a family is now
-   TESTABLE without yet testing it, and inventing a Verdict for that would
-   be a lie with a fixed vocabulary.
-
-   So a re-study gets `class: restudy-slide` and these fields instead:
-     - **What changed:** the infrastructure change that made a re-test
-       possible at all.
-     - **What was tested:** exactly what ran, with its power. If one design
-       ran, say one design.
-     - **Result:** what is now known — including "nothing yet" where that
-       is the truth.
-     - **Seed:** as rule 3(e).
-
-   DELIBERATELY NOT LINTED. `lint_slides.py` keys its idea-slide checks on
-   `class: idea-slide`, so this class is ignored with no extra code, which
-   is the intent: these are the exception, not the rule, and a linter rule
-   per exception is how a linter becomes noise nobody reads. The format
-   above is still binding on whoever writes one — it is just enforced by
-   review rather than by machine.
-
-   These slides do NOT take a new D-number. A D-number marks a genuinely
-   new idea (rule 1); a re-study is the same idea re-examined, so it is
-   titled for the design it revisits (e.g. "D25 revisited") and the
-   original slide keeps its number, its data and its verdict, gaining
-   (SUPERSEDED) only where the contract change could actually alter it.
-
-7. PROVENANCE (added 2026-08-06, when the oracle's physics and metric both
-   changed and the deck had to survive it). Five rules:
-
+5. PROVENANCE (five rules, all non-negotiable once physics/metric change):
    (a) ONE PROVENANCE PER SLIDE. Every number on a slide and its gif must
-       come from the SAME oracle version. Never pair a re-rendered gif with
-       numbers from the oracle that preceded it, or new numbers with an old
-       gif. This is the rule that makes a bulk gif re-render WRONG as a
-       standalone action: re-rendering 27 gifs under the new oracle while
-       leaving 27 sets of old numbers in place would make every one of those
-       slides internally inconsistent. Re-render only as part of a full
-       re-test of that design.
-   (b) EVERY GIF TRACES TO AN ARCHIVED ODB, under
-       `data/idea_odbs/<id>/`, whose `PROVENANCE.txt` records the exact
-       inputs and the solve recipe used. A gif with no archived ODB behind it
-       cannot be re-derived and does not belong in the deck.
-   (c) EVERY NUMBER TRACES TO A RUN AND A DELEGATION, named in the slide's
-       speaker notes (e.g. "H1 of run 20260804T221559, delegation D006").
+       come from the SAME oracle version. Never pair a re-rendered gif
+       with numbers from a different oracle era, or new numbers with an
+       old gif. Re-render only as part of a full re-test of that design
+       (which earns its own D<n>-<k> slide, rule 1).
+   (b) EVERY GIF TRACES TO AN ARCHIVED ODB (under `data/idea_odbs/<id>/`
+       when applicable, or a scratch path named in the slide's own
+       notes), whose provenance records the exact inputs and solve
+       recipe. A gif with no traceable ODB behind it does not belong in
+       the deck.
+   (c) EVERY NUMBER TRACES TO A RUN AND A DELEGATION, named in the
+       slide's speaker notes (Timeline, rule 9) — e.g. "D002 of run
+       20260830T004106".
    (d) CONTRACT CHANGES NEVER REWRITE AN EXISTING SLIDE'S DATA. Not its
-       numbers, not its gif, not its verdict STATUS. A re-test earns a NEW
-       slide; the old slide keeps everything it had and gains (SUPERSEDED)
-       (see rule 3(d)). Append-only, in the data as well as the verdicts.
-   (e) A CROSS-CUTTING CAVEAT IS STATED ONCE, on the "How the rules changed"
-       slide — not repeated in 27 captions, which is how such a caveat rots
-       out of date. The live instance: every gif predating 2026-08-06 was
-       rendered under the no-contact oracle, so longerons visibly pass
-       through the floor in them. That is a known artifact of the model as it
-       stood, not the design's behaviour.
+       numbers, not its gif, not its verdict. A re-test earns a new
+       D<n>-<k> slide; the old slide keeps everything it had.
+   (e) A CROSS-CUTTING CAVEAT IS STATED ONCE, on the "How the rules
+       changed" slide — never repeated in every affected caption, which
+       is how such a caveat rots out of date.
 
-9. SPEAKER-NOTES FORMAT (added 2026-08-24) — applies to idea-slides AND
-   restudy-slides (Seed's semantics are declared identical between the two
-   by rule 3b, so it moved for both at once). Before this rule, notes had
-   drifted into at least three incompatible ad-hoc shapes across different
-   authoring sessions — a bulleted "Fuller context:" list, one long
-   unstructured paragraph with inline glossary asides, and ALL-CAPS
-   sentence-leads standing in for headers that never visually separated
-   from the prose that followed — so a reader had to re-learn how to scan
-   every single slide. Exactly these five labels, bold Markdown
-   (`**Label:**`), one per paragraph, in this order when more than one is
-   present — all optional except Seed and Input space:
+6. SUMMARY-SLIDE REQUIREMENTS. One summary slide per closed run, no
+   exceptions — this is stated as plainly as rule 1 in the deck's own
+   `info:` header and is not something that needs a separate request
+   before being written; it comes with every run's idea/revisit slides,
+   same commit.
+     - Every hypothesis row's `Idea` column names the real D<n> or
+       D<n>-<k> slide(s) that row produced, or a bare dash for a
+       whole-design-space claim with no slide of its own. A `D<n>` with
+       no matching `# D<n>` slide anywhere is a BLOCKING lint error (a
+       dangling pointer); a cell carrying prose instead of a real
+       pointer is a warning — the prose case is the one that actually
+       happened once (a falsified family's summary row said "archived"
+       and the family became invisible to the next reader). One slide
+       per genuinely new idea REGARDLESS OF VERDICT.
+     - Every run summary states real USD cost. It is the only number
+       that makes "was this run worth it" answerable. This is NOT
+       simply telemetry's total — the strategizer's own spend is often
+       missing from `summary.json` (its persistent adapter doesn't
+       always report usage) and must be recovered from
+       `debug/transcripts/strategizer/*.jsonl` and added back by hand.
 
-     Input space — MANDATORY (changed 2026-08-24; was optional and bounds-
-                    free through 2026-08-24 — see rule 3(a)'s own retirement
-                    note). The SOLE home for the free/fixed parameter list
-                    with sampled bounds, moved here from the visible What
-                    bullet because it duplicated the same identifiers Input
-                    space already had to name and gloss with physical
-                    meaning. One line per free parameter, this shape:
+7. ORDERING: anti-chronological across runs (most recent run first).
+   WITHIN a run: the run-summary slide comes FIRST, then that run's own
+   idea/revisit slide(s) immediately after it. Any speaker-note text
+   that says "see the idea slide above" from a run-summary slide is
+   WRONG under this ordering; it must say "below".
 
+8. LAYOUT DIRECTIVE: `layout: two-cols-header`, NOT `layout: two-cols`.
+   Under plain `two-cols`, the `# Title` line lives inside the split and
+   only spans the LEFT column's half-width. `two-cols-header` gives the
+   title its own full-width row above the split; the body below still
+   needs explicit `::left::` then `::right::` markers. Wrap the left
+   column's bullet list in `<div class="text-sm leading-snug">...</div>`
+   — this is the font size the character budget (rule 3) is calibrated
+   against; do not silently change it without re-measuring the budget.
+
+9. SPEAKER-NOTES FORMAT — applies to every idea-slide, including every
+   D<n>-<k> revisit. Exactly these five labels, bold Markdown
+   (`**Label:**`), one per paragraph, in this order when more than one
+   is present — all optional except Input space and Seed:
+
+     Input space — MANDATORY. The sole home for the free/fixed parameter
+                    list with sampled bounds. One line per free
+                    parameter:
                       <var>&isin;[lo,hi] — <physical meaning>
-
-                    Meaning may be omitted for a self-explanatory name
-                    (`side`, `pitch` need nothing) but the BOUNDS may never
-                    be — every free parameter's sampled range is stated
-                    somewhere on the slide, and after 2026-08-24 this is the
-                    only somewhere. One trailing line for fixed parameters,
-                    same as the old What bounds line's own "Fixed: ..."
-                    half. UNCAPPED — speaker notes carry no canvas budget,
-                    so list every free parameter; the visible bullet's old
-                    5-var-then-"+N more" cap was a canvas-space compromise
-                    specific to THAT budget and does not carry over here.
-     Seed         — MOVED HERE from the old optional 5th visible bullet
-                    (rule 3(e)/3b, both retired 2026-08-24). Semantics and
-                    FERTILE/BARREN vocabulary unchanged from the original
-                    rule 3(e) text — only the location changed, to keep
-                    the visible slide at a strict 4-bullet (idea-slide) or
-                    3-bullet (restudy-slide) ceiling:
-
+                    Meaning may be omitted for a self-explanatory name,
+                    but the BOUNDS may never be. One trailing line for
+                    fixed parameters. Uncapped — speaker notes carry no
+                    canvas budget, list every free parameter.
+     Seed         — MANDATORY. Always present:
                       FERTILE — <a perturbation that would count>
                       BARREN  — <why no perturbation can clear the bar>
-
-                    FERTILE MUST NAME AN EXAMPLE PERTURBATION after the
-                    dash — without one it is an invitation, not a
-                    direction. Always present; the linter WARNS on a
-                    missing Seed, same not-retrofitted policy as below.
+                    FERTILE MUST NAME AN EXAMPLE PERTURBATION after a
+                    literal em-dash (—, or `--` in source) — without one
+                    it is an invitation, not a direction; the linter
+                    checks for this literal character, not the HTML
+                    entity `&mdash;`.
      Deferred     — caveats, judgment calls, or infra bugs found but NOT
-                    resolved on this slide. Kept deliberately separate
-                    from Seed: Seed answers "is this idea worth another
-                    shot", Deferred answers "what's unresolved about THIS
-                    analysis" — a different reader question, and Deferred
-                    is rare enough (most slides have none) that merging it
-                    into Seed would bury it on the slides that do, not
-                    save space.
-     Timeline     — one line per delegation, `D0XX: <one-clause summary>`,
-                    even for a single delegation — this is what actually
-                    satisfies rule 7(c) ("every number traces to a run and
-                    a delegation"), and it is the part that reads fast: a
-                    short list of lines instead of one run-on sentence
-                    chained with "->". Do NOT restate the best design's
-                    own numbers here — that duplicates the Stats bullet's
-                    already-mandatory "best good:" line (rule 3(c)).
+                    resolved on this slide. Kept separate from Seed:
+                    Seed answers "is this idea worth another shot",
+                    Deferred answers "what's unresolved about THIS
+                    analysis".
+     Timeline     — one line per delegation, `D0XX: <one-clause
+                    summary>`, even for a single delegation — this is
+                    what satisfies rule 5(c). Do NOT restate the best
+                    design's own numbers here — that duplicates the
+                    Stats bullet's "best good:" line.
      Infra        — where the model actually gets built and solved: the
                     oracle module, the Stage-1/Stage-2 preprocessor
-                    scripts, the fidelity-gate function and its criteria
-                    (the pre-existing informal "Fidelity gate: ..." line
-                    many slides already carry — now just bolded/labeled,
-                    not a new requirement), and the archived ODB/scratch
-                    source path the slide's gif traces to (rule 7(b)).
+                    scripts, the fidelity-gate function and its
+                    criteria, and the archived ODB/scratch source path
+                    the slide's gif traces to (rule 5(b)).
 
-   Linter: WARN only, NOT retrofitted — same policy as every other
-   speaker-notes/bullet convention in this contract (3(c), 3(e), 3b before
-   it). A slide missing Seed in notes warns; a slide with these labels out
-   of the above relative order warns; nothing here blocks a commit.
+   Linter: WARN only. A slide missing Seed warns; a slide with these
+   labels out of order warns; nothing here blocks a commit.
 ============================================================================
 -->
 
@@ -916,7 +658,7 @@ genuinely open, not a result yet.
 H1 (excluded per rule 2): routine oracle-wiring reconfirm against run17_rectangle, SUPPORTED,
 0.02% deviation.
 
-CREDITED RESULT: mid_span_bistable (D24 revisited) -- a real, non-artifact reading, passes the
+CREDITED RESULT: mid_span_bistable (D24-3) -- a real, non-artifact reading, passes the
 joint-strain check by a thin 0.8% margin, majority-robust. OPEN LEAD: chained_arch (D44) -- more
 novel, higher raw numbers, validity genuinely unresolved after real effort (not disproven).
 
@@ -927,7 +669,7 @@ to BE run17_rectangle's own already-optimized geometry -- the single best design
 study, chosen by search for reasons having nothing to do with bistability. Comparing against an
 already-near-optimal design and finding no improvement doesn't show a mechanism isn't pulling its
 weight; it shows it doesn't beat the best thing this study has ever found, which is a much weaker
-and less interesting claim. See D24 revisited's own notes for the full correction and why a
+and less interesting claim. See D24-3's own notes for the full correction and why a
 literal "circular Bessa + bistability" comparison isn't available either.
 
 GATE HISTORY (10 rounds, the most of any run to date). Early rounds (~002-004): the run initially
@@ -951,30 +693,29 @@ scripts/supercompressible_lin_buckle_chained_arch.py. Promotion is the user's ca
 -->
 
 ---
-class: restudy-slide
+class: idea-slide
 layout: two-cols-header
 ---
 
-# D24 revisited — mid-span placement, not near the joint
+# D24-3
 
 ::left::
 <div class="text-sm leading-snug">
 
-- **What changed:** instead of splicing the bistable arc directly against a ring joint (original
-  D24), this places the SAME kind of single bistable insert at the longeron's MID-SPAN, flanked
-  by plain straight segments — so both ring joints see the same ordinary geometry as the
-  already-validated `run17_rectangle` baseline, and only the middle of the beam carries the
-  snap-through element.
-- **What was tested:** the winning point (D17), an 8-draw imperfection sweep (D19), and a
-  with/without-insert ablation (D18) meant to check whether the reading is real or a numerical
-  spike.
-- **Result:** &sigma;_peak = 0.5838 kPa (2.6&times; target), passes the real 3D joint-strain
-  check by a thin 0.8% margin, and stays feasible on 6 of 8 sampled imperfections. The reading
-  itself is confirmed real — a smooth, continuous build-up, no spike. **But whether the insert
-  itself deserves the credit is still open, not settled** — the ablation this run used to argue
-  that is confounded (see notes): it compares against `run17_rectangle`'s own already-optimized
-  geometry, not a minimal reference, so it doesn't cleanly show the mechanism is pulling its own
-  weight.
+- **What:** same single bistable insert as D24, moved to the longeron's MID-SPAN (flanked by
+  plain segments) instead of against a ring joint — both joints now see ordinary geometry.
+- **Origin:** isolates whether D24's benefit survives away from the joint, and (rule 2a)
+  whether the insert itself, not just its host design, pulls its own weight.
+- **Stats:** n=1 winning design + imperfection sweep + 1 ablation.<br>
+  &sigma;<sub>peak</sub>=0.5838 kPa (2.6&times; target), joint-strain margin 0.8%, feasible
+  6/8 draws. Ablation vs `run17_rectangle` (not minimal, rule 2a): insert-free reads HIGHER
+  at every compression level (table in notes).<br>
+  cleared: 1/1 &middot; novel: no — attribution unresolved.
+- **Verdict:** POWERED &middot; UNKNOWN-NO-EVIDENCE &middot; insert's own contribution vs a
+  minimal reference<br>
+  Design is real and feasible, but its ablation compared against the study's own optimized
+  incumbent, not a minimal host (rule 2a) — the insert-free baseline reads higher at every
+  level. Whether the mechanism helps a minimal host remains untested.
 
 </div>
 
@@ -991,6 +732,10 @@ layout: two-cols-header
 </div>
 
 <!--
+**Input space:** same design vector as D24's own base slide (mid-span adds no new free
+parameter); this pass additionally sampled imperfection angle from Bessa's own
+lognormal(4&deg;,1.2&deg;) distribution (D19, 8 draws) — not a design parameter.
+
 **Seed:** FERTILE — the fair test this run didn't run: does a single bistable insert improve on
 a MINIMAL, non-cherry-picked rectangular longeron of comparable dimensions (not specifically
 `run17_rectangle`'s own search-optimized numbers)? A literal "circular Bessa + bistability"
@@ -1183,7 +928,7 @@ feasibility this run.
 H1/H2/H7/H12 DETAIL (twist_buckle). D002 found and fixed a real joint-DOF bug: the inherited
 local datum released rotation about the joint's own approximate radial direction, not each
 oblique rod's own bottom-to-top axis, structurally suppressing Fang et al.'s twist mechanism
-regardless of geometry. Fixed (four coupling variants tried; see D41 revisited's own Infra
+regardless of geometry. Fixed (four coupling variants tried; see D41-2's own Infra
 note), validated: twist_energy_fraction rose 1078x. But the corrected design still only
 reaches mcs=0.03 (H1). D011 (H7) tested whether SMALLER twist_angle recovers coilability --
 it does not; all 8 points fail Stage-1 outright, the opposite of the predicted recovery. D019
@@ -1267,44 +1012,48 @@ before any solver failure, on every family, not just the newer ones that already
 -->
 
 ---
-class: restudy-slide
+class: idea-slide
 layout: two-cols-header
 ---
 
-# D41 revisited — corrected joint lets the rod genuinely twist
+# D41-2
 
 ::left::
 <div class="text-sm leading-snug">
 
-- **What changed:** the longeron-ring joint's released rotation was corrected from the
-  joint's own approximate radial direction (inherited unchanged from every straight-longeron
-  family) to each oblique rod's own bottom-to-top axis — the actual axis Fang et al.'s
-  mechanism needs to twist about, not a direction shared by the whole ring.
-- **What was tested:** the family's own matched validation point (n_longerons=6,
-  ratio_pitch=0.85, twist_angle=30&deg;, ratio_a=ratio_b=0.0417) re-solved under the
-  corrected joint, then a 20-design follow-up search of the same family with the fix in
-  place.
-- **Result:** at the validation point, the fraction of strain energy going into genuine rod
-  twisting rose from 0.011% to 12.2% of the total — 1078&times; — confirming the mechanism
-  now actually engages, not "an ordinary bending collapse wearing an angled rod" as the
-  original slide found. But that same design still only compresses to 3% before failing
-  (need 80%). The 20-design follow-up found only 2 designs that reached a clear answer, and
-  both failed just as badly (12% and 55% compression). The joint bug is fixed; whether
-  twisting and coiling can ever coexist in this family is the open question now, not whether
-  the joint works.
+- **What:** corrected the longeron-ring joint's released-rotation axis to each oblique rod's
+  own bottom-to-top axis (was the ring's shared radial direction) — the axis Fang et al.'s
+  mechanism needs to twist about. Re-solved the matched validation point, then a 20-design
+  follow-up search under the fix.
+- **Origin:** D41's own base slide found the mechanism wasn't engaging — the joint axis was
+  inherited unchanged from every straight-longeron family; tests whether fixing it works.
+- **Stats:** n=1 validation point + 20-design follow-up.<br>
+  Twist-strain fraction: 0.011%&rarr;12.2% (1078&times;) — engages, but only 3% compression.
+  Follow-up: 5 Stage-1 rejects, 13 non-convergent, 2 decided (mcs=0.12, 0.55).<br>
+  cleared: 0/2 &middot; novel: yes — genuine construction fix, not a resize.
+- **Verdict:** UNDERPOWERED &middot; FERTILE-PARAMETRIC &middot; twist/coilability
+  trade-off<br>
+  Joint fix works — genuine twisting confirmed (1078&times;) — but the validated point and
+  the follow-up's own decided pair (12%, 55%) all fall far short. Whether ANY point in this
+  family reaches feasibility with the fix remains unknown; only 2/20 follow-up decided.
 
 </div>
 
 ::right::
 
 <div class="flex flex-col items-center justify-center h-full gap-2 px-4">
-  <div class="text-sm opacity-70 text-center">No new video: the corrected design's own
-  failure point (3% compression) is visually indistinguishable from the undeformed mast — a
-  render would show nothing a number doesn't already say. See the original D41 slide for
-  what an ordinary (uncorrected-joint) collapse in this family looks like.</div>
+  <div class="text-sm opacity-70 text-center">No new video or chart (rule 2c-VIS exception):
+  the corrected design's own failure point (3% compression) is visually indistinguishable
+  from the undeformed mast, and a stress-history curve over that same sliver of range would
+  show nothing a number doesn't already say. See D41's own base slide for what an ordinary
+  (uncorrected-joint) collapse in this family looks like.</div>
 </div>
 
 <!--
+**Input space:** same design vector as D41's own base slide (the joint-DOF fix is a
+construction correction, not a new parameter); the 20-design follow-up re-searches that same
+family's existing bounds under the corrected joint.
+
 **Seed:** FERTILE, narrower now than the original slide's own Seed note — the joint-DOF fix
 is done and confirmed working (see Result). What remains untested is whether ANY point in
 this family's design space reaches feasibility (mcs>=0.80) with the corrected joint; a
@@ -1324,30 +1073,29 @@ either file's own module docstring for the full four-variant derivation of why a
 -->
 
 ---
-class: restudy-slide
+class: idea-slide
 layout: two-cols-header
 ---
 
-# D40 revisited — the family's own best result does not reproduce
+# D40-2
 
 ::left::
 <div class="text-sm leading-snug">
 
-- **What changed:** re-solved the family's own best-cited design (D020, 71.9% compression)
-  under two independently different solver configurations to test whether it genuinely
-  converges, then ran a full adaptive search of the whole design space to see if anything
-  else in the family does.
-- **What was tested:** the D020 point re-solved once at a 9&times; larger time budget
-  (5400s vs. the original 600s) and once on a different, non-stabilized solver path;
-  separately, a 48-design adaptive search (seeded + active) spanning the family's full
-  10-parameter space.
-- **Result:** the D020 point does not reproduce as a converged result under either
-  re-solve — the two re-solves agree with each other to 6+ significant figures
-  (mcs=0.7173), but not with the original archived 71.9% as a converged read at all: both
-  are a real, confirmed solver failure (the arc-length step genuinely breaks down), not a
-  timeout and not a fluke. The wider search found only 1 of 48 designs that ever converged
-  at all, and even that one fell far short of the target (24% compression vs. 80% needed).
-  No design in this family is currently confirmed working.
+- **What:** re-solved the family's best-cited design (D020, archived at 71.9% compression)
+  under two solver configurations — 9&times; larger time budget, and a non-stabilized path —
+  then a 48-design adaptive search of the whole space.
+- **Origin:** this headline had never been independently re-verified; checks whether it
+  reproduces and whether ANY design in the family is confirmed working.
+- **Stats:** n=48 &rarr; 38 Stage-1 &rarr; 1 Riks-converged &rarr; 0 good (0&times; Bessa).<br>
+  D020 re-solved twice: both non-converged, agree to 6+ sig figs (mcs=0.7173) — a real
+  arc-length divergence, not a timeout. Wider search (24 seeded+24 active): 1/48 converged,
+  at mcs=0.242.<br>
+  best good: none &middot; cleared: none &middot; novel: no — reproducibility check.
+- **Verdict:** ARTIFACT &middot; REFUTED &middot; D020's own archived 71.9% headline<br>
+  The family's best-cited result does not reproduce: both re-solves agree with each other
+  but confirm a genuine divergence, not the archived reading. The 48-design search found
+  only 1 convergent point anywhere, at 24%. No design in this family is confirmed working.
 
 </div>
 
@@ -1366,6 +1114,9 @@ layout: two-cols-header
 </div>
 
 <!--
+**Input space:** same 10-parameter design vector as D40's own base slide; the 48-design
+adaptive search (24 seeded + 24 active) resamples that same space, no new parameter added.
+
 **Seed:** FERTILE — the family's own construction, not this one design point, is the open question
 now: something prevents a clean Riks solve near this optimum, and no confirmed working
 design currently exists anywhere in the space searched. Untried: whether a different
@@ -1931,8 +1682,8 @@ comparability caveat that idea's slide had left open since 2026-08-18.
 | H2 | Oracle-wiring reconfirm | &#10003; | 0.02% deviation | — |
 | H3 | Twist-buckling mast escapes the curvature cap | **&#8253;** | Bounded negative — twist fraction 4400&times; below the "dominant" bar, worsening not plateauing | D41 &rarr; |
 | H4 | Locking top-ring rotation forces rod-level twist instead | **&#8253;** | Confounded gate + a direct literature contradiction | — |
-| H5 | D24's exact original point still clears, under the current oracle | **&#8253;** | Reconfirmed (4.68&times;) — but its own wording turned unfixably ambiguous mid-campaign | D24 revisited &rarr; |
-| H6 | A refined "Rank-3" candidate clears the floor | &#10003; | Median 1.6487 kPa, 9 draws (7.35&times;) — a genuine severe test | D24 revisited &rarr; |
+| H5 | D24's exact original point still clears, under the current oracle | **&#8253;** | Reconfirmed (4.68&times;) — but its own wording turned unfixably ambiguous mid-campaign | D24-2 &rarr; |
+| H6 | A refined "Rank-3" candidate clears the floor | &#10003; | Median 1.6487 kPa, 9 draws (7.35&times;) — a genuine severe test | D24-2 &rarr; |
 
 **H6, not H3, is this run's real result** — reconfirming an old idea under a newer oracle is
 exactly the kind of result rule 1 asks this deck to carry, not discard.
@@ -2073,29 +1824,30 @@ visibly "twisting," consistent with the numeric finding.
 -->
 
 ---
-class: restudy-slide
+class: idea-slide
 layout: two-cols-header
 ---
 
-# D24 revisited — Rank-3, reconfirmed under contact
+# D24-2
 
 ::left::
 <div class="text-sm leading-snug">
 
-- **What changed:** D24's own slide flagged its headline as "never re-measured under the
-  current contact oracle." This run closes that gap — the pre-processor was re-migrated to
-  ground+top-disc contact, D24's original optimum was reconfirmed, and a refined search found a
-  new leading candidate ("Rank-3").
-- **What was tested:** Rank-3's robustness to manufacturing imperfections, sampled from Bessa's
-  own lognormal(4&deg;,1.2&deg;) distribution across 3 independent seeds — a genuine severe test
-  (D014: seed=2, 10 fresh draws disjoint from every prior sample).
-- **Result:** POWERED &middot; FERTILE-PARAMETRIC &middot; Q&ge;2.31 targeting<br>
-  The cited 1.6487 kPa spike (9-draw median, mcs&asymp;0.1&ndash;0.5%) is a NUMERICAL ARTIFACT:
-  re-solved 250&times; finer, the exact draw behind it does not even converge, and Rank-3's own
-  default draw resolves instead to a smooth 0.5039 kPa peak — matching the already-flagged
-  sustained plateau (&asymp;0.51&ndash;0.52 kPa), itself below the incumbent rectangle's real peak
-  (0.6071 kPa). Existence claim stands; the splice doesn't help; the headline number was never
-  real — full revision history in notes.
+- **What:** D24's splice re-migrated to ground+top-disc contact; optimum reconfirmed, and a
+  refined search found a new candidate ("Rank-3"), imperfection-tested (Bessa's own
+  lognormal(4&deg;,1.2&deg;), 3 seeds).
+- **Origin:** D24's own slide flagged its headline as never re-measured under contact — this
+  closes that gap.
+- **Stats:** n=1 candidate (Rank-3), imperfection-sampled (19 draws). Fine-mesh re-solve
+  (250&times; tighter, job 5410570): the draw behind the cited 1.6487 kPa median does NOT
+  converge; the default draw resolves instead to &sigma;=0.5039 kPa at mcs=5.46% (Rank-1
+  companion check reproduces the pattern: 3.775&rarr;0.597 kPa).<br>
+  cleared: coarse draw invalid; fine-res draw (0.5039) clears 2&times; Bessa but sits below
+  the incumbent's real peak (0.6071) &middot; novel: yes, new position — see Verdict.
+- **Verdict:** POWERED &middot; FERTILE-PARAMETRIC &middot; Q&ge;2.31 targeting<br>
+  The cited 1.6487 kPa spike is a numerical artifact — re-solved 250&times; finer, it does
+  not converge; the default draw resolves to 0.5039 kPa, below the incumbent's real peak.
+  Existence claim stands; the splice doesn't help — full revision history in notes.
 
 </div>
 
@@ -2687,26 +2439,29 @@ SUPERCOMPRESSIBLE_RIKS.odb (340-frame history, 30 rendered).
 -->
 
 ---
-class: restudy-slide
+class: idea-slide
 layout: two-cols-header
 ---
 
-# D25 revisited (twist) — chirality on the tape-spring section
+# D25-3
 
 ::left::
 <div class="text-sm leading-snug">
 
-- **What changed:** `twist_angle` — a helical PRE-twist: the tape-spring cross-section rotates
-  progressively along the member's own length, like a twisted ribbon, baked into the shape before
-  any load is applied (same convention as D1's pretwisted longerons) — promoted from nonexistent
-  to a real, 7th free design parameter (bounds &plusmn;90&deg;). Verified to bit-exactly reproduce
-  the historical untwisted (`twist_angle=0`) record before trusting any new result.
-- **What was tested:** a cheap Stage-1 kill-signal scan first (20/22 coilable across the full
-  twist range — not a D27-style collapse), then a full 105-design campaign under contact.
-- **Result:** 0/105 feasible, same unanimous compression-shortfall signature as the untwisted
-  family (mls never binds). Twist's correlation with both the objective and the binding
-  constraint is statistically indistinguishable from zero (Spearman &rho;&asymp;0, Holm-adjusted
-  p=1.000, n=15) — not a weak effect, no effect, in either twist direction.
+- **What:** `twist_angle` — a helical PRE-twist baked into the tape-spring cross-section along
+  the member's length (D1's convention), promoted to a real 7th parameter (&plusmn;90&deg;).
+  Verified to bit-exactly reproduce the untwisted record first.
+- **Origin:** chirality/twist is established on other families (D1, D27); closes an ambiguity
+  where the deck's own prior Seed tags disagreed on whether it had been tried here — it hadn't.
+- **Stats:** n=105 (70 broad-Sobol + 35 directed) &rarr; 20/105 coilable &rarr; 15/105 decided
+  &rarr; 0 good.<br>
+  median mcs=0.0273, best 0.1133 (near-zero twist), vs the twist=0 baseline's 0.022/0.21
+  (n=28) — no correlation with either the objective or the binding constraint (full stats in
+  notes).<br>
+  best good: none &middot; cleared: none &middot; novel: positional/parametric (rule 2b).
+- **Verdict:** POWERED &middot; REFUTED &middot; twist_angle on the tape-spring section<br>
+  0/105 feasible, same shortfall signature as the untwisted family. Twist's correlation with
+  the objective and the binding constraint is indistinguishable from zero — not weak, none.
 
 </div>
 
@@ -2718,9 +2473,12 @@ layout: two-cols-header
 </div>
 
 <!--
+**Input space:** twist_angle &isin;[-90&deg;,90&deg;] — the 7th free parameter, newly added
+this pass; the other 6 are the tape-spring family's existing bounds (see D25's own slide).
+
 **Seed:** BARREN — twist does not move this family's ceiling at all, let alone enough to
-matter. The original D25/D25-revisited slides' own Seed tags disagreed on whether twist had
-already been tried (it hadn't); this closes that ambiguity with a real result.
+matter. The original D25 slide and D25-2 (contact)'s own Seed tags disagreed on whether
+twist had already been tried (it hadn't); this closes that ambiguity with a real result.
 
 NOT part of run 20260822T025309 -- a separate, later, ad-hoc worktree-isolated investigation.
 Committed 2026-08-23T12:28 UTC (git log -S), which sits between run 20260822T025309's close
@@ -2745,7 +2503,7 @@ negative-twist bucket. The pooled 105-eval correlation (the headline null findin
 but a follow-up giving negative twist equal weight would close this residual gap.
 
 Documentation finding, reported not fixed here (append-only convention): the original D25 slide
-and "D25 revisited" (contact) disagree on this Seed tag (BARREN vs FERTILE). Traced via
+and D25-2 (contact) disagree on this Seed tag (BARREN vs FERTILE). Traced via
 `git log -S` to commit 6ac0244, which misread an ambiguous sentence on the original slide as
 saying twist itself had been tested -- it hadn't; that 330-design campaign held twist_angle=0.0
 throughout. Left as a discrepancy on those two slides for the user's own correction.
@@ -2863,32 +2621,32 @@ time budget. Left as-is rather than replaced with an equally-unverified number.
 -->
 
 ---
-class: restudy-slide
+class: idea-slide
 layout: two-cols-header
 ---
 
-# D33 revisited — kissing-pair stiffness-multiplier sweep
+# D33-2
 
 ::left::
 <div class="text-sm leading-snug">
 
-- **What changed:** the connector-stop law's contact-stiffness multiplier, previously a fixed
-  module constant read once from an environment variable, is now a real, per-call 9th design
-  parameter (bounds 3&times;&ndash;15&times;). Connector force output (CTF) is requested for the
-  first time, so whether the contact is genuinely load-bearing is now actually measurable, not
-  just assumed.
-- **What was tested:** 6 points across the full committed range, holding the known
-  48.6%-compression reference design fixed.
-- **Result:** no multiplier beats the 3&times; baseline. 5&times; nominally rises to 50.3%
-  compression but fails the stabilization-energy validity gate; 7&times; diverges almost
-  immediately; 9&times; times out twice; 12&times;/15&times; converge but only reach 10.2%/5.1%
-  real compression — their large raw peak stress (0.59/0.71 kPa) is a first-contact force spike
-  at 0.08% compression, not genuine capacity.
-<div class="text-xs opacity-60 mt-1">
-Confirmed contact is real and load-bearing at 3x (kissing_contact=1, non-negligible connector
-force) — this closes the "not interfering" open question from D33's own original slide, even
-though no multiplier improves on it.
-</div>
+- **What:** promotes the connector-stop law's contact-stiffness multiplier from a fixed
+  module constant to a real 9th design parameter (3&times;&ndash;15&times;). Adds
+  connector-force (CTF) output, making load-bearing directly measurable. Swept 6 points,
+  reference design fixed.
+- **Origin:** D33's own slide left "does the multiplier matter, is contact actually
+  interfering" open; this sweep answers both.
+- **Stats:** n=6 (full range): 3&times; converges (baseline, 48.6% compression); 5&times;
+  gate-fails; 7&times; diverges; 9&times; times out twice (6&times;&ndash;10.5&times; is a
+  pathological zone, confirmed by a separate long-budget follow-up); 12&times;/15&times;
+  converge but only reach 10.2%/5.1% (full per-point table in notes).<br>
+  cleared: 3&times; is the only non-disqualified converged point &middot; novel: no — sweep,
+  not a new mechanism.
+- **Verdict:** POWERED &middot; REFUTED &middot; stiffness-multiplier as a lever on
+  kissing-pair's own ceiling<br>
+  No multiplier beats 3&times;'s 48.6%. Compression falls monotonically with stiffness — a
+  stiffer spring produces a bigger first-contact force spike, not more real capacity.
+  Contact is confirmed load-bearing at 3&times;; no setting improves on it.
 
 </div>
 
@@ -2905,6 +2663,10 @@ though no multiplier improves on it.
 </div>
 
 <!--
+**Input space:** stiffness_multiplier &isin;[3,15] (&times;) — the 9th free parameter,
+newly promoted this pass from a fixed environment-variable constant; other 8 unchanged from
+D33's own bounds.
+
 **Seed:** BARREN, fully — the 6&times;&ndash;10.5&times; gap was closed with a long-budget
 follow-up (5h/point, no timeouts): every point decided cleanly, real compression falls
 monotonically with stiffness (50.8%&rarr;17.9%), and the best of the zone (6&times;) is separately
@@ -3064,8 +2826,8 @@ further — the fillet meant to save it doesn't either.
 |---|---|---|---|---|
 | H1 | Oracle wiring reproduces the confirmed anchor | &#10003; | sigma_crit=0.770352 vs anchor 0.7704 (0.006% deviation) | — |
 | H2&ndash;H4 | Three new rigid-contact geometries (coaxial mandrel, shaped cone disc, eccentric capstan pins) create a genuine second, contact-mediated load path above the incumbent | **&#8253;** | H2 already closed. H3/H4 escalated to Explicit: non-quasi-static (ALLKE/ALLIE up to 0.6, 10&times; over threshold) at every rate — a numerical wall, not force amplification | — |
-| **H5&ndash;H8** | The Kresling local-zoom design (&sigma;_peak=1.0723 kPa, ~10&times; Bessa) is a real, mesh-converged, imperfection-robust result | **&#10007;** | Reproduced exactly (H5), then falsified: kink strain moves -13&ndash;28% under 2&times; refinement, jump ratio GROWS with refinement (H6); only 3/7 imperfection draws converge (H7); 2&times; mesh gives +197%, 4&times; fails to solve (H8) | D17 revisited &rarr; |
-| **H9&ndash;H10** | Filleting the sharp kink removes the mesh-artifact, and the design still coils | **&#8253; / &#10007;** | H9: every fillet radius &times; mesh non-converged (NaN) — inconclusive. H10: forced via valid Explicit — reaches only 3.7% compression, far short of 80% | D17 revisited &rarr; |
+| **H5&ndash;H8** | The Kresling local-zoom design (&sigma;_peak=1.0723 kPa, ~10&times; Bessa) is a real, mesh-converged, imperfection-robust result | **&#10007;** | Reproduced exactly (H5), then falsified: kink strain moves -13&ndash;28% under 2&times; refinement, jump ratio GROWS with refinement (H6); only 3/7 imperfection draws converge (H7); 2&times; mesh gives +197%, 4&times; fails to solve (H8) | D17-3 &rarr; |
+| **H9&ndash;H10** | Filleting the sharp kink removes the mesh-artifact, and the design still coils | **&#8253; / &#10007;** | H9: every fillet radius &times; mesh non-converged (NaN) — inconclusive. H10: forced via valid Explicit — reaches only 3.7% compression, far short of 80% | D17-3 &rarr; |
 | H11 | A laced (two-parallel-chord) longeron beats the incumbent via distributed load-sharing | **&#8253;** | 6/6 stuck at 1.3&ndash;3.4% compression, early non-convergence; mild trend with ratio_h, never close to feasible | — |
 | H12 | A strongly-graded two-storey mast stages sequential coiling and beats the incumbent | **&#8253;** | Underpowered (2&ndash;3 pts vs 5D+ registered) — but its own Explicit-vs-Standard check shows only a 1pp gap, ruling out a Kresling-style mesh artifact | — |
 
@@ -3172,29 +2934,32 @@ searchable.
 -->
 
 ---
-class: restudy-slide
+class: idea-slide
 layout: two-cols-header
 ---
 
-# D17 revisited — from a 10&times; Bessa near-miss to a resolved falsification
+# D17-3
 
 ::left::
 <div class="text-sm leading-snug">
 
-- **What changed:** a dedicated oracle (`bo/oracle_kresling.py`) with `ring_passthrough` wired as
-  a **live** constraint — unlike the rectangle family, where it's only checked post-hoc because
-  that geometry can't fold through a ring at all.
-- **What was tested:** three campaigns, 380 evals (150-eval contact search, 80-eval local zoom,
-  150-eval broadened-bounds search), plus mesh-refinement (2&times;/4&times;) and fillet variants
-  on the near-miss — cross-checked by an independent referee, reproduced in run
-  `20260819T022742` (H6/H8/H9/H10).
-- **Result:** POWERED · REFUTED · contact rescuing the strain floor<br>
-  Found, and retracted, twice. A broad-search 3.27 kPa "win" was an early-transient artifact
-  (CPRESS=0). A local-zoom 1.0723 kPa "win" had genuine contact but failed mesh refinement
-  (2&times; diverges +197%, 4&times; fails to solve): a real reentrant-corner singularity in the
-  hinge's kink, not a mechanical joint. Filleting doesn't rescue it. Controls rule out a
-  study-wide meshing problem — the Kresling family's own joint geometry can't be trusted at the
-  one point where it looked best; full ledger in notes.
+- **What:** a dedicated oracle with `ring_passthrough` wired as a LIVE constraint. Three
+  campaigns, 380 evals total, plus mesh-refinement (2&times;/4&times;) and fillet variants
+  on the resulting near-miss, cross-checked by an independent referee.
+- **Origin:** the base D17 slide left the hinge's mesh-convergence status open after a
+  coarse-mesh scan suggested a &gt;10&times; Bessa design; tests whether that headline holds.
+- **Stats:** n=380 across 3 campaigns (150+80+150) + mesh/fillet variants.<br>
+  Broad search: &sigma;<sub>peak</sub>=3.27 kPa "win" — zero contact pressure throughout, an
+  early-transient artifact. Local zoom: a genuinely contact-engaged 1.0723 kPa design
+  diverges under mesh refinement (2&times;: 3.187 kPa, +197%; 4&times;: fails) — a real
+  reentrant-corner singularity, not a meshing problem (per-frame strain confirms).<br>
+  cleared: both apparent 2&times; Bessa clears are disqualified &middot; novel: n/a —
+  re-verification.
+- **Verdict:** POWERED · REFUTED · Kresling/TCO hinge's own reentrant-corner
+  singularity<br>
+  Found, and retracted, twice — a contact artifact, then a genuine but mesh-divergent
+  design. A real reentrant-corner singularity in the hinge's kink, not a mechanical joint;
+  filleting doesn't rescue it. Full ledger in notes.
 
 </div>
 
@@ -3211,10 +2976,13 @@ layout: two-cols-header
 </div>
 
 <!--
+**Input space:** same design vector as D17's own base slide, plus `ring_passthrough` newly
+wired as a live constraint (not a new free parameter — a search-time gate).
+
 **Seed:** BARREN — the singularity is intrinsic to modeling the hinge as one continuous,
 rigidly-connected beam with a geometric kink; mesh refinement, fillets, and an independent
-referee all confirm this is real, not a numerical artifact. Consistent with "D17, D20, D26
-revisited" closing this same family (its own Seed cites this exact finding). A genuinely
+referee all confirm this is real, not a numerical artifact. Consistent with D17-2
+closing this same family (its own Seed cites this exact finding). A genuinely
 different hinge REALIZATION — an actual pin/flexure joint, not a geometric kink in one
 continuous member — would be a different idea, not a perturbation of this one, and would need
 its own slide rather than a continuation here.
@@ -4429,7 +4197,6 @@ clear, which is the correct call and is why n=3 rather than a fuller sweep.
 -->
 
 ---
-class: restudy-slide
 layout: default
 ---
 
@@ -4438,27 +4205,27 @@ layout: default
 
 <div class="text-xs leading-snug">
 
-Five designs were re-examined after ground+disc contact was restored (2026-08-06/08). **Three of
-them now have working infrastructure but no result** — that distinction is the whole point of
-this slide. Read the per-design slides that follow before proposing any of these again.
+Five designs were re-examined after ground+disc contact was restored (2026-08-06/08). **Three
+now have working infrastructure but no result** — read the per-design slides that follow before
+proposing any of these again.
 
-| design | what changed | what was tested | result |
+| design | what changed | tested | result |
 |---|---|---|---|
-| **D25** tape spring | disc faces + cap added to its shell pre-processor | **330 designs** under contact, across two campaigns | **Settled.** Best of the 28 designs that reached a verdict gets to **21% compression** before the 2% strain budget runs out, against 80% required |
-| **D21** tensegrity | node-based contact (truss members carry no surface) | 1 design, contact on vs off | Floor now stops it; energy absorbed **+86%**, peak stress **unchanged**. Still blocked on printability |
-| **D17** Kresling | migrated by `_migrate_contact.py` | 1 design | Stalls at 75–77% compression. **Family untested** |
-| **D20** laced | migrated; deck verified | 1 design | Does not converge. **Family untested** |
-| **D26** chiral shell | Stage-2 pre-processor **written** (never existed) | 1 design | Exceeded the 600 s budget. **Family untested** |
+| **D25** tape spring | disc faces + cap added | **330 designs**, 2 campaigns | **Settled.** Best of 28 decided reaches **21%** compression, need 80% |
+| **D21** tensegrity | node-based contact (trusses carry no surface) | 1 design, on vs off | Floor stops it; energy **+86%**, stress unchanged. Still blocked on printability |
+| **D17** Kresling | migrated by `_migrate_contact.py` | 1 design | Stalls at 75–77%. **Family untested** |
+| **D20** laced | migrated; verified | 1 design | Does not converge. **Family untested** |
+| **D26** chiral shell | Stage-2 pre-processor **written** (never existed) | 1 design | Exceeded 600s budget. **Family untested** |
 
 <div class="flex items-center gap-4 mt-1">
   <div class="flex-1">
 
 **Do not read "we migrated it" as "we tested it."** One design cannot settle a family — the one
-design available is usually the winner of a search run *without* contact, which is the worst
-possible point to generalise from.
+design available is usually the winner of a search run *without* contact, the worst point to
+generalise from.
 
   </div>
-  <img src="/gifs/restudy_floor_contact.gif" class="max-h-36 rounded shadow" />
+  <img src="/gifs/restudy_floor_contact.gif" class="max-h-20 rounded shadow" />
 </div>
 
 </div>
@@ -4489,35 +4256,32 @@ got") — this note generalizes that one self-caveat to the other seven, which d
 -->
 
 ---
-class: restudy-slide
+class: idea-slide
 layout: two-cols-header
 ---
 
-# D25 revisited — tape spring under contact
+# D25-2
 
 
 ::left::
 <div class="text-sm leading-snug">
 
-- **What changed:** gained the two rigid disc faces and the compression cap. It already had
-  thickness-aware general self-contact, so it was the closest of the five to ready.
-- **What was tested:** two campaigns, **330 designs**, contact on — a 64-design pilot and a
-  256-design Sobol sweep — plus 10 paired on/off. Two thirds of the recorded box had to be
-  rejected first: it describes strips wider than the mast, which cannot be meshed.
-- **Result:** **0 feasible, and the binding criterion is unanimous.** Of the 28 designs that
-  reached a verdict, **28 fail on compression and 0 fail on strain** — they run out of strain
-  budget before they get anywhere. Median reaches 2.2% compression; the best reaches **21%**, against
-  the 80% required, i.e. short by 3.7×. Contact shifts that crossing by −0.002 on average
-  (n=4 decided pairs, sd 0.008, t = −0.60), and moves it *later* in only 2 of 4.
-<div class="text-xs opacity-60 mt-1">
-Contact's effect is unresolvable at n=4 and needs no resolving: the gap is 3.7×, and it moves the
-answer in the third decimal.
-</div>
-<div class="text-xs opacity-60 mt-1">
-Design C (the campaign's own closest miss) re-solved alone under contact, 2026-08-27 — same
-failure: 2% strain crossed at 19% compression (&sigma;<sub>peak</sub> 0.316 kPa) vs 20% with
-contact off (0.318 kPa).
-</div>
+- **What:** migrated the tape-spring pre-processor to ground+top-disc contact (already had
+  self-contact, readiest of the five families). 330 designs total (64-pilot + 256-Sobol),
+  10 paired on/off, and a targeted re-solve of the closest-miss design ("Design C").
+- **Origin:** ground contact was restored study-wide 2026-08-06 (v1); closes the "migrated
+  &ne; tested" gap the re-study index flags for five families.
+- **Stats:** n=330 &rarr; 50 coilable &rarr; 36 verdict &rarr; 28 decided (8 sentinel-zero
+  removed) &rarr; 0 good.<br>
+  p0/p50/p90/p100 mcs: 0.0044/0.0215/0.0533/0.2149. Binding: mcs&lt;0.80 in 28/28. Contact's
+  own effect (n=4 pairs): shifts the strain crossing &minus;0.002 avg — unresolvable at n=4,
+  irrelevant to the 3.7&times; gap (full breakdown in notes).<br>
+  best good: none &middot; cleared: none &middot; novel: no — migration + re-verification.
+- **Verdict:** POWERED · REFUTED · ground contact's effect on the tape-spring
+  family's strain-floor<br>
+  0 feasible, unanimous compression shortfall — best of 28 decided reaches only 21% against
+  80%. Contact moves the strain-limit crossing by half a point either way, an order of
+  magnitude below the gap. Design C, re-solved alone, confirms this individually.
 
 </div>
 
@@ -4534,6 +4298,9 @@ contact off (0.318 kPa).
 </div>
 
 <!--
+**Input space:** same design vector as D25's own base slide (contact migration adds no new
+free parameter).
+
 **Seed:** FERTILE — twist/chirality applied to the open-arc section. Partly attempted already:
 D27 reached 0/115 coilable, but Stage-1-only and pre-contact.
 
@@ -4705,41 +4472,50 @@ oracle/campaign infrastructure those files are reserved for).
 -->
 
 ---
-class: restudy-slide
+class: idea-slide
 layout: two-cols-header
 ---
 
-# D21 revisited — tensegrity under contact
+# D21-2
 
 
 ::left::
 <div class="text-sm leading-snug">
 
-- **What changed:** contact added by hand, not by the migration tool — its struts are truss
-  members with no cross-section geometry, so Abaqus can't build a contact surface on them. The
-  secondary side is a **node region** instead, with the strut radius injected explicitly.
-- **What was tested:** 1 design — the archived one — solved with contact on and off. Stage 1
-  reproduces the archive exactly, so every difference is attributable to contact alone.
-- **Result:** the floor now stops it: material that previously sank **50 mm below the base
-  ring** is held. Energy absorbed rose **+86%**; peak stress is **bit-identical** (the peak
-  happens before contact engages). Strain went from 9&times;10<sup>-14</sup> (nothing strains)
-  to 3.4%.
+- **What:** contact added by hand, not by the migration tool — struts have no cross-section
+  geometry, so the secondary side is a NODE REGION with the strut radius injected explicitly.
+  1 design, on vs off; Stage 1 reproduces the archive exactly.
+- **Origin:** ground contact was restored study-wide 2026-08-06 (v1); this family needed a
+  hand migration since the automated tool doesn't apply to truss members.
+- **Stats:** n=1 design, on/off paired. Energy absorbed +86% (18.202&rarr;33.780 kPa).
+  &sigma;<sub>peak</sub> bit-identical (peak lands before contact engages). mls:
+  ~0&rarr;3.4%. ring_passthrough: True (off) &rarr; False (on).<br>
+  cleared: n/a — mechanism already disqualified on printability, independent of this result
+  &middot; novel: no — contact migration on an already-tested family.
+- **Verdict:** POWERED · REFUTED · contact rescuing tensegrity's printability
+  disqualification<br>
+  The floor stops it and genuine straining occurs (~0&rarr;3.4%) where before there was none.
+  But the structure still reaches compression by rotating rigid struts — a linkage, per
+  apples-to-apples — needing prestressed cables and pin joints contact doesn't touch.
 
 </div>
 
 ::right::
 
-<div class="flex flex-col gap-1" style="height: 402px">
-  <div class="flex items-center justify-center" style="height: 127px">
-    <img src="/gifs/tensegrity_strain_history_mini.png" style="max-height: 127px; max-width: 100%" />
+<div class="flex flex-col gap-1" style="height: 385px">
+  <div class="flex items-center justify-center" style="height: 115px">
+    <img src="/gifs/tensegrity_strain_history_mini.png" style="max-height: 115px; max-width: 100%" />
   </div>
-  <div class="flex items-center justify-center" style="height: 240px">
-    <img src="/gifs/restudy_tensegrity_contact.gif" class="rounded shadow-lg" style="max-height: 240px; max-width: 100%" />
+  <div class="flex items-center justify-center" style="height: 225px">
+    <img src="/gifs/restudy_tensegrity_contact.gif" class="rounded shadow-lg" style="max-height: 225px; max-width: 100%" />
   </div>
   <div class="text-xs opacity-50 text-center">Above: strut local strain, contact off vs on overlaid — flat until the floor engages near mcs&asymp;70%, then contact-on climbs to 3.4% while contact-off stays zero. Below: contact on — struts rotate to collapse instead of sinking through the floor.</div>
 </div>
 
 <!--
+**Input space:** same design vector as D21's own base slide (contact migration adds no new
+free parameter).
+
 **Seed:** BARREN — the mechanism needs prestressed cables and pin joints, which cannot be
 monolithically printed. Contact does not touch that.
 
@@ -4816,26 +4592,31 @@ the floor only being reached well into the compression stroke.
 -->
 
 ---
-class: restudy-slide
+class: idea-slide
 layout: two-cols-header
 ---
 
-# D17, D20, D26 revisited — testable now, untested still
-
+# D17-2
 
 ::left::
 <div class="text-sm leading-snug">
 
-- **What changed:** **D17** (Kresling) and **D20** (laced) were migrated by
-  `scripts/_migrate_contact.py`. **D26** (chiral shell) had no Stage-2 pre-processor at all —
-  every design in its two campaigns failed the Stage-1 coilability gate, so one was never
-  written. One was written for it.
-- **What was tested:** one design each. That is enough to verify a code path, and not remotely
-  enough to say anything about a family.
-- **Result:** D17 stalls at 75–77% compression, on the floor its hinge used to pass through.
-  D20 builds a valid model but does not converge. D26 exceeded the 600 s solve budget — it
-  carries ~11,000 nodes against the reference family's ~1,000, so it needs a mesh-convergence
-  study before it is searchable at all.
+- **What:** **D17**/**D20** migrated to contact by `scripts/_migrate_contact.py`; **D26** had
+  no Stage-2 pre-processor at all (its prior campaigns all failed Stage-1) — one written for
+  it. One design solved per family — verifies a code path, not a family.
+- **Origin:** closes the "migrated &ne; tested" gap (re-study index) for three families,
+  verifying each code path runs before being cited as tested under contact.
+- **Stats:** n=1 per family (3 designs), infrastructure verification only.<br>
+  D17: stalls at 75&ndash;77% — the anchor tested is the design most likely to exploit
+  floor-passthrough, so failure here is near-tautological (superseded by D17-3's own 380-eval
+  campaign — a mesh singularity, not floor-passthrough). D20: builds, doesn't converge. D26:
+  exceeds the 600s budget (~11k nodes vs ~1k) — blocked on cost, not correctness.<br>
+  cleared: none tested &middot; novel: n/a — infrastructure verification.
+- **Verdict:** BLOCKED · UNKNOWN-NO-EVIDENCE · D20 and D26's own families under
+  contact<br>
+  One design per family verifies a code path, not a family. D17's question is independently
+  closed by D17-3. D20 and D26 remain genuinely untested — D20 for lack of a real search,
+  D26 because it can't finish inside budget. "Migrated" &ne; "tested" for either.
 
 </div>
 
@@ -4843,12 +4624,15 @@ layout: two-cols-header
 
 <div class="flex flex-col items-center justify-center h-full">
   <img src="/gifs/restudy_laced_contact.gif" class="max-h-80 rounded shadow-lg" />
-  <div class="text-xs opacity-60 mt-2 px-4 text-center">D20's laced longeron, coiling. The machinery builds and runs — one design is not a family.</div>
+  <div class="text-xs opacity-60 mt-2 px-4 text-center">D20's laced longeron, coiling. The machinery builds and runs — one design is not a family. No stress-history chart on this slide (rule 2c-VIS exception): all three checks here are single-design infrastructure verifications, not decided campaigns — D26 never reaches Stage 2 at all, D20 never converges, and D17's own real compression history is already charted on D17-3.</div>
 </div>
 
 <!--
+**Input space:** same three design vectors as D17/D20/D26's own base slides; no new
+parameter — a single point per family, run through the migrated/new code path.
+
 **Seed:** BARREN (all three, superseding this bullet's own prior FERTILE tag) — each has since
-been searched under contact elsewhere and closed: D17 (see "D17 revisited" — mesh singularity,
+been searched under contact elsewhere and closed: D17 (see D17-3 — mesh singularity,
 not floor-passthrough), D20 (run `20260819T022742` H11 — 6 pts stuck 1.3&ndash;3.4%), D26 (run
 `20260804T221559` — 80-pt sweep, 0/68 valid designs coilable). No perturbation left un-searched on
 any of the three.
@@ -4878,7 +4662,7 @@ coilable" -- 68 is the evaluated denominator (12 of the 80 sampled points were r
 dispatch), not 80. This slide read "0/80 coilable," conflating the sample size with the evaluated
 count, inconsistent with this deck's own house convention elsewhere (report against the
 valid/evaluated denominator, e.g. D25's "256 evaluable" phrasing). Corrected in the Seed line
-above. D17's citation points to "D17 revisited", independently verified separately on that
+above. D17's citation points to D17-3, independently verified separately on that
 slide.
 -->
 
@@ -6564,7 +6348,7 @@ meaning. psi_kresling&isin;[0,.6] rad — hinge offset angle (0 = hinge off). ra
 
 **Seed:** BARREN — later resolved decisively: the bar-hinge kink is a real reentrant-corner
 stress singularity (confirmed via mesh refinement, fillets, and an independent referee — see
-"D17 revisited"), not a numerical artifact and not floor-passthrough. No perturbation
+D17-3), not a numerical artifact and not floor-passthrough. No perturbation
 within this geometric-kink realization survives; a genuinely different hinge (an actual
 pin/flexure joint) would be a different idea.
 
