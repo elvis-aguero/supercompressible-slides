@@ -844,6 +844,263 @@ was run; this is the same 2026-07-31 ODB, read two ways.
 class: summary-slide
 ---
 
+# Run `20260830T004106` — summary
+
+<div class="text-sm leading-snug">
+
+Bistability tested three ways: near the joint (D24), a chain of segments (new), a mid-span
+insert (new). One reading passes every check but a thin one; the more novel chain remains
+genuinely open, not a result yet.
+
+</div>
+
+<div class="text-xs leading-tight">
+
+| # | Claim | Verdict | Key evidence | Idea |
+|---|---|---|---|---|
+| H2 | &ge;1 untried literature mechanism exists | &#10003; | Chained-arch pursued; 2 others need real shell physics | D44 &rarr; |
+| H3 | Chained-arch fails energy-free | &#10003; | 71/72 non-convergent | D44 &rarr; |
+| H4 | The validated chain point is imperfection-robust (no contact) | &#10007; | Only 3/8 feasible; 5/8 fail via ring-passthrough | D44 &rarr; |
+| H5 | Contact fixes that failure | &#10003; | 8/8 feasible, 8/8 converged, with contact | D44 &rarr; |
+| H6 | A wider search beats the current best reading | **&#8253;** | Found; genuineness untested by this hypothesis alone | D44 &rarr; |
+| H7 | The chain's joint strain survives a real 3D check | &#10007; | Corrected strain 0.0381 &mdash; ~2&times; the ceiling | D44 &rarr; |
+| H8 | A straight end-buffer reduces that strain | **&#8253;** | Reduces it, not conclusively below ceiling | D44 &rarr; |
+| H9 | The buffer mitigation is a clean fix | &#10007; | Passes strain; reading itself is spike-suspicious | D44 &rarr; |
+| H10 | A mid-span insert avoids the strain problem | &#10003; | Corrected strain 0.0198, under ceiling | D24 rev. &rarr; |
+| H11 | That design is imperfection-robust | &#10003; | 6/8 (75%) feasible corrected &mdash; majority | D24 rev. &rarr; |
+| H12 | Ring-flare rescues the chain's joint-strain failure | &#10003; | Corrected strain 0.0192, 4.1% margin | D44 &rarr; |
+| H13 | That flare-rescued design is imperfection-robust | &#10003; | 5/8 (62.5%) feasible corrected | D44 &rarr; |
+| H14 | That design's reading is genuine, not a spike | **&#8253;** | 22.8&ndash;27.9% sustained fraction &mdash; ambiguous | D44 &rarr; |
+| H15 | D24's original design is genuine under the current oracle | **&#8253;** | 20.65% &mdash; indistinct from the chain's own ambiguous reading | D24 &rarr; |
+
+</div>
+
+<div class="text-sm leading-snug">
+
+&nbsp;&middot;&nbsp; **74 delegations, 210 ledgered evals, ~11 h of 12 h**, GATED after 10 review rounds &nbsp;&middot;&nbsp; **Cost: $67.38**
+</div>
+
+<!--
+H1 (excluded per rule 2): routine oracle-wiring reconfirm against run17_rectangle, SUPPORTED,
+0.02% deviation.
+
+CREDITED RESULT: mid_span_bistable (D24 revisited) -- a real, non-artifact reading, passes the
+joint-strain check by a thin 0.8% margin, majority-robust. OPEN LEAD: chained_arch (D44) -- more
+novel, higher raw numbers, validity genuinely unresolved after real effort (not disproven).
+
+MECHANISM-ATTRIBUTION CORRECTION (added post-run, user-caught): this run's own notebook argued
+the mid-span insert is "genuinely responsible for the capacity" by comparing it against the same
+design with the insert shrunk to nothing. That ablation's own "without insert" baseline turns out
+to BE run17_rectangle's own already-optimized geometry -- the single best design in this entire
+study, chosen by search for reasons having nothing to do with bistability. Comparing against an
+already-near-optimal design and finding no improvement doesn't show a mechanism isn't pulling its
+weight; it shows it doesn't beat the best thing this study has ever found, which is a much weaker
+and less interesting claim. See D24 revisited's own notes for the full correction and why a
+literal "circular Bessa + bistability" comparison isn't available either.
+
+GATE HISTORY (10 rounds, the most of any run to date). Early rounds (~002-004): the run initially
+credited mid_span_bistable as clearing the novelty floor without directly re-testing D24 under
+the current oracle for a fair comparison -- REJECTed until that comparison (H15) was actually
+run. Later rounds (~005-009): REJECTed repeatedly on run-adequacy (PROBLEM_STATEMENT's
+unconditional "exhaust the budget" clause) until the two named literature alternatives (Jiang
+shell, Krankel/Wadee weave) were checked against the corpus and found to require real shell
+physics this study's beam model can't approximate -- not a hand-wave, a demonstrated boundary.
+call_010: PASS.
+
+RETROSPECTIVE FLAGS: 15 of 46 delegations flagged (CONSISTENCY only). 5 ERROR_RETURN events this
+run, all harness-level (stale revision hashes on concurrent notebook edits, one wrong cell name)
+-- self-corrected via retry, not science bugs.
+
+INFRA BUILT THIS RUN, NOT YET PROMOTED TO GOLD: bo/oracle_chained_arch.py,
+bo/oracle_mid_span_bistable.py, scripts/supercompressible_lin_buckle_mid_span_bistable.py,
+scripts/supercompressible_riks_chained_arch_contact.py,
+scripts/supercompressible_riks_mid_span_bistable_contact.py, plus a modification to
+scripts/supercompressible_lin_buckle_chained_arch.py. Promotion is the user's call.
+-->
+
+---
+class: restudy-slide
+layout: two-cols-header
+---
+
+# D24 revisited — mid-span placement, not near the joint
+
+::left::
+<div class="text-sm leading-snug">
+
+- **What changed:** instead of splicing the bistable arc directly against a ring joint (original
+  D24), this places the SAME kind of single bistable insert at the longeron's MID-SPAN, flanked
+  by plain straight segments — so both ring joints see the same ordinary geometry as the
+  already-validated `run17_rectangle` baseline, and only the middle of the beam carries the
+  snap-through element.
+- **What was tested:** the winning point (D17), an 8-draw imperfection sweep (D19), and a
+  with/without-insert ablation (D18) meant to check whether the reading is real or a numerical
+  spike.
+- **Result:** &sigma;_peak = 0.5838 kPa (2.6&times; target), passes the real 3D joint-strain
+  check by a thin 0.8% margin, and stays feasible on 6 of 8 sampled imperfections. The reading
+  itself is confirmed real — a smooth, continuous build-up, no spike. **But whether the insert
+  itself deserves the credit is still open, not settled** — the ablation this run used to argue
+  that is confounded (see notes): it compares against `run17_rectangle`'s own already-optimized
+  geometry, not a minimal reference, so it doesn't cleanly show the mechanism is pulling its own
+  weight.
+
+</div>
+
+::right::
+
+<div class="flex flex-col items-center justify-center h-full gap-2 px-4">
+  <div class="text-sm opacity-70 text-center">No new video yet — real solved data exists
+  (job path in notes) but hasn't been rendered. Ask if you want it built.</div>
+</div>
+
+<!--
+**Seed:** FERTILE — the fair test this run didn't run: does a single bistable insert improve on
+a MINIMAL, non-cherry-picked rectangular longeron of comparable dimensions (not specifically
+`run17_rectangle`'s own search-optimized numbers)? A literal "circular Bessa + bistability"
+comparison isn't available either — checked directly in `bo/oracle_mid_span_bistable.py` and
+`bo/oracle_chained_arch.py`: both hardcode a solid RectangularProfile cross-section, because
+the mechanism's own defining quantity (bistability_Q = rise/thickness) needs the same
+directional, anisotropic bending stiffness a rectangular section gives and a round one doesn't
+have in the same distinguishing sense. Nobody has built or tested a round-cross-section bistable
+variant in this study. So rectangular is a necessary ingredient here, not a separable confound —
+you can't fairly ask "is rectangular alone better" as if rectangular were removable. The real,
+still-open question is whether this idea, realized in its minimal necessary form, does something
+a comparably-sized plain rectangular beam doesn't — not whether it beats the single best design
+this entire study has ever found.
+
+**Mechanism-attribution correction, in full (user-caught, 2026-08-30):** the run's own notebook
+compared the winning design (arch_rise_ratio=0.30, f_insert_length=0.30) against the same design
+with `f_insert_length` shrunk to 0.02 (near-zero insert length, i.e. "no insert"). That ablated
+design's other four dimensions (ratio_a=0.009213, ratio_b=0.033238, ratio_pitch=0.681277,
+ratio_top_diameter=0.04444) are bit-for-bit `run17_rectangle`'s own confirmed-optimal geometry
+(`bo/confirmed_anchors.json`) — the single best design in this whole study, found by a real
+search for reasons unrelated to bistability. Pulling the actual per-frame stress-vs-compression
+curves for both (not just the summary numbers) and comparing at matched compression levels:
+
+| compression | with insert | without insert (=run17_rectangle) |
+|---|---|---|
+| 5% | 0.583 kPa | 0.608 kPa |
+| 10% | 0.553 kPa | 0.590 kPa |
+| 20% | 0.462 kPa | 0.507 kPa |
+| 30% | 0.368 kPa | 0.426 kPa |
+| 50% | 0.235 kPa | 0.276 kPa |
+| 70% | 0.122 kPa | 0.164 kPa |
+
+The plain, insert-free baseline reads HIGHER at every single compression level, not lower. The
+run's own ablation check is still valid for what it actually tested — the with-insert design's
+own reported peak (0.5838 kPa) is real, not a numerical spike; the ablated design's own headline
+number (10.2 kPa) IS a spike (confirmed from the raw per-frame history: it appears for exactly 2
+increments before crashing back to the same smooth curve as the with-insert design), and the
+run's sustained-fraction check correctly caught that. But "the with-insert reading is trustworthy"
+and "the insert is responsible for the capacity" are different claims, and only the first one is
+actually supported by this comparison. The second remains untested.
+
+**Timeline:** D17/D18 (this run, H10/H11): winning point + imperfection sweep + the (confounded)
+ablation. D19: 8-draw robustness sweep. See D44's own slide for the chained-arch thread this
+restudy was compared against (H15).
+
+**Infra:** bo/oracle_mid_span_bistable.py,
+scripts/supercompressible_{lin_buckle,riks}_mid_span_bistable_contact.py (new this run, not yet
+promoted to gold). Winning ODB:
+/oscar/scratch/eaguerov/sc_oracle_mid_span_bistable/riks_c6a667fa1ab047128b4b6b1910fcf2b3/;
+ablation ODB: riks_fcfc9c5f0a594aa6a9d42b8d99c7ef0c/ (same SCRATCH dir).
+-->
+
+---
+layout: two-cols-header
+class: idea-slide
+---
+
+# D44 &middot; Chained (multi-segment) bistable arch longeron
+
+::left::
+
+<div class="text-sm leading-snug">
+
+- **What:** replace one longeron with N=2&ndash;6 genuinely bistable (Q=rise/thickness &ge;
+  2.31) shallow-arch segments chained end-to-end, so the longeron snaps through several times in
+  a controlled sequence as it compresses, instead of buckling smoothly like an ordinary beam.
+- **Origin:** Correa, Seepersad &amp; Haberman (2015) &mdash; a chain of sequential
+  negative-stiffness cells; a genuine connectivity change (a SEQUENCE of discrete snap-through
+  events), not a single modified segment.
+- **Stats:** n=182 &rarr; 129 coil &rarr; 99 riks &rarr; 0 good (clean)
+  p50/p90/p100 &mdash; &sigma;_peak: 0.62/0.71/3.10 &middot; mcs: 0.63/0.95/0.95 &middot; mls:
+  0.020/1.0/1.0
+  cleared: unresolved (see Verdict) &middot; novel: yes &mdash; a genuine connectivity change
+  best good: none confirmed both genuine and joint-safe at once (see Verdict)
+- **Verdict:** POWERED &middot; FERTILE-PARAMETRIC &middot; joint-strain vs sustained-capacity
+  trade-off<br>
+  A real trade-off was mapped, not a dead end: flaring the rings + straightening the end
+  segments passes joint-strain (4.1% margin) but its sustained-capacity reading is ambiguous
+  (22.8&ndash;27.9%, unresolved even after a 250&times;-finer re-solve). More end-segment
+  curvature at the same flare gives unambiguous genuine capacity (65.8%) but fails joint-strain
+  by 11%. More flare made both worse. No point tested yet satisfies both.
+
+</div>
+
+::right::
+
+<div class="flex flex-col items-center justify-center h-full gap-2 px-4">
+  <div class="text-sm opacity-70 text-center">No render yet — 99 real converged solves exist
+  across this campaign; none has been rendered to video. Ask if you want one built.</div>
+</div>
+
+<!--
+**Input space:** n_segments&isin;{2,...,6} &mdash; discrete chain length. arch_rise_ratio,
+ratio_a, ratio_b, ratio_pitch, ratio_top_diameter &mdash; same physical meaning as every other
+rectangular-cross-section family in this study. end_rise_scale&isin;[0,1] &mdash; how much the
+TWO end segments (the ones framing directly into a ring joint) taper their own curvature down
+from the interior segments' full bistable rise (1.0 = no taper, 0.0 = end segments fully
+straightened). Fixed: young_modulus=3500 MPa, ratio_shear_modulus=0.3677, D1=100mm.
+
+**Seed:** FERTILE — a proper 2D search over (end_rise_scale, ratio_top_diameter)
+specifically in the region between D032 (genuine but joint-strain-fails) and H12's own point
+(joint-strain-passes but ambiguous) is the concrete, well-defined next step. This is NOT a
+mechanism restart &mdash; the mechanism is confirmed capable of both a genuine sustained response
+and a joint-strain pass, just not (yet) both in the same design.
+
+**Deferred:** two other literature-grounded bistable mechanisms (Jiang et al. 2018 doubly-curved
+shell; Krankel/Wadee woven column) were reviewed and NOT pursued &mdash; both require real
+shell-element (S4R) physics this study's B31-beam infrastructure cannot faithfully approximate
+(checked directly against the corpus's full text, not asserted). Building and validating new
+shell infrastructure was out of this run's remaining budget.
+
+**Timeline:**
+- D002: literature review, 3 candidates identified.
+- D003 (H3): chained-arch, energy-free, 71/72 non-convergent.
+- D005 (H4): validated point, no-contact imperfection sweep &mdash; 3/8 feasible, majority fail
+  via ring-passthrough.
+- D007/D008 (H5): contact-migrated, SAME 8-draw sweep &mdash; 8/8 feasible, complete reversal.
+- D009 (H6): zoom-BO over the exposed 6D box, finds a point exceeding the then-current best
+  reading.
+- D010/D011 (H7/H8): real 3D restrained-warping check &mdash; joint strain fails by ~2&times; a
+  straight end-buffer taper helps but not conclusively.
+- D013 (H9): end_rise_scale=0.20 mitigation &mdash; passes strain, reading itself spike-suspicious.
+- D021/D022 (H12): ring-flare (ratio_top_diameter=-0.40) + end_rise_scale=0.0 &mdash; passes
+  joint-strain with 4.1% margin.
+- D023 (H13): 8-draw sweep at the flare-rescued point &mdash; 5/8 (62.5%) feasible corrected,
+  3/8 fail to converge at all (a genuinely fragile solver basin, not just a strain failure).
+- D027 (H14): sustained-fraction check on the flare-rescued point &mdash; 22.8%, ambiguous
+  (dominated by an early-buckling spike per PROBLEM_STATEMENT Lesson 6's own standard).
+- D030: a 250&times;-finer Riks re-solve to rule out a coarse-increment artifact specifically
+  &mdash; shifts the true peak (mcs=0.0525, &sigma;=0.4327 kPa, still 1.93&times; target) but
+  D031's recomputed sustained fraction on the corrected curve is 27.9% &mdash; still ambiguous.
+- D032/D033/D034: mapped the end_rise_scale-vs-flare trade-off directly &mdash; D032
+  (end_rise_scale=0.4) is genuinely sustained (65.8%) but fails joint-strain by 11%; D033 (more
+  flare) made both worse; D034 hit the same spike signature seen at ~20 other combinations.
+- D029/D035 (H15, this run's final comparison delegation): D24's own original design re-solved
+  fresh under the current oracle &mdash; sustained fraction 20.65%, statistically
+  indistinguishable from this family's own 22.8-27.9% ambiguous band.
+
+**Infra:** bo/oracle_chained_arch.py, scripts/supercompressible_lin_buckle_chained_arch.py
+(modified this run), scripts/supercompressible_riks_chained_arch_contact.py (new this run) —
+none yet promoted to gold.
+-->
+
+---
+class: summary-slide
+---
+
 # Run `20260829T005522` — summary
 
 <div class="text-sm leading-snug">
