@@ -771,7 +771,8 @@ layout: two-cols-header
   minimal reference<br>
   Design is real and feasible, but its ablation compared against the study's own optimized
   incumbent, not a minimal host (rule 2a) — the insert-free baseline reads higher at every
-  level. Whether the mechanism helps a minimal host remains untested.
+  level. Whether the mechanism helps a minimal host remains untested. **Deeper gap: this
+  oracle never checks for a genuine snap at all — see notes (verdict audit, 2026-08-31).**
 
 </div>
 
@@ -794,6 +795,13 @@ deck's corrected convention (rule 2c-VIS), not the old sigma-colored, window-tru
 version. Neither curve ever crosses the 2% strain cap (max 1.93%/1.98%), consistent with
 the 0.8% joint-strain margin already cited above — neither curve ever turns the flat grey
 the color scale reserves for "past 2%".
+
+**Deeper gap (2026-08-31, verdict audit):** `bo/oracle_mid_span_bistable.py` never computes
+a genuine-snap diagnostic at all — checked directly, every "snap" reference in that file is
+a comment assuming the mechanism, not a checked field (unlike `bo/oracle_chained_arch.py`
+and the D24/D24-2 oracles, which at least attempt `arch_snap_reversal`, even though it has
+never once come back confirmed there either — see D24-2's Seed). This ablation compares two
+designs without ever confirming either one actually snaps.
 
 **Input space:** same design vector as D24's own base slide (mid-span adds no new free
 parameter); this pass additionally sampled imperfection angle from Bessa's own
@@ -906,8 +914,15 @@ straightened). Fixed: young_modulus=3500 MPa, ratio_shear_modulus=0.3677, D1=100
 **Seed:** FERTILE — a proper 2D search over (end_rise_scale, ratio_top_diameter)
 specifically in the region between D032 (genuine but joint-strain-fails) and H12's own point
 (joint-strain-passes but ambiguous) is the concrete, well-defined next step. This is NOT a
-mechanism restart &mdash; the mechanism is confirmed capable of both a genuine sustained response
-and a joint-strain pass, just not (yet) both in the same design.
+mechanism restart &mdash; the FAMILY is confirmed capable of both a genuine sustained
+&sigma; response and a joint-strain pass, just not (yet) both in the same design.
+**Corrected 2026-08-31 (verdict audit):** "confirmed capable" here means a non-spike,
+sustained stress reading — it does NOT mean the bistable snap-through mechanism itself is
+confirmed to have engaged. Checked directly: `arch_snap_reversal` (the oracle's own
+genuine-snap diagnostic) is unpopulated on 0 of 294 chained-arch solves ever run, D032 and
+the D030 fine-grid re-solve included. The sibling D24 family ran this same check
+repeatedly and never found a real snap in any properly-resolved solve either — a specific,
+named reason to doubt "the mechanism is confirmed," not proof it fails.
 
 **Deferred:** two other literature-grounded bistable mechanisms (Jiang et al. 2018 doubly-curved
 shell; Krankel/Wadee woven column) were reviewed and NOT pursued &mdash; both require real
@@ -1140,6 +1155,20 @@ this family's design space reaches feasibility (mcs>=0.80) with the corrected jo
 20-design search found none, but explored only a thin slice (2/20 reached a decided
 result). The open question is now specifically the twist/coilability trade-off, not the
 joint construction.
+
+**Prior attempt, reconciled (2026-08-31, verdict audit):** this was not the first fix
+attempt. Run `20260826T012550` H4 (delegation D006, 3 days earlier) already "rebuilt the
+chiral-twist joint so the rod is genuinely free to rotate... the exact confound diagnosed
+on D41's own slide," measuring twist_energy_fraction peak=0.0731 (7.3%), 0 strict feasible
+— that run's own text called it "clos[ing] the mechanism a second time, this time with the
+confound actually removed." This slide's own D002 measured 0.1218 (12.2%) on the same
+family. The two are not the same construction (D006's own notes describe a from-scratch
+joint rebuild; this slide's Input space above describes a rotation-axis correction) and
+the two numbers were never reconciled anywhere in the deck before this note. Both agree on
+the practical conclusion (twist genuinely engages, feasibility still fails), so the
+Verdict is unaffected — but a future agent comparing "twist_energy_fraction" across the
+deck should know these are two different fixes to the same family, not one number cited
+twice.
 
 **Timeline:** D002 (run 20260829T005522, H2): the joint fix + matched-point validation.
 H12 (same run): a 20-design follow-up search using the fixed joint -- 5 Stage-1 rejects, 13
@@ -1932,7 +1961,8 @@ layout: two-cols-header
 - **Verdict:** POWERED &middot; FERTILE-PARAMETRIC &middot; Q&ge;2.31 targeting<br>
   The cited 1.6487 kPa spike is a numerical artifact — re-solved 250&times; finer, it does
   not converge; the default draw resolves to 0.5039 kPa, below the incumbent's real peak.
-  Existence claim stands; the splice doesn't help — full revision history in notes.
+  Existence claim stands; the splice doesn't help, and per Seed below not even a genuine
+  snap is confirmed anywhere in this family — full revision history in notes.
 
 </div>
 
@@ -2459,6 +2489,8 @@ layout: two-cols-header
   shell/ring family this run — with a real 22&times; buckling-capacity gain over uncoupled
   sub-beams. Reaches 71.9% compression on a genuine Riks snap-through plateau — a real geometric limit, not the usual strain-budget wall. Two independent
   crosslink realizations agree where it stalls; pushing further makes it worse.
+  **Corrected by D40-2: the 71.9% reading was never a real converged plateau —
+  see that slide.**
 
 </div>
 
@@ -3695,7 +3727,10 @@ converging region and the engaging region appear to be DISJOINT in this paramete
 onset the geometry guarantees no touch; at onset the solver meets a hard first-contact overclosure
 and quits. That is not "the cone does nothing" -- it is "the cone cannot be evaluated". D014 was
 specifically the severe re-test after the critic rejected the first, safety-margined sweep as
-inadequate, and it is the reason the verdict reads INCONCLUSIVE rather than FALSIFIED.
+inadequate, and it is the reason the verdict reads a test-failure call (now BLOCKED ·
+UNKNOWN-NO-EVIDENCE under the current taxonomy; this paragraph originally justified the
+pre-migration INCONCLUSIVE tag -- corrected 2026-08-31, verdict audit -- the same "cannot be
+evaluated, not falsified" reasoning still applies).
 
 The one converged point at rise 0.15 is genuinely useful as a null control: it proves the shaped
 disc is correctly built and inert, so the divergence at 0.17 is about contact conditioning and not
@@ -3985,12 +4020,17 @@ The deep-wrap Stage-2 crash is an open solver problem, not a design lead.
 Run 20260812T014026, H4/H6. The gif is the 839-increment solve (riks_847140cc): 785 frames in
 step, of which 268 fall inside the mcs<=0.95 render window.
 
-WHY "INCONCLUSIVE" AND NOT "SUPPORTED": the measurement is real and large, but it is one half of
+WHY THE ORIGINAL DRAFT VERDICT WAS "INCONCLUSIVE", NOT "SUPPORTED" (corrected 2026-08-31,
+verdict audit: this paragraph pre-dates the CAMPAIGN·IDEA·SCOPE migration and argued for a
+tag pair that no longer appears on this slide -- the reasoning below is why the family was
+never called a clean win, and still applies to why REFUTED, not VALIDATED, is the current
+call): the measurement is real and large, but it is one half of
 a trade. sigma_eig dropping 10x across the same sweep is exactly what a pre-curved member should
 do -- it is no longer a straight column, so its Euler load is not the relevant one -- and the
-question the run never got to is whether the POST-buckling branch recovers what the eigenvalue
-lost. This study has been burned before by reading a favourable half-measurement as a result
-(docs/FLAKY_DESIGNS.md keeps a list of them), so the verdict stays open on purpose.
+question was whether the POST-buckling branch recovers what the eigenvalue lost. The
+rho(wrap, sigma_peak)=-0.392 correlation on the current Verdict line answers that: it doesn't.
+This study has been burned before by reading a favourable half-measurement as a result
+(docs/FLAKY_DESIGNS.md keeps a list of them).
 
 READ THE RELIEF NUMBER CORRECTLY. 5x is not the depth cap moving 5x -- it is Delta_kappa
 shrinking, which relaxes the cap on c for the SAME kappa_max. The kinematic invariant (H5) is
@@ -4402,8 +4442,13 @@ layout: two-cols-header
 **Input space:** same design vector as D25's own base slide (contact migration adds no new
 free parameter).
 
-**Seed:** FERTILE — twist/chirality applied to the open-arc section. Partly attempted already:
-D27 reached 0/115 coilable, but Stage-1-only and pre-contact.
+**Seed:** BARREN (corrected 2026-08-31, verdict audit) — this tag previously read FERTILE
+("twist/chirality applied to the open-arc section"), but D25-3 already tested exactly
+this (twist_angle promoted to a real parameter, n=105, correlation with the objective
+indistinguishable from zero) and closed it REFUTED. D25-3's own notes already flagged
+this exact discrepancy ("the original D25 slide and D25-2... disagreed on whether
+twist had already been tried — it hadn't; left as a discrepancy... for the user's own
+correction") — this is that correction. See D25-3 for the twist result.
 
 Jobs 4791881 (invalid sampling, superseded), 4792435 (64-design pilot), 4794837 (256-design
 significance sweep, 1.01 h wall).
@@ -4974,7 +5019,11 @@ specifically to rule out cases where the wall's own local wrinkling dominates an
 tiny absolute rotation is just noise riding on top of it. Under the weaker,
 shared-convention "legacy" threshold (rotation present AND near-zero absolute lateral
 displacement), 4/68 pass — so there is a genuine, unresolved daylight between the two
-coilability definitions for this family, not fully adjudicated this run.
+coilability definitions for this family, not fully adjudicated this run. **Verdict-audit
+note (2026-08-31):** REFUTED above holds either way — 4/68 is not a working family under
+either convention — but the visible Stats bullet's flat "0 coil" is this family's own
+stricter check, not directly comparable to another family's "coilable" count without this
+qualifier.
 
 **Timeline:** This is H1 of run `20260804T221559`, delegation D003 (build) + D004
 (80-pt LHS sweep, seed=0, 20 per n_lobes&isin;&#123;3,4,5,6&#125;).
@@ -5430,6 +5479,14 @@ CURRENT contact oracle and &sigma;_peak metric; the headline 0.8509 kPa is the r
 eigenvalue metric, never re-measured under contact, so whether it still beats the current
 0.6077 kPa incumbent is a real open question, not a settled one.
 
+**Snap not confirmed (2026-08-31, verdict audit):** across every properly-resolved solve in
+this whole family — this design, D24-2's Rank-1/Rank-3, and 294/294 chained-arch (D44)
+solves — the oracle's own genuine-snap diagnostic (`arch_snap_reversal`) has never once
+confirmed a real two-equilibrium snap. WORKS above means the design is real and feasible
+under the study's actual pass/fail bar, not that the bistable mechanism itself is confirmed
+engaged — see D24-2's Seed and D44's own audit note for the same finding in this family's
+other members.
+
 **2026-08-29 update (run 20260829T005522, H4/H8/H10 -- a broader family search, NOT the same
 design as above):** a real, adaptive 42-design search of the bistable-arch family's full 6D box
 found 13 converged designs, 11 passing every feasibility criterion -- genuinely working designs
@@ -5829,12 +5886,10 @@ class: idea-slide
   solve, so Stage 2 has no population to compute over<br>
   cleared: none (0 decided) &middot; novel: untested — no design ever reached a Riks solve<br>
   best good: none (0/91 passed every criterion)
-- **Verdict:** FALSIFIED · DEAD-END<br>
-  A solve-completion wall, not a strain wall: all
-  90 coilable designs failed to reach a converged Riks solution, so the
-  cross-section itself never produces a mast this infrastructure can
-  confirm as physically valid, whether that reflects a genuine physical
-  incompatibility or a systematic solver difficulty for this profile.
+- **Verdict:** BLOCKED · UNKNOWN-NO-EVIDENCE · cruciform/I-beam Stage-2 convergence<br>
+  A solve-completion wall, not a strain wall: all 90 coilable designs failed
+  to reach a converged Riks solution, so the mechanism was never actually
+  tested. An untried fix for this exact wall exists — see Seed.
 
 
 </div>
@@ -5863,9 +5918,14 @@ strongly (r=0.76) among the non-converged salvage reads for this campaign — re
 numbers, consistent with classical flexural-torsional coupling, but built entirely on
 partial/non-converged Riks reads, not genuine converged solutions, which is why the
 Verdict above leads with the solve-completion failure itself rather than this
-correlation. Do not re-attempt this exact cruciform/I-beam family expecting a
-different result: PROBLEM_STATEMENT.md explicitly lists it as a settled null result
-(0/91 feasible, r=0.76 mcs/mls correlation even in the best-mcs subset).
+correlation.
+
+**Corrected 2026-08-31 (verdict audit):** this Deferred note previously claimed
+"PROBLEM_STATEMENT.md explicitly lists it as a settled null result" — checked directly,
+PROBLEM_STATEMENT.md never mentions cruciform or I-beam anywhere; that citation was
+false. This slide's own Seed tag (FERTILE — the Explicit-dynamics fix was never tried)
+was the accurate one and the Verdict above has been corrected to match; the family is
+BLOCKED on an untried fix, not a confirmed dead end.
 
 **Timeline:** Registered as H2 of run `20260721T201733` (all-Sonnet, 14h, GATED,
 evals_used=867, $59.50 for the whole run). Same run's H1 (properly-powered 128-eval
@@ -6144,7 +6204,7 @@ Elliptical top/bottom rings are cleanly falsified again — every point in a 32-
 
 | # | Claim | Verdict | Key evidence | Idea |
 |---|---|---|---|---|
-| H1 | Elliptical top/bottom rings with phase offset, re-tested | ❌ | folds into the elliptical-rings slide; every point in a 32-point sweep was non-coilable | D10 |
+| H1 | Elliptical top/bottom rings with phase offset, re-tested | ❌ | every point in a 32-point sweep was non-coilable | D10-2 |
 | H2 | In-plane serpentine/meander centerline perturbation (own slide) | ❔ | inconclusive | D19 |
  &nbsp;&middot;&nbsp; **Cost: $17.46**
 </div>
@@ -6162,6 +6222,69 @@ Per-hypothesis detail:
   buckling mode away from coiling entirely. A systematic loss of the coiling mechanism
   across the whole tested box, not a scattered/thin-coverage null result.
 - H2: see idea slide below.
+
+**Split out 2026-08-31 (verdict audit):** this H1 previously read "folds into the
+elliptical-rings slide" -- old rule-1 language, before D&lt;n&gt;-&lt;k&gt; numbering
+existed. Promoted to its own D10-2 slide since it's a real, decisive, well-powered
+re-test, not a thin/incidental one (rule 1's own carve-out for folding several
+different base ideas' one-design checks into a single slide does not apply here --
+this is one base idea, tested properly).
+-->
+
+---
+layout: two-cols-header
+class: idea-slide
+---
+
+# D10-2 &middot; Systematic re-test: every point non-coilable
+
+::left::
+<div class="text-sm leading-snug">
+
+- **What:** Re-tested D10's ellipse-top/bottom-ring idea with a proper systematic
+  sweep — a 30-point LHS spanning the full registered 2D box (ellipse_aspect_ratio,
+  phase_offset), plus 2 boundary probes within ~1&deg; of the circular/zero-phase
+  anchor, at the fixed run17_rectangle cross-section.
+- **Origin:** D10's own base slide could not close FALSIFIED — the study's own
+  adequacy bar (Charter &sect;2) blocks a non-existence verdict when the guiding
+  surrogates aren't predicting above chance. This re-test answers the question
+  directly, by full coverage, not by surrogate prediction.
+- **Stats:** n=32 (30 LHS + 2 boundary probes) &rarr; 0 coil &rarr; 0 riks &rarr; 0
+  good.<br>
+  Every single point — the full registered box plus two probes ~1&deg; from the
+  circular anchor — is non-coilable. A ~1&deg; phase perturbation switches the first
+  buckling mode away from coiling entirely.<br>
+  cleared: none &middot; novel: no — same mechanism as D10, testing coverage, not a
+  new idea.
+- **Verdict:** POWERED &middot; REFUTED &middot; elliptical/phase-offset ring
+  symmetry-breaking<br>
+  Full-coverage, direct observation (not surrogate-dependent) that the mechanism
+  fails everywhere in the registered box. This is the systematic re-test D10's own
+  Verdict said was needed before a closed non-existence call could be licensed —
+  it's now licensed.
+
+</div>
+
+::right::
+
+<div class="flex flex-col items-center justify-center h-full gap-2 px-4">
+  <div class="text-sm opacity-70 text-center">No video or chart (rule 2c-VIS
+  exception): every one of 32 points failed Stage-1 coilability — no Stage-2 data
+  exists to chart, and no archived ODB for this specific 2026-07-18 campaign was
+  found on scratch or in this run's own delegation logs to render (ephemeral sandbox
+  cleanup, not a fabrication — same situation as D1's own slide).</div>
+</div>
+
+<!--
+**Input space:** same 2D box as D10's own base slide (ellipse_aspect_ratio,
+phase_offset) — no new parameter, a coverage re-test.
+
+**Seed:** BARREN — full-coverage sweep, not a thin sample; no untried perturbation of
+this idea remains distinct from D10's own already-BARREN Seed.
+
+**Timeline:** D006 of run `20260718T031519`, H1.
+
+**Infra:** no code changed — same oracle path as D10's own base campaign.
 -->
 
 ---
@@ -7697,6 +7820,18 @@ run `20260712T192155` H1 eventually finds a repeatable 2.5656 kPa counterexample
 (FALSIFIED against a tighter 2.3376 kPa floor introduced by then) — see those runs'
 own summary slides for detail.
 
+**Corrected 2026-08-31 (verdict audit):** the Timeline above traces this family's own
+campaigns to 0.3644 (D016, this slide's own headline) -> 1.1688 (run
+`20260708T021335` H4) -> 2.5656 (run `20260712T192155` H1, later FALSIFIED against a
+tighter floor) -- none of which is 0.7704 kPa, the number this slide's own Verdict
+cites as what "run17_rectangle" became. Checked directly: `bo/confirmed_anchors.json`
+IS the authoritative provenance record for that exact figure (its own `role` field
+documents the full warping-check saga and the 2026-08-06 metric-v1 re-derivation to
+0.6071/0.6077 kPa current-metric) -- but this slide's own Timeline does not actually
+contain the step that arrives at 0.7704 specifically. Left as a disclosed gap rather
+than a fabricated derivation; cite `bo/confirmed_anchors.json` directly for this
+number's provenance, not this slide's own Timeline.
+
 **Infra:** ODB: data/idea_odbs/20260705T181941_H8_run17_rectangle_anchor/ (source:
 SCRATCH path /oscar/scratch/eaguerov/supercompressible_oracle/riks_09377e3040e64b82be337fcb827bd32e,
 gold-verified in bo/confirmed_anchors.json). GIF: native Abaqus/CAE Viewer export,
@@ -7884,14 +8019,13 @@ class: idea-slide
   σ_crit alone — never checked against real feasibility)
   cleared: none (0 decided) &middot; novel: untested — Stage 2 never ran this campaign
   best good: none (0/32 passed every criterion)
-- **Verdict:** INCONCLUSIVE · DEAD-END<br>
-  The topology recovers almost all of the
-  single-storey Stage-1 performance without losing coilability, which is
-  itself informative, but this campaign's own domain never tracked
-  mcs/mls at all, so even this near-miss was never checked against the
-  study's real feasibility bar. A properly-powered follow-up (2026-08-04,
-  3-phase zoom, 40 evals on a lower-dimensional rectangle-family
-  reparametrization) also found 0 feasible — see speaker notes.
+- **Verdict:** UNDERPOWERED · FERTILE-PARAMETRIC · max-J-at-half-pitch, n_storeys=2<br>
+  The topology recovers almost all of the single-storey Stage-1 performance
+  without losing coilability, and a real follow-up (40 evals on a lower-
+  dimensional reparametrization) also found 0 feasible — but the single
+  specific point flagged as the natural next step (max-J-at-half-pitch,
+  extrapolated to ~75.9 kPa, clearing both floors) has still never been
+  directly run at n_storeys=2 — see Seed. Not a confirmed dead end.
 
 
 </div>
