@@ -350,14 +350,23 @@ fundamental they are, not by the date they were written.
           x-axis: mcs, the FULL UNWINDOWED history — never truncated at
                   the feasibility window, set dynamically from the data's
                   own max, never hardcoded.
-          y-axis: sigma [kPa/longeron], log-scale automatically past one
-                  order of magnitude of range.
-          color:  each point's own local strain (mls), normalized to the
-                  FIXED [0, 0.02] range (not the curve's own max) so
-                  redness is comparable design to design — with a genuine
-                  visual DISCONTINUITY (a distinct blue, not a continued
-                  gradient) past the 2% strain cap, so a design that
-                  surpassed it is unmistakable at a glance.
+          y-axis: sigma, in MULTIPLES OF THE BESSA POINT (never raw kPa),
+                  ALWAYS LINEAR — never log-scale, for any reason,
+                  including a dominant artifact spike (standing
+                  instruction, 2026-08-31 — do not re-derive this).
+          color:  GREY MEANS "PAST THE CAP" (corrected twice, 2026-08-31 —
+                  first tried grey-for-low-strain/red-for-high, then a
+                  separate blue plus a vertical crossing-line for
+                  past-cap; both rejected). For mls in [0, 0.02] — the
+                  range where pass/fail is still being decided — color is
+                  a real, NEVER-GREY red gradient (light red at 0% strain
+                  to dark red at 2%), normalized to that fixed range so
+                  "how red" is comparable design to design. Past 2% the
+                  curve turns flat GREY, like a UI element greying out
+                  once disabled — the exact strain value no longer
+                  matters once the design has already failed this
+                  criterion. No second annotation, no vertical line: the
+                  grey IS the signal.
           style:  solid = primary design; dashed = optional comparison.
 
         EVERY CHART BAKES IN AN OPAQUE WHITE BACKGROUND (matplotlib default
@@ -770,12 +779,12 @@ layout: two-cols-header
 
 <div class="flex flex-col gap-1" style="height: 440px">
   <div class="flex items-center justify-center" style="height: 150px">
-    <img src="/gifs/mid_span_bistable_mini.png" style="max-height: 150px; max-width: 100%" />
+    <img src="/gifs/D24-3_mid_span_bistable_mini.png" style="max-height: 150px; max-width: 100%" />
   </div>
   <div class="flex items-center justify-center" style="height: 245px">
-    <img src="/gifs/mid_span_bistable_landscape.gif" class="rounded shadow-lg" style="max-height: 245px; max-width: 100%" />
+    <img src="/gifs/D24-3_mid_span_bistable_landscape.gif" class="rounded shadow-lg" style="max-height: 245px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-50 text-center px-2">Insert (solid) vs ablated (dashed), log scale.</div>
+  <div class="text-xs opacity-50 text-center px-2">Insert (solid) vs ablated host (dashed).</div>
 </div>
 
 <!--
@@ -783,8 +792,8 @@ layout: two-cols-header
 unwindowed history (both curves reach mcs=1.0), colored by local strain (mls) per the
 deck's corrected convention (rule 2c-VIS), not the old sigma-colored, window-truncated
 version. Neither curve ever crosses the 2% strain cap (max 1.93%/1.98%), consistent with
-the 0.8% joint-strain margin already cited above — no blue discontinuity is expected or
-shown.
+the 0.8% joint-strain margin already cited above — neither curve ever turns the flat grey
+the color scale reserves for "past 2%".
 
 **Input space:** same design vector as D24's own base slide (mid-span adds no new free
 parameter); this pass additionally sampled imperfection angle from Bessa's own
@@ -878,12 +887,12 @@ class: idea-slide
 
 <div class="flex flex-col gap-1" style="height: 440px">
   <div class="flex items-center justify-center" style="height: 150px">
-    <img src="/gifs/chained_arch_mini.png" style="max-height: 150px; max-width: 100%" />
+    <img src="/gifs/D44_chained_arch_mini.png" style="max-height: 150px; max-width: 100%" />
   </div>
   <div class="flex items-center justify-center" style="height: 245px">
-    <img src="/gifs/chained_arch_landscape.gif" class="rounded shadow-lg" style="max-height: 245px; max-width: 100%" />
+    <img src="/gifs/D44_chained_arch_landscape.gif" class="rounded shadow-lg" style="max-height: 245px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-50 text-center px-2">D032 vs H12 (dashed), log scale.</div>
+  <div class="text-xs opacity-50 text-center px-2">D032 (solid) vs H12 (dashed).</div>
 </div>
 
 <!--
@@ -947,8 +956,8 @@ unwindowed history (both curves reach mcs=1.0), colored by local strain (mls) pe
 corrected convention (rule 2c-VIS). Neither D032 nor the D030 fine-grid curve ever crosses the
 2% strain cap (max 1.72%/1.75%) — the ordinary beam-theory `mls` this chart shows is not what
 disqualifies D032; that is the SEPARATE, stricter real-3D joint-warping check
-(`validation/warping_check`), which is not part of this chart's data at all. No blue
-discontinuity is expected or shown here for that reason.
+(`validation/warping_check`), which is not part of this chart's data at all. Neither curve
+ever turns the flat grey the color scale reserves for "past 2%", for that same reason.
 
 **Infra:** bo/oracle_chained_arch.py, scripts/supercompressible_lin_buckle_chained_arch.py
 (modified this run), scripts/supercompressible_riks_chained_arch_contact.py (new this run) —
@@ -1174,12 +1183,12 @@ layout: two-cols-header
 
 <div class="flex flex-col gap-1" style="height: 440px">
   <div class="flex items-center justify-center" style="height: 140px">
-    <img src="/gifs/crosslinked_bundle_revisited_mini.png" style="max-height: 140px; max-width: 100%" />
+    <img src="/gifs/D40-2_crosslinked_bundle_mini.png" style="max-height: 140px; max-width: 100%" />
   </div>
   <div class="flex items-center justify-center" style="height: 245px">
-    <img src="/gifs/crosslinked_bundle_landscape.gif" class="rounded shadow-lg" style="max-height: 245px; max-width: 100%" />
+    <img src="/gifs/D40_crosslinked_bundle_landscape.gif" class="rounded shadow-lg" style="max-height: 245px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-60 text-center px-2">D012's re-solve, unwindowed; blue past the 2% strain cap.</div>
+  <div class="text-xs opacity-60 text-center px-2">D012's re-solve, unwindowed; greys out past the 2% cap.</div>
 </div>
 
 <!--
@@ -1187,11 +1196,11 @@ layout: two-cols-header
 adaptive search (24 seeded + 24 active) resamples that same space, no new parameter added.
 
 **Chart correction (2026-08-31, rebuilt with `bo/mini_chart.py`):** now plots the full
-unwindowed history, colored by local strain (mls) with the deck's corrected convention
-(see rule 2c-VIS), not the old sigma-colored, window-truncated version. The automatic 2%
-strain-cap marker lands at mcs&asymp;0.72 — confirming, from real per-frame data rather
-than a hardcoded annotation, that "matches D004's reading" (cited elsewhere on this slide
-as mcs=0.7173) was always the same point as the strain-cap crossing, not a coincidence.
+unwindowed history in multiples of Bessa, linear, colored by local strain (mls) with the
+deck's corrected convention (see rule 2c-VIS), not the old sigma-colored, window-truncated
+version. The curve visibly turns grey at mcs&asymp;0.72 — confirming, from real per-frame
+data, that "matches D004's reading" (cited elsewhere on this slide as
+mcs=0.7173) was always the same point as the strain-cap crossing, not a coincidence.
 
 **Seed:** FERTILE — the family's own construction, not this one design point, is the open question
 now: something prevents a clean Riks solve near this optimum, and no confirmed working
@@ -1360,7 +1369,7 @@ class: idea-slide
 ::right::
 
 <div class="flex flex-col items-center justify-center gap-1" style="height: 400px">
-  <img src="/gifs/grain_beam_native.gif" style="max-height: 340px; max-width: 100%" class="rounded shadow-lg" />
+  <img src="/gifs/D43_grain_beam_native.gif" style="max-height: 340px; max-width: 100%" class="rounded shadow-lg" />
   <div class="text-xs opacity-50 text-center">Stage-1 Mode 1, "Point B" — no Riks history exists.</div>
 </div>
 
@@ -1540,10 +1549,10 @@ class: idea-slide
 
 <div class="flex flex-col gap-2" style="height: 420px">
   <div class="flex items-center justify-center" style="height: 155px">
-    <img src="/gifs/serpentine_mini.png" style="max-height: 155px; max-width: 100%" />
+    <img src="/gifs/D42_serpentine_mini.png" style="max-height: 155px; max-width: 100%" />
   </div>
   <div class="flex items-center justify-center" style="height: 257px">
-    <img src="/gifs/serpentine_landscape.gif" class="rounded shadow-lg" style="max-height: 257px; max-width: 100%" />
+    <img src="/gifs/D42_serpentine_landscape.gif" class="rounded shadow-lg" style="max-height: 257px; max-width: 100%" />
   </div>
 </div>
 
@@ -1851,10 +1860,10 @@ class: idea-slide
 
 <div class="flex flex-col gap-1" style="height: 430px">
   <div class="flex items-center justify-center" style="height: 150px">
-    <img src="/gifs/twist_buckle_mini.png" style="max-height: 150px; max-width: 100%" />
+    <img src="/gifs/D41_twist_buckle_mini.png" style="max-height: 150px; max-width: 100%" />
   </div>
   <div class="flex items-center justify-center" style="height: 245px">
-    <img src="/gifs/twist_buckle_landscape.gif" class="rounded shadow-lg" style="max-height: 245px; max-width: 100%" />
+    <img src="/gifs/D41_twist_buckle_landscape.gif" class="rounded shadow-lg" style="max-height: 245px; max-width: 100%" />
   </div>
   <div class="text-xs opacity-50 text-center">twist_angle=30&deg;: still an ordinary bending collapse, not twist-dominated.</div>
 </div>
@@ -1931,10 +1940,10 @@ layout: two-cols-header
 
 <div class="flex flex-col gap-1" style="height: 430px">
   <div class="flex items-center justify-center" style="height: 150px">
-    <img src="/gifs/rank3_coarse_vs_fine_full_mini.png" style="max-height: 150px; max-width: 100%" />
+    <img src="/gifs/D24-2_rank3_coarse_vs_fine_full_mini.png" style="max-height: 150px; max-width: 100%" />
   </div>
   <div class="flex items-center justify-center" style="height: 245px">
-    <img src="/gifs/bistable_arch_rank3_landscape.gif" class="rounded shadow-lg" style="max-height: 245px; max-width: 100%" />
+    <img src="/gifs/D24-2_bistable_arch_rank3_landscape.gif" class="rounded shadow-lg" style="max-height: 245px; max-width: 100%" />
   </div>
   <div class="text-xs opacity-50 text-center">Coarse vs fine-grid overlay; converged design below.</div>
 </div>
@@ -2008,9 +2017,9 @@ draws already on record. Three results, all real Abaqus output:
   **SUPERSEDED 2026-08-27 (same day, consolidated per advisor review):** this originally
   pointed at a separate early-region-only zoom chart, stacked as a 3rd panel above the
   slide's own pre-existing full-range plot. Both prior images
-  (`/gifs/rank3_sigma_mcs_mini.png`, `/gifs/rank3_finegrid_earlyregion_mini.png`) are kept
+  (`/gifs/D24-2_rank3_sigma_mcs_mini.png`, `/gifs/D24-2_rank3_finegrid_earlyregion_mini.png`) are kept
   on disk, unreferenced, not deleted — replaced by one consolidated full-range chart,
-  `/gifs/rank3_coarse_vs_fine_full_mini.png`, coarse (dashed) vs fine-grid (solid)
+  `/gifs/D24-2_rank3_coarse_vs_fine_full_mini.png`, coarse (dashed) vs fine-grid (solid)
   overlaid across the ENTIRE compression history (0-100%+ mcs), same
   design+imperfection pair, same data sources as below. The full-range view makes the
   finding visually undeniable in a way the zoom-only chart couldn't: the coarse curve's
@@ -2205,7 +2214,7 @@ layout: two-cols-header
 ::right::
 
 <div class="flex flex-col items-center justify-center h-full">
-  <img src="/gifs/kirigami_shell_negative_native.gif" class="max-h-72 rounded shadow-lg" />
+  <img src="/gifs/D36_kirigami_shell_negative_native.gif" class="max-h-72 rounded shadow-lg" />
   <div class="text-xs opacity-60 mt-2 px-4 text-center">Stage-1 lowest mode; no Stage 2 ran.</div>
 </div>
 
@@ -2265,10 +2274,10 @@ layout: two-cols-header
 
 <div class="flex flex-col gap-1" style="height: 460px">
   <div class="flex items-center justify-center" style="height: 165px">
-    <img src="/gifs/compliant_ring_mini.png" style="max-height: 165px; max-width: 100%" />
+    <img src="/gifs/D37_compliant_ring_mini.png" style="max-height: 165px; max-width: 100%" />
   </div>
   <div class="flex items-center justify-center" style="height: 265px">
-    <img src="/gifs/compliant_ring_landscape.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
+    <img src="/gifs/D37_compliant_ring_landscape.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
   </div>
   <div class="text-xs opacity-50 text-center">Best design (mcs=0.7885); real kirigami ring shown, not schematic.</div>
 </div>
@@ -2333,7 +2342,7 @@ layout: two-cols-header
 ::right::
 
 <div class="flex flex-col items-center justify-center h-full">
-  <img src="/gifs/graded_shell_negative_native.gif" class="max-h-72 rounded shadow-lg" />
+  <img src="/gifs/D38_graded_shell_negative_native.gif" class="max-h-72 rounded shadow-lg" />
   <div class="text-xs opacity-60 mt-2 px-4 text-center">Stage-1 lowest mode; no Stage 2 ran.</div>
 </div>
 
@@ -2391,7 +2400,7 @@ layout: two-cols-header
 ::right::
 
 <div class="flex flex-col items-center justify-center h-full">
-  <img src="/gifs/nested_double_wall_negative_native.gif" class="max-h-72 rounded shadow-lg" />
+  <img src="/gifs/D39_nested_double_wall_negative_native.gif" class="max-h-72 rounded shadow-lg" />
   <div class="text-xs opacity-60 mt-2 px-4 text-center">Stage-1 lowest mode; never escalated to Stage 2.</div>
 </div>
 
@@ -2457,10 +2466,10 @@ layout: two-cols-header
 
 <div class="flex flex-col gap-1" style="height: 460px">
   <div class="flex items-center justify-center" style="height: 165px">
-    <img src="/gifs/crosslinked_bundle_mini.png" style="max-height: 165px; max-width: 100%" />
+    <img src="/gifs/D40_crosslinked_bundle_mini.png" style="max-height: 165px; max-width: 100%" />
   </div>
   <div class="flex items-center justify-center" style="height: 265px">
-    <img src="/gifs/crosslinked_bundle_landscape.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
+    <img src="/gifs/D40_crosslinked_bundle_landscape.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
   </div>
   <div class="text-xs opacity-50 text-center">Best design (D020): real stopping point 71.9% — see notes.</div>
 </div>
@@ -2553,7 +2562,7 @@ layout: two-cols-header
 ::right::
 
 <div class="flex flex-col items-center justify-center h-full">
-  <img src="/gifs/tape_spring_twist_negative_native.gif" class="max-h-72 rounded shadow-lg" />
+  <img src="/gifs/D25-3_tape_spring_twist_negative_native.gif" class="max-h-72 rounded shadow-lg" />
   <div class="text-xs opacity-60 mt-2 px-4 text-center">Deepest real solve of 105: fails strain budget early.</div>
 </div>
 
@@ -2739,10 +2748,10 @@ layout: two-cols-header
 
 <div class="flex flex-col gap-1" style="height: 460px">
   <div class="flex items-center justify-center" style="height: 165px">
-    <img src="/gifs/kissing_pair_mini.png" style="max-height: 165px; max-width: 100%" />
+    <img src="/gifs/D33_kissing_pair_mini.png" style="max-height: 165px; max-width: 100%" />
   </div>
   <div class="flex items-center justify-center" style="height: 265px">
-    <img src="/gifs/kissing_pair_landscape.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
+    <img src="/gifs/D33_kissing_pair_landscape.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
   </div>
   <div class="text-xs opacity-50 text-center">Same as D33 (3&times;) — still the family's best.</div>
 </div>
@@ -2813,10 +2822,10 @@ layout: two-cols-header
 
 <div class="flex flex-col gap-1" style="height: 425px">
   <div class="flex items-center justify-center" style="height: 145px">
-    <img src="/gifs/scale_lock_mini.png" style="max-height: 145px; max-width: 100%" />
+    <img src="/gifs/D35_scale_lock_mini.png" style="max-height: 145px; max-width: 100%" />
   </div>
   <div class="flex items-center justify-center" style="height: 245px">
-    <img src="/gifs/scale_lock_landscape.gif" class="rounded shadow-lg" style="max-height: 245px; max-width: 100%" />
+    <img src="/gifs/D35_scale_lock_landscape.gif" class="rounded shadow-lg" style="max-height: 245px; max-width: 100%" />
   </div>
   <div class="text-xs opacity-50 text-center">D007's idx=0 (mcs=45.0%): scale panels visibly rotate/overlap per rib.</div>
 </div>
@@ -3055,10 +3064,10 @@ layout: two-cols-header
 
 <div class="flex flex-col gap-1" style="height: 415px">
   <div class="flex items-center justify-center" style="height: 140px">
-    <img src="/gifs/kresling_sigma_history_mini.png" style="max-height: 140px; max-width: 100%" />
+    <img src="/gifs/D17-3_kresling_sigma_history_mini.png" style="max-height: 140px; max-width: 100%" />
   </div>
   <div class="flex items-center justify-center" style="height: 240px">
-    <img src="/gifs/kresling_contact_winner_native.gif" class="rounded shadow-lg" style="max-height: 240px; max-width: 100%" />
+    <img src="/gifs/D17-3_kresling_contact_winner_native.gif" class="rounded shadow-lg" style="max-height: 240px; max-width: 100%" />
   </div>
   <div class="text-xs opacity-50 text-center">Above: both meshes overlaid, late divergence. Below: local-zoom design.</div>
 </div>
@@ -3145,7 +3154,7 @@ fails to reach coilability) -- all four match this slide's narrative exactly.
 
 WHERE THE MINI PLOT CAME FROM (added 2026-08-27, format-conformance pass): unlike the job-number
 divisor table above, this data DID survive on disk and was verified directly, not re-typed from
-prose. `kresling_meshconv_mini.png` plots sigma_peak straight from
+prose. `D17-3_kresling_meshconv_mini.png` plots sigma_peak straight from
 `runs/20260819T022742/debug/delegations/D012/mesh_convergence_results.json` (divisor 300 ->
 1.072340266344733 kPa, converged; divisor 600 -> 3.186755229060794 kPa, converged; divisor 1200 ->
 solver exception, "TOO MANY ATTEMPTS MADE FOR THIS INCREMENT", no sigma_peak value exists) --
@@ -3154,12 +3163,12 @@ Deliberately NOT a sigma-vs-compression curve (which would visually read as "cle
 result") -- this panel is the falsification evidence itself: two converged points diverging, a
 third that produced no answer at all, marked as a solver failure rather than interpolated or
 omitted silently. Generated by a fresh, uncommitted ad hoc script (no committed generation script
-exists for this deck's mini plots, per the same convention as `rank3_sigma_mcs_mini.png` --
+exists for this deck's mini plots, per the same convention as `D24-2_rank3_sigma_mcs_mini.png` --
 04ace0a); style matched to the deck's other mini plots (firebrick #B2182B markers/line, white
 background, light gridlines) but the axes differ (mesh divisor vs sigma_peak in kPa, not
 sigma-vs-mcs normalized to Bessa) because the finding itself is about mesh sensitivity, not a
-compression-history shape. Saved as `kresling_meshconv_mini.png`, NOT `kresling_mini.png` --
-that filename is already taken by D17's own idea-slide mini plot (`/gifs/kresling_mini.png`,
+compression-history shape. Saved as `D17-3_kresling_meshconv_mini.png`, NOT `D17_kresling_mini.png` --
+that filename is already taken by D17's own idea-slide mini plot (`/gifs/D17_kresling_mini.png`,
 line ~5474); overwriting it would have silently broken that earlier slide. **SUPERSEDED as the
 visible panel 2026-08-27** (see below) -- the file is kept on disk, just no longer referenced by
 this slide, per the user's own instruction not to delete it.
@@ -3198,8 +3207,8 @@ essentially the same compression, mcs&asymp;81%, where the two curves are still 
 than left as a caption-only claim. **SUPERSEDED as the visible panel 2026-08-27** (same day,
 same review pass -- see below): the advisor asked for &sigma; vs compression instead of local
 strain, since the local-strain finding above, while real, is not what the family's own
-falsification is measured on. `kresling_strain_history_mini.png` is kept on disk, unreferenced,
-same not-delete convention as `kresling_meshconv_mini.png` above -- this is now the SECOND
+falsification is measured on. `D17-3_kresling_strain_history_mini.png` is kept on disk, unreferenced,
+same not-delete convention as `D17-3_kresling_meshconv_mini.png` above -- this is now the SECOND
 superseded panel on this slide, in order: divisor bar chart -> local-strain history -> sigma
 history (current).
 
@@ -3383,10 +3392,10 @@ layout: two-cols-header
 
 <div class="flex flex-col gap-1" style="height: 430px">
   <div class="flex items-center justify-center" style="height: 150px">
-    <img src="/gifs/kissing_pair_mini.png" style="max-height: 150px; max-width: 100%" />
+    <img src="/gifs/D33_kissing_pair_mini.png" style="max-height: 150px; max-width: 100%" />
   </div>
   <div class="flex items-center justify-center" style="height: 245px">
-    <img src="/gifs/kissing_pair_landscape.gif" class="rounded shadow-lg" style="max-height: 245px; max-width: 100%" />
+    <img src="/gifs/D33_kissing_pair_landscape.gif" class="rounded shadow-lg" style="max-height: 245px; max-width: 100%" />
   </div>
   <div class="text-xs opacity-50 text-center">Family's best (D018): converges at 48.6% — see notes.</div>
 </div>
@@ -3479,10 +3488,10 @@ layout: two-cols-header
 
 <div class="flex flex-col gap-1" style="height: 415px">
   <div class="flex items-center justify-center" style="height: 140px">
-    <img src="/gifs/staged_storey_mini.png" style="max-height: 140px; max-width: 100%" />
+    <img src="/gifs/D34_staged_storey_mini.png" style="max-height: 140px; max-width: 100%" />
   </div>
   <div class="flex items-center justify-center" style="height: 240px">
-    <img src="/gifs/staged_storey_native.gif" class="rounded shadow-lg" style="max-height: 240px; max-width: 100%" />
+    <img src="/gifs/D34_staged_storey_native.gif" class="rounded shadow-lg" style="max-height: 240px; max-width: 100%" />
   </div>
   <div class="text-xs opacity-60 text-center">storey2_growth_ratio=31.7&times;: staging works, mcs only 1.5%.</div>
 </div>
@@ -3656,10 +3665,10 @@ layout: two-cols-header
 
 <div class="flex flex-col gap-1" style="height: 460px">
   <div class="flex items-center justify-center" style="height: 165px">
-    <img src="/gifs/shaped_disc_cone_mini.png" style="max-height: 165px; max-width: 100%" />
+    <img src="/gifs/D32_shaped_disc_cone_mini.png" style="max-height: 165px; max-width: 100%" />
   </div>
   <div class="flex items-center justify-center" style="height: 265px">
-    <img src="/gifs/shaped_disc_cone_landscape.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
+    <img src="/gifs/D32_shaped_disc_cone_landscape.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
   </div>
   <div class="text-xs opacity-60 text-center">rise 0.15 (largest that converges); CPRESS never leaves zero.</div>
 </div>
@@ -3724,9 +3733,9 @@ layout: two-cols-header
 ::right::
 
 <div class="flex flex-col items-center justify-center gap-1" style="height: 440px">
-  <img src="/gifs/secondary_stop_sigma_mini.png" style="max-height: 150px; max-width: 100%" />
+  <img src="/gifs/D31_secondary_stop_sigma_mini.png" style="max-height: 150px; max-width: 100%" />
   <div class="text-xs opacity-60 text-center">n_stops=0 (solid, run-17 rectangle) vs n_stops=1 (dashed).</div>
-  <img src="/gifs/secondary_stop_native.gif" style="max-height: 200px; max-width: 100%" class="rounded shadow-lg" />
+  <img src="/gifs/D31_secondary_stop_native.gif" style="max-height: 200px; max-width: 100%" class="rounded shadow-lg" />
   <div class="text-xs opacity-60 text-center">n_stops=1, the only build whose stop engaged.</div>
 </div>
 
@@ -3948,7 +3957,7 @@ layout: two-cols-header
 ::right::
 
 <div class="flex flex-col items-center justify-center" style="height: 420px">
-  <img src="/gifs/precoil_wrap45_native.gif" style="max-height: 340px; max-width: 100%" class="rounded shadow-lg" />
+  <img src="/gifs/D30_precoil_wrap45_native.gif" style="max-height: 340px; max-width: 100%" class="rounded shadow-lg" />
   <div class="text-xs opacity-60 mt-1 px-4 text-center">wrap 4.5, stopping at the reversal (frame 156/785).</div>
 </div>
 
@@ -4076,10 +4085,10 @@ layout: two-cols-header
 
 <div class="flex flex-col gap-2" style="height: 460px">
   <div class="flex items-center justify-center" style="height: 175px">
-    <img src="/gifs/mandrel_confined_mini.png" style="max-height: 175px; max-width: 100%" />
+    <img src="/gifs/D29_mandrel_confined_mini.png" style="max-height: 175px; max-width: 100%" />
   </div>
   <div class="flex items-center justify-center" style="height: 277px">
-    <img src="/gifs/mandrel_confined_landscape.gif" class="rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
+    <img src="/gifs/D29_mandrel_confined_landscape.gif" class="rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
   </div>
 </div>
 
@@ -4231,10 +4240,10 @@ layout: two-cols-header
 ::right::
 
 <div class="flex flex-col items-center justify-center gap-1" style="height: 440px">
-  <img src="/gifs/leaf_spring_sigma_mini.png" style="max-height: 155px; max-width: 100%" />
+  <img src="/gifs/D28_leaf_spring_sigma_mini.png" style="max-height: 155px; max-width: 100%" />
   <div class="text-xs opacity-60 text-center">n_leaves=1 (solid, run-17 rectangle) vs n_leaves=3 (dashed).</div>
-  <img src="/gifs/leaf_spring_section.png" style="max-height: 85px; max-width: 100%" class="rounded shadow-lg bg-white" />
-  <img src="/gifs/leaf_spring_native.gif" style="max-height: 100px; max-width: 100%" class="rounded shadow-lg" />
+  <img src="/gifs/D28_leaf_spring_section.png" style="max-height: 85px; max-width: 100%" class="rounded shadow-lg bg-white" />
+  <img src="/gifs/D28_leaf_spring_native.gif" style="max-height: 100px; max-width: 100%" class="rounded shadow-lg" />
   <div class="text-xs opacity-60 text-center">True-scale section (1.84mm bar vs 0.61mm leaves); n_leaves=3 coiling.</div>
 </div>
 
@@ -4381,10 +4390,10 @@ layout: two-cols-header
 
 <div class="flex flex-col gap-1" style="height: 460px">
   <div class="flex items-center justify-center" style="height: 165px">
-    <img src="/gifs/tape_spring_designC_contact_mini.png" style="max-height: 165px; max-width: 100%" />
+    <img src="/gifs/D25-2_tape_spring_designC_contact_mini.png" style="max-height: 165px; max-width: 100%" />
   </div>
   <div class="flex items-center justify-center" style="height: 265px">
-    <img src="/gifs/restudy_tape_spring_contact.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
+    <img src="/gifs/D25-2_restudy_tape_spring_contact.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
   </div>
   <div class="text-xs opacity-50 text-center">Design C, contact off vs on; showcase clip below.</div>
 </div>
@@ -4551,8 +4560,8 @@ under two different reporting conventions, not two different physical results. T
 what this slide's own "ON THE OLD CLOSEST MISS FRAMING" paragraph above already said in the
 abstract; this entry supplies the concrete re-solved numbers behind it.
 
-CHART: assets/public/gifs/tape_spring_designC_contact_mini.png (750x270, same convention as
-kresling_sigma_history_mini.png/tensegrity_strain_history_mini.png -- grey-to-red
+CHART: assets/public/gifs/D25-2_tape_spring_designC_contact_mini.png (750x270, same convention as
+D17-3_kresling_sigma_history_mini.png/D21-2_tensegrity_strain_history_mini.png -- grey-to-red
 LinearSegmentedColormap over #9a9a9a/#d94f3a/#8c1a12 via a LineCollection encoding each point's own
 sigma magnitude, solid=contact-on/dashed=contact-off encoding the state comparison, both curves
 truncated at their own windowed_metrics() window_n). Built from job 4794837's own raw
@@ -4596,10 +4605,10 @@ layout: two-cols-header
 
 <div class="flex flex-col gap-1" style="height: 385px">
   <div class="flex items-center justify-center" style="height: 115px">
-    <img src="/gifs/tensegrity_strain_history_mini.png" style="max-height: 115px; max-width: 100%" />
+    <img src="/gifs/D21-2_tensegrity_strain_history_mini.png" style="max-height: 115px; max-width: 100%" />
   </div>
   <div class="flex items-center justify-center" style="height: 225px">
-    <img src="/gifs/restudy_tensegrity_contact.gif" class="rounded shadow-lg" style="max-height: 225px; max-width: 100%" />
+    <img src="/gifs/D21-2_restudy_tensegrity_contact.gif" class="rounded shadow-lg" style="max-height: 225px; max-width: 100%" />
   </div>
   <div class="text-xs opacity-50 text-center">Above: strut strain, contact off vs on. Below: contact-on collapse.</div>
 </div>
@@ -4715,7 +4724,7 @@ layout: two-cols-header
 ::right::
 
 <div class="flex flex-col items-center justify-center h-full">
-  <img src="/gifs/restudy_laced_contact.gif" class="max-h-80 rounded shadow-lg" />
+  <img src="/gifs/D17-2_restudy_laced_contact.gif" class="max-h-80 rounded shadow-lg" />
   <div class="text-xs opacity-60 mt-2 px-4 text-center">D20's laced longeron, coiling — see notes.</div>
 </div>
 
@@ -4941,7 +4950,7 @@ class: idea-slide
 ::right::
 
 <div class="flex flex-col items-center justify-center h-full gap-1">
-  <img src="/gifs/chiral_shell_tube_native.gif" class="max-h-85 rounded shadow-lg" />
+  <img src="/gifs/D26_chiral_shell_tube_native.gif" class="max-h-85 rounded shadow-lg" />
   <div class="text-xs opacity-50 text-center">Mode 1, typical design — global sway, not coiling.</div>
 </div>
 
@@ -5020,7 +5029,7 @@ class: idea-slide
 ::right::
 
 <div class="flex flex-col items-center justify-center h-full gap-1">
-  <img src="/gifs/chiral_shell_vane_native.gif" class="max-h-85 rounded shadow-lg" />
+  <img src="/gifs/D27_chiral_shell_vane_native.gif" class="max-h-85 rounded shadow-lg" />
   <div class="text-xs opacity-50 text-center">Mode 1: 3 discrete twisting vanes, still non-coiling.</div>
 </div>
 
@@ -5159,10 +5168,10 @@ class: idea-slide
 
 <div class="flex flex-col gap-2" style="height: 450px">
   <div class="flex items-center justify-center" style="height: 170px">
-    <img src="/gifs/tape_spring_mini.png" style="max-height: 170px; max-width: 100%" />
+    <img src="/gifs/D25_tape_spring_mini.png" style="max-height: 170px; max-width: 100%" />
   </div>
   <div class="flex items-center justify-center" style="height: 272px">
-    <img src="/gifs/tape_spring_landscape.gif" class="rounded shadow-lg" style="max-height: 272px; max-width: 100%" />
+    <img src="/gifs/D25_tape_spring_landscape.gif" class="rounded shadow-lg" style="max-height: 272px; max-width: 100%" />
   </div>
 </div>
 
@@ -5406,7 +5415,7 @@ class: idea-slide
 ::right::
 
 <div class="flex items-center justify-center h-full">
-  <img src="/gifs/bistable_arch_headline_native.gif" class="max-h-100 rounded shadow-lg" />
+  <img src="/gifs/D24_bistable_arch_headline_native.gif" class="max-h-100 rounded shadow-lg" />
 </div>
 
 <!--
@@ -5678,10 +5687,10 @@ class: idea-slide
 
 <div class="flex flex-col gap-2" style="height: 450px">
   <div class="flex items-center justify-center" style="height: 170px">
-    <img src="/gifs/chained_bistable_arch_mini.png" style="max-height: 170px; max-width: 100%" />
+    <img src="/gifs/D23_chained_bistable_arch_mini.png" style="max-height: 170px; max-width: 100%" />
   </div>
   <div class="flex items-center justify-center" style="height: 272px">
-    <img src="/gifs/chained_bistable_arch_landscape.gif" class="rounded shadow-lg" style="max-height: 272px; max-width: 100%" />
+    <img src="/gifs/D23_chained_bistable_arch_landscape.gif" class="rounded shadow-lg" style="max-height: 272px; max-width: 100%" />
   </div>
 </div>
 
@@ -5833,7 +5842,7 @@ class: idea-slide
 ::right::
 
 <div class="flex flex-col items-center justify-center h-full gap-1">
-  <img src="/gifs/cruciform_native.gif" class="max-h-85 rounded shadow-lg" />
+  <img src="/gifs/D22_cruciform_native.gif" class="max-h-85 rounded shadow-lg" />
   <div class="text-xs opacity-50 text-center">From a <b>non-converged</b> solve (see notes).</div>
 </div>
 
@@ -5950,7 +5959,7 @@ class: idea-slide
 ::right::
 
 <div class="flex flex-col items-center justify-center h-full gap-1">
-  <img src="/gifs/tensegrity_native.gif" class="max-h-85 rounded shadow-lg" />
+  <img src="/gifs/D21_tensegrity_native.gif" class="max-h-85 rounded shadow-lg" />
   <div class="text-xs opacity-50 text-center">Colour = LE11 (axial strain); no beam bending field here.</div>
 </div>
 
@@ -6085,10 +6094,10 @@ class: idea-slide
 
 <div class="flex flex-col gap-2" style="height: 430px">
   <div class="flex items-center justify-center" style="height: 160px">
-    <img src="/gifs/built_up_mini.png" style="max-height: 160px; max-width: 100%" />
+    <img src="/gifs/D20_built_up_mini.png" style="max-height: 160px; max-width: 100%" />
   </div>
   <div class="flex items-center justify-center" style="height: 262px">
-    <img src="/gifs/built_up_landscape.gif" class="rounded shadow-lg" style="max-height: 262px; max-width: 100%" />
+    <img src="/gifs/D20_built_up_landscape.gif" class="rounded shadow-lg" style="max-height: 262px; max-width: 100%" />
   </div>
 </div>
 
@@ -6194,10 +6203,10 @@ class: idea-slide
 
 <div class="flex flex-col gap-2" style="height: 460px">
   <div class="flex items-center justify-center" style="height: 175px">
-    <img src="/gifs/meander_mini.png" style="max-height: 175px; max-width: 100%" />
+    <img src="/gifs/D19_meander_mini.png" style="max-height: 175px; max-width: 100%" />
   </div>
   <div class="flex items-center justify-center" style="height: 277px">
-    <img src="/gifs/meander_landscape.gif" class="rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
+    <img src="/gifs/D19_meander_landscape.gif" class="rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
   </div>
 </div>
 
@@ -6304,10 +6313,10 @@ class: idea-slide
 
 <div class="flex flex-col gap-1" style="height: 460px">
   <div class="flex items-center justify-center" style="height: 165px">
-    <img src="/gifs/waisted_mini.png" style="max-height: 165px; max-width: 100%" />
+    <img src="/gifs/D18_waisted_mini.png" style="max-height: 165px; max-width: 100%" />
   </div>
   <div class="flex items-center justify-center" style="height: 265px">
-    <img src="/gifs/waisted_landscape.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
+    <img src="/gifs/D18_waisted_landscape.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
   </div>
   <div class="text-xs opacity-50 text-center">Typical search member, not the invalidated 0.877 kPa point.</div>
 </div>
@@ -6429,10 +6438,10 @@ class: idea-slide
 
 <div class="flex flex-col gap-2" style="height: 460px">
   <div class="flex items-center justify-center" style="height: 165px">
-    <img src="/gifs/kresling_mini.png" style="max-height: 165px; max-width: 100%" />
+    <img src="/gifs/D17_kresling_mini.png" style="max-height: 165px; max-width: 100%" />
   </div>
   <div class="flex items-center justify-center" style="height: 285px">
-    <img src="/gifs/kresling_native.gif" class="rounded shadow-lg" style="max-height: 285px; max-width: 100%" />
+    <img src="/gifs/D17_kresling_native.gif" class="rounded shadow-lg" style="max-height: 285px; max-width: 100%" />
   </div>
 </div>
 
@@ -6604,10 +6613,10 @@ class: idea-slide
 
 <div class="flex flex-col gap-2" style="height: 460px">
   <div class="flex items-center justify-center" style="height: 175px">
-    <img src="/gifs/helical_mini.png" style="max-height: 175px; max-width: 100%" />
+    <img src="/gifs/D16_helical_mini.png" style="max-height: 175px; max-width: 100%" />
   </div>
   <div class="flex items-center justify-center" style="height: 277px">
-    <img src="/gifs/helical_landscape.gif" class="rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
+    <img src="/gifs/D16_helical_landscape.gif" class="rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
   </div>
 </div>
 
@@ -6734,7 +6743,7 @@ class: idea-slide
 ::right::
 
 <div class="flex flex-col items-center justify-center h-full gap-1">
-  <img src="/gifs/chiral_brace_native.gif" class="max-h-85 rounded shadow-lg" />
+  <img src="/gifs/D15_chiral_brace_native.gif" class="max-h-85 rounded shadow-lg" />
   <div class="text-xs opacity-50 text-center">Undeformed only — no valid deformed state (see notes).</div>
 </div>
 
@@ -6929,10 +6938,10 @@ class: idea-slide
 
 <div class="flex flex-col gap-2" style="height: 460px">
   <div class="flex items-center justify-center" style="height: 175px">
-    <img src="/gifs/offset_shear_lprofile_mini.png" style="max-height: 175px; max-width: 100%" />
+    <img src="/gifs/D14_offset_shear_lprofile_mini.png" style="max-height: 175px; max-width: 100%" />
   </div>
   <div class="flex items-center justify-center" style="height: 277px">
-    <img src="/gifs/offset_shear_lprofile_landscape.gif" class="rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
+    <img src="/gifs/D14_offset_shear_lprofile_landscape.gif" class="rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
   </div>
 </div>
 
@@ -7045,10 +7054,10 @@ class: idea-slide
 
 <div class="flex flex-col gap-2" style="height: 460px">
   <div class="flex items-center justify-center" style="height: 175px">
-    <img src="/gifs/flexure_hinge_mini.png" style="max-height: 175px; max-width: 100%" />
+    <img src="/gifs/D13_flexure_hinge_mini.png" style="max-height: 175px; max-width: 100%" />
   </div>
   <div class="flex items-center justify-center" style="height: 277px">
-    <img src="/gifs/flexure_hinge_landscape.gif" class="rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
+    <img src="/gifs/D13_flexure_hinge_landscape.gif" class="rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
   </div>
 </div>
 
@@ -7120,7 +7129,7 @@ class: idea-slide
 ::right::
 
 <div class="flex items-center justify-center h-full">
-  <img src="/gifs/box_hollow_tube_native.gif" class="max-h-100 rounded shadow-lg" />
+  <img src="/gifs/D12_box_hollow_tube_native.gif" class="max-h-100 rounded shadow-lg" />
 </div>
 
 <!--
@@ -7185,10 +7194,10 @@ class: idea-slide
 
 <div class="flex flex-col gap-2" style="height: 460px">
   <div class="flex items-center justify-center" style="height: 175px">
-    <img src="/gifs/heterogeneous_longerons_mini.png" style="max-height: 175px; max-width: 100%" />
+    <img src="/gifs/D11_heterogeneous_longerons_mini.png" style="max-height: 175px; max-width: 100%" />
   </div>
   <div class="flex items-center justify-center" style="height: 277px">
-    <img src="/gifs/heterogeneous_longerons_landscape.gif" class="rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
+    <img src="/gifs/D11_heterogeneous_longerons_landscape.gif" class="rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
   </div>
 </div>
 
@@ -7300,10 +7309,10 @@ class: idea-slide
 
 <div class="flex flex-col gap-2" style="height: 460px">
   <div class="flex items-center justify-center" style="height: 175px">
-    <img src="/gifs/elliptical_rings_mini.png" style="max-height: 175px; max-width: 100%" />
+    <img src="/gifs/D10_elliptical_rings_mini.png" style="max-height: 175px; max-width: 100%" />
   </div>
   <div class="flex items-center justify-center" style="height: 277px">
-    <img src="/gifs/elliptical_rings_landscape.gif" class="rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
+    <img src="/gifs/D10_elliptical_rings_landscape.gif" class="rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
   </div>
 </div>
 
@@ -7376,10 +7385,10 @@ class: idea-slide
 
 <div class="flex flex-col gap-2" style="height: 460px">
   <div class="flex items-center justify-center" style="height: 175px">
-    <img src="/gifs/bowed_longerons_mini.png" style="max-height: 175px; max-width: 100%" />
+    <img src="/gifs/D9_bowed_longerons_mini.png" style="max-height: 175px; max-width: 100%" />
   </div>
   <div class="flex items-center justify-center" style="height: 277px">
-    <img src="/gifs/bowed_longerons_landscape.gif" class="rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
+    <img src="/gifs/D9_bowed_longerons_landscape.gif" class="rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
   </div>
 </div>
 
@@ -7566,10 +7575,10 @@ class: idea-slide
 
 <div class="flex flex-col gap-2" style="height: 460px">
   <div class="flex items-center justify-center" style="height: 175px">
-    <img src="/gifs/square_section_mini.png" style="max-height: 175px; max-width: 100%" />
+    <img src="/gifs/D7_square_section_mini.png" style="max-height: 175px; max-width: 100%" />
   </div>
   <div class="flex items-center justify-center" style="height: 277px">
-    <img src="/gifs/square_section_native.gif" class="max-h-100 rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
+    <img src="/gifs/D7_square_section_native.gif" class="max-h-100 rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
   </div>
 </div>
 
@@ -7646,7 +7655,7 @@ class: idea-slide
 ::right::
 
 <div class="flex items-center justify-center h-full">
-  <img src="/gifs/run17_rectangle_native.gif" class="max-h-100 rounded shadow-lg" />
+  <img src="/gifs/D6_run17_rectangle_native.gif" class="max-h-100 rounded shadow-lg" />
 </div>
 
 <!--
@@ -7770,7 +7779,7 @@ class: idea-slide
 ::right::
 
 <div class="flex items-center justify-center h-full">
-  <img src="/gifs/sclf_thick_native.gif" class="max-h-100 rounded shadow-lg" />
+  <img src="/gifs/D5_sclf_thick_native.gif" class="max-h-100 rounded shadow-lg" />
 </div>
 
 <!--
@@ -7890,7 +7899,7 @@ class: idea-slide
 ::right::
 
 <div class="flex items-center justify-center h-full">
-  <img src="/gifs/multistorey_n2_native.gif" class="max-h-100 rounded shadow-lg" />
+  <img src="/gifs/D4_multistorey_n2_native.gif" class="max-h-100 rounded shadow-lg" />
 </div>
 
 <!--
@@ -7990,7 +7999,7 @@ class: idea-slide
 ::right::
 
 <div class="flex flex-col items-center justify-center h-full gap-1">
-  <img src="/gifs/n5_longerons_native.gif" class="max-h-85 rounded shadow-lg" />
+  <img src="/gifs/D3_n5_longerons_native.gif" class="max-h-85 rounded shadow-lg" />
   <div class="text-xs opacity-50 text-center">Native Abaqus render — no strain coloring (see notes).</div>
 </div>
 
@@ -8066,7 +8075,7 @@ class: idea-slide
 ::right::
 
 <div class="flex flex-col items-center justify-center gap-1" style="height: 420px">
-  <img src="/gifs/hollow_tube_D4_native.gif" style="max-height: 340px; max-width: 100%" class="rounded shadow-lg" />
+  <img src="/gifs/D2_hollow_tube_D4_native.gif" style="max-height: 340px; max-width: 100%" class="rounded shadow-lg" />
   <div class="text-xs opacity-50 text-center">D4 design; native render, no strain coloring (see notes).</div>
 </div>
 
@@ -8178,7 +8187,7 @@ class: idea-slide
 ::right::
 
 <div class="flex flex-col items-center justify-center h-full">
-  <img src="/gifs/pretwisted_negative_native.gif" class="max-h-72 rounded shadow-lg" />
+  <img src="/gifs/D1_pretwisted_negative_native.gif" class="max-h-72 rounded shadow-lg" />
   <div class="text-xs opacity-60 mt-2 px-4 text-center">D003's coilable design (twist_angle=76&deg;), re-run fresh — see notes.</div>
 </div>
 
