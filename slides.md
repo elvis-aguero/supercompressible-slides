@@ -336,6 +336,14 @@ fundamental they are, not by the date they were written.
         genuine/ambiguous) or a stress history the reader would otherwise
         have to take on faith from the Stats numbers alone.
 
+        EVERY CHART BAKES IN AN OPAQUE WHITE BACKGROUND (matplotlib default
+        `savefig(...)`, never `transparent=True`) — a transparent background
+        only reads correctly against a pure-white page and goes illegible
+        wherever the viewer's theme or the mirror's own background isn't
+        (caught 2026-08-31: three mini-charts shipped transparent and were
+        unreadable in the wild). `lint_slides.py` BLOCKS a referenced
+        `.png` whose corners aren't fully opaque.
+
         `lint_slides.py` WARNS (does not block) when an idea-slide's
         right column has no `<img>` reference to a `.gif`/`.png` at all —
         this catches an entirely missing media slot mechanically, though
