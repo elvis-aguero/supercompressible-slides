@@ -1157,7 +1157,7 @@ class: idea-slide
 layout: two-cols-header
 ---
 
-# D40-2 &middot; The family's own best result does not reproduce
+# D40-2 &middot; The archived 71.9% never actually converged
 
 ::left::
 <div class="text-sm leading-snug">
