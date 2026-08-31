@@ -1174,6 +1174,12 @@ twice.
 H12 (same run): a 20-design follow-up search using the fixed joint -- 5 Stage-1 rejects, 13
 unresolved non-convergence, 2 decided (both infeasible, mcs=.12/.55). Routed to H2 SUPPORTED
 / H1 & H12 INCONCLUSIVE per runs/20260829T005522/debug/strategizer_notes/hypotheses.json.
+**Added (2026-08-31, verdict audit):** the same run's H7 (D011, 8 points) directly tested
+this slide's own "twist/coilability trade-off" question from the other direction -- SMALLER
+twist_angle, hoping to recover coilability -- and got the opposite of the predicted result:
+all 8 points fail Stage-1 outright. Between H12 (larger search, still infeasible) and H7
+(smaller twist, still fails, and worse), the trade-off looks sharp in both directions, not
+just underexplored in one.
 
 **Infra:** the joint fix lives in scripts/supercompressible_riks_twist_buckle.py and
 supercompressible_lin_buckle_twist_buckle.py (promoted to gold, commit 4c3da12) -- see
@@ -2233,11 +2239,13 @@ layout: two-cols-header
   cleared: none (0 decided) &middot; novel: untested — the mechanism never got to demonstrate
   anything
   best good: none (0/51 passed every criterion)
-- **Verdict:** BLOCKED &middot; FERTILE-PARAMETRIC &middot; panel stiffening<br>
+- **Verdict:** POWERED &middot; UNKNOWN-NO-EVIDENCE &middot; panel-vs-global mode competition<br>
   Every design's lowest vibration mode is a local ligament/panel buckling mode, not the global
   ring-driven coiling mode the study needs — a qualitatively different failure from the earlier
   smooth chiral-shell family's uniform lateral sway, but the same outcome: the cuts avoided one
-  failure mode and fell into another.
+  failure mode and fell into another. **Corrected (2026-08-31, verdict audit): this previously
+  read FERTILE-PARAMETRIC, contradicting this slide's own Seed — every direction tried so far
+  made the failure worse, not better, so a wider box is untested, not promising.**
 
 </div>
 
@@ -2484,13 +2492,12 @@ layout: two-cols-header
   quartiles unavailable — 0/113 Riks-converged (near-plateau reads in Verdict instead) &middot;
   cleared: 0/113 (mcs&ge;0.80) &middot; novel: **yes** — distinct from every prior family
   best good: none — best overall: mcs=0.7191 (D020) (geometry in notes' Timeline)
-- **Verdict:** POWERED &middot; FERTILE-PARAMETRIC &middot; snap-through targeting<br>
+- **Verdict:** POWERED &middot; FERTILE-REWORK &middot; Riks convergence<br>
   Preserves genuine global coiling as the lowest mode in every configuration — unlike every
   shell/ring family this run — with a real 22&times; buckling-capacity gain over uncoupled
-  sub-beams. Reaches 71.9% compression on a genuine Riks snap-through plateau — a real geometric limit, not the usual strain-budget wall. Two independent
-  crosslink realizations agree where it stalls; pushing further makes it worse.
-  **Corrected by D40-2: the 71.9% reading was never a real converged plateau —
-  see that slide.**
+  sub-beams. **Corrected (2026-08-31, verdict audit): the 71.9% reading was never a real
+  snap-through plateau — D40-2's two independent re-solves confirm a genuine arc-length
+  divergence instead. No design in this family is confirmed to reach even that point.**
 
 </div>
 
@@ -2508,13 +2515,17 @@ layout: two-cols-header
 
 <!--
 **Animation caveat (moved from the visible caption to stay within the caption-brevity
-budget):** the family's own best design (D020) hits a real, physical snap-through at 71.9%
-compression (mcs=0.7191), where the solve's progress on the mode this study measures
-effectively ends. The animation itself may still show the solver continuing to move past
-that point — frames are only capped at a global 95% compression safety limit, not stopped
-at each design's own reported number — so that later motion is not what mcs=0.7191
-describes. "Converged" in this deck means reaching the FULL compression target, which this
-design never does; 71.9% is a real, physical stopping point, just not that one.
+budget):** the family's own best design (D020) stalls at 71.9% compression (mcs=0.7191),
+where the solve's progress on the mode this study measures effectively ends. The animation
+itself may still show the solver continuing to move past that point — frames are only
+capped at a global 95% compression safety limit, not stopped at each design's own reported
+number — so that later motion is not what mcs=0.7191 describes. "Converged" in this deck
+means reaching the FULL compression target, which this design never does. **Corrected
+(2026-08-31, verdict audit): this note previously called 71.9% "a real, physical
+snap-through" and "a real, physical stopping point" — D40-2's two independent, agreeing
+re-solves (job D012, 9&times; time budget) show it is a genuine arc-length divergence, a
+solver wall, not a physical snap. The stall is real; the claimed mechanism behind it was
+not.**
 
 **Input space:** ratio_d&isin;[.004,.073] — sub-beam diameter relative to the envelope.
 ratio_r_sub_frac&isin;[.05,.48] — how far off the main envelope circle each sub-beam sits (0 = on
@@ -2529,9 +2540,12 @@ searched, held constant within any one design).
 
 **Seed:** BARREN at n_sub_beams&isin;{2,3} with this crosslink topology — both the soft
 connector-stiffness axis and n_sub_beams=3 were closed decisively (catastrophic early collapse,
-not a tuning shortfall). FERTILE if the snap-through itself is targeted directly (e.g. a
-different crosslink placement/spacing rule, or accepting partial compression as a legitimate
-design point rather than searching past it) — untried.
+not a tuning shortfall). **Superseded (2026-08-31, verdict audit): the rest of this Seed
+originally said "FERTILE if the snap-through itself is targeted directly" — there is no
+snap-through to target (see D40-2). The real open question, per D40-2's own Seed, is
+whether a different crosslink placement/spacing entirely — outside the neighborhood
+re-tested there — avoids the Riks-convergence wall altogether; that, not snap-through
+targeting, is this family's actual untried next step.**
 
 **Deferred:** InstrumentedDataGenerator's dedup-on-write can silently drop a corrected re-run
 under the same delegation ID (hit at D018) — same danger class as docs/TRAPS.md #8; documented
@@ -5735,7 +5749,9 @@ class: idea-slide
 - **Verdict:** FALSIFIED · WEAK<br>
   As an absence claim — one genuine 5-criteria
   counterexample beats the 0.7704 kPa baseline. Valid, but a mild curvature
-  perturbation, not the true bistable mechanism originally proposed.
+  perturbation, not the true bistable mechanism originally proposed. **Not yet
+  continuum-reconfirmed (see Deferred) — treat the +0.8% margin as unconfirmed,
+  not cleared.**
 
 
 </div>
@@ -8197,12 +8213,12 @@ class: idea-slide
   cleared: 1 of 1 decided ≥ 2× Bessa (0.2244) · novel: yes — C4 is a genuine hollow/cellular
   cross-section point, not a duplicate of any baseline<br>
   best good: none (0/18 passed every criterion)
-- **Verdict:** SUPPORTED · DEAD-END<br>
-  Stage-1 existence supported (5/16 cleared 75.1 kPa), but Stage-2 FAILS both candidates — the
-  same GJ that clears the floor blocks deep coiling. Not usable as tested. The two candidates
-  weren't apples-to-apples: D4 (the closer near-miss, 32% strain) never actually converged
-  (Riks terminated "too many attempts"); only C4 genuinely converged, at a worse 9.0% strain —
-  the original "32% vs 9%" comparison was a non-converged partial read against a real solution.
+- **Verdict:** SUPPORTED · FERTILE-PARAMETRIC · max-J convergence<br>
+  Stage-1 existence supported (5/16 cleared 75.1 kPa), but Stage-2 FAILS both candidates as
+  tested — the same GJ that clears the floor blocks deep coiling. The two candidates weren't
+  apples-to-apples: D4 (the closer near-miss, 32% strain) never actually converged (Riks
+  terminated "too many attempts"); only C4 genuinely converged, at a worse 9.0% strain — the
+  original "32% vs 9%" comparison was a non-converged partial read against a real solution.
 
 </div>
 
@@ -8225,6 +8241,8 @@ specific points instead). Fixed: n_longerons=3, n_storeys=1.
 attempts" mid-solve); this deck has elsewhere (D5/H4) traced an identical Riks non-convergence to
 coarse arc-length settings rather than a real physics wall, so a finer-step re-solve of D4 alone
 would settle whether the GJ-vs-coiling tradeoff genuinely blocks it or was never properly tested.
+**Verdict corrected to match (2026-08-31, verdict audit): the visible Verdict previously read
+DEAD-END, contradicting this Seed's own FERTILE reasoning — updated to FERTILE-PARAMETRIC.**
 
 **Timeline:** This is H5 of run `20260629T191754`, delegation D006 (Stage-1
 existence), with Stage-2 Riks tests as H4 (max-J single-longeron anchor, FALSIFIED,
