@@ -327,22 +327,47 @@ fundamental they are, not by the date they were written.
         "No render yet, ask if you want one built" is NEVER an
         acceptable substitute: if a real solved ODB exists, render it.
 
-        A real sigma-vs-compression chart (`*_mini.png`, the grey-to-red
-        LineCollection convention with per-frame o/x markers, log-scale
-        y-axis when the dynamic range spans more than ~1 order of
-        magnitude) is REQUIRED alongside the video whenever a chart would
-        show something the caption can't — most commonly a two-design
-        comparison (with/without a mechanism, before/after a fix,
-        genuine/ambiguous) or a stress history the reader would otherwise
-        have to take on faith from the Stats numbers alone.
+        A real sigma-vs-compression chart (`*_mini.png`) is REQUIRED
+        alongside the video whenever a chart would show something the
+        caption can't — most commonly a two-design comparison
+        (with/without a mechanism, before/after a fix, genuine/ambiguous)
+        or a stress history the reader would otherwise have to take on
+        faith from the Stats numbers alone.
+
+        BUILD EVERY CHART WITH `bo/mini_chart.py` — NEVER A FRESH ONE-OFF
+        SCRIPT (rule tightened 2026-08-31, after the one-off-script pattern
+        this replaces produced two real, shipped bugs in a single day: an
+        aspect ratio that drifted from the deck's own convention, and a
+        transparent background that was illegible in the wild — both
+        structurally impossible once the convention lives in one tested,
+        committed function instead of being re-derived from memory on
+        every call). Its own docstring is the authoritative, VERIFIED
+        description of the convention (checked directly against a real
+        established chart's own source data 2026-08-31, after the
+        previously-written description here — "encoding each point's own
+        sigma magnitude" — turned out to be wrong):
+
+          x-axis: mcs, the FULL UNWINDOWED history — never truncated at
+                  the feasibility window, set dynamically from the data's
+                  own max, never hardcoded.
+          y-axis: sigma [kPa/longeron], log-scale automatically past one
+                  order of magnitude of range.
+          color:  each point's own local strain (mls), normalized to the
+                  FIXED [0, 0.02] range (not the curve's own max) so
+                  redness is comparable design to design — with a genuine
+                  visual DISCONTINUITY (a distinct blue, not a continued
+                  gradient) past the 2% strain cap, so a design that
+                  surpassed it is unmistakable at a glance.
+          style:  solid = primary design; dashed = optional comparison.
 
         EVERY CHART BAKES IN AN OPAQUE WHITE BACKGROUND (matplotlib default
-        `savefig(...)`, never `transparent=True`) — a transparent background
-        only reads correctly against a pure-white page and goes illegible
-        wherever the viewer's theme or the mirror's own background isn't
-        (caught 2026-08-31: three mini-charts shipped transparent and were
-        unreadable in the wild). `lint_slides.py` BLOCKS a referenced
-        `.png` whose corners aren't fully opaque.
+        `savefig(transparent=False)`, baked into `bo/mini_chart.py` itself
+        now) — a transparent background only reads correctly against a
+        pure-white page and goes illegible wherever the viewer's theme or
+        the mirror's own background isn't (caught 2026-08-31: three
+        mini-charts shipped transparent and were unreadable in the wild).
+        `lint_slides.py` BLOCKS a referenced `.png` whose corners aren't
+        fully opaque.
 
         `lint_slides.py` WARNS (does not block) when an idea-slide's
         right column has no `<img>` reference to a `.gif`/`.png` at all —
@@ -754,6 +779,13 @@ layout: two-cols-header
 </div>
 
 <!--
+**Chart correction (2026-08-31, rebuilt with `bo/mini_chart.py`):** now plots the full
+unwindowed history (both curves reach mcs=1.0), colored by local strain (mls) per the
+deck's corrected convention (rule 2c-VIS), not the old sigma-colored, window-truncated
+version. Neither curve ever crosses the 2% strain cap (max 1.93%/1.98%), consistent with
+the 0.8% joint-strain margin already cited above — no blue discontinuity is expected or
+shown.
+
 **Input space:** same design vector as D24's own base slide (mid-span adds no new free
 parameter); this pass additionally sampled imperfection angle from Bessa's own
 lognormal(4&deg;,1.2&deg;) distribution (D19, 8 draws) — not a design parameter.
@@ -909,6 +941,14 @@ mcs_at_peak=0.00125 artifact this slide's own Timeline already diagnoses). The c
 raw curve carries a dominant early spike that visually contradicts this slide's own caption
 ("not a visible spike difference") — the fine-grid curve is what the caption was written to
 describe. No number in the visible bullets changed; only which ODB the chart itself reads from.
+
+**Second chart correction (2026-08-31, rebuilt with `bo/mini_chart.py`):** now plots the full
+unwindowed history (both curves reach mcs=1.0), colored by local strain (mls) per the deck's
+corrected convention (rule 2c-VIS). Neither D032 nor the D030 fine-grid curve ever crosses the
+2% strain cap (max 1.72%/1.75%) — the ordinary beam-theory `mls` this chart shows is not what
+disqualifies D032; that is the SEPARATE, stricter real-3D joint-warping check
+(`validation/warping_check`), which is not part of this chart's data at all. No blue
+discontinuity is expected or shown here for that reason.
 
 **Infra:** bo/oracle_chained_arch.py, scripts/supercompressible_lin_buckle_chained_arch.py
 (modified this run), scripts/supercompressible_riks_chained_arch_contact.py (new this run) —
@@ -1139,12 +1179,19 @@ layout: two-cols-header
   <div class="flex items-center justify-center" style="height: 245px">
     <img src="/gifs/crosslinked_bundle_landscape.gif" class="rounded shadow-lg" style="max-height: 245px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-60 text-center px-2">D012's 340-frame re-solve; dotted line marks D004's match.</div>
+  <div class="text-xs opacity-60 text-center px-2">D012's re-solve, unwindowed; blue past the 2% strain cap.</div>
 </div>
 
 <!--
 **Input space:** same 10-parameter design vector as D40's own base slide; the 48-design
 adaptive search (24 seeded + 24 active) resamples that same space, no new parameter added.
+
+**Chart correction (2026-08-31, rebuilt with `bo/mini_chart.py`):** now plots the full
+unwindowed history, colored by local strain (mls) with the deck's corrected convention
+(see rule 2c-VIS), not the old sigma-colored, window-truncated version. The automatic 2%
+strain-cap marker lands at mcs&asymp;0.72 — confirming, from real per-frame data rather
+than a hardcoded annotation, that "matches D004's reading" (cited elsewhere on this slide
+as mcs=0.7173) was always the same point as the strain-cap crossing, not a coincidence.
 
 **Seed:** FERTILE — the family's own construction, not this one design point, is the open question
 now: something prevents a clean Riks solve near this optimum, and no confirmed working
