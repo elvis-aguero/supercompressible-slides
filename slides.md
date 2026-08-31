@@ -35,6 +35,14 @@ fundamental they are, not by the date they were written.
    major.minor versioning: the major number is the mechanism, the minor
    number is which pass at testing it this is.
 
+   TITLE FORMAT: every idea-slide's title — base or revisit — is `D<n>`
+   (or `D<n>-<k>`) followed by ` &middot; ` and a real qualifier: the
+   design's own name for a base idea ("D42 &middot; Serpentine (wavy
+   in-plane) longeron"), and what changed THIS pass for a revisit ("D24-3
+   &middot; Mid-span placement, not near the joint"). A bare `D<n>-<k>`
+   with no qualifier tells a reader nothing without opening the slide —
+   the number alone is not what makes the scheme navigable.
+
    A revisit slide is a FULL idea-slide (rule 2's template, `class:
    idea-slide`, all linting rules apply) — not a lighter format. It uses
    the SAME 4 bullets (What/Origin/Stats/Verdict); Origin becomes "what
@@ -333,6 +341,12 @@ fundamental they are, not by the date they were written.
         this catches an entirely missing media slot mechanically, though
         it cannot judge whether a chart is needed for a given slide's
         own comparison; that judgment stays a review-time call.
+
+        CAPTIONS UNDER A GIF/CHART SHOULD BARELY BE USED — special cases
+        only, never a place to relocate real analysis prose that belongs
+        in the speaker notes. `lint_slides.py` WARNS when a caption runs
+        past 10 words; move whatever isn't essential to orient the reader
+        at a glance into the notes instead of growing the caption.
 
 3. THE PLAIN-LANGUAGE BAR (applies to all 4 bullets): no unexplained
    jargon in the visible slide body. A bare "ρ" or "r", an unglossed
@@ -697,7 +711,7 @@ class: idea-slide
 layout: two-cols-header
 ---
 
-# D24-3
+# D24-3 &middot; Mid-span placement, not near the joint
 
 ::left::
 <div class="text-sm leading-snug">
@@ -728,7 +742,7 @@ layout: two-cols-header
   <div class="flex items-center justify-center" style="height: 245px">
     <img src="/gifs/mid_span_bistable_landscape.gif" class="rounded shadow-lg" style="max-height: 245px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-50 text-center px-2">&sigma; vs compression (log scale) — with insert (solid) vs the ablated host (dashed, =run17_rectangle). The dashed spike above 10&times; is the numerical artifact; past it, the two curves are nearly identical for the rest of compression. Below: the winning point (D17)'s real solved motion.</div>
+  <div class="text-xs opacity-50 text-center px-2">Insert (solid) vs ablated (dashed), log scale.</div>
 </div>
 
 <!--
@@ -829,7 +843,7 @@ class: idea-slide
   <div class="flex items-center justify-center" style="height: 245px">
     <img src="/gifs/chained_arch_landscape.gif" class="rounded shadow-lg" style="max-height: 245px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-50 text-center px-2">&sigma; vs compression (log scale) — D032, confirmed genuinely sustained (solid), vs H12's flare-rescued but ambiguous point (dashed). The two track closely; the distinguishing test is in the 10-80%-compression median, not a visible spike difference. Below: D032's real solved motion — fails the joint-strain check by 11%, shown for the mechanism itself, not as the credited result.</div>
+  <div class="text-xs opacity-50 text-center px-2">D032 vs H12 (dashed), log scale.</div>
 </div>
 
 <!--
@@ -878,6 +892,15 @@ shell infrastructure was out of this run's remaining budget.
 - D029/D035 (H15, this run's final comparison delegation): D24's own original design re-solved
   fresh under the current oracle &mdash; sustained fraction 20.65%, statistically
   indistinguishable from this family's own 22.8-27.9% ambiguous band.
+
+**Chart correction (2026-08-31):** the H12 curve on this slide's own mini-plot was rebuilt
+from D030's fine-grid re-solve (`riks_432eda2b8acc4d49b2bd8c9a5da1613f`, &sigma;_peak=0.4327
+kPa, mcs_at_peak=0.0525), not D021's original coarse ODB
+(`riks_2187327444c4421fa655079a9794c886`, &sigma;_peak=0.5987 kPa at the same coarse-increment
+mcs_at_peak=0.00125 artifact this slide's own Timeline already diagnoses). The coarse ODB's
+raw curve carries a dominant early spike that visually contradicts this slide's own caption
+("not a visible spike difference") — the fine-grid curve is what the caption was written to
+describe. No number in the visible bullets changed; only which ODB the chart itself reads from.
 
 **Infra:** bo/oracle_chained_arch.py, scripts/supercompressible_lin_buckle_chained_arch.py
 (modified this run), scripts/supercompressible_riks_chained_arch_contact.py (new this run) —
@@ -1016,7 +1039,7 @@ class: idea-slide
 layout: two-cols-header
 ---
 
-# D41-2
+# D41-2 &middot; Corrected joint lets the rod genuinely twist
 
 ::left::
 <div class="text-sm leading-snug">
@@ -1077,7 +1100,7 @@ class: idea-slide
 layout: two-cols-header
 ---
 
-# D40-2
+# D40-2 &middot; The family's own best result does not reproduce
 
 ::left::
 <div class="text-sm leading-snug">
@@ -1108,9 +1131,7 @@ layout: two-cols-header
   <div class="flex items-center justify-center" style="height: 245px">
     <img src="/gifs/crosslinked_bundle_landscape.gif" class="rounded shadow-lg" style="max-height: 245px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-60 text-center px-2">&sigma; vs compression, D012's own 340-frame
-  re-solve; dotted line = where it matches D004's reading to 6+ sig figs. Same D020
-  design/animation as the original slide — not a converged stopping point after all.</div>
+  <div class="text-xs opacity-60 text-center px-2">D012's 340-frame re-solve; dotted line marks D004's match.</div>
 </div>
 
 <!--
@@ -1285,7 +1306,7 @@ class: idea-slide
 
 <div class="flex flex-col items-center justify-center gap-1" style="height: 400px">
   <img src="/gifs/grain_beam_native.gif" style="max-height: 340px; max-width: 100%" class="rounded shadow-lg" />
-  <div class="text-xs opacity-50 text-center">Stage-1 LIN_BUCKLE Mode 1, "Point B" (best-found design) — no Riks history exists for this family.</div>
+  <div class="text-xs opacity-50 text-center">Stage-1 Mode 1, "Point B" — no Riks history exists.</div>
 </div>
 
 <div class="text-xs opacity-50 mt-1">
@@ -1780,7 +1801,7 @@ class: idea-slide
   <div class="flex items-center justify-center" style="height: 245px">
     <img src="/gifs/twist_buckle_landscape.gif" class="rounded shadow-lg" style="max-height: 245px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-50 text-center">Converged design, twist_angle=30&deg;, pitch=0.5 — visibly still an ordinary bending/coiling collapse, not a twist-dominated one.</div>
+  <div class="text-xs opacity-50 text-center">twist_angle=30&deg;: still an ordinary bending collapse, not twist-dominated.</div>
 </div>
 
 <!--
@@ -1828,7 +1849,7 @@ class: idea-slide
 layout: two-cols-header
 ---
 
-# D24-2
+# D24-2 &middot; Rank-3, reconfirmed under contact
 
 ::left::
 <div class="text-sm leading-snug">
@@ -1860,7 +1881,7 @@ layout: two-cols-header
   <div class="flex items-center justify-center" style="height: 245px">
     <img src="/gifs/bistable_arch_rank3_landscape.gif" class="rounded shadow-lg" style="max-height: 245px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-50 text-center">Coarse vs fine-grid overlay — the spike is one isolated coarse point near mcs=0. Below: Rank-3's converged design.</div>
+  <div class="text-xs opacity-50 text-center">Coarse vs fine-grid overlay; converged design below.</div>
 </div>
 
 <!--
@@ -2130,7 +2151,7 @@ layout: two-cols-header
 
 <div class="flex flex-col items-center justify-center h-full">
   <img src="/gifs/kirigami_shell_negative_native.gif" class="max-h-72 rounded shadow-lg" />
-  <div class="text-xs opacity-60 mt-2 px-4 text-center">A representative attempted design's own Stage-1 lin-buckle ODB: undeformed mesh, then its actual (local ligament/panel) lowest mode — the failure mode itself, not an absence of one. Only 2 frames exist because eigenvalue extraction has no incremental history to animate; no Stage 2 ever ran for this family.</div>
+  <div class="text-xs opacity-60 mt-2 px-4 text-center">Stage-1 lowest mode; no Stage 2 ran.</div>
 </div>
 
 <!--
@@ -2194,7 +2215,7 @@ layout: two-cols-header
   <div class="flex items-center justify-center" style="height: 265px">
     <img src="/gifs/compliant_ring_landscape.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-50 text-center">The family's own best design (mcs=0.7885, mls=0.01976) — the kirigami-cut ring itself is now shown (SHOW_INSTANCES=RING_TOP), not the schematic dashed circle used elsewhere. Not feasible, but a genuine geometry.</div>
+  <div class="text-xs opacity-50 text-center">Best design (mcs=0.7885); real kirigami ring shown, not schematic.</div>
 </div>
 
 <!--
@@ -2258,7 +2279,7 @@ layout: two-cols-header
 
 <div class="flex flex-col items-center justify-center h-full">
   <img src="/gifs/graded_shell_negative_native.gif" class="max-h-72 rounded shadow-lg" />
-  <div class="text-xs opacity-60 mt-2 px-4 text-center">A representative attempted design's own Stage-1 lin-buckle ODB: undeformed mesh, then its actual lowest mode. Only 2 frames exist because eigenvalue extraction has no incremental history to animate; no Stage 2 ever ran for this family.</div>
+  <div class="text-xs opacity-60 mt-2 px-4 text-center">Stage-1 lowest mode; no Stage 2 ran.</div>
 </div>
 
 <!--
@@ -2316,7 +2337,7 @@ layout: two-cols-header
 
 <div class="flex flex-col items-center justify-center h-full">
   <img src="/gifs/nested_double_wall_negative_native.gif" class="max-h-72 rounded shadow-lg" />
-  <div class="text-xs opacity-60 mt-2 px-4 text-center">A representative configuration's own Stage-1 lin-buckle ODB: undeformed mesh, then its actual lowest mode. Only 2 frames exist because eigenvalue extraction has no incremental history to animate; this diagnostic never escalated to Stage 2.</div>
+  <div class="text-xs opacity-60 mt-2 px-4 text-center">Stage-1 lowest mode; never escalated to Stage 2.</div>
 </div>
 
 <!--
@@ -2386,10 +2407,19 @@ layout: two-cols-header
   <div class="flex items-center justify-center" style="height: 265px">
     <img src="/gifs/crosslinked_bundle_landscape.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-50 text-center">The family's own best design (D020). The reported number is 71.9% compression (mcs=0.7191) — the point where the structure hits a real, physical snap-through and the solve's progress on the mode this study measures effectively ends. The animation itself may still show the solver continuing to move past that point (frames are only capped at a global 95% compression safety limit, not stopped at each design's own reported number) — that later motion is not what mcs=0.7191 describes. "Converged" in this deck means reaching the FULL compression target, which this design never does — the 71.9% figure is a real, physical stopping point, just not that one.</div>
+  <div class="text-xs opacity-50 text-center">Best design (D020): real stopping point 71.9% — see notes.</div>
 </div>
 
 <!--
+**Animation caveat (moved from the visible caption to stay within the caption-brevity
+budget):** the family's own best design (D020) hits a real, physical snap-through at 71.9%
+compression (mcs=0.7191), where the solve's progress on the mode this study measures
+effectively ends. The animation itself may still show the solver continuing to move past
+that point — frames are only capped at a global 95% compression safety limit, not stopped
+at each design's own reported number — so that later motion is not what mcs=0.7191
+describes. "Converged" in this deck means reaching the FULL compression target, which this
+design never does; 71.9% is a real, physical stopping point, just not that one.
+
 **Input space:** ratio_d&isin;[.004,.073] — sub-beam diameter relative to the envelope.
 ratio_r_sub_frac&isin;[.05,.48] — how far off the main envelope circle each sub-beam sits (0 = on
 the circle, larger = more spread within the local bundle footprint). ratio_pitch&isin;[.25,1.5],
@@ -2443,7 +2473,7 @@ class: idea-slide
 layout: two-cols-header
 ---
 
-# D25-3
+# D25-3 &middot; Chirality on the tape-spring section
 
 ::left::
 <div class="text-sm leading-snug">
@@ -2469,7 +2499,7 @@ layout: two-cols-header
 
 <div class="flex flex-col items-center justify-center h-full">
   <img src="/gifs/tape_spring_twist_negative_native.gif" class="max-h-72 rounded shadow-lg" />
-  <div class="text-xs opacity-60 mt-2 px-4 text-center">A representative attempted design (the deepest-progressing real solve among the 105): the strip localises and runs out of the 2% strain budget long before 80% compression — not feasible, but a real geometry, not an absence of one.</div>
+  <div class="text-xs opacity-60 mt-2 px-4 text-center">Deepest real solve of 105: fails strain budget early.</div>
 </div>
 
 <!--
@@ -2625,7 +2655,7 @@ class: idea-slide
 layout: two-cols-header
 ---
 
-# D33-2
+# D33-2 &middot; Kissing-pair stiffness-multiplier sweep
 
 ::left::
 <div class="text-sm leading-snug">
@@ -2659,7 +2689,7 @@ layout: two-cols-header
   <div class="flex items-center justify-center" style="height: 265px">
     <img src="/gifs/kissing_pair_landscape.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-50 text-center">Same design AND same rendered gif as D33's own slide (3&times; multiplier, reported at 48.6% compression — see that slide's own caption for why the animation may visually appear to go further). Every other multiplier tested (5&times;, 7&times;, 9&times;, 12&times;, 15&times; — see notes) either matches or underperforms it, so this remains the family's best geometry.</div>
+  <div class="text-xs opacity-50 text-center">Same as D33 (3&times;) — still the family's best.</div>
 </div>
 
 <!--
@@ -2733,10 +2763,13 @@ layout: two-cols-header
   <div class="flex items-center justify-center" style="height: 245px">
     <img src="/gifs/scale_lock_landscape.gif" class="rounded shadow-lg" style="max-height: 245px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-50 text-center">D007's re-tested idx=0 design (strain rising smoothly 0.0&rarr;0.0197 over 1315 real frames, not a numerical artifact): mcs=45.0% before the stall. Real 3D S4R shell scale panels visibly rotate and overlap at each rib station as the beam bends.</div>
+  <div class="text-xs opacity-50 text-center">D007's idx=0 (mcs=45.0%): scale panels visibly rotate/overlap per rib.</div>
 </div>
 
 <!--
+**Chart provenance:** strain rises smoothly 0.0&rarr;0.0197 over 1315 real frames before the
+stall — a real, gradual response, not a numerical artifact.
+
 **Input space:** ratio_a&isin;[.006,.02] — radial half-thickness. ratio_b&isin;[.01,.05] —
 tangential half-width. ratio_pitch&isin;[.15,1.2], ratio_top_diameter&isin;[0,.6] — usual
 per-storey pitch/taper meaning. n_ribs&isin;[3,10] — scale-station count.
@@ -2938,7 +2971,7 @@ class: idea-slide
 layout: two-cols-header
 ---
 
-# D17-3
+# D17-3 &middot; From a 10&times; Bessa near-miss to a resolved falsification
 
 ::left::
 <div class="text-sm leading-snug">
@@ -2972,7 +3005,7 @@ layout: two-cols-header
   <div class="flex items-center justify-center" style="height: 240px">
     <img src="/gifs/kresling_contact_winner_native.gif" class="rounded shadow-lg" style="max-height: 240px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-50 text-center">Above: &sigma; vs compression, both meshes overlaid — nearly identical and flat, then a sharp late spike where they separate: 1.072 kPa (1&times;) vs 3.187 kPa (2&times;), +197%. Below: the local-zoom design — contact genuinely engages late; the falsification is the mesh, not the contact.</div>
+  <div class="text-xs opacity-50 text-center">Above: both meshes overlaid, late divergence. Below: local-zoom design.</div>
 </div>
 
 <!--
@@ -3300,7 +3333,7 @@ layout: two-cols-header
   <div class="flex items-center justify-center" style="height: 245px">
     <img src="/gifs/kissing_pair_landscape.gif" class="rounded shadow-lg" style="max-height: 245px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-50 text-center">3&times; stiffness soft connector (D018), the family's best-ever result: converged at 48.6% compression (mcs=0.486) — still far short of the 80% mcs this study requires. If the animation appears to run past that, it's the render pipeline's 95% safety cap, not real compression — see notes.</div>
+  <div class="text-xs opacity-50 text-center">Family's best (D018): converges at 48.6% — see notes.</div>
 </div>
 
 <!--
@@ -3396,7 +3429,7 @@ layout: two-cols-header
   <div class="flex items-center justify-center" style="height: 240px">
     <img src="/gifs/staged_storey_native.gif" class="rounded shadow-lg" style="max-height: 240px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-60 text-center">storey2_growth_ratio=31.7&times; — staging working, but mcs=1.5%, far short of the 80% floor.</div>
+  <div class="text-xs opacity-60 text-center">storey2_growth_ratio=31.7&times;: staging works, mcs only 1.5%.</div>
 </div>
 
 <!--
@@ -3573,7 +3606,7 @@ layout: two-cols-header
   <div class="flex items-center justify-center" style="height: 265px">
     <img src="/gifs/shaped_disc_cone_landscape.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-60 text-center">rise 0.15, the largest that converges. The coil passes above the cone the whole way; CPRESS never leaves zero.</div>
+  <div class="text-xs opacity-60 text-center">rise 0.15 (largest that converges); CPRESS never leaves zero.</div>
 </div>
 
 <!--
@@ -3637,9 +3670,9 @@ layout: two-cols-header
 
 <div class="flex flex-col items-center justify-center gap-1" style="height: 440px">
   <img src="/gifs/secondary_stop_sigma_mini.png" style="max-height: 150px; max-width: 100%" />
-  <div class="text-xs opacity-60 text-center">&sigma; vs compression, recovered directly from each design's own ODB — n_stops=0 (solid, the run-17 rectangle) vs n_stops=1 (dashed). Real strain crosses 2% at mcs=6.46%, close to the 5.9%/mcs=.054 already cited; the raw solve continues past that, unwindowed, to mcs=68.3% (46.53mm descent) before ending.</div>
+  <div class="text-xs opacity-60 text-center">n_stops=0 (solid, run-17 rectangle) vs n_stops=1 (dashed).</div>
   <img src="/gifs/secondary_stop_native.gif" style="max-height: 200px; max-width: 100%" class="rounded shadow-lg" />
-  <div class="text-xs opacity-60 text-center">n_stops = 1, the only build whose stop engaged. It topples sideways past the point where the primary already blew 2% strain.</div>
+  <div class="text-xs opacity-60 text-center">n_stops=1, the only build whose stop engaged.</div>
 </div>
 
 <!--
@@ -3861,7 +3894,7 @@ layout: two-cols-header
 
 <div class="flex flex-col items-center justify-center" style="height: 420px">
   <img src="/gifs/precoil_wrap45_native.gif" style="max-height: 340px; max-width: 100%" class="rounded shadow-lg" />
-  <div class="text-xs opacity-60 mt-1 px-4 text-center">wrap 4.5, stopping at the reversal (frame 156 of 785): 61.5% compression at 0.445% strain. Green everywhere is the point.</div>
+  <div class="text-xs opacity-60 mt-1 px-4 text-center">wrap 4.5, stopping at the reversal (frame 156/785).</div>
 </div>
 
 <!--
@@ -4144,16 +4177,20 @@ layout: two-cols-header
 
 <div class="flex flex-col items-center justify-center gap-1" style="height: 440px">
   <img src="/gifs/leaf_spring_sigma_mini.png" style="max-height: 155px; max-width: 100%" />
-  <div class="text-xs opacity-60 text-center">&sigma; vs compression, recovered directly from each design's own ODB — n_leaves=1 (solid, the run-17 rectangle) vs n_leaves=3 (dashed, stops at 51.6% where the real solve ends).</div>
+  <div class="text-xs opacity-60 text-center">n_leaves=1 (solid, run-17 rectangle) vs n_leaves=3 (dashed).</div>
   <img src="/gifs/leaf_spring_section.png" style="max-height: 85px; max-width: 100%" class="rounded shadow-lg bg-white" />
   <img src="/gifs/leaf_spring_native.gif" style="max-height: 100px; max-width: 100%" class="rounded shadow-lg" />
-  <div class="text-xs opacity-60 text-center">Section true to scale (one 1.84mm bar vs three 0.61mm leaves) and n_leaves=3 coiling.</div>
+  <div class="text-xs opacity-60 text-center">True-scale section (1.84mm bar vs 0.61mm leaves); n_leaves=3 coiling.</div>
 </div>
 
 <!--
 **Input space:** n_leaves&isin;{1,3,5} — discrete leaf count, not a continuous dial. a&isin;[.004,.014],
 b&isin;[.01,.045] — per-leaf cross-section semi-axes. ratio_pitch&isin;[.25,1]. Fixed:
 ratio_shear_modulus=.3677, n_longerons=3, n_storeys=1, twist_angle=0.
+
+**Chart provenance note:** the n_leaves=3 (dashed) curve is the raw, unwindowed solve — it runs
+to mcs=51.6% before the real solve itself ends (non-convergence), past the windowed mcs=.02
+citation in Stats above (which reports where strain, not the raw solve, stops being trustworthy).
 
 **REAL CHART ADDED 2026-08-28 (user request: a coiling GIF with no companion stress chart is
 the same gap D38 has, but worse here — real Stage-2 data exists and was never plotted).** The
@@ -4260,7 +4297,7 @@ class: idea-slide
 layout: two-cols-header
 ---
 
-# D25-2
+# D25-2 &middot; Tape spring under contact
 
 
 ::left::
@@ -4294,7 +4331,7 @@ layout: two-cols-header
   <div class="flex items-center justify-center" style="height: 265px">
     <img src="/gifs/restudy_tape_spring_contact.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-50 text-center">Above: design C's &sigma; vs compression, contact off vs on overlaid — nearly indistinguishable; contact doesn't move the strain-limit crossing. Below: the campaign's own showcase clip, a different (near-flat-strip) design — not design C.</div>
+  <div class="text-xs opacity-50 text-center">Design C, contact off vs on; showcase clip below.</div>
 </div>
 
 <!--
@@ -4476,7 +4513,7 @@ class: idea-slide
 layout: two-cols-header
 ---
 
-# D21-2
+# D21-2 &middot; Tensegrity under contact
 
 
 ::left::
@@ -4509,7 +4546,7 @@ layout: two-cols-header
   <div class="flex items-center justify-center" style="height: 225px">
     <img src="/gifs/restudy_tensegrity_contact.gif" class="rounded shadow-lg" style="max-height: 225px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-50 text-center">Above: strut local strain, contact off vs on overlaid — flat until the floor engages near mcs&asymp;70%, then contact-on climbs to 3.4% while contact-off stays zero. Below: contact on — struts rotate to collapse instead of sinking through the floor.</div>
+  <div class="text-xs opacity-50 text-center">Above: strut strain, contact off vs on. Below: contact-on collapse.</div>
 </div>
 
 <!--
@@ -4596,7 +4633,7 @@ class: idea-slide
 layout: two-cols-header
 ---
 
-# D17-2
+# D17-2 &middot; D17/D20/D26 — testable now, untested still
 
 ::left::
 <div class="text-sm leading-snug">
@@ -4624,10 +4661,15 @@ layout: two-cols-header
 
 <div class="flex flex-col items-center justify-center h-full">
   <img src="/gifs/restudy_laced_contact.gif" class="max-h-80 rounded shadow-lg" />
-  <div class="text-xs opacity-60 mt-2 px-4 text-center">D20's laced longeron, coiling. The machinery builds and runs — one design is not a family. No stress-history chart on this slide (rule 2c-VIS exception): all three checks here are single-design infrastructure verifications, not decided campaigns — D26 never reaches Stage 2 at all, D20 never converges, and D17's own real compression history is already charted on D17-3.</div>
+  <div class="text-xs opacity-60 mt-2 px-4 text-center">D20's laced longeron, coiling — see notes.</div>
 </div>
 
 <!--
+**No stress-history chart on this slide (rule 2c-VIS exception):** all three checks here are
+single-design infrastructure verifications, not decided campaigns — D26 never reaches Stage 2
+at all, D20 never converges, and D17's own real compression history is already charted on
+D17-3.
+
 **Input space:** same three design vectors as D17/D20/D26's own base slides; no new
 parameter — a single point per family, run through the migrated/new code path.
 
@@ -4845,7 +4887,7 @@ class: idea-slide
 
 <div class="flex flex-col items-center justify-center h-full gap-1">
   <img src="/gifs/chiral_shell_tube_native.gif" class="max-h-85 rounded shadow-lg" />
-  <div class="text-xs opacity-50 text-center">Mode 1 (base &rarr; buckling shape) of a typical swept design — global sway, not coiling rotation.</div>
+  <div class="text-xs opacity-50 text-center">Mode 1, typical design — global sway, not coiling.</div>
 </div>
 
 <!--
@@ -4924,7 +4966,7 @@ class: idea-slide
 
 <div class="flex flex-col items-center justify-center h-full gap-1">
   <img src="/gifs/chiral_shell_vane_native.gif" class="max-h-85 rounded shadow-lg" />
-  <div class="text-xs opacity-50 text-center">Mode 1 of a typical swept design — 3 discrete twisting vanes, still non-coiling.</div>
+  <div class="text-xs opacity-50 text-center">Mode 1: 3 discrete twisting vanes, still non-coiling.</div>
 </div>
 
 <!--
@@ -5737,7 +5779,7 @@ class: idea-slide
 
 <div class="flex flex-col items-center justify-center h-full gap-1">
   <img src="/gifs/cruciform_native.gif" class="max-h-85 rounded shadow-lg" />
-  <div class="text-xs opacity-50 text-center">From a <b>non-converged</b> solve — that is why Stats counts 0 riks (see notes).</div>
+  <div class="text-xs opacity-50 text-center">From a <b>non-converged</b> solve (see notes).</div>
 </div>
 
 <!--
@@ -5854,7 +5896,7 @@ class: idea-slide
 
 <div class="flex flex-col items-center justify-center h-full gap-1">
   <img src="/gifs/tensegrity_native.gif" class="max-h-85 rounded shadow-lg" />
-  <div class="text-xs opacity-50 text-center">Colour = LE11 (axial log strain) — this pure truss/cable model has no beam bending strain field.</div>
+  <div class="text-xs opacity-50 text-center">Colour = LE11 (axial strain); no beam bending field here.</div>
 </div>
 
 <!--
@@ -6212,7 +6254,7 @@ class: idea-slide
   <div class="flex items-center justify-center" style="height: 265px">
     <img src="/gifs/waisted_landscape.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-50 text-center">A typical member of the search, not the (later-invalidated) 0.877 kPa point.</div>
+  <div class="text-xs opacity-50 text-center">Typical search member, not the invalidated 0.877 kPa point.</div>
 </div>
 
 <!--
@@ -6638,7 +6680,7 @@ class: idea-slide
 
 <div class="flex flex-col items-center justify-center h-full gap-1">
   <img src="/gifs/chiral_brace_native.gif" class="max-h-85 rounded shadow-lg" />
-  <div class="text-xs opacity-50 text-center">Undeformed geometry only — this solve has no valid deformed state (see notes).</div>
+  <div class="text-xs opacity-50 text-center">Undeformed only — no valid deformed state (see notes).</div>
 </div>
 
 <!--
@@ -7970,7 +8012,7 @@ class: idea-slide
 
 <div class="flex flex-col items-center justify-center gap-1" style="height: 420px">
   <img src="/gifs/hollow_tube_D4_native.gif" style="max-height: 340px; max-width: 100%" class="rounded shadow-lg" />
-  <div class="text-xs opacity-50 text-center">Native Abaqus render — no strain coloring (see notes). D4 design, Stage-2 diverges at 32% strain.</div>
+  <div class="text-xs opacity-50 text-center">D4 design; native render, no strain coloring (see notes).</div>
 </div>
 
 <!--
@@ -8082,10 +8124,14 @@ class: idea-slide
 
 <div class="flex flex-col items-center justify-center h-full">
   <img src="/gifs/pretwisted_negative_native.gif" class="max-h-72 rounded shadow-lg" />
-  <div class="text-xs opacity-60 mt-2 px-4 text-center">One of D003's own 6 Stage-1-coilable designs (twist_angle=76&deg;), re-run fresh against the same generalized-cross-section+twist Stage-1 script since the original 2026-06-29 delegation's ODBs no longer exist on scratch (ephemeral sandbox cleanup, not a fabrication) — undeformed mesh, then its actual lowest mode.</div>
+  <div class="text-xs opacity-60 mt-2 px-4 text-center">D003's coilable design (twist_angle=76&deg;), re-run fresh — see notes.</div>
 </div>
 
 <!--
+**Chart provenance:** re-run fresh against the same generalized-cross-section+twist Stage-1
+script, since the original 2026-06-29 delegation's ODBs no longer exist on scratch (ephemeral
+sandbox cleanup, not a fabrication) — undeformed mesh, then its actual lowest mode.
+
 **Input space:** twist_angle&isin;[0,&pi;]. ratio_area&isin;[1.17e-5,4.1e-3], ratio_Ixx&isin;
 [1e-7,1.4e-6], ratio_Iyy&isin;[1e-7,1.4e-6], ratio_J&isin;[1e-6,7.77e-6] — generalized
 cross-section moments (Bessa's own 7D parametrization). ratio_pitch&isin;[.25,1.5],
