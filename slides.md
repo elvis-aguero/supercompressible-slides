@@ -741,8 +741,8 @@ RETROSPECTIVE FLAGS: 15 of 46 delegations flagged (CONSISTENCY only). 5 ERROR_RE
 run, all harness-level (stale revision hashes on concurrent notebook edits, one wrong cell name)
 -- self-corrected via retry, not science bugs.
 
-INFRA BUILT THIS RUN, NOT YET PROMOTED TO GOLD: bo/oracle_chained_arch.py,
-bo/oracle_mid_span_bistable.py, scripts/supercompressible_lin_buckle_mid_span_bistable.py,
+INFRA BUILT THIS RUN, NOT YET PROMOTED TO GOLD: bo/D44_oracle_chained_arch.py,
+bo/D24_3_oracle_mid_span_bistable.py, scripts/supercompressible_lin_buckle_mid_span_bistable.py,
 scripts/supercompressible_riks_chained_arch_contact.py,
 scripts/supercompressible_riks_mid_span_bistable_contact.py, plus a modification to
 scripts/supercompressible_lin_buckle_chained_arch.py. Promotion is the user's call.
@@ -796,9 +796,9 @@ version. Neither curve ever crosses the 2% strain cap (max 1.93%/1.98%), consist
 the 0.8% joint-strain margin already cited above — neither curve ever turns the flat grey
 the color scale reserves for "past 2%".
 
-**Deeper gap (2026-08-31, verdict audit):** `bo/oracle_mid_span_bistable.py` never computes
+**Deeper gap (2026-08-31, verdict audit):** `bo/D24_3_oracle_mid_span_bistable.py` never computes
 a genuine-snap diagnostic at all — checked directly, every "snap" reference in that file is
-a comment assuming the mechanism, not a checked field (unlike `bo/oracle_chained_arch.py`
+a comment assuming the mechanism, not a checked field (unlike `bo/D44_oracle_chained_arch.py`
 and the D24/D24-2 oracles, which at least attempt `arch_snap_reversal`, even though it has
 never once come back confirmed there either — see D24-2's Seed). This ablation compares two
 designs without ever confirming either one actually snaps.
@@ -810,8 +810,8 @@ lognormal(4&deg;,1.2&deg;) distribution (D19, 8 draws) — not a design paramete
 **Seed:** FERTILE — the fair test this run didn't run: does a single bistable insert improve on
 a MINIMAL, non-cherry-picked rectangular longeron of comparable dimensions (not specifically
 `run17_rectangle`'s own search-optimized numbers)? A literal "circular Bessa + bistability"
-comparison isn't available either — checked directly in `bo/oracle_mid_span_bistable.py` and
-`bo/oracle_chained_arch.py`: both hardcode a solid RectangularProfile cross-section, because
+comparison isn't available either — checked directly in `bo/D24_3_oracle_mid_span_bistable.py` and
+`bo/D44_oracle_chained_arch.py`: both hardcode a solid RectangularProfile cross-section, because
 the mechanism's own defining quantity (bistability_Q = rise/thickness) needs the same
 directional, anisotropic bending stiffness a rectangular section gives and a round one doesn't
 have in the same distinguishing sense. Nobody has built or tested a round-cross-section bistable
@@ -852,7 +852,7 @@ actually supported by this comparison. The second remains untested.
 ablation. D19: 8-draw robustness sweep. See D44's own slide for the chained-arch thread this
 restudy was compared against (H15).
 
-**Infra:** bo/oracle_mid_span_bistable.py,
+**Infra:** bo/D24_3_oracle_mid_span_bistable.py,
 scripts/supercompressible_{lin_buckle,riks}_mid_span_bistable_contact.py (new this run, not yet
 promoted to gold). Winning ODB:
 /oscar/scratch/eaguerov/sc_oracle_mid_span_bistable/riks_c6a667fa1ab047128b4b6b1910fcf2b3/;
@@ -974,7 +974,7 @@ disqualifies D032; that is the SEPARATE, stricter real-3D joint-warping check
 (`validation/warping_check`), which is not part of this chart's data at all. Neither curve
 ever turns the flat grey the color scale reserves for "past 2%", for that same reason.
 
-**Infra:** bo/oracle_chained_arch.py, scripts/supercompressible_lin_buckle_chained_arch.py
+**Infra:** bo/D44_oracle_chained_arch.py, scripts/supercompressible_lin_buckle_chained_arch.py
 (modified this run), scripts/supercompressible_riks_chained_arch_contact.py (new this run) —
 none yet promoted to gold.
 -->
@@ -1089,7 +1089,7 @@ survived uncorrected: the Verdict cell's own hypothesis-count language (7/11/12)
 
 RETROSPECTIVE FLAGS (8 of 44 delegations flagged, all CONSISTENCY, none BLOCKED). Two are
 worth a future run's attention, neither resolved here: (1) D009's flag that
-bo/oracle_grain_beam.py's convergence gate (requires literal Riks completion) is stricter
+bo/D43_oracle_grain_beam.py's convergence gate (requires literal Riks completion) is stricter
 than bo/oracle_circular.py's (the PROBLEM_STATEMENT-named reference oracle, which had no such
 distinction at all) -- FIXED post-run, see below. (2) D004's flag that a prior claim
 ("mls~0.003" at the crosslinked_bundle D020 baseline) didn't reproduce -- this run's own
@@ -1101,7 +1101,7 @@ INFRA PROMOTED TO GOLD, POST-RUN (2026-08-29, later the same day, user-authorize
 joint-DOF fix (commit 4c3da12); the secondary_stop D007/D017 diagnostic infra (commit
 2b2f8b1); the grain_beam DataGenerator registration wrapper (commit a016152). Separately, the
 window-closed-before-failure convention was applied uniformly to oracle_circular.py and
-oracle_grain_beam.py (commit d5aa47e) -- resolving retrospective flag (1) above: a result is
+D43_oracle_grain_beam.py (commit d5aa47e) -- resolving retrospective flag (1) above: a result is
 now decided if the specific quantity feasibility is judged on reflects real data confirmed
 before any solver failure, on every family, not just the newer ones that already had this.
 -->
@@ -1254,7 +1254,7 @@ SPECIFIED"), matching D004's own reading to 6+ significant figures. D015 (H9): a
 38/48 reached Stage 2, 1/48 (2.6%) reached riks_converged=1, and that one design was
 infeasible (mcs=0.242).
 
-**Infra:** no code changed for this family this run -- oracle_crosslinked_bundle.py and its
+**Infra:** no code changed for this family this run -- D40_oracle_crosslinked_bundle.py and its
 Riks script are unchanged. The finding is entirely about this specific design point's own
 reproducibility, not a construction bug. Sigma-history chart built from D012's own real,
 340-frame salvaged history:
@@ -1314,7 +1314,7 @@ pre-fix settings) found 0/70 converged; D007 diagnosed the population as MIXED -
 genuine settings-independent snap/bifurcation dead ends, others were merely settings-starved -- and
 tightened the Riks increment controls (maxNumInc=8000, initialArcInc=1e-3, minArcInc=1e-12,
 maxArcInc=0.05, MAX_SOLVE_SECONDS=2400s). D008 baked this into the canonical
-scripts/supercompressible_riks_grain_beam.py + bo/oracle_grain_beam.py. D009's follow-up campaign
+scripts/supercompressible_riks_grain_beam.py + bo/D43_oracle_grain_beam.py. D009's follow-up campaign
 (44 real dispatches under the tightened settings, surviving a mid-campaign CEI-BO seed-diversity bug
 that wasted 13/15 solves on bit-identical re-proposals -- see BLOCKED below) genuinely rescued some
 previously-starved designs (1/44 now reaches mcs&ge;0.80 outright vs 0/70 before), but the
@@ -1360,7 +1360,7 @@ Sobol DoE, not the ~74 subsequent CEI proposals; 73/80 candidates across two "di
 runs were bit-identical, silently dedup-dropped, wasting real Abaqus compute. Worked around with a
 pure OS-entropy random top-up. Flagged for whoever owns `cei_core.py`, not fixed this run.
 
-INFRA BUILT THIS RUN, not yet promoted to gold: the grain-beam family itself (bo/oracle_grain_beam.py,
+INFRA BUILT THIS RUN, not yet promoted to gold: the grain-beam family itself (bo/D43_oracle_grain_beam.py,
 bo/prefilter.py:passes_grain_beam_slenderness, scripts/supercompressible_{lin_buckle,riks}_grain_beam.py
 + pp), now falsified but real, reusable infra; the tightened Riks increment-control settings (D007/
 D008); D009's `campaign_summary.py`-adjacent `build_final_summary.py` (reusable funnel-count builder,
@@ -1463,7 +1463,7 @@ family's full 7D box -- found nothing, but thin: no feasible/converged incumbent
 to seed the acquisition, so it fell back to near-random Sobol sampling rather than a
 GP-guided search.
 
-**Infra:** bo/oracle_grain_beam.py, bo/prefilter.py:passes_grain_beam_slenderness,
+**Infra:** bo/D43_oracle_grain_beam.py, bo/prefilter.py:passes_grain_beam_slenderness,
 scripts/supercompressible_lin_buckle_grain_beam.py + _pp.py,
 scripts/supercompressible_riks_grain_beam.py (tightened increment controls: maxNumInc=8000,
 initialArcInc=1e-3, minArcInc=1e-12, maxArcInc=0.05, MAX_SOLVE_SECONDS=2400).
@@ -1840,7 +1840,7 @@ is favorable, which is goalpost-moving by another name. The propose-new/retract-
 already used is the correct guard, not a workaround for a missing feature. No change.
 
 INFRA PROMOTED TO GOLD (2026-08-25, later the same day). `bo/oracle_bistable_arch.py`,
-`bo/oracle_twist_buckle.py`, `bo/oracle_twist_buckle_locked.py` (866 lines) + 6 supporting scripts
+`bo/D41_oracle_twist_buckle.py`, `bo/D41_oracle_twist_buckle_locked.py` (866 lines) + 6 supporting scripts
 (6339 lines), all built fresh this run, committed so the next run touching either family doesn't
 rebuild from scratch.
 
@@ -2129,8 +2129,8 @@ Full campaign detail:
   rows inside that same 32, an 8/10-vs-7/10-feasible overclaim off by the exact ring-passthrough
   row the same paragraph flags, and a stale gate-pass audit note that lagged 3 edit rounds before
   catching up. None touched the headline number itself.
-- Infra not yet promoted to gold: `bo/oracle_bistable_arch.py`, `bo/oracle_twist_buckle.py`,
-  `bo/oracle_twist_buckle_locked.py` + 6 supporting scripts, built fresh this run. Recommend
+- Infra not yet promoted to gold: `bo/oracle_bistable_arch.py`, `bo/D41_oracle_twist_buckle.py`,
+  `bo/D41_oracle_twist_buckle_locked.py` + 6 supporting scripts, built fresh this run. Recommend
   committing so the next run testing either family doesn't rebuild working,
   adversarially-verified infrastructure from scratch.
 - GIF: native Abaqus/CAE Viewer export, standard pipeline. The Rank-3 candidate at its own
@@ -2572,7 +2572,7 @@ here as #9, not fixed in the vendored a3dasm harness.
 
 **Infra:** bo/prefilter.py:passes_crosslinked_bundle -- gates on the SUB-BEAM's own slenderness
 (never the envelope's), plus a neighbouring-sub-beam envelope-fit/no-touch check. Oracle at
-bo/oracle_crosslinked_bundle.py (namespace='crosslinked_bundle'); connector construction in
+bo/D40_oracle_crosslinked_bundle.py (namespace='crosslinked_bundle'); connector construction in
 bo/crosslinked_bundle_mpc.py. GIF rendered from D020's own Riks ODB:
 /oscar/scratch/eaguerov/sc_oracle_crosslinked_bundle/riks_516824ed2260409398982f7735bfdc0d/
 SUPERCOMPRESSIBLE_RIKS.odb (340-frame history, 30 rendered).
@@ -2747,8 +2747,8 @@ in the vendored a3dasm harness package, not this repo's code; not headline-relev
 concurrent same-namespace dispatch.
 
 Infra promoted to gold this run: scripts/supercompressible_{lin_buckle,riks}_scale_lock.py,
-scripts/supercompressible_riks_pp.py, bo/oracle_scale_lock.py (the two bug fixes above);
-bo/oracle_tape_spring.py (missing DataGenerator adapter); bo/oracle_kissing_pair.py,
+scripts/supercompressible_riks_pp.py, bo/D35_oracle_scale_lock.py (the two bug fixes above);
+bo/oracle_tape_spring.py (missing DataGenerator adapter); bo/D33_oracle_kissing_pair.py,
 bo/kissing_pair_connector_stop.py (stiffness-multiplier promotion + connector-force output).
 
 EVAL-COUNT DISCLOSURE (2026-08-26, deck audit item 1): the visible "69 ledgered evals" figure could
@@ -2951,7 +2951,7 @@ settings-independent physical wall.
 **Infra:** two real infra bugs found and fixed getting this family to a trustworthy read (full
 detail in the run summary slide's own speaker notes): the t=0 ground/top-disc geometry defect,
 then the missing *SECTION POINTS beam-section spec. Namespace 'scale_lock'; oracle at
-bo/oracle_scale_lock.py; scripts/supercompressible_{lin_buckle,riks}_scale_lock.py.
+bo/D35_oracle_scale_lock.py; scripts/supercompressible_{lin_buckle,riks}_scale_lock.py.
 -->
 
 ---
@@ -3941,7 +3941,7 @@ events. First run with a mixed roster where Opus 5 drove the strategizer and Son
 READ THE BAR CORRECTLY. Five NEW feasible designs cleared 2x Bessa this run -- 0.3451 (3.08x),
 0.2931, 0.2664, 0.2549, 0.2545 -- so the numeric half of the objective was met repeatedly. None is
 novel: the best sits at mcs_at_peak = 0.0645 (the same pre-buckling peak as everything else) with
-mandrel_engaged = 0, and oracle_mandrel's own docstring notes mandrel_ratio=0 reduces exactly to
+mandrel_engaged = 0, and D29_oracle_mandrel's own docstring notes mandrel_ratio=0 reduces exactly to
 the rectangular family. Reporting this run as "nothing beat 0.6077" is the wrong yardstick -- the
 incumbent is context, not the bar -- but the novelty half failed for the third run running.
 
@@ -3966,7 +3966,7 @@ available was testing a risky consequence of its own law inside a non-novel para
 objective does not currently say whether that is worth doing. Until it does, the study's
 best-evidenced lever is unrewardable.
 
-INFRASTRUCTURE THE RUN LEFT BEHIND, now promoted to gold (commit 16c7e84): bo/oracle_mandrel.py and
+INFRASTRUCTURE THE RUN LEFT BEHIND, now promoted to gold (commit 16c7e84): bo/D29_oracle_mandrel.py and
 bo/oracle_helical.py with four scripts/ pre/post-processors -- ~$35 of build cost that the next
 fresh run would have deleted, and the only implementation of the pre-coil family. The agent added
 a MandrelOracle factory to bo/datagen.py in exactly the adapter's intended shape, and
@@ -4154,7 +4154,7 @@ Fixed: n_longerons=3, ratio_top_diameter=.04444, n_storeys=1.
 **Seed:** BARREN — as is any *internal* confinement. Confining from outside, or moving the
 envelope (D30), is a different argument.
 
-Run 20260812T014026, delegations D002/D003/D005/D010/D013/D017, H1/H2. bo/oracle_mandrel.py and
+Run 20260812T014026, delegations D002/D003/D005/D010/D013/D017, H1/H2. bo/D29_oracle_mandrel.py and
 scripts/supercompressible_{lin_buckle,riks,riks_pp}_mandrel.py are promoted to gold (commit
 16c7e84) -- the family is closed, the machinery is not wrong, and mandrel_ratio=0 reduces it
 exactly to the contact-migrated rectangular family, which is what made the control pairs free.
