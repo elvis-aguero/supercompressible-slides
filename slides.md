@@ -6349,18 +6349,21 @@ class: idea-slide
   rather than concentrate it at one region.
 - **Origin:** common-sense mechanistic hypothesis (a curvature-distribution
   argument), not drawn from an outside literature source.
-- **Stats:** n=17 &rarr; 17 coil &rarr; 8 riks &rarr; 3 good (5.89&times; Bessa)
+- **Stats:** n=17 &rarr; 17 coil &rarr; 8 riks &rarr; 3 good (5.89&times; Bessa, pre-contact
+  eigenvalue metric — see notes)
   p50/p90/p100 — &sigma;_crit: .769/.774/.783 · mcs: 1.000/1.032/1.067 · mls: .0220/.0224/.0226
-  cleared: 8 of 8 decided &ge; 2&times; Bessa (0.2244) &middot; novel: no — every converged design
-  clears &sigma; near the baseline's own value; mls (local strain) is the gate that fails
+  cleared: 8 of 8 decided &ge; 2&times; Bessa (0.2244) &middot; novel: no — clears only because
+  it IS the baseline (&Delta;&sigma;&lt;0.2%); the meander itself adds nothing
   best good: amplitude_rel=.0047 n_periods=3 &rarr; &sigma;=.7694 mcs=1.02 mls=.0198
 - **Verdict:** INCONCLUSIVE · DEAD-END<br>
-  Among the 8 trust-gated converged points, local
-  strain correlates *positively* with both amplitude (+0.42) and n_periods
-  (+0.53), the opposite of the hypothesized direction; meandering raises
-  strain rather than distributing it away, so it does not unlock a window
-  above baseline. Recorded inconclusive only because that trustworthy
-  sample is thin (8 of 17), but the observed direction is unambiguous.
+  Not a contradiction with the "3 good" above:
+  those points clear Bessa because they ARE essentially the unperturbed
+  run17_rectangle host (&sigma;=.7694 vs baseline's own .7704, &lt;0.2% apart) — the
+  meander perturbation contributes nothing on top of it, and among the 8
+  trust-gated points, local strain correlates *positively* with both amplitude
+  (+0.42) and n_periods (+0.53), the opposite of the hypothesized
+  strain-distributing benefit. Recorded inconclusive only because that
+  trustworthy sample is thin (8 of 17), but the direction is unambiguous.
 
 
 </div>
@@ -6401,6 +6404,14 @@ batch's scope, noted here for continuity only.
 sourced from presentation/resim/meander/riks_545d6f9df95a45a195e0991a7c74a888. Rendered
 cleanly through the full native pipeline; the meander perturbation is subtle at this
 (small, per-hypothesis) amplitude but visible along each longeron's length.
+
+**Chart rebuilt with `bo/mini_chart.py` (2026-09-01)** — real data confirms this IS the
+cited best-good design (amplitude_rel=.0047, n_periods=3 matches sim_info.pkl exactly).
+Note: &sigma;_crit=.7694 kPa above is the Stage-1 eigenvalue (this run predates the
+2026-08-06 contact oracle); the real Stage-2 nonlinear force reading from this same ODB's
+own U/RF history is &sigma;_peak=0.6055 kPa at mcs=1.017 — lower, as expected, but the
+"clears only because it's the baseline" conclusion is unaffected either way (baseline's
+own &sigma;_crit=.7704 is likewise an eigenvalue reading from the same era).
 -->
 
 ---
@@ -7114,6 +7125,8 @@ class: idea-slide
   <div class="flex items-center justify-center" style="height: 277px">
     <img src="/gifs/D14_offset_shear_lprofile_landscape.gif" class="rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
   </div>
+  <div class="text-xs opacity-50 text-center">Chart's final-frame spike (7.28&times; Bessa) is a
+  1-frame termination artifact, not real capacity — see notes; does not change the verdict.</div>
 </div>
 
 <!--
@@ -7153,6 +7166,19 @@ standard pipeline, no ODB-specific gotchas. The open L-shaped cross-section's
 asymmetric profile is directly visible in the rendered beam geometry; the partial,
 incomplete coiling shown (max mcs=0.579 observed across the family) is a faithful,
 typical (not cherry-picked) result.
+
+**Chart rebuilt with `bo/mini_chart.py` (2026-09-01)** — was a stale, pre-2026-08-31
+chart with no mls color coding. Real unwindowed data: the last two raw frames read
+mcs=0.5158..0.5790 with sigma smoothly DECLINING 0.48x&rarr;0.44x Bessa (frames 95-103),
+then frame 104 reports sigma=0.8167 kPa (7.28x Bessa) AT THE SAME mcs as frame 103
+(0.5790, zero displacement progress between the two) — the signature of a solve that
+terminated mid-increment and recorded a spurious final force reading, not a genuine
+capacity jump (same class of 1-frame artifact independently established for D24/D24-2,
+D16's unwindowed tail, D18's chart). Not re-solved at finer resolution: this family's
+verdict does not depend on it (falsified regardless, on 6/6 designs and a predictive
+GP surrogate, matching a pre-registered literature prior) and spending an Abaqus
+license-hour to sharpen the tail of an already-dead-end family is not a good trade
+against this study's real open questions — flagged here rather than silently charted.
 -->
 
 ---
@@ -7502,6 +7528,9 @@ class: idea-slide
   <div class="flex items-center justify-center" style="height: 277px">
     <img src="/gifs/D10_elliptical_rings_landscape.gif" class="rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
   </div>
+  <div class="text-xs opacity-50 text-center">No — across all 67 evals in both campaigns, the
+  single best mcs ever reached was 0.78 (p100), and even that one failed other criteria;
+  this chart's own typical point tops out at 0.40.</div>
 </div>
 
 <!--
