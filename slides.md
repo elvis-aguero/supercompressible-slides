@@ -494,7 +494,19 @@ fundamental they are, not by the date they were written.
         assume which ring (if either) is fixed; check via COORD.
    No-winner convention: always show a faithful native-Abaqus image of a
    TYPICAL (not necessarily the single best) design from that idea's
-   search — never leave an empty image slot for a negative result.
+   search — never leave an empty image slot for a negative result. This
+   applies to the GIF ONLY (added 2026-09-01, after a real, repeated miss:
+   several `mini_chart.py` charts silently plotted a "typical" population
+   member instead of the specific design the Stats bullet's own "best
+   good" line describes, producing a chart peak that flatly contradicts
+   the visible text with no disclosure anywhere on the slide). A
+   stress-history chart's whole job is to illustrate a claim already made
+   in words — it MUST chart the specific named design(s) the slide's own
+   text discusses (the best-good design, or an explicit comparison pair),
+   never a generic "representative" substitute. If the actual best-good
+   design's own raw solve no longer exists to chart, say so directly in
+   the caption or Deferred — do not silently substitute a different
+   design's curve.
 
 5. PROVENANCE (five rules, all non-negotiable once physics/metric change):
    (a) ONE PROVENANCE PER SLIDE. Every number on a slide and its gif must
@@ -785,7 +797,8 @@ layout: two-cols-header
   <div class="flex items-center justify-center" style="height: 245px">
     <img src="/gifs/D24-3_mid_span_bistable_landscape.gif" class="rounded shadow-lg" style="max-height: 245px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-50 text-center px-2">Insert (solid) vs ablated host (dashed).</div>
+  <div class="text-xs opacity-50 text-center px-2">Insert (solid) vs ablated host (dashed) — host's
+  early peak is a confirmed 2-frame artifact, not real capacity (see notes).</div>
 </div>
 
 <!--
@@ -5468,9 +5481,12 @@ class: idea-slide
   **Retraction reversed 2026-08-18** (see speaker notes for why): the decisive,
   boundary-artifact-free restrained-warping check — same method that resolved
   `run17_rectangle`'s identical scare — finds the corrected joint strain holds at 1.96%, under
-  the 2% ceiling; the continuum submodel's 2.7&times;+ finding does not survive. **Caveat:**
-  &sigma;=0.8509 kPa is the retired eigenvalue metric, never re-measured under the current
-  contact oracle — not yet comparable to the incumbent (0.6071 kPa).
+  the 2% ceiling; the continuum submodel's 2.7&times;+ finding does not survive. **Update (2026-09-01):**
+  re-measured under the current contact oracle at a resolution fine enough to converge
+  cleanly (10&times; finer arc-length than the oracle's default) — &sigma;_peak=0.6404 kPa
+  (5.71&times; Bessa) at mcs=5.07%, clearing the 2&times; bar comfortably; this design's
+  status stands under the contact metric too (see Seed for how the default-resolution
+  run's very different 1.0495 kPa/false-snap reading was resolved).
 
 
 </div>
@@ -5488,10 +5504,21 @@ re-optimized with the arch. arch_rise&isin;[.02,.09] — bistable snap-arch heig
 ratio_top_diameter=.04444, circular=15 (cross-section-family switch), stabilization=1,
 dual_arch=1.
 
-**Seed:** FERTILE — re-solve this exact design (or a jointly-re-optimized variant) under the
-CURRENT contact oracle and &sigma;_peak metric; the headline 0.8509 kPa is the retired
-eigenvalue metric, never re-measured under contact, so whether it still beats the current
-0.6077 kPa incumbent is a real open question, not a settled one.
+**Re-solved under the CURRENT contact oracle (2026-09-01), closing the FERTILE item this
+Seed used to pose:** at the oracle's default arc-length (initialInc=5e-3), this exact design
+reproduces &sigma;_eig=0.8509 kPa almost exactly (geometry/coilability confirmed) but Stage-2
+reports &sigma;_peak=1.0495 kPa at mcs=0.125% AND arch_snap_reversal=1 — a striking,
+at-first-glance genuine-snap-confirmed reading, the only positive `arch_snap_reversal` this
+whole family's headline design has ever shown. A 10&times;-finer arc-length re-solve
+(initialInc=5e-4) converges cleanly with no solver errors, to a smooth curve:
+&sigma;_peak=0.6404 kPa (5.71&times; Bessa) at mcs=5.07%, arch_snap_reversal=0.0. Both the
+spike and the snap-positive reading are the SAME 1-frame numerical artifact — the identical
+signature already established for D24-2's Rank-3 point (see D24-2's own Seed). Pushing
+further (50&times;, 100&times;, 250&times; finer) makes the solver fail to converge at all in
+this region — a separate solver-brittleness finding, not evidence against the 10&times;-finer
+answer, which is this design's best available converged read. Net: the design clears
+2&times; Bessa under the current contact oracle (5.71&times;), but — like every other
+properly-resolved point in this family — shows no genuine snap.
 
 **Snap not confirmed (2026-08-31, verdict audit):** across every properly-resolved solve in
 this whole family — this design, D24-2's Rank-1/Rank-3, and 294/294 chained-arch (D44)
@@ -6436,7 +6463,7 @@ class: idea-slide
   optimal-column shape, not a uniform section.
 - **Origin:** classical Lagrange-Keller / Tadjbakhsh-Keller optimal-column
   result, adapted to this study's longeron geometry.
-- **Stats:** n=29 &rarr; 29 coil &rarr; 29 riks &rarr; 1 good (0.49&times; Bessa)
+- **Stats:** n=29 &rarr; 29 coil &rarr; 29 riks &rarr; 1 good (0.57&times; Bessa, current metric)
   p50/p90/p100 — &sigma;_crit: .756/3.04/3.58 · mcs: .677/1.058/1.072 · mls: .0192/.0277/.0441
   cleared: 26 of 29 decided &ge; 2&times; Bessa (0.2244) &middot; novel: yes — 26 distinct
   waist_ratio/ratio_b combinations, not repeats of one baseline
@@ -6457,7 +6484,9 @@ class: idea-slide
   <div class="flex items-center justify-center" style="height: 265px">
     <img src="/gifs/D18_waisted_landscape.gif" class="rounded shadow-lg" style="max-height: 265px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-50 text-center">Typical search member, not the invalidated 0.877 kPa point.</div>
+  <div class="text-xs opacity-50 text-center">This point reaches 6&times; Bessa but fails the
+  corrected slenderness gate (8.35&lt;10) — NOT the best-good design (0.57&times;) in Stats.
+  Waist barely visible here (ratio=.98); best-good's real .41 taper has no archived render.</div>
 </div>
 
 <!--
@@ -6735,7 +6764,7 @@ class: idea-slide
   from pre-twist (which rotates the cross-section) and radial bowing
   (which is planar) — both tried and falsified in earlier runs. Not drawn
   from an outside literature source.
-- **Stats:** n=28 &rarr; 8 coil &rarr; 8 riks &rarr; 1 good (0.044&times; Bessa)
+- **Stats:** n=28 &rarr; 8 coil &rarr; 8 riks &rarr; 1 good (0.051&times; Bessa, current metric)
   p50/p90/p100 — &sigma;_crit: 1.09/6.04/14.76 · mcs: .881/1.00/1.00 · mls: .019/.118/.191
   cleared: 7 of 8 decided &ge; 2&times; Bessa (0.2244) &middot; novel: yes — 5 of the 7 carry a
   genuinely nonzero wrap, not duplicates of the degenerate wrap=0 case; mls (local strain) is the gate
@@ -6757,6 +6786,9 @@ class: idea-slide
   <div class="flex items-center justify-center" style="height: 277px">
     <img src="/gifs/D16_helical_landscape.gif" class="rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
   </div>
+  <div class="text-xs opacity-50 text-center px-2">The wrap=0.6 comparison design (5.25&times;
+  Bessa, windowed to the 2% cap) — NOT the best-good degenerate wrap=0 design (0.044&times;),
+  which has no archived solve.</div>
 </div>
 
 <!--
@@ -7174,7 +7206,7 @@ class: idea-slide
   "hinge" segment to cap peak bending strain.
 - **Origin:** common sense — decouple average stiffness (thick ends) from
   peak local fibre strain (thin hinge), a DOF no uniform family could access.
-- **Stats:** n=56 → 45 coil → 45 riks → 1 good (1.07× Bessa)
+- **Stats:** n=56 → 45 coil → 45 riks → 1 good (1.24× Bessa, current metric)
   p50/p90/p100 — σ_crit: 3.01/13.96/41.51 · mcs: .93/1.00/1.00 · mls: .067/.121/.250
   cleared: 40 of 45 decided ≥ 2× Bessa (0.2244) · novel: yes — σ clears easily across this
   family; mls (local strain) is the gate the hinge-thinness relationship never predicts
@@ -7251,7 +7283,7 @@ class: idea-slide
 - **Origin:** dataset-mining common sense — a least-squares fit of
   high-performing 7D rows to box geometries had poor residuals (~98%
   relative L2 error), so the family was built and searched directly.
-- **Stats:** n=51 → 36 coil → 36 riks → 4 good (2.39× Bessa)
+- **Stats:** n=51 → 36 coil → 36 riks → 4 good (2.78× Bessa, current metric)
   p50/p90/p100 — σ_crit: 4.20/60.35/90.13 · mcs: .61/1.00/1.00 · mls: .043/.097/.151
   cleared: 33 of 36 decided ≥ 2× Bessa (0.2244), pre-contact metric, not comparable to the
   current incumbent · novel: no on shape — this idea's own Origin is mining Bessa's generalized
@@ -7325,7 +7357,7 @@ class: idea-slide
 - **Origin:** common sense — the compliant longeron absorbs large
   rotations, "rescuing" compressibility while the stiff ones carry
   buckling load.
-- **Stats:** n=46 → 32 coil → 32 riks → 1 good (2.79× Bessa)
+- **Stats:** n=46 → 32 coil → 32 riks → 1 good (3.25× Bessa, current metric)
   p50/p90/p100 — σ_crit: 1.86/21.94/40.42 · mcs: .53/1.29/1.49 · mls: .060/.130/.396
   cleared: 30 of 32 decided ≥ 2× Bessa (0.2244), pre-contact metric, not comparable to the
   current incumbent · novel: no — σ clears easily across this family; the ratio's non-monotonic
@@ -7353,6 +7385,8 @@ class: idea-slide
   <div class="flex items-center justify-center" style="height: 277px">
     <img src="/gifs/D11_heterogeneous_longerons_landscape.gif" class="rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
   </div>
+  <div class="text-xs opacity-50 text-center px-2">Chart/gif show a typical population point
+  (&sigma;=0.867 kPa) — NOT the best-good design (&sigma;=0.3644) described in Stats.</div>
 </div>
 
 <!--
@@ -7502,6 +7536,12 @@ native Abaqus/CAE Viewer export, standard pipeline. The rendered design shows vi
 incomplete/partial coiling (a mid-strain frame, not the collapsed cliff case) — a
 representative, still-somewhat-coiling point from the family, per the format
 contract's "typical, not necessarily best" no-winner convention.
+
+**Chart rebuilt with `bo/mini_chart.py`** (was a stale, pre-2026-08-31 chart with no
+mls color coding) — real data from the same archived ODB above, sigma_peak=0.2912 kPa
+at mcs=0.3983 max, matching this slide's own "mcs collapses to 0.398" figure exactly.
+Never turns grey because this specific design's own strain never approaches the 2%
+cap — its failure mode is the mcs collapse the Stats bullet already names, not strain.
 -->
 
 ---
@@ -8231,17 +8271,17 @@ class: idea-slide
   axis — σ_cr,nd scales with GJ, and the Bessa optimum sits at only 86%
   of max ratio_J.
 - **Stats:** n=18 → 16 coil → 1 riks → 0 good<br>
-  quartiles unavailable — only 1 design genuinely converged (C4: σ_crit=76.1 kPa, mcs=.090,
-  mls not measured); D4's closer near-miss never reached a converged Riks solve (see notes)<br>
-  cleared: 1 of 1 decided ≥ 2× Bessa (0.2244), pre-contact · novel: no on shape (Bessa's own
-  section space already spans it), weak at best on strain — not even measured here<br>
+  quartiles unavailable — C4's own "σ_crit=76.1 kPa" is the Stage-1 linear-buckling
+  eigenvalue (loads[0]=1794N, not a Stage-2 reading); Stage 2 itself reached only 9%
+  compression before stalling and produced no comparable stress of its own (see notes)<br>
+  cleared: none — the "1 of 1" figure was an eigenvalue read as a decided result · novel: no
+  on shape (Bessa's own section space already spans it)<br>
   best good: none (0/18 passed every criterion)
-- **Verdict:** SUPPORTED · FERTILE-PARAMETRIC · max-J convergence<br>
-  Stage-1 existence supported (5/16 cleared 75.1 kPa), but Stage-2 FAILS both candidates as
-  tested — the same GJ that clears the floor blocks deep coiling. The two candidates weren't
-  apples-to-apples: D4 (the closer near-miss, 32% strain) never actually converged (Riks
-  terminated "too many attempts"); only C4 genuinely converged, at a worse 9.0% strain — the
-  original "32% vs 9%" comparison was a non-converged partial read against a real solution.
+- **Verdict:** BLOCKED · UNKNOWN-NO-EVIDENCE · max-J Stage-2 convergence<br>
+  Stage-1 existence supported (5/16 cleared 75.1 kPa by the same eigenvalue reading), but
+  neither Stage-2 candidate ever produced a real result: D4 errored ("too many attempts"),
+  C4 ran to a genuine solver stall at 9% compression with no stress reading of its own. No
+  design in this family has ever produced a trustworthy Stage-2 number.
 
 </div>
 
@@ -8269,9 +8309,25 @@ not make this idea novel: Bessa's own generalized cross-section space (the 7D da
 ratio_area/Ixx/Iyy/J columns) already spans this shape-agnostic stiffness axis abstractly —
 picking a hollow/cellular shape is just one way to reach a point in that space a solid material
 can't. The one thing Bessa's own generalized work never checked is local strain against the 2%
-cap, so a real strain-verified point here would carry weak novelty at best; this campaign
-doesn't even have that, since C4's own mls was never measured. De-prioritize relative to ideas
-that change the centerline, topology, or load path, not just the cross-section shape.
+cap, so a real strain-verified point here would carry weak novelty at best. De-prioritize
+relative to ideas that change the centerline, topology, or load path, not just the
+cross-section shape.
+
+**C4 forensics (raw scratch data for this design is gone, purged from
+`/oscar/scratch/eaguerov/supercompressible_oracle/` since it was solved 2026-06-29; recovered
+from delegation D008's own transcript in `runs/20260629T191754/debug/delegation_log.jsonl`,
+still on disk): C4's exact inputs are ratio_area=.00215261, ratio_Ixx=ratio_Iyy=1.4e-6,
+ratio_J=9.0e-6, ratio_pitch=.653233, ratio_top_diameter=.445325, ratio_shear_modulus=.449.**
+The Stage-1 linear-buckling load was loads[0]=1794.0 N -- convert to nominal stress
+(1794*1000/(&pi;*100&sup2;/4*3)) = 76.14 kPa, matching the slide's own cited "76.1 kPa" exactly.
+This is an EIGENVALUE, computed before any Stage-2 solve ran. The actual Stage-2 Riks solve
+ran 22 increments and stalled with max|U3|=5.896mm out of a 65.32mm mast height (0.0903
+compression, matching the slide's own "mcs=.090") -- the final two increments returned an
+identical displacement, the signature of a genuine solver bifurcation/stall, not a sustained
+reading -- and never produced a Stage-2 stress number of its own. mls was also never measured.
+So "cleared 2xBessa" was never really tested here at all: the only number that clears it is a
+Stage-1 quantity, and the one real Stage-2 attempt hit a wall before producing anything to
+compare.
 
 **Timeline:** This is H5 of run `20260629T191754`, delegation D006 (Stage-1
 existence), with Stage-2 Riks tests as H4 (max-J single-longeron anchor, FALSIFIED,
