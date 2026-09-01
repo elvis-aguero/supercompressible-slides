@@ -7350,15 +7350,28 @@ class: idea-slide
   By the strict adequacy bar, but a clear
   negative signal — the box profile genuinely coils (confirmed by real rotation data), it
   just needs far more force and stalls before reaching full travel; same practical
-  conclusion as the solid rectangle: underperforms.
+  conclusion as the solid rectangle: underperforms. **Update (2026-09-01):** re-solved the
+  cited best-good design under the current contact oracle — converges cleanly, clears
+  &sigma;/mcs/mls/slenderness (2.20&times; Bessa, mcs=.89, mls=.017), but fails
+  ring_passthrough=1 — a criterion that didn't exist when this campaign ran. Same pattern
+  as D17's Kresling design: passed everything tested at the time, later failed on a
+  criterion added afterward.
 
 
 </div>
 
 ::right::
 
-<div class="flex items-center justify-center h-full">
-  <img src="/gifs/D12_box_hollow_tube_native.gif" class="max-h-100 rounded shadow-lg" />
+<div class="flex flex-col gap-2" style="height: 460px">
+  <div class="flex items-center justify-center" style="height: 175px">
+    <img src="/gifs/D12_box_hollow_tube_mini.png" style="max-height: 175px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 277px">
+    <img src="/gifs/D12_box_hollow_tube_native.gif" class="rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">The actual best-good design (not a comparison
+  point) — zoomed to mcs&le;1.15; the raw solve runs off to mcs=7637 past this (ring-passthrough
+  runaway), see notes.</div>
 </div>
 
 <!--
@@ -7387,6 +7400,21 @@ and 0.054 but infeasible at 6 of 8 other swept points, a genuinely different
 mechanical behavior from the solid-rectangle family's clean, monotonic collapse (this
 run's H4, which folds into the run17-rectangle-anchor idea), even though the net
 practical result (underperforms) matches.
+
+**Real chart added 2026-09-01 (user request: "we need the stress history! ... i rather see
+one of those 4 good ones"):** re-solved the exact cited best-good design (full-precision `best_x` recovered from
+`runs/20260708T021335/debug/delegations/D007/cei_bo_summary.json`) via
+`workspace/data_generator.py` (circular=3, the current, contact-enabled
+generator). sigma_crit reproduces the archived 0.3123044396644565 bit-identically. Riks
+converges cleanly this time (no knife-edge, unlike D11's own degenerate point) — real
+windowed sigma_peak=0.24703 kPa (2.20x current Bessa), mcs_windowed=.8921, mls_windowed=
+.01733, all real feasibility criteria clear except the newly-checked ring_passthrough=1.
+The raw unwindowed curve then runs off to mcs=7637 (a ring-passthrough force runaway) —
+mini_chart.py's own dynamic x-axis would compress the real, decided 0-1.15 mcs region
+into an invisible sliver against that, so this chart is a one-off fixed-xlim zoom (matching
+the D24-2 zoom-script precedent), not the standard tool. Archived at
+data/idea_odbs/20260901_D12_boxprofile_bestgood_undercontact/ (PROVENANCE.txt only, per
+this repo's 100MB-odb-file convention).
 
 **Infra:** ODB: data/idea_odbs/20260708T021335_H2_box_hollow_tube/ (source:
 presentation/resim/box/riks_c6f5fdb729c549fd93c5ddb53065dde3). GIF: native Abaqus/CAE
