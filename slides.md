@@ -6609,7 +6609,13 @@ class: idea-slide
 - **Verdict:** INCONCLUSIVE · DEAD-END<br>
   A genuinely feasible design existed and once
   cleared all four original criteria, but was later rejected on a separate
-  ring-passthrough criterion (see notes); not a validated winner.
+  ring-passthrough criterion (see notes); not a validated winner. **Why the
+  gif shows no ring contact:** this whole study's beam-only FE model treats
+  both rings as idealized reference points, not solid contact bodies, for
+  every family in this deck — not a setting missed here. That is exactly why
+  ring-passthrough had to be added as its own fifth criterion: a bar-hinge
+  kink can swing a mid-span node through the ring's 0-D plane and no
+  beam-only check (coilable/mcs/mls/slenderness) would ever catch it.
 
 </div>
 
@@ -6926,7 +6932,9 @@ class: idea-slide
 
 <div class="flex flex-col items-center justify-center h-full gap-1">
   <img src="/gifs/D15_chiral_brace_native.gif" class="max-h-85 rounded shadow-lg" />
-  <div class="text-xs opacity-50 text-center">Undeformed only — no valid deformed state (see notes).</div>
+  <div class="text-xs opacity-50 text-center">Undeformed frame only — a genuine ODB rendering
+  blocker (2 corrupted nodes crash every later frame), not skipped; investigated, not
+  faked (see notes).</div>
 </div>
 
 <!--
@@ -7108,10 +7116,15 @@ class: idea-slide
   well below the theoretical prior's expected ceiling for this cross-section
   best good: none (0/45 passed every criterion)
 - **Verdict:** FALSIFIED · DEAD-END<br>
-  Matches the theoretical prior; a GP surrogate fit
-  on this data is genuinely predictive (well above a chance baseline, CV
-  R²=0.881), confirming the flat, feature-less landscape is real and not a
-  search-coverage artifact; not competitive with the 2.3376 kPa floor.
+  Not "not novel" — physically barred: classical
+  flexural-torsional theory shows the shear-centre coupling this idea needed
+  can only LOWER the buckling load, never raise it, and open thin-walled
+  sections have inherently low torsional stiffness (J) — trading away the
+  dominant &sigma;_crit lever this whole study repeatedly finds, for a
+  coupling term theory guarantees can only hurt. A GP surrogate fit on this
+  data is genuinely predictive (CV R²=0.881), confirming the flat landscape
+  is that real mechanism, not a search-coverage gap; not competitive with
+  the 2.3376 kPa floor.
 
 
 </div>
