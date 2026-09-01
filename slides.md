@@ -7397,7 +7397,15 @@ class: idea-slide
   helps and sometimes doesn't, undercutting the core hypothesis that mild
   heterogeneity predictably "rescues" compressibility (ratio=0.951 stalled
   at mcs=0.160 vs. ratio=1.0's mcs=0.9999) — no improvement over uniform
-  found anywhere.
+  found anywhere. **Reproducibility flag (2026-09-01):** re-solving the exact
+  archived best-good point today reproduces &sigma;_crit bit-identically
+  (0.364418 kPa) but Stage-2 fails to converge on two independent attempts
+  (default AND 50&times;-finer arc-length) — the solver stalls at LPF&asymp;1.00
+  for 80+ increments with a vanishing step size, never advancing. The
+  archived mcs=0.9999/mls=0.0196 reading cannot currently be reproduced; see
+  notes. Does not change the verdict (this is the degenerate ratio=1.0 case,
+  i.e. no heterogeneity — the DEAD-END conclusion rests on the OTHER 31
+  designs' ratio-vs-strain trend, not this one point).
 
 
 </div>
@@ -7442,6 +7450,27 @@ point solved at sigma=0.867; the family's actual near-degenerate best-found poin
 pipeline. The visibly different cross-section sizes among the three legs (two thick,
 one thin) are directly visible in the rendered beam profiles — the asymmetric coiling
 behavior this produces is real, not a rendering artifact.
+
+**Attempted a real re-solve of the best-good point itself (2026-09-01), at the user's
+own request for its actual video rather than the typical/comparison one above.** Full-
+precision parameters recovered from this run's own
+`debug/delegations/D010/confirmation_result.json` (ratio_a=.009204,
+ratio_b_stiff=ratio_b_compliant=.018754, ratio_pitch=.601567,
+ratio_top_diameter=.037945). Stage 1 reproduces &sigma;_crit=0.3644181342304667 kPa —
+bit-identical to the archived confirmation. Stage 2 (the real nonlinear Riks history —
+exactly the metric the "3.25x Bessa" headline and the archived mcs=0.9999/mls=0.0196
+reading depend on) fails with "TIME INCREMENT REQUIRED IS LESS THAN THE MINIMUM
+SPECIFIED" on 3 retries at the original arc-length (initialArcInc=5e-2), and again on 3
+more retries at a 50x-finer fork (initialArcInc=1e-3, minArcInc=1e-7) — the .sta file
+shows the solver stalling at LPF&asymp;1.00 for 80+ increments with the step size
+collapsing toward zero, never advancing. This is the study's degenerate ratio_b_stiff
+== ratio_b_compliant point (i.e. genuinely no heterogeneity, the "uniform" edge of this
+family's own box) — plausibly a real symmetric-bifurcation numerical knife-edge, not an
+environment regression, but not confirmed either way. Not investigated further: this
+family's DEAD-END verdict rests on the OTHER 31 converged designs' ratio-vs-strain
+trend, not this one point, so the video the user asked for currently cannot be produced
+honestly — reporting the reproducibility failure instead of substituting another design's
+render for it.
 -->
 
 ---
