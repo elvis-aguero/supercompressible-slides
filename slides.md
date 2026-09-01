@@ -4003,6 +4003,8 @@ layout: two-cols-header
 - **Origin:** this run's own law. Strain is c &times; curvature **change**, not curvature — a member
   born at &kappa;&#8320; travels only &kappa;_max &minus; &kappa;&#8320;, so the cap 0.02/&Delta;&kappa; relaxes.
 - **Stats:** pre-coiled (wrap&gt;0): n=30 &rarr; 3 coil &rarr; 2 riks &rarr; 0 good — **both riks solves hit the 600 s cap**
+  (this specific 30-eval campaign; the Verdict's &rho;=&minus;0.392 is a SEPARATE, later,
+  36-design aggregate across this idea's fuller investigation, not these 2 unconverged rows)
   p50/p90/p100 — &sigma;_crit: .97/4.55/6.57 &middot; mcs: 0/0/.339 &middot; mls: unmeasured
   cleared: none here — the next run cleared 8 with wrap&ne;0, best 0.5007 = 4.46&times; Bessa
   &middot; novel: **no** (Kirchhoff-rod theory, H3)
@@ -4439,11 +4441,11 @@ layout: two-cols-header
   10 paired on/off, and a targeted re-solve of the closest-miss design ("Design C").
 - **Origin:** ground contact was restored study-wide 2026-08-06 (v1); closes the "migrated
   &ne; tested" gap the re-study index flags for five families.
-- **Stats:** n=330 &rarr; 50 coilable &rarr; 36 verdict &rarr; 28 decided (8 sentinel-zero
-  removed) &rarr; 0 good.<br>
-  p0/p50/p90/p100 mcs: 0.0044/0.0215/0.0533/0.2149. Binding: mcs&lt;0.80 in 28/28. Contact's
-  own effect (n=4 pairs): shifts the strain crossing &minus;0.002 avg — unresolvable at n=4,
-  irrelevant to the 3.7&times; gap (full breakdown in notes).<br>
+- **Stats:** n=330 &rarr; 50 coil &rarr; 28 decided &rarr; 0 good (of 36 raw verdicts, 8 were
+  sentinel-zero salvage artifacts, excluded — see notes)<br>
+  p0/p50/p90/p100 mcs: .0044/.0215/.0533/.2149 &middot; binding: mcs&lt;0.80 in 28/28 &middot;
+  contact effect (n=4 paired): shifts strain-crossing &minus;0.002 avg, unresolvable at n=4 and
+  irrelevant to the 3.7&times; gap (full breakdown in notes)<br>
   best good: none &middot; cleared: none &middot; novel: no — migration + re-verification.
 - **Verdict:** POWERED · REFUTED · ground contact's effect on the tape-spring
   family's strain-floor<br>
@@ -5493,8 +5495,15 @@ class: idea-slide
 
 ::right::
 
-<div class="flex items-center justify-center h-full">
-  <img src="/gifs/D24_bistable_arch_headline_native.gif" class="max-h-100 rounded shadow-lg" />
+<div class="flex flex-col gap-2" style="height: 460px">
+  <div class="flex items-center justify-center" style="height: 175px">
+    <img src="/gifs/D24_bistable_arch_headline_mini.png" style="max-height: 175px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 277px">
+    <img src="/gifs/D24_bistable_arch_headline_native.gif" class="rounded shadow-lg" style="max-height: 277px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">Solid = 10&times;-finer re-solve (real, converged,
+  0.640 kPa). Dashed = gold default resolution (1.05 kPa spike, disproven) — see Seed.</div>
 </div>
 
 <!--
@@ -5504,8 +5513,8 @@ re-optimized with the arch. arch_rise&isin;[.02,.09] — bistable snap-arch heig
 ratio_top_diameter=.04444, circular=15 (cross-section-family switch), stabilization=1,
 dual_arch=1.
 
-**Re-solved under the CURRENT contact oracle (2026-09-01), closing the FERTILE item this
-Seed used to pose:** at the oracle's default arc-length (initialInc=5e-3), this exact design
+**Seed:** BARREN (2026-09-01 — was FERTILE; re-solved, closing the item this Seed used to
+pose, no untried perturbation left): at the oracle's default arc-length (initialInc=5e-3), this exact design
 reproduces &sigma;_eig=0.8509 kPa almost exactly (geometry/coilability confirmed) but Stage-2
 reports &sigma;_peak=1.0495 kPa at mcs=0.125% AND arch_snap_reversal=1 — a striking,
 at-first-glance genuine-snap-confirmed reading, the only positive `arch_snap_reversal` this
@@ -5519,6 +5528,12 @@ this region — a separate solver-brittleness finding, not evidence against the 
 answer, which is this design's best available converged read. Net: the design clears
 2&times; Bessa under the current contact oracle (5.71&times;), but — like every other
 properly-resolved point in this family — shows no genuine snap.
+
+**Infra (added 2026-09-01):** this slide had no stress-history chart at all before today —
+ODBs archived at `data/idea_odbs/20260901_D24_headline_finer_arclength_converged/`
+(solid, real) and `data/idea_odbs/20260901_D24_headline_gold_spike_artifact/` (dashed,
+disproven), both recovered from `/oscar/scratch/eaguerov/sc_oracle_bistable_arch/` before
+scratch could purge them. Chart built with `bo/mini_chart.py --compare`.
 
 **Snap not confirmed (2026-08-31, verdict audit):** across every properly-resolved solve in
 this whole family — this design, D24-2's Rank-1/Rank-3, and 294/294 chained-arch (D44)
