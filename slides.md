@@ -7281,6 +7281,13 @@ sea of 6-of-8 infeasible points with no monotonic trend to climb; the mode-switc
 non-coiling behavior looks intrinsic to a closed thin-wall box profile (it resists the twist the
 coiling mechanism needs), not a parameter this search under-sampled.
 
+**Novelty audit (2026-09-01):** this idea's own Origin already says the quiet part out loud —
+it was built by mining Bessa's own 50,000-point generalized 7D dataset for a stiffness
+combination no SOLID shape could reach, then picking a shape (box tube) to physically realize
+that already-implicit point. Shape novelty: none, by the idea's own stated method. The genuinely
+new information here is mechanistic (a different, mode-switching failure than the solid
+rectangle's clean collapse), not the cross-section itself.
+
 **Timeline:** D004: build + validate the BoxProfile family. D007: search (this run's
 H2) — the outer-tangential-dimension sweep found feasible windows at ratio_b_out=0.02
 and 0.054 but infeasible at 6 of 8 other swept points, a genuinely different
@@ -7944,6 +7951,15 @@ was testing against (area=.00215, Ixx=1.35e-6, Iyy=1.24e-6, J=6.65e-6).
 limit, the same order-of-magnitude gap this deck treats as unclosable elsewhere; the design's
 real legacy is the three-criteria contract it forced into existence, not a refinement candidate.
 
+**Novelty audit (2026-09-01):** this design is literally inside Bessa's own explored family
+(solid circular, just thicker) — zero shape novelty by construction, not just by the corrected
+framework applied elsewhere on this deck (see D2's own note). It's also the clearest illustration
+of the framework's other half: Bessa's own generalized-section work never checked local strain,
+and this campaign's own huge, real-looking σ numbers (431-506 kPa, all "cleared") turned out to
+hide a 24.7% strain violation the moment someone measured it. The mechanism insight (this finding
+forced the three-criteria contract) is the design's entire contribution — not the shape, not the
+raw number.
+
 **Timeline:** Stats-migration note (2026-08-04): N=42 combines D003's 36-pt Stage-1
 LHS sweep (23 coilable) with 6 targeted refinement points across D004(2)/D005(2)/
 D008(2); 5 of those 6 reached a converged Riks solve. test_A (the 485.996 kPa
@@ -8210,8 +8226,8 @@ class: idea-slide
 - **Stats:** n=18 → 16 coil → 1 riks → 0 good<br>
   quartiles unavailable — only 1 design genuinely converged (C4: σ_crit=76.1 kPa, mcs=.090,
   mls not measured); D4's closer near-miss never reached a converged Riks solve (see notes)<br>
-  cleared: 1 of 1 decided ≥ 2× Bessa (0.2244) · novel: yes — C4 is a genuine hollow/cellular
-  cross-section point, not a duplicate of any baseline<br>
+  cleared: 1 of 1 decided ≥ 2× Bessa (0.2244) · novel: no on shape, weak at best on strain
+  (corrected 2026-09-01, see notes) — a genuine point, but not a new mechanism<br>
   best good: none (0/18 passed every criterion)
 - **Verdict:** SUPPORTED · FERTILE-PARAMETRIC · max-J convergence<br>
   Stage-1 existence supported (5/16 cleared 75.1 kPa), but Stage-2 FAILS both candidates as
@@ -8243,6 +8259,19 @@ coarse arc-length settings rather than a real physics wall, so a finer-step re-s
 would settle whether the GJ-vs-coiling tradeoff genuinely blocks it or was never properly tested.
 **Verdict corrected to match (2026-08-31, verdict audit): the visible Verdict previously read
 DEAD-END, contradicting this Seed's own FERTILE reasoning — updated to FERTILE-PARAMETRIC.**
+
+**Novelty audit (2026-09-01):** the visible "novel: yes" was wrong on the axis that matters.
+Bessa's own study already generalizes cross-section stiffness abstractly (this is exactly what
+the 7D dataset's ratio_area/Ixx/Iyy/J columns are — a shape-agnostic moment space, not a
+circular-only one); this idea's entire contribution is picking a hollow/cellular SHAPE that
+reaches a point in that same space a solid material can't. Swapping in a new cross-section
+shape is not novel by itself under this study's own contract — the only thing Bessa's
+generalized study did NOT do is check local strain (mls) against the 2% cap, so a real
+strain-aware reading of a shape idea has SOME novelty, but weak. This design doesn't even get
+that: C4, the one converged point, never had mls measured at all. So even if the finer-arc-length
+re-solve above resolves the GJ-vs-coiling question, a working point here would still carry
+close to zero novelty — FERTILE on feasibility, not on contribution. De-prioritize relative to
+ideas that change the centerline, topology, or load path, not just the cross-section shape.
 
 **Timeline:** This is H5 of run `20260629T191754`, delegation D006 (Stage-1
 existence), with Stage-2 Riks tests as H4 (max-J single-longeron anchor, FALSIFIED,
