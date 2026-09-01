@@ -7258,11 +7258,13 @@ class: idea-slide
   section space for a point no solid shape reaches, then picking a shape to realize it; the high
   end likely also reflects the non-coiling stiff mode noted above, not 33 genuinely useful designs
   best good: a_out=.0184 b_out=.0543 t1=.003 t3=.002 pitch=.602 +1 more → σ=.3123 mcs=1.00 mls=.018
-  (high σ_crit p90/p100 likely a non-coiling stiff mode, not real progress)
+  (high σ_crit p90/p100 is a real, much stiffer coiling response that stalls early, not a
+  different mode — see notes)
 - **Verdict:** INCONCLUSIVE · DEAD-END<br>
   By the strict adequacy bar, but a clear
-  negative signal — a genuinely different (mode-switching) failure mode
-  than the solid rectangle, yet the same practical conclusion: underperforms.
+  negative signal — the box profile genuinely coils (confirmed by real rotation data), it
+  just needs far more force and stalls before reaching full travel; same practical
+  conclusion as the solid rectangle: underperforms.
 
 
 </div>
@@ -7279,9 +7281,15 @@ wall thicknesses. ratio_pitch&isin;[.25,1.5], ratio_top_diameter&isin;[0,.8] —
 pitch/taper meaning. Fixed: ratio_shear_modulus=.3677, circular=3 (cross-section-family switch).
 
 **Seed:** BARREN — the outer-tangential-dimension sweep's feasible windows (0.02, 0.054) sit in a
-sea of 6-of-8 infeasible points with no monotonic trend to climb; the mode-switch to a stiff,
-non-coiling behavior looks intrinsic to a closed thin-wall box profile (it resists the twist the
-coiling mechanism needs), not a parameter this search under-sampled. Shape novelty was never a
+sea of 6-of-8 infeasible points with no monotonic trend to climb. The "non-coiling stiff mode"
+this slide previously blamed does not hold up: direct inspection of the one archived Riks
+history (UR about the mast axis, ratio_a_out=.0389/ratio_b_out=.0753, a cleared-but-not-good
+point) shows the top ring genuinely rotating past 116 degrees, unstabilized (ALLSD=0) — real
+coiling, not a mode switch. It's just much stiffer (sigma_peak~5.2 kPa there, an order of
+magnitude over typical designs) and stalls at 56% raw compression instead of reaching full
+travel. A closed thin-wall box resists the twist the coiling mechanism needs, so it takes far
+more force to get the same rotation and runs out of travel first — that's the real mechanism,
+not a parameter this search under-sampled. Shape novelty was never a
 real claim here either way — by the idea's own stated method, it was built by mining Bessa's own
 generalized 7D dataset for a stiffness combination no solid shape reaches, then picking a shape
 to realize that already-implicit point. The genuinely new information is mechanistic (a
