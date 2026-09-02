@@ -683,6 +683,168 @@ was run; this is the same 2026-07-31 ODB, read two ways.
 -->
 
 ---
+layout: two-cols-header
+class: idea-slide
+---
+
+# D48 &middot; Legged snap-chain (sequential elastic snap-through) longeron
+
+::left::
+
+<div class="text-sm leading-snug">
+
+- **What:** abandons ring-rotation coiling entirely. A stack of rigid rings connected level to
+  level by three curved arches, each arch raised on two short rigid legs so it can fully flip to
+  its mirror-image curve without hitting the ring below — compression comes from these arches
+  snapping in sequence, not from twisting/bending one continuous member.
+- **Origin:** Shan, Kang, Raney, Wang, Fang, Candido &amp; Bertoldi 2015¹ — chaining bistable
+  curved-beam units in series traps large elastic strain via sequential snap-through, a known
+  mechanism never applied to this rocking-mast problem before. The bistability threshold (rise/
+  thickness &ge; ~2.31) is Qiu, Lang &amp; Slocum 2004².
+- **Stats:** 3 runs folded into one (see Timeline) — n=168 &rarr; 167 coil &rarr; 28 riks &rarr; 86
+  good (10.79&times; Bessa)
+  p50/p90/p100 over the 28 Riks-converged designs — &sigma;_peak: 1.06/1.31/5.36 &middot; mcs:
+  .95/1.02/1.03 &middot; mls: .017/.045/.78 (wide spread — includes deliberately off-target probes,
+  not just candidates)
+  cleared: several of 28 decided &ge; 2&times; Bessa (0.2244), independently re-confirmed by 3
+  separately-converged designs (not salvaged reads) &middot; novel: yes — mechanism, not a
+  parameter, see 2b
+  best good: n_levels=4 rise_ratio=.0383 leg_ratio=1.05 t_ratio=.0076 w_ratio=.0866 +1 more &rarr;
+  &sigma;=1.2104 mcs=.8204 mls=.0188
+- **Verdict:** POWERED &middot; VALIDATED &middot; legged bistable snap-chain mechanism<br>
+  Confirmed under every check this deck asks for: flat to 6 significant figures across 10x and
+  100x finer arc-length, unchanged under 2x finer mesh, reproduced on 3 separately fully-converged
+  (non-salvaged) solves, no self-collision between non-adjacent levels, and &ge;99.6% elastic
+  recovery on unload with no confirmed need for a tensile pull. Roughly double this study's best
+  previously-validated design (see notes for why that comparison is deliberately not a number
+  here).
+
+</div>
+
+::right::
+
+<div class="flex flex-col gap-1" style="height: 425px">
+  <div class="flex items-center justify-center" style="height: 155px">
+    <img src="/gifs/snaplegs_C1_winner_mini.png" style="max-height: 155px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 255px">
+    <img src="/gifs/snaplegs_C1_winner.gif" class="rounded shadow-lg" style="max-height: 255px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">The confirmed best-good design — &sigma; peaks
+  smoothly at the final frame, not a spike.</div>
+</div>
+
+<div class="text-xs opacity-50 mt-1">
+&sup1; Shan et al., <i>Adv. Mater.</i> 27(29):4296&ndash;4301 (2015). &sup2; Qiu, Lang &amp;
+Slocum, <i>J. Microelectromech. Syst.</i> 13(2):137&ndash;146 (2004). Both verified directly
+against the primary source for this slide, not taken from the run's own citation.
+</div>
+
+<!--
+**Why this gets ONE slide for three runs, not three:** this is one genuinely new idea (rule 1),
+tested across three consecutive one-off agentic runs under the same mission because the first
+two were cut short by an external API-quota limit, not by the science running out — each
+resumed attempt could not literally continue the prior one (a3dasm's resume_from replays an
+already-terminated graph checkpoint; it does not reopen one), so each was a fresh run pointed at
+the previous attempt's own preserved infrastructure and hypotheses file instead. Folding them
+follows the same judgment call this deck's own migration note already licenses for "several
+designs, no genuine split, none justifies its own near-empty slide" — here it is one design
+across three interrupted attempts, not several designs in one attempt, but the same principle:
+splitting this into three near-duplicate slides would not communicate more than one slide telling
+the whole arc.
+
+**Deliberately no "Xx the current incumbent" comparison in the Verdict:** this deck's own rule 2c
+says the practical checkpoint is the fixed Bessa multiple, never the drifting incumbent record —
+stated here explicitly because this design is genuinely tempting to headline as "beats the best
+design in the study," which is true today but is exactly the kind of number this rule exists to
+keep out of a verdict.
+
+**Input space:** n_levels (2-12, integer) — ring-level count. rise_ratio, t_ratio, w_ratio — arch
+rise/thickness/width, each / D1. leg_ratio — leg height / arch rise (the free parameter H4, run 1,
+identified as necessary at all: leg_ratio&gt;0 is what lets the arch clear the ring below it on
+full inversion). chord_half_angle — arc's own angular extent. Fixed: D1=100mm,
+ratio_shear_modulus=.3677, 3 arches per level (matching this study's own 3-longeron convention).
+
+**Stage-1 (linear eigenvalue) deliberately skipped, per this run's own PROBLEM_STATEMENT.md
+permission:** a finite-deformation snap-through of an already-curved member is not a small
+perturbation about an undeformed state, so a linear buckling check would describe an irrelevant
+mode (global sway of the ring stack), not this mechanism.
+
+**RUN 1 (`runs/20260902T003527`, ~92 min, quota-interrupted):** built `bo/oracle_arch_window.py`
+(widened the ALREADY-EXISTING D24 bistable-arch family's own search box into its own never-sampled
+Q&ge;2.31 regime) and `bo/D47_oracle_snapchain.py` (this mechanism's first, un-legged version) —
+1 real eval logged before the quota cut it off. Un-legged snapchain's own apex IS the ring above
+it, so it geometrically cannot fully invert; this was not yet understood at this point.
+
+**RUN 2 (`runs/20260902T035710`, ~7h14min used of 10h, quota-interrupted):** 130 evals, 7
+hypotheses. Diagnosed WHY the un-legged version can't work (H4: the apex/ring collision above),
+invented the legged fix, found the Q&ge;2.31 bistability threshold empirically brackets to
+(4.400, 5.000] (H6 — initially mis-called SUPPORTED by the strategizer, then self-retracted 4
+minutes later against its own registered criterion once a real counterexample landed; the
+retraction itself is on record in `debug/strategizer_notes/hypotheses.json`), rigorously confirmed
+the un-legged family is NOT genuinely bistable via a real reaction-force test (H5: axial reaction
+never crosses into tension), and found the two designs (informally "W2"/"W5" in the run's own
+files) that bracket the load-vs-compression trade-off this mechanism runs into. Closed on quota
+before resolving whether the load target and the compression target could be hit simultaneously.
+
+**RUN 3 (`runs/20260902T144836`, ~2h45min used of 10h, quota-interrupted):** 31 evals, 7 fresh
+hypotheses, explicitly pointed at run 2's own hypotheses file rather than re-deriving it. H1
+(SUPPORTED): the same design (informally "G2"/"C1") holds &sigma;_peak flat to 6 significant
+figures across a 100x finer arc-length AND unchanged under 2x finer mesh — about the strongest
+confirmation this deck's own artifact-check standard can produce. H2 (FALSIFIED): the earlier
+doubt that these readings were salvaged/incomplete-solve artifacts is directly refuted — three
+separate designs each reached a genuine, non-salvaged, fully converged solve and still cleared
+the target. Closed on quota with 5 more hypotheses queued but untested (self-interference at a
+realistic mast height, a borderline strain-margin question the user judged not load-bearing, and
+a wider self-collision sweep beyond the one design already checked).
+
+**Post-run, done directly rather than spending a 4th agentic attempt (2026-09-02):** two checks
+the queued hypotheses would have run were done directly against the confirmed best-good design
+(informally "C1": n_levels=4, rise_ratio=.038269, leg_ratio=1.05, t_ratio=.007578, w_ratio=.0866,
+chord_half_angle=1.0472, compression_cap=.82) using the oracle's own `unload=True` restart-analysis
+capability (`scripts/bistability_test.py`), rather than trusting the run's own citation for the
+test's provenance (see below):
+- Non-adjacent self-interference (the worry that ring k+2's rim could collide with level k's own
+  legs, since each level rotates 60&deg; from the last): checked clean, `interpenetration_nonadjacent
+  =False` throughout the whole compression history for this design.
+- Elastic recovery on unload: released from 82.04% compression back toward zero under a
+  simulated slow release, the mast recovered to 99.64% of its own original height under nothing but
+  a decreasing push — no confirmed need for an active pull. The final ~0.36% of the return shows a
+  reading right at the simulation's own noise floor (not confidently distinguishable from zero),
+  so genuine, complete self-recovery is very likely but not certified to the last fraction of a
+  percent.
+
+**A caught citation problem, disclosed rather than quietly dropped:** run 2's own H5 attributed its
+reaction-force bistability test to "Melancon et al. 2024, arXiv:2401.07881." Checked directly
+against the actual paper: that arXiv number's real authors are Peng, Niloy, Kam, Celli &amp;
+Plucinsky, and the paper is about a different thing (design frameworks for engineering
+bistability), not this test. The physical test itself is sound on its own terms regardless of the
+citation — but the citation is fabricated, not merely mis-remembered, and is not repeated on the
+visible slide face or its own footnote for that reason. Recorded here as a general caution: this
+mechanism's TWO real literature groundings above (Shan et al. 2015, Qiu/Lang/Slocum 2004) were
+independently re-verified against the actual papers before being put on this slide; nothing else
+this run cited should be taken on the run's own word without the same check.
+
+**Seed:** BARREN as the one design checked, FERTILE-PARAMETRIC as a family — the specific
+best-good point above is thoroughly confirmed, but the broader box (other n_levels, other
+chord_half_angle) is not, and the run's own queued self-interference sweep at a taller, more
+realistic mast height (comparable to Bessa's own aspect ratio, vs. this design's own squat
+4-level/31mm-tall build) never ran.
+
+**Infra:** `bo/oracle_snaplegs.py` (the working, legged family), `bo/D47_oracle_snapchain.py`
+and `bo/oracle_snapchain_circ.py` (the un-legged predecessor and its circular-section variant,
+both settled negative, kept for reference), `bo/oracle_arch_window.py` (run 1's widened-search
+fork of the pre-existing D24 bistable-arch family), `scripts/bistability_test.py` (the standalone
+genuine-snap/recovery checker). ODB archived at
+`data/idea_odbs/20260902_snaplegs_C1_confirmed_winner/` (source:
+`/oscar/scratch/eaguerov/sc_oracle_snaplegs/riks_8d1a96cda8294be6aba72fe401eead65/`). GIF: native
+Abaqus/CAE Viewer export, standard pipeline; chart built directly from this design's own
+`results.pkl` reference-point history (this family's ring/arc topology isn't a standard-longeron
+sim_info schema, so `bo/mini_chart.py` couldn't read it directly — same area/Bessa-point
+convention, computed by hand from the same reference-point fields the oracle itself uses).
+-->
+
+---
 class: summary-slide
 ---
 
