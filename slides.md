@@ -5780,8 +5780,9 @@ class: idea-slide
   rise-to-thickness ratio (Q) kept *below* the bistability floor (Q≈2.31) —
   mild repeating curvature, not genuine snap-through.
 - **Origin:** follow-up to the same run's H2 (*true* bistable, Q≥2.31
-  chain), which hit a Riks numerical wall in 71/72 cases; asks whether
-  backing off avoids the wall while still beating baseline.
+  chain), which hit a Riks solve-completion wall (18 coilable, only 2/18
+  converged); asks whether backing off avoids the wall while still beating
+  baseline.
 - **Stats:** n=133 → 19 coil → 3 riks → 1 good (5.9× Bessa)
   p50/p90/p100 — σ_crit: .12/.65/.78 · mcs: 1.00/1.03/1.03 · mls: .0194/.0267/.0285
   (quartiles from just those 3 points, not a real distribution)
@@ -5815,8 +5816,9 @@ segment rise, kept below the Q&asymp;2.31 bistability floor. Fixed: a=.009213, b
 ratio_pitch=.681277, ratio_top_diameter=.04444, circular=11 (cross-section-family switch).
 
 **Seed:** FERTILE — apply the restrained-warping check that resolved D24's own numerical scare
-to H2's TRUE bistable (Q&ge;2.31) chain variant, which hit a Riks convergence wall in 71/72
-cases rather than a physics failure; untested whether that wall is the same class of solver
+to H2's TRUE bistable (Q&ge;2.31) chain variant, which hit a Riks solve-completion wall (only
+2 of 18 coilable designs converged) rather than a physics failure; untested whether that wall
+is the same class of solver
 artifact, not a real barrier.
 
 **Deferred:** 0.7765 kPa (this idea) is marginally above the 0.7704 kPa rectangle
