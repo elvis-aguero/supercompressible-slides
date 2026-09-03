@@ -687,6 +687,141 @@ layout: two-cols-header
 class: idea-slide
 ---
 
+# D49 &middot; Compliant-root scale substrate (flexible flange, unilateral contact)
+
+::left::
+
+<div class="text-sm leading-snug">
+
+- **What:** replaces D35's rigid panel-to-longeron clamp with a slender printed flexural neck
+  (finite rotational stiffness, not rigid) between each scale panel and the longeron. Panels
+  interact with each other only through unilateral, separable, frictionless contact — testing
+  whether a compliant root can add real stiffness without D35's failure mode.
+- **Origin:** D35 (rigid interlocking scale panels) failed for a specific, understood reason —
+  the rigid panel-to-beam clamp froze curvature in the locked spans and amplified it elsewhere,
+  closing the strain window at 33&ndash;45% compression on 0 of 64 designs. This run asked
+  whether making that same idea's root compliant instead of rigid could recover a valid design
+  while still buying a load benefit from the panels.
+- **Stats:** n=309 &rarr; 178 coil &rarr; 69 riks &rarr; 48 good (4.64&times; Bessa)
+  p50/p90/p100 over the 69 Riks-converged designs &mdash; &sigma;_peak: 0.52/1.18/14.51 &middot;
+  mcs: .86/.91/.95 &middot; mls: .0199/.02/.02 (the p100 &sigma;_peak is a deliberately
+  off-target thick-substrate probe, not a candidate &mdash; see notes)
+  matched-pair test of the panels' own stiffening effect (337 pairs, panels-on vs matched
+  panels-off, stratified across nearly the full reachable stand-off range): ratio min 1.00 /
+  median 1.00 / max 1.19 &mdash; real, positive, and correlated with stand-off (confound-free
+  &rho;=+0.71, p&lt;0.001), but ~2 orders of magnitude short of the effect size a design needs.
+  best good: ratio_a=.0095 n_ribs=10 rib_rest_angle=4.4&deg; neck_length=1.30mm t_scale=.102mm
+  &rarr; &sigma;=0.5207 mcs=.8625 mls=.0199 (this study's standard energy-free, nominal-imperfection
+  reading)
+  largest feasible reading anywhere in the ledger: 5.99&times; Bessa, under a sanctioned
+  numerical-stabilization diagnostic whose own matched bare control failed the stabilization
+  gate &mdash; so that gain isn't attributable to the panels (see notes).
+  cleared: 48 of 48 decided &ge; 2&times; Bessa (0.2244) &middot; novel: yes &mdash; mechanism, not
+  a parameter, see 2b
+- **Verdict:** POWERED &middot; REFUTED &middot; flange-style stiffening from panel contact<br>
+  The compliant root does fix D35's total failure: unlike the rigid version (0 of 64 designs ever
+  stayed valid), this family reaches real, converged, feasible designs. But the same flexibility
+  that avoids that failure removes essentially all of the stiffening the panels were meant to add
+  (see notes for the physical reason). The one positive finding is itself fragile: the best
+  design's validity is highly sensitive to a manufacturing-scale imperfection assumption, an open
+  question traced to how the solver resolves panel contact, not fully resolved this run.
+
+</div>
+
+::right::
+
+<div class="flex flex-col gap-1" style="height: 425px">
+  <div class="flex items-center justify-center" style="height: 155px">
+    <img src="/gifs/compliant_scale_D019_winner_mini.png" style="max-height: 155px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 255px">
+    <img src="/gifs/compliant_scale_D019_winner.gif" class="rounded shadow-lg" style="max-height: 255px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">The best feasible design found this run (stabilized
+  reading, see notes) &mdash; scale panels visibly engaging the longeron as it coils.</div>
+</div>
+
+<!--
+**Why this design carries a stabilized GIF rather than the energy-free headline:** the deck's own
+rule 2c-VIS asks for the confirmed best-good design's real video. Two feasible readings exist for
+this family: 0.5207 kPa (4.64x Bessa, energy-free, nominal imperfection -- this run's own
+headline, because stabilization is a sanctioned DIAGNOSTIC not a production setting and every
+other anchor in this study is quoted energy-free) and 0.6724 kPa (5.99x Bessa, delegation D019,
+under a small gated stabilization energy ratio 0.008, 2.9x inside the 0.05 limit). The larger
+number is NOT this run's write-up headline, because its matched bare (panels-off) control failed
+the stabilization energy gate, so the panels' own contribution at that one cell can't be measured
+-- but it is a real, independently converged, fully feasible ledger row, and it is the more
+visually informative one (higher compression reached, more panel engagement visible), so it is
+the one rendered here. Both numbers are reported honestly in the Stats bullet above.
+
+**H2 -- the panels-as-flange stiffening mechanism, FALSIFIED with real power:** 337 matched pairs
+(exactly the same design, once with panels, once without) across nearly the whole reachable
+stand-off range. Every single pair's buckling load goes up with the panels on -- median +0.0%,
+max +18.9% -- and the increase correlates with stand-off in the direction the mechanism predicts
+(rho=+0.705, p&lt;0.001, confound-controlled). So the effect is REAL, not noise or a test
+artifact. It's simply about 100x too small: a design needs roughly +85% and the best pair measured
+is +19%. Physical reason, confirmed directly: a contact-based stiffener can only raise a linear
+buckling load if it is already pressed together and carrying load BEFORE the beam starts to bend
+-- and a curvature-triggered scale only touches once bending has already begun, by which point
+the buckling event that sets the load has essentially already happened. The only fix (a panel
+pre-loaded/interference-fit from the start) would need residual built-in stress in a single
+printed part, which this study's own realizability rules exclude.
+
+**H1 -- does the compliant root at least avoid D35's total failure? SUPPORTED, with a real
+caveat:** yes -- 48 feasible, fully-converged designs exist in this family, where the rigid D35
+version had zero. But the headline design (0.5207 kPa) is fragile in a way this run measured
+directly: re-solving it across 21 draws of the same imperfection distribution every anchor in
+this study uses, the panels-on arm converged on only 4 of 21 (all at smaller-than-nominal
+imperfection), while the matched bare-beam control converged 21/21. The nominal imperfection this
+study quotes every anchor at lies just outside the panels-on convergence band. A follow-up test
+(softening the panel-to-panel contact stiffness) showed the exact load value at the one design
+that does converge is UNCHANGED to 16 significant figures under two totally different contact
+formulations, while the convergence boundary itself moves -- meaning the fragility is a property
+of how the solver enforces panel contact, not obviously a property of the physical design. Not
+resolved this run.
+
+**H4 -- does the direction the panels are angled matter? FALSIFIED**, cleanly: a paired &plusmn;
+test on 14 matched pairs (bit-identical geometry apart from the sign) found no difference in
+either direction, with a measured zero solver-noise floor (two bare controls returned identical
+values on all 50 output channels), so the null is a real measurement, not a lack of power.
+
+**Run stats:** 19 delegations, 310 ledgered evaluations, 11.03 of 12h wall-clock, ~$103. GATED
+after 3 review rounds -- final review: 0 critical findings, 0 major findings, 6 minor findings,
+all of them stale-number slips in the notebook's prose that the critic confirmed touch no verdict
+or headline number. Two corrected verdicts on the record mid-run (a premature H1 FALSIFIED
+reading, and a premature "monotone imperfection boundary" claim), both self-caught and withdrawn
+before the write-up, not left standing.
+
+**Input space:** ratio_a, ratio_b (each / D1) &mdash; base-beam half-depths. ratio_pitch,
+ratio_top_diameter &mdash; ring geometry, shared with every family in this study. n_ribs
+(3&ndash;12, integer), rib_length_ratio &mdash; scale-panel count and length. neck_length_mm,
+neck_thickness_mm &mdash; the compliant root's own two free dimensions, which set k_root. t_scale
+&mdash; panel thickness. rib_rest_angle_deg &mdash; panel pre-tilt (negative = pre-engaged).
+rib_embed_angle_deg &mdash; panel skew relative to the mast's coiling twist (widened to
+[-10,+20] mid-run once the engagement-angle gate made the original [0,20] box mostly
+unreachable). face_sign, scales_enabled &mdash; continuous, thresholded, realized value reported.
+Fixed: D1=100mm, n_longerons=3, ratio_shear_modulus=.3677, E=3500MPa, n_storeys=1.
+
+**Seed:** BARREN for the flange-stiffening mechanism as tested &mdash; the closure is a measured
+kinematic law (a curvature-triggered contact can't carry pre-buckling load), not a search limit,
+so further parametric search inside this same design space is very unlikely to change the
+verdict. The one thing worth carrying forward: the compliant root's fix to D35's total feasibility
+failure is real and could seed a genuinely different scale-substrate mechanism that doesn't rely
+on curvature-triggered engagement (e.g. true interference pre-load) &mdash; which this study's own
+printability rules exclude for a monolithic part, and which this run did not otherwise test.
+
+INFRA BUILT THIS RUN, NOT YET PROMOTED TO GOLD: bo/oracle_compliant_scale.py,
+bo/prefilter_compliant_scale.py, scripts/supercompressible_lin_buckle_compliant_scale.py,
+scripts/supercompressible_lin_buckle_compliant_scale_pp.py,
+scripts/supercompressible_riks_compliant_scale.py, plus a modification to
+bo/campaign_summary.py. Promotion is the user's call.
+-->
+
+---
+layout: two-cols-header
+class: idea-slide
+---
+
 # D48 &middot; Legged snap-chain (sequential elastic snap-through) longeron
 
 ::left::
