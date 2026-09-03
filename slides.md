@@ -644,12 +644,24 @@ Verdict symbols used throughout: ✅ supported &middot; ❌ falsified &middot; �
 
 ::right::
 
-<div class="flex flex-col items-center justify-center h-full gap-1">
-  <img src="/gifs/bessa_baseline_native.gif" class="max-h-85 rounded shadow-lg" />
+<div class="flex flex-col gap-1" style="height: 425px">
+  <div class="flex items-center justify-center" style="height: 155px">
+    <img src="/gifs/bessa_baseline_mini.png" style="max-height: 155px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 255px">
+    <img src="/gifs/bessa_baseline_native.gif" class="rounded shadow-lg" style="max-height: 255px; max-width: 100%" />
+  </div>
   <div class="text-xs opacity-50 text-center">Bessa point, re-solved 2026-07-31 for this deck.</div>
 </div>
 
 <!--
+Stress-history chart and stacked layout added 2026-09-03 to match the idea-slide convention
+(rule 2c-VIS) -- built directly from the archived solve's own scratch source (results.pkl +
+sim_info.pkl, /oscar/scratch/eaguerov/sc_bessa_point_lead_slide/riks_168e0969c81a41f2b3a15383c48774d8,
+the sim_info.pkl the permanent archive at data/idea_odbs/bessa_baseline/ never carried) via
+bo/mini_chart.py, no re-solve. Reproduces sigma_peak=0.112199 kPa, matching the digit this slide
+and every x-Bessa figure in the deck already cites.
+
 Re-solved 2026-07-31 via the exact same two-stage NO-CONTACT pipeline
 test_nocontact_anchors.py uses for this anchor (energy-free StaticRiksStep -- "Riks" is the
 arc-length method, the standard way Abaqus traces a structure's full force-vs-compression curve
