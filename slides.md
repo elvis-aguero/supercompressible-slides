@@ -820,7 +820,7 @@ begun, by which point the buckling event that sets the load has essentially alre
 only fix (a panel pre-loaded/interference-fit from the start) would need residual built-in stress
 in a single printed part, which this study's own realizability rules exclude.
 
-**Baseline-in-disguise check (PROBLEM_STATEMENT2.md, Lessons learned #6) -- why the Verdict says
+**Baseline-in-disguise check (PROBLEM_STATEMENT2.md, "The challenge") -- why the Verdict says
 REFUTED and not just "under-powered":** this study's own contract requires checking whether a
 compound design's headline number survives with the new component removed before crediting it.
 It doesn't survive here. Under the exact same conditions (energy-free, nominal imperfection), the
