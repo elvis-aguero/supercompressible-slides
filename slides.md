@@ -769,7 +769,12 @@ class: idea-slide
   this design's own 4.64&times; Bessa headline with the panels attached &mdash; so the panels are
   not what clears this study's bar; they cost a little, not gain (see notes for the physical
   reason, and why this is the compound-design check this study's own contract requires before
-  crediting a headline number). The one positive finding is itself fragile: the best design's
+  crediting a headline number). Confirmed directly (not just inferred) on an isotropic
+  cross-section away from that ceiling, post-close: same design, ratio_b squared off to match
+  ratio_a, removing the anisotropic-rectangle advantage entirely &mdash; the bare beam still
+  converges cleanly with real headroom (83% of the strain budget used, nowhere near maxed out),
+  and the panels still add nothing (sigma_eig +0.1%) and this time break convergence outright.
+  The one positive finding is itself fragile: the best design's
   validity is highly sensitive to a manufacturing-scale imperfection assumption, an open question
   traced to how the solver resolves panel contact, not fully resolved this run.
 
@@ -825,6 +830,30 @@ attached. That bare number is this study's own already-known incumbent geometry,
 inside this run's own ledger, not a new discovery. So "48 of 48 feasible designs clear 2x Bessa"
 is true and is exactly the wrong thing to headline: the base beam clears it alone, the panels add
 nothing measurable, and by this one clean comparison cost a little rather than gained.
+
+**Post-close follow-up (isotropic cross-section, added 2026-09-03): does the depth-cap ceiling
+explain the null, or is the null real?** The bare rectangular control above is ALSO the design
+sitting at 99.7% of PROBLEM_STATEMENT2.md's own kinematic depth cap -- so the baseline-in-disguise
+check, on its own, leaves one door open: maybe the panels do nothing there specifically because
+there is no headroom left to show ANY gain, on a beam that could not be improved by anything.
+Ran the direct, decisive version of PROBLEM_STATEMENT2.md's own circular-cross-section
+requirement: took D019's exact real, ledgered design vector and changed exactly one number --
+ratio_b (0.033238, the anisotropic stiff-direction exploit) squared off to equal ratio_a (0.0095),
+an isotropic beam, the closest proxy this oracle's RectangularProfile parameterization can express
+to Bessa's own round cross-section -- everything else (pitch, rib count, neck geometry, scale
+thickness, engagement angle, face sign) held bit-for-bit identical
+(scripts/verify_circular_scale_check.py, run directly, not through an agentic delegation).
+RESULT: the bare isotropic beam converges cleanly and is FEASIBLE at mcs_windowed=0.832 -- real
+headroom, nowhere near maxed out, unlike the rectangular control. With the SAME panels attached:
+sigma_eig 0.12597 vs 0.12583 bare (+0.11%, the same negligible size as the 337-pair rectangular
+result) and the solve now FAILS TO CONVERGE (salvaged at mcs_windowed 0.339). So the ceiling
+explanation is directly ruled out, not just argued around: given real headroom to show a gain,
+the panels still show none, and this time actively broke the design instead of merely riding on
+it. This is one point, not a campaign, but it is the exact comparison PROBLEM_STATEMENT2.md's
+"combine a new mechanism with a component already known to help" clause asks for, and it points
+the same direction as everything else on this slide. REFUTED is now confirmed by an isotropic
+data point, not just inferred from the engagement-timing argument plus a ceiling-confounded
+rectangular test.
 
 **H1 -- does the compliant root at least avoid D35's total failure? SUPPORTED, with a real
 caveat:** yes -- 48 feasible, fully-converged designs exist in this family, where the rigid D35
