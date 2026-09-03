@@ -683,6 +683,48 @@ was run; this is the same 2026-07-31 ODB, read two ways.
 -->
 
 ---
+class: summary-slide
+---
+
+# Run `20260902T210743` &mdash; summary
+
+<div class="text-sm leading-snug">
+
+One new mechanism tested: a compliant-root scale substrate. It fixes the total feasibility
+failure of the earlier rigid version, but its own headline number does not survive the
+compound-design check &mdash; the bare base beam alone reaches a higher reading than the design
+with the mechanism attached.
+
+</div>
+
+<div class="text-xs leading-tight">
+
+| # | Claim | Verdict | Key evidence | Idea |
+|---|---|---|---|---|
+| H1 | The compliant root recovers the feasibility D35's rigid clamp destroyed | &#10003; | 48 feasible designs vs 0 of 64 for the rigid version &mdash; but only 4/21 converge under Bessa's own imperfection distribution | D49 &rarr; |
+| H2 | The scale panels raise the coiling buckling load enough to matter | &#10007; | 337 matched pairs: median +0.0%, max +18.9%, against a registered &ge;+30% bar | D49 &rarr; |
+| H3 | A compliant-scale design clears this study's bar because of the mechanism | &#10007; | Matched bare control reaches 5.41&times; Bessa on its own &mdash; higher than the 4.64&times; Bessa headline with panels attached | D49 &rarr; |
+| H4 | The direction the panels are skewed matters | &#10007; | 14 matched &plusmn; pairs, zero effect, zero measured solver noise floor | D49 &rarr; |
+
+</div>
+
+<div class="text-sm leading-snug">
+
+&nbsp;&middot;&nbsp; **19 delegations, 310 ledgered evals, ~11.03 h of 12 h**, GATED after 3 review rounds &nbsp;&middot;&nbsp; **Cost: ~$103**
+</div>
+
+<!--
+All four hypotheses were adequately powered before being closed -- two (H1, H2's first attempt)
+were caught mid-run as CONFOUNDED (a Riks solver death mistaken for a physics result) and
+re-tested properly rather than left standing; see D49's own speaker notes for the full arc,
+including the two corrected verdicts on the record.
+
+Final gate review: 0 critical findings, 0 major findings, 6 minor findings, all confirmed by the
+critic to touch no verdict or headline number (stale prose from an earlier, since-withdrawn
+reading).
+-->
+
+---
 layout: two-cols-header
 class: idea-slide
 ---
@@ -716,15 +758,20 @@ class: idea-slide
   largest feasible reading anywhere in the ledger: 5.99&times; Bessa, under a sanctioned
   numerical-stabilization diagnostic whose own matched bare control failed the stabilization
   gate &mdash; so that gain isn't attributable to the panels (see notes).
-  cleared: 48 of 48 decided &ge; 2&times; Bessa (0.2244) &middot; novel: yes &mdash; mechanism, not
-  a parameter, see 2b
+  cleared: 48 of 48 decided &ge; 2&times; Bessa (0.2244) &mdash; but so does the matched BARE
+  control on its own, comparable conditions, no panels at all (5.41&times; Bessa) &mdash; clearing
+  this number is the base beam's own doing, not evidence for the mechanism (baseline-in-disguise
+  check, see notes) &middot; novel: yes &mdash; mechanism, not a parameter, see 2b
 - **Verdict:** POWERED &middot; REFUTED &middot; flange-style stiffening from panel contact<br>
   The compliant root does fix D35's total failure: unlike the rigid version (0 of 64 designs ever
-  stayed valid), this family reaches real, converged, feasible designs. But the same flexibility
-  that avoids that failure removes essentially all of the stiffening the panels were meant to add
-  (see notes for the physical reason). The one positive finding is itself fragile: the best
-  design's validity is highly sensitive to a manufacturing-scale imperfection assumption, an open
-  question traced to how the solver resolves panel contact, not fully resolved this run.
+  stayed valid), this family reaches real, converged, feasible designs. But under matched,
+  comparable conditions the bare base beam alone reaches 5.41&times; Bessa &mdash; higher than
+  this design's own 4.64&times; Bessa headline with the panels attached &mdash; so the panels are
+  not what clears this study's bar; they cost a little, not gain (see notes for the physical
+  reason, and why this is the compound-design check this study's own contract requires before
+  crediting a headline number). The one positive finding is itself fragile: the best design's
+  validity is highly sensitive to a manufacturing-scale imperfection assumption, an open question
+  traced to how the solver resolves panel contact, not fully resolved this run.
 
 </div>
 
@@ -759,13 +806,25 @@ the one rendered here. Both numbers are reported honestly in the Stats bullet ab
 stand-off range. Every single pair's buckling load goes up with the panels on -- median +0.0%,
 max +18.9% -- and the increase correlates with stand-off in the direction the mechanism predicts
 (rho=+0.705, p&lt;0.001, confound-controlled). So the effect is REAL, not noise or a test
-artifact. It's simply about 100x too small: a design needs roughly +85% and the best pair measured
-is +19%. Physical reason, confirmed directly: a contact-based stiffener can only raise a linear
-buckling load if it is already pressed together and carrying load BEFORE the beam starts to bend
--- and a curvature-triggered scale only touches once bending has already begun, by which point
-the buckling event that sets the load has essentially already happened. The only fix (a panel
-pre-loaded/interference-fit from the start) would need residual built-in stress in a single
-printed part, which this study's own realizability rules exclude.
+artifact. It's simply far too small against its own registered bar: the pre-committed prediction
+needed a ratio &ge;1.30 (+30%), and the largest of 337 measured pairs reaches only +18.9%, with
+the median effect being +0.0%. Physical reason, confirmed directly: a contact-based stiffener can
+only raise a linear buckling load if it is already pressed together and carrying load BEFORE the
+beam starts to bend -- and a curvature-triggered scale only touches once bending has already
+begun, by which point the buckling event that sets the load has essentially already happened. The
+only fix (a panel pre-loaded/interference-fit from the start) would need residual built-in stress
+in a single printed part, which this study's own realizability rules exclude.
+
+**Baseline-in-disguise check (PROBLEM_STATEMENT2.md, Lessons learned #6) -- why the Verdict says
+REFUTED and not just "under-powered":** this study's own contract requires checking whether a
+compound design's headline number survives with the new component removed before crediting it.
+It doesn't survive here. Under the exact same conditions (energy-free, nominal imperfection), the
+matched BARE control -- no scale panels, no neck, nothing -- reaches 0.607110 kPa (5.41x Bessa),
+which is HIGHER than this design's own 0.520673 kPa (4.64x Bessa) headline WITH the panels
+attached. That bare number is this study's own already-known incumbent geometry, reproduced again
+inside this run's own ledger, not a new discovery. So "48 of 48 feasible designs clear 2x Bessa"
+is true and is exactly the wrong thing to headline: the base beam clears it alone, the panels add
+nothing measurable, and by this one clean comparison cost a little rather than gained.
 
 **H1 -- does the compliant root at least avoid D35's total failure? SUPPORTED, with a real
 caveat:** yes -- 48 feasible, fully-converged designs exist in this family, where the rigid D35
