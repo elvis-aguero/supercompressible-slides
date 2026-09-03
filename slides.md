@@ -747,48 +747,20 @@ class: idea-slide
 
 <div class="text-sm leading-snug">
 
-- **What:** replaces D35's rigid panel-to-longeron clamp with a slender printed flexural neck
-  (finite rotational stiffness, not rigid) between each scale panel and the longeron. Panels
-  interact with each other only through unilateral, separable, frictionless contact — testing
-  whether a compliant root can add real stiffness without D35's failure mode.
-- **Origin:** D35 (rigid interlocking scale panels) failed for a specific, understood reason —
-  the rigid panel-to-beam clamp froze curvature in the locked spans and amplified it elsewhere,
-  closing the strain window at 33&ndash;45% compression on 0 of 64 designs. This run asked
-  whether making that same idea's root compliant instead of rigid could recover a valid design
-  while still buying a load benefit from the panels.
-- **Stats:** n=309 &rarr; 178 coil &rarr; 69 riks &rarr; 48 good (4.64&times; Bessa)
-  p50/p90/p100 over the 69 Riks-converged designs &mdash; &sigma;_peak: 0.52/1.18/14.51 &middot;
-  mcs: .86/.91/.95 &middot; mls: .0199/.02/.02 (the p100 &sigma;_peak is a deliberately
-  off-target thick-substrate probe, not a candidate &mdash; see notes)
-  matched-pair test of the panels' own stiffening effect (337 pairs, panels-on vs matched
-  panels-off, stratified across nearly the full reachable stand-off range): ratio min 1.00 /
-  median 1.00 / max 1.19 &mdash; real, positive, and correlated with stand-off (confound-free
-  &rho;=+0.71, p&lt;0.001), but ~2 orders of magnitude short of the effect size a design needs.
-  best good: ratio_a=.0095 n_ribs=10 rib_rest_angle=4.4&deg; neck_length=1.30mm t_scale=.102mm
-  &rarr; &sigma;=0.5207 mcs=.8625 mls=.0199 (this study's standard energy-free, nominal-imperfection
-  reading)
-  largest feasible reading anywhere in the ledger: 5.99&times; Bessa, under a sanctioned
-  numerical-stabilization diagnostic whose own matched bare control failed the stabilization
-  gate &mdash; so that gain isn't attributable to the panels (see notes).
-  cleared: 48 of 48 decided &ge; 2&times; Bessa (0.2244) &mdash; but so does the matched BARE
-  control on its own, comparable conditions, no panels at all (5.41&times; Bessa) &mdash; clearing
-  this number is the base beam's own doing, not evidence for the mechanism (baseline-in-disguise
-  check, see notes) &middot; novel: yes &mdash; mechanism, not a parameter, see 2b
-- **Verdict:** POWERED &middot; REFUTED &middot; flange-style stiffening from panel contact<br>
-  The compliant root does fix D35's total failure: unlike the rigid version (0 of 64 designs ever
-  stayed valid), this family reaches real, converged, feasible designs. But under matched,
-  comparable conditions the bare base beam alone reaches 5.41&times; Bessa &mdash; higher than
-  this design's own 4.64&times; Bessa headline with the panels attached &mdash; so the panels are
-  not what clears this study's bar; they cost a little, not gain (see notes for the physical
-  reason, and why this is the compound-design check this study's own contract requires before
-  crediting a headline number). Confirmed directly (not just inferred) on an isotropic
-  cross-section away from that ceiling, post-close: same design, ratio_b squared off to match
-  ratio_a, removing the anisotropic-rectangle advantage entirely &mdash; the bare beam still
-  converges cleanly with real headroom (83% of the strain budget used, nowhere near maxed out),
-  and the panels still add nothing (sigma_eig +0.1%) and this time break convergence outright.
-  The one positive finding is itself fragile: the best design's
-  validity is highly sensitive to a manufacturing-scale imperfection assumption, an open question
-  traced to how the solver resolves panel contact, not fully resolved this run.
+- **What:** replaces D35's rigid panel clamp with a compliant flexural neck; panels touch
+  only via unilateral, frictionless contact &mdash; tests whether a flexible root adds
+  stiffness without D35's failure mode.
+- **Origin:** D35 (rigid panels) failed for a known reason: the clamp froze curvature
+  locally and amplified it elsewhere, closing the strain window on 0 of 64 designs. Tests
+  whether a compliant root fixes that.
+- **Stats:** n=309 &rarr; 178 coil &rarr; 69 riks &rarr; 48 good (4.64&times; Bessa) &mdash;
+  but the matched bare control alone reaches 5.41&times; Bessa; panels add nothing
+  measurable (337-pair + isotropic test, see notes). best good: ratio_a=.0095 n_ribs=10
+  &rarr; &sigma;=0.5207 mcs=.8625 mls=.0199
+- **Verdict:** POWERED &middot; REFUTED &middot; flange-style stiffening from panel
+  contact<br>Fixes D35's total failure, but the bare beam alone beats this design's own
+  headline (5.41&times; vs 4.64&times; Bessa) &mdash; panels cost a little, not gain.
+  Confirmed on an isotropic cross-section too, away from the depth-cap ceiling (see notes).
 
 </div>
 
@@ -806,6 +778,18 @@ class: idea-slide
 </div>
 
 <!--
+**Full Stats detail, trimmed from the visible bullet to fit the canvas (2026-09-04):**
+p50/p90/p100 over the 69 Riks-converged designs -- sigma_peak: 0.52/1.18/14.51 (kPa) *
+mcs: .86/.91/.95 * mls: .0199/.02/.02 (the p100 sigma_peak is a deliberately off-target
+thick-substrate probe, not a candidate). Matched-pair test of the panels' own stiffening
+effect: 337 pairs, panels-on vs matched panels-off, stratified across nearly the full
+reachable stand-off range -- ratio min 1.00 / median 1.00 / max 1.19, real and positive
+and correlated with stand-off (confound-free rho=+0.71, p<0.001), but ~2 orders of
+magnitude short of the effect size a design needs. cleared: 48 of 48 decided designs
+clear 2x Bessa (0.2244) -- but so does the matched bare control on its own (5.41x Bessa),
+which is exactly why this number is not credited to the mechanism in the visible Verdict.
+novel: yes -- mechanism, not a parameter, see 2b.
+
 **Why this design carries a stabilized GIF rather than the energy-free headline:** the deck's own
 rule 2c-VIS asks for the confirmed best-good design's real video. Two feasible readings exist for
 this family: 0.5207 kPa (4.64x Bessa, energy-free, nominal imperfection -- this run's own
@@ -928,54 +912,49 @@ class: idea-slide
 
 <div class="text-sm leading-snug">
 
-- **What:** abandons ring-rotation coiling entirely. A stack of rigid rings connected level to
-  level by three curved arches, each arch raised on two short rigid legs so it can fully flip to
-  its mirror-image curve without hitting the ring below — compression comes from these arches
-  snapping in sequence, not from twisting/bending one continuous member.
-- **Origin:** Shan, Kang, Raney, Wang, Fang, Candido &amp; Bertoldi 2015¹ — chaining bistable
-  curved-beam units in series traps large elastic strain via sequential snap-through, a known
-  mechanism never applied to this rocking-mast problem before. The bistability threshold (rise/
-  thickness &ge; ~2.31) is Qiu, Lang &amp; Slocum 2004².
-- **Stats:** 3 runs folded into one (see Timeline) — n=168 &rarr; 167 coil &rarr; 28 riks &rarr; 86
-  good (10.79&times; Bessa)
-  p50/p90/p100 over the 28 Riks-converged designs — &sigma;_peak: 1.06/1.31/5.36 &middot; mcs:
-  .95/1.02/1.03 &middot; mls: .017/.045/.78 (wide spread — includes deliberately off-target probes,
-  not just candidates)
-  cleared: several of 28 decided &ge; 2&times; Bessa (0.2244), independently re-confirmed by 3
-  separately-converged designs (not salvaged reads) &middot; novel: yes — mechanism, not a
-  parameter, see 2b
-  best good: n_levels=4 rise_ratio=.0383 leg_ratio=1.05 t_ratio=.0076 w_ratio=.0866 +1 more &rarr;
+- **What:** abandons ring-rotation coiling entirely: rigid rings connected by three curved
+  arches, each on two short legs so it can flip to its mirror curve without hitting the
+  ring below &mdash; compression comes from arches snapping in sequence.
+- **Origin:** Shan et al. 2015¹ &mdash; chaining bistable curved-beam units traps elastic
+  strain via sequential snap-through, never applied to this problem before. Bistability
+  threshold (rise/thickness &ge; ~2.31): Qiu, Lang &amp; Slocum 2004².
+- **Stats:** 3 runs folded into one (see Timeline) &mdash; n=168 &rarr; 167 coil &rarr; 28
+  riks &rarr; 86 good (10.79&times; Bessa; cleared, re-confirmed by 3 separately-converged
+  designs, see notes). best good: n_levels=4 rise_ratio=.0383 leg_ratio=1.05 &rarr;
   &sigma;=1.2104 mcs=.8204 mls=.0188
 - **Verdict:** POWERED &middot; VALIDATED &middot; legged bistable snap-chain mechanism<br>
-  Confirmed under every check this deck asks for: flat to 6 significant figures across 10x and
-  100x finer arc-length, unchanged under 2x finer mesh, reproduced on 3 separately fully-converged
-  (non-salvaged) solves, no self-collision between non-adjacent levels, and &ge;99.6% elastic
-  recovery on unload with no confirmed need for a tensile pull. Roughly double this study's best
-  previously-validated design (see notes for why that comparison is deliberately not a number
-  here).
+  Confirmed under every check this deck asks for &mdash; arc-length/mesh convergence, 3
+  independent solves, no self-collision, &ge;99.6% elastic recovery on unload (see notes
+  for detail).
 
 </div>
 
 ::right::
 
-<div class="flex flex-col gap-1" style="height: 425px">
-  <div class="flex items-center justify-center" style="height: 155px">
-    <img src="/gifs/snaplegs_C1_winner_mini.png" style="max-height: 155px; max-width: 100%" />
+<div class="flex flex-col gap-1" style="height: 390px">
+  <div class="flex items-center justify-center" style="height: 140px">
+    <img src="/gifs/snaplegs_C1_winner_mini.png" style="max-height: 140px; max-width: 100%" />
   </div>
-  <div class="flex items-center justify-center" style="height: 255px">
-    <img src="/gifs/snaplegs_C1_winner.gif" class="rounded shadow-lg" style="max-height: 255px; max-width: 100%" />
+  <div class="flex items-center justify-center" style="height: 230px">
+    <img src="/gifs/snaplegs_C1_winner.gif" class="rounded shadow-lg" style="max-height: 230px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-50 text-center">The confirmed best-good design — &sigma; peaks
-  smoothly at the final frame, not a spike.</div>
+  <div class="text-xs opacity-50 text-center">Confirmed best-good design &mdash; &sigma; peaks
+  smoothly, not a spike.</div>
 </div>
 
 <div class="text-xs opacity-50 mt-1">
 &sup1; Shan et al., <i>Adv. Mater.</i> 27(29):4296&ndash;4301 (2015). &sup2; Qiu, Lang &amp;
-Slocum, <i>J. Microelectromech. Syst.</i> 13(2):137&ndash;146 (2004). Both verified directly
-against the primary source for this slide, not taken from the run's own citation.
+Slocum, <i>J. Microelectromech. Syst.</i> 13(2):137&ndash;146 (2004).
 </div>
 
 <!--
+**Full Stats detail, trimmed from the visible bullet to fit the canvas (2026-09-04):**
+p50/p90/p100 over the 28 Riks-converged designs -- sigma_peak: 1.06/1.31/5.36 (kPa) *
+mcs: .95/1.02/1.03 * mls: .017/.045/.78 (wide spread -- includes deliberately off-target
+probes, not just candidates). cleared: several of the 28 decided designs clear 2x Bessa
+(0.2244), independently re-confirmed by 3 separately-converged designs (not salvaged
+reads). novel: yes -- mechanism, not a parameter, see 2b.
+
 **Why this gets ONE slide for three runs, not three:** this is one genuinely new idea (rule 1),
 tested across three consecutive one-off agentic runs under the same mission because the first
 two were cut short by an external API-quota limit, not by the science running out — each
