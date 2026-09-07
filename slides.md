@@ -698,6 +698,807 @@ was run; this is the same 2026-07-31 ODB, read two ways.
 class: summary-slide
 ---
 
+# Run `20260907T024929` &mdash; summary
+
+<div class="text-sm leading-snug">
+
+Four ways of bracing a longeron internally. Three never produced a converged Stage-2 solve &mdash;
+they hit the 2% strain limit inside the first 8% of compression, because bracing that stiffens a
+member locally stops the coiling curvature distributing along it. One feasible design, at half the
+Bessa point. The general claim that no internal bracing can work was left OPEN.
+
+</div>
+
+<div class="text-xs leading-tight">
+
+| # | Claim | Verdict | Key evidence | Idea |
+|---|---|---|---|---|
+| H1 | A shear-release ladder longeron clears the study target | &#10007; | 24 of 24 coilable, 0 reached a converged Riks solve; every solve stopped under 8% compression | D54 &rarr; |
+| H2 | Its advantage comes from depth switching, not added material | ❔ | No Stage-2 number ever existed to attribute | D54 &rarr; |
+| H3 | The depth switch needs the chord gap CIRCUMFERENTIAL | ❔ | Stage-1 ablation supports it; Stage 2 never converged, so the compression half is untested | D54-2 &rarr; |
+| H4 | A circumferential gap builds composite stiffness, a radial one none | &#10003; | Matched-geometry Stage-1 ablation across a &ge;5&times; range in the gap dimension | D54-2 &rarr; |
+| H5 | Strength and compressibility can be separated in TIME, by mutual contact | ❔ | 6 converged, 1 feasible at 0.51&times; Bessa; 15 non-converged, so the search cannot decide the family | D56 &rarr; |
+| H6 | A WOVEN counter-chiral mast braces itself by member contact | ❔ | Oracle built (D016) but never evaluated &mdash; no ledgered design exists | — |
+| H7 | A rocking mast admits NO internal bracing | ⏳ | Left OPEN: the delegation aimed at it errored before reporting | — |
+
+</div>
+
+<div class="text-sm leading-snug">
+
+&nbsp;&middot;&nbsp; **21 delegations, 211 ledgered evals, 12.64 h of 12 h (105%)**, GATED on the second review round &nbsp;&middot;&nbsp; **Cost: ~$116**
+</div>
+
+<!--
+H7 is the one that mattered and it did not close. It is the whole-space claim -- bracing stiff
+enough to raise the coiling load necessarily resists the recovery, and bracing compliant enough to
+recover adds nothing, with no gap between the two -- so closing it would have converted four
+separate embodiment failures into a single structural result retiring the bracing direction.
+D019 was dispatched at it and errored before reporting. The critic explicitly credits leaving it
+OPEN rather than asserting it on this evidence, which is right, but the run's product is
+consequently four narrow negatives rather than one general one.
+
+COST SHAPE, worth a decision rather than a shrug: $115.69 total = $113.99 telemetry + $1.70 for
+the strategizer, whose persistent adapter reports nothing to telemetry (format-contract rule 6).
+Of that, **datagenerator $89.33 -- 77% of the bill** -- against implementer $18.15 for all 211
+actual evaluations. Six oracle-builds at roughly $12-15 each in opus. Per eval this run cost
+$0.55 against $0.22 for run 20260906T122744. The money went into BUILDING families, and four of
+the six built families never produced a converged solve.
+
+The run also overran its own wall budget: 12.64 h of 12.00 h (105%). The eval budget is soft by
+design (nudge, never hard-stop) and the wall budget behaved the same way here.
+
+Gate: REVISE then PASS. call_001 raised one MAJOR -- an unqualified "nothing bypasses the ledger"
+claim contradicted by the notebook's own woven-family evidence, which needed the same
+"not yet ledgered" caveat given to a sibling claim two sentences later. Fixed in call_002.
+3 ERROR_RETURNs, one of them `Confer('D002')` failing because Confer takes a NODE name, not a
+delegation id -- the same bug run 20260902T003527 hit and reported.
+-->
+
+---
+layout: two-cols-header
+class: idea-slide
+---
+
+# D54 &middot; Shear-release ladder longeron
+
+::left::
+
+<div class="text-sm leading-snug">
+
+- **What:** each longeron becomes two slender chords spanning ring-to-ring, linked by slender
+  rungs sized to buckle elastically once coiling starts. Rings and longeron count unchanged.
+- **Origin:** run's own ideation.<sup>1</sup> The paired chords act as one deep section before the
+  rungs buckle and as two independent thin chords after &mdash; stiff while carrying load, limp
+  while coiling.
+- **Stats:** n=24 &rarr; 24 coil &rarr; 0 riks &rarr; 0 good
+  quartiles unavailable — no design reached a converged Riks solve
+  cleared: none &middot; novel: **yes** &mdash; absent from D1&ndash;D53
+  best good: none (0/24 passed every criterion)
+- **Verdict:** BLOCKED &middot; UNKNOWN-NO-EVIDENCE &middot; depth switching
+  Every solve stopped inside the first 8% of compression, so the section never reached the
+  curvature at which its rungs were designed to buckle. The mechanism was never put to a test.
+
+<div class="text-xs opacity-60 mt-1">
+1. No external citation; the run proposed it and D002's audit found no prior art for it here.
+</div>
+
+</div>
+
+::right::
+
+<div class="flex flex-col gap-1" style="height: 425px">
+  <div class="flex items-center justify-center" style="height: 380px">
+    <img src="/gifs/D54_shear_release.gif" class="rounded shadow-lg" style="max-height: 380px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">Typical ladder solve, stopping early.</div>
+</div>
+
+<!--
+**Input space:** ratio_chord_d&isin;[0.01319,0.01890] &mdash; each chord's diameter ratio.
+ratio_h&isin;[0.02840,0.03536] &mdash; chord separation (the ladder's depth). ratio_diag_d&isin;
+[0.00400,0.00428] &mdash; rung diameter, sized for elastic rung buckling. n_bays&isin;{5,6} &mdash;
+number of rung bays. ratio_pitch&isin;[0.9993,1.1993]. ratio_top_diameter&isin;[0.00060,0.05690].
+Fixed: mode_single=0 (both chords active), n_longerons=3, n_storeys=1, contact ON.
+
+**Seed:** BARREN as an embodiment -- not because depth switching is wrong, but because this
+build cannot be measured: 24 of 24 designs were Stage-1 coilable and 0 of 24 produced a
+converged Stage-2 solve, so no parameter perturbation inside this box yields a number to compare.
+The theme's own test moved to D54-2, which could at least be decided at Stage 1.
+
+**Deferred:** No salvage path exists in bo/oracle_shear_release.py, so the pre-failure portion of
+each stopped solve was discarded rather than read. It cost little here (the solves stop at 0-8%
+compression, so there is almost nothing to salvage) but it is the same omission fixed in
+bo/oracle_helical.py on 2026-09-06 -- and bo/oracle_template.py, which new families are copied
+from, still contains no salvage path at all, so every newly authored family inherits it.
+
+**Timeline:** D006: bounded 24-design probe of the ladder, one round. D008: matched-conditions
+Stage-1 ablation. D010: Stage-1 ablation spanning a >=5x range in the gap dimension. D011:
+decided H1 against the whole circumferential-gap ladder.
+
+**Infra:** Oracle bo/oracle_shear_release.py with bo/prefilter_shear_release.py; Stage 1
+scripts/supercompressible_lin_buckle_shear_release.py, Stage 2
+scripts/supercompressible_riks_shear_release.py. Feasibility is the study's standard five.
+Gif traces to /oscar/scratch/eaguerov/sc_oracle_shear_release/D006_5/riks_c438e40f9f904e6dae6fe0d0701778c6
+(mcs 0.0777, the furthest any ladder design compressed) -- a TYPICAL member per rule 4's
+no-winner convention, and the reason the animation shows so little travel.
+-->
+
+---
+layout: two-cols-header
+class: idea-slide
+---
+
+# D54-2 &middot; Chord gap circumferential, not radial
+
+::left::
+
+<div class="text-sm leading-snug">
+
+- **What:** the same two-chord ladder as D54, with the gap between chords rotated from RADIAL
+  (pointing out from the mast axis) to CIRCUMFERENTIAL (lying along the ring), and the box widened.
+- **Origin:** what prompted this pass: the coiling mode bends each longeron about its
+  circumferential axis, so a radial gap lies along that bending axis and adds no composite depth,
+  while a circumferential gap should add all of it.
+- **Stats:** n=142 &rarr; 20 coil &rarr; 0 riks &rarr; 0 good
+  quartiles unavailable — no design reached a converged Riks solve
+  cleared: none &middot; novel: **positional** &mdash; D54's mechanism re-oriented, not a new one
+  best good: none (0/142 passed every criterion)
+- **Verdict:** BLOCKED &middot; FERTILE-REWORK &middot; chord-gap orientation
+  The orientation claim is right and was measured: at matched geometry the circumferential build
+  gains real composite stiffness and the radial build none. But no design in either orientation
+  survived Stage 2, so the ladder remains the wrong vehicle for it.
+
+</div>
+
+::right::
+
+<div class="flex flex-col gap-1" style="height: 425px">
+  <div class="flex items-center justify-center text-center px-6" style="height: 380px">
+    <div class="text-sm opacity-70 leading-snug">
+      <b>No compression video.</b><br><br>
+      Rule 2c-VIS exception, stated rather than defaulted to: the furthest any of these 142
+      designs compressed is <b>3.6%</b>, which is visually indistinguishable from undeformed.
+      The Stage-1 ablation that decided H4 is a stiffness measurement, not a motion.
+    </div>
+  </div>
+  <div class="text-xs opacity-50 text-center">Deformation below the visible threshold.</div>
+</div>
+
+<!--
+**Input space:** gap_circumferential&isin;{0,1} &mdash; THE variable under test (1 = gap along the
+ring, 0 = gap radial). ratio_chord_d&isin;[0.008,0.030]. ratio_h&isin;[0.013,0.0795] &mdash; chord
+separation, swept over a >=5x range so the composite-depth effect cannot be missed.
+ratio_diag_d&isin;[0.004,0.00993]. n_bays&isin;[3,16]. ratio_pitch&isin;[0.30,1.20].
+ratio_top_diameter&isin;[0,0.12]. mode_single&isin;{0,1}. stage1_only&isin;{0,1} (many rows are
+deliberately Stage-1-only ablation points). Fixed: imperfection_mode=1, n_longerons=3,
+n_storeys=1, contact ON.
+
+**Seed:** FERTILE -- the orientation result is a Stage-1 stiffness fact and it survives; what
+fails is the ladder as a carrier. Rebuild the circumferential composite depth in an embodiment
+whose members are not locally stiffened -- e.g. two chords joined by a CONTINUOUS compliant web
+rather than discrete rungs, so curvature can still distribute along the span.
+
+**Deferred:** Rule 2a ablation fairness is satisfied here -- the control is the same ladder with
+the gap rotated, not the study's incumbent -- but the comparison is Stage-1 only, so it speaks to
+stiffness and not to whether either orientation can survive coiling. H3, which asks the same
+question about compression rather than stiffness, is INCONCLUSIVE for exactly that reason and is
+reported that way rather than borrowing H4's support.
+No salvage path in bo/oracle_gap_orientation.py (see D54's Deferred).
+
+**Timeline:** D008: matched-conditions Stage-1 ablation plus a converged check. D009: fixed one
+modelling defect in the gap_orientation oracle. D010: Stage-1 ablation spanning a >=5x range in
+the gap dimension -- the H4 result. D011: decided H1 against the ladder. D013: matched-h
+orientation ablation at a third chord size.
+
+**Infra:** Oracle bo/oracle_gap_orientation.py with bo/prefilter_gap_orientation.py; Stage 1
+scripts/supercompressible_lin_buckle_gap_orientation.py (+ its own _pp.py), Stage 2
+scripts/supercompressible_riks_gap_orientation.py (+ _pp.py). Feasibility is the study's standard
+five. No ODB is cited because none of the 142 designs produced a converged Stage-2 solve.
+-->
+
+---
+layout: two-cols-header
+class: idea-slide
+---
+
+# D55 &middot; Radial-web microtruss longeron
+
+::left::
+
+<div class="text-sm leading-snug">
+
+- **What:** the ladder braced in BOTH directions at once &mdash; circumferential webs and radial
+  webs on the same chords, making each longeron a small three-dimensional truss instead of a
+  planar ladder.
+- **Origin:** if a planar ladder adds composite depth about only one axis, bracing both axes
+  should add it about both, and the coiling mode cannot escape into the unbraced direction.
+- **Stats:** n=21 &rarr; 16 coil &rarr; 0 riks &rarr; 0 good
+  quartiles unavailable — no design reached a converged Riks solve
+  cleared: none &middot; novel: **yes** &mdash; distinct topology, not D54 re-tuned
+  best good: none (0/21 passed every criterion)
+- **Verdict:** UNDERPOWERED &middot; REFUTED &middot; two-axis web bracing
+  The strain limit binds at first touch: 10 of 13 Stage-2 attempts closed their 2%-strain window
+  by **0.55%** compression. Bracing both axes leaves nowhere for the coiling curvature to
+  distribute, so the member yields locally before the mast has meaningfully shortened.
+
+</div>
+
+::right::
+
+<div class="flex flex-col gap-1" style="height: 425px">
+  <div class="flex items-center justify-center text-center px-6" style="height: 380px">
+    <div class="text-sm opacity-70 leading-snug">
+      <b>No compression video.</b><br><br>
+      Rule 2c-VIS exception, stated rather than defaulted to: the furthest any of these designs
+      compressed is <b>0.55%</b> &mdash; under a millimetre of travel on a 100 mm mast, and
+      indistinguishable from the undeformed state at any usable frame size.
+    </div>
+  </div>
+  <div class="text-xs opacity-50 text-center">Yields before it visibly moves.</div>
+</div>
+
+<!--
+**Input space:** radial_web_on&isin;{0,1} &mdash; THE variable under test. ratio_h_rad&isin;
+[0.020,0.070] &mdash; radial web depth. ratio_h_circ&isin;{0.023,0.024,0.027,0.028,0.030} &mdash;
+circumferential web depth. ratio_diag_rad_d&isin;{0.0086,0.010,0.014} and ratio_diag_circ_d&isin;
+{0.004,0.005,0.006} &mdash; the two web diameters. n_bays&isin;{5,6,7,8,9}. ratio_pitch&isin;
+{0.68,0.90,1.20}. stage1_only&isin;{0,1}. Fixed: ratio_chord_d=0.016, ratio_top_diameter=0.044,
+imperfection_mode=1, n_longerons=3, n_storeys=1, contact ON.
+
+**Seed:** BARREN -- and this one is a mechanism argument, not a search limit. The measured failure
+is that the 2% strain criterion is reached at 0.55% compression, i.e. the member is yielding
+locally while the mast is still essentially straight. Every parameter in this box either adds web
+material (stiffer, worse) or removes it (approaching D54, already BLOCKED). The direction that
+would help -- letting curvature distribute -- is the opposite of what bracing does, which is what
+H7 tries to state in general.
+
+**Deferred:** n=21 with 16 coilable and 0 converged is a thin denominator, hence UNDERPOWERED
+rather than a confident REFUTED on the campaign axis; the IDEA verdict rests on the strain
+measurement, which is real and repeated (10 of 13 windows closed), not on the funnel size.
+No salvage path in bo/oracle_microtruss.py (see D54's Deferred).
+
+**Timeline:** D012: built and registered the anisotropic/microtruss oracle. D019: pulled the one
+lever identified and never pulled -- the radial-web arm -- as the run's last act.
+
+**Infra:** Oracle bo/oracle_microtruss.py with bo/prefilter_microtruss.py; Stage 1
+scripts/supercompressible_lin_buckle_microtruss.py (+ _pp.py), Stage 2
+scripts/supercompressible_riks_microtruss.py (+ _pp.py). Feasibility is the study's standard
+five. No ODB is cited because none of the 21 designs produced a converged Stage-2 solve.
+-->
+
+---
+layout: two-cols-header
+class: idea-slide
+---
+
+# D56 &middot; Self-nesting coil (mutual longeron contact)
+
+::left::
+
+<div class="text-sm leading-snug">
+
+- **What:** abandons bracing entirely: many closely-spaced, pre-twisted longerons that come into
+  MUTUAL contact as they coil, so the stack braces itself only once it is already coiled.
+- **Origin:** separate strength from compressibility in TIME rather than in cross-section &mdash;
+  nothing stiffens the member while it needs to bend, and the nested helical stack supplies
+  stiffness afterwards.
+- **Stats:** n=26 &rarr; 21 coil &rarr; 6 riks &rarr; 1 good (0.51&times; Bessa)
+  p50/p90/p100 &mdash; &sigma;_crit: .467/1.20/1.54 &middot; mcs: .518/.825/.932 &middot; mls: .0198/.0200/.0200
+  cleared: none &middot; novel: **yes** &mdash; but see Verdict, the mechanism itself has no data
+  best good: d=.019 pitch=.30 top_d=.60 n_long=14 twist=30&deg; &rarr; &sigma;=.0575 mcs=.932 mls=.0200
+- **Verdict:** BLOCKED &middot; UNKNOWN-NO-EVIDENCE &middot; self-contact stiffening
+  **All 5 self-contact-ON designs failed to converge; all 6 converged rows have the mechanism
+  switched OFF.** Every number above, the feasible design included, is the family's own control.
+  The mechanism was never measured.
+
+</div>
+
+::right::
+
+<div class="flex flex-col gap-1" style="height: 425px">
+  <div class="flex items-center justify-center" style="height: 380px">
+    <img src="/gifs/D56_self_nest.gif" class="rounded shadow-lg" style="max-height: 380px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">The control, contact OFF &mdash; see notes.</div>
+</div>
+
+<!--
+**Input space:** self_contact_on&isin;{0,1} &mdash; THE variable under test. ratio_d&isin;
+[0.006,0.030] &mdash; longeron diameter ratio. ratio_pitch&isin;[0.30,1.50].
+ratio_top_diameter&isin;{0.30,0.45,0.60} &mdash; strong taper, to bring longerons into reach of
+each other. n_longerons&isin;{12,14} &mdash; far above the study's usual 3, so the coiled stack
+can nest. twist_angle&isin;[-30,30] deg. Fixed: stage1_only=0, n_storeys=1, contact ON.
+
+**Seed:** FERTILE -- the mechanism is untested, not refuted, and the reason is numerical: all 5
+contact-ON designs failed Stage 2 while their own controls converged, which points at the
+member-to-member contact formulation rather than at the physics. The one lever with a precedent
+in this study is the Abaqus/Explicit Stage-2 engine authored in run 20260906T122744
+(scripts/supercompressible_riks_pretwist_explicit.py) -- it exists precisely for designs where
+implicit Riks stalls on contact, and it has never been pointed at this family.
+
+**Deferred:** THE GIF SHOWS A CONTROL. Rule 4's no-winner convention asks for a typical member of
+the search, and every solve that produced visible motion in this family has self_contact_on=0 --
+so the animation is honest about what it is (a 14-longeron pre-twisted mast coiling) but it is NOT
+a demonstration of self-nesting. Disclosed here rather than implied by the caption alone. No
+stress chart is shown for the same reason: rule 4 requires a chart to plot the specific design the
+slide's text discusses, and this slide's claim is that the mechanism has no data.
+Rule 2a: the controls here are bit-matched contact-OFF twins, not the study's incumbent, so the
+comparison would have been fair had the contact-ON arm converged.
+
+**Timeline:** D014: built and registered the self-nesting oracle. D015: bounded Stage-2 hunt for
+self-nesting, 12 solves -- FAILED inside retry_on_transient. D017: finished and pushed a sweep
+whose solves had already landed. D018: closed the one open question in the family with a
+decisive check.
+
+**Infra:** Oracle bo/oracle_self_nest.py; Stage 1/Stage 2 via that family's own pre-processors
+under scripts/. Feasibility is the study's standard five. Gif traces to
+/oscar/scratch/eaguerov/sc_oracle_self_nest/D017_design_matrix_D017_b_0/riks_370cf829e52e4fec8bc7c7877199a3ef
+-- the best-good row, which is also the contact-OFF control noted above.
+-->
+
+---
+class: summary-slide
+---
+
+# Run `20260906T122744` &mdash; summary
+
+<div class="text-sm leading-snug">
+
+One new mechanism: the antagonistic bi-chiral mast. The mode lock it was built for is real and
+large, and it raises peak load at an unchanged cross-section &mdash; what it costs is coiling
+strain. The run's most consequential act was retracting its own compression-blockage finding
+when a second solver contradicted it.
+
+</div>
+
+<div class="text-xs leading-tight">
+
+| # | Claim | Verdict | Key evidence | Idea |
+|---|---|---|---|---|
+| H1 | Oracle wiring reproduces the confirmed anchor | &#10003; | sigma_eigenvalue=0.77035 vs anchor 0.7704 (&minus;0.006% deviation) | — |
+| H2 | An untested mechanism class raises peak load without raising coiling strain | ❔ | Bi-chiral raises &sigma;_peak 5.25&times; at identical cross-section, but strain per unit compression rises 1.7&ndash;2.2&times; | D50 &rarr; |
+| H3 | Counter-inclining the longerons locks out the free coiling mode | &#10003; | 15 of 15 matched pairs at 2.54&ndash;8.81&times;; 8.7&times; against a single-handed arm at the same angle | D50 &rarr; |
+| H4 | The lock releases once members buckle, so the mast still compresses | ❔ | Implicit solver said it jams at 30%; a second solver gives 79.6% &mdash; the jam was an arc-length artefact | D50 &rarr; |
+| H5 | No angle keeps both the lock and the compression | ❔ | 6 of the 7 bi-chiral points never converged, so their compressions are lower bounds only | D50 &rarr; |
+
+</div>
+
+<div class="text-sm leading-snug">
+
+&nbsp;&middot;&nbsp; **16 delegations, 204 ledgered evals, ~10.7 h of 12 h**, GATED on the first review round &nbsp;&middot;&nbsp; **Cost: ~$44**
+</div>
+
+<!--
+Gate: 0 critical, 0 major, 3 minor -- a first-round PASS, which no prior run in this deck has
+achieved. All three minors are presentational (a self-reported wall-clock figure 1.3 h above the
+authoritative snapshot; a terse chat summary omitting a caveat the notebook itself carries; a
+self-interference alternative checked for the implicit rows but not extended to the two Explicit
+ones).
+
+Three of the run's five verdicts were RETRACTED by the run itself as better evidence arrived --
+H2 (a Stage-1 proxy had been substituted for the peak-load claim the criterion actually names),
+H4 (the implicit jam turned out to be an arc-length artefact), and H5 (non-convergence undercut
+its own search's power argument). Each retraction cites the delegation that forced it. The
+critic's own review calls these "textbook-correct applications of Charter 2-4".
+
+Cost recovered per format-contract rule 6: $42.52 from debug/telemetry (implementer $23.71,
+datagenerator $15.17, critic $3.65) plus $1.45 for the strategizer, which its persistent adapter
+never reported to telemetry and which had to be summed from
+debug/transcripts/strategizer/*.jsonl by hand. The literature reviewer cost $0.00 across 3
+calls: this run pointed that node at a local Ollama-served qwen3.8-27b instead of the API.
+
+RECURRING HARNESS FRICTION, worth fixing before the next run rather than rediscovering a fourth
+time: (i) D001, D004 and D007 each independently flagged the same contradiction between the
+datagenerator role's unconditional "registration.json is mandatory" output contract and the
+brief's "keep the canonical entrypoint" -- three delegations spent reasoning on one spec
+collision; (ii) no dry-run exists on the oracle, so a guard's reject path cannot be exercised
+without writing a sentinel row into the canonical ledger (D004, D007 and the strategizer all
+reported this independently, and both delegations fell back to proving reject branches by source
+inspection); (iii) Confer() takes a node name, not a delegation id, so a mid-flight message to
+D004 was lost; (iv) dispatch stdout block-buffers under nohup without PYTHONUNBUFFERED=1, which
+cost D012, D015 and D016 their live logs; (v) Semantic Scholar returned 403 on every call this
+run, so both literature delegations ran on OpenAlex alone.
+
+Deck gap, not this run's doing: run 20260903T233207 (release_scale / slip_scale / tangent_scale,
+H16) closed UNGATED and still has no summary slide, so format-contract rule 6 is currently
+unsatisfied for it. Adding it needs its own data pass and is not folded in here.
+-->
+
+---
+layout: two-cols-header
+class: idea-slide
+---
+
+# D50 &middot; Antagonistic bi-chiral (counter-inclined) mast
+
+::left::
+
+<div class="text-sm leading-snug">
+
+- **What:** Longerons split into two counter-inclined sets &mdash; half offset one way between
+  the rings, half the other. Nothing else changed.
+- **Origin:** Ideated this run from chiral-metamaterial work.<sup>1</sup> Two opposed
+  handednesses cannot coil at once, so the mast's free coiling path vanishes.
+- **Stats:** n=165 &rarr; 74 coil &rarr; 7 riks &rarr; 0 good
+  p50/p90/p100 &mdash; &sigma;_crit: .086/.376/.391 &middot; mcs: .724/.793/.796 &middot; mls: .0199/.0200/.0200
+  cleared: **3 of 7 decided &ge; 2&times; Bessa** &mdash; none feasible &middot; novel: **yes**
+  best good: none (0/165 passed every criterion)
+- **Verdict:** ARTIFACT &middot; FERTILE-PARAMETRIC &middot; post-lock compression
+  Peak load rises **5.25&times;** at an identical cross-section, but coiling strain rises with it.
+  Compression is undecided: the implicit jam was an arc-length artefact, and the solver that
+  overturned it is uncalibrated.
+
+<div class="text-xs opacity-60 mt-1">
+1. No specific paper verified &mdash; see notes.
+</div>
+
+</div>
+
+::right::
+
+<div class="flex flex-col gap-1" style="height: 425px">
+  <div class="flex items-center justify-center" style="height: 155px">
+    <img src="/gifs/D50_bichiral_explicit_mini.png" style="max-height: 155px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 255px">
+    <img src="/gifs/D50_bichiral.gif" class="rounded shadow-lg" style="max-height: 255px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">Chart: the two solvers' rows. Gif: a typical bi-chiral solve.</div>
+</div>
+
+<!--
+**Input space:** twist_angle&isin;[0.0005,0.45] rad &mdash; the antagonism half-angle &beta;, the
+one parameter that defines the mechanism (0 == the control). ratio_d&isin;[0.0040,0.01812] &mdash;
+circular longeron diameter ratio. ratio_pitch&isin;[0.3155,1.0802] &mdash; storey height.
+ratio_top_diameter&isin;[0.000157,0.600] &mdash; ring taper. imperfection_n_modes&isin;{1,6} &mdash;
+how many Stage-1 eigenmodes are superposed into the geometric imperfection (1 == historical).
+Fixed: n_longerons=6 (even, so the two handednesses can alternate), n_storeys=1,
+ratio_shear_modulus=0.3677, young_modulus=3500 MPa, contact ON.
+
+**Seed:** FERTILE -- re-run the small-&beta; window (&beta; &le; 0.012, where the lock is already
+saturated at 56&times; bending stiffness) on an Abaqus/Explicit instrument that has actually passed
+its own +/-10% calibration gate. That single change decides H4 and H5 together, and it is the
+only reason both are INCONCLUSIVE rather than closed. The lock itself needs no further testing.
+
+**Deferred:** The Explicit instrument is not certified. D015 re-ran the calibration at
+explicit_velocity_safety_ratio=1000 (up from 100, inherited from a stubbier family) and the
+energy ratio fell inside the gate, but the two controls returned mcs 0.7979 and 0.8317 against
+truths of 0.8532 and 0.9245 -- a consistent -6.5% / -10.0% low bias that misses the +/-10% gate by
+0.035 percentage points. The run argued, and this slide accepts, that a ~10% quantitative bias
+cannot manufacture or conceal the factor-2.6 qualitative gap between mcs 0.30 and 0.80; it is
+still not a certified number. Two further bi-chiral Explicit rows (&beta;=0.012 and 0.008) are
+flagged VOID on the same gate and are excluded from every figure above.
+Also unresolved: the lock's ratio FALLS monotonically with &beta; (8.81 -> 7.39 over
+&beta;=0.05->0.45), the opposite of what H3 predicted -- the lock saturates at the smallest angle
+sampled, so larger angles only add geometric distortion. And per rule 2b this is MECHANISM
+novelty, but D005 flagged adversarially that it "collapses into D15 in mechanism if the only
+claimed difference is member bookkeeping"; D15 failed 30/30 on the same strain-budget criterion.
+
+**Timeline:** D003: mechanism ideation, five candidates, this one selected. D004: family built and
+wired through the canonical generator. D005: adversarial novelty and grounding audit. D006:
+pre-registered matched-pair Stage-1 sweep, 38 rows, the H3 result. D007: surgical generator
+extension (force_stage2, multi-mode imperfection). D008: first Stage-2 test of the lock. D009:
+diagnostic on why every bi-chiral mast appeared to jam near 45%. D010: 80-eval constrained search
+of the 4-D box, 0 feasible. D011: 32 more in the taper window, 0 feasible. D012: dose-response
+down to &beta;=0.0005 rad. D013: Explicit engine reached for. D014: Explicit Stage-2
+pre-processor authored. D015: calibration of that instrument -- FAILED its own gate by 0.035 pp.
+D016: re-solve of four designs D010 had counted as failures, which retracted H4.
+
+**Infra:** Oracle workspace/data_generator.py:SupercompressibleDataGenerator via the canonical
+get_evaluator() door. Stage 1 scripts/supercompressible_lin_buckle_pretwist.py, Stage 2
+scripts/supercompressible_riks_pretwist.py (implicit Riks) or
+scripts/supercompressible_riks_pretwist_explicit.py (Abaqus/Explicit, authored by D014, opt-in
+via stage2_engine="explicit"), both promoted to gold in commit 3dae266. Feasibility is the
+study's standard five: coilable, mcs_windowed >= 0.80, mls_windowed <= 0.02, slenderness >= 10,
+no ring passthrough. Gif traces to
+/oscar/scratch/eaguerov/supercompressible_oracle/riks_fba2f15789254a2c9a40a22c7e5e3d66 (row 176,
+&beta;=0.008, implicit, mcs 0.7244) -- a TYPICAL member per rule 4's no-winner convention, not the
+best. The chart traces to riks_562196d4461f4b37bb04f73a5f492e9a (&beta;=0.0005, Explicit, mcs
+0.7959, solid) against riks_f86069d957c04eab9a309092afbadfac (its &beta;=0 control on the same
+instrument, mcs 0.7979, dashed) -- the specific pair the H4 retraction rests on, per rule 4's
+chart clause. Gif and chart are therefore different designs and different engines, disclosed here
+rather than implied: the Explicit ODB writes U on only a handful of its 201 frames and cannot
+produce an honest animation.
+-->
+
+---
+class: summary-slide
+---
+
+# Run `20260903T233207` &mdash; summary
+
+<div class="text-sm leading-snug">
+
+The deepest single assault in this deck: 545 evals and 22 registered hypotheses on one idea &mdash;
+a **scale substrate** that carries load from zero curvature and sheds once coiling starts &mdash;
+across three tie embodiments. All three fail, and the reason converges: the scale's own standoff
+counts against the kinematic depth cap, so the strain window shuts before the stiffness arrives.
+
+</div>
+
+<div class="text-xs leading-tight">
+
+| # | Claim | V | Key evidence | Idea |
+|---|---|---|---|---|
+| H1 | Pre-engaged shedding scale clears the target | &#10007; | best scales-ON design 0.78&times; Bessa | D51 &rarr; |
+| H2 | The layer raises Bessa's own core by itself | &#10003; | matched-core scales-ON beats scales-OFF | D51 &rarr; |
+| H3 | Binding constraint is the scale's own strain | &#10003; | bonded flange must absorb y&middot;&kappa; membrane shortening | D51 &rarr; |
+| H4 | A single-face stiffener can raise the load | &#10007; | critical mode escapes to the orthogonal axis | D51 &rarr; |
+| H5 | The 1.25 ceiling is series compliance of bare gaps | ❔ | bare spans act as hinges in series | D51 &rarr; |
+| H6 | The flange sits at its own Euler load already | ❔ | &epsilon;_cr,scale margin too small to exploit | D51 &rarr; |
+| H7 | No bonded shedding scale is both effective and feasible | &#10007; | the two requirements are mutually exclusive | D51 &rarr; |
+| H8 | A releasable tie escapes the bonded squeeze | &#10007; | released scale keeps its bow, strain persists | D51 &rarr; |
+| H9 | The offset layer develops no Steiner action | &#10007; | measured composite gain ~0 | D51 &rarr; |
+| H10 | Standoff exceeding the depth cap causes the collapse | &#10007; | c &le; 0.02/&kappa; violated by the scale itself | D51 &rarr; |
+| H11 | A feasible design exists in the minimum-bulk corner | &#10007; | swept to the 0.40 mm FDM floor, none found | D51 &rarr; |
+
+</div>
+
+<div class="text-sm leading-snug">
+
+&nbsp;&middot;&nbsp; **45 delegations, 545 ledgered evals**, UNGATED after 4 review rounds &nbsp;&middot;&nbsp; **Cost: ~$125**
+</div>
+
+---
+class: summary-slide
+---
+
+# Run `20260903T233207` &mdash; summary (2 of 2)
+
+<div class="text-sm leading-snug">
+
+Hypotheses 12&ndash;22. Split across two slides only because 22 rows do not fit one 552&thinsp;px canvas &mdash; a measured overflow of 199&thinsp;px, not an editorial cut. Every registered hypothesis keeps its own row.
+
+</div>
+
+<div class="text-xs leading-tight">
+
+| # | Claim | V | Key evidence | Idea |
+|---|---|---|---|---|
+| H12 | H9's null is an artifact of the tie model | &#10007; | re-tied and re-measured, null persists | D51 &rarr; |
+| H13 | A low-bulk scale works on Bessa's own base beam | &#10007; | tested at Bessa's geometry, no feasible gain | D51 &rarr; |
+| H14 | Bifurcation is governed by end-region compliance | &#10007; | mid-span, not joints, governs | — |
+| H15 | One uninterrupted scale lifts the series ceiling | &#10007; | full-span coverage, ceiling unmoved | D51 &rarr; |
+| H16 | The family has no feasible design above Bessa | ❔ | ceiling sits at 0.78&times; with scales realized | D51 &rarr; |
+| H17 | Earlier release keeps the window open at high bulk | &#10007; | raising prebow does not reopen it | D51 &rarr; |
+| H18 | A tapered base beam rescues the substrate | &#10007; | taper raises the cap, not enough | D51 &rarr; |
+| H19 | A SLIDING tie stiffens without forcing the squeeze | &#10007; | 0.74&times; Bessa, +16% on its own control | D52 &rarr; |
+| H20 | Near-full coverage plus slip evades concentration | &#10007; | curvature still concentrates at the ends | D52 &rarr; |
+| H21 | A TANGENTIAL offset escapes the strain penalty | &#10007; | 0.67&times; Bessa, +4% on its own control | D53 &rarr; |
+| H22 | Widening at constant depth breaks the cap's grip | &#10007; | linear in width, cubic in capped depth | D53 &rarr; |
+
+</div>
+
+<!--
+UNGATED, and the reason is a genuine tension worth the user's attention rather than a failure.
+The critic rejected the strategizer's close FOUR times, each time citing PROBLEM_STATEMENT.md's
+unconditional clause -- "use the whole wall-clock budget ... CRITIC: REJECT a run you know has not
+used its time allocation and delivers a negative result" -- even after two further mechanism
+variants (H21 tangential-thin, H22 tangential-full-depth) were built and tested between calls 3
+and 4. The run terminated anyway, having evidently exhausted its own generative options rather
+than its clock. That is a real conflict between well-evidenced negative science and an
+unconditional time rule, and per the Boundaries section any change to the critic's
+acceptance criteria is the user's call, not an agent's.
+
+Cost $124.90 = $117.87 telemetry + $7.03 strategizer summed from its own transcripts (rule 6).
+Shape differs sharply from the runs around it: implementer $63.05 against datagenerator $27.41 --
+this run SEARCHED rather than built, which is why 545 evals cost $0.23 each against $0.55 for
+run 20260907T024929's six oracle-builds.
+
+The three embodiments and their own matched controls (rule 2a -- the control is the same base beam
+with the scale absent, never the study's incumbent):
+   release_scale  412 evals  41 feasible  best WITH scales 0.087576 (0.78x B)
+                  its best scales-OFF row is the bare Bessa point at 0.112199 (1.00x B),
+                  i.e. attaching the mechanism LOWERS capacity below the bare beam
+   slip_scale      73 evals  18 feasible  best 0.083249 (0.74x B) vs control 0.071914 (+16%)
+   tangent_scale   59 evals   8 feasible  best 0.075110 (0.67x B) vs control 0.071914 (+4%)
+So two of three embodiments do beat their own controls, and all three remain far under the bar --
+the mechanism is real and too small, which is a different finding from "it does nothing".
+-->
+
+---
+layout: two-cols-header
+class: idea-slide
+---
+
+# D51 &middot; Pre-engaged shedding scale substrate (bonded standoff flange)
+
+::left::
+
+<div class="text-sm leading-snug">
+
+- **What:** a thin scale bonded to the longeron on a standoff, carrying load from zero curvature
+  and buckling away once coiling starts. Base beam and rings unchanged.
+- **Origin:** the reverse trigger of D49's contact stiffening &mdash; carry from the start and shed
+  later, rather than engage only after the buckling event that sets the load has happened.
+- **Stats:** n=412 &rarr; 409 coil &rarr; 171 riks &rarr; 41 good (0.78&times; Bessa)
+  p50/p90/p100 &mdash; &sigma;_crit: .094/.149/.639 &middot; mcs: .410/.910/.945 &middot; mls: .0197/.0200/.0200
+  cleared: none &middot; novel: **yes** &mdash; absent from D1&ndash;D50
+  best good with scales realized: d=.0184 pitch=.681 top_d=.0444 n_scales=1 &rarr; &sigma;=.0876 mcs=.811
+- **Verdict:** POWERED &middot; REFUTED &middot; pre-engaged scale shedding
+  The scale's own standoff counts against the kinematic depth cap, so it spends strain budget it
+  never earns back: attaching it **lowers** capacity below the family's own bare beam.
+
+</div>
+
+::right::
+
+<div class="flex flex-col gap-1" style="height: 425px">
+  <div class="flex items-center justify-center" style="height: 380px">
+    <img src="/gifs/D51_release_scale.gif" class="rounded shadow-lg" style="max-height: 380px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">Typical release-scale solve.</div>
+</div>
+
+<!--
+**Input space:** n_scales, scale thickness t_scale (down to the 0.40 mm FDM floor), standoff y,
+scale_len_ratio, prebow_ratio (A0/t_scale, which sets how early the scale sheds), plus the base
+beam's own ratio_d / ratio_pitch / ratio_top_diameter. 412 ledgered designs; the exact per-axis
+bounds are recorded in the run's own registration for namespace 'release_scale'.
+Fixed: n_longerons=3, n_storeys=1, ratio_shear_modulus=0.3677, young_modulus=3500 MPa, contact ON.
+
+**Seed:** BARREN -- and this is the most thoroughly argued barren verdict in the deck: 18 of the
+run's 22 hypotheses attack this one family, including four separate rescue attempts (minimum-bulk
+corner H11, Bessa's own base beam H13, full-span coverage H15, earlier release H17, tapered base
+H18) and one re-model of the tie itself (H12) to test whether the null was an artifact. All
+falsified. The mechanism's own geometry is what defeats it: any standoff large enough to matter
+is a depth the strain cap will not pay for.
+
+**Deferred:** THE BEST FEASIBLE ROW IN THIS FAMILY HAS NO SCALES. Its `scales_realized`=0 and its
+inputs are Bessa's own (ratio_d=0.020053, ratio_pitch=0.250, ratio_top_diameter=0.250528),
+scoring 0.112199 kPa -- the Bessa point's own value to six figures. The Stats line above therefore
+quotes the best row WITH scales realized (0.087576, 0.78x Bessa), because quoting the family
+maximum would have credited the mechanism with its own control's number. 30 of the 41 feasible
+rows have scales realized; 11 do not.
+H2 and H3 remain SUPPORTED and are not in tension with the REFUTED verdict: the layer does raise a
+matched core (H2) and the binding constraint is the scale's own strain (H3) -- together they say
+the mechanism is real and self-limiting, which is why the funnel is wide and the ceiling is low.
+
+**Timeline:** D004: built the release_scale oracle. D023: anchor wiring and the Bessa point.
+D026: the H14 end-region-compliance check. 18 hypotheses' worth of delegations across the run --
+see the run summary above for the full verdict table.
+
+**Infra:** Oracle bo/oracle_release_scale.py with bo/prefilter_release_scale.py; Stage 1
+scripts/supercompressible_lin_buckle_release_scale.py, Stage 2
+scripts/supercompressible_riks_release_scale.py (both promoted to gold 20260906). Feasibility is
+the study's standard five. Gif traces to
+/oscar/scratch/eaguerov/sc_oracle_release_scale/riks_a2aa223ff79f4964bacc1a4c7e1a4aca -- the
+furthest-compressing member of the search (mcs 0.9455), a TYPICAL solve per rule 4, not the
+best-good design.
+-->
+
+---
+layout: two-cols-header
+class: idea-slide
+---
+
+# D52 &middot; Sliding (unilateral) scale tie
+
+::left::
+
+<div class="text-sm leading-snug">
+
+- **What:** the same offset scale, but bonded at ONE end only and free to slide axially at the
+  other, so it can stiffen while engaged without being dragged along the core as it shortens.
+- **Origin:** what D51's own failure named. H3 measured the binding constraint as the scale's own
+  strain from being tied at both ends; releasing one end removes exactly that term.
+- **Stats:** n=73 &rarr; 72 coil &rarr; 40 riks &rarr; 18 good (0.74&times; Bessa)
+  p50/p90/p100 &mdash; &sigma;_crit: .092/.118/.157 &middot; mcs: .770/.934/.949 &middot; mls: .0198/.0199/.0200
+  cleared: none &middot; novel: **yes** &mdash; a different tie topology, not D51 retuned
+  best good: d=.0184 pitch=.681 top_d=.0444 n_scales=1 &rarr; &sigma;=.0832 mcs=.881 mls=.0198
+- **Verdict:** POWERED &middot; REFUTED &middot; sliding scale tie
+  The slip does remove the membrane squeeze &mdash; **+16% over its own bare control** &mdash; but
+  curvature then concentrates at the one bonded end, and the ceiling stays at three quarters of Bessa.
+
+</div>
+
+::right::
+
+<div class="flex flex-col gap-1" style="height: 425px">
+  <div class="flex items-center justify-center" style="height: 380px">
+    <img src="/gifs/D52_slip_scale.gif" class="rounded shadow-lg" style="max-height: 380px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">Typical slip-tie solve.</div>
+</div>
+
+<!--
+**Input space:** the release_scale axes (n_scales, t_scale, standoff, scale_len_ratio,
+prebow_ratio) plus the base beam's ratio_d / ratio_pitch / ratio_top_diameter, with the tie
+changed from bonded-both-ends to bonded-one-end/sliding-other. 73 ledgered designs; per-axis
+bounds in the run's registration for namespace 'slip_scale'. Fixed: n_longerons=3, n_storeys=1,
+ratio_shear_modulus=0.3677, young_modulus=3500 MPa, contact ON.
+
+**Seed:** BARREN -- the +16% is real and reproducible, and it is the wrong SIZE by a factor of
+thirteen. Both hypotheses aimed here (H19 the tie itself, H20 near-full coverage combined with
+it) are falsified, and the residual failure is geometric rather than tunable: whatever the tie
+does at its free end, the bonded end still forces the curvature to concentrate there.
+
+**Deferred:** rule 2a satisfied -- the control is the SAME base beam at d=.0184, pitch=.681,
+top_d=.0444 with the scale absent (0.071914 kPa), not the study's incumbent. 14 of the 18 feasible
+rows have scales realized and 4 are that bare control, so the +16% is a with/without comparison at
+matched geometry rather than a best-of-family readout.
+
+**Timeline:** D033: built the slip_scale Stage-1 and Stage-2 pre-processors. D036: the ledgered
+sweep whose best row is quoted above. See the run summary above for H19/H20's full evidence.
+
+**Infra:** Oracle bo/oracle_slip_scale.py; Stage 1
+scripts/supercompressible_lin_buckle_slip_scale.py, Stage 2
+scripts/supercompressible_riks_slip_scale.py (promoted to gold 20260906, commit 1f0db2d).
+Feasibility is the study's standard five. Gif traces to
+/oscar/scratch/eaguerov/sc_oracle_slip_scale/D036_2/riks_383a2da3e2394508837a9b05a2052ad4
+(mcs 0.9492), a TYPICAL solve per rule 4.
+-->
+
+---
+layout: two-cols-header
+class: idea-slide
+---
+
+# D53 &middot; Tangentially-offset scale (width, not depth)
+
+::left::
+
+<div class="text-sm leading-snug">
+
+- **What:** the scale moved from radially outward of the core to circumferentially beside it, so
+  its material adds section WIDTH instead of section DEPTH.
+- **Origin:** the study's own sizing law. &sigma;_peak &prop; E&middot;w&middot;c&sup3;/L&sup2; is
+  linear in width w but cubic in the depth c that the 2% strain cap fixes &mdash; so widening is the
+  one move the cap does not directly punish.
+- **Stats:** n=59 &rarr; 52 coil &rarr; 20 riks &rarr; 8 good (0.67&times; Bessa)
+  p50/p90/p100 &mdash; &sigma;_crit: .088/.177/.187 &middot; mcs: .689/.912/.934 &middot; mls: .0198/.0200/.0200
+  cleared: none &middot; novel: **yes** &mdash; a different offset direction, tested on its own law
+  best good: d=.0184 pitch=.681 top_d=.0444 n_scales=6 &rarr; &sigma;=.0751 mcs=.843 mls=.0198
+- **Verdict:** POWERED &middot; REFUTED &middot; tangential offset
+  Only **+4% over its own bare control**. Width enters the law linearly where depth enters it
+  cubed, so widening cannot buy back what the depth cap removes &mdash; it is the weaker lever, by construction.
+
+</div>
+
+::right::
+
+<div class="flex flex-col gap-1" style="height: 425px">
+  <div class="flex items-center justify-center" style="height: 380px">
+    <img src="/gifs/D53_tangent_scale.gif" class="rounded shadow-lg" style="max-height: 380px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">Typical tangential-scale solve.</div>
+</div>
+
+<!--
+**Input space:** as D52's axes but with the offset direction tangential rather than radial;
+n_scales swept to 6 (the best row uses all six). 59 ledgered designs; per-axis bounds in the run's
+registration for namespace 'tangent_scale'. Fixed: n_longerons=3, n_storeys=1,
+ratio_shear_modulus=0.3677, young_modulus=3500 MPa, contact ON.
+
+**Seed:** BARREN, and uniquely for an arithmetic reason rather than an empirical one. This
+embodiment was proposed BECAUSE the sizing law is linear in width, and the same law says what the
+ceiling must be: to recover a factor the capped depth costs cubically, width would have to grow by
+that factor cubed, which the slenderness >= 10 fidelity gate forbids long before it helps. H21
+(the offset itself) and H22 (widening at constant depth) are both falsified, and the measured +4%
+is the size the law predicts.
+
+**Deferred:** rule 2a satisfied -- same bare control as D52 (0.071914 kPa at matched d/pitch/top_d),
+not the incumbent. 7 of the 8 feasible rows have scales realized and 1 is the control.
+This slide closes the scale-substrate direction as a whole: across D49 (compliant root), D51
+(bonded standoff), D52 (sliding tie) and D53 (tangential), every tie topology and every offset
+direction has now been measured, and none reaches the bar.
+
+**Timeline:** D038: built the tangent_scale Stage-1 and Stage-2 pre-processors. D039: the ledgered
+sweep whose best row is quoted above. H21 and H22 were registered and tested between the critic's
+third and fourth rejection -- see the run summary above.
+
+**Infra:** Oracle bo/oracle_tangent_scale.py with bo/prefilter_tangent_scale.py; Stage 1
+scripts/supercompressible_lin_buckle_tangent_scale.py, Stage 2
+scripts/supercompressible_riks_tangent_scale.py (promoted to gold 20260906, commit 1f0db2d).
+Feasibility is the study's standard five. Gif traces to
+/oscar/scratch/eaguerov/sc_oracle_tangent_scale/D039_0/riks_18816600f1fc4fc88107c1c768a0e497
+(mcs 0.9340), a TYPICAL solve per rule 4.
+-->
+
+---
+class: summary-slide
+---
+
 # Run `20260902T210743` &mdash; summary
 
 <div class="text-sm leading-snug">
@@ -768,10 +1569,10 @@ class: idea-slide
 
 <div class="flex flex-col gap-1" style="height: 425px">
   <div class="flex items-center justify-center" style="height: 155px">
-    <img src="/gifs/compliant_scale_D019_winner_mini.png" style="max-height: 155px; max-width: 100%" />
+    <img src="/gifs/D49_compliant_scale_winner_mini.png" style="max-height: 155px; max-width: 100%" />
   </div>
   <div class="flex items-center justify-center" style="height: 255px">
-    <img src="/gifs/compliant_scale_D019_winner.gif" class="rounded shadow-lg" style="max-height: 255px; max-width: 100%" />
+    <img src="/gifs/D49_compliant_scale_winner.gif" class="rounded shadow-lg" style="max-height: 255px; max-width: 100%" />
   </div>
   <div class="text-xs opacity-50 text-center">The best feasible design found this run (stabilized
   reading, see notes) &mdash; scale panels visibly engaging the longeron as it coils.</div>
@@ -816,7 +1617,7 @@ begun, by which point the buckling event that sets the load has essentially alre
 only fix (a panel pre-loaded/interference-fit from the start) would need residual built-in stress
 in a single printed part, which this study's own realizability rules exclude.
 
-**Baseline-in-disguise check (PROBLEM_STATEMENT2.md, "The challenge") -- why the Verdict says
+**Baseline-in-disguise check (PROBLEM_STATEMENT.md, "The challenge") -- why the Verdict says
 REFUTED and not just "under-powered":** this study's own contract requires checking whether a
 compound design's headline number survives with the new component removed before crediting it.
 It doesn't survive here. Under the exact same conditions (energy-free, nominal imperfection), the
@@ -829,10 +1630,10 @@ nothing measurable, and by this one clean comparison cost a little rather than g
 
 **Post-close follow-up (isotropic cross-section, added 2026-09-03): does the depth-cap ceiling
 explain the null, or is the null real?** The bare rectangular control above is ALSO the design
-sitting at 99.7% of PROBLEM_STATEMENT2.md's own kinematic depth cap -- so the baseline-in-disguise
+sitting at 99.7% of PROBLEM_STATEMENT.md's own kinematic depth cap -- so the baseline-in-disguise
 check, on its own, leaves one door open: maybe the panels do nothing there specifically because
 there is no headroom left to show ANY gain, on a beam that could not be improved by anything.
-Ran the direct, decisive version of PROBLEM_STATEMENT2.md's own circular-cross-section
+Ran the direct, decisive version of PROBLEM_STATEMENT.md's own circular-cross-section
 requirement: took D019's exact real, ledgered design vector and changed exactly one number --
 ratio_b (0.033238, the anisotropic stiff-direction exploit) squared off to equal ratio_a (0.0095),
 an isotropic beam, the closest proxy this oracle's RectangularProfile parameterization can express
@@ -845,7 +1646,7 @@ sigma_eig 0.12597 vs 0.12583 bare (+0.11%, the same negligible size as the 337-p
 result) and the solve now FAILS TO CONVERGE (salvaged at mcs_windowed 0.339). So the ceiling
 explanation is directly ruled out, not just argued around: given real headroom to show a gain,
 the panels still show none, and this time actively broke the design instead of merely riding on
-it. This is one point, not a campaign, but it is the exact comparison PROBLEM_STATEMENT2.md's
+it. This is one point, not a campaign, but it is the exact comparison PROBLEM_STATEMENT.md's
 "combine a new mechanism with a component already known to help" clause asks for, and it points
 the same direction as everything else on this slide. REFUTED is now confirmed by an isotropic
 data point, not just inferred from the engagement-timing argument plus a ceiling-confounded
@@ -933,10 +1734,10 @@ class: idea-slide
 
 <div class="flex flex-col gap-1" style="height: 390px">
   <div class="flex items-center justify-center" style="height: 140px">
-    <img src="/gifs/snaplegs_C1_winner_mini.png" style="max-height: 140px; max-width: 100%" />
+    <img src="/gifs/D48_snaplegs_winner_mini.png" style="max-height: 140px; max-width: 100%" />
   </div>
   <div class="flex items-center justify-center" style="height: 230px">
-    <img src="/gifs/snaplegs_C1_winner.gif" class="rounded shadow-lg" style="max-height: 230px; max-width: 100%" />
+    <img src="/gifs/D48_snaplegs_winner.gif" class="rounded shadow-lg" style="max-height: 230px; max-width: 100%" />
   </div>
   <div class="text-xs opacity-50 text-center">Confirmed best-good design &mdash; &sigma; peaks
   smoothly, not a spike.</div>
@@ -1574,6 +2375,23 @@ just underexplored in one.
 supercompressible_lin_buckle_twist_buckle.py (promoted to gold, commit 4c3da12) -- see
 either file's own module docstring for the full four-variant derivation of why a naive
 "release twist at both ends" choice is a rigid-body mechanism, not a fix.
+
+**Follow-up (2026-09-05) — the mechanism cannot be switched on here.** The four prior campaigns
+(151 evals, twist 2&deg;&ndash;60&deg;) never entered Fang's regime: `twist_energy_fraction_peak`
+peaked at .106. That number is not what it looks like &mdash; a controlled ladder run this date
+reads **.0789 at twist = 0**, where there is no torsion at all, because the diagnostic is
+S12&times;E12, i.e. torsion PLUS transverse shear (this oracle's own docstring calls it an upper
+bound on torsion). Against that no-torsion baseline, .106 is not meaningful torsional content.
+A follow-on campaign (job 5911958, 306 evals, twist 60&deg;&ndash;180&deg;) returned 11 decided,
+0 feasible, and found the obstruction: **coilability collapses above 80&deg; &mdash; 5 of 234
+designs reach Stage 2, against 18% in the 60&ndash;70&deg; band**, with Stage 1 converging
+normally and the oracle's own note reading "not coilable". Engaging torsion needs large
+pre-twist; the mast needs its first mode to coil; in this parameterisation those are mutually
+exclusive. The same campaign's ladder (fixed geometry, twist the only variable &mdash; the first
+such control in this family, since none of the 151 prior evals contains a twist = 0 arm) shows
+compression rising monotonically .0707 &rarr; .1023 and &sigma;_peak falling monotonically
+6.604 &rarr; 4.262 across 0&ndash;60&deg;: ~.0005 mcs/deg, so reaching the .80 bar would need
+~1400&deg;. Full commit e9cfd59.
 -->
 
 ---
@@ -2663,6 +3481,19 @@ better, giving no reason to expect it reverses just outside the tested range.
 
 **Infra:** bo/prefilter.py:passes_kirigami_ligament (r0_min/t_shell&ge;10, delta/t_shell&ge;3,
 l/delta&ge;2). scripts/supercompressible_{lin_buckle,riks}_kirigami_shell.py.
+
+**Follow-up (2026-09-05) &mdash; checked whether the mode-1 gate was hiding a coiling mode. It
+was not.** This family's `coilable` comes from `modes[0]` alone while `BuckleStep` solves
+`numEigen=20`, so the 0/51 could plausibly have been an artefact of reading only the first mode
+&mdash; a continuous cut shell has a dense spectrum of local ligament modes beneath any global
+one, and here local ligament rotation IS the intended mechanism. Re-reading 60 retained Stage-1
+ODBs and applying **this family's own three-part criterion** (ur3_ratio &gt; .05, u3_ratio &gt;
+.05, lateral_ratio &lt; .5) to all 20 modes: **0 designs carry the coiling signature at any
+index**, best ur3_ratio .0103 against the .05 bar. The mode-1 column reproduces the recorded
+`lb_coilable` exactly, confirming faithful re-implementation. Suppressing the Stage-1 proxy for
+this family would not test it better; there is no coiling mode to find. Same scan closes D26,
+D27 and D38 &mdash; 0 of 267 designs across all four. See
+`validation/shell_coiling_mode_scan/README.md`, commit 9fca313.
 -->
 
 ---
@@ -2793,6 +3624,12 @@ instead of the broad Sobol-style screen used here.
 **Infra:** bo/prefilter.py:passes_graded_shell (thin-shell validity evaluated at the THINNEST
 nominal wall t0*(1-a), not the mean/nominal t0, plus a &ge;4-elements-per-grading-wavelength
 mesh-convergence floor). scripts/supercompressible_{lin_buckle,riks}_graded_shell.py.
+
+**Follow-up (2026-09-05) &mdash; verdict confirmed, most emphatically of the four shells.**
+Applying this family's own three-part criterion to all 20 modes across 24 retained Stage-1 ODBs:
+**0 designs carry the coiling signature at any index**, best ur3_ratio .0001 against the .05 bar
+&mdash; 500&times; short. There is essentially no top-ring rotation anywhere in this family's
+spectrum. See `validation/shell_coiling_mode_scan/README.md`, commit 9fca313.
 -->
 
 ---
@@ -4138,6 +4975,14 @@ evaluated, not falsified" reasoning still applies).
 The one converged point at rise 0.15 is genuinely useful as a null control: it proves the shaped
 disc is correctly built and inert, so the divergence at 0.17 is about contact conditioning and not
 about a broken model.
+
+**Follow-up (2026-09-05) &mdash; not a mechanism, independent of the convergence wall.** Even a
+version that both converged and engaged could not be the deliverable: this slide's own Stats say
+"novel: **no** &mdash; reshapes the rigid *fixture*, not the design", and its best design is
+`cone_rise_ratio = 0.0`, the flat-disc control. PROBLEM_STATEMENT puts fixture-side changes in
+the same class as ring-flaring &mdash; tools for raising the floor under a new mechanism, not
+candidate mechanisms &mdash; so the cone fails the novelty test whether or not the overclosure
+chatter is ever fixed.
 -->
 
 ---
@@ -4496,6 +5341,31 @@ reasoning the novelty bar has to arbitrate.
 The wrap<=0 rows (-0.3, -0.15, 0, 0.15, 0.3) are the sign-convention control: wrap=0 must
 reproduce the straight family exactly, and does. Built as `signcheck` before the sweep ran, which
 is why the sweep's numbers can be read as a curve rather than a scatter.
+
+**Follow-up (2026-09-06) &mdash; a real oracle bug, and a lead that did not survive contact
+with this slide.** PROBLEM_STATEMENT summarises the deep-wrap region as "numerically
+inaccessible &mdash; 0 of 107 rows reached a coiling mode, 19/19 Stage-2 solves crashed ... an
+open *solver* problem, not a design lead". Two of those clauses are gate artefacts. (1) "0
+reached a coiling mode" reads `coilable`, which `supercompressible_lin_buckle_pp_helical.py`
+deliberately leaves mode-1-only; its own `coiling_mode_found` column says **159 of 286** helical
+designs have a coiling mode (deep-wrap band: 67 of 121, against 0 by mode 1, typically mode 3).
+(2) "19/19 crashed" was partly an artefact of **`bo/oracle_helical.py` having no salvage path at
+all** &mdash; its Stage-2 `except` returned sigma_peak=NaN without ever opening the partial ODB,
+unlike `oracle_tape_spring` and `D41_oracle_chiral_twist`, which have salvaged for months. That
+is why the deep probe below survives as prose in a code comment rather than as a data row: it
+came from a MANUAL salvage. **Fixed 2026-09-06 (commit 1699316)**; salvaged rows now
+self-identify (`salvaged=1`) and are reported not-evaluable rather than infeasible when their
+metric window never closed, so a design that ran out of solve is no longer recorded as one that
+failed on physics.
+**The lead itself does not stand, and this slide is why.** A campaign was built (job 5939289,
+64 stranded deep-wrap designs + 96 Sobol points at c = 4.1&ndash;7.4 mm) on PROBLEM_STATEMENT's
+paragraph WITHOUT first reading this slide's own post-mortem. This slide already records the
+answer: the verdict is POWERED &middot; REFUTED, twice-corrected, the relief is real but
+&rho;(wrap, &sigma;_peak) = &minus;.392 over 36 decided designs, the family never approached 80%,
+and the 61.5% probe's loading point reverses back past its own start. The campaign was cancelled.
+Independently of the gates, the region is also genuinely hostile: with salvage in place, two
+deep-wrap designs (c = 2 mm, pitch .5, wrap 2&ndash;3) collapse the increment after **3 frames**
+at .006&ndash;.06% strain &mdash; at the very start of loading, not after long progress.
 -->
 
 ---
@@ -5443,6 +6313,14 @@ required a fix to `presentation/render/render_odb.py` (AUTO deformation scaling
 instead of uniform x1, and restricting playback to frames [0,1] instead of
   subsampling across all 20 unrelated eigenmodes) since neither existed
   before this idea needed to render a non-coiling buckle-only result.
+
+**Follow-up (2026-09-05) &mdash; verdict confirmed on the whole spectrum, not just mode 1.** This
+slide's reasoning ("every one of 68 valid designs' lowest buckling mode") rested on `coilable`,
+which reads `modes[0]` only while Stage 1 solves 20 modes. Re-reading all 68 retained Stage-1
+ODBs and applying this family's own three-part criterion to every mode: **0 designs carry the
+coiling signature anywhere**, best ur3_ratio .0030 against the .05 bar &mdash; 17&times; short.
+"The monocoque topology suppresses coiling entirely" is now demonstrated over 20 modes rather
+than inferred from one. See `validation/shell_coiling_mode_scan/README.md`, commit 9fca313.
 -->
 
 ---
@@ -5515,6 +6393,14 @@ datum per vane) reuses the tape-spring idea's (D25) coupling convention literall
 per this delegation's explicit instruction not to invent a new one. GIF: same
 render_odb.py fix as D26 (AUTO scale, frames [0,1] only) applied here too — this ODB
 is also a *BUCKLE step with 21 frames (base + 20 modes), not a Riks history.
+
+**Follow-up (2026-09-05) &mdash; verdict confirmed on the whole spectrum.** The "0/115 pass the
+strict coilability check" figure came from mode 1 only. Applying this family's own three-part
+criterion to all 20 computed modes across 115 retained Stage-1 ODBs: **0 designs carry the
+coiling signature at any index**. This family came closest of the four shells &mdash; best
+ur3_ratio .0301 against the .05 bar, 1.7&times; short &mdash; and still no design passes ur3 and
+u3 while failing only the lateral test, so there are no near-misses behind one strict threshold.
+See `validation/shell_coiling_mode_scan/README.md`, commit 9fca313.
 -->
 
 ---
@@ -6378,6 +7264,15 @@ strain-correlation problem is considered. GIF: native Abaqus/CAE Viewer render v
 dashed-circle ring overlay recomputed from COORD every frame, portrait 480-wide
 canvas), same pipeline as the rest of this deck. Rendered fresh this session directly
 from the archived ODB (no native gif existed for this idea before).
+
+**Follow-up (2026-09-05) &mdash; closed by the sizing law, no solve needed.** This slide's Seed
+offers an untried fix for the Riks-convergence wall, which invites a delegation to go fix it.
+That work cannot pay off: PROBLEM_STATEMENT's kappa_max law states
+&sigma;_peak &prop; E&middot;w&middot;c&sup3;/L&sup2; with c capped kinematically and w capped by
+the slenderness gate, so **every family that varies the member inherits both caps**, and
+"a new cross-section, taper, or storey height cannot beat [run17_rectangle] by more than the
+0.3% of headroom the cap leaves". A cruciform/I-beam is a new cross-section. Fixing the
+convergence wall would buy a converged solve under a ceiling that is already occupied.
 -->
 
 ---
@@ -6933,6 +7828,12 @@ convention, not necessarily the single best (and specifically NOT the
 later-invalidated 0.877 kPa point). Rendered cleanly through the full native
 pipeline; the radial taper toward each longeron's mid-span waist is visible even in
 the undeformed frame.
+
+**Follow-up (2026-09-05) &mdash; closed by the sizing law, no solve needed.** The mis-specified
+waist constraint is real, but re-running with a corrected constraint cannot pay off:
+PROBLEM_STATEMENT names **taper** explicitly among the things that "cannot beat
+[run17_rectangle] by more than the 0.3% of headroom the cap leaves", because a tapered member is
+still a member and inherits both the kinematic c cap and the slenderness w cap.
 -->
 
 ---
@@ -8223,6 +9124,13 @@ new" list with no ODB (the other: pretwisted longerons, earlier this run-range).
 tape-spring idea (`20260730T020245` H2) previously belonged in this no-ODB group
 while that run was still executing; it has since closed and its own ODB was archived
 — see its own slide, elsewhere in this deck.
+
+**Follow-up (2026-09-05) &mdash; closed by the sizing law, and note the reopening trap.** This
+slide's stated blocker &mdash; `model.EllipticalProfile` not existing in the installed Abaqus
+&mdash; has SINCE been solved: the study now substitutes `RectangularProfile` for elliptical
+sections throughout (see `scripts/supercompressible_lin_buckle_pretwist.py`). So this family
+looks reopenable and is not: PROBLEM_STATEMENT's cap sentence covers a new cross-section, and
+an ellipse is a new cross-section. The blocker being gone does not make the ceiling move.
 -->
 
 ---
@@ -8667,6 +9575,13 @@ script draws only the true top/bottom rings from the structural instance's own
 z-min/z-max — it does not know about or annotate the intermediate mid-height ring
 specific to this n_storeys=2 topology, since that ring is likewise a 0-D reference
 point with no solid geometry to render).
+
+**Follow-up (2026-09-05) &mdash; closed by the sizing law, no solve needed.** PROBLEM_STATEMENT
+names **storey height** explicitly among the things that cannot beat run17_rectangle by more
+than the 0.3% cap headroom: shortening the per-storey coiling path also raises the curvature
+each storey must absorb, so the c cap tightens in proportion and the net is zero. Consistent
+with this slide's own follow-up (40 evals on a lower-dimensional reparametrization, 0 feasible).
+The FERTILE-PARAMETRIC verdict should not be read as an invitation to re-sweep n_storeys.
 -->
 
 ---
@@ -8843,6 +9758,15 @@ rendered here without color as an honest degradation (format contract gotcha 5),
 fabricated. Both affected ODBs come from the same era of the resim pipeline
 (2026-07-20), before `E` was added to the standard field-output request list used by
 later resims.
+
+**Follow-up (2026-09-05) &mdash; closed twice over, no solve needed.** (1) The sizing law:
+PROBLEM_STATEMENT states a new cross-section cannot beat run17_rectangle by more than the 0.3%
+of headroom the kinematic cap leaves, and a hollow/cellular section is a new cross-section.
+(2) The family's own premise is arithmetically void: for **any** circular section, solid or
+hollow, J = I&#8321; + I&#8322; = 2I exactly by radial symmetry, so GJ/(E&middot;I) = 2(G/E) =
+.7354 regardless of wall thickness &mdash; hollowing a circular tube cannot move the torsion-to-
+bending ratio at all (derived in `bo/D41_oracle_chiral_twist.py`'s HONEST GJ/EI RANGE note).
+Pushing ratio_J past Bessa's max does not buy what this slide assumed it would.
 -->
 
 ---
@@ -8890,40 +9814,65 @@ class: idea-slide
 
 <div class="text-sm leading-snug">
 
-- **What:** Added a helical pre-twist (twist_angle from π/6 up to π) to each
-  longeron of the standard 3-longeron mast, on top of the full 7D Bessa
-  cross-section search, to see whether twisting the legs could beat the
-  75.1 kPa/longeron study floor.
-- **Origin:** common sense mechanistic hypothesis (not a literature
-  citation) — the idea that a pre-twisted leg might exploit a shorter
-  effective pitch and reach a higher coiling-mode eigenvalue.
-- **Stats:** n=46 → 6 coil → 0 riks → 0 good (Stage 2 never run this campaign)
-  p50/p90/p100 — σ_crit (coilable only): 7.3/43.6/65.3 · mcs: not tracked · mls: not tracked
-  (every coilable design at or below the twist=0 baseline, 65.31 kPa)
-  cleared: none (0 decided) &middot; novel: untested — Stage 2 never ran this campaign
-  best good: none (0/46 passed every criterion)
-- **Verdict:** INCONCLUSIVE · DEAD-END<br>
-  The mechanism does not work — pre-twist destroys
-  coilability rather than helping it. The registered test technically
-  fell short of its own ≥80-eval bar (a license-server outage killed 26 of
-  the planned runs), so the formal status is INCONCLUSIVE, not FALSIFIED,
-  but the completed 46 evals point the same direction with no ambiguity:
-  this is a dead end, not a promising family.
+- **What:** Added a helical pre-twist (π/6 to π) to each longeron of the
+  3-longeron mast, on top of the full 7D Bessa cross-section search.
+- **Origin:** common-sense hypothesis — a pre-twisted leg might exploit a
+  shorter effective pitch and reach a higher coiling eigenvalue.
+- **Stats:** n=46 &rarr; 6 coil &rarr; 0 riks &rarr; 0 good<br>
+  p50/p90/p100 &sigma;_crit: 7.3/43.6/65.3 &middot; mcs/mls: not tracked<br>
+  cleared: none &middot; best good: none (0/46)
+- **Verdict:** INCONCLUSIVE &middot; DEAD-END<br>
+  Pre-twist destroys coilability, not helping it. Formally INCONCLUSIVE
+  (fell short of its own &ge;80-eval bar, a license outage), but the 46
+  completed evals point the same direction with no ambiguity: dead end.
 
 
 </div>
 
 ::right::
 
-<div class="flex flex-col items-center justify-center h-full">
-  <img src="/gifs/D1_pretwisted_negative_native.gif" class="max-h-72 rounded shadow-lg" />
-  <div class="text-xs opacity-60 mt-2 px-4 text-center">D003's coilable design (twist_angle=76&deg;), re-run fresh — see notes.</div>
+<div class="flex flex-col gap-1" style="height: 420px">
+  <div class="flex items-center justify-center" style="height: 155px">
+    <img src="/gifs/D1_pretwisted_riks_contact_mini.png" style="max-height: 155px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 255px">
+    <img src="/gifs/D1_pretwisted_riks_contact.gif" class="rounded shadow-lg" style="max-height: 255px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">Real Stage-2 Riks, twist=76&deg; — stalls at
+  frame ~19 of 786 (21.8% compression). See notes.</div>
 </div>
 
 <!--
-**Chart provenance:** re-run fresh against the same generalized-cross-section+twist Stage-1
-script, since the original 2026-06-29 delegation's ODBs no longer exist on scratch (ephemeral
-sandbox cleanup, not a fabrication) — undeformed mesh, then its actual lowest mode.
+**Chart provenance:** the gif/chart above are a genuine Stage-2 (Riks) contact solve of
+D003's own coilable design (twist=76&deg;), the family's first-ever Riks attempt (the
+original 46-eval campaign never ran Stage 2 at all) — added 2026-09-05, illustrative
+only, not a resimulated campaign result. Real motion only in the first ~19 of 786
+frames; the rest is a genuine solver stall (`.sta` shows the load-proportionality
+factor frozen at 0.218 for 500+ consecutive increments, arc-length step cut to
+~6.7e-08 — Abaqus retrying without progress, not slowly converging), not a rendering
+artifact. Killed manually and salvaged via `scripts/salvage_riks_odb.py` (the same
+`supercompressible_riks_pp` post-processor a normal solve uses). Stalls at 21.8%
+compression, far short of the 80% needed to decide feasibility — does not change this
+slide's own established verdict that twist kills coilability; sharpens it.
+
+**Process note, recorded because it is instructive:** twist=76&deg; was reused from
+this slide's own PRE-EXISTING Stage-1-only illustration without first checking whether
+it was the strongest available candidate for a Stage-2 test — it wasn't. The original
+campaign's own data (`results_d003_final.csv`) shows a stronger nonzero-twist design at
+twist=2.2&deg;, &sigma;_crit=21.93 (roughly 3&times; this one's 7.16), chosen originally
+for visible twist in a picture, not physical merit. This is the same anti-pattern this
+deck's own "Re-study under contact" summary slide already warns about for five other
+families: "Do not read 'we migrated it' as 'we tested it' ... the one design available
+is usually the winner of a search run without contact, the worst point to generalise
+from." Flagged directly by the advisor, not self-caught. A Stage-2 test of the stronger
+2.2&deg; design is in progress as a direct follow-up.
+
+**Original Stage-1-only illustration (superseded above, kept for provenance):** re-run
+fresh against the same generalized-cross-section+twist Stage-1 script, since the
+original 2026-06-29 delegation's ODBs no longer exist on scratch (ephemeral sandbox
+cleanup, not a fabrication) — undeformed mesh, then its actual lowest mode. That
+render (`D1_pretwisted_negative_native.gif`, still in `assets/public/gifs/` if needed)
+showed only a static Stage-1 eigenmode, not real coiling motion.
 
 **Input space:** twist_angle&isin;[0,&pi;]. ratio_area&isin;[1.17e-5,4.1e-3], ratio_Ixx&isin;
 [1e-7,1.4e-6], ratio_Iyy&isin;[1e-7,1.4e-6], ratio_J&isin;[1e-6,7.77e-6] — generalized
@@ -8963,13 +9912,15 @@ buckling load for a near-circular cross-section (ν=I2/I1≈1); Gomez-Lauga's ow
 analysis shows helical path-twist actually REDUCES effective bending stiffness. This
 is consistent with what the sweep found.
 
-**Infra:** No ODB exists for this family because no design was ever
-coilable+competitive enough to be worth resimulating and archiving — this is one of
-only two ideas in the whole 25-idea "genuinely new" list with no ODB by design, not
-by omission (the other is the elliptical cross-section, later this same run-range).
-The tape-spring idea was a third member of this group while its run was still
-executing; it has since closed with its own ODB archived — see its own slide,
-elsewhere in this deck.
+**Infra:** No ODB was archived from the ORIGINAL campaign because no design was ever
+coilable+competitive enough to be worth resimulating and archiving at the time — this
+was one of only two ideas in the whole 25-idea "genuinely new" list with no ODB by
+design, not by omission (the other is the elliptical cross-section, later this same
+run-range). The tape-spring idea was a third member of this group while its run was
+still executing; it has since closed with its own ODB archived — see its own slide,
+elsewhere in this deck. A Stage-2 ODB for THIS family now exists (2026-09-05, see the
+gif/chart above and the chart-provenance note), made purely for illustration, not as a
+resimulated campaign result.
 -->
 
 ---
