@@ -805,11 +805,13 @@ build cannot be measured: 24 of 24 designs were Stage-1 coilable and 0 of 24 pro
 converged Stage-2 solve, so no parameter perturbation inside this box yields a number to compare.
 The theme's own test moved to D54-2, which could at least be decided at Stage 1.
 
-**Deferred:** No salvage path exists in bo/oracle_shear_release.py, so the pre-failure portion of
-each stopped solve was discarded rather than read. It cost little here (the solves stop at 0-8%
-compression, so there is almost nothing to salvage) but it is the same omission fixed in
-bo/oracle_helical.py on 2026-09-06 -- and bo/oracle_template.py, which new families are copied
-from, still contains no salvage path at all, so every newly authored family inherits it.
+**Deferred:** CORRECTION (2026-09-07): an earlier version of this note claimed
+bo/oracle_shear_release.py has no salvage path. It does. The claim came from grepping for a NAMED
+`_salvage(` helper, which misses the inline salvage that bo/oracle_circular.py -- the gold
+reference this family was copied from -- implements directly. The real reason there is nothing to
+read is that these solves stop at 0-8% compression, so the metric window never closed before the
+failure; every row is therefore correctly reported NOT-EVALUABLE rather than infeasible, which is
+the salvage convention working as intended rather than being absent.
 
 **Timeline:** D006: bounded 24-design probe of the ladder, one round. D008: matched-conditions
 Stage-1 ablation. D010: Stage-1 ablation spanning a >=5x range in the gap dimension. D011:
@@ -883,7 +885,7 @@ the gap rotated, not the study's incumbent -- but the comparison is Stage-1 only
 stiffness and not to whether either orientation can survive coiling. H3, which asks the same
 question about compression rather than stiffness, is INCONCLUSIVE for exactly that reason and is
 reported that way rather than borrowing H4's support.
-No salvage path in bo/oracle_gap_orientation.py (see D54's Deferred).
+bo/oracle_gap_orientation.py DOES salvage; see D54's Deferred for the correction to an earlier claim here.
 
 **Timeline:** D008: matched-conditions Stage-1 ablation plus a converged check. D009: fixed one
 modelling defect in the gap_orientation oracle. D010: Stage-1 ablation spanning a >=5x range in
@@ -955,7 +957,7 @@ H7 tries to state in general.
 **Deferred:** n=21 with 16 coilable and 0 converged is a thin denominator, hence UNDERPOWERED
 rather than a confident REFUTED on the campaign axis; the IDEA verdict rests on the strain
 measurement, which is real and repeated (10 of 13 windows closed), not on the funnel size.
-No salvage path in bo/oracle_microtruss.py (see D54's Deferred).
+bo/oracle_microtruss.py DOES salvage; see D54's Deferred for the correction to an earlier claim here.
 
 **Timeline:** D012: built and registered the anisotropic/microtruss oracle. D019: pulled the one
 lever identified and never pulled -- the radial-web arm -- as the run's last act.
@@ -2268,8 +2270,10 @@ the same argument was made for D56 and would have to be spent on one of them.
 is only 2.6%; the animation shows more motion than that figure suggests because the metric window
 closes at the 2%-strain crossing while the raw solve continued a little further. Stated here so
 the caption's number and the visible travel are not read as inconsistent.
-No salvage path exists in bo/D46_oracle_torsional_tube.py -- see D54's Deferred for the
-bo/oracle_template.py gap that produces this in every newly authored family.
+CORRECTION (2026-09-07): an earlier version of this note claimed this family's oracle has no
+salvage path. bo/D46_oracle_torsional_tube.py in fact has one of the most thorough in the deck.
+The furthest solve's window never closed, which is why no decided row exists -- not a missing
+capability. See D54's Deferred.
 
 **Timeline:** Built and tested within run 20260901T020153; H7 is its registered hypothesis and was
 FALSIFIED against the target, though on solver failure rather than measured performance -- which
