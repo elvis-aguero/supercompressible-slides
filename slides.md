@@ -1703,6 +1703,239 @@ bo/campaign_summary.py. Promotion is the user's call.
 -->
 
 ---
+class: summary-slide
+---
+
+# Run `20260902T144836` &mdash; summary
+
+<div class="text-sm leading-snug">
+
+Third and last of three quota-interrupted runs on the snap-chain mechanism. Its whole job was
+hardening the previous run's readings, and it did that: the family's headline survives a
+100&times; finer arc-length, a 2&times; finer mesh, and the charge that it was a salvage artifact.
+Closed on quota with five hypotheses queued and untested.
+
+</div>
+
+<div class="text-xs leading-tight">
+
+| # | Claim | V | Key evidence | Idea |
+|---|---|---|---|---|
+| H1 | The snaplegs readings are numerically real | &#10003; | &sigma;_peak flat to 6 s.f. across 100&times; finer arc-length and 2&times; finer mesh | D48 &rarr; |
+| H2 | Those readings are an incomplete-solve artifact | &#10007; | 3 separate designs each fully converged, non-salvaged, still cleared | D48 &rarr; |
+| H3 | The inversion, not the section, carries the load | ⏳ | queued, untested at quota | D48 &rarr; |
+| H4 | A design clears the load bar AND the strain bar | ⏳ | queued, untested at quota | D48 &rarr; |
+| H5 | The mechanism is bistable by the literature's test | ⏳ | queued, untested at quota | D48 &rarr; |
+| H6 | &sigma;_peak is independent of n_levels | ⏳ | queued, untested at quota | D48 &rarr; |
+| H7 | The &ge;80% compression is physically available | ⏳ | queued, untested at quota | D48 &rarr; |
+
+</div>
+
+<div class="text-sm leading-snug">
+
+&nbsp;&middot;&nbsp; **10 delegations, 31 ledgered evals, ~2h45 of 10 h (quota-interrupted)**, UNGATED &mdash; no gate attempt &nbsp;&middot;&nbsp; **Cost: ~$40**
+</div>
+
+<!--
+This run has no idea slide of its own: every hypothesis targets the snaplegs family, which is
+D48, and this run's contribution is confirmation of D48's numbers rather than a new mechanism.
+D48's own speaker notes carry the per-run detail and name this run as RUN 3.
+
+UNGATED with zero gate attempts -- the quota cut it off before the strategizer tried to close, so
+this is an interruption, not a rejection. The five OPEN hypotheses were queued and are listed
+above as pending rather than dropped, because two of them (H5 bistability by the literature's
+operational test, H7 whether the compression is physically available) were later answered
+DIRECTLY by the user rather than by a fourth agentic run -- see D48's notes, "Post-run, done
+directly rather than spending a 4th agentic attempt".
+
+Cost $39.50. Note the shape: literature_reviewer $4.93, the highest of any run in this deck,
+because this run was pointed at the previous run's hypotheses file rather than re-deriving the
+prior art -- and strategizer $10.03, unusually high for 10 delegations, consistent with a run
+spending its time deciding what to verify rather than building.
+
+DO NOT read this run's raw ledger maximum as a headline. Its snaplegs rows include readings up to
+44.9x Bessa that D48's own adjudication rejected; D48's confirmed best-good design is
+sigma_peak=1.2104 kPa (10.79x Bessa), re-confirmed on three separately-converged solves. The
+figure to cite is D48's.
+-->
+
+---
+class: summary-slide
+---
+
+# Run `20260902T035710` &mdash; summary
+
+<div class="text-sm leading-snug">
+
+The run that turned a broken mechanism into a working one. It diagnosed why the un-legged
+snap-chain geometrically cannot invert &mdash; its arc apex IS the ring above it &mdash; then
+invented the legged fix that became D48. Six of seven hypotheses falsified, including two of its
+own about the fix.
+
+</div>
+
+<div class="text-xs leading-tight">
+
+| # | Claim | V | Key evidence | Idea |
+|---|---|---|---|---|
+| H1 | The snap-through, not the section, carries the load | &#10007; | section alone reproduces the reading | D47 &rarr; |
+| H2 | The un-legged snapchain family clears the target | &#10007; | terminal flattened-arc limit, not a snap | D47 &rarr; |
+| H3 | The maximum is set by the flattened-arc limit | &#10007; | limit is geometric, not load-carrying | D47 &rarr; |
+| H4 | The topology FORBIDS a full snap-through | &#10007; | apex collides with the ring above it | D47 &rarr; |
+| H5 | No un-legged design is genuinely bistable | &#10003; | axial reaction never crosses into tension | D47 &rarr; |
+| H6 | The legged family has a hard wall at 10&times; Bessa | &#10007; | threshold brackets to (4.400, 5.000] | D48 &rarr; |
+| H7 | The legged family is strain-limited, not load-limited | &#10007; | stroke completes inside the strain budget | D48 &rarr; |
+
+</div>
+
+<div class="text-sm leading-snug">
+
+&nbsp;&middot;&nbsp; **16 delegations, 130 ledgered evals, ~7h14 of 10 h (quota-interrupted)**, UNGATED &mdash; no gate attempt &nbsp;&middot;&nbsp; **Cost: ~$114**
+</div>
+
+<!--
+H6 is worth reading in full in the run's own hypotheses.json: the strategizer first called it
+SUPPORTED and then self-retracted FOUR MINUTES LATER against its own registered criterion, once a
+real counterexample landed. That retraction predates the same discipline the critic praised in
+runs 20260906T122744 and 20260907T024929, and it happened without a critic in the loop, since this
+run never reached a gate.
+
+Cost $113.71, with strategizer $34.41 -- by far the highest strategizer share in the deck, and the
+signature of a run doing its own mechanism design rather than delegating it: the legged fix was
+invented in the strategizer's own reasoning between delegations, not commissioned from a worker.
+
+DO NOT read this run's raw ledger maxima as headlines. snapchain contains 16 rows above 100x Bessa
+and snapchaincirc one above 89 BILLION x Bessa -- non-physical artifacts of the un-legged
+topology's flattened-arc limit, which D48's adjudication rejected. Among the ledger's own feasible
+rows the sane maxima are snapchain 1.4551 (12.97x) and snapchaincirc 1.2414 (11.06x); the figure
+to cite for this mechanism family remains D48's confirmed 1.2104 kPa on three converged solves.
+-->
+
+---
+layout: two-cols-header
+class: idea-slide
+---
+
+# D47 &middot; Un-legged snap-chain (arc directly between rings)
+
+::left::
+
+<div class="text-sm leading-snug">
+
+- **What:** rigid rings joined by three transversely-loaded shallow arches attached DIRECTLY to
+  the rings, with no legs &mdash; compression was meant to come from each arch snapping through.
+- **Origin:** chaining bistable curved-beam units to trap elastic strain by sequential
+  snap-through (Shan et al. 2015<sup>1</sup>), taken in its simplest possible embodiment first.
+- **Stats:** n=90 &rarr; 90 coil &rarr; 5 riks &rarr; 2 good
+  p50/p90/p100 &mdash; mcs: .928/.940/.948 &middot; mls: .0124/.0179/.0200 (&sigma;_crit n/a, no eigen stage)
+  cleared: none usable &middot; novel: **yes** &mdash; became D48 once the defect was fixed
+  best good: none citable &mdash; see Verdict and Deferred
+- **Verdict:** POWERED &middot; REFUTED &middot; direct arch-to-ring attachment
+  The topology forbids the mechanism it was built for: each arch's own apex **is** the ring above
+  it, so it cannot fully invert. Its axial reaction never crosses into tension, so it is not
+  bistable at all &mdash; the readings come from an arc flattening, not a snap.
+
+<div class="text-xs opacity-60 mt-1">
+1. Shan et al., Adv. Mater. 27(29):4296&ndash;4301 (2015) &mdash; as cited on D48.
+</div>
+
+</div>
+
+::right::
+
+<div class="flex flex-col gap-1" style="height: 425px">
+  <div class="flex items-center justify-center" style="height: 380px">
+    <img src="/gifs/D47_snapchain.gif" class="rounded shadow-lg" style="max-height: 380px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">Arc flattens against the ring above.</div>
+</div>
+
+<!--
+**Input space:** n_levels, rise_ratio (arch rise over thickness -- the bistability parameter),
+t_ratio and w_ratio (arch section), chord_half_angle, compression_cap. 90 ledgered designs across
+run 20260902T035710; per-axis bounds in that run's registration for namespace 'snapchain'.
+Fixed: 3 arches per level, rigid rings, contact ON. No linear-eigenvalue stage exists for this
+family, which is why the Stats quartile line carries no sigma_crit -- a snap-through mechanism has
+no meaningful bifurcation about an undeformed state.
+
+**Seed:** BARREN as drawn, and the perturbation that would count was already taken: add legs, so
+the arch's apex is no longer the ring above it and a genuine inversion becomes geometrically
+available. That is D48, which is POWERED . VALIDATED at 10.79x Bessa. This slide exists to record
+WHY the simple version fails, so the legged version's necessity is on the record rather than
+looking like an arbitrary elaboration.
+
+**Deferred:** NO HEADLINE IS QUOTED FROM THIS FAMILY'S LEDGER, deliberately. It contains 16 rows
+above 100x Bessa and its sibling namespace snapchaincirc one above 89 billion x Bessa -- artifacts
+of the flattened-arc terminal limit rather than physical readings, and D48's own adjudication
+rejected them. The 2 rows the ledger marks feasible have sane values (best 1.4551 kPa) but they
+are readings of an arc flattening, which H5 established is not the bistable mechanism claimed, so
+citing them as this idea's performance would credit the mechanism with something it does not do.
+The cross-cutting caveat about this family's numbers is stated once here and on the two run
+summaries above, per rule 5(e), rather than repeated in every caption.
+
+**Timeline:** Built as `bo/D47_oracle_snapchain.py` in D003 of run 20260902T003527 (1 eval before
+that run's quota cut it off). Tested and refuted in run 20260902T035710: H2 and H3 on the family's
+ceiling, H4 on the apex/ring collision, H5's reaction-force test showing it is not bistable.
+
+**Infra:** Oracle bo/D47_oracle_snapchain.py; Stage-2-only (no eigenvalue stage) via that
+family's own pre-processor under scripts/. Feasibility is the study's standard five, minus the
+coilability criterion, which a snap-chain does not have a coiling mode to satisfy. Gif traces to
+/oscar/scratch/eaguerov/sc_oracle_snapchain/riks_87ef588c23b34848948c3fd04a82c2d7 -- a TYPICAL
+member per rule 4's no-winner convention.
+-->
+
+---
+class: summary-slide
+---
+
+# Run `20260902T003527` &mdash; summary
+
+<div class="text-sm leading-snug">
+
+Cut off by an API quota at ~92 minutes with one eval logged. It is on the record because it built
+two oracles the deck still depends on &mdash; including the first snap-chain &mdash; and because
+its retrospectives are the earliest record of two frictions that recurred for days afterwards.
+
+</div>
+
+<div class="text-xs leading-tight">
+
+| # | Claim | V | Key evidence | Idea |
+|---|---|---|---|---|
+| H1 | The arch-splice family clears the target in its own never-sampled Q&ge;2.31 regime | ⏳ | oracle built, 1 eval, quota cut | D24 &rarr; |
+| H2 | A chain of transverse clamped-clamped shallow curved beams clears it | ⏳ | oracle built, no ledgered eval | D47 &rarr; |
+| H3 | The study's two caps give a hard wall &sigma;_peak &le; 42.4/L kPa | ⏳ | registered, untested | — |
+
+</div>
+
+<div class="text-sm leading-snug">
+
+&nbsp;&middot;&nbsp; **6 delegations, 1 ledgered eval, ~92 min (quota-interrupted)**, UNGATED &mdash; no gate attempt &nbsp;&middot;&nbsp; **Cost: ~$47**
+</div>
+
+<!--
+Kept, not discarded, and the reason is worth stating: this run is D48's RUN 1, so deleting its
+directory would break the provenance chain of the deck's record-holding design. It also authored
+three files still in bo/ that name it as their origin in their own docstrings --
+bo/oracle_arch_window.py (D003, which widened the ALREADY-EXISTING D24 bistable-arch box into its
+own never-sampled Q>=2.31 regime), bo/D47_oracle_snapchain.py (D047) and
+bo/oracle_snapchain_circ.py.
+
+It has no idea slide because it has no ledgered family data: experiment_data/ contains no
+namespace directory at all, so there is no Stats funnel to report at any size. Its two mechanism
+hypotheses point at the slides that did eventually carry them (D24's family for the arch window,
+D47 for the snap-chain).
+
+EARLIEST RECORD OF TWO RECURRING FRICTIONS, which is the main reason to keep it: (i) its D001
+retrospective reports Semantic Scholar returning HTTP 403 on every call, "the shared
+unauthenticated quota is exhausted" -- the same failure hit runs 20260906T122744 and
+20260907T024929; (ii) its diagnostics contain `ERROR: 'D002' has never been delegated to -- cannot
+Confer with a node that was never woken`, i.e. Confer takes a NODE name and not a delegation id.
+That identical error recurred in run 20260907T024929 five days later, still unfixed.
+Cost $46.94 for 1 eval, almost all of it datagenerator ($30.99) building the two oracles.
+-->
+
+---
 layout: two-cols-header
 class: idea-slide
 ---
@@ -1857,6 +2090,195 @@ Abaqus/CAE Viewer export, standard pipeline; chart built directly from this desi
 `results.pkl` reference-point history (this family's ring/arc topology isn't a standard-longeron
 sim_info schema, so `bo/mini_chart.py` couldn't read it directly — same area/Bessa-point
 convention, computed by hand from the same reference-point fields the oracle itself uses).
+-->
+
+---
+class: summary-slide
+---
+
+# Run `20260901T020153` &mdash; summary
+
+<div class="text-sm leading-snug">
+
+The broadest single run in the deck: five families in one sitting, ten hypotheses, 248 evals.
+Four families were already-built ones re-tested to closure; two were new. Nothing cleared, and the
+run's most useful output is negative-space &mdash; two SUPPORTED claims that whole classes of
+already-built longeron have never produced a feasible design.
+
+</div>
+
+<div class="text-xs leading-tight">
+
+| # | Claim | V | Key evidence | Idea |
+|---|---|---|---|---|
+| H1 | Oracle wiring reproduces the confirmed anchor | &#10003; | canonical get_evaluator() re-solve within &plusmn;1% | — |
+| H2 | Bending distributed into discrete elastic hinges clears the target | ❔ | the hinge lineage has no feasible design to build on | D44 &rarr; |
+| H3 | A chiral / buckling-induced auxetic sub-structure clears it | ❔ | no simulable embodiment reached the regime | D43 &rarr; |
+| H4 | A purely-geometric doubly-curved bistable SHELL splice clears it | &#10007; | 80 evals, 7 feasible, ceiling 0.32&times; Bessa | D45 &rarr; |
+| H5 | The chained bistable-hinge lineage has never produced a feasible design | &#10003; | D23/D24/D44 lineage audited end to end | D44 &rarr; |
+| H6 | Nor has any lattice/shell longeron embodiment already built | &#10003; | audited across the built families | D43 &rarr; |
+| H7 | A self-contacting open-to-closed torsional tube clears it | &#10007; | 33 evals, 0 converged Riks, max compression 2.6% | D46 &rarr; |
+| H8 | The CORRECTED chiral_twist family clears it | &#10007; | 66 evals, 39 coilable, 0 converged | D41-2 &rarr; |
+| H9 | The kissing-pair self-contact family clears it | &#10007; | 36 evals, 4 coilable, 0 converged | D33 &rarr; |
+| H10 | The bend-twist self-locking scale longeron clears it | ❔ | 5 converged, none feasible, mcs stuck at 0.53 | D35 &rarr; |
+
+</div>
+
+<div class="text-sm leading-snug">
+
+&nbsp;&middot;&nbsp; **20 delegations, 248 ledgered evals**, GATED after 2 review rounds &nbsp;&middot;&nbsp; **Cost: ~$74**
+</div>
+
+<!--
+H5 and H6 are the run's real product and they are worth more than their two ticks suggest: both
+are NEGATIVE-SPACE claims, established by auditing families this study had already built rather
+than by building anything new. H5 says the whole chained bistable-hinge lineage (D23 -> D24 -> D44)
+has never yielded a feasible design; H6 says the same of every lattice/shell longeron embodiment
+built to that date. Claims of that shape are what stop a later run re-entering a lineage that
+looks unexplored from any single slide.
+
+Cost $74.37 = $71.73 telemetry + $2.64 strategizer summed by hand (rule 6), at $0.30/eval --
+mid-range for this deck. datagenerator $37.91 for two new oracles (bistable_shell, torsional_tube)
+plus repairs to three existing ones; literature_reviewer $7.73, the second-highest in the deck,
+consistent with a run whose job was partly auditing prior art rather than proposing.
+
+Two families here are re-tests that close questions other slides had left open, and their Idea
+cells point at the EXISTING slides rather than earning new numbers: H8 at D41-2 (the corrected
+joint, whose own slide records the twist family), H9 at D33, H10 at D35. Only H4 and H7 are new
+mechanisms, and they take D45 and D46 -- the numbers bo/D45_oracle_bistable_shell.py and
+bo/D46_oracle_torsional_tube.py had already claimed in their filenames while the deck jumped
+from D44 to D48.
+-->
+
+---
+layout: two-cols-header
+class: idea-slide
+---
+
+# D45 &middot; Doubly-curved bistable shell segment splice
+
+::left::
+
+<div class="text-sm leading-snug">
+
+- **What:** a purely geometric doubly-curved shallow SHELL segment spliced into the longeron, with
+  no prestress &mdash; the shell's own curvature is meant to make it snap between two stable states.
+- **Origin:** a doubly-curved shell has two stable configurations for purely geometric reasons,
+  so splicing one in should buy a snap-through stroke without any pre-load to manufacture.
+- **Stats:** n=80 &rarr; 53 coil &rarr; 23 riks &rarr; 7 good (0.32&times; Bessa)
+  p50/p90/p100 &mdash; &sigma;_crit: .134/.361/.694 &middot; mcs: .160/.934/.948 &middot; mls: .0196/.0200/.0200
+  cleared: none &middot; novel: **yes** &mdash; a shell splice, not a beam segment
+  best good: a=.00921 b=.03324 pitch=.681 top_d=.0444 &rarr; &sigma;=.0362 mcs=.933 mls=.0159
+- **Verdict:** POWERED &middot; REFUTED &middot; geometric shell bistability
+  Feasible designs exist and compress well &mdash; 7 of them, to 93% &mdash; but the ceiling is
+  under a third of Bessa. The shell is thin enough to snap and therefore too thin to carry.
+
+</div>
+
+::right::
+
+<div class="flex flex-col gap-1" style="height: 425px">
+  <div class="flex items-center justify-center" style="height: 380px">
+    <img src="/gifs/D45_bistable_shell.gif" class="rounded shadow-lg" style="max-height: 380px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">Typical shell-splice solve.</div>
+</div>
+
+<!--
+**Input space:** ratio_a and ratio_b &mdash; the shell segment's two in-plane half-dimensions (the
+best row uses a=.009213, b=.033240, i.e. a markedly anisotropic patch); plus the host beam's
+ratio_pitch&isin;~[0.32,1.08] and ratio_top_diameter. 80 ledgered designs; per-axis bounds in the
+run's registration for namespace 'bistable_shell'. Fixed: n_longerons=3, n_storeys=1,
+ratio_shear_modulus=0.3677, young_modulus=3500 MPa, contact ON.
+
+**Seed:** BARREN -- the failure is a thickness bind, not a search limit. Geometric bistability
+requires the shell to be shallow and thin relative to its span; carrying load requires the
+opposite. The 7 feasible designs sit at the thin end and reach 0.32x Bessa, and the run's own
+quartiles show sigma_crit rising to 0.694 only where mcs collapses to 0.160. Any perturbation that
+buys load loses the snap.
+
+**Deferred:** This family reports 23 converged Riks solves against 53 Stage-1 coilable, the
+healthiest Stage-2 yield of the five families in its run -- so unlike its siblings its verdict
+rests on measured performance rather than on solver failure. That is why it is REFUTED (the
+direction argues against it) rather than BLOCKED or no-evidence.
+Note per rule 2b: this is MECHANISM novelty against the beam-segment bistables (D23/D24/D44),
+whose lineage H5 of the same run separately established has never produced a feasible design --
+so the shell embodiment was a reasonable next vehicle, not a re-run.
+
+**Timeline:** Built and tested within run 20260901T020153; H4 is its registered hypothesis and was
+FALSIFIED against the target. See that run's summary above for the full verdict table.
+
+**Infra:** Oracle bo/D45_oracle_bistable_shell.py; Stage 1
+scripts/supercompressible_lin_buckle_bistable_shell.py, Stage 2 via that family's own
+pre-processor under scripts/. Feasibility is the study's standard five. Gif traces to
+/oscar/scratch/eaguerov/sc_oracle_bistable_shell/riks_95735c4e4426477390c9b86f8d47dc20 -- a
+TYPICAL member per rule 4's no-winner convention, not the best-good design.
+-->
+
+---
+layout: two-cols-header
+class: idea-slide
+---
+
+# D46 &middot; Self-contacting open-to-closed torsional tube
+
+::left::
+
+<div class="text-sm leading-snug">
+
+- **What:** an initially slit (open) thin-walled tube longeron whose slit edges come into contact
+  and close as it twists, so the section converts from open to closed mid-stroke.
+- **Origin:** a closed thin-walled section has torsional stiffness orders above an open one of the
+  same material, so a section that closes on itself under load should gain that jump for free,
+  exactly when the coiling mode is trying to twist it.
+- **Stats:** n=33 &rarr; 24 coil &rarr; 0 riks &rarr; 0 good
+  quartiles unavailable — no design reached a converged Riks solve
+  cleared: none &middot; novel: **yes** &mdash; a section-topology switch, not a section resize
+  best good: none (0/33 passed every criterion)
+- **Verdict:** BLOCKED &middot; UNKNOWN-NO-EVIDENCE &middot; open-to-closed section switch
+  24 of 33 designs were Stage-1 coilable and none produced a converged Stage-2 solve; the furthest
+  compressed 2.6%. The slit never closed in any solve that survived, so the switch never happened.
+
+</div>
+
+::right::
+
+<div class="flex flex-col gap-1" style="height: 425px">
+  <div class="flex items-center justify-center" style="height: 380px">
+    <img src="/gifs/D46_torsional_tube.gif" class="rounded shadow-lg" style="max-height: 380px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">Furthest-progressing solve, 2.6% windowed.</div>
+</div>
+
+<!--
+**Input space:** the slit tube's wall thickness and radius ratios, slit width, and the host beam's
+ratio_pitch / ratio_top_diameter. 33 ledgered designs; per-axis bounds in the run's registration
+for namespace 'torsional_tube'. Fixed: n_longerons=3, n_storeys=1, ratio_shear_modulus=0.3677,
+young_modulus=3500 MPa, contact ON.
+
+**Seed:** FERTILE -- the mechanism is untested rather than refuted, and the obstruction is
+numerical: edge-to-edge self-contact on a thin shell is the hardest contact problem in this study,
+and every solve died before the edges met. The lever with a precedent here is the Abaqus/Explicit
+Stage-2 engine authored in run 20260906T122744
+(scripts/supercompressible_riks_pretwist_explicit.py), which exists for designs where implicit
+Riks stalls on contact and has never been pointed at this family. Note the honest prior, though:
+the same argument was made for D56 and would have to be spent on one of them.
+
+**Deferred:** The gif is the furthest-progressing solve in the family and its WINDOWED compression
+is only 2.6%; the animation shows more motion than that figure suggests because the metric window
+closes at the 2%-strain crossing while the raw solve continued a little further. Stated here so
+the caption's number and the visible travel are not read as inconsistent.
+No salvage path exists in bo/D46_oracle_torsional_tube.py -- see D54's Deferred for the
+bo/oracle_template.py gap that produces this in every newly authored family.
+
+**Timeline:** Built and tested within run 20260901T020153; H7 is its registered hypothesis and was
+FALSIFIED against the target, though on solver failure rather than measured performance -- which
+is why this slide's CAMPAIGN axis reads BLOCKED and its IDEA axis withholds a judgment the
+evidence cannot support.
+
+**Infra:** Oracle bo/D46_oracle_torsional_tube.py; Stage 1/Stage 2 via that family's own
+pre-processors under scripts/. Feasibility is the study's standard five. Gif traces to
+/oscar/scratch/eaguerov/sc_oracle_torsional_tube/riks_879dfcbc30224d81923a5afd2033f39f.
 -->
 
 ---
@@ -4178,6 +4600,54 @@ settings-independent physical wall.
 detail in the run summary slide's own speaker notes): the t=0 ground/top-disc geometry defect,
 then the missing *SECTION POINTS beam-section spec. Namespace 'scale_lock'; oracle at
 bo/D35_oracle_scale_lock.py; scripts/supercompressible_{lin_buckle,riks}_scale_lock.py.
+-->
+
+---
+class: summary-slide
+---
+
+# Run `20260820T003819` &mdash; summary
+
+<div class="text-sm leading-snug">
+
+An exploratory run that closed with all three hypotheses INCONCLUSIVE and said so, rather than
+converting a thin search into a verdict. Both families it touched hit the same wall &mdash; almost
+nothing reached Stage 1 coilability, so there was no population to decide anything on.
+
+</div>
+
+<div class="text-xs leading-tight">
+
+| # | Claim | V | Key evidence | Idea |
+|---|---|---|---|---|
+| H1 | A bistable / snap-through instability in the longeron clears the target | ❔ | no embodiment reached a decidable population this run | D24 &rarr; |
+| H2 | A topology change &mdash; multi-storey helical coupling with alternating handedness &mdash; clears it | ❔ | staged_storey: 10 evals, 1 coilable, 0 converged | D34 &rarr; |
+| H3 | The kissing-pair self-contact topology clears it | ❔ | kissing_pair: 28 evals, 3 coilable, 1 converged, 0 feasible | D33 &rarr; |
+
+</div>
+
+<div class="text-sm leading-snug">
+
+&nbsp;&middot;&nbsp; **17 delegations, 90 ledgered evals**, GATED after 4 review rounds &nbsp;&middot;&nbsp; **Cost: ~$36**
+</div>
+
+<!--
+No idea slide: all three hypotheses target families that already have slides (D24's bistable
+lineage, D34 staged storey, D33 kissing pair), and this run added no new mechanism -- it tested
+existing ones and found their searches undecidable at this size.
+
+The honest reading is that this run was starved of population rather than of ideas. kissing_pair
+returned 3 Stage-1 coilable designs out of 28 and staged_storey 1 out of 10; the single converged
+Riks solve in the whole run (kissing_pair, mcs 0.486, mls 0.0194) is not a basis for a verdict on
+either family. Recording all three as INCONCLUSIVE rather than FALSIFIED is the correct call under
+the Charter and is why this slide reports no cleared count at all.
+
+Four gate rounds for a 90-eval run is the highest gate-attempt-to-eval ratio in the deck, and the
+retrospectives are the place to look for why -- this predates several of the harness fixes that
+later runs benefited from.
+
+Cost $36.30, the cheapest run in this batch, at $0.40/eval. implementer $22.42 dominates; the
+datagenerator built nothing new ($6.61), consistent with a run re-testing existing families.
 -->
 
 ---
