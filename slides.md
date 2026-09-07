@@ -1032,7 +1032,10 @@ self-nesting, 12 solves -- FAILED inside retry_on_transient. D017: finished and 
 whose solves had already landed. D018: closed the one open question in the family with a
 decisive check.
 
-**Infra:** Oracle bo/oracle_self_nest.py; Stage 1/Stage 2 via that family's own pre-processors
+**Infra:** Oracle bo/oracle_self_nest.py -- promoted to gold 2026-09-07; until then it existed
+ONLY inside runs/20260907T024929/debug/delegations/D014/generators/, so this citation was
+dangling and, runs/ being gitignored, the instrument behind this slide was one cleanup from
+being lost. Stage 1/Stage 2 via that family's own pre-processors
 under scripts/. Feasibility is the study's standard five. Gif traces to
 /oscar/scratch/eaguerov/sc_oracle_self_nest/D017_design_matrix_D017_b_0/riks_370cf829e52e4fec8bc7c7877199a3ef
 -- the best-good row, which is also the contact-OFF control noted above.
