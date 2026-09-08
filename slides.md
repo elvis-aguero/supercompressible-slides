@@ -698,6 +698,333 @@ was run; this is the same 2026-07-31 ODB, read two ways.
 class: summary-slide
 ---
 
+# Run `20260907T212358` &mdash; summary
+
+<div class="text-sm leading-snug">
+
+Nine hypotheses, four of them attacks on this study's own ceiling law &mdash; a wider member, a
+tension tie that waits, an outward-bowed longeron, a membrane skin. The law came out stronger: two
+independent supports, and the only design that beat the target did so at half a percent of
+compression.
+
+</div>
+
+<div class="text-xs leading-tight">
+
+| # | Claim | Verdict | Key evidence | Idea |
+|---|---|---|---|---|
+| H1 | The target is unreachable by any bending-regime design; a winner must stretch material, not bend it | &#10003; | Best feasible of 140 evals is 0.61 kPa; the one design over the target peaked at 0.4% compression | — |
+| H2 | The member-width limit is a modelling gate, not physics | ❔ | Self-retracted from FALSIFIED: only 1 of 26 rows decided, so the width trend was never measured | — |
+| H3 | A faithful shell model of a wide member loses the width gain | ⏳ | Left OPEN &mdash; no shell model was ever built | — |
+| H4 | A slack tie, anchored against the twist, goes taut only after 80% compression | &#10007; | 16-point severe test over the whole tie box: 0 of 18 reach 80%, best 22% | D57 &rarr; |
+| H5 | An outward bow raises the 2%-strain depth limit, so the member may be thicker | &#10007; | Cap really does rise 1.61&times;, beating the 1.31&times; geometry predicts &mdash; but the design built on it reaches 1.11&times; Bessa | D9-2 &rarr; |
+| H6 | The ceiling law has the wrong length dependence; storey pitch should not matter | &#10003; | Two-width pitch ladder over a 3&times; range: exponent 0.077, registered falsifier was outside &plusmn;0.4 | — |
+| H7 | The target and coil completion are mutually exclusive | &#10003; | Probed the exact predicted corner: 0 of 18 rows decided, 0 feasible | — |
+| H8 | A membrane skin between longerons carries load at almost no strain cost | &#10007; | 1268&times; its own matched control, all of it at 0.57% compression, and not coilable | D58 &rarr; |
+| H9 | A skirt bonded to the bottom ring only escapes what killed the skin | ⏳ | Never tested; its build was the delegation the spend limit killed | — |
+
+</div>
+
+<div class="text-sm leading-snug">
+
+&nbsp;&middot;&nbsp; **20 delegations, 140 ledgered evals, 5.5 h of 12 h (46%)**, UNGATED &mdash; no gate attempt reached &nbsp;&middot;&nbsp; **Cost: ~$103**
+</div>
+
+<!--
+This run ended on `stop_reason: org_spend_limit` at 5.5 h of a 12 h budget, mid-way through D020 --
+the delegation building H9. There is no deliverable, no gate attempt, and no critic_reviews/
+directory at all, so the whole run is read from the ledger and the hypothesis log.
+
+WHAT IT ACTUALLY BOUGHT, and it is more than the zero deliverables suggest. H1, H6 and H7 together
+are one result stated three ways: the peak load of a rocking mast is set at its first global
+buckling event, that load has no explicit dependence on member length (measured pitch exponent
+0.077, R2=0.857, against a registered falsifier of +/-0.4), and the width needed to reach 10x Bessa
+demands a storey pitch at which the coil provably will not complete. Three separate probes, one
+wall. That is why the four escape attempts below all matter more than their individual verdicts.
+
+TWO SELF-RETRACTIONS, both correct, both prompted by the verdict validator (diagnostics.jsonl,
+VERDICT_SUBSTANCE_FLAG). H2 was declared FALSIFIED on evidence that met none of its own registered
+contradiction conditions -- sigma_peak came back UNDEFINED for 25 of 26 rows rather than flat or
+decreasing -- and was corrected to INCONCLUSIVE. H3 was declared INCONCLUSIVE when no shell model
+had ever been built, and was corrected to OPEN, since a prediction with no test at all is not an
+inadequate test. Both corrections were made by the strategizer itself within a minute of the flag.
+This is the epistemics working, and it is worth more than the two hypotheses cost.
+
+WHY H9 IS NOT CARRIED FORWARD, decided post-run 2026-09-08 by analysis rather than by another
+campaign. H9 has two branches and both close on paper. (1) As registered it engages only after the
+coil has delivered mcs 0.80, so its peak would land between 80% and 95% compression. sigma_peak is
+a max over the whole window, so that reading is legal -- but criterion 1 is then satisfied by the
+coil at a load far below the number reported, and in the limit a rigid stop placed at 80%
+compression yields an arbitrarily large sigma_peak while changing nothing the structure carries
+while compressing. D57's own chart on the slide below shows this effect already, and shows it
+greyed out: the tie's response rises to 8.3x Bessa at full compression, entirely past the 2% cap.
+(2) The branch that would be legitimate -- a skirt carrying membrane load DURING the squash -- is
+closed by criterion 2 plus printability. An axially compressed cylinder buckles with half-wavelength
+about 1.72*sqrt(R*t) and folds at a curvature of order half that, so its peak local bending strain
+is about 0.58*sqrt(t/R); at R=50 mm, holding that under 2% needs a wall under about 0.06 mm, against
+a minimum printable FDM wall near 0.4 mm. D018's measured skin sits at t/R = 0.0102, six times too
+thick, and its own strain crossed 2% at 2.3% -- the envelope and the measurement agree. Also, H9's
+fix is aimed at the right cause and is still irrelevant: cutting the top tie does remove the shear
+obstruction gamma = R*psi/H that killed H8, but the replacement failure is fold strain, which a
+bottom-only tie does not touch.
+
+COST SHAPE. $102.85 total, all of it reported by telemetry this run including the strategizer's
+$20.22 (4 turns) -- unlike run 20260907T024929, whose strategizer spend had to be recovered by hand.
+datagenerator $56.55 for five family builds, implementer $24.65 for all 140 evaluations, critic
+$1.44 for nine verdict validations. literature_reviewer cost $0.00: it ran on a local model. Its
+first call (D001) died inside langchain_openai with the local server's own OpenAI-compatibility
+error; D003, D008 and D013 then worked, so the lost delegation was the ideation pass, not the
+capability.
+
+ONE UNRESOLVED FLAG: diagnostics.jsonl carries a SCIENCE_DRIFT/UNLEDGERED_EVALS warning saying D004
+reported 26 evaluations while writing none to the canonical ledger. The ledger does now hold 26 rows
+tagged D004, so either the warning fired before the rows landed or they arrived by a second route.
+Not chased; the rows are self-consistent and every number on the slides below reproduces from them.
+
+Also spent, and worth knowing before anyone repeats it: 19 of the 140 evaluations (D005, D012) went
+into calibrating an Abaqus/Explicit Stage-2 engine against a known implicit answer, to test whether
+the wide-member stall was a solver artefact. It failed calibration -- the 377.95 kPa row in this
+run's ledger is that instrument, not a design -- and D006 then showed from the existing ODBs, with
+zero new solves, that the stall is a genuine post-buckling limit point rather than ring interference.
+-->
+
+---
+layout: two-cols-header
+class: idea-slide
+---
+
+# D57 &middot; Late-engaging slack tie (ring to ring)
+
+::left::
+
+<div class="text-sm leading-snug">
+
+- **What:** a slack elastic tie spans bottom ring to top ring, its top anchor rotated *against* the
+  direction the mast twists as it coils, and sized to go taut only past 80% compression. Longerons
+  unchanged.
+- **Origin:** the run's own answer to H1 &mdash; if bending cannot reach the target, the peak has to
+  come from stretched material. Coiling pulls the tie's two ends apart faster than descent brings
+  them together, so its straight-line span *grows*: a tie can stay limp early and pull hard late.
+- **Stats:** n=18 &rarr; 18 coil &rarr; 3 riks &rarr; 0 good
+  p50/p90/p100 &mdash; &sigma;_peak: .182/.189/.191 &middot; mcs: .043/.188/.224 &middot; mls: .0194/.0195/.0196
+  cleared: none &middot; novel: **yes** &mdash; a tie that waits; D21's cables were taut from the start
+  best good: none (0/18 passed every criterion)
+- **Verdict:** POWERED &middot; REFUTED &middot; late-engaging tension tie
+  The tie never waits. It goes taut at 5&ndash;24% compression and its own material strain then runs
+  1.3&ndash;11&times; over the 2% budget, disqualifying the mast long before the coil finishes.
+
+</div>
+
+::right::
+
+<div class="flex flex-col gap-1" style="height: 425px">
+  <div class="flex items-center justify-center" style="height: 150px">
+    <img src="/gifs/D57_tension_lock_mini.png" style="max-height: 150px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 260px">
+    <img src="/gifs/D57_tension_lock.gif" class="rounded shadow-lg" style="max-height: 260px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">Full history; strain passes 2% at 22% compression.</div>
+</div>
+
+<!--
+**Input space:** tie_offset_angle&isin;[0.4,2.2] rad &mdash; how far the tie's top anchor is rotated
+against the coiling sense. tie_slack_ratio&isin;[1.00,1.20] &mdash; the tie's unstretched length as a
+multiple of its straight-line span, so 1.00 is taut at rest. tie_area_ratio&isin;[0.004,0.025],
+sampled log-uniform so the thin end is properly covered &mdash; tie cross-section area relative to
+the reference. D011 later added tie_taper_ratio=0.35, tie_taper_length=0.15 and tie_lead_fraction=0.5
+as anchor-relief levers on one validation sample. Fixed: circular=19 (the family switch),
+ratio_d=0.018, ratio_pitch=0.681277, ratio_top_diameter=0.04444, n_longerons=3, n_storeys=1,
+contact ON.
+
+**Seed:** BARREN — the failure is not a bad corner of the box, it is the premise. The registered
+mechanism needs the tie's span to grow enough that a slack tie stays inert to 80% compression;
+measured, engagement lands at 5&ndash;24% across the whole 3-parameter box, and the sampled slack
+range reaches 1.20 with the strongest single correlation in the campaign being more slack giving
+more compression (rho 0.65, p 0.022 Holm-corrected). Extending slack further is the one perturbation
+the data points at, and it is the same lever already at its bound.
+
+**Deferred:** the tie's own strain, not the longerons', is what busts the budget (max_ligament_strain
+0.025&ndash;0.228 against a 0.02 limit), and a tie thin enough to stay elastic there would carry
+proportionally less load; nobody sized that trade explicitly. Also unresolved: D011's fidelity gate.
+The brief asked for slenderness on the tie's MINIMUM (tapered) section "so grading cannot buy a free
+pass", but that reading is arithmetically the most permissive one available (215.4 against 75.6), and
+the delegation implemented the purpose rather than the letter by gating on min(global, lead-in) =
+11.3. Worth fixing in the brief, not the code.
+
+**Timeline:** D009: built the `tension_lock` family and validated it on one sample. D010: the
+pre-registered 16-point space-filling severe test over the whole tie box, all 16 real ledgered
+solves, zero gate rejections. D011: extended the family with taper and lead-in anchor relief, one
+validation sample.
+
+**Infra:** Family `circular=19` in the canonical `workspace/data_generator.py`; Stage 1
+scripts/supercompressible_lin_buckle_tension_lock.py, Stage 2
+scripts/supercompressible_riks_tension_lock.py. Feasibility is the study's standard five, on
+windowed metrics. Gif and chart both trace to
+/oscar/scratch/eaguerov/supercompressible_oracle/riks_dee882208dd74a22acf347206a59be37 (mcs_windowed
+0.2238, the furthest any tie design got) &mdash; a typical member per rule 4's no-winner convention.
+The chart runs past the window on purpose: its dark-red section ends where strain crosses 2% at 22%
+compression, and everything grey after that, including the 8.3&times; Bessa rise as the structure
+bottoms out at full compression, is load carried outside the elastic regime this study assumes.
+-->
+
+---
+layout: two-cols-header
+class: idea-slide
+---
+
+# D9-2 &middot; Outward bow, with the depth raised to match
+
+::left::
+
+<div class="text-sm leading-snug">
+
+- **What:** D9's radial bow, re-signed to point *outward*, and &mdash; the change that matters &mdash;
+  the longeron made thicker along with it, 0.026 of the ring diameter against the study's usual
+  0.020. One design, built and validated; not a search.
+- **Origin:** D9 bowed at FIXED depth, where a bow can only lengthen and soften the member, so it
+  had to lose. The bow's real claim is different: it grows the radius the longeron coils onto, and
+  the 2%-strain depth limit is set by that radius &mdash; so a bowed member is *allowed* to be thicker.
+- **Stats:** n=1 &rarr; 1 coil &rarr; 1 riks &rarr; 1 good (1.11&times; Bessa)
+  p50/p90/p100 &mdash; &sigma;_peak: .125/.125/.125 &middot; mcs: .897/.897/.897 &middot; mls: .0174/.0174/.0174
+  cleared: none &middot; novel: no &mdash; D9's mechanism re-signed and re-tuned, parametric only
+  best good: d=.026 bow=.30 pitch=.681 top_d=.0444 &rarr; &sigma;=.1250 mcs=.897 mls=.0174
+- **Verdict:** UNDERPOWERED &middot; FERTILE-PARAMETRIC &middot; raising the depth limit by bowing
+  The limit really does move: strain per unit half-depth fell 1.61&times;, beating the 1.31&times; the
+  wider coil radius alone predicts. But the one design built on the loosened limit lands just past
+  Bessa, so the depth it bought was never spent.
+
+</div>
+
+::right::
+
+<div class="flex flex-col gap-1" style="height: 425px">
+  <div class="flex items-center justify-center" style="height: 150px">
+    <img src="/gifs/D9_2_bowed_longeron_mini.png" style="max-height: 150px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 260px">
+    <img src="/gifs/D9_2_bowed_longeron.gif" class="rounded shadow-lg" style="max-height: 260px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">Never greys: strain stays under 2% throughout.</div>
+</div>
+
+<!--
+**Input space:** one validation point, no sampling, so these are values rather than ranges.
+bow_ratio=0.30 &mdash; mid-span outward radial excursion measured from the chord, as a fraction of
+D1. ratio_d=0.026 &mdash; longeron diameter ratio, deliberately above the study's usual 0.020 because
+the loosened limit is the whole point. ratio_pitch=0.681277, ratio_top_diameter=0.04444. Fixed:
+circular=20 (the family switch), n_longerons=3, n_storeys=1, twist_angle=0,
+ratio_shear_modulus=0.3677, contact ON.
+
+**Seed:** FERTILE — sweep ratio_d from 0.026 up to the newly measured limit (implied half-depth
+1.494 mm, about 0.030 of D1) at bow_ratio=0.30 held fixed, which is the one thing this build
+established the room for and then did not use. Be clear about the ceiling before spending on it:
+peak load goes as half-depth cubed, so 1.3 mm to 1.494 mm is a factor of about 1.5, taking a
+measured 1.11&times; Bessa to roughly 1.7&times;. That is a cheap sweep worth doing and it cannot
+reach the study target on its own &mdash; treat the bow as a lever to combine, not a route.
+
+**Deferred:** the 1.61&times; measured against 1.31&times; predicted is unexplained, and the excess is
+the interesting part &mdash; the geometric argument only accounts for the mean coil radius growing
+from 48.89 mm to 63.88 mm, so something else (the arc being 1.376&times; its own chord, spreading
+curvature along a longer path) is contributing. Nobody separated the two. Also: this is one solve
+with no matched control at the SAME depth, so the comparison against 0.0216 is against the study's
+standing invariant rather than against a straight longeron re-solved at ratio_d=0.026 alongside it;
+rule 2a's minimal-control standard is not met by that, and a proper campaign here should build one.
+
+**Timeline:** D015: built the `bowed_longeron` family, validated it on one sample, and measured the
+kinematic invariant on it.
+
+**Infra:** Family `circular=20` in the canonical `workspace/data_generator.py`, reusing the
+`circular_graded` polyline-longeron code path already present in the *_pretwist* script pair rather
+than writing new curved-centreline machinery. Feasibility is the study's standard five, on windowed
+metrics. Gif and chart both trace to
+/oscar/scratch/eaguerov/supercompressible_oracle/riks_3f6d974338064d0f8ecae9e2adbada4d.
+-->
+
+---
+layout: two-cols-header
+class: idea-slide
+---
+
+# D58 &middot; Inter-longeron membrane skin
+
+::left::
+
+<div class="text-sm leading-snug">
+
+- **What:** a thin PLA sheet fills each gap between neighbouring longerons, following the mast's own
+  tapered surface between the two rings, bonded to both rings and to the longeron on either side.
+  Modelled with shell elements; one design plus its matched skinless control.
+- **Origin:** H1 again &mdash; the peak has to be carried by stretched material. A sheet loaded in
+  its own plane is stiff in a way no slender member can be, and a thin sheet was expected to wrinkle
+  away at about 0.01% strain and then keep carrying load essentially strain-free.
+- **Stats:** n=2 &rarr; 1 coil &rarr; 1 riks &rarr; 1 good (0.59&times; Bessa)
+  p50/p90/p100 &mdash; &sigma;_peak: .066/.066/.066 &middot; mcs: .872/.872/.872 &middot; mls: .0191/.0191/.0191
+  cleared: none &middot; novel: **yes** &mdash; first continuous surface in this study
+  best good: the family's only feasible member is its own SKINLESS control (&sigma;=.0659 mcs=.872)
+- **Verdict:** POWERED &middot; REFUTED &middot; in-plane membrane stiffening
+  The load half was right beyond expectation &mdash; 1268&times; its own control &mdash; and that is
+  why it fails: all of it arrives by 0.6% compression, and the mast then never coils at all. The
+  sheet locks the structure instead of stiffening it.
+
+</div>
+
+::right::
+
+<div class="flex flex-col gap-1" style="height: 425px">
+  <div class="flex items-center justify-center" style="height: 175px">
+    <img src="/gifs/D58_skinned_mast_mini.png" style="max-height: 175px; max-width: 100%" />
+  </div>
+  <div class="text-xs leading-snug px-2 opacity-70">
+    No compression video: this design's own deformation stops at 0.6% compression, which is
+    visually indistinguishable from undeformed. The chart is the honest picture &mdash; a needle at
+    zero compression, already grey (past the 2% cap), against the skinless control's real
+    load-carrying curve flat along the axis at this scale.
+  </div>
+</div>
+
+<!--
+**Input space:** two points, a design and its matched control, no sampling.
+skin_thickness_ratio&isin;{0.005, 0.0} &mdash; sheet thickness as a fraction of D1, where 0.0 is the
+control and builds no sheet, no contact pair and no shell instance at all, so the deck reduces
+exactly to the unskinned mast. skin_coverage=1.0 &mdash; the sheet spans the full gap and is
+therefore tied to the longerons on both sides (`skin_edges_tied`=1). force_stage2=1 on both, so the
+skinned design reached Stage 2 despite failing the coilability gate. ratio_d=0.018,
+ratio_pitch=0.681277, ratio_top_diameter=0.04444. Fixed: circular=21, n_longerons=3, n_storeys=1.
+
+**Seed:** BARREN — and the arithmetic says so before any further solve. The registered mechanism
+needs a sheet that wrinkles at negligible strain; what was built is not a plate but a curved shell
+(t/R = 0.0102, Batdorf Z = 400, i.e. the cylinder asymptote), whose folds carry local bending strain
+of order 0.58*sqrt(t/R) once they form. Holding that under 2% at this radius needs a wall thinner
+than about 0.06 mm, against a minimum printable FDM wall near 0.4 mm, so criterion 2 and criterion 3
+close on each other with no gap between. Thinning within the printable range does not reach it, and
+the measurement agrees with the estimate: this sheet's own strain crossed 2% at 2.3%.
+
+**Deferred:** D018 flagged, correctly, that the brief's own load estimate was built on the flat-plate
+formula (0.315 MPa, 48 N per panel) while specifying a ruled surface between two rings of different
+diameter, which is the cylinder case (22.15 MPa, 3402 N). The measured eigenvalue, 3763 N, says the
+cylinder reading is right and the brief was about 70&times; low. Nothing downstream depended on the
+wrong figure, but the same conflation is what made the mechanism look strain-cheap on paper.
+Second, not chased: the skinned row is `coilable`=0, so it failed Stage 1 and only reached Stage 2
+under `force_stage2`; its 83.5 kPa is therefore a reading from a design the study's own gate had
+already rejected, which is worth remembering before anyone quotes the number.
+
+**Timeline:** D018: built the `skinned_mast` family, including the shell-element machinery, and
+validated it on one design plus one matched skinless control.
+
+**Infra:** Family `circular=21` in the canonical `workspace/data_generator.py`; Stage 1
+scripts/supercompressible_lin_buckle_skinned_mast.py, Stage 2
+scripts/supercompressible_riks_skinned_mast.py. The sheet is S4R shell elements at 16 x 10 per
+panel; its ring-coupled edges and its longeron-tied edges are disjoint by construction, so
+over-constraint is impossible. Feasibility is the study's standard five, on windowed metrics. Chart
+traces to /oscar/scratch/eaguerov/supercompressible_oracle/riks_84ba41a522854048ad6ed018a0a6c9c0
+(skinned, solid) and riks_214f0308d51d4e8384f3389d63f47a30 (control, dashed).
+-->
+
+---
+class: summary-slide
+---
+
 # Run `20260907T024929` &mdash; summary
 
 <div class="text-sm leading-snug">
