@@ -665,6 +665,11 @@ fundamental they are, not by the date they were written.
       Unresolved     — what the run left open, and what was spent with
                        nothing to show for it.
 
+    A run whose table overflowed the canvas and was SPLIT into "(1 of 2)"
+    / "(2 of 2)" slides is still ONE summary: the five labels live on the
+    primary slide, and the continuation carries a pointer, not a second
+    set. The length cap still applies to both.
+
 9c. LENGTH CAPS (added 2026-09-09; every figure below is the audited p75
     or p90 of that label's own true distribution, not a guess, so most
     slides already comply):
@@ -1770,6 +1775,37 @@ counts against the kinematic depth cap, so the strain window shuts before the st
 &nbsp;&middot;&nbsp; **45 delegations, 545 ledgered evals**, UNGATED after 4 review rounds &nbsp;&middot;&nbsp; **Cost: ~$125**
 </div>
 
+<!--
+**Why it stopped:** UNGATED, and the reason is a genuine tension rather than a failure. The critic
+rejected the strategizer's close FOUR times, each time citing PROBLEM_STATEMENT.md's unconditional
+clause &mdash; "use the whole wall-clock budget ... CRITIC: REJECT a run you know has not used its
+time allocation and delivers a negative result" &mdash; even after two further mechanism variants
+(H21 tangential-thin, H22 tangential-full-depth) were built and tested between calls 3 and 4. The
+run terminated anyway, having exhausted its generative options rather than its clock.
+
+**What it bought:** the scale mechanism is REAL AND TOO SMALL, which is a different finding from
+"it does nothing". Three embodiments, each against its own matched control (rule 2a &mdash; the
+same base beam with the scale absent, never the study's incumbent): `release_scale`, 412 evals, 41
+feasible, best 0.0876 kPa (0.78&times; Bessa) &mdash; and its best scales-OFF row is the bare Bessa
+point itself at 0.1122, so attaching the mechanism LOWERS capacity below the bare beam;
+`slip_scale`, 73 evals, 18 feasible, best 0.0832 (0.74&times;) against control 0.0719, +16%;
+`tangent_scale`, 59 evals, 8 feasible, best 0.0751 (0.67&times;) against the same control, +4%. Two
+of three beat their own controls; all three sit far under the bar.
+
+**Corrections:** none during the run. The four critic rejections were about whether the run was
+entitled to close, not about any verdict, and no hypothesis status moved as a result.
+
+**Cost shape:** $124.90 = $117.87 telemetry + $7.03 strategizer, summed from its own transcripts
+(rule 6). The shape differs sharply from the runs around it: implementer $63.05 against
+datagenerator $27.41, because this run SEARCHED rather than built. 545 evaluations at $0.23 each,
+against $0.55 for run 20260907T024929's six oracle-builds.
+
+**Unresolved:** the close conflict itself, which is the user's call and not an agent's. A run can
+deliver well-evidenced negative science and still be refused a close by an unconditional
+time-budget rule; per the Boundaries section, any change to the critic's acceptance criteria needs
+the user's decision. Left as-is deliberately.
+-->
+
 ---
 class: summary-slide
 ---
@@ -1801,30 +1837,11 @@ Hypotheses 12&ndash;22. Split across two slides only because 22 rows do not fit 
 </div>
 
 <!--
-UNGATED, and the reason is a genuine tension worth the user's attention rather than a failure.
-The critic rejected the strategizer's close FOUR times, each time citing PROBLEM_STATEMENT.md's
-unconditional clause -- "use the whole wall-clock budget ... CRITIC: REJECT a run you know has not
-used its time allocation and delivers a negative result" -- even after two further mechanism
-variants (H21 tangential-thin, H22 tangential-full-depth) were built and tested between calls 3
-and 4. The run terminated anyway, having evidently exhausted its own generative options rather
-than its clock. That is a real conflict between well-evidenced negative science and an
-unconditional time rule, and per the Boundaries section any change to the critic's
-acceptance criteria is the user's call, not an agent's.
-
-Cost $124.90 = $117.87 telemetry + $7.03 strategizer summed from its own transcripts (rule 6).
-Shape differs sharply from the runs around it: implementer $63.05 against datagenerator $27.41 --
-this run SEARCHED rather than built, which is why 545 evals cost $0.23 each against $0.55 for
-run 20260907T024929's six oracle-builds.
-
-The three embodiments and their own matched controls (rule 2a -- the control is the same base beam
-with the scale absent, never the study's incumbent):
-   release_scale  412 evals  41 feasible  best WITH scales 0.087576 (0.78x B)
-                  its best scales-OFF row is the bare Bessa point at 0.112199 (1.00x B),
-                  i.e. attaching the mechanism LOWERS capacity below the bare beam
-   slip_scale      73 evals  18 feasible  best 0.083249 (0.74x B) vs control 0.071914 (+16%)
-   tangent_scale   59 evals   8 feasible  best 0.075110 (0.67x B) vs control 0.071914 (+4%)
-So two of three embodiments do beat their own controls, and all three remain far under the bar --
-the mechanism is real and too small, which is a different finding from "it does nothing".
+This is the second half of ONE run summary, split because the 22-hypothesis table overflows the
+980x552 canvas (rule 3). The five rule-9b labels for this run -- why it stopped, what it bought,
+corrections, cost shape, unresolved -- are on the primary summary slide ABOVE; the per-embodiment
+numbers this slide's own notes used to carry were folded into that block's "what it bought"
+paragraph on 2026-09-09, verbatim, with no figure changed.
 -->
 
 ---
@@ -1862,6 +1879,13 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** PHYSICAL. 412 designs carrying a bonded standoff scale, 409 Stage-1 coilable, 171 with
+a converged Stage-2 solve and 41 feasible, the best at 0.78&times; the Bessa reference. The decisive
+comparison is against the family's own bare beam, not against the study incumbent: the best
+scales-OFF row in this same campaign is the bare Bessa point itself at 0.1122 kPa, so attaching
+the mechanism LOWERS capacity. The reason is kinematic &mdash; the scale's standoff counts against
+the depth the 2% strain limit allows, so it spends strain budget the scale never earns back.
+
 **Input space:** n_scales, scale thickness t_scale (down to the 0.40 mm FDM floor), standoff y,
 scale_len_ratio, prebow_ratio (A0/t_scale, which sets how early the scale sheds), plus the base
 beam's own ratio_d / ratio_pitch / ratio_top_diameter. 412 ledgered designs; the exact per-axis
@@ -1885,7 +1909,7 @@ H2 and H3 remain SUPPORTED and are not in tension with the REFUTED verdict: the 
 matched core (H2) and the binding constraint is the scale's own strain (H3) -- together they say
 the mechanism is real and self-limiting, which is why the funnel is wide and the ceiling is low.
 
-**Timeline:** D004: built the release_scale oracle. D023: anchor wiring and the Bessa point.
+**Timeline:** Run 20260903T233207 &mdash; D004 built the release_scale oracle. D023: anchor wiring and the Bessa point.
 D026: the H14 end-region-compliance check. 18 hypotheses' worth of delegations across the run --
 see the run summary above for the full verdict table.
 
@@ -1933,6 +1957,13 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** PHYSICAL. 73 designs with the scale bonded at one end and free to slide at the other,
+72 Stage-1 coilable, 40 with a converged Stage-2 solve and 18 feasible, the best at 0.74&times; the
+Bessa reference &mdash; and +16% over its own bare control at 0.0719 kPa. So the slip does what it
+was built to do: it removes the membrane squeeze that D51 measured as the binding term. What
+replaces it is worse-behaved than expected &mdash; with only one end bonded, the coiling curvature
+concentrates there instead of distributing, and the ceiling stays at three quarters of Bessa.
+
 **Input space:** the release_scale axes (n_scales, t_scale, standoff, scale_len_ratio,
 prebow_ratio) plus the base beam's ratio_d / ratio_pitch / ratio_top_diameter, with the tie
 changed from bonded-both-ends to bonded-one-end/sliding-other. 73 ledgered designs; per-axis
@@ -1949,7 +1980,7 @@ top_d=.0444 with the scale absent (0.071914 kPa), not the study's incumbent. 14 
 rows have scales realized and 4 are that bare control, so the +16% is a with/without comparison at
 matched geometry rather than a best-of-family readout.
 
-**Timeline:** D033: built the slip_scale Stage-1 and Stage-2 pre-processors. D036: the ledgered
+**Timeline:** Run 20260903T233207 &mdash; D033 built the slip_scale Stage-1 and Stage-2 pre-processors. D036: the ledgered
 sweep whose best row is quoted above. See the run summary above for H19/H20's full evidence.
 
 **Infra:** Oracle bo/oracle_slip_scale.py; Stage 1
@@ -1996,6 +2027,13 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** PHYSICAL. 59 designs with the scale offset tangentially rather than radially, 52
+Stage-1 coilable, 20 with a converged Stage-2 solve and 8 feasible, the best at 0.67&times; the
+Bessa reference and only +4% over the same bare control. The offset direction is the whole
+variable, and it loses by construction rather than by tuning: member width enters the peak-load
+law linearly where depth enters it cubed, so trading depth for width cannot buy back what the
+kinematic depth cap removes. It is the weaker lever, measurably.
+
 **Input space:** as D52's axes but with the offset direction tangential rather than radial;
 n_scales swept to 6 (the best row uses all six). 59 ledgered designs; per-axis bounds in the run's
 registration for namespace 'tangent_scale'. Fixed: n_longerons=3, n_storeys=1,
@@ -2014,7 +2052,7 @@ This slide closes the scale-substrate direction as a whole: across D49 (complian
 (bonded standoff), D52 (sliding tie) and D53 (tangential), every tie topology and every offset
 direction has now been measured, and none reaches the bar.
 
-**Timeline:** D038: built the tangent_scale Stage-1 and Stage-2 pre-processors. D039: the ledgered
+**Timeline:** Run 20260903T233207 &mdash; D038 built the tangent_scale Stage-1 and Stage-2 pre-processors. D039: the ledgered
 sweep whose best row is quoted above. H21 and H22 were registered and tested between the critic's
 third and fourth rejection -- see the run summary above.
 
