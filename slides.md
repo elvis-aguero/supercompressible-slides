@@ -565,19 +565,39 @@ fundamental they are, not by the date they were written.
    — this is the font size the character budget (rule 3) is calibrated
    against; do not silently change it without re-measuring the budget.
 
-9. SPEAKER-NOTES FORMAT — applies to every idea-slide, including every
-   D<n>-<k> revisit. Exactly these five labels, bold Markdown
-   (`**Label:**`), one per paragraph, in this order when more than one
-   is present — all optional except Input space and Seed:
+9. SPEAKER-NOTES FORMAT (revised 2026-09-09, after a full audit of all 124
+   slides' notes: measured per-label lengths, classified every unlabeled
+   section, and read specimens at each percentile per label. The audit's
+   own finding is why this rule changed shape: the five original labels
+   were already disciplined — true p90s of 677/1270/979/1979/1227 chars —
+   while 39.3% of all idea-slide notes text, 105 sections, sat under no
+   label at all. Capping the labels would have squeezed the well-behaved
+   60% and left the real mass untouched. So this revision adds the two
+   labels that mass was actually made of, and budgets the TOTAL.)
 
-     Input space — MANDATORY. The sole home for the free/fixed parameter
+9a. IDEA-SLIDE LABELS — applies to every idea-slide, including every
+    D<n>-<k> revisit. Exactly these seven labels, bold Markdown
+    (`**Label:**`), one per paragraph, in this order when more than one
+    is present — all optional except Result, Input space and Seed:
+
+     Result       — MANDATORY (added 2026-09-09). Exactly three
+                    sentences, in this order: WHAT WAS TRIED, WHAT WAS
+                    MEASURED, WHY IT CAME OUT THAT WAY. It exists because
+                    the result previously lived only on the slide face,
+                    compressed to fit a 552px canvas, so a reader of the
+                    notes alone never got the story. A Result that opens
+                    with a number instead of a design has skipped
+                    sentence one. Its third sentence carries the CAUSE
+                    LABEL — see 9d.
+     Input space  — MANDATORY. The sole home for the free/fixed parameter
                     list with sampled bounds. One line per free
                     parameter:
                       <var>&isin;[lo,hi] — <physical meaning>
                     Meaning may be omitted for a self-explanatory name,
                     but the BOUNDS may never be. One trailing line for
-                    fixed parameters. Uncapped — speaker notes carry no
-                    canvas budget, list every free parameter.
+                    fixed parameters. UNCAPPED, deliberately: its length
+                    scales with the parameter count, and a 6-parameter
+                    family SHOULD be longer than a 2-parameter one.
      Seed         — MANDATORY. Always present:
                       FERTILE — <a perturbation that would count>
                       BARREN  — <why no perturbation can clear the bar>
@@ -590,20 +610,165 @@ fundamental they are, not by the date they were written.
                     resolved on this slide. Kept separate from Seed:
                     Seed answers "is this idea worth another shot",
                     Deferred answers "what's unresolved about THIS
-                    analysis".
-     Timeline     — one line per delegation, `D0XX: <one-clause
-                    summary>`, even for a single delegation — this is
-                    what satisfies rule 5(c). Do NOT restate the best
-                    design's own numbers here — that duplicates the
-                    Stats bullet's "best good:" line.
+                    analysis". Populate it whenever such content exists:
+                    the audit found it on 32 of 71 slides while the
+                    content itself was present on most of the rest, just
+                    unlabeled — which is why the deck could not answer
+                    "what is still open" without reading everything.
+                    A reliable Deferred is what makes that greppable.
+     Timeline     — the PROVENANCE ADDRESS that satisfies rule 5(c), and
+                    nothing else. LEAD WITH THE RUN, then the
+                    delegations:
+                      Run <UTC-timestamp> — D0XX <one clause>; D0YY ...
+                    A bare `D011:` addresses nothing — delegation ids
+                    restart every run, and the audit found 24 of 53
+                    Timelines carrying no run timestamp at all. Do NOT
+                    restate the best design's own numbers here, and do
+                    not narrate: a diagnostic table or a cross-run story
+                    is Result content that landed in the wrong label.
      Infra        — where the model actually gets built and solved: the
                     oracle module, the Stage-1/Stage-2 preprocessor
                     scripts, the fidelity-gate function and its
                     criteria, and the archived ODB/scratch source path
-                    the slide's gif traces to (rule 5(b)).
+                    the slide's gif AND its chart trace to (rule 5(b)).
+                    Chart/gif provenance belongs HERE, not in a separate
+                    ad-hoc heading — 14 such sections existed at the time
+                    of the audit.
+     History      — LAST, ALWAYS, and UNCAPPED (added 2026-09-09). Every
+                    dated correction, retraction, supersession, chart
+                    rebuild and re-render. Capping an append-only audit
+                    trail would destroy the record; it does not need to
+                    be short, it needs to be OUT OF THE WAY OF THE READ.
+                    Moving existing correction prose into History is a
+                    relocation, not an edit, so rule 2's append-only
+                    protection is untouched — no number and no conclusion
+                    changes. State the CURRENT reading first, then the
+                    chain that produced it: the audit's worst case (D30)
+                    required tracing three generations of a number to
+                    learn its present value.
 
-   Linter: WARN only. A slide missing Seed warns; a slide with these
-   labels out of order warns; nothing here blocks a commit.
+9b. RUN-SUMMARY NOTES (added 2026-09-09). Rule 9 previously governed idea
+    slides only, so run-summary notes had no format at all — and that is
+    where the sprawl concentrated: 20 of the 36 all-caps unlabeled blocks,
+    median 1780 chars, worst 7705. An agent's FIRST question is "what did
+    run N establish", so this is the highest-leverage section in the deck.
+    Five labels, same bold-Markdown form, in this order:
+
+      Why it stopped — gate outcome, stop_reason, wall clock vs budget.
+      What it bought — the run's actual scientific product, including the
+                       case where several hypotheses are one result stated
+                       several ways. Say so when they are.
+      Corrections    — self-retractions, validator flags, verdicts that
+                       moved. These are the epistemics working; they are
+                       worth naming, not hiding.
+      Cost shape     — real USD per rule 6, and where it went.
+      Unresolved     — what the run left open, and what was spent with
+                       nothing to show for it.
+
+9c. LENGTH CAPS (added 2026-09-09; every figure below is the audited p75
+    or p90 of that label's own true distribution, not a guess, so most
+    slides already comply):
+
+      Result                       600 chars
+      Input space                  uncapped (enumeration)
+      Seed                         600 chars   (audited p75 = 594)
+      Deferred                     900 chars   (audited p90 = 979)
+      Timeline                     160 chars PER LINE, block uncapped
+                                   — length must scale with the
+                                   delegation count, never with prose
+      Infra                      1,200 chars soft (audited p90 = 1,227)
+      History                      uncapped, and last
+      IDEA SLIDE TOTAL           3,500 chars EXCLUDING History
+      RUN-SUMMARY TOTAL          2,500 chars across its five labels
+                                   — five labels x the audited median label
+                                   size (~482 chars); the p50 of 1,780 measured
+                                   before this rule came from summaries carrying
+                                   NO labels and 3-4 topics, so it was the wrong
+                                   base for a fully-populated one
+
+    The idea-slide total is the load-bearing one: caps on the individual
+    labels move almost nothing, because those labels were never the
+    problem. Only a total budget with History exempted forces unlabeled
+    prose to pick a label.
+
+    OVERFLOW HAS A DESTINATION, it is not deleted. A genuinely long
+    technical argument — a mesh-convergence study, a debunked artifact,
+    a mode scan — goes to `validation/<topic>/README.md` and is cited by
+    path from Infra. This convention already existed before the rule:
+    D36's notes end by citing `validation/shell_coiling_mode_scan/`.
+    Deck becomes the index; validation/ carries the depth.
+
+9d. PROSE — WHY A RESULT CAME OUT THE WAY IT DID (added 2026-09-09; this
+    is the single most important thing the notes do, and the audit found
+    it was the least systematic).
+
+    THE CAUSE LABEL. Result's third sentence names one of these, leading
+    the block as `**Result:** <CAUSE>. ...`. Each value is instantiated by
+    a real slide in this deck; none of them is invented:
+
+      PHYSICAL       the mechanism engaged and the mechanics defeat it.
+                     D47: each arch's own apex IS the ring above it, so
+                     it cannot fully invert.
+      NUMERICAL      the solver never produced the answer. D22: "a
+                     solve-completion wall, not a strain wall."
+      NON-ENGAGEMENT the solve is fine; the mechanism never activated.
+                     D32: "CPRESS = 0 — the cone is there, never
+                     touched."
+      EVIDENTIAL     the search never reached the discriminating regime.
+                     D24-3: ablated against the study's own incumbent
+                     rather than a minimal host (rule 2a).
+      TOOLING        the model could not be built at all. D8:
+                     `EllipticalProfile` is absent from the installed
+                     Abaqus 2024 kernel.
+      DISQUALIFIED   the number is real but does not count. D30:
+                     refuted on novelty, not on performance.
+
+    NUMERICAL and NON-ENGAGEMENT ARE THE SPLIT OF `BLOCKED`, and they
+    are opposite conclusions: the first means we learned nothing and the
+    numerics should be retried; the second means we learned something
+    real, namely that this mechanism does not engage in this regime.
+    The CAMPAIGN axis fuses them under one tag, which is why a reader
+    skimming D54 or D32 files an untested mechanism as a failure. Where
+    two causes apply, name both in dominance order — D32 is genuinely
+    NON-ENGAGEMENT below the contact onset and NUMERICAL above it.
+
+    THE CAUSE LABEL LIVES IN Result, NOT IN Verdict. Two reasons, both
+    binding: rule 2 forbids rewriting an existing verdict's words, and
+    21 of the 71 idea slides predate CAMPAIGN·IDEA·SCOPE entirely and
+    cannot express the axis at all. Putting the cause in a new label
+    reaches every slide in the deck without touching one conclusion.
+
+    THE OTHER FIVE PROSE RULES:
+      (i)   A negative must say what would change the answer. NUMERICAL
+            and TOOLING negatives are about our instrument, so name the
+            instrument fix; PHYSICAL and NON-ENGAGEMENT negatives are
+            about the design, so name the regime or geometry that would
+            engage it. This is what stops a reader guessing whether a
+            dead end is actually dead.
+      (ii)  Name a quantity with its physical meaning on first use in
+            Result, once per slide: not "mls hit 0.0198" but "local
+            material strain reached 2.0%, its limit". Input space and
+            Infra stay free to use bare identifiers — they are reference
+            sections.
+      (iii) No causal claim without its measurement. "The skin locks the
+            mast" is an assertion; "all of its load arrives by 0.6%
+            compression, and it is not coilable" is the same claim with
+            its evidence.
+      (iv)  NEVER report a convergence failure as a mechanism failure.
+            D33's nine words are the model sentence for the whole deck:
+            "the sudden contact force breaks the solver, not the
+            physics."
+      (v)   The reader is a computational engineer without a solids
+            background. Every mechanics or FE term gets its meaning in
+            the same clause the first time a slide uses it, or it is on
+            the glossary slide. Reserve bare identifiers, correlation
+            coefficients and p-values for the reference sections.
+
+   Linter: WARN only, throughout rule 9. A slide missing Result, Input
+   space or Seed warns; labels out of order warn; a length cap exceeded
+   warns; a Result with no cause label warns; a Timeline with no run
+   timestamp warns. Nothing here blocks a commit — the judgment is the
+   author's, the linter only makes the omission visible.
 ============================================================================
 -->
 
@@ -731,61 +896,36 @@ compression.
 </div>
 
 <!--
-This run ended on `stop_reason: org_spend_limit` at 5.5 h of a 12 h budget, mid-way through D020 --
-the delegation building H9. There is no deliverable, no gate attempt, and no critic_reviews/
-directory at all, so the whole run is read from the ledger and the hypothesis log.
+**Why it stopped:** `stop_reason: org_spend_limit` at 5.5 h of a 12 h budget, mid-way through
+D020, the delegation building H9. No deliverable, no gate attempt, no `critic_reviews/`
+directory &mdash; so the run is read entirely from the ledger and the hypothesis log.
 
-WHAT IT ACTUALLY BOUGHT, and it is more than the zero deliverables suggest. H1, H6 and H7 together
-are one result stated three ways: the peak load of a rocking mast is set at its first global
-buckling event, that load has no explicit dependence on member length (measured pitch exponent
-0.077, R2=0.857, against a registered falsifier of +/-0.4), and the width needed to reach 10x Bessa
-demands a storey pitch at which the coil provably will not complete. Three separate probes, one
-wall. That is why the four escape attempts below all matter more than their individual verdicts.
+**What it bought:** H1, H6 and H7 are one result stated three ways: the peak load is set at the structure's first global buckling event, that load has no explicit
+dependence on member length (pitch exponent 0.077, R2=0.857, against a registered falsifier of
++/-0.4), and the width needed to reach the target demands a storey pitch at which the coil
+provably will not complete. Three probes, one wall &mdash; which is why the four
+escape attempts below matter more than their individual verdicts.
 
-TWO SELF-RETRACTIONS, both correct, both prompted by the verdict validator (diagnostics.jsonl,
-VERDICT_SUBSTANCE_FLAG). H2 was declared FALSIFIED on evidence that met none of its own registered
-contradiction conditions -- sigma_peak came back UNDEFINED for 25 of 26 rows rather than flat or
-decreasing -- and was corrected to INCONCLUSIVE. H3 was declared INCONCLUSIVE when no shell model
-had ever been built, and was corrected to OPEN, since a prediction with no test at all is not an
-inadequate test. Both corrections were made by the strategizer itself within a minute of the flag.
-This is the epistemics working, and it is worth more than the two hypotheses cost.
+**Corrections:** two self-retractions, both correct, both prompted by the verdict validator
+(`diagnostics.jsonl`, VERDICT_SUBSTANCE_FLAG). H2 was declared FALSIFIED on evidence meeting none of its
+own registered contradiction conditions (sigma_peak came back UNDEFINED for 25 of 26 rows,
+not flat or decreasing) and was corrected to INCONCLUSIVE. H3 was
+declared INCONCLUSIVE when no shell model had ever been built, and was corrected to OPEN, since
+a prediction with no test at all is not an inadequate test. Both within a minute of the flag.
 
-WHY H9 IS NOT CARRIED FORWARD, decided post-run 2026-09-08 by analysis rather than by another
-campaign. H9 has two branches and both close on paper. (1) As registered it engages only after the
-coil has delivered mcs 0.80, so its peak would land between 80% and 95% compression. sigma_peak is
-a max over the whole window, so that reading is legal -- but criterion 1 is then satisfied by the
-coil at a load far below the number reported, and in the limit a rigid stop placed at 80%
-compression yields an arbitrarily large sigma_peak while changing nothing the structure carries
-while compressing. D57's own chart on the slide below shows this effect already, and shows it
-greyed out: the tie's response rises to 8.3x Bessa at full compression, entirely past the 2% cap.
-(2) The branch that would be legitimate -- a skirt carrying membrane load DURING the squash -- is
-closed by criterion 2 plus printability. An axially compressed cylinder buckles with half-wavelength
-about 1.72*sqrt(R*t) and folds at a curvature of order half that, so its peak local bending strain
-is about 0.58*sqrt(t/R); at R=50 mm, holding that under 2% needs a wall under about 0.06 mm, against
-a minimum printable FDM wall near 0.4 mm. D018's measured skin sits at t/R = 0.0102, six times too
-thick, and its own strain crossed 2% at 2.3% -- the envelope and the measurement agree. Also, H9's
-fix is aimed at the right cause and is still irrelevant: cutting the top tie does remove the shear
-obstruction gamma = R*psi/H that killed H8, but the replacement failure is fold strain, which a
-bottom-only tie does not touch.
+**Cost shape:** $102.85, all of it reported by telemetry this run including the strategizer's
+$20.22 over 4 turns &mdash; unlike run 20260907T024929, whose strategizer spend had to be
+recovered by hand. datagenerator $56.55 for five family builds, implementer $24.65 for all 140
+evaluations, critic $1.44 for nine verdict validations. literature_reviewer $0.00 on a local model,
+whose first call (D001) died inside `langchain_openai`, losing the ideation pass.
 
-COST SHAPE. $102.85 total, all of it reported by telemetry this run including the strategizer's
-$20.22 (4 turns) -- unlike run 20260907T024929, whose strategizer spend had to be recovered by hand.
-datagenerator $56.55 for five family builds, implementer $24.65 for all 140 evaluations, critic
-$1.44 for nine verdict validations. literature_reviewer cost $0.00: it ran on a local model. Its
-first call (D001) died inside langchain_openai with the local server's own OpenAI-compatibility
-error; D003, D008 and D013 then worked, so the lost delegation was the ideation pass, not the
-capability.
-
-ONE UNRESOLVED FLAG: diagnostics.jsonl carries a SCIENCE_DRIFT/UNLEDGERED_EVALS warning saying D004
-reported 26 evaluations while writing none to the canonical ledger. The ledger does now hold 26 rows
-tagged D004, so either the warning fired before the rows landed or they arrived by a second route.
-Not chased; the rows are self-consistent and every number on the slides below reproduces from them.
-
-Also spent, and worth knowing before anyone repeats it: 19 of the 140 evaluations (D005, D012) went
-into calibrating an Abaqus/Explicit Stage-2 engine against a known implicit answer, to test whether
-the wide-member stall was a solver artefact. It failed calibration -- the 377.95 kPa row in this
-run's ledger is that instrument, not a design -- and D006 then showed from the existing ODBs, with
-zero new solves, that the stall is a genuine post-buckling limit point rather than ring interference.
+**Unresolved:** H9 was never tested and is not carried forward &mdash; both of its branches
+close on paper, argued in full in `validation/h9_skirt_closure/README.md`. H3's shell
+counter-test stays OPEN by deliberate reallocation. 19 of the 140 evaluations (D005, D012) went into
+calibrating an Abaqus/Explicit Stage-2 engine that then failed calibration &mdash; the 377.95 kPa
+ledger row is that instrument, not a design. A SCIENCE_DRIFT/UNLEDGERED_EVALS warning says D004
+ledgered none of its 26 evaluations, yet 26 D004-tagged rows are there now; not chased, and
+every number on the slides below reproduces from them.
 -->
 
 ---
@@ -828,6 +968,13 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** PHYSICAL. Eighteen circumferentially-offset slack ties across the full
+three-parameter box, three of them solved to a decision. None reached the 80%-compression
+criterion; the best stopped at 22%. The tie goes taut at 5&ndash;24% compression rather than past
+80%, and once taut its own material strain runs 0.025&ndash;0.228 against a 0.02 limit &mdash; so
+what disqualifies the mast is the tie's strain, not the longerons'. The registered premise
+failed, not the solver: the coil does not grow the tie's span fast enough to keep it slack.
+
 **Input space:** tie_offset_angle&isin;[0.4,2.2] rad &mdash; how far the tie's top anchor is rotated
 against the coiling sense. tie_slack_ratio&isin;[1.00,1.20] &mdash; the tie's unstretched length as a
 multiple of its straight-line span, so 1.00 is taut at rest. tie_area_ratio&isin;[0.004,0.025],
@@ -852,10 +999,10 @@ pass", but that reading is arithmetically the most permissive one available (215
 the delegation implemented the purpose rather than the letter by gating on min(global, lead-in) =
 11.3. Worth fixing in the brief, not the code.
 
-**Timeline:** D009: built the `tension_lock` family and validated it on one sample. D010: the
-pre-registered 16-point space-filling severe test over the whole tie box, all 16 real ledgered
-solves, zero gate rejections. D011: extended the family with taper and lead-in anchor relief, one
-validation sample.
+**Timeline:** Run 20260907T212358 &mdash;
+- D009 built the `tension_lock` family, validated on one sample.
+- D010 ran the pre-registered 16-point space-filling severe test over the whole tie box; all 16 ledgered, zero gate rejections.
+- D011 extended the family with taper and lead-in anchor relief, one validation sample.
 
 **Infra:** Family `circular=19` in the canonical `workspace/data_generator.py`; Stage 1
 scripts/supercompressible_lin_buckle_tension_lock.py, Stage 2
@@ -863,9 +1010,8 @@ scripts/supercompressible_riks_tension_lock.py. Feasibility is the study's stand
 windowed metrics. Gif and chart both trace to
 /oscar/scratch/eaguerov/supercompressible_oracle/riks_dee882208dd74a22acf347206a59be37 (mcs_windowed
 0.2238, the furthest any tie design got) &mdash; a typical member per rule 4's no-winner convention.
-The chart runs past the window on purpose: its dark-red section ends where strain crosses 2% at 22%
-compression, and everything grey after that, including the 8.3&times; Bessa rise as the structure
-bottoms out at full compression, is load carried outside the elastic regime this study assumes.
+The chart deliberately runs past the window: everything grey, including the 8.3&times; Bessa rise as
+the structure bottoms out, is load carried outside the elastic regime this study assumes.
 -->
 
 ---
@@ -909,6 +1055,13 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** EVIDENTIAL. One outward-bowed longeron, built and validated at a deliberately
+raised member depth &mdash; 0.026 of the ring diameter against the study's usual 0.020. It is
+feasible and peaks at 1.11&times; the Bessa reference; the strain incurred per unit of member
+half-depth fell 1.61&times;, against the 1.31&times; the wider coil radius alone predicts. So the
+mechanism works and the member really is allowed to be thicker, but the test never spent the room
+it opened: the new limit permits a 1.494 mm half-depth and this design used 1.3 mm.
+
 **Input space:** one validation point, no sampling, so these are values rather than ranges.
 bow_ratio=0.30 &mdash; mid-span outward radial excursion measured from the chord, as a fraction of
 D1. ratio_d=0.026 &mdash; longeron diameter ratio, deliberately above the study's usual 0.020 because
@@ -931,8 +1084,8 @@ with no matched control at the SAME depth, so the comparison against 0.0216 is a
 standing invariant rather than against a straight longeron re-solved at ratio_d=0.026 alongside it;
 rule 2a's minimal-control standard is not met by that, and a proper campaign here should build one.
 
-**Timeline:** D015: built the `bowed_longeron` family, validated it on one sample, and measured the
-kinematic invariant on it.
+**Timeline:** Run 20260907T212358 &mdash;
+- D015 built the `bowed_longeron` family, validated it on one sample, and measured the depth limit on it.
 
 **Infra:** Family `circular=20` in the canonical `workspace/data_generator.py`, reusing the
 `circular_graded` polyline-longeron code path already present in the *_pretwist* script pair rather
@@ -984,6 +1137,14 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** PHYSICAL. One skinned mast &mdash; a thin sheet across every gap between adjacent
+longerons &mdash; against its own matched skinless control, two solves. The skinned design carries
+1268&times; the control's load but reaches only 0.6% compression and fails the coilability gate
+outright, while the control compresses to 87%. The sheet is a curved shell rather than a flat
+plate, so it is far too stiff to wrinkle away as assumed: it ties the rings together and resists
+the twist the coiling motion needs. No solver failed &mdash; the strain crossing is measured, at
+2.3%.
+
 **Input space:** two points, a design and its matched control, no sampling.
 skin_thickness_ratio&isin;{0.005, 0.0} &mdash; sheet thickness as a fraction of D1, where 0.0 is the
 control and builds no sheet, no contact pair and no shell instance at all, so the deck reduces
@@ -992,13 +1153,11 @@ therefore tied to the longerons on both sides (`skin_edges_tied`=1). force_stage
 skinned design reached Stage 2 despite failing the coilability gate. ratio_d=0.018,
 ratio_pitch=0.681277, ratio_top_diameter=0.04444. Fixed: circular=21, n_longerons=3, n_storeys=1.
 
-**Seed:** BARREN — and the arithmetic says so before any further solve. The registered mechanism
-needs a sheet that wrinkles at negligible strain; what was built is not a plate but a curved shell
-(t/R = 0.0102, Batdorf Z = 400, i.e. the cylinder asymptote), whose folds carry local bending strain
-of order 0.58*sqrt(t/R) once they form. Holding that under 2% at this radius needs a wall thinner
-than about 0.06 mm, against a minimum printable FDM wall near 0.4 mm, so criterion 2 and criterion 3
-close on each other with no gap between. Thinning within the printable range does not reach it, and
-the measurement agrees with the estimate: this sheet's own strain crossed 2% at 2.3%.
+**Seed:** BARREN — the arithmetic closes it before any further solve. A cylindrical shell's folds
+carry local bending strain of order 0.58*sqrt(t/R) once they form, so holding that under 2% at this
+radius needs a wall thinner than about 0.06 mm, against a minimum printable FDM wall near 0.4 mm.
+Criterion 2 and criterion 3 close on each other with no gap: thinning inside the printable range
+never reaches it. Full argument in `validation/h9_skirt_closure/README.md`.
 
 **Deferred:** D018 flagged, correctly, that the brief's own load estimate was built on the flat-plate
 formula (0.315 MPa, 48 N per panel) while specifying a ruled surface between two rings of different
@@ -1009,8 +1168,8 @@ Second, not chased: the skinned row is `coilable`=0, so it failed Stage 1 and on
 under `force_stage2`; its 83.5 kPa is therefore a reading from a design the study's own gate had
 already rejected, which is worth remembering before anyone quotes the number.
 
-**Timeline:** D018: built the `skinned_mast` family, including the shell-element machinery, and
-validated it on one design plus one matched skinless control.
+**Timeline:** Run 20260907T212358 &mdash;
+- D018 built the `skinned_mast` family, including its shell-element machinery, and validated it on one design plus one matched skinless control.
 
 **Infra:** Family `circular=21` in the canonical `workspace/data_generator.py`; Stage 1
 scripts/supercompressible_lin_buckle_skinned_mast.py, Stage 2
