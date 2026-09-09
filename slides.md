@@ -678,7 +678,16 @@ fundamental they are, not by the date they were written.
                                    delegation count, never with prose
       Infra                      1,200 chars soft (audited p90 = 1,227)
       History                      uncapped, and last
-      IDEA SLIDE TOTAL           3,500 chars EXCLUDING History
+      IDEA SLIDE TOTAL           3,500 chars EXCLUDING History AND
+                                   Timeline — both are exempt for the same
+                                   reason Input space is uncapped: their
+                                   length is set by facts the author does
+                                   not control (the correction record; how
+                                   many delegations the run spent). Counting
+                                   Timeline made a 14-delegation slide
+                                   overspend its budget on provenance it is
+                                   required to carry — found while
+                                   converting D50, which has 14.
       RUN-SUMMARY TOTAL          2,500 chars across its five labels
                                    — five labels x the audited median label
                                    size (~482 chars); the p50 of 1,780 measured
@@ -1595,39 +1604,38 @@ when a second solver contradicted it.
 </div>
 
 <!--
-Gate: 0 critical, 0 major, 3 minor -- a first-round PASS, which no prior run in this deck has
-achieved. All three minors are presentational (a self-reported wall-clock figure 1.3 h above the
-authoritative snapshot; a terse chat summary omitting a caveat the notebook itself carries; a
-self-interference alternative checked for the implicit rows but not extended to the two Explicit
-ones).
+**Why it stopped:** ran to a clean close. Gate: 0 critical, 0 major, 3 minor &mdash; a
+first-round PASS, a first for this deck. All three minors are presentational: a self-reported
+wall clock 1.3 h above the authoritative snapshot, a chat summary omitting a caveat the notebook
+itself carries, and a self-interference check not extended to the two Explicit rows.
 
-Three of the run's five verdicts were RETRACTED by the run itself as better evidence arrived --
-H2 (a Stage-1 proxy had been substituted for the peak-load claim the criterion actually names),
-H4 (the implicit jam turned out to be an arc-length artefact), and H5 (non-convergence undercut
-its own search's power argument). Each retraction cites the delegation that forced it. The
-critic's own review calls these "textbook-correct applications of Charter 2-4".
+**What it bought:** a real, large mechanism &mdash; the antagonistic lock raises peak load
+5.25&times; at an identical cross-section &mdash; and a clear reason it still fails: coiling strain
+rises with the load, so all 165 designs sit at the 2% limit. The compression half went unbought:
+the instrument reached for to settle it never passed its calibration gate.
 
-Cost recovered per format-contract rule 6: $42.52 from debug/telemetry (implementer $23.71,
-datagenerator $15.17, critic $3.65) plus $1.45 for the strategizer, which its persistent adapter
-never reported to telemetry and which had to be summed from
-debug/transcripts/strategizer/*.jsonl by hand. The literature reviewer cost $0.00 across 3
-calls: this run pointed that node at a local Ollama-served qwen3.8-27b instead of the API.
+**Corrections:** three of the run's five verdicts were RETRACTED by the run itself as better
+evidence arrived. H2, where a Stage-1 proxy had been substituted for the peak-load claim the
+criterion actually names; H4, where the implicit jam turned out to be an arc-length artefact; and
+H5, where non-convergence undercut its own search's power argument. Each cites the delegation that forced it; the critic's
+review calls them "textbook-correct applications of Charter 2-4".
 
-RECURRING HARNESS FRICTION, worth fixing before the next run rather than rediscovering a fourth
-time: (i) D001, D004 and D007 each independently flagged the same contradiction between the
-datagenerator role's unconditional "registration.json is mandatory" output contract and the
-brief's "keep the canonical entrypoint" -- three delegations spent reasoning on one spec
-collision; (ii) no dry-run exists on the oracle, so a guard's reject path cannot be exercised
-without writing a sentinel row into the canonical ledger (D004, D007 and the strategizer all
-reported this independently, and both delegations fell back to proving reject branches by source
-inspection); (iii) Confer() takes a node name, not a delegation id, so a mid-flight message to
-D004 was lost; (iv) dispatch stdout block-buffers under nohup without PYTHONUNBUFFERED=1, which
-cost D012, D015 and D016 their live logs; (v) Semantic Scholar returned 403 on every call this
-run, so both literature delegations ran on OpenAlex alone.
+**Cost shape:** $43.97 = $42.52 telemetry (implementer $23.71, datagenerator $15.17, critic
+$3.65) plus $1.45 for the strategizer, which its persistent adapter never reported and which had
+to be summed from `debug/transcripts/strategizer/*.jsonl` by hand (rule 6). The literature
+reviewer cost $0.00 across 3 calls: this run pointed that node at a locally-served qwen3.8-27b
+instead of the API.
 
-Deck gap, not this run's doing: run 20260903T233207 (release_scale / slip_scale / tangent_scale,
-H16) closed UNGATED and still has no summary slide, so format-contract rule 6 is currently
-unsatisfied for it. Adding it needs its own data pass and is not folded in here.
+**Unresolved:** the Explicit engine is uncertified, which is what leaves H4 and H5 INCONCLUSIVE
+&mdash; measurement and requirements in `validation/explicit_engine_calibration/README.md`. Five
+pieces of harness friction recurred, all worth fixing before another run rather than
+rediscovering a fourth time: the datagenerator role's unconditional "registration.json is
+mandatory" contract colliding with a brief that says keep the canonical entrypoint (flagged
+independently by D001, D004 and D007); no oracle dry-run, so a guard's reject path cannot be
+exercised without writing a sentinel row into the canonical ledger; `Confer()` taking a node name
+rather than a delegation id, losing a mid-flight message to D004; dispatch stdout block-buffering
+under nohup without PYTHONUNBUFFERED=1, costing D012, D015 and D016 their live logs; and Semantic Scholar
+returning 403 on every call.
 -->
 
 ---
@@ -1673,6 +1681,14 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** PHYSICAL, then NUMERICAL. 165 counter-inclined masts, 74 Stage-1 coilable, 7 with a
+converged Stage-2 solve, none feasible. The antagonism lock is real and
+large &mdash; peak load rises 5.25&times; at an identical cross-section &mdash; but coiling strain
+rises with it, and every decided design sits pinned at the 2% strain limit, which is why nothing
+passes. Whether such a mast can compress at all is undecided for a separate, instrument reason:
+the implicit jam near 45% was an arc-length artefact, and the Explicit solver that overturned it
+never passed its own calibration gate.
+
 **Input space:** twist_angle&isin;[0.0005,0.45] rad &mdash; the antagonism half-angle &beta;, the
 one parameter that defines the mechanism (0 == the control). ratio_d&isin;[0.0040,0.01812] &mdash;
 circular longeron diameter ratio. ratio_pitch&isin;[0.3155,1.0802] &mdash; storey height.
@@ -1686,45 +1702,34 @@ saturated at 56&times; bending stiffness) on an Abaqus/Explicit instrument that 
 its own +/-10% calibration gate. That single change decides H4 and H5 together, and it is the
 only reason both are INCONCLUSIVE rather than closed. The lock itself needs no further testing.
 
-**Deferred:** The Explicit instrument is not certified. D015 re-ran the calibration at
-explicit_velocity_safety_ratio=1000 (up from 100, inherited from a stubbier family) and the
-energy ratio fell inside the gate, but the two controls returned mcs 0.7979 and 0.8317 against
-truths of 0.8532 and 0.9245 -- a consistent -6.5% / -10.0% low bias that misses the +/-10% gate by
-0.035 percentage points. The run argued, and this slide accepts, that a ~10% quantitative bias
-cannot manufacture or conceal the factor-2.6 qualitative gap between mcs 0.30 and 0.80; it is
-still not a certified number. Two further bi-chiral Explicit rows (&beta;=0.012 and 0.008) are
-flagged VOID on the same gate and are excluded from every figure above.
-Also unresolved: the lock's ratio FALLS monotonically with &beta; (8.81 -> 7.39 over
-&beta;=0.05->0.45), the opposite of what H3 predicted -- the lock saturates at the smallest angle
-sampled, so larger angles only add geometric distortion. And per rule 2b this is MECHANISM
-novelty, but D005 flagged adversarially that it "collapses into D15 in mechanism if the only
-claimed difference is member bookkeeping"; D15 failed 30/30 on the same strain-budget criterion.
+**Deferred:** the Explicit instrument is not certified &mdash; a consistent 6.5&ndash;10.0% low
+bias on its two controls, missing the gate by 0.035 percentage points, with the full measurement
+and what a third attempt needs in `validation/explicit_engine_calibration/README.md`. Two
+bi-chiral Explicit rows (&beta;=0.012 and 0.008) are flagged VOID on that gate and excluded from
+every figure above. Separately unresolved: the lock's ratio FALLS monotonically with &beta; (8.81
+-> 7.39 over &beta;=0.05->0.45), the opposite of what H3 predicted, so the lock saturates at the
+smallest angle sampled and larger angles only add geometric distortion. And per rule 2b this is
+MECHANISM novelty, but D005 flagged adversarially that it "collapses into D15 in mechanism if the
+only claimed difference is member bookkeeping"; D15 failed 30/30 on the same strain criterion.
 
-**Timeline:** D003: mechanism ideation, five candidates, this one selected. D004: family built and
-wired through the canonical generator. D005: adversarial novelty and grounding audit. D006:
-pre-registered matched-pair Stage-1 sweep, 38 rows, the H3 result. D007: surgical generator
-extension (force_stage2, multi-mode imperfection). D008: first Stage-2 test of the lock. D009:
-diagnostic on why every bi-chiral mast appeared to jam near 45%. D010: 80-eval constrained search
-of the 4-D box, 0 feasible. D011: 32 more in the taper window, 0 feasible. D012: dose-response
-down to &beta;=0.0005 rad. D013: Explicit engine reached for. D014: Explicit Stage-2
-pre-processor authored. D015: calibration of that instrument -- FAILED its own gate by 0.035 pp.
-D016: re-solve of four designs D010 had counted as failures, which retracted H4.
+**Timeline:** Run 20260906T122744 &mdash;
+- D003 ideated five mechanisms and selected this one; D005 audited its novelty adversarially.
+- D004 built and wired the family; D007 extended the generator (force_stage2, multi-mode imperfection).
+- D006 ran the pre-registered matched-pair Stage-1 sweep, 38 rows -- the H3 result.
+- D008 ran the first Stage-2 test of the lock; D009 diagnosed the apparent jam near 45%.
+- D010 ran an 80-eval constrained search of the 4-D box, 0 feasible; D011 added 32 in the taper window, 0 feasible.
+- D012 ran the dose-response down to &beta;=0.0005 rad.
+- D013 reached for the Explicit engine; D014 authored its Stage-2 pre-processor; D015 calibrated it and FAILED the gate by 0.035 pp.
+- D016 re-solved four designs D010 had counted as failures, which retracted H4.
 
 **Infra:** Oracle workspace/data_generator.py:SupercompressibleDataGenerator via the canonical
 get_evaluator() door. Stage 1 scripts/supercompressible_lin_buckle_pretwist.py, Stage 2
 scripts/supercompressible_riks_pretwist.py (implicit Riks) or
-scripts/supercompressible_riks_pretwist_explicit.py (Abaqus/Explicit, authored by D014, opt-in
-via stage2_engine="explicit"), both promoted to gold in commit 3dae266. Feasibility is the
-study's standard five: coilable, mcs_windowed >= 0.80, mls_windowed <= 0.02, slenderness >= 10,
-no ring passthrough. Gif traces to
+scripts/supercompressible_riks_pretwist_explicit.py (Abaqus/Explicit, authored by D014, opt-in via
+stage2_engine="explicit"), both promoted to gold in commit 3dae266. Feasibility is the study's
+standard five, on windowed metrics. Gif traces to
 /oscar/scratch/eaguerov/supercompressible_oracle/riks_fba2f15789254a2c9a40a22c7e5e3d66 (row 176,
-&beta;=0.008, implicit, mcs 0.7244) -- a TYPICAL member per rule 4's no-winner convention, not the
-best. The chart traces to riks_562196d4461f4b37bb04f73a5f492e9a (&beta;=0.0005, Explicit, mcs
-0.7959, solid) against riks_f86069d957c04eab9a309092afbadfac (its &beta;=0 control on the same
-instrument, mcs 0.7979, dashed) -- the specific pair the H4 retraction rests on, per rule 4's
-chart clause. Gif and chart are therefore different designs and different engines, disclosed here
-rather than implied: the Explicit ODB writes U on only a handful of its 201 frames and cannot
-produce an honest animation.
+&beta;=0.008, implicit, mcs 0.7244) -- a TYPICAL member per rule 4's no-winner convention.
 -->
 
 ---
