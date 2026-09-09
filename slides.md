@@ -774,8 +774,15 @@ fundamental they are, not by the date they were written.
             physics."
       (v)   The reader is a computational engineer without a solids
             background. Every mechanics or FE term gets its meaning in
-            the same clause the first time a slide uses it, or it is on
-            the glossary slide. Reserve bare identifiers, correlation
+            the same clause the first time a slide uses it, OR it is in
+            THE GLOSSARY, which lives in the speaker notes of the deck's
+            own title slide (slide 1) — added 2026-09-09, so that ~15
+            terms carrying the whole deck are defined once instead of
+            re-glossed per slide. The glossary carries NO drifting
+            quantity by rule: no incumbent, no record, no current best,
+            only constants fixed by PROBLEM_STATEMENT.md, which is the
+            authority wherever the two disagree. Add a term there rather
+            than re-glossing it a fourth time. Reserve bare identifiers, correlation
             coefficients and p-values for the reference sections.
 
    Linter: WARN only, throughout rule 9. A slide missing Result, Input
@@ -794,6 +801,99 @@ Every idea, every run, in the order it actually happened
 <div class="text-sm opacity-70 mt-8">
 A collection of ideas tried
 </div>
+
+<!--
+GLOSSARY — every recurring term in this deck, defined once (added 2026-09-09, DECK FORMAT
+CONTRACT rule 9d(v)). Deliberately contains NO drifting quantity: no incumbent, no record, no
+current best. Every constant below is fixed by PROBLEM_STATEMENT.md, which is the authority if
+this list and it ever disagree.
+
+THE FIVE FEASIBILITY CRITERIA, and the quantities they are checked on
+
+**mcs** (`max_compressive_strain`) — how far the mast has been squashed, as a fraction of its
+original height. mcs = 0.80 means compressed to 20% of its height. Criterion 1 requires the
+design to reach at least 0.80 without load reversal.
+
+**mls** (`max_local_strain`) — the largest strain anywhere in the material. Criterion 2 caps it
+at 0.02, i.e. 2%: Bessa's own plasticity limit, past which the material is outside the elastic
+regime this whole study assumes. This is the criterion most designs in this deck die on.
+
+**slenderness gate** — B31 beam elements are only a faithful model above
+`ratio_pitch / (2 x d_max) >= 10`, where d_max is the largest cross-sectional half-dimension.
+A FIDELITY gate, not a design preference: below it the simulation stops being trustworthy, so a
+family that violates it has not produced evidence. A non-beam family needs its own equivalent.
+
+**ring_passthrough** — the top and bottom rings are modelled as 0-D reference points, so nothing
+in the model stops a longeron swinging straight through a ring's own footprint as the mast coils,
+which real printed material would block. `True` means the result is not valid evidence.
+
+**PLA-printable** — criterion 3, and the reason several otherwise-feasible designs are demoted:
+prestressed cables, pin joints and built-in residual stress are not printable as a monolithic
+part.
+
+THE OBJECTIVE, AND THE WINDOW THAT BOUNDS IT
+
+**The evaluation window** — every number in this deck is measured over Stage-2 increments up to
+the FIRST of 95% compression or 2% local strain. A `_windowed` suffix means "measured inside the
+window"; `mls_full` and `strain_crossing_mcs` are the UNWINDOWED diagnostics, kept because the
+response past the limit shows HOW a design failed, and they must never feed a feasibility check.
+
+**sigma_peak** — the headline objective: the largest axial reaction force reached anywhere inside
+the window, divided by (pi*D1^2/4) and by the longeron count, reported in kPa per longeron.
+Deliberately a MAXIMUM over the window, not a reading at a fixed point in the squash.
+
+**sigma_eigenvalue** (also `sigma_crit`) — the older Stage-1 number: the load at which the
+structure FIRST buckles, from a cheap linear eigenvalue analysis. It is what Bessa published, and
+every figure in this deck predating 2026-08-06 is in this metric, not in sigma_peak.
+
+**the Bessa point** — this study's fixed reference: 0.1122 kPa/longeron in the sigma_peak metric,
+0.1306 in the retired eigenvalue metric. Every "x Bessa" multiplier anywhere in this deck is
+against 0.1122.
+
+HOW A DESIGN IS ACTUALLY SOLVED
+
+**Stage 1 / Stage 2** — Stage 1 is linear-eigenvalue buckling, cheap, and yields `sigma_crit` and
+`coilable`. Stage 2 runs only for coilable designs and traces the real post-buckling coil.
+
+**coilable** — the cheap Stage-1 proxy for supercompressibility: whether the FIRST Abaqus
+buckling mode is a coiling mode (rotation about the mast axis with no net sideways translation).
+A proxy, not a criterion — several families in this deck fail it while the mechanism is fine, and
+the reverse.
+
+**Riks / arc-length** (`StaticRiksStep`) — the standard way to trace a structure's full
+force-versus-compression curve THROUGH buckling and past limit points, step by step, instead of
+only predicting where buckling starts. Energy-free by default here, matching Bessa.
+
+**stabilization** — opt-in numerical damping, for a design whose coil has a genuine SNAP that
+arc-length cannot cross energy-free. Gated: accepted only if dissipated-stabilization over strain
+energy, `max(ALLSD)/max(ALLSE)`, stays below 0.05. A diagnostic setting, not a production one.
+
+**imperfection** — a small geometric perturbation seeded into the model as a mode-1 rotation,
+because a perfectly symmetric structure buckles at the wrong load. Amplitude is drawn from
+Bessa's own lognormal distribution (mean 4 degrees, sd 1.2); the default 0.067 rad is its median.
+
+**salvage** — re-reading a partial ODB after a solve that did not converge. Legitimate and often
+the only evidence available, but it must be declared (`salvaged=1`), and if the evaluation window
+never closed the numbers are LOWER BOUNDS: such a row is reported NOT-EVALUABLE, never infeasible.
+
+FINITE-ELEMENT TOOLING (Abaqus terms, not this study's own)
+
+**ODB** — Abaqus's output database: the solved simulation as it sits on disk, which every gif and
+chart in this deck is rendered from.
+**CPRESS / COPEN** — per-point contact readouts. CPRESS is contact pressure, how hard two
+surfaces are actually pressing on each other; COPEN is the contact gap, how far apart they still
+are. CPRESS = 0 throughout a solve means a contact mechanism never engaged at all.
+**B31 / S4R** — beam and shell element types respectively.
+**ALLSD / ALLSE** — dissipated-stabilization energy and strain energy, the pair whose ratio the
+stabilization gate above is written on.
+
+WHY A RESULT CAME OUT THE WAY IT DID (rule 9d cause labels, on every idea slide's Result)
+
+**PHYSICAL** the mechanism engaged and the mechanics defeat it. **NUMERICAL** the solver never
+produced the answer. **NON-ENGAGEMENT** the solve was fine and the mechanism never activated.
+**EVIDENTIAL** the search never reached the discriminating regime. **TOOLING** the model could
+not be built at all. **DISQUALIFIED** the number is real but does not count.
+-->
 
 ---
 layout: two-cols-header
