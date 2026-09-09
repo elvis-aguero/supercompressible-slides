@@ -1215,29 +1215,31 @@ Bessa point. The general claim that no internal bracing can work was left OPEN.
 </div>
 
 <!--
-H7 is the one that mattered and it did not close. It is the whole-space claim -- bracing stiff
-enough to raise the coiling load necessarily resists the recovery, and bracing compliant enough to
-recover adds nothing, with no gap between the two -- so closing it would have converted four
-separate embodiment failures into a single structural result retiring the bracing direction.
-D019 was dispatched at it and errored before reporting. The critic explicitly credits leaving it
-OPEN rather than asserting it on this evidence, which is right, but the run's product is
-consequently four narrow negatives rather than one general one.
+**Why it stopped:** GATED on the second review round, but over its own wall budget: 12.64 h of
+12.00 h (105%). The eval budget is soft by design (nudge, never hard-stop) and the wall budget
+behaved the same way. Gate: REVISE then PASS &mdash; call_001 raised one MAJOR, an unqualified
+"nothing bypasses the ledger" claim contradicted by the notebook's own woven-family evidence,
+fixed in call_002.
 
-COST SHAPE, worth a decision rather than a shrug: $115.69 total = $113.99 telemetry + $1.70 for
-the strategizer, whose persistent adapter reports nothing to telemetry (format-contract rule 6).
-Of that, **datagenerator $89.33 -- 77% of the bill** -- against implementer $18.15 for all 211
-actual evaluations. Six oracle-builds at roughly $12-15 each in opus. Per eval this run cost
-$0.55 against $0.22 for run 20260906T122744. The money went into BUILDING families, and four of
-the six built families never produced a converged solve.
+**What it bought:** four narrow negatives where one general result was available. H7 is the claim
+that mattered: bracing stiff enough to raise the coiling load necessarily resists the recovery,
+and bracing compliant enough to recover adds nothing, with no gap between the two. Closing it
+would have retired the whole internal-bracing direction in one stroke. D019 was dispatched at it
+and errored before reporting, so the run's product is the four embodiments below instead.
 
-The run also overran its own wall budget: 12.64 h of 12.00 h (105%). The eval budget is soft by
-design (nudge, never hard-stop) and the wall budget behaved the same way here.
+**Corrections:** the critic explicitly credited leaving H7 OPEN rather than asserting it on this
+evidence, which was the right call. No verdict moved during the run.
 
-Gate: REVISE then PASS. call_001 raised one MAJOR -- an unqualified "nothing bypasses the ledger"
-claim contradicted by the notebook's own woven-family evidence, which needed the same
-"not yet ledgered" caveat given to a sibling claim two sentences later. Fixed in call_002.
-3 ERROR_RETURNs, one of them `Confer('D002')` failing because Confer takes a NODE name, not a
-delegation id -- the same bug run 20260902T003527 hit and reported.
+**Cost shape:** $115.69 = $113.99 telemetry + $1.70 for the strategizer, whose persistent adapter
+reports nothing to telemetry (rule 6). datagenerator $89.33 &mdash; 77% of the bill &mdash;
+against implementer $18.15 for all 211 evaluations; six oracle-builds at roughly $12&ndash;15 each
+in opus. $0.55 per eval against $0.22 for run 20260906T122744. The money went into BUILDING
+families, and four of the six built never produced a converged solve.
+
+**Unresolved:** H7, above, and the reason four families are undecided rather than refuted &mdash;
+Stage 2 could not be made to converge for any of them, which is a numerics problem, not a verdict
+on the mechanisms. 3 ERROR_RETURNs, one of them `Confer('D002')` failing because Confer takes a
+NODE name and not a delegation id, the same bug run 20260902T003527 hit and reported.
 -->
 
 ---
@@ -1280,6 +1282,13 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** NUMERICAL, then PHYSICAL. Twenty-four ladder longerons, every one of them Stage-1
+coilable and none reaching a converged Stage-2 solve. Fifteen produced no usable history at
+all, so those rows are NOT-EVALUABLE rather than infeasible; the other nine closed their window on
+STRAIN, at 4.8&ndash;7.8% compression with local strain already at 2%. Bracing that stiffens a
+member locally stops the coiling curvature distributing along it, so the strain budget is spent
+before the rungs reach the curvature they were built to buckle at.
+
 **Input space:** ratio_chord_d&isin;[0.01319,0.01890] &mdash; each chord's diameter ratio.
 ratio_h&isin;[0.02840,0.03536] &mdash; chord separation (the ladder's depth). ratio_diag_d&isin;
 [0.00400,0.00428] &mdash; rung diameter, sized for elastic rung buckling. n_bays&isin;{5,6} &mdash;
@@ -1299,9 +1308,11 @@ read is that these solves stop at 0-8% compression, so the metric window never c
 failure; every row is therefore correctly reported NOT-EVALUABLE rather than infeasible, which is
 the salvage convention working as intended rather than being absent.
 
-**Timeline:** D006: bounded 24-design probe of the ladder, one round. D008: matched-conditions
-Stage-1 ablation. D010: Stage-1 ablation spanning a >=5x range in the gap dimension. D011:
-decided H1 against the whole circumferential-gap ladder.
+**Timeline:** Run 20260907T024929 &mdash;
+- D006 ran a bounded 24-design probe of the ladder, one round.
+- D008 ran a matched-conditions Stage-1 ablation.
+- D010 ran a Stage-1 ablation spanning a >=5x range in the gap dimension.
+- D011 decided H1 against the whole circumferential-gap ladder.
 
 **Infra:** Oracle bo/oracle_shear_release.py with bo/prefilter_shear_release.py; Stage 1
 scripts/supercompressible_lin_buckle_shear_release.py, Stage 2
@@ -1353,6 +1364,13 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** NUMERICAL. One hundred and forty-two designs of the re-oriented ladder, of which 20
+were Stage-1 coilable and none reached a converged Stage-2 solve. The orientation claim itself was
+decided, and favourably: at matched geometry the circumferential build gains real composite
+stiffness while the radial build gains none, held across a five-fold range in the gap dimension.
+What could not be decided is whether that stiffness survives compression &mdash; every Stage-2
+attempt failed to converge, so the compression half of the claim rests on no measurement.
+
 **Input space:** gap_circumferential&isin;{0,1} &mdash; THE variable under test (1 = gap along the
 ring, 0 = gap radial). ratio_chord_d&isin;[0.008,0.030]. ratio_h&isin;[0.013,0.0795] &mdash; chord
 separation, swept over a >=5x range so the composite-depth effect cannot be missed.
@@ -1373,10 +1391,11 @@ question about compression rather than stiffness, is INCONCLUSIVE for exactly th
 reported that way rather than borrowing H4's support.
 bo/oracle_gap_orientation.py DOES salvage; see D54's Deferred for the correction to an earlier claim here.
 
-**Timeline:** D008: matched-conditions Stage-1 ablation plus a converged check. D009: fixed one
-modelling defect in the gap_orientation oracle. D010: Stage-1 ablation spanning a >=5x range in
-the gap dimension -- the H4 result. D011: decided H1 against the ladder. D013: matched-h
-orientation ablation at a third chord size.
+**Timeline:** Run 20260907T024929 &mdash;
+- D008 ran a matched-conditions Stage-1 ablation plus a converged check.
+- D009 fixed one modelling defect in the `gap_orientation` oracle.
+- D010 ran the Stage-1 ablation spanning a >=5x range in the gap dimension -- the H4 result.
+- D011 decided H3 could not be closed without a converged Stage-2 solve.
 
 **Infra:** Oracle bo/oracle_gap_orientation.py with bo/prefilter_gap_orientation.py; Stage 1
 scripts/supercompressible_lin_buckle_gap_orientation.py (+ its own _pp.py), Stage 2
@@ -1426,6 +1445,13 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** PHYSICAL. Twenty-one radial-web microtruss longerons, 16 Stage-1 coilable, none
+reaching a converged Stage-2 solve. Ten of the 13 Stage-2 attempts nonetheless CLOSED their
+2%-strain window, and closed it by 0.55% compression &mdash; so this family is decided data, not a
+solver failure. Adding a second bracing axis makes the section stiffer against exactly the
+curvature the coil has to impose, so the strain limit binds at first touch: the more thoroughly a
+longeron is braced, the earlier it spends its whole strain budget.
+
 **Input space:** radial_web_on&isin;{0,1} &mdash; THE variable under test. ratio_h_rad&isin;
 [0.020,0.070] &mdash; radial web depth. ratio_h_circ&isin;{0.023,0.024,0.027,0.028,0.030} &mdash;
 circumferential web depth. ratio_diag_rad_d&isin;{0.0086,0.010,0.014} and ratio_diag_circ_d&isin;
@@ -1445,8 +1471,9 @@ rather than a confident REFUTED on the campaign axis; the IDEA verdict rests on 
 measurement, which is real and repeated (10 of 13 windows closed), not on the funnel size.
 bo/oracle_microtruss.py DOES salvage; see D54's Deferred for the correction to an earlier claim here.
 
-**Timeline:** D012: built and registered the anisotropic/microtruss oracle. D019: pulled the one
-lever identified and never pulled -- the radial-web arm -- as the run's last act.
+**Timeline:** Run 20260907T024929 &mdash;
+- D012 built and registered the anisotropic/microtruss oracle.
+- D019 pulled the one lever identified and never pulled, the radial-web arm, as the run's last act.
 
 **Infra:** Oracle bo/oracle_microtruss.py with bo/prefilter_microtruss.py; Stage 1
 scripts/supercompressible_lin_buckle_microtruss.py (+ _pp.py), Stage 2
@@ -1491,6 +1518,13 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** NUMERICAL. Twenty-six self-nesting designs, 21 Stage-1 coilable, six with a converged
+Stage-2 solve and one feasible at 0.51&times; the Bessa reference. But the split is the whole
+finding: all five designs with self-contact switched ON failed to converge, and all six that
+converged had the mechanism switched OFF. Every number on this slide therefore describes the
+family's host geometry rather than the mechanism under test &mdash; the contact formulation, not
+the physics, is what stopped the measurement.
+
 **Input space:** self_contact_on&isin;{0,1} &mdash; THE variable under test. ratio_d&isin;
 [0.006,0.030] &mdash; longeron diameter ratio. ratio_pitch&isin;[0.30,1.50].
 ratio_top_diameter&isin;{0.30,0.45,0.60} &mdash; strong taper, to bring longerons into reach of
@@ -1513,10 +1547,11 @@ slide's text discusses, and this slide's claim is that the mechanism has no data
 Rule 2a: the controls here are bit-matched contact-OFF twins, not the study's incumbent, so the
 comparison would have been fair had the contact-ON arm converged.
 
-**Timeline:** D014: built and registered the self-nesting oracle. D015: bounded Stage-2 hunt for
-self-nesting, 12 solves -- FAILED inside retry_on_transient. D017: finished and pushed a sweep
-whose solves had already landed. D018: closed the one open question in the family with a
-decisive check.
+**Timeline:** Run 20260907T024929 &mdash;
+- D014 built and registered the self-nesting oracle.
+- D015 ran a bounded Stage-2 hunt, 12 solves, which FAILED inside `retry_on_transient`.
+- D017 finished and pushed a sweep whose solves had already landed.
+- D018 closed the one open question in the family with a decisive check.
 
 **Infra:** Oracle bo/oracle_self_nest.py -- promoted to gold 2026-09-07; until then it existed
 ONLY inside runs/20260907T024929/debug/delegations/D014/generators/, so this citation was
