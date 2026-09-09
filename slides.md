@@ -2096,14 +2096,31 @@ with the mechanism attached.
 </div>
 
 <!--
-All four hypotheses were adequately powered before being closed -- two (H1, H2's first attempt)
-were caught mid-run as CONFOUNDED (a Riks solver death mistaken for a physics result) and
-re-tested properly rather than left standing; see D49's own speaker notes for the full arc,
-including the two corrected verdicts on the record.
+**Why it stopped:** ran to a clean close &mdash; GATED after 3 review rounds, 11.03 of 12 h.
+Final review: 0 critical, 0 major, 6 minor, all confirmed by the critic to be stale prose from an
+earlier, since-withdrawn reading, touching no verdict and no headline number.
 
-Final gate review: 0 critical findings, 0 major findings, 6 minor findings, all confirmed by the
-critic to touch no verdict or headline number (stale prose from an earlier, since-withdrawn
-reading).
+**What it bought:** a mechanism closed by measurement rather than by exhaustion. The scale panels
+do stiffen the beam &mdash; every one of 337 matched pairs shows it, correlated with stand-off
+exactly as predicted &mdash; and the effect is about two orders of magnitude too small, median
++0.0% against a pre-registered +30% bar. The kinematic reason is general: a contact stiffener can
+only raise a buckling load if it is already pressed together before bending starts. The run also
+established the harder half: the bare control beats the panelled design outright, 5.41&times;
+against 4.64&times; Bessa, so the panels cost rather than gain.
+
+**Corrections:** two verdicts were caught mid-run and re-tested rather than left standing &mdash;
+a premature H1 FALSIFIED reading, and a premature "monotone imperfection boundary" claim. Both
+were CONFOUNDED in the same way, a Riks solver death mistaken for a physics result, and both were
+withdrawn before the write-up. D49's own History note carries the arc.
+
+**Cost shape:** ~$103 across 19 delegations and 310 ledgered evaluations.
+
+**Unresolved:** the panelled design's imperfection fragility, which looks like a property of how
+the solver enforces panel contact rather than of the physics &mdash; the load is unchanged to 16
+significant figures under two different contact formulations while the convergence boundary
+itself moves. Also unpromoted: the five oracle and pre-processor files this run built are still
+run artifacts rather than gold, and promotion is the user's call. Both, with the four underlying
+measurements, are in `validation/contact_stiffener_matched_pairs/README.md`.
 -->
 
 ---
@@ -2148,127 +2165,63 @@ class: idea-slide
 </div>
 
 <!--
-**Full Stats detail, trimmed from the visible bullet to fit the canvas (2026-09-04):**
-p50/p90/p100 over the 69 Riks-converged designs -- sigma_peak: 0.52/1.18/14.51 (kPa) *
-mcs: .86/.91/.95 * mls: .0199/.02/.02 (the p100 sigma_peak is a deliberately off-target
-thick-substrate probe, not a candidate). Matched-pair test of the panels' own stiffening
-effect: 337 pairs, panels-on vs matched panels-off, stratified across nearly the full
-reachable stand-off range -- ratio min 1.00 / median 1.00 / max 1.19, real and positive
-and correlated with stand-off (confound-free rho=+0.71, p<0.001), but ~2 orders of
-magnitude short of the effect size a design needs. cleared: 48 of 48 decided designs
-clear 2x Bessa (0.2244) -- but so does the matched bare control on its own (5.41x Bessa),
-which is exactly why this number is not credited to the mechanism in the visible Verdict.
-novel: yes -- mechanism, not a parameter, see 2b.
-
-**Why this design carries a stabilized GIF rather than the energy-free headline:** the deck's own
-rule 2c-VIS asks for the confirmed best-good design's real video. Two feasible readings exist for
-this family: 0.5207 kPa (4.64x Bessa, energy-free, nominal imperfection -- this run's own
-headline, because stabilization is a sanctioned DIAGNOSTIC not a production setting and every
-other anchor in this study is quoted energy-free) and 0.6724 kPa (5.99x Bessa, delegation D019,
-under a small gated stabilization energy ratio 0.008, 2.9x inside the 0.05 limit). The larger
-number is NOT this run's write-up headline, because its matched bare (panels-off) control failed
-the stabilization energy gate, so the panels' own contribution at that one cell can't be measured
--- but it is a real, independently converged, fully feasible ledger row, and it is the more
-visually informative one (higher compression reached, more panel engagement visible), so it is
-the one rendered here. Both numbers are reported honestly in the Stats bullet above.
-
-**H2 -- the panels-as-flange stiffening mechanism, FALSIFIED with real power:** 337 matched pairs
-(exactly the same design, once with panels, once without) across nearly the whole reachable
-stand-off range. Every single pair's buckling load goes up with the panels on -- median +0.0%,
-max +18.9% -- and the increase correlates with stand-off in the direction the mechanism predicts
-(rho=+0.705, p&lt;0.001, confound-controlled). So the effect is REAL, not noise or a test
-artifact. It's simply far too small against its own registered bar: the pre-committed prediction
-needed a ratio &ge;1.30 (+30%), and the largest of 337 measured pairs reaches only +18.9%, with
-the median effect being +0.0%. Physical reason, confirmed directly: a contact-based stiffener can
-only raise a linear buckling load if it is already pressed together and carrying load BEFORE the
-beam starts to bend -- and a curvature-triggered scale only touches once bending has already
-begun, by which point the buckling event that sets the load has essentially already happened. The
-only fix (a panel pre-loaded/interference-fit from the start) would need residual built-in stress
-in a single printed part, which this study's own realizability rules exclude.
-
-**Baseline-in-disguise check (PROBLEM_STATEMENT.md, "The challenge") -- why the Verdict says
-REFUTED and not just "under-powered":** this study's own contract requires checking whether a
-compound design's headline number survives with the new component removed before crediting it.
-It doesn't survive here. Under the exact same conditions (energy-free, nominal imperfection), the
-matched BARE control -- no scale panels, no neck, nothing -- reaches 0.607110 kPa (5.41x Bessa),
-which is HIGHER than this design's own 0.520673 kPa (4.64x Bessa) headline WITH the panels
-attached. That bare number is this study's own already-known incumbent geometry, reproduced again
-inside this run's own ledger, not a new discovery. So "48 of 48 feasible designs clear 2x Bessa"
-is true and is exactly the wrong thing to headline: the base beam clears it alone, the panels add
-nothing measurable, and by this one clean comparison cost a little rather than gained.
-
-**Post-close follow-up (isotropic cross-section, added 2026-09-03): does the depth-cap ceiling
-explain the null, or is the null real?** The bare rectangular control above is ALSO the design
-sitting at 99.7% of PROBLEM_STATEMENT.md's own kinematic depth cap -- so the baseline-in-disguise
-check, on its own, leaves one door open: maybe the panels do nothing there specifically because
-there is no headroom left to show ANY gain, on a beam that could not be improved by anything.
-Ran the direct, decisive version of PROBLEM_STATEMENT.md's own circular-cross-section
-requirement: took D019's exact real, ledgered design vector and changed exactly one number --
-ratio_b (0.033238, the anisotropic stiff-direction exploit) squared off to equal ratio_a (0.0095),
-an isotropic beam, the closest proxy this oracle's RectangularProfile parameterization can express
-to Bessa's own round cross-section -- everything else (pitch, rib count, neck geometry, scale
-thickness, engagement angle, face sign) held bit-for-bit identical
-(scripts/verify_circular_scale_check.py, run directly, not through an agentic delegation).
-RESULT: the bare isotropic beam converges cleanly and is FEASIBLE at mcs_windowed=0.832 -- real
-headroom, nowhere near maxed out, unlike the rectangular control. With the SAME panels attached:
-sigma_eig 0.12597 vs 0.12583 bare (+0.11%, the same negligible size as the 337-pair rectangular
-result) and the solve now FAILS TO CONVERGE (salvaged at mcs_windowed 0.339). So the ceiling
-explanation is directly ruled out, not just argued around: given real headroom to show a gain,
-the panels still show none, and this time actively broke the design instead of merely riding on
-it. This is one point, not a campaign, but it is the exact comparison PROBLEM_STATEMENT.md's
-"combine a new mechanism with a component already known to help" clause asks for, and it points
-the same direction as everything else on this slide. REFUTED is now confirmed by an isotropic
-data point, not just inferred from the engagement-timing argument plus a ceiling-confounded
-rectangular test.
-
-**H1 -- does the compliant root at least avoid D35's total failure? SUPPORTED, with a real
-caveat:** yes -- 48 feasible, fully-converged designs exist in this family, where the rigid D35
-version had zero. But the headline design (0.5207 kPa) is fragile in a way this run measured
-directly: re-solving it across 21 draws of the same imperfection distribution every anchor in
-this study uses, the panels-on arm converged on only 4 of 21 (all at smaller-than-nominal
-imperfection), while the matched bare-beam control converged 21/21. The nominal imperfection this
-study quotes every anchor at lies just outside the panels-on convergence band. A follow-up test
-(softening the panel-to-panel contact stiffness) showed the exact load value at the one design
-that does converge is UNCHANGED to 16 significant figures under two totally different contact
-formulations, while the convergence boundary itself moves -- meaning the fragility is a property
-of how the solver enforces panel contact, not obviously a property of the physical design. Not
-resolved this run.
-
-**H4 -- does the direction the panels are angled matter? FALSIFIED**, cleanly: a paired &plusmn;
-test on 14 matched pairs (bit-identical geometry apart from the sign) found no difference in
-either direction, with a measured zero solver-noise floor (two bare controls returned identical
-values on all 50 output channels), so the null is a real measurement, not a lack of power.
-
-**Run stats:** 19 delegations, 310 ledgered evaluations, 11.03 of 12h wall-clock, ~$103. GATED
-after 3 review rounds -- final review: 0 critical findings, 0 major findings, 6 minor findings,
-all of them stale-number slips in the notebook's prose that the critic confirmed touch no verdict
-or headline number. Two corrected verdicts on the record mid-run (a premature H1 FALSIFIED
-reading, and a premature "monotone imperfection boundary" claim), both self-caught and withdrawn
-before the write-up, not left standing.
+**Result:** PHYSICAL. 309 scale-panel substrates on a compliant root, 178 coilable, 69 converged,
+48 feasible, headline 4.64&times; Bessa. The
+mechanism is real and measured &mdash; across 337 matched pairs every pair's buckling load rises,
+correlated with stand-off as predicted &mdash; and two orders of magnitude too small: median
++0.0%, best +18.9%, against a pre-registered +30% bar. The reason is kinematic, not parametric: a
+contact stiffener can only raise a buckling load if it is pressed together BEFORE bending starts,
+and a curvature-triggered scale only touches once bending has begun.
 
 **Input space:** ratio_a, ratio_b (each / D1) &mdash; base-beam half-depths. ratio_pitch,
 ratio_top_diameter &mdash; ring geometry, shared with every family in this study. n_ribs
 (3&ndash;12, integer), rib_length_ratio &mdash; scale-panel count and length. neck_length_mm,
 neck_thickness_mm &mdash; the compliant root's own two free dimensions, which set k_root. t_scale
 &mdash; panel thickness. rib_rest_angle_deg &mdash; panel pre-tilt (negative = pre-engaged).
-rib_embed_angle_deg &mdash; panel skew relative to the mast's coiling twist (widened to
-[-10,+20] mid-run once the engagement-angle gate made the original [0,20] box mostly
-unreachable). face_sign, scales_enabled &mdash; continuous, thresholded, realized value reported.
+rib_embed_angle_deg &mdash; panel skew relative to the coiling twist (widened to [-10,+20]
+mid-run once the engagement-angle gate made the original [0,20] box mostly unreachable).
+face_sign, scales_enabled &mdash; continuous, thresholded, realized value reported.
 Fixed: D1=100mm, n_longerons=3, ratio_shear_modulus=.3677, E=3500MPa, n_storeys=1.
 
-**Seed:** BARREN for the flange-stiffening mechanism as tested &mdash; the closure is a measured
-kinematic law (a curvature-triggered contact can't carry pre-buckling load), not a search limit,
-so further parametric search inside this same design space is very unlikely to change the
-verdict. The one thing worth carrying forward: the compliant root's fix to D35's total feasibility
-failure is real and could seed a genuinely different scale-substrate mechanism that doesn't rely
-on curvature-triggered engagement (e.g. true interference pre-load) &mdash; which this study's own
-printability rules exclude for a monolithic part, and which this run did not otherwise test.
+**Seed:** BARREN for flange stiffening as tested &mdash; the closure is a measured kinematic law,
+not a search limit, so more parametric search here is very unlikely to move the verdict. Worth
+carrying forward: the compliant root's fix to D35's total feasibility failure is real, and could
+seed a scale-substrate mechanism that does not rely on curvature-triggered engagement &mdash; true
+interference pre-load being the obvious candidate, which this study's printability rules exclude
+for a monolithic part and which this run never tested.
 
-INFRA BUILT THIS RUN, NOT YET PROMOTED TO GOLD: bo/oracle_compliant_scale.py,
-bo/prefilter_compliant_scale.py, scripts/supercompressible_lin_buckle_compliant_scale.py,
-scripts/supercompressible_lin_buckle_compliant_scale_pp.py,
-scripts/supercompressible_riks_compliant_scale.py, plus a modification to
-bo/campaign_summary.py. Promotion is the user's call.
+**Deferred:** the headline design's imperfection fragility. Across 21 draws the panels-on arm
+converged on only 4, all below nominal amplitude, against 21 of 21 for the matched bare control
+&mdash; so the amplitude every anchor here is quoted at sits just outside this design's
+convergence band. Softening the panel contact left the load unchanged to 16 significant figures
+while moving that boundary, which points at contact enforcement rather than physics. Two feasible
+readings both stand: 0.5207 kPa (4.64&times;, energy-free) is the headline because stabilization
+is a diagnostic, not a production setting, while 0.6724 kPa (5.99&times;, D019) is a real
+converged row whose matched bare control failed that gate. This slide also carries a standing
+rule-2(c) gap &mdash; no quartile or `cleared:` line on the visible bullet &mdash; both now
+recorded in the validation note.
+
+**Timeline:** Run 20260902T210743 &mdash;
+- 19 delegations, 310 ledgered evaluations, 11.03 of 12 h, GATED after 3 review rounds.
+- D019 produced the ledgered design vector both the headline and the follow-up are built on.
+- Post-close, 2026-09-03: the isotropic check was run directly, not through a delegation.
+
+**Infra:** built by this run and NOT YET PROMOTED TO GOLD &mdash; promotion is the user's call:
+bo/oracle_compliant_scale.py, bo/prefilter_compliant_scale.py, and
+scripts/supercompressible_{lin_buckle,lin_buckle_pp,riks}_compliant_scale.py, plus a modification
+to bo/campaign_summary.py. The isotropic follow-up is scripts/verify_circular_scale_check.py. All
+four measurements behind the Result, and this slide's full Stats readout, are in
+validation/contact_stiffener_matched_pairs/README.md. The gif is the stabilized D019 reading, not
+the energy-free headline, because it reaches higher compression and shows more panel engagement.
+
+**History:** two verdicts were corrected mid-run and withdrawn before the write-up rather than
+left standing &mdash; a premature H1 FALSIFIED reading, and a premature "monotone imperfection
+boundary" claim. The final gate found 0 critical, 0 major and 6 minor issues, all stale-number
+slips in the notebook's prose that the critic confirmed touched no verdict or headline. The
+337-pair study, the baseline-in-disguise check, the isotropic follow-up (added 2026-09-03) and
+the H4 panel-skew null were moved verbatim into
+validation/contact_stiffener_matched_pairs/README.md on 2026-09-09, when these notes were
+10,016 characters; no figure changed in the move.
 -->
 
 ---
