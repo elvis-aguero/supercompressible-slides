@@ -5672,38 +5672,37 @@ reached a coiling mode and 19/19 Stage-2 solves crashed before any finite &sigma
 </div>
 
 <!--
-THE FINDING IS ABOUT THE CONTRACT, NOT THE DESIGNS. This run did the science well and then
-stopped early on purpose. The strategizer's own words on the least-certain call: it judged one
-25-point probe was right, "not so much that I was chasing a mechanism already independently
-disqualified on novelty (H3)". So the binding constraint on this study is no longer the search,
-the oracle, or the budget -- it is the objective. Two levers now have real evidence behind them
-and NEITHER can be rewarded as written. That is the reconciliation question, arriving as a
-measurement rather than an opinion.
+**Why it stopped:** it did the science and then stopped early ON PURPOSE. The strategizer's own
+words on its least-certain call: it judged one 25-point probe was right, "not so much that I was
+chasing a mechanism already independently disqualified on novelty (H3)".
 
-H2's reversal is the substantive scientific news and it CONTRADICTS the D30 slide written from
-the previous run. Yesterday pre-coil looked like the study's top lead on a ~5x strain-relief
-measurement. Measured against sigma_peak over 36 decided designs, more pre-coil means LESS load
-(rho = -0.392) -- which is exactly the trade the previous run flagged as unmeasured (sigma_eig
-falling 2.36 -> 0.245 kPa) and could not close before it ended. The strain relief is real; it
-just does not buy load. Note neither correlation survives Holm at p<0.05 (0.069 and 0.268), so
-this is a reversal of the PREDICTED ORDERING, not a confirmed strong driver.
+**What it bought:** a finding about the CONTRACT rather than about any design, and it arrives as a
+measurement rather than an opinion. The binding constraint on this study is no longer the search,
+the oracle or the budget &mdash; it is the objective. Two levers now have real evidence behind
+them and NEITHER can be rewarded as written.
 
-WHY H1 SELF-CORRECTED, and why it is a good sign: the strategizer first marked it SUPPORTED with
-a "degenerate but supported" caveat. The AskForFeedback critic called that a Charter §2/§3
-violation -- the search was seeded with the already-feasible anchor, so H1's existence claim was
-guaranteed before any solve. It reversed itself to INCONCLUSIVE and routed the substantive
-question to H4. Three AskForFeedback rounds each caught distinct real issues.
+**Corrections:** H2's reversal is the substantive news and it CONTRADICTS the D30 slide written
+from the previous run. Pre-coil had looked like the study's top lead on a ~5&times; strain-relief
+measurement; measured against sigma_peak over 36 decided designs, more pre-coil means LESS load
+(rho = &minus;0.392) &mdash; exactly the trade the previous run flagged as unmeasured (sigma_eig
+falling 2.36 &rarr; 0.245 kPa) and could not close before it ended. The strain relief is real; it
+just does not buy load. Note neither correlation survives Holm at p&lt;0.05 (0.069 and 0.268), so
+this is a reversal of the PREDICTED ORDERING, not a confirmed strong driver. H1 also
+self-corrected, and that is a good sign: the strategizer first marked it SUPPORTED with a
+"degenerate but supported" caveat, the critic called that a charter violation because the search
+was seeded with the already-feasible anchor so the existence claim was guaranteed before any
+solve, and it reversed to INCONCLUSIVE and routed the substantive question to H4. Three feedback
+rounds each caught a distinct real issue.
 
-THE BUG WORTH KEEPING. D004's worker computed feasibility with `rpt is False` against a ledger
-column stored as 0.0/1.0, so `feasible_recomputed` was False for every row and the analysis JSON
-reported 0 feasible designs where the true count was 21. Caught only because the delegation
-re-derived the predicate through QueryStore instead of trusting its own script's output. A
-post-hoc analysis script reading ledger data is not itself ledger-authoritative.
+**Cost shape:** one 25-point probe, deliberately bounded, against a mechanism already disqualified
+on novelty.
 
-Cost composition is the mirror image of the last run: implementer $7.29, critic $4.42,
-datagenerator $1.63, literature $1.25. Opus sat on the datagenerator, which was the cheapest
-substantive node here -- a $1.63 slot. The strategizer's own transcript cost is again absent from
-telemetry, so $14.59 remains a floor.
+**Unresolved:** the bug worth keeping. D004's worker computed feasibility with `rpt is False`
+against a ledger column stored as 0.0/1.0, so `feasible_recomputed` came back False for EVERY row
+and the analysis JSON reported 0 feasible designs where the true count was 21. Caught only because
+the delegation cross-checked its own output against the ledger. An identity comparison against a
+float column is silent, total, and reads as a clean negative result &mdash; the same shape as the
+false-sentinel strain readings in `validation/silent_zero_strain_sentinel/README.md`.
 -->
 
 ---
@@ -5733,43 +5732,38 @@ sits at 99.7% of the cap.**
 </div>
 
 <!--
-GATED on the 3rd critic attempt (NOTED -> NOTED -> PASS), 0 ERROR_RETURN across 14 diagnostics
-events. First run with a mixed roster where Opus 5 drove the strategizer and Sonnet 5 the workers.
+**Why it stopped:** it closed with 7.6 h unspent, deliberately, and the strategizer names the
+trade in its own words: it kept spending on the flare thread after H8 stalled, knowing it was
+"clearly *not* the novel mechanism the problem statement demands", because the run's own measured
+law made a sharp falsifiable out-of-sample prediction there. That produced the run's only severe
+confirmation and its best new design, and cost ~3 h on a direction it knew could not satisfy the
+objective. GATED on the third critic attempt, 0 ERROR_RETURN. First mixed roster: Opus 5 on the
+strategizer, Sonnet 5 on the workers.
 
-READ THE BAR CORRECTLY. Five NEW feasible designs cleared 2x Bessa this run -- 0.3451 (3.08x),
-0.2931, 0.2664, 0.2549, 0.2545 -- so the numeric half of the objective was met repeatedly. None is
-novel: the best sits at mcs_at_peak = 0.0645 (the same pre-buckling peak as everything else) with
-mandrel_engaged = 0, and D29_oracle_mandrel's own docstring notes mandrel_ratio=0 reduces exactly to
-the rectangular family. Reporting this run as "nothing beat 0.6077" is the wrong yardstick -- the
-incumbent is context, not the bar -- but the novelty half failed for the third run running.
+**What it bought:** a class closure worth more than any of its designs. The mandrel falsification
+is not "we tried and it didn't help" &mdash; the coil never moves inward, so there is no radius
+for an internal body to govern. Nine confined evaluations, four mandrel radii up to the geometric
+limit, four cross-sections, and contact force identically zero in every history sample. That
+closes the whole class of internal-confinement ideas. Its corollary had never been stated
+anywhere: curvature is DISTRIBUTED, not localised &mdash; peak-over-mean strain along the member
+is 1.10, the peak sits at arc ~0.35 and never at a ring joint, and joint strain is 66&ndash;89% of
+peak. So there is no joint-compliance lever either; the strain really is c&middot;kappa everywhere.
 
-WHY THE MANDREL FALSIFICATION IS WORTH MORE THAN THE DESIGNS. It is not "we tried and it didn't
-help": the coil never moves inward, so there is no radius for an internal body to govern. Nine
-confined evaluations, four mandrel radii up to the geometric limit, four cross-sections, and the
-contact force is identically zero in every history sample. That closes the whole class of
-internal-confinement ideas, not one design.
+**Corrections:** read the bar correctly. Five NEW feasible designs cleared 2&times; Bessa this run
+&mdash; 0.3451 (3.08&times;), 0.2931, 0.2664, 0.2549, 0.2545 &mdash; so the numeric half of the
+objective was met repeatedly. None is novel: the best sits at mcs_at_peak = 0.0645, the same
+pre-buckling peak as everything else, with `mandrel_engaged = 0`, and `D29_oracle_mandrel`'s own
+docstring notes that mandrel_ratio=0 reduces exactly to the rectangular family. Reporting this run
+as "nothing beat the incumbent" would be the wrong yardstick &mdash; but the novelty half failed
+for the third run running.
 
-THE COROLLARY NOBODY HAD STATED. Curvature is distributed, not localised: peak/mean strain along
-the member = 1.10, peak at arc ~0.35, never at a ring joint, and joint strain is 66-89% of peak.
-So there is no joint-compliance lever either -- the strain really is c*kappa, everywhere.
+**Cost shape:** ~3 h of the spend went into the flare thread, knowingly, for one severe
+confirmation and one best-new-design that could not satisfy the objective as written.
 
-WHY IT CLOSED WITH 7.6 h UNSPENT, in the strategizer's own words: "whether to keep spending budget
-on the flare thread after H8 stalled. It was clearly *not* the novel mechanism the problem
-statement demands... I continued because the run's own measured law made a sharp, falsifiable,
-out-of-sample prediction there... It produced the run's only genuinely severe confirmation (H9) and
-its best new design -- but it also spent ~3 h on a direction I knew in advance could not satisfy
-the novelty half of the objective, and I remain unsure that was the trade the system wanted."
-That is a real tension in the contract, not a defect in the run: the highest-value science
-available was testing a risky consequence of its own law inside a non-novel parameter range. The
-objective does not currently say whether that is worth doing. Until it does, the study's
-best-evidenced lever is unrewardable.
-
-INFRASTRUCTURE THE RUN LEFT BEHIND, now promoted to gold (commit 16c7e84): bo/D29_oracle_mandrel.py and
-bo/oracle_helical.py with four scripts/ pre/post-processors -- ~$35 of build cost that the next
-fresh run would have deleted, and the only implementation of the pre-coil family. The agent added
-a MandrelOracle factory to bo/datagen.py in exactly the adapter's intended shape, and
-oracle_helical.evaluate takes max_solve_seconds -- both pieces of 2026-08-10 infrastructure used
-as designed by the first run that saw them.
+**Unresolved:** D30's own headline was later found to be a measurement failure &mdash; the mast
+was going UP while the compression metric climbed. Full postmortem in
+`validation/mcs_sign_bug_postmortem/README.md`; the figure had by then travelled into
+PROBLEM_STATEMENT.md and steered two runs.
 -->
 
 ---
@@ -5811,125 +5805,56 @@ layout: two-cols-header
 </div>
 
 <!--
+**Result:** PHYSICAL. 30 pre-coiled designs here, 3 coilable, 2 reaching Riks and both hitting
+the 600 s cap; the family's verdict rests on a later 36-design aggregate. The strain relief is
+real and large &mdash; 0.445% strain at 61.5% compression, where the matched straight control had
+blown 2% by 26.2% &mdash; and it buys no load: rho(wrap, sigma_peak) = &minus;0.392 over those 36
+decided designs. The eigenvalue drops 10&times; across the same sweep and the post-buckling branch
+does not recover it. The family never approached 80%.
+
 **Input space:** helix_wrap&isin;[-0.3,6.0] — pre-coiled turns built into the longeron before any
 compression is applied. a&isin;[.004,.014], b&isin;[.01,.045] — cross-section semi-axes.
 ratio_pitch&isin;[.25,1.5]. Fixed: n_longerons=3, ratio_top_diameter=0, n_storeys=1,
 imperfection=.067.
 
 **Stats correction, full audit trail (trimmed from the visible bullet 2026-08-28 to fix a
-confirmed 88px render clip, headless-measured):** **CORRECTED 2026-08-26 (deck audit):** wrap
-4.5, c = 2 mm reached 61.5% compression at 0.445% strain, then its loading point reversed and
-travelled all the way back past its own start (net +63.5mm ascent by the end of the 785-frame
-history); strain never crosses 2% anywhere in that history. The 2026-08-14 correction's own
-arithmetic used mast_height=100mm; the oracle's real formula
-(n_storeys&times;ratio_pitch&times;bottom_diameter, confirmed against both the geometry script
-and the prescribed-displacement BC) is 50mm, exactly halving the true reading to a reported
-"30.8%". (The pre-2026-08-14 "61.5%" figure this replaced was independently wrong for an
-unrelated reason — `|U3|` counting upward travel as compression — so this is a coincidental
-numeric match, not a vindication of that reading.)
+confirmed 88px render clip, headless-measured):**
 
-**Seed:** BARREN as a load mechanism, **disqualified on novelty** (Kirchhoff-rod theory, H3).
-The deep-wrap Stage-2 crash is an open solver problem, not a design lead.
+**Seed:** BARREN as a load mechanism, and separately DISQUALIFIED on novelty (Kirchhoff-rod
+theory, settled by run 20260812T222030's H3: intrinsic-curvature strain relief is known
+mechanics, so a new parameter is not a new mechanism). The deep-wrap Stage-2 crash is an open
+solver problem, not a design lead.
 
-Run 20260812T014026, H4/H6. The gif is the 839-increment solve (riks_847140cc): 785 frames in
-step, of which 268 fall inside the mcs<=0.95 render window.
+**Deferred:** the relief factor was never actually measured. The straight control blowing 2% by
+26.2% still stands, so relief is real, but the two were never compared at EQUAL compression &mdash;
+which is why the once-published "~5x" is gone rather than rescaled. Also worth reading correctly:
+5&times; was never the depth cap moving 5&times;. It is Delta_kappa shrinking, which relaxes the
+cap on c for the SAME kappa_max; the rings still set kappa_max, so the kinematic invariant is
+untouched. Pre-coil changes where the member STARTS and ring flaring changes where it ENDS &mdash;
+independent levers on the same product.
 
-WHY THE ORIGINAL DRAFT VERDICT WAS "INCONCLUSIVE", NOT "SUPPORTED" (corrected 2026-08-31,
-verdict audit: this paragraph pre-dates the CAMPAIGN·IDEA·SCOPE migration and argued for a
-tag pair that no longer appears on this slide -- the reasoning below is why the family was
-never called a clean win, and still applies to why REFUTED, not VALIDATED, is the current
-call): the measurement is real and large, but it is one half of
-a trade. sigma_eig dropping 10x across the same sweep is exactly what a pre-curved member should
-do -- it is no longer a straight column, so its Euler load is not the relevant one -- and the
-question was whether the POST-buckling branch recovers what the eigenvalue lost. The
-rho(wrap, sigma_peak)=-0.392 correlation on the current Verdict line answers that: it doesn't.
-This study has been burned before by reading a favourable half-measurement as a result
-(docs/FLAKY_DESIGNS.md keeps a list of them).
+**Timeline:** Run 20260812T014026, H4/H6. The gif is the 839-increment solve (riks_847140cc): 785
+frames in step, of which 268 fall inside the mcs&le;0.95 render window. Novelty was settled
+separately by run 20260812T222030's H3.
 
-READ THE RELIEF NUMBER CORRECTLY. 5x is not the depth cap moving 5x -- it is Delta_kappa
-shrinking, which relaxes the cap on c for the SAME kappa_max. The kinematic invariant (H5) is
-untouched: the rings still set kappa_max. Pre-coil changes where the member STARTS, and flaring
-(H9) changes where it ENDS. They are independent levers on the same product, which is why testing
-both is worth more than testing either twice.
-
-THE 61.5% FIGURE WAS THE MAST GOING UP (post-mortem, 2026-08-14). This slide originally reported
-"61.5% compression at 0.45% strain" and a "~5x strain relief", and PROBLEM_STATEMENT.md carried the
-same sentence. Both were wrong. bo/response_metrics.py computed mcs from np.abs(U[2]), and
-magnitude cannot distinguish a loading point descending from one rising. Read directly off the ODB
-(sc_oracle_helical/riks_847140cc..., 785 history points, job 4972909):
-
-    U3 min (true max DESCENT)   -30.769 mm  -> mcs = 0.6154   frame 132, LPF 0.5783
-    crosses into POSITIVE                                     history pt 229, LPF 0.5894
-    U3 max (net ASCENT)         +63.485 mm  -> abs() says 0.6349
-    max |E| at the true peak     0.00445    (i.e. 0.445% strain)
-    max |E| at the abs() peak    0.01418    (1.42%, not 0.45%)
-
-So the design reached 61.5% compression at 0.445% strain, and the published pair took its
-compression from one frame and its strain from another. The straight control blowing 2% by 26.2%
-still stands, so relief is real -- but the two were never compared at equal compression and the
-factor was never measured, which is why "~5x" is gone rather than rescaled.
-
-SECOND CORRECTION (2026-08-26, deck audit item 2): this paragraph originally reported mcs=0.3077
-for the -30.769mm descent, using mast_height=100mm. That number was never sourced from either the
-oracle's own metric-reduction formula or the geometry-construction script -- both independently
-compute mast_height = n_storeys * ratio_pitch * bottom_diameter = 1 * 0.5 * 100 = 50mm
-(bo/oracle_helical.py line 456; scripts/supercompressible_riks_pretwist_helical.py lines 158+179,
-and its own prescribed-displacement BC at line 816 uses the same 50mm). At the correct mast_height,
-the true reading is mcs=0.6154 (61.5%), not 30.8% -- exactly double. This is numerically close to
-the ORIGINAL, pre-2026-08-14 "61.5%" figure this whole postmortem exists to debunk, but that is a
-coincidence, not a vindication: the original number was wrong for an unrelated reason (abs(U3)
-counting the net +63.5mm ascent as compression), while this one is the true value at the actual
-point of maximum real descent. Strain never crosses 2% anywhere in the 785-frame history, so the
-"relief is real" conclusion is unchanged and, if anything, stronger than previously stated.
-
-Fixed in c79a524 (`np.clip(-U[2], 0, None)`, plus the renderer's readout and a reversal cutoff so
-a gif stops where the mast stops descending). Monotonic solves are unaffected, so no other
-published number moves. Found by the advisor from this slide's own gif: "mcs goes up but the
-design doesnt compress, instead it decompress. Possible bug."
-
-THE LESSON IS NOT "CHECK FOR REVERSAL" -- that is a rule fitted to one accident. The general
-failure is that this figure travelled from a delegation report into a run summary, into this
-slide, and into the PROBLEM_STATEMENT without one independent read off the primary artifact, and
-then steered two runs. docs/FLAKY_DESIGNS.md carries it under "claims that turned out to be
-false" for that reason.
-
-WHY THIS LOOKED NOVEL, AND WHY IT IS NOT (settled by run 20260812T222030, H3): the argument here
-was that helix_wrap is a new degree of freedom with a new pre-processor, so a member manufactured
-curved is a different design rather than a different point. The literature review answered it
-directly -- spontaneous/intrinsic-curvature strain relief is settled Kirchhoff-rod mechanics
-("general considerations concerning such naturally curved rods can already be found in the work
-of Kirchhoff"), i.e. a known-mechanism transplant into this host geometry. A new parameter is not
-a new mechanism. Left standing as written, because the reasoning that produced it is the exact
-reasoning the novelty bar has to arbitrate.
-
-The wrap<=0 rows (-0.3, -0.15, 0, 0.15, 0.3) are the sign-convention control: wrap=0 must
-reproduce the straight family exactly, and does. Built as `signcheck` before the sweep ran, which
+**Infra:** `bo/oracle_helical.py` and
+`scripts/supercompressible_riks_pretwist_helical.py`. The `wrap <= 0` rows (&minus;0.3, &minus;0.15,
+0, 0.15, 0.3) are the sign-convention control, built as `signcheck` BEFORE the sweep ran, which
 is why the sweep's numbers can be read as a curve rather than a scatter.
 
-**Follow-up (2026-09-06) &mdash; a real oracle bug, and a lead that did not survive contact
-with this slide.** PROBLEM_STATEMENT summarises the deep-wrap region as "numerically
-inaccessible &mdash; 0 of 107 rows reached a coiling mode, 19/19 Stage-2 solves crashed ... an
-open *solver* problem, not a design lead". Two of those clauses are gate artefacts. (1) "0
-reached a coiling mode" reads `coilable`, which `supercompressible_lin_buckle_pp_helical.py`
-deliberately leaves mode-1-only; its own `coiling_mode_found` column says **159 of 286** helical
-designs have a coiling mode (deep-wrap band: 67 of 121, against 0 by mode 1, typically mode 3).
-(2) "19/19 crashed" was partly an artefact of **`bo/oracle_helical.py` having no salvage path at
-all** &mdash; its Stage-2 `except` returned sigma_peak=NaN without ever opening the partial ODB,
-unlike `oracle_tape_spring` and `D41_oracle_chiral_twist`, which have salvaged for months. That
-is why the deep probe below survives as prose in a code comment rather than as a data row: it
-came from a MANUAL salvage. **Fixed 2026-09-06 (commit 1699316)**; salvaged rows now
-self-identify (`salvaged=1`) and are reported not-evaluable rather than infeasible when their
-metric window never closed, so a design that ran out of solve is no longer recorded as one that
-failed on physics.
-**The lead itself does not stand, and this slide is why.** A campaign was built (job 5939289,
-64 stranded deep-wrap designs + 96 Sobol points at c = 4.1&ndash;7.4 mm) on PROBLEM_STATEMENT's
-paragraph WITHOUT first reading this slide's own post-mortem. This slide already records the
-answer: the verdict is POWERED &middot; REFUTED, twice-corrected, the relief is real but
-&rho;(wrap, &sigma;_peak) = &minus;.392 over 36 decided designs, the family never approached 80%,
-and the 61.5% probe's loading point reverses back past its own start. The campaign was cancelled.
-Independently of the gates, the region is also genuinely hostile: with salvage in place, two
-deep-wrap designs (c = 2 mm, pitch .5, wrap 2&ndash;3) collapse the increment after **3 frames**
-at .006&ndash;.06% strain &mdash; at the very start of loading, not after long progress.
+**History:** this slide is the study's most instructive measurement failure, and the full
+postmortem &mdash; including every dated correction in its original wording &mdash; is in
+`validation/mcs_sign_bug_postmortem/README.md`. In short: `bo/response_metrics.py` computed
+compression from `np.abs(U[2])`, and magnitude cannot distinguish a loading point descending from
+one rising. This design's point descended, reversed, and travelled back past its own start, so the
+absolute value kept climbing while the mast decompressed &mdash; and the published pair took its
+compression from one frame and its strain from another. Fixed in c79a524. A second, independent
+error in the same paragraph used mast_height=100 mm where both the oracle and the geometry script
+compute 50 mm, making the corrected reading exactly double; that it lands near the original
+debunked 61.5% is a coincidence, not a vindication. THE LESSON IS NOT "check for reversal", which
+is a rule fitted to one accident. It is that the figure travelled from a delegation report into a
+run summary, into this slide, and into PROBLEM_STATEMENT.md without one independent read off the
+primary artifact &mdash; and then steered two runs.
 -->
 
 ---
@@ -5972,6 +5897,13 @@ layout: two-cols-header
 </div>
 
 <!--
+**Result:** NON-ENGAGEMENT, closing a class rather than a design. Nine confined evaluations
+across four mandrel radii up to the geometric limit and four cross-sections: 9 coilable, 9
+converged, 4 nominally good at 5.41&times; Bessa &mdash; but the nine peak loads take only FOUR
+distinct levels, one per control, and contact force is identically 0.0 at all 70 history samples.
+The coiling mode is RADIUS-PRESERVING: the envelope stays between 47.79 and 50.00 mm over the
+stroke and never moves inward, so there is no radius for an internal body to govern.
+
 **Input space:** mandrel_ratio&isin;[0,.83] — mandrel radius as a fraction of the geometric limit
 (.83). a&isin;[.004,.014], b&isin;[.01,.045] — cross-section semi-axes. ratio_pitch&isin;[.25,1.5].
 Fixed: n_longerons=3, ratio_top_diameter=.04444, n_storeys=1.
