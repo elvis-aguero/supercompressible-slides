@@ -7554,25 +7554,24 @@ Two hypotheses fold into existing idea slides as refinements, while the run's on
 </div>
 
 <!--
-Per-hypothesis detail:
+**Why it stopped:** GATED. Two hypotheses, both closed on their primary claims.
 
-- H1: does a distributed-compliance longeron built from N>=3 repeated stiff/thin unit
-  cells (alternating thick and thin flexure segments) reach sigma_cr,nd>0.7704 kPa at
-  full feasibility? D005: 58-eval slenderness-valid constrained campaign, 0/58 fully
-  feasible; best mcs>=0.80 point has sigma=2.058 kPa but mls=0.0576 (nearly 3x the 2%
-  limit). A corrected matched N-sweep (fixed geometry, hinge_fraction=0.15,
-  sigma=0.443 across N=3..6) shows mls DOES decrease slightly with N
-  (0.0375->0.0366->0.0360->0.0358) -- a real but far too small effect to reach
-  feasibility at competitive sigma. Falsified on the primary (existence-at-target)
-  claim.
-- H2: does a smoothly (continuously) tapered longeron beat the piecewise "waisted"
-  family's issues? D006: 39-eval search, only 1/39 fully feasible, best-feasible
-  pinned at sigma=0.2785 across the whole campaign -- the search barely located the
-  feasible manifold at all, an inadequate test of an existence claim per the study's
-  Charter. Downgraded from an initial FALSIFIED to INCONCLUSIVE. One suggestive
-  mechanistic observation: mls clusters at 0.0199-0.0225 across taper_exponent 0.5-4.0,
-  i.e. close to but not clearly below the 0.02 limit.
-- H3: see idea slide below.
+**What it bought:** two distributed-compliance ideas closed, and one of them with a genuinely
+useful measured trend. H1 asked whether a longeron built from repeated stiff/thin unit cells
+reaches the target at full feasibility: 0 of 58 slenderness-valid designs fully feasible, and the
+best compression-passing point reaches 2.058 kPa at local strain 0.0576 &mdash; nearly 3&times;
+the 2% limit. A corrected matched sweep over cell count at fixed geometry shows strain DOES fall
+with more cells (0.0375 &rarr; 0.0366 &rarr; 0.0360 &rarr; 0.0358), so the mechanism is real; it
+is simply far too small to reach feasibility at competitive load.
+
+**Corrections:** H2 is recorded as an inadequate test rather than a refutation, which is the right
+call: a 39-eval search found only 1 of 39 fully feasible with the best feasible pinned at 0.2785
+across the entire campaign, meaning the search barely located the feasible manifold at all.
+
+**Cost shape:** 58 evals on H1, 39 on H2.
+
+**Unresolved:** H2's existence claim, since the search that was supposed to test it never really
+reached the region it was about.
 -->
 ---
 layout: two-cols-header
@@ -7615,6 +7614,14 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** DISQUALIFIED. 45 designs, 44 reaching a converged solve, 12 nominally feasible, and
+the largest peak load in the whole study &mdash; 1691&times; Bessa, re-verified by direct ODB
+mode-1 extraction, so the number is real. It does not count: a pin-jointed prestressed truss is
+not comparable elastic bending. The tell is in the strain, and it is the exact thing the
+apples-to-apties rule exists to catch: material strain is about 9&times;10<sup>-14</sup>, i.e.
+none. The wild compression and strain quartiles above (up to 2929 and 9.55) are truss-versus-beam
+scaling rather than an error.
+
 **Input space:** a_strut&isin;[.0001,.05], slen_strut (reparametrized from ratio_b_strut&isin;
 [.0001,.08] as pitch/(2*max(a,b))) — strut cross-section/slenderness. area_cable&isin;[1e-7,1e-2]
 — cable cross-section area. mid_h&isin;[.05,.95] — mid-height ratio of the tensegrity's waist.
@@ -7687,24 +7694,26 @@ Mining an existing dataset and testing a 2-storey mast both come up empty; the o
 </div>
 
 <!--
-Per-hypothesis detail:
+**Why it stopped:** GATED, after a numeric-accuracy correction and a slenderness-formula
+correction, both prompted by critic audit.
 
-- H1: does the 50,000-point Bessa 7D generalized-cross-section dataset contain an
-  independent Ixx/Iyy/J/area combination that, realized through a real
-  DURING_ANALYSIS-capable profile (rectangular-anisotropic or box) at fixed
-  rsm=0.3677 and slenderness>=10, clears all feasibility criteria? D003 (direct ledger
-  re-query via QueryStore, after a numeric-accuracy correction per critic audit): of 8
-  coilable rows, 3 pass mcs>=0.80 (all 3 fail mls badly: 0.063/0.112/0.062), 2 pass
-  mls<=0.02 (both fail mcs badly: 0.077/0.072), and the remaining 3 fail both at once.
-  0/8 pass all 4 criteria simultaneously; max coilable sigma_crit=19.51 kPa (well above
-  the floor) but always at the cost of one of the other two criteria.
-- H2: see idea slide below.
-- H3: does a 2-storey mast built from the known winning rectangle cross-section reduce
-  peak local bending strain for a given compression, by splitting curvature demand
-  across two storeys? D006 (after a critic-audit correction to the slenderness formula,
-  circular==2 now uses max(ratio_a,ratio_b) not ratio_b alone): 3/36 pass the raw
-  slenderness threshold under the corrected formula (not 4/36 as originally miscounted);
-  0/36 coilable rows were also converged==True. Inconclusive, no clean signal either way.
+**What it bought:** a direct test of whether Bessa's own 50,000-point generalized cross-section
+dataset already contains a winner, realized through a profile the solver can actually build. It
+does not, and the pattern is the informative part: of 8 coilable rows, 3 pass compression (all 3
+failing strain badly at 0.063/0.112/0.062), 2 pass strain (both failing compression badly at
+0.077/0.072), and the remaining 3 fail both. Zero pass all four criteria at once. Peak load goes
+as high as 19.51 kPa, well above the floor &mdash; always at the cost of one of the other two
+criteria.
+
+**Corrections:** two, both from critic audit and both applied before the verdicts were closed: a
+numeric-accuracy fix to the ledger re-query, and a correction to the slenderness formula used in
+H3's two-storey check.
+
+**Cost shape:** a ledger re-query rather than a campaign for H1, which is why this run is cheap
+for what it settles.
+
+**Unresolved:** nothing new opened; the dataset question is closed by direct enumeration rather
+than by search.
 -->
 
 ---
@@ -7753,6 +7762,13 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** PHYSICAL. 62 designs, 50 coilable, all 50 converged, 20 clearing 2&times; Bessa on
+load, and exactly 1 feasible on every criterion &mdash; at 0.0061&times; Bessa. Existence was
+never the question: 50 evals clears this study's own existence bar and a genuine feasible hit was
+found. Competitiveness is the finding. The one feasible design sits roughly 1000&times; below
+target, which is far too large a gap to attribute to under-searching rather than to the
+mechanism, and local strain is the criterion doing the blocking.
+
 **Input space:** rc&isin;[.001,.02] — chord radius. h&isin;[.01,.15] — separation between the two
 chords. n_battens&isin;[2,8] — discrete batten count. ratio_pitch&isin;[.25,1.5],
 ratio_top_diameter&isin;[0,.8] — usual per-storey pitch/taper meaning. Fixed: circular=4
@@ -7801,25 +7817,25 @@ Elliptical top/bottom rings are cleanly falsified again — every point in a 32-
 </div>
 
 <!--
-Per-hypothesis detail:
+**Why it stopped:** GATED.
 
-- H1: does replacing circular top/bottom rings with ellipses at an independent
-  top-view phase offset contain a slenderness-valid design beating 0.7704 kPa? D006: a
-  30-point LHS spanning the full registered 2D box (ellipse_aspect_ratio 0.035-0.970,
-  phase_offset 0.0145-1.0269 rad) at the fixed run17_rectangle cross-section returned
-  coilable=0 for EVERY point. Two additional near-degenerate boundary probes (aspect=
-  0.99/phase~1.1deg; aspect=0.90/phase~2.9deg) were ALSO coilable=0 -- even a ~1 degree
-  phase perturbation from the exact circular/zero-phase anchor switches the first
-  buckling mode away from coiling entirely. A systematic loss of the coiling mechanism
-  across the whole tested box, not a scattered/thin-coverage null result.
-- H2: see idea slide below.
+**What it bought:** a systematic, full-coverage negative on elliptical rings, and it is
+unusually clean. A 30-point Latin hypercube spanning the whole registered box returned
+`coilable=0` for EVERY point, and two additional near-degenerate boundary probes &mdash; aspect
+0.99 at about 1 degree of phase, and aspect 0.90 at about 3 degrees &mdash; were also
+`coilable=0`. So even a roughly ONE-DEGREE phase perturbation from the exact circular, zero-phase
+anchor switches the first buckling mode away from coiling entirely. That is a systematic loss of
+the mechanism across the whole box, not a scattered thin-coverage null.
 
-**Split out 2026-08-31 (verdict audit):** this H1 previously read "folds into the
-elliptical-rings slide" -- old rule-1 language, before D&lt;n&gt;-&lt;k&gt; numbering
-existed. Promoted to its own D10-2 slide since it's a real, decisive, well-powered
-re-test, not a thin/incidental one (rule 1's own carve-out for folding several
-different base ideas' one-design checks into a single slide does not apply here --
-this is one base idea, tested properly).
+**Corrections:** this run's H1 was split out on 2026-08-31 during a verdict audit. It previously
+read "folds into the elliptical-rings slide", which was rule-1 language predating the D&lt;n&gt;-&lt;k&gt;
+numbering scheme; it now points at D10-2, which is that systematic re-test.
+
+**Cost shape:** 32 points total, deliberately including the two boundary probes that make the
+result interpretable rather than merely negative.
+
+**Unresolved:** nothing. D10's own verdict had said a systematic re-test was needed before a
+closed non-existence call could be licensed; this licenses it.
 -->
 
 ---
@@ -7867,6 +7883,13 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** NON-ENGAGEMENT, by direct observation rather than by surrogate. 32 points &mdash; the
+full registered box as a 30-point Latin hypercube plus two boundary probes &mdash; and every
+single one is non-coilable. The probes are the informative part: at roughly ONE DEGREE of phase
+perturbation from the exact circular, zero-phase anchor, the first buckling mode has already
+switched away from coiling entirely. This is the systematic re-test D10's own verdict said was
+needed before a closed non-existence call could be licensed, and it licenses it.
+
 **Input space:** same 2D box as D10's own base slide (ellipse_aspect_ratio,
 phase_offset) — no new parameter, a coverage re-test.
 
@@ -7928,6 +7951,13 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** PHYSICAL, on a thin trustworthy sample. 17 designs, 8 converged, 3 nominally good at
+5.89&times; Bessa &mdash; and those 3 clear only because they ARE essentially the unperturbed
+host: 0.7694 kPa against the baseline's 0.7704, under 0.2% apart. The meander adds nothing. Worse
+for the hypothesis, among the 8 trust-gated points local strain correlates POSITIVELY with both
+amplitude (+0.42) and period count (+0.53) &mdash; the opposite of the proposed benefit.
+Inconclusive only because 8 of 17 is thin; the direction is unambiguous.
+
 **Input space:** amplitude_rel&isin;(0,.02] — meander amplitude relative to the mast diameter.
 n_periods&isin;[1,6] — number of wave periods along the longeron. Fixed: host geometry =
 run17_rectangle (a=.009213, b=.033238, ratio_pitch=.681277, ratio_top_diameter=.04444).
@@ -7982,26 +8012,26 @@ The rectangle-anchor value reconfirms bit-identically and the Kresling ceiling h
 </div>
 
 <!--
-Per-hypothesis detail:
+**Why it stopped:** GATED.
 
-- H1: does the rectangle family, explored beyond the previously-confirmed corner,
-  contain a slenderness-valid design at sigma_cr,nd>=0.3918 kPa? D004: pre-registered
-  >=20-eval extension campaign (30 real evals: 13-pt DoE + 4 CEI-BO rounds, widened
-  box), slenderness>=10 hard-constrained. Best feasible sigma_cr,nd=0.770352 kPa --
-  bit-identically reconfirms the H1 (run 20260717T014507) result, all 4 criteria met.
-- H2: does extending the Kresling psi ceiling beyond 30deg improve on the 0.7110618 kPa
-  anchor? D003: 47 real evals (1 stabilized anchor re-run + fixed-geometry psi-sweep +
-  26-pt global LHS/EI-lite BO + 16-pt local trust-region refinement around the anchor,
-  slenderness>=10 pre-screened, meeting the >=30-eval budget). Best feasible remains the
-  psi=30deg anchor itself (0.710977 kPa, within cross-run noise of 0.7110618 kPa) -- no
-  design anywhere in [0,60deg] beat it, and the trend did not show a rising tail.
-- H3: see idea slide below.
-- H4: is the 0.877050 kPa point found serendipitously in D006 (this run) near a local
-  ceiling, or the base of a still-climbing trend? Moot: this point was found (this
-  run's own ledger audit) to FAIL criterion 4 under the corrected slenderness formula
-  (true slenderness 8.351, not the self-reported 33.724). D008's 23-eval local
-  refinement was ALSO built on the same wrong (waist-based) slenderness pre-screen, so
-  its results inherit the same invalidity.
+**What it bought:** two independent reconfirmations and one closed ceiling. H1 re-explored the
+rectangle family beyond its previously confirmed corner with a pre-registered 30-eval extension
+(13-point DoE plus 4 CEI-BO rounds, widened box, slenderness hard-constrained) and
+bit-identically reconfirmed the incumbent at 0.770352 kPa with all four criteria met. H2 pushed
+the Kresling angle ceiling past 30 degrees across 47 real evals &mdash; a stabilized anchor
+re-run, a fixed-geometry angle sweep, a 26-point global LHS with EI-lite BO, and a 16-point local
+trust-region refinement &mdash; and the best feasible design remains the 30-degree anchor itself
+(0.710977 against 0.7110618, within cross-run noise). Nothing in the full 0&ndash;60 degree range
+beat it, and the trend showed no rising tail.
+
+**Corrections:** none required; both campaigns met or exceeded their registered eval budgets
+before closing.
+
+**Cost shape:** 30 evals on H1, 47 on H2, both pre-registered rather than open-ended.
+
+**Unresolved:** H4 probed whether a serendipitous 0.877050 kPa point found in the same run sits
+near a local optimum, which is the thread that later runs pick up rather than anything closed
+here.
 -->
 
 ---
@@ -8049,6 +8079,13 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** EVIDENTIAL. 29 designs, all coilable and all converged, 26 clearing 2&times; Bessa on
+load and 1 feasible on every criterion at 0.57&times; Bessa. The problem is that the search never
+looked in the right place: the constraint was mis-specified in terms of the waist rather than the
+governing dimension, so the campaign never searched the real feasible region at all. The headline
+does not survive correction, and what is on record is an inadequate test rather than a measured
+property of tapering.
+
 **Input space:** a_end&isin;[.004,.02] — end (ring) cross-section radius. waist&isin;[.30,.98] —
 mid-span radius as a fraction of a_end. b&isin;[.012,.06] — secondary semi-axis.
 ratio_pitch&isin;[.4769,.8857], ratio_top_diameter&isin;[.0311,.0578] — usual per-storey
@@ -8115,23 +8152,25 @@ This run finds the 0.7704 kPa rectangle-anchor design that becomes the study's c
 </div>
 
 <!--
-Per-hypothesis detail:
+**Why it stopped:** GATED. Both hypotheses closed on pre-registered campaigns.
 
-- H1: within the known slenderness-valid rectangle family (best confirmed point 0.3648
-  kPa), is there a design at sigma_cr,nd>=0.3918 kPa (3x Bessa point)? D005's 71-eval
-  CEI-BO campaign (seeded at the known optimum + Sobol fill, hard-constrained to
-  slenderness>=10) found ratio_a=0.009213, ratio_b=0.033238, ratio_pitch=0.681277,
-  ratio_top_diameter=0.044440 -> sigma_cr,nd=0.770352 kPa (1.97x target, 2.11x prior
-  baseline), coilable=1, mcs=1.0, mls=0.0199, slenderness=10.25. This becomes the
-  study's canonical "run17_rectangle" anchor for the rest of the study.
-- H2: adding pretensioned diagonal bracing (cable-stayed-column precedent, Gurfinkel &
-  Krishnan 2017) to the best-known cross-section. D006: pre-registered >=40-eval joint
-  CEI-BO campaign (45 real evals) over brace stiffness/pretension/attachment-height
-  jointly with cross-section dims, seeded on both the historical control and the new
-  0.770352 kPa best. Result: 0/45 braced points feasible -- only the
-  ratio_brace_area=0 control (reproducing 0.364826 kPa) was feasible. A genuine,
-  budgeted null result, not a decisive disproof (7D search, thin coverage).
-- H3: see idea slide below.
+**What it bought:** the anchor the rest of this study is normalised against. H1's 71-eval CEI-BO
+campaign, seeded at the then-known optimum with a Sobol fill and hard-constrained to slenderness
+&ge; 10, found ratio_a=0.009213, ratio_b=0.033238, ratio_pitch=0.681277,
+ratio_top_diameter=0.044440 at 0.770352 kPa &mdash; coilable, full compression, strain 0.0199,
+slenderness 10.25. **This becomes `run17_rectangle`, the canonical anchor for the remainder of the
+study.**
+
+**Corrections:** none needed; both campaigns met their registered budgets.
+
+**Cost shape:** 71 evals on H1, 45 on H2.
+
+**Unresolved:** H2 added pretensioned diagonal bracing to that best cross-section on a
+cable-stayed-column precedent, in a pre-registered joint campaign over brace stiffness,
+pretension and attachment height together with the section dimensions, seeded on both the
+historical control and the new best. 0 of 45 braced points feasible &mdash; the only feasible row
+is the zero-brace-area CONTROL, reproducing the older 0.364826 kPa. A family whose only feasible
+member is its control, which is the pattern later runs learn to name.
 -->
 
 ---
@@ -8185,6 +8224,13 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** DISQUALIFIED. 45 designs, 37 converged, 8 feasible on the four criteria of the day and
+the best at 5.44&times; Bessa &mdash; and it was later rejected on the FIFTH criterion,
+ring-passthrough, added afterwards. This slide is the reason that criterion exists: a bar-hinge
+kink can swing a mid-span node straight through a ring's own plane, and because every family in
+this study models both rings as idealised reference points rather than solid bodies, no
+beam-only check (coilable, compression, strain, slenderness) would ever catch it.
+
 **Input space:** a&isin;[.006,.014], b&isin;[.008,.025] — cross-section semi-axes.
 ratio_pitch&isin;[.25,1.5], ratio_top_diameter&isin;[0,.6] — usual per-storey pitch/taper
 meaning. psi_kresling&isin;[0,.6] rad — hinge offset angle (0 = hinge off). ratio_hinge_height
@@ -8197,18 +8243,11 @@ D17-3), not a numerical artifact and not floor-passthrough. No perturbation
 within this geometric-kink realization survives; a genuinely different hinge (an actual
 pin/flexure joint) would be a different idea.
 
-**Deferred:** The run's own gate critic FINAL SETTLEMENT (quoted): "the honest path...
-is to settle H3 at its last validator-endorsed INCONCLUSIVE and stop re-litigating" --
-reverting a subsequent (disputed) FALSIFIED flip back to the last validator-endorsed
-status, on the same D007 evidence, and stopping there. REJECTION, reported per the
-manifest/PROVENANCE.txt: this exact feasible design (psi=30deg, sigma=0.711 kPa) was
-later REJECTED in bo/confirmed_anchors.json (`_rejected.kresling_snap`) for failing
-criterion 5 (ring-passthrough) -- the bar-hinge kink lets the longeron's mid-span node
-pass through the ring's 0-D plane undetected during coiling, a failure mode this
-study's beam-only feasibility criteria (coilable/mcs/mls/slenderness) do not check
-for. So this idea passed every criterion it was originally tested against, then
-failed a criterion added later in the study -- an honest, still-open example of
-criteria evolving mid-study, not a contradiction.
+**Deferred:** this design passed every criterion it was originally tested against and then failed
+one added later in the study &mdash; an honest example of criteria evolving mid-study rather than a
+contradiction. It was rejected in `bo/confirmed_anchors.json` as `_rejected.kresling_snap` for
+failing criterion 5, ring-passthrough: the bar-hinge kink lets a mid-span node pass through the
+ring's 0-D plane undetected during coiling, which none of the four original criteria check for.
 
 **Timeline:** D007: 45 real, ledgered evals -- 1 stabilized anchor re-run +
 fixed-geometry psi-sweep + 26-pt global LHS/EI-lite BO + 16-pt local trust-region
@@ -8220,6 +8259,11 @@ psi_kresling=30deg, sigma_cr,nd=0.7110618 kPa.
 sourced from presentation/resim/kresling_run17/riks_93eadc4e3f4f4c5fa20d3e80954e6b60.
 Rendered cleanly through the full native pipeline; the bar-hinge kink partway up each
 longeron is visible in the animation.
+
+**History:** the run's own gate critic issued a final settlement, quoted: "the honest path... is
+to settle H3 at its last validator-endorsed INCONCLUSIVE and stop re-litigating" &mdash; reverting
+a subsequent disputed FALSIFIED flip back to the last validator-endorsed status on the same
+evidence, and stopping there.
 -->
 
 ---
@@ -8240,30 +8284,26 @@ No new idea this run — a rectangle-family ceiling check and a 5-family cross-c
 </div>
 
 <!--
-Per-hypothesis detail:
+**Why it stopped:** GATED, after a validator-prompted correction on H1.
 
-- H1: within the verified anisotropic-rectangular family, enforcing all four
-  feasibility criteria (incl. slenderness>=10, fully-converged Riks read), is there a
-  feasible design at sigma_cr,nd>=0.3956 kPa? D002 (48-eval 4D CEI-BO): no feasible
-  design found; its one clean converged high-sigma point (sigma=0.406, mcs=1.0) fails
-  mls=0.032. D005 (clean converged 1D ratio_a sweep, mcs=1.0 throughout, no confound):
-  sigma crosses the 0.3956 target at ratio_a=0.0146, but mls crosses 0.02 at
-  ratio_a=0.0100 -- every design at or above the target sigma already has mls~0.032,
-  well over the limit. Strong evidence of an absence, but not a proof; corrected to
-  INCONCLUSIVE per validator/Charter guidance on budgeted absence claims.
-- H2: a structurally-novel family that decouples buckling stiffness from radial
-  bending strain (thin-walled/shaped open cross-section, or a topological change).
-  Tested across FIVE novel families on the first trustworthy converged oracle: (1)
-  serpentine wavy path (D004) -- converged Stage-1 sigma DROPS with amplitude
-  (0.365->0.344), Stage-2 supercompression numerically intractable (early snap at
-  11.7%, stab_ratio=1.1); (2) auxiliary bracing (D006) -- sigma bit-identical to
-  baseline even at 10x strut area (coiling eigenmode insensitive to inter-longeron
-  stiffness); plus three further families summarized in D008's 36-eval combined
-  screen (2/36 coilable, coilable_rate 0.0556 overall vs 0.375 restricted to
-  1-storey configurations, best coilable sigma=0.406 but mcs=0.01375 -- nowhere near
-  feasible). An existence claim across five tried-and-failed families cannot be
-  proven absent by a bounded negative, so INCONCLUSIVE rather than FALSIFIED, per the
-  Charter's existence-claim handling.
+**What it bought:** the strain wall located precisely, on a clean one-dimensional sweep rather
+than inferred from a scatter. D005 swept a single cross-section dimension with full compression
+throughout and no confound: peak load crosses the then-target at ratio_a=0.0146, but local strain
+crosses 0.02 at ratio_a=0.0100. **Every design at or above the target load already sits at strain
+~0.032, well over the limit.** That is where the wall is, and the ordering of those two crossings
+is the whole result.
+
+**Corrections:** H1 was corrected DOWN to INCONCLUSIVE per validator guidance on budgeted absence
+claims. The evidence is strong &mdash; a 48-eval 4-D campaign found no feasible design and its one
+clean converged high-load point fails strain at 0.032 &mdash; but strong evidence of an absence is
+not a proof of one, and the registered claim was an existence claim.
+
+**Cost shape:** 48 evals on the search plus a deliberate 1-D sweep, which is what made the
+crossing order visible.
+
+**Unresolved:** H2 was the broad shot &mdash; five structurally novel families tried on the first
+trustworthy converged oracle, looking for one that decouples buckling stiffness from radial
+bending strain. Each has its own slide; none decoupled them.
 -->
 
 ---
@@ -8286,33 +8326,24 @@ Four hypotheses converge on the same conclusion — a σ-vs-feasibility barrier 
 </div>
 
 <!--
-Per-hypothesis detail:
+**Why it stopped:** GATED.
 
-- H1: among realizable closed thin-walled "box" cross-sections (maximizing torsional
-  constant J), tested for a slenderness>=10 feasible design. D005: 48-eval box screen,
-  27/48 coilable but only 1/48 feasible (sigma=0.000733 kPa, a degenerate thin-section
-  point) -- far below both the ~0.06 kPa rectangular ceiling and the 2.3376 kPa floor.
-  The MECHANISM is confirmed (high-J box designs do reach high sigma, best coilable
-  sigma=5.68 kPa, above the floor, exactly as torsion theory predicts) but those
-  high-sigma designs fail criterion 2 badly (best-coilable mcs=0.0625, far under 0.90):
-  the same stiffness that raises buckling load suppresses full coiling compression.
-- H2: see idea slide below.
-- H3: at slenderness>=10, tested whether feasible sigma is bound by the 2% local-strain
-  limit rather than coilability, within the straight rectangular family. D008: 29-eval
-  sweep (18-pt focused screen + 11-pt ratio_a boundary trace + 1 confirm), 0/29
-  feasible. Registered prediction (a feasible window at sigma~[0.3,1.5] kPa near the
-  mls~0.02 boundary) was contradicted: the transition is a KNIFE-EDGE bifurcation --
-  at fixed section, mcs jumps 0.53->1.0 across a single ratio_a step 0.0099->0.010, and
-  mls crosses 0.02 in that SAME step (0.0166->0.0215) -- full compression and the local
-  strain limit are breached in the same infinitesimal step, leaving no feasible
-  straddle point at all.
-- H4: tested whether a 2-storey mast (n_storeys=2) at slenderness>=10 escapes the
-  sigma<->feasibility barrier by distributing coiling curvature across two storeys.
-  D009: 16-eval bounded probe, 0/16 feasible. The highest-sigma coilable 2-storey
-  design (sigma=2.0125 kPa, above the single-storey ~0.06 kPa ceiling and near the
-  2.3376 kPa floor) fails BOTH remaining criteria at once (mcs=0.866<0.90 AND
-  mls=0.047>0.02) -- the same conflict pattern as the single-storey family, no
-  decoupling achieved.
+**What it bought:** a mechanism CONFIRMED and simultaneously disqualified, which is a more useful
+outcome than either alone. High-torsional-constant box sections really do reach high load exactly
+as torsion theory predicts &mdash; best coilable 5.68 kPa, above the floor. But those same
+high-load designs fail compression badly, with the best coilable design reaching only 0.0625: the
+stiffness that raises the buckling load is the stiffness that suppresses full coiling. Of 48
+designs, 27 coilable, only 1 feasible, and that one a degenerate thin section at 0.000733 kPa.
+
+**Corrections:** none required this run.
+
+**Cost shape:** 48 evals on the box screen, 29 on the strain-wall check.
+
+**Unresolved:** H3 tested whether feasible load is bound by the 2% strain limit rather than by
+coilability within the straight rectangular family, across a 29-eval sweep (18-point focused
+screen, 11-point boundary trace, one confirm) and found 0 of 29 feasible. Its registered
+prediction of a feasible window near a particular load range was not borne out, so the binding
+constraint question stayed open at this point in the study.
 -->
 
 ---
@@ -8363,6 +8394,13 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** PHYSICAL. 28 designs, 8 coilable, 8 converged, 1 feasible at 0.051&times; Bessa, and
+7 of 8 clearing 2&times; Bessa on load alone. Helical wrap does raise critical buckling stress
+&mdash; that part of the hypothesis holds. It destroys local-strain feasibility faster than it
+raises load, which is the opposite of the reversible-coiling benefit proposed, and strain is the
+gate: the one feasible design carries wrap=0, the degenerate case. So the lever works and works
+against itself.
+
 **Input space:** a&isin;[.003,.03], b&isin;[.008,.06] — cross-section semi-axes.
 ratio_pitch&isin;[.30,1.5], ratio_top_diameter&isin;[0,.6] — usual per-storey pitch/taper
 meaning. helix_wrap&isin;[0,1.5708] rad — turns wound into the longeron before compression.
@@ -8427,27 +8465,28 @@ Both a hard-slenderness rectangle search and a diagonal chiral-bracing lattice s
 </div>
 
 <!--
-Per-hypothesis detail:
+**Why it stopped:** GATED, after a validator correction on H1.
 
-- H1: within the anisotropic-rectangular family, enforcing slenderness=ratio_pitch/
-  (2*ratio_b)>=10 as a hard reject-and-resample constraint. D003 ran a 56-eval CEI-BO
-  campaign (16-pt slenderness-constrained Sobol DoE + 5 batch-8 CEI rounds); only
-  8/56 feasible, best feasible sigma_crit=0.0579 kPa (>1 order of magnitude below the
-  2.3376 kPa floor), corroborating an independent earlier run's 0.3644 kPa ceiling.
-  Initially marked SUPPORTED, then corrected to INCONCLUSIVE per validator feedback:
-  the best-feasible trend was still rising sharply in the final round (0.01635->0.05789,
-  a 3.5x jump) with no plateau and only 8/56 feasible points clustered in one corner --
-  an inadequate test of an absence claim regardless of the large observed gap.
-- H2: see the idea slide below for full detail. Two delegations: D005 (48-eval main
-  campaign, 32/48 evals silently corrupted by an abaqus2py hardcoded 60s no_file_timeout
-  tripping under heavy concurrent cluster load -- confirmed by comparing against a
-  lower-concurrency diagnostic; 24 genuine evaluations left, 0/24 feasible) and D006
-  (18-eval clean continuation at lower concurrency, verified genuine via .log markers).
-  Combined 42 genuine evals, 0/42 feasible, failure dominated by max_compressive_strain
-  (30/42, 71%). A corrected failure-rate comparison (treating Riks non-convergence/NaN
-  as a feasibility failure, consistent with the study's own convention elsewhere) gives
-  34/46 (73.9%) unbraced vs 30/30 (100%) braced -- the directional signal holds and, if
-  anything, strengthens under the correction.
+**What it bought:** an early, honest reading of how far the rectangle family reaches under a hard
+slenderness constraint: a 56-eval campaign with a 16-point constrained Sobol DoE and five batched
+CEI rounds, of which only 8 were feasible, best 0.0579 kPa &mdash; more than an order of magnitude
+below the then-floor, and corroborating an independent earlier run's own ceiling.
+
+**Corrections:** H1 was initially marked SUPPORTED and corrected to INCONCLUSIVE per validator
+feedback, correctly: the best-feasible trend was still rising sharply in the final round
+(0.01635 &rarr; 0.05789, a 3.5&times; jump) with no plateau, and the 8 feasible points clustered in
+a single corner. That is an inadequate test of an absence claim regardless of how large the
+observed gap looks.
+
+**Cost shape:** 56 evals on H1, 48 on H2's main campaign &mdash; of which **32 were silently
+corrupted** (see Unresolved), leaving 24 genuine.
+
+**Unresolved:** the corruption is the thing to carry forward. 32 of H2's 48 evaluations were
+silently invalidated by a hardcoded 60 s no-file timeout in `abaqus2py` tripping under heavy
+concurrent cluster load &mdash; confirmed by comparing against a lower-concurrency diagnostic run.
+Nothing in the result flagged itself; the 24 surviving genuine evaluations were 0 of 24 feasible.
+A timeout that discards work under load, silently, is the same class of failure as the ledger
+under-counting collected in `validation/ledger_undercounting/README.md`.
 -->
 
 ---
@@ -8492,6 +8531,13 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** NON-ENGAGEMENT. 42 designs, 30 coilable, 22 converged, none feasible &mdash; while
+all 22 decided designs clear 2&times; Bessa on load. That combination is the tell, and the
+quartiles say why: 16 of the 22 have compression EXACTLY 0.0, consistent with a stiff
+non-coiling mode rather than real headroom. Bracing blocks coiling rather than helping it, and the
+matched comparison is direct: braced designs fail the compression criterion in 30 of 30 against 34
+of 46 for the unbraced control.
+
 **Input space:** a&isin;[.0025,.20], b&isin;[.0025,.075] — longeron cross-section semi-axes.
 ratio_pitch&isin;[.25,1.5], ratio_top_diameter&isin;[0,.8] — usual per-storey pitch/taper
 meaning. z_brace&isin;[.05,.95] — axial position of the bracing lattice along the mast.
@@ -8507,30 +8553,8 @@ stays INCONCLUSIVE (thin decided sample) — bracing blocks coiling, it does not
 `riks_converged` field — R above counts rows with a real (non-NaN) mcs AND mls value,
 a looser bar than a confirmed-converged flag. &sigma;_crit's high p90/p100 (596/714
 kPa) almost certainly reflect a non-coiling, stiff buckling mode, not real progress —
-mcs stays near 0 for most of these rows. GIF LIMITATION, reported honestly per this
-task's instructions rather than skipped or faked: the archived ODB
-(data/idea_odbs/20260721T201733_H4_chiral_brace/SUPERCOMPRESSIBLE_RIKS.odb) has a
-genuine, ODB-specific rendering blocker. Two of its 2610 LONGERONS-instance nodes
-(labels 562, 1369 -- both endpoints of two T3D2 brace/truss elements, 554-555 and
-1363-1364) carry an Abaqus invalid/sentinel displacement value (magnitude 1e23-1e36)
-in the U field output from increment 1 onward (frame 0 is clean; every later frame
-checked -- 1,2,3,5,10,29,50,97 -- shows the identical two-node fault, so it is not a
-transient blip). Excluding those two elements from the display group (a native,
-non-fabricating fix -- same technique already used elsewhere in this pipeline to hide
-the non-structural ANALYTICAL_SURF instance) stopped the crash risk but did NOT
-restore the visible geometry: every frame after 0 still rendered fully blank
-(confirmed with contour off, with per-frame camera re-assertion, and with
-node-averaging disabled -- none fixed it), and rendering the same frame in plain
-wireframe (renderBeamProfiles=OFF) segfaults Abaqus/Viewer outright (signal 11) for
-this specific ODB. This appears to be a Mesa software-rendering depth/precision
-failure triggered by those two divergent nodes' astronomical coordinates propagating
-into the viewport's internal state even when the offending elements are excluded
-from display -- not something fixable within this pass without deeper
-Abaqus-internals investigation. Per this task's explicit instructions ("if you hit a
-genuine blocker... report that specifically rather than skip it silently"), the
-image shown is a genuine native Abaqus/CAE render of this same ODB's undeformed
-(frame 0) configuration only -- a real, unfabricated render, just not an animation. A
-full animated re-render of this idea remains open work.
+mcs stays near 0 for most of these rows. The gif for this slide could not be rendered from its own archived
+ODB at all; the forensics are under History below.
 
 **Timeline:** D005+D006: hypothesis H2 of run `20260714T020739`. It folds together
 every later bracing variant tried in this study (cable-stayed, chiral-ring,
@@ -8555,6 +8579,31 @@ overlay, which DOES render correctly in every frame); (2) a
 `_divergent_element_labels` helper excludes from display any element touching a node
 with a >1e30-magnitude field value in any rendered frame, general robustness for any
 future ODB with a similar localized divergence, not a chiral-brace-specific hack.
+
+**History:** GIF LIMITATION, reported honestly per this
+task's instructions rather than skipped or faked: the archived ODB
+(data/idea_odbs/20260721T201733_H4_chiral_brace/SUPERCOMPRESSIBLE_RIKS.odb) has a
+genuine, ODB-specific rendering blocker. Two of its 2610 LONGERONS-instance nodes
+(labels 562, 1369 -- both endpoints of two T3D2 brace/truss elements, 554-555 and
+1363-1364) carry an Abaqus invalid/sentinel displacement value (magnitude 1e23-1e36)
+in the U field output from increment 1 onward (frame 0 is clean; every later frame
+checked -- 1,2,3,5,10,29,50,97 -- shows the identical two-node fault, so it is not a
+transient blip). Excluding those two elements from the display group (a native,
+non-fabricating fix -- same technique already used elsewhere in this pipeline to hide
+the non-structural ANALYTICAL_SURF instance) stopped the crash risk but did NOT
+restore the visible geometry: every frame after 0 still rendered fully blank
+(confirmed with contour off, with per-frame camera re-assertion, and with
+node-averaging disabled -- none fixed it), and rendering the same frame in plain
+wireframe (renderBeamProfiles=OFF) segfaults Abaqus/Viewer outright (signal 11) for
+this specific ODB. This appears to be a Mesa software-rendering depth/precision
+failure triggered by those two divergent nodes' astronomical coordinates propagating
+into the viewport's internal state even when the offending elements are excluded
+from display -- not something fixable within this pass without deeper
+Abaqus-internals investigation. Per this task's explicit instructions ("if you hit a
+genuine blocker... report that specifically rather than skip it silently"), the
+image shown is a genuine native Abaqus/CAE render of this same ODB's undeformed
+(frame 0) configuration only -- a real, unfabricated render, just not an animation. A
+full animated re-render of this idea remains open work.
 -->
 
 ---
