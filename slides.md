@@ -3535,13 +3535,12 @@ contact-artifact finding already on D42's slide. The correction is not a one-off
 </div>
 
 <!--
-**Why it stopped:** UNGATED after 3 review rounds, on the wall clock rather than on the science.
-call_001 found nothing critical. call_002 and call_003 both raised the same MAJOR: the notebook's
-grain-beam funnel count was authoritative-sounding prose backed by a broken
-`campaign_summary.summarize()` call for this family's schema, so the printed funnel would not
-reproduce if the cell were executed. The underlying 54-count is independently correct via direct
-QueryStore, so the verdicts stand &mdash; but the run exhausted its 10 h budget before a fourth
-pass could land the fix. UNGATED, not FAILED.
+**Why it stopped:** UNGATED after 3 review rounds, on the wall clock rather than the science.
+call_002 and call_003 both raised the same MAJOR: the notebook's grain-beam funnel count was
+authoritative-sounding prose backed by a broken `campaign_summary.summarize()` call for this
+family's schema, so the printed funnel would not reproduce if the cell were run. The underlying
+54-count is independently correct via direct QueryStore, so the verdicts stand &mdash; the run
+just exhausted its 10 h before a fourth pass could land the fix.
 
 **What it bought:** D42's headline reproduced exactly, then explained away. D004 re-solved D42's
 winning design and reproduced sigma_peak=0.646302 kPa to 0.0% &mdash; a fresh estimate, not a
@@ -3552,8 +3551,8 @@ nonzero only at frame 64, after which RF3 and CPRESS rise together to a peak 26&
 contact-free structural one. D42's headline is the wavy longeron hitting the rigid loading disc,
 not bend-twist capacity &mdash; confirmed independently on a second code path.
 
-**Corrections:** the D42 mechanism correction above, which this run's own notebook draft had not
-caught up with, was confirmed rather than merely restated. No hypothesis verdict moved.
+**Corrections:** the D42 mechanism correction above was confirmed rather than merely restated;
+this run's notebook draft had not caught up with it. No hypothesis verdict moved.
 
 **Cost shape:** 14 delegations, all 14 retrospectives clean &mdash; no CONSISTENCY flags at all,
 the only run in this deck with none.
