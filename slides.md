@@ -3885,50 +3885,38 @@ exactly the kind of result rule 1 asks this deck to carry, not discard.
 </div>
 
 <!--
-THE GATE HISTORY, IN BRIEF (8 rounds, full detail on the D24-revisited slide that follows).
-Every round found something real and checkable: a duplicate-row/median miscount, an overstated
-strain-floor claim contradicted by rows inside the same population it described, an 8/10-vs-7/10
-feasible overclaim off by exactly the row the same paragraph flags as infeasible, and a
-gate-pass audit note that lagged 3 edit rounds before catching up to the file it described. None
-touched the headline number itself — call_008 independently re-derived it to 6 decimal places
-from a fresh ledger query and found no residual finding.
+**Why it stopped:** GATED after 8 rounds, every one finding something real: a duplicate-row
+median miscount, an overstated strain-floor claim contradicted by rows in the population it
+described, a feasible overclaim off by exactly the row the same paragraph flagged as infeasible,
+and an audit note lagging three edit rounds behind the file it described. None touched the
+headline &mdash; call_008 re-derived it to six decimals from a fresh ledger query.
 
-THE LEDGER-UNDERCOUNTING DISCOVERY, THIS RUN'S REAL INFRASTRUCTURE FINDING. Four delegations
-(D008, D010, D011/D012, D013) independently rediscovered the same root cause: this study's own
-`OracleDataGenerator.execute()` (bo/datagen.py) records a per-call `imperfection` value only as
-an OUTPUT annotation (`_imperfection_rad`), never as a declared input — so a3dasm's dedup-on-write
-(which correctly keys on whatever's in `_input_data`, and is NOT itself buggy) cannot distinguish
-two imperfection draws at the same nominal geometry and silently keeps only the first. D014 alone
-disclosed 28 real Abaqus invocations behind just 11 ledgered rows. Root-caused and documented in
-`docs/TRAPS.md` #9. **FIXED 2026-08-25 (later the same day, post-run):** `_imperfection_rad` now
-stores `which="input"` when a real value is given (never for the non-sampling `imp=None` case —
-a NaN there would break dedup for every other oracle, since NaN != NaN defeats the dedup key).
-Self-tested, applied to all 3 call sites, committed.
+**What it bought:** a bounded negative on the chiral-twist mechanism (D41 below), and this run's
+real product, which is an infrastructure finding rather than a design. Four delegations
+independently rediscovered that `OracleDataGenerator.execute()` recorded each call's
+`imperfection` only as an OUTPUT annotation and never as a declared input, so dedup-on-write
+could not distinguish two draws at the same geometry and silently kept the first. D014 alone
+disclosed 28 real Abaqus invocations behind 11 ledgered rows.
 
-A SECOND, SMALLER CAPABILITY GAP (RESOLVED, NO ACTION): no tool exists to revise a hypothesis's
-own registered `prediction`/`falsification_criterion` text after proposal. Considered adding one
-— rejected on review: it would let a hypothesis's wording be adjusted after seeing which evidence
-is favorable, which is goalpost-moving by another name. The propose-new/retract-old pattern H5→H6
-already used is the correct guard, not a workaround for a missing feature. No change.
+**Corrections:** the undercounting bug was FIXED the same day, post-run &mdash;
+`_imperfection_rad` now stores `which="input"` when a real value is given, deliberately not for
+the non-sampling `imp=None` case, since a NaN there would break dedup for every other oracle.
+Also corrected: this study's own initial take that a keep-last dedup policy "strictly dominates"
+was wrong, per the a3dasm maintainer. Riks solves here are not guaranteed deterministic, so a
+"last" call can be a flaky partial re-solve as easily as a genuine fix, and no implicit
+overwrite policy is safe in either direction. That is why `supersede()` is explicit and
+audit-logged. Both, with the other two ways this ledger under-counts, are in
+`validation/ledger_undercounting/README.md`.
 
-INFRA PROMOTED TO GOLD (2026-08-25, later the same day). `bo/oracle_bistable_arch.py`,
-`bo/D41_oracle_twist_buckle.py`, `bo/D41_oracle_twist_buckle_locked.py` (866 lines) + 6 supporting scripts
-(6339 lines), all built fresh this run, committed so the next run touching either family doesn't
-rebuild from scratch.
+**Cost shape:** $48.67 = $46.71 telemetry + $1.96 strategizer. That run's strategizer cost is
+ENTIRELY absent from `telemetry/summary.json`, not merely undercounted, which is the case rule 6
+exists for.
 
-DEDUP POLICY (keep-first vs. keep-last): raised to the a3dasm maintainer. Initial take here was
-that keep-last "strictly dominates" (fixes the corrected-re-run case, no-ops elsewhere) — wrong,
-per the maintainer's correction: this study's Riks solves are not guaranteed deterministic (contact
-+ stabilization + adaptive arc-length stepping), so a "last" call can just as easily be a flaky
-partial re-solve as a genuine fix. Under non-determinism, no *implicit* default-overwrite policy
-is safe in either direction — which is exactly why `supersede()` already exists as an explicit,
-audit-logged action instead of an automatic one. Not fixed here; a3dasm's write invariants are
-the maintainer's call, correctly.
-
-COST RECONCILIATION. telemetry/summary.json recorded $46.71 total, with an EMPTY strategizer
-entry in by_role (this run's strategizer transcript cost is entirely absent from that file, not
-merely undercounted). Summing directly from debug/transcripts/strategizer/*.jsonl gives $1.96.
-Actual: $46.71 + $1.96 = $48.67.
+**Unresolved:** the concurrent-write half of the ledger problem is harness-side and unfixed. One
+capability gap was considered and deliberately REJECTED rather than deferred: a tool to revise a
+hypothesis's registered prediction or falsification criterion after proposal. It would let
+wording be adjusted after seeing which evidence is favourable, which is goalpost-moving by
+another name; the propose-new/retract-old pattern H5&rarr;H6 already used is the correct guard.
 -->
 
 ---
@@ -3976,6 +3964,13 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** NON-ENGAGEMENT. 20 chiral twist-buckling masts, 8 coilable, 6 converged, none
+feasible. The solves are fine; the mechanism never activates. The rod TWIST share of strain
+energy peaked at 1.13e-4, roughly 4400&times; below the 50% a twist-dominated design needs, and
+it got WORSE as the aspect ratio moved toward the regime the source paper prefers. A specific
+confound was identified rather than guessed at: the rod's torsional freedom was coupled to the
+ring's rigid-body rotation, so it could not twist independently. D41-2 fixes that joint.
+
 **Input space:** twist_angle&isin;[.035,1.05] rad (2&deg;-60&deg;, chirality pre-rotation angle
 &alpha;&#8320;). ratio_pitch&isin;[.5,1.5]. ratio_a, ratio_b&isin;[.021,.075] — rod cross-section
 (elliptical/RectangularProfile substitute for Abaqus's missing native ellipse). Fixed for this
@@ -3995,8 +3990,8 @@ the effect was WORSENING, not plateauing, as the aspect ratio moved toward the m
 preferred regime — a clean, converging bounded negative, decisive enough not to spend more evals
 re-testing the same confounded joint-coupling realization rather than fixing the joint itself.
 
-**Timeline:** This is H3 (free rotation, the true mechanism) + H4 (rotation-locked
-control) of run `20260825T012642`, delegations D003 (oracle build) + D004 (12-point
+**Timeline:** Run 20260825T012642 &mdash; H3 (free rotation, the true mechanism) + H4
+(rotation-locked control), delegations D003 (oracle build) + D004 (12-point
 grid: ratio_pitch&isin;{0.5,0.8}, slenderness=12, twist 2&ndash;60&deg;) + D005
 (8-point grid at ratio_pitch=1.50, the domain's max and the low end of Fang et al.'s
 own preferred h0/R=3&ndash;6 regime) + D006 (H4's single diagnostic sample + the
@@ -4057,157 +4052,49 @@ layout: two-cols-header
 </div>
 
 <!--
+**Result:** NUMERICAL. One Rank-3 candidate re-confirmed under contact across 19 imperfection
+draws, originally reporting a median sigma_peak of 1.6487 kPa (7.35&times; Bessa) and clearing
+every criterion. It is an artifact. Re-solved at 250&times; finer increments the exact draw behind
+that figure does not even converge, and the default draw resolves to a smooth 0.5039 kPa with no
+spike &mdash; landing on the design's own sustained plateau of ~0.51&ndash;0.52 kPa, BELOW the
+plain rectangle incumbent's real peak of 0.6071. The splice hurts once the spike is set aside.
+
 **Input space:** Rank-3 candidate geometry: ratio_a=.009179, ratio_b=.029742,
 arch_rise_ratio=.021174, arch_length_ratio=.400188, ratio_pitch=.669962,
 ratio_top_diameter=.041530. Imperfection sampled from Bessa's lognormal(4&deg;,1.2&deg;)
 distribution, seeds 0/1/2 across D010/D013/D014.
 
-**Result, full revision history (trimmed from the visible bullet 2026-08-28 to fix a confirmed
-134px render clip, headless-measured):** median &sigma;_peak=1.6487 kPa across 9 independent
-draws (7.35&times; the floor) clears every criterion — but this number is the
-imperfection-sensitive snap-through spike at mcs&asymp;0.1&ndash;0.5% of compression, not a
-sustained load. **Revised 2026-08-25 (see PROBLEM_STATEMENT.md &sect;6):** the design's own
-sustained post-snap capacity (&asymp;0.51&ndash;0.52 kPa, stable across draws) sits below the
-plain rectangle incumbent's own real peak (0.6071 kPa) — the splice actively hurts once the
-spike is set aside. **Revised 2026-08-27 (advisor request, a real finer-resolution re-solve, not
-a re-read):** the 1.6487 kPa spike itself is a NUMERICAL ARTIFACT — re-solved 250&times; finer,
-the exact draw behind it does not even converge, and Rank-3's own default-imperfection draw
-resolves to a smooth 0.5039 kPa peak, not a spike, right at the sustained-plateau value already
-cited above. Existence claim stands; the mechanism does not help; the headline number was never
-real to begin with.
+**Seed:** FERTILE — and more fundamentally than the numbers above suggest. No design tested
+anywhere in this family's history has ever demonstrated a genuine two-equilibrium snap in a
+properly-resolved solve: the finer re-solve reads `arch_snap_reversal=0` on both Rank-3 and
+Rank-1, D24's own H5 reads 0, and D23 was explicitly sub-bistable by construction. So what is
+refuted is these specific splice and rank-optimisation attempts, NOT bistability as a mechanism
+for this problem. A future test would have to deliberately target the true-bistable regime.
 
-**Comparability argument in full (trimmed from the visible Result bullet):** same E, same
-beam/contact physics as the incumbent; stab_ratio&asymp;0.002 rules out an artificial-damping or
-prestress confound; the metric's own "max over the whole compression window" rule is applied
-identically to every family in this study, not specially loosened here. **Corrected 2026-08-27:**
-the claim that follows this sentence historically said "the raw 1.6487 kPa number is real and not
-an artifact" — that is now known WRONG, superseded by the 2026-08-27 finegrid re-solve below: the
-number is specifically a numerical (increment-size) artifact. The comparability argument itself
-(same E, same physics, same windowing rule) still holds; it just isn't evidence the SPIKE was
-real, only that the metric wasn't being applied unfairly to this family.
+**Deferred:** the false-positive snap diagnostic is the part with reach beyond this slide. The
+original coarse solve read `arch_snap_reversal=1`; the properly-resolved one reads 0, so the same
+coarse-increment artifact that produced the fake spike ALSO registered a snap that never happened.
+Any other `arch_snap_reversal=1` reading in this deck taken from a coarse solve is suspect for the
+same reason, and none has been re-checked.
 
-**RESOLVED 2026-08-25 (advisor session, direct ODB re-extraction):** the early-transient-snap
-caveat above is no longer an open question. Plotting the design's own real sigma-vs-mcs Riks
-history (windowed_metrics(), not a paraphrase) across the D010/D013/D014 imperfection draws shows
-the 1.6487 kPa figure is a 1-2 sample spike at mcs&asymp;0.13%, and the *sustained* post-snap
-plateau (&asymp;0.51&ndash;0.52 kPa, stable across independent draws) is below run17_rectangle's own
-confirmed real peak (0.6071 kPa, `bo/confirmed_anchors.json`). So: does splicing pull its weight
-here? No — the design clears the numeric bar only because of the spike, and the spliced arch's
-own sustained contribution is *negative* relative to the unmodified host. This is the worked
-example behind PROBLEM_STATEMENT.md's Lessons-learned &sect;6 ("a strong baseline in disguise").
-The existence claim (a 5-criteria-feasible design was found) still stands; the "genuinely
-interesting new mechanism" claim does not.
+**Timeline:** Run 20260825T012642 &mdash; D010, D013 and D014 ran the imperfection draws at seeds
+0, 1 and 2. The finer-resolution re-solve that overturned the headline was done post-run on
+2026-08-27 (job 5410570), directly rather than through a delegation.
 
-**RESOLVED 2026-08-27 (advisor session — "is the peak truly physical or a numerical
-artifact?", answered with a REAL finer-resolution re-solve, not a re-read of prior
-output):** the spike is a NUMERICAL ARTIFACT, not a real transient. Root cause: this
-family always solves Stage 2 as a general static step with automatic stabilization
-(`bo/oracle_bistable_arch.py` sets `stabilization=True` unconditionally), and the
-pre-processor's `initialInc=5e-3` sizes the FIRST increment of the whole step at 0.5%
-of the compression stroke — the same order of magnitude as the entire reported spike
-window (mcs&asymp;0.1&ndash;0.5%). Re-solved Rank-1 and Rank-3 on a separate sbatch
-allocation (job 5410570, `mbessa-condo`) with a one-line fork of the pre-processor
-(`initialInc` tightened 250&times;, 5e-3&rarr;2e-5), same designs, same imperfection
-draws already on record. Three results, all real Abaqus output:
-  1. The EXACT draw behind the cited 1.6487 kPa figure (D014 "rank3_fresh_draw6",
-     imperfection=0.05920295568871166 rad) DOES NOT CONVERGE at fine resolution —
-     Abaqus's own `.msg`: "TOO MANY ATTEMPTS MADE FOR THIS INCREMENT." The original
-     coarse solve's "successful" 1.6487 kPa reading came from an increment large enough
-     to step past a region the solver cannot actually resolve.
-  2. Rank-3's own default-imperfection draw (0.067 rad, on-record 1.592 kPa "spike")
-     DOES converge once resolved: sigma_peak drops to **0.5039 kPa at mcs=5.46%** (not
-     0.125%) — 34 real per-increment points inside mcs&le;2% trace a smooth,
-     monotonically RISING curve with no local peak anywhere; the resolved value lands
-     almost exactly on the sustained 0.51&ndash;0.52 kPa plateau already reported above.
-  3. Rank-1 (same D011 campaign, its own #1 candidate) reproduces the identical pattern
-     at its own default imperfection: the reported 3.775 kPa spike at mcs=0.25%
-     collapses to a genuine, monotonic **0.597 kPa peak at mcs=5.35%** once resolved.
-  **SUPERSEDED 2026-08-27 (same day, consolidated per advisor review):** this originally
-  pointed at a separate early-region-only zoom chart, stacked as a 3rd panel above the
-  slide's own pre-existing full-range plot. Both prior images
-  (`/gifs/D24-2_rank3_sigma_mcs_mini.png`, `/gifs/D24-2_rank3_finegrid_earlyregion_mini.png`) are kept
-  on disk, unreferenced, not deleted — replaced by one consolidated full-range chart,
-  `/gifs/D24-2_rank3_coarse_vs_fine_full_mini.png`, coarse (dashed) vs fine-grid (solid)
-  overlaid across the ENTIRE compression history (0-100%+ mcs), same
-  design+imperfection pair, same data sources as below. The full-range view makes the
-  finding visually undeniable in a way the zoom-only chart couldn't: the coarse curve's
-  one high point near mcs=0 is a single, isolated outlier — every other point on both
-  curves, across the rest of the entire solve, tracks together almost exactly.
-  **Raw files, preserved off `/oscar/scratch` per the advisor's explicit request** (full
-  ODB/.inp/.dat/.msg/.sta/results.pkl for every re-solve, each directory with its own
-  `PROVENANCE.txt`): `data/idea_odbs/20260827_D24revisited_finegrid_rank3_draw6_
-  nonconvergent/` (the non-convergent case), `.../20260827_D24revisited_finegrid_rank3_
-  default_0.067rad/`, `.../20260827_D24revisited_finegrid_rank1_default_0.067rad/`,
-  `.../20260827_D24revisited_finegrid_rank1_zero_imperfection/` (secondary check only —
-  stab_ratio=0.100 fails the family's own 0.05 gate, not read as evidence on the 1.6487
-  kPa question, see its own PROVENANCE.txt). The two ORIGINAL coarse ODBs (still on
-  scratch, archived here before they could be purged) that this finding is measured
-  against: `.../20260825_D24revisited_rank3_draw6_1.6487kpa_ORIGINAL_COARSE/`,
-  `.../20260825_D24revisited_rank3_default_0.067rad_ORIGINAL_COARSE/` (plus Rank-1's own,
-  `.../20260825_D24revisited_rank1_default_0.067rad_ORIGINAL_COARSE/`). Finegrid
-  pre-processor: `scripts/supercompressible_riks_bistable_arch_contact_finegrid.py` (a
-  one-line fork of the gold `..._contact.py`, NOT promoted to gold — a diagnostic, not
-  an infra change). Driver script, full per-increment curves (JSON), and the chart
-  script: `data/idea_odbs/SUMMARY_20260827_finegrid_investigation.json` /
-  `..._driver.py` / `..._earlyregion_chart_script.py`.
-  **This sharpens the slide's own claim, not just this note's caveat**: the "Revised
-  2026-08-25" text above (median 1.6487 kPa across 9 draws) should now be read as "that
-  9-draw median is itself built from spike readings a properly-resolved solve does not
-  reproduce" — the honest number for this design was always close to the
-  already-flagged 0.51&ndash;0.52 kPa sustained plateau, not 1.6487 kPa. Per the deck's
-  append-only rule (3(d)/7(d)) the original 1.6487 kPa figure and its 2026-08-25 caveat
-  are NOT deleted above; this note supersedes their reliability, not their text.
+**Infra:** this family's own bistable-arch oracle and its `arch_snap_reversal` diagnostic; the
+2026-08-27 re-solve is job 5410570 at 250&times; tighter increments. The complete audit trail
+&mdash; all four dated revisions in their original wording, the comparability argument, and the
+advisor-session ODB re-extraction &mdash; is in `validation/d24_rank3_artifact/README.md`.
 
-**Seed:** FERTILE, and more fundamentally than previously stated (strengthened 2026-08-27, advisor
-review: "the proposed design did not achieve bistability, thus we can't say bistability itself is
-uninteresting"). Checked directly against the 2026-08-27 finegrid re-solve's own `arch_snap_reversal`
-field — the diagnostic this family's own oracle uses to detect a genuine two-equilibrium snap:
-**both Rank-3 and Rank-1's properly-resolved solves read `arch_snap_reversal=0`** (no snap
-detected at all). The ORIGINAL coarse Rank-3 solve had read `arch_snap_reversal=1` — a FALSE
-POSITIVE, the same numerical artifact that produced the fake 1.6487 kPa spike also spuriously
-registered a "snap" that the properly-resolved curve shows never happened. Combined with D24's
-own H5 (`arch_snap_reversal_top=0`, already on that slide) and D23's explicitly sub-bistable
-(Q&lt;2.31, deliberately NOT true bistable) framing, NO design tested anywhere in this family's
-history has ever demonstrated a genuine two-equilibrium snap in a properly-resolved solve — so
-whether bistability itself (as opposed to these specific splice/rank-optimization attempts) is an
-interesting mechanism for this problem remains genuinely OPEN, not falsified. A future test would
-need to deliberately target the true-bistable regime (Q&ge;2.31, per D24's own original H2/H3
-framing) with a resolution tight enough to trust the snap-detection field, not just the stress
-reading. H5 (D24's own original exact point) separately never reached a clean close because its
-own registered wording became ambiguous mid-campaign, not because the physics ran out; a fresh
-hypothesis re-registering that exact original point with unambiguous wording (and the tightened
-initialInc this session's re-solve validated) would settle it without guessing at settings again.
-
-Full campaign detail:
-
-- D008 (namespace migration + D24 base-point reconfirm): re-migrated the bistable-arch
-  pre-processor to ground+top-disc contact (never committed to gold after the family's original
-  build in an earlier run — this run had to rebuild it from scratch); the original D24 optimum
-  reconfirmed feasible at &sigma;_peak=1.0495 kPa (4.68&times; target).
-- D011 (46-eval BO campaign, ledger-traced throughout — `cei_core.run_cei_bo` used specifically
-  because the study's usual `SlurmAsyncPool` path calls the oracle off-ledger): found the Rank-3
-  candidate.
-- D010/D012/D013/D014 (imperfection-robustness sampling, 3 independent seeds): D010 (seed=0,
-  13 draws) and D013 (seed=1, 12 draws) both hit the dedup-on-write ledger gap documented in
-  `docs/TRAPS.md` #9 (root-caused this run — see that file's 2026-08-25 update). D014 (seed=2,
-  10 fresh draws) avoided the gap by self-reporting the true invocation count (28 real solves,
-  11 ledgered) rather than trusting the ledger. Median computed from the 11 ledgered
-  Rank-3-geometry rows, de-duplicated to 9 genuinely independent draws (2 bit-identical pairs
-  removed — D011/D012 both re-solved the exact default-imperfection point, and D014 logged one
-  draw twice).
-- Gate history: 8 review rounds, every one finding a real, checkable defect (never a false
-  positive) — a duplicate-row/median miscount (1.5921&rarr;1.6487 kPa once both pairs were
-  correctly excluded), an overstated "every one of 32 sits at 95%+" strain claim contradicted by
-  rows inside that same 32, an 8/10-vs-7/10-feasible overclaim off by the exact ring-passthrough
-  row the same paragraph flags, and a stale gate-pass audit note that lagged 3 edit rounds before
-  catching up. None touched the headline number itself.
-- Infra not yet promoted to gold: `bo/oracle_bistable_arch.py`, `bo/D41_oracle_twist_buckle.py`,
-  `bo/D41_oracle_twist_buckle_locked.py` + 6 supporting scripts, built fresh this run. Recommend
-  committing so the next run testing either family doesn't rebuild working,
-  adversarially-verified infrastructure from scratch.
-- GIF: native Abaqus/CAE Viewer export, standard pipeline. The Rank-3 candidate at its own
-  median-draw imperfection realization, matching the headline number exactly, not a cherry-picked
-  best-of-9.
+**History:** four dated revisions between 2026-08-25 and 2026-08-27 took this slide's headline
+from 1.6487 kPa to 0.5039, preserved verbatim in
+`validation/d24_rank3_artifact/README.md`. In order: the number was identified as the
+imperfection-sensitive snap-through spike at mcs&asymp;0.1&ndash;0.5% rather than a sustained
+load (2026-08-25, advisor session, direct ODB re-extraction); the sustained capacity was then
+shown to sit below the plain-rectangle incumbent, i.e. the splice hurts (2026-08-25, revised per
+PROBLEM_STATEMENT.md &sect;6); the spike itself was shown to be numerical by a real
+finer-resolution re-solve rather than more argument (2026-08-27); and the several overlapping
+caveats were consolidated the same day per advisor review (SUPERSEDED 2026-08-27).
 -->
 
 ---
