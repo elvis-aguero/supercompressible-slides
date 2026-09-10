@@ -6772,50 +6772,29 @@ same design family (see idea slide below) — none reached the 2% strain target.
 </div>
 
 <!--
-Run stats: all-Sonnet with an Opus-strategizer, GATED, evals_used=407,
-14 delegations, 0 tool-call errors on the critical path. H1 (oracle
-re-confirm, -0.0062% deviation, mcs/mls reproducing to 4-5 sig figs)
-excluded from this deck entirely per the format contract. H2 (the
-tape-spring fold mechanism itself) has its own idea slide, immediately
-above.
+**Why it stopped:** GATED, 0 tool-call errors on the critical path, all-Sonnet with an
+Opus strategizer. H1 was the routine oracle re-confirm (&minus;0.0062% deviation, mcs and mls
+reproducing to 4&ndash;5 significant figures) and is excluded from this deck per rule 1.
 
-Baseline is STILL 0.7704 kPa (`run17_rectangle`) — this run's headline is a
-mechanistic negative result, not a new design. Of 407 ledgered
-evaluations, exactly ONE is feasible: the run17_rectangle anchor itself
-(0.770352 kPa), re-solved as this run's D002 oracle-wiring control, not a
-discovery of this run. All 406 shell (circular=17) evaluations are
-infeasible.
+**What it bought:** a mechanistic negative, not a design. Of 407 ledgered evaluations exactly ONE
+is feasible &mdash; the `run17_rectangle` anchor itself, re-solved as this run's own oracle-wiring
+control, not a discovery. All 406 shell designs are infeasible. What the run established is WHY:
+the localized elastic fold the tape-spring family was built around cannot occur, because the
+curvature that keeps the arc locally stable is the same curvature that sets its bending-strain
+floor. See D25 below.
 
-H3 detail: the strongest evidence in the run for the κ_coil·c law is
-magnitude agreement (mean ratio 0.946, sd 0.533) and direct kinematics (no
-cross-section flattens; curvature spreads over 25-50% of length; peak
-strain sits near the free edge, across_frac 0.868-0.905) — exactly what an
-extreme-fibre bending law predicts and exactly NOT what a localized fold
-predicts. But the registered PREDICTION was a conjunction, and a
-conjunction with one contradicted clause cannot be scored SUPPORTED
-(Charter §4) — hence INCONCLUSIVE, with the sharper magnitude claim
-re-registered fresh as H5.
+**Corrections:** H3 is the interesting scoring call. The evidence for the curvature-times-depth
+law is strong &mdash; magnitude agreement at mean ratio 0.946 (sd 0.533), and direct kinematics
+showing no cross-section flattens, curvature spreading over 25&ndash;50% of length, and peak
+strain sitting near the free edge (across_frac 0.868&ndash;0.905). That is exactly what an
+extreme-fibre bending law predicts and exactly NOT what a localized fold predicts. But the
+registered PREDICTION was a conjunction, and a conjunction with one contradicted clause cannot be
+scored SUPPORTED, so it was not.
 
-H4 detail: this is the run's harshest self-imposed check, and it could
-only be partially executed. The registered falsification criterion
-demanded an amplitude sweep (~t/10 to ~t); D011 found by direct code
-inspection that `workspace/data_generator.py` sets
-`sim2_params["imperfection"]` as an unconditional constant (0.067mm),
-never read from the design dict for any family, so the sweep the criterion
-demanded is simply not executable through the registered oracle. This does
-not affect the run's headline (no shell design was ever feasible), but it
-means every shell sigma_crit value in this run's ledger must be read as an
-UPPER BOUND on the true physical buckling load, not a number directly
-comparable to the beam families' sigma on the same footing.
+**Cost shape:** 407 evals across 14 delegations.
 
-H5-H8 detail: each is a corridor sub-search or targeted recheck of the
-SAME tape-spring shell family (H2), not a separate mechanism, per this
-deck's rule 1 — full stats live in the idea slide's own speaker notes,
-above. Five stalled/non-converged solves masquerading as low-strain
-artifacts were caught and excluded across this run's campaigns (one per
-H5/H6/H8's underlying delegations plus two more in the deep-corridor
-data) — each recorded explicitly in `hypotheses.json` so none is ever
-later cited as a success.
+**Unresolved:** nothing new opened here; the family closes on a measured law rather than an
+exhausted search, and D25's own History carries the four corridor readouts a successor would need.
 -->
 
 ---
@@ -6861,6 +6840,14 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** PHYSICAL. 406 tape-spring designs, 176 Stage-1 coilable, 137 with a converged
+Stage-2 solve, and none feasible &mdash; while 128 of the 137 clear 2&times; Bessa on load alone.
+That gap is the finding: the peak-load threshold is not what gates this family, strain is. The
+mechanism was a LOCALIZED elastic fold, and it never happens: the curvature that keeps the arc
+locally stable is the same curvature setting its bending-strain floor, so the section can never be
+shallow enough to fold locally without buckling first. Strain follows ordinary beam bending at
+every depth tried.
+
 **Input space:** t_tape&isin;[.4,1.6] — tape thickness. R_tape&isin;[6,400] — arc radius.
 alpha_tape&isin;[.05,2.2] — arc angle subtended (section depth driver). beta_tape&isin;[0,3.14] —
 section orientation. ratio_pitch&isin;[.25,1.5], ratio_top_diameter&isin;[0,.8] — usual
@@ -6887,7 +6874,22 @@ this run's own summary slide, not repeated here — consistent with the
 
 Full mechanistic picture, carried here because it is the run's central
 finding:
-- **Deep corridor (H2/H3):** sections lose to extreme-fibre bending
+-
+
+**Deferred:** the family was searched as four separate corridors and the per-corridor readouts are
+the part a successor needs, since each closes a different escape route. They are preserved below
+under History rather than re-summarised here.
+
+**Timeline:** Run 20260730T020245 &mdash; 407 ledgered evaluations across 14 delegations, of which
+exactly ONE is feasible: the run17_rectangle anchor itself, re-solved as this run's D002
+oracle-wiring control. All 406 shell designs are infeasible.
+
+**Infra:** `bo/oracle_tape_spring.py` (family switch `circular=17`) with
+`scripts/supercompressible_{lin_buckle,riks}_tape_spring.py`.
+
+**History:** the four corridor readouts, verbatim.
+
+**Deep corridor (H2/H3):** sections lose to extreme-fibre bending
   (measured/(κ_coil·arc_depth) = 0.946 mean, Pearson r=0.545) — the rival
   H3 hypothesis (strain ~ κ_coil·c for ANY cross-section) is the better
   description of the physics, though its own registered correlation clause
@@ -6965,22 +6967,26 @@ into existing idea slides (chiral-brace, bistable-arch) as refinements.
 </div>
 
 <!--
-Run stats: GATED, evals_used=93. H1 (oracle re-confirm, -0.0062% deviation)
-excluded from this deck entirely per the format contract.
+**Why it stopped:** GATED, 93 evals. H1 was the routine oracle re-confirm (&minus;0.0062%
+deviation) and is excluded from this deck per rule 1.
 
-H3 detail: mls-reduction numbers themselves (19.6%/17.5% from D004/D005
-identical-rise controls) were real per the raw beam output, but the
-registered prediction explicitly demanded the joint-discontinuity check
-before those numbers could be trusted — precisely because that same failure
-mode (beam theory underestimating real strain at a curvature-discontinuity
-joint) is what forced the retraction of `20260727T011550`'s H4 headline.
-Since the check was never run, and K=2/K=3 configs have 4-6 such transition
-joints vs. the single-segment precedent's fewer, INCONCLUSIVE is the correct
-call regardless of which way the raw numbers point.
+**What it bought:** two verdicts, and the more useful one is the refusal to score H3. Its
+mls-reduction numbers were real per the raw beam output &mdash; 19.6% and 17.5% from D004 and
+D005's identical-rise controls &mdash; but the registered prediction explicitly demanded a
+joint-discontinuity check before those numbers could be trusted, and the check was never run.
 
-H4 detail: precision fix after adversarial review — "segment 1 reversed in
-5/54 K=3 rows" is the raw count; restricted to the ledger-feasible subset,
-3 of those 5 remain. Neither reading changes the FALSIFIED verdict.
+**Corrections:** the reason that check was pre-registered is the point: beam theory
+underestimating real strain at a curvature-discontinuity joint is exactly the failure mode that
+forced the retraction of run 20260727T011550's H4 headline. The K=2 and K=3 configurations have
+4&ndash;6 such transition joints against the single-segment precedent's fewer, so INCONCLUSIVE is
+correct regardless of which way the raw numbers point. Separately, H4's count was tightened after
+adversarial review: "segment 1 reversed in 5 of 54 K=3 rows" is the raw figure, and 3 of those 5
+survive restriction to the ledger-feasible subset. Neither reading changes FALSIFIED.
+
+**Cost shape:** 93 evals.
+
+**Unresolved:** the joint-discontinuity check itself, never run, which is what would let those
+mls-reduction numbers be believed or dismissed rather than left unscored.
 -->
 ---
 class: summary-slide
@@ -7003,23 +7009,24 @@ Aperiodic bracing lowers ligament strain but not enough to clear the 2% wall —
 </div>
 
 <!--
-Run stats: GATED, evals_used=294. H1 (oracle re-confirm, matches to 4-5 sig
-figs) excluded from this deck entirely per the format contract.
+**Why it stopped:** GATED, 294 evals. H1 was the routine oracle re-confirm (matching to 4&ndash;5
+significant figures) and is excluded from this deck per rule 1.
 
-H2 detail: same adequate 280-eval evidence base (D004+D005+D006) used for the
-structurally identical H3 claim below; a conjunctive prediction is false if
-either conjunct is false, and the "clears the wall" conjunct is the one that
-fails here.
+**What it bought:** its most load-bearing result is H4, and it generalises well beyond this run.
+It extends the maximum-local-strain wall finding across EVERY beam and brace family tried in the
+whole study, not just bracing &mdash; which is what explains why so many independently proposed
+"novel" mechanisms keep hitting the same strain ceiling.
 
-H4 detail: this is the run's most load-bearing analytical result — it
-generalizes the mls-wall finding across every beam/brace family tried in the
-whole study, not just bracing, and explains why so many "novel" mechanisms
-independently hit the same strain ceiling.
+**Corrections:** H2 and H3 share the same adequate 280-eval evidence base (D004 + D005 + D006) and
+the same structure: a conjunctive prediction is false if either conjunct is false, and the "clears
+the wall" conjunct is the one that fails. Scored accordingly rather than softened.
 
-H5 detail: higher tapers (0.6-0.85) caused solver stalls rather than further
-strain relief; the full pre-registered multi-D BO campaign was not run
-(deliberately, given the diagnostic's discouraging trend), so this stays
-INCONCLUSIVE rather than FALSIFIED.
+**Cost shape:** 294 evals across the three-delegation shared base.
+
+**Unresolved:** H5 stays INCONCLUSIVE deliberately. Higher tapers (0.6&ndash;0.85) produced solver
+stalls rather than further strain relief, and the full pre-registered multi-dimensional BO campaign
+was NOT run given that discouraging trend &mdash; a judgment call, not an oversight, but it means
+the taper direction is unfinished rather than closed.
 -->
 
 ---
@@ -7043,25 +7050,33 @@ The run's own headline design (H4, bistable-arch reinvestment beating baseline) 
 </div>
 
 <!--
-Run stats: all-Sonnet, 12h budget, finished in ~6.5h, GATED on 3rd critic
-attempt, evals_used=133, 0 errors. Baseline STILL 0.7704 kPa — the run's own
-headline claim was retracted post-hoc, see H4's slide for the full account.
-H1 (oracle re-confirm, 0.006% relative error) excluded from this deck
-entirely per the format contract.
+**Why it stopped:** GATED on the third critic attempt, ~6.5 h of a 12 h budget, 133 evals, 0
+errors, all-Sonnet. H1 was the routine oracle re-confirm (0.006% relative error) and is excluded
+per rule 1.
 
-Post-hoc finding (2026-07-27), after the run closed: the H4 headline
-(0.850864 kPa) sat at mls=0.0196, a hair under the 2% ceiling, right where
-the arch's curvature transitions into the plain longeron. A continuum
-(solid, not B31 beam) submodel of that exact joint — control-tested against
-the literature Bessa point to confirm the submodel methodology itself was
-trustworthy (it was) — found real local strain at that joint running 2.7x+
-over the beam-reported value by mid-compression, still climbing with mesh
-refinement. The headline is retracted; baseline remains 0.7704 kPa. This is
-a worked example of the study's own "Scientific integrity of simulation
-results" principle: a beam-reported number sitting right at a feasibility
-wall, next to a geometric discontinuity the beam idealization can't see
-into, is exactly the situation that deserves a faithfulness check before
-being trusted.
+**What it bought:** the design on D24 below, and then a worked example of this study's own
+scientific-integrity principle applied against its own headline.
+
+**Corrections:** the run's headline was RETRACTED post-hoc, and the retraction was itself later
+reversed &mdash; both correct on the evidence available at the time. The H4 headline (0.850864
+kPa) sat at mls=0.0196, a hair under the 2% ceiling and right where the arch's curvature
+transitions into the plain longeron. A continuum submodel of that exact joint, control-tested
+against the literature Bessa point first to confirm the submodel methodology was itself
+trustworthy, found real local strain there running 2.7&times;+ over the beam-reported value by
+mid-compression and still climbing with mesh refinement. On 2026-08-18 a restrained-warping check
+&mdash; boundary-artifact-free, the same method that resolved `run17_rectangle`'s identical scare
+&mdash; found the corrected joint strain holds at 1.96%, and the submodel's finding does not
+survive it. Full sequence in `validation/d24_joint_strain_retraction/README.md`.
+
+**Cost shape:** 133 evals in ~6.5 h; the expensive part of this slide's history happened after the
+run closed, by direct investigation rather than by another run.
+
+**Unresolved:** the snap. `arch_snap_reversal` has never come back confirmed in a
+properly-resolved solve anywhere in this family, so D24's design works while the bistable
+mechanism it is named for remains undemonstrated. The general lesson the retraction illustrates is
+worth keeping separate from the outcome: a beam-reported number sitting right at a feasibility
+wall, next to a geometric discontinuity the beam idealisation cannot see into, deserves a
+faithfulness check before it is trusted.
 -->
 
 ---
@@ -7114,146 +7129,68 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** CONFIRMED for the design, NOT for the mechanism it is named after. 133 designs, 132
+coilable, 66 converged, all 66 clearing 2&times; Bessa, one feasible on every criterion.
+Re-measured under the contact oracle at 10&times; finer arc-length it gives 0.6404 kPa
+(5.71&times; Bessa) at mcs 5.07%. What has never been demonstrated is the SNAP:
+`arch_snap_reversal`, the oracle's own two-equilibrium diagnostic, has never come back confirmed
+in a properly-resolved solve anywhere in this family.
+
 **Input space:** a&isin;[.007,.012], b&isin;[.025,.045] — base cross-section semi-axes, jointly
 re-optimized with the arch. arch_rise&isin;[.02,.09] — bistable snap-arch height. arch_length
 &isin;[.25,.5] — arch length along the longeron. Fixed: ratio_pitch=.681277,
 ratio_top_diameter=.04444, circular=15 (cross-section-family switch), stabilization=1,
 dual_arch=1.
 
-**Seed:** BARREN (2026-09-01 — was FERTILE; re-solved, closing the item this Seed used to
-pose, no untried perturbation left): at the oracle's default arc-length (initialInc=5e-3), this exact design
-reproduces &sigma;_eig=0.8509 kPa almost exactly (geometry/coilability confirmed) but Stage-2
-reports &sigma;_peak=1.0495 kPa at mcs=0.125% AND arch_snap_reversal=1 — a striking,
-at-first-glance genuine-snap-confirmed reading, the only positive `arch_snap_reversal` this
-whole family's headline design has ever shown. A 10&times;-finer arc-length re-solve
-(initialInc=5e-4) converges cleanly with no solver errors, to a smooth curve:
-&sigma;_peak=0.6404 kPa (5.71&times; Bessa) at mcs=5.07%, arch_snap_reversal=0.0. Both the
-spike and the snap-positive reading are the SAME 1-frame numerical artifact — the identical
-signature already established for D24-2's Rank-3 point (see D24-2's own Seed). Pushing
-further (50&times;, 100&times;, 250&times; finer) makes the solver fail to converge at all in
-this region — a separate solver-brittleness finding, not evidence against the 10&times;-finer
-answer, which is this design's best available converged read. Net: the design clears
-2&times; Bessa under the current contact oracle (5.71&times;), but — like every other
-properly-resolved point in this family — shows no genuine snap.
+**Seed:** BARREN — was FERTILE until 2026-09-01, when the item it used to pose was closed by a
+re-solve; no untried perturbation is left. The design clears 2&times; Bessa under the current
+contact oracle at 5.71&times;, and like every other properly-resolved point in this family it
+shows no genuine snap.
 
-**Infra (added 2026-09-01):** this slide had no stress-history chart at all before today —
+**Deferred:** the snap itself. D24's own H5 reads `arch_snap_reversal=0`, D24-2's fine re-solve
+reads 0 for both Rank-3 and Rank-1, and D23 was explicitly sub-bistable by construction (Q &lt;
+2.31). So no design tested anywhere in this lineage has demonstrated a genuine two-equilibrium
+snap in a properly-resolved solve. That is a reason to doubt these specific embodiments, not
+evidence that bistability is uninteresting for this problem &mdash; and it means this slide's
+"works" and its title's "bistable" are separate claims.
+
+**Timeline:** Run 20260727T011550 &mdash; 133 evals across ~6.5 h of a 12 h budget, GATED on the
+third critic attempt, 0 errors. Corrections followed post-run on 2026-07-27, 2026-08-18 and
+2026-09-01, each done directly rather than through a delegation.
+
+**Infra:** this slide had no stress-history chart at all before today —
 ODBs archived at `data/idea_odbs/20260901_D24_headline_finer_arclength_converged/`
 (solid, real) and `data/idea_odbs/20260901_D24_headline_gold_spike_artifact/` (dashed,
 disproven), both recovered from `/oscar/scratch/eaguerov/sc_oracle_bistable_arch/` before
 scratch could purge them. Chart built with `bo/mini_chart.py --compare`.
+The full evidential history &mdash; the retraction, its reversal, the contact re-measurement and
+the snap question &mdash; is in `validation/d24_joint_strain_retraction/README.md`.
 
-**Snap not confirmed (2026-08-31, verdict audit):** across every properly-resolved solve in
-this whole family — this design, D24-2's Rank-1/Rank-3, and 294/294 chained-arch (D44)
-solves — the oracle's own genuine-snap diagnostic (`arch_snap_reversal`) has never once
-confirmed a real two-equilibrium snap. WORKS above means the design is real and feasible
-under the study's actual pass/fail bar, not that the bistable mechanism itself is confirmed
-engaged — see D24-2's Seed and D44's own audit note for the same finding in this family's
-other members.
+**History:** this slide has the deck's most complicated evidential history, and both directions of
+error appear in it. RETRACTED 2026-07-27: the 0.850864 kPa headline sat at mls=0.0196, a hair
+under the ceiling and right where the arch's curvature transitions into the plain longeron, and a
+continuum submodel of that exact joint &mdash; control-tested against the Bessa point first to
+confirm the submodel methodology was itself trustworthy &mdash; found real local strain running
+2.7&times;+ over the beam-reported value and still climbing with refinement. RETRACTION REVERSED
+2026-08-18: a restrained-warping check, boundary-artifact-free and the same method that resolved
+`run17_rectangle`'s identical scare, finds the corrected joint strain holds at 1.96%, under the
+ceiling; the submodel's 2.7&times; does not survive it. Both calls were correct on the evidence
+available at the time, which is why the deck keeps both. UPDATED 2026-09-01: re-measured under the
+contact oracle at 10&times; finer arc-length, which also resolved a very different
+default-resolution reading of 1.0495 kPa with a false snap &mdash; the same coarse-increment
+artifact documented for D24-2.
 
-**2026-08-29 update (run 20260829T005522, H4/H8/H10 -- a broader family search, NOT the same
-design as above):** a real, adaptive 42-design search of the bistable-arch family's full 6D box
-found 13 converged designs, 11 passing every feasibility criterion -- genuinely working designs
-exist elsewhere in this family. The best clears 2x Bessa (~2.4x). But the actual bistable-snap
-mechanism was not confirmed in any of them: only 1 showed any snap-reversal, and it is a known
-near-zero-compression numerical artifact (mcs_at_peak=0.00125). Whether the good designs' capacity
-comes from the snap idea specifically, or from ordinary cross-section/pitch geometry, remains
-unresolved (H10, which asked exactly this, was itself confounded). Does not change the
-retraction/reconfirmation history below, which concerns a single, different, already-litigated
-design point.
-
-Full context — this is one of the most consequential, previously-contested
-results in the whole study; state it carefully and consistently with the
-CURRENT state of PROBLEM_STATEMENT.md and bo/confirmed_anchors.json (checked
-2026-07-29), not any earlier draft:
-
-- Registered as H4 of run `20260727T011550` (all-Sonnet, 12h budget, finished
-  ~6.5h, GATED on 3rd critic attempt, evals_used=133, 0 errors). This run's
-  H1 (oracle re-confirm) is excluded from the deck entirely. H2 (single
-  bistable arch, mls-reduction-only test, FALSIFIED against its own
-  pre-registered 20% bar despite a real ~7% mean effect) and H3 (mls is a
-  near-invariant kinematic property, SUPPORTED at the registered bar) are
-  companion hypotheses of the SAME run and are covered on this run's own
-  summary slide, not repeated here.
-- H5 (same run, a second/top-ring arch) is a REFINEMENT of this idea, not a
-  new one, per the deck format contract's explicit worked example — even
-  though H5's design point (0.850864 kPa, i.e. the same design cited above)
-  is literally the number this whole study's headline claim rests on. H5
-  itself is FALSIFIED on its own stated mechanism: `arch_snap_reversal_top=0`
-  in every tested config, meaning the "second arch" never actually snaps —
-  it is a curved-but-monotonic compliant segment, not a second bistable
-  element. Both H4 and H5 point at the exact same retracted design; there is
-  only one design here, and only one verdict on it (retracted).
-- **The manifest (`data/idea_odbs/MANIFEST.md`) and this ODB folder's own
-  `PROVENANCE.txt` still describe this design as "SUPPORTED (valid
-  headline)" / "this study's best fully-valid headline design" — that text
-  predates the post-hoc retraction and is now STALE.** The authoritative,
-  current status lives in `PROBLEM_STATEMENT.md`'s run-by-run log (search
-  "Post-hoc finding (2026-07-27)") and is what this slide follows: retracted,
-  baseline remains 0.7704 kPa.
-- Separately and NOT to be confused with this retraction: the 0.7704 kPa
-  `run17_rectangle` baseline itself went through its own same-day
-  (2026-07-28) continuum-FE scare (apparent 1.4-3.6x strain amplification
-  across every rectangular design) and was then RECONFIRMED valid via a
-  decisive 6-cut-distance convergence study (`validation/warping_check/README.md`
-  Round 6) — true amplification ~1.05x, corrected joint strain ~0.0181,
-  comfortably inside the 2% ceiling. `run17_rectangle` is the currently
-  cleared, confirmed 5.9x-Bessa design (`bo/confirmed_anchors.json`); it is
-  cited for context only, not as the bar to beat (the study's actual target
-  is 2x Bessa plus genuine mechanism novelty). `h8_rectangle` and this
-  chained-arch design were NOT re-checked with that convergence method and
-  remain unconfirmed on that specific question.
-- Stats-migration note (2026-08-04): D006 of this same run's own ledger records a
-  stronger raw result (σ_crit=1.144 kPa, `campaign_summary.json`) for a design in
-  this same bistable-arch-near-ring-joint family. It doesn't change anything above
-  — the retraction applies to the MECHANISM (any arch-to-longeron joint in this
-  family), not to the one specific 0.850864 kPa design, so a stronger raw number
-  from the same family is equally retracted, not a missed opportunity.
-
-- **2026-08-18 UPDATE — RETRACTION REVERSED, edited in place by explicit user
-  instruction ("update D24 slide in place for this time only").** This is a
-  deliberate, one-time exception to rule 3(d)/7(d)'s append-only convention (a
-  re-test would normally earn a new numbered slide, e.g. "D24 revisited"), made
-  because this is not a re-test under a changed contract — it is a correction of
-  the RETRACTION's own grounds, the same situation `run17_rectangle` resolved
-  same-day before any slide existed to show the interim wrong state. D24's
-  retracted state sat in this deck for weeks first, so there is no clean "final
-  state only" slide to write instead; this note preserves the full arc rather
-  than erasing it.
-  Ran `validation/warping_check/restrained_warping_check.py` (the exact tool and
-  method that reconfirmed `run17_rectangle`, Round 6) directly against this
-  design's own archived ODB (`data/idea_odbs/20260727T011550_H4_bistable_arch_single_segment/`,
-  confirmed still present with its `.inp` — no re-solve needed). Result
-  (`validation/warping_check/results/D24_bistable_arch_single_segment.json`):
-  `corrected_total_strain_at_global_peak = 0.019630` (1.963%), `verdict: "HOLDS UP
-  (below ceiling)"`. The correction at the global peak location is negligible
-  (`eps_extra_at_peak_location` ~1.8e-9); even at the joint zone specifically
-  (frame 818) the corrected strain is 1.856%, still under the 2% ceiling. This
-  does not confirm the archived continuum submodel's 2.7×+ amplification claim —
-  consistent with that submodel's own known failure mode (a driven cut boundary
-  contaminating the peak-strain location), the same artifact that caused
-  `run17_rectangle`'s own scare.
-  **What this does NOT do**: it does not re-measure this design under the
-  current σ_peak/contact-oracle infrastructure (this design predates 2026-08-06
-  and has only ever been reported in the retired eigenvalue metric), and it does
-  not change "The current baseline" section of `PROBLEM_STATEMENT.md` or
-  `bo/confirmed_anchors.json` — both still cite `run17_rectangle`. Whether this
-  design should be re-solved under the current oracle and potentially become a
-  new incumbent is a separate, larger decision, not made here.
-- ODB used for this render: `data/idea_odbs/20260727T011550_H4_bistable_arch_single_segment/`
-  (archived from scratch riks_b8226d64576d43f4b8b9724b9ec7daf8) — this is the
-  retracted design's own Riks solve, shown because the format contract's
-  "no-winner convention" calls for a faithful native render of a TYPICAL
-  design from the idea's search, not an empty slot, even for a retracted
-  result. Rendered fresh this session; the pre-existing `bistable_winner.gif`
-  and `dual_arch_winner.gif` in `assets/public/gifs/` are old
-  matplotlib-pipeline renders of this same design family, not native-Abaqus
-  exports, so per the format contract's native-only rule they are not reused
-  here.
-- Two later runs (`20260728T023457`, `20260729T012952`) tested further
-  variants of this bistable-arch idea (golden-ratio-spaced multi-arch,
-  multi-location arches, graded K=3 chains); all are refinements folding into
-  this same idea and are covered only as bullets on their own runs' summary
-  slides.
+ARC-LENGTH ARTIFACT, IN FULL (2026-09-01). At the oracle's default arc-length (initialInc=5e-3)
+this exact design reproduces sigma_eig=0.8509 kPa almost exactly, with geometry and coilability
+confirmed, but Stage 2 reports sigma_peak=1.0495 kPa at mcs=0.125% AND arch_snap_reversal=1
+&mdash; a striking at-first-glance genuine-snap reading, and the only positive
+`arch_snap_reversal` this family's headline design has ever shown. A 10&times;-finer re-solve
+(initialInc=5e-4) converges cleanly with no solver errors to a smooth curve: sigma_peak=0.6404 kPa
+at mcs=5.07%, arch_snap_reversal=0.0. Both the spike and the snap-positive reading are the SAME
+one-frame numerical artifact, the identical signature established for D24-2's Rank-3 point.
+Pushing further &mdash; 50&times;, 100&times;, 250&times; finer &mdash; makes the solver fail to
+converge at all in this region, which is a separate solver-brittleness finding rather than
+evidence against the 10&times; answer, that being this design's best available converged read.
 -->
 
 ---
@@ -7276,35 +7213,29 @@ Four attempts at escaping the strain ceiling all fail, and a dedicated twist-ang
 </div>
 
 <!--
-Run stats: all-Sonnet, 12h, GATED, evals_used=272, $26.83. Baseline unchanged
-at 0.7704 kPa. H1 (oracle re-confirm, bit-consistent re-solve) excluded from
-this deck entirely per the format contract.
+**Why it stopped:** GATED, 272 evals, $26.83, all-Sonnet on a 12 h budget. H1 was the routine
+oracle re-confirm (bit-consistent re-solve) and is excluded per rule 1.
 
-H2 detail: existence-search prong self-corrected from an initial over-eager
-FALSIFIED back to INCONCLUSIVE once the validator flagged the campaign as
-short of its own pre-registered power bar. Properly-powered out-of-band
-verification (2026-08-03, not a new agentic run): a 3-phase shrinking-zoom
-CEI-BO and a TuRBO trust-region search, 120 real evals each, against the same
-D005 oracle. 3-phase zoom found best sigma_crit=0.1106 (14.4% of the 0.7704
-target), improving monotonically each phase (0.040->0.069->0.111); TuRBO
-found 0.0332 (4.3%), plateauing early once its trust region shrank to its
-floor. Neither beats the target, so H2 stays FALSIFIED as an existence-beats-
-target claim, but the direction is now a real signal, not noise, and the
-verdict no longer rests on an underpowered campaign.
+**What it bought:** H3, which is a substantive analytical result rather than a single-design test:
+it argues the maximum-local-strain wall is intrinsic to COILING KINEMATICS rather than any one
+cross-section's fault. That is the argument later runs lean on when they stop attributing the same
+ceiling to each new mechanism separately.
 
-H3 detail: this is a real, substantive analytical/mechanistic result, not a
-single-design test — it argues the mls wall is intrinsic to coiling
-kinematics rather than any one cross-section's fault, motivating why later
-cross-section and bracing variants keep hitting the same ceiling.
+**Corrections:** H2's existence prong self-corrected from an over-eager FALSIFIED back to
+INCONCLUSIVE once the validator flagged the campaign as short of its own pre-registered power bar
+&mdash; and then the power was actually supplied out of band on 2026-08-03, not by a new agentic
+run: a three-phase shrinking-zoom CEI-BO and a TuRBO trust-region search, 120 real evals each,
+against the same D005 oracle. The zoom found best sigma_crit=0.1106, 14.4% of the then-target,
+improving monotonically each phase (0.040 &rarr; 0.069 &rarr; 0.111); TuRBO found 0.0332 (4.3%) and
+plateaued early once its trust region hit its floor. Neither beats the target, so H2 stays
+FALSIFIED as an existence-beats-target claim &mdash; but the direction is now a real signal rather
+than noise, and the verdict no longer rests on an underpowered campaign.
 
-H5 detail: broadest sweep's own best point was 4.22% ligament strain at a
-much lower-sigma design (sigma=0.627), farther from the 2% threshold than
-`20260721T201733`'s own 2.15% near-miss — this run explored a different
-brace shape without closing the gap. Every config keeping the ligament under
-budget destabilizes the host's own coiling (mcs collapsing to 0.27-0.37); the
-one all-criteria-satisfying config sits at a near-zero-sigma corner
-(sigma=0.0143 kPa). A real, well-evidenced negative result, not proof of
-absence.
+**Cost shape:** $26.83 for 272 evals, plus 240 out-of-band evals afterwards to retire the power
+objection.
+
+**Unresolved:** nothing new; H3's kinematic argument is the run's product and it is analytical, so
+it stands or falls on later families' behaviour rather than on more search here.
 -->
 
 ---
@@ -7326,50 +7257,35 @@ Chained true-bistable snap-through segments hit a solve-completion wall, not a s
 </div>
 
 <!--
-Run stats: GATED, evals_used=206. H1 (oracle-wiring re-confirm) excluded from
-this deck entirely per the format contract.
+**Why it stopped:** GATED, 206 evals. H1 was the oracle-wiring re-confirm and is excluded per
+rule 1.
 
-H2 detail: mechanistically-explained wall, not noise — the same Riks-stall
-failure (arc-length solver cannot traverse the sequential snap-through
-equilibrium path) recurs across n_segments=2..6 and across 2+ orders of
-magnitude in cross-section size, matching a priori literature risk flagged
-during the run's own literature review (arXiv:2010.07850: snap-through is
-rate-dependent/delayed-bifurcation even in the ideal quasi-static elastic
-case). Of 18 coilable (Stage-1-passed) true-bistable-regime designs, only
-2/18 converged with a valid stabilization-energy ratio, and of those only 1
-met both mcs>=0.80 and mls<=0.02 — a near-degenerate cross-section at
-sigma_crit=0.001622 kPa, ~475x below the 0.7704 kPa target — not a real
-candidate. (Corrected 2026-08-26, deck audit item 1: this paragraph
-previously quoted "23/72 coilable... sigma=2.97e-5 kPa" -- D005's numbers,
-the earlier 72-eval campaign the very next paragraph explains was retracted
-for being confounded. The numbers above are D006's, the actual corrected,
-validator-satisfying campaign this paragraph has always claimed to describe.)
+**What it bought:** a mechanistically explained wall rather than noise. The same Riks stall
+&mdash; the arc-length solver cannot traverse a sequential snap-through equilibrium path &mdash;
+recurs across n_segments 2 to 6 AND across more than two orders of magnitude in cross-section
+size, which matches a risk the run's own literature review had flagged a priori
+(arXiv:2010.07850: snap-through is rate-dependent, a delayed bifurcation, even in the ideal
+quasi-static elastic case). Of 18 coilable true-bistable-regime designs only 2 converged with a
+valid stabilization-energy ratio, and of those only 1 met both compression and strain criteria
+&mdash; a near-degenerate cross-section at sigma_crit=0.001622 kPa, roughly 475&times; below the
+then-target. Not a candidate. H3 separately found a genuine five-criteria counterexample to its
+own absence claim, at Q~1.23 (below the 2.31 true-bistability floor), i.e. a mild alternating
+pre-curvature rather than genuine snap-through &mdash; D23's slide.
 
-H2 self-correction (why this FALSIFIED is trustworthy, not premature): the
-strategizer's FIRST attempt at this verdict, based on an earlier 72-eval
-campaign (D005), was ALSO "FALSIFIED" -- but the automated verdict validator
-rejected it, citing a Duhem-Quine confound: the registered criterion demanded
-a >=100-eval campaign, D005 ran only 72, and its failure mode (Riks
-non-convergence) is confounded with a possible solver/rate limitation rather
-than demonstrated evidence the mechanism itself fails. The strategizer
-retracted to INCONCLUSIVE and re-ran a properly-powered, non-confounded
-follow-up (D006, above) before re-closing FALSIFIED -- the detail above IS
-that corrected, validator-satisfying campaign, not the original rejected one.
-Strategizer's own retrospective calls this "the single most important thing
-that happened this run."
+**Corrections:** the strategizer's own retrospective calls this "the single most important thing
+that happened this run", and it is a self-correction. Its FIRST attempt at H2's FALSIFIED verdict,
+based on an earlier 72-eval campaign, was rejected by the automated verdict validator on
+Duhem-Quine grounds: the registered criterion demanded at least 100 evals, that campaign ran 72,
+and its failure mode (Riks non-convergence) is confounded with a possible solver or rate
+limitation rather than being evidence the mechanism fails. It retracted to INCONCLUSIVE, ran a
+properly powered non-confounded follow-up, and only then re-closed FALSIFIED. A later deck audit
+(2026-08-26) also corrected this summary's own quoted numbers, which had cited the retracted
+campaign's figures while describing the corrected one.
 
-H3 detail: registered falsification criterion was explicit — "a single valid
-(slenderness>=10, all 5 criteria) design beating 0.7704 kPa refutes the
-absence claim outright." D004 found exactly such a counterexample at
-circular=11 (n_segments=3, arch_rise_ratio=0.10, run-17-rectangle base
-cross-section): sigma_crit=0.776506 kPa, mcs=1.032523, mls=0.019394,
-slenderness=10.248; ring-passthrough independently confirmed clear via a
-dedicated follow-up delegation (D007) that bit-identically cross-checked the
-original Riks solve. Note this counterexample sits in the SUB-BISTABLE regime
-(Q~1.23, below the 2.31 true-bistability floor) — a mild alternating
-pre-curvature, not genuine snap-through. Not re-checked with the continuum
-cut-distance convergence method (unlike run17_rectangle) — see this idea's
-own slide notes for the caveat.
+**Cost shape:** 206 evals, with the re-run cost paid deliberately to retire the confound.
+
+**Unresolved:** D23's counterexample was never re-checked with the continuum cut-distance
+convergence method that `run17_rectangle` received, so its margin should be read as unconfirmed.
 -->
 
 ---
@@ -7418,6 +7334,13 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** PHYSICAL, with a thin population. 133 designs, 19 Stage-1 coilable, only 3 reaching a
+converged Stage-2 solve and 1 feasible at 5.9&times; Bessa. The absence claim it was registered
+against is refuted by that single genuine five-criteria counterexample, which beats the then-
+baseline. But what actually got tested is a MILD curvature perturbation, not the true bistable
+mechanism originally proposed &mdash; and the one clearing point is also this slide's own best
+design, so 3 decided points are too few to read as a population.
+
 **Input space:** n_segments&isin;[2,6] — chain length (discrete). arch_rise&isin;[.02,.3] — per-
 segment rise, kept below the Q&asymp;2.31 bistability floor. Fixed: a=.009213, b=.033238,
 ratio_pitch=.681277, ratio_top_diameter=.04444, circular=11 (cross-section-family switch).
@@ -7482,50 +7405,36 @@ The largest single-run batch this study ran (867 evals, 8 hypotheses) — every 
 </div>
 
 <!--
-Run stats: all-Sonnet, 14h, GATED, evals_used=867, $59.50. Baseline unchanged
-at 0.7704 kPa this run. Explicitly steered toward genuinely novel mechanisms
-rather than resizing the known rectangle.
+**Why it stopped:** GATED, 867 evals, $59.50, all-Sonnet on a 14 h budget. Explicitly steered
+toward genuinely novel mechanisms rather than resizing the known rectangle.
 
-H3 detail: properly-powered out-of-band verification (2026-08-03, not a new
-agentic run): a 3-phase shrinking-zoom CEI-BO and a TuRBO trust-region search,
-120 real evals each, against the same D007 oracle (host fixed at the
-run17_rectangle anchor, only the brace's own 4D geometry searched). Zero
-feasible designs in either -- the 3-phase zoom's own phase 1 (40 evals, full
-box) already found nothing and correctly declined to zoom further. Combined
-with the original 120 evals (D007+D008), that is 280 real evals across 3
-independent search strategies with zero feasible hits -- this is no longer an
-underpowered result, it is a clean negative.
+**What it bought:** a clean negative on the diagonal-brace family, and it is clean because the
+power was actually supplied. H3's original 120 evals were followed out of band on 2026-08-03 by a
+three-phase shrinking-zoom CEI-BO and a TuRBO trust-region search, 120 real evals each against the
+same oracle with the host fixed at the anchor and only the brace's own 4-D geometry searched. Zero
+feasible in either; the zoom's phase 1 already found nothing and correctly declined to zoom
+further. Combined with the in-run 120, that is 280 real evals across three independent search
+strategies with zero feasible hits.
 
-H4/H6 detail: H4's registered prediction covered only the host's own
-criteria (coilable, mcs, host mls, slenderness) and never mentioned brace
-strain, so H4 is correctly SUPPORTED on its literal text — closing it as
-FALSIFIED post-hoc using the brace-strain finding would itself have been an
-improper goalpost move. But every one of H4's 6 winning designs (best
-sigma=1.2457 kPa, 9.5x Bessa) has brace-ligament strain 7.7-9.1% in the SAME
-PLA material the study elsewhere holds to a 2% elastic-strain convention —
-exactly the tensegrity pattern (numerically real, but "wins" only by
-relocating strain to an unchecked member). 1.2457 kPa is not a citable
-result and never will be for this exact parametrization. H6 settles this:
-440 evals across D009 (in-run), D011 (in-run), and a dedicated 220-eval
-standalone follow-up (patience never even triggered) find zero designs
-keeping host AND brace elastic simultaneously for this single-ring topology.
-The near-miss (ligament strain 2.15% vs. the 2.00% limit, at sigma=0.337 kPa
-= 2.58x Bessa, which would itself clear this study's 2x target) suggests the
-brace mechanism is not dead, only this exact single-ring realization —
-PROBLEM_STATEMENT.md explicitly frames a structurally different brace
-topology as the genuinely open thread, not a re-run of this box.
+**Corrections:** H4 is a lesson in not moving goalposts. Its registered prediction covered only
+the HOST's criteria &mdash; coilable, compression, host strain, slenderness &mdash; and never
+mentioned brace strain, so H4 is correctly SUPPORTED on its literal text, and closing it FALSIFIED
+post-hoc using the brace-strain finding would itself have been an improper goalpost move. But
+every one of H4's 6 winning designs, best 1.2457 kPa (9.5&times; Bessa), has brace-ligament strain
+of 7.7&ndash;9.1% in the same PLA the study elsewhere holds to a 2% convention. That is exactly the
+tensegrity pattern: numerically real, but winning only by relocating strain into an unchecked
+member. **1.2457 kPa is not a citable result and never will be for this parametrization.**
 
-H3 stats: ligament strain 7.9-8.8% (genuinely elastic mechanism), but 120
-evals across 2 rounds found only 2 Riks-converged near-boundary points — an
-inadequate probe of the mcs/mls boundary, not a contradiction.
+**Cost shape:** $59.50 for 867 in-run evals, plus 240 out-of-band afterwards, plus a 349-eval H8
+campaign spanning the full physically-verified n_loops range.
 
-H7 stats: n_longerons=4, sigma=0.770342 (-0.0014% vs. baseline 3-longeron
-value), critical load scales almost exactly proportionally with
-n_longerons — independently hand-verified.
-
-H8 stats: 349-eval campaign (D014-D017) spanning the full physically-verified
-n_loops in [1,10], patience-plateaued. Best-under-5-criteria is 0.737 (96% of
-baseline) and still fails ligament strain.
+**Unresolved:** H6 settles the single-ring realization &mdash; 440 evals across two in-run
+delegations and a dedicated 220-eval follow-up, patience never even triggering, find ZERO designs
+keeping host and brace elastic simultaneously. But the near-miss is close enough to matter:
+ligament strain 2.15% against the 2.00% limit, at 0.337 kPa (2.58&times; Bessa), which would
+itself clear the 2&times; target. So the brace mechanism is not dead &mdash; only this exact
+single-ring realization. A structurally different brace topology is the genuinely open thread, not
+a re-run of this box.
 -->
 
 ---
@@ -7569,6 +7478,12 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** NUMERICAL, cleanly. 91 designs, 90 Stage-1 coilable, and every one of those 90 failed
+to reach a converged Riks solve &mdash; so Stage 2 has no population to compute over at all and
+the mechanism was never actually put to a test. This is a solve-completion wall, not a strain
+wall, and the distinction matters: nothing here is evidence about a doubly-symmetric section's
+merit. An untried fix for this exact wall exists and is named in the Seed.
+
 **Input space:** b&isin;[.015,.05] — flange width. h&isin;[.02,.08] — section height.
 tf&isin;[.002,.012] — flange thickness. tw&isin;[.0015,.008] — web thickness. ratio_pitch
 &isin;[.3,1.5], ratio_top_diameter&isin;[0,.3] — usual per-storey pitch/taper meaning. Fixed:
