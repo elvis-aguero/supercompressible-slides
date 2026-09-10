@@ -5425,44 +5425,38 @@ the blocker.
 </div>
 
 <!--
-READ THE HEADLINE CORRECTLY, BECAUSE IT IS EASY TO UNDERSELL: this run produced no new design and
-no supported mechanism, and it is still the most consequential run in a fortnight -- because
-contact has been NOMINALLY ON since 2026-08-06 while being INERT for every feasible design. Every
-"contact-era" number this study has quoted for a feasible design is contact-free in substance. The
-2x2 recorded in docs/FLAKY_DESIGNS.md ("contact costs 1.54x wallclock and zero convergence") is
-consistent with that and now reads differently: of course it cost nothing, it never happened.
+**Why it stopped:** it closed with 12.2 h UNSPENT, and not from ignorance &mdash; D014's own
+report ended by stating the remaining wall budget. The strategizer's retrospective names the
+open question honestly: it allowed 6 debugging delegations on one mechanism and has "no clean
+signal for where the 'stop debugging, it's a build wall not a science question' line should sit
+versus PREMATURE CONVERGENCE's instruction not to abandon a search too early."
 
-WHY ALL FIVE VERDICTS ARE INCONCLUSIVE AND WHY THAT IS CORRECT. The strategizer self-corrected
-three of them DOWN from SUPPORTED/FALSIFIED under the validator, explicitly on Duhem-Quine
-grounds: a design that fails to converge has not measured the absence of an effect, it has failed
-to run the test. Its own words on H3: "that is a test failure (Duhem-Quine), not a measured
-absence of effect, and an untested gap remains at 0.16." That is the best epistemic behaviour in
-the series, and it is why the negative is trustworthy.
+**What it bought:** no new design, no supported mechanism, and still one of the most consequential
+runs in the study &mdash; because it established that **contact has been NOMINALLY ON since
+2026-08-06 while being substantively INERT for every feasible design.** Every "contact-era" number
+this study has quoted for a feasible design is therefore contact-free in substance. It also
+reframes `docs/FLAKY_DESIGNS.md`'s own 2x2 ("contact costs 1.54&times; wallclock and zero
+convergence"): of course it cost nothing, it never happened. Full account in
+`validation/contact_inert_for_feasible_designs/README.md`.
 
-THE DETAIL THAT DECIDES BOTH MECHANISMS. In the secondary-stop family the only FEASIBLE rows are
-n_stops = 0 -- the control. In the shaped-disc family the best feasible row is cone_rise_ratio =
-0.0 -- the flat disc, also the control. In both cases the mechanism-bearing designs either did not
-converge or did not engage. A family whose only feasible member is its own control has not been
-tested; it has been outlined.
+**Corrections:** all five verdicts are INCONCLUSIVE and that is correct. The strategizer
+self-corrected three of them DOWN from SUPPORTED or FALSIFIED under the validator, explicitly on
+Duhem-Quine grounds &mdash; its own words on H3: "that is a test failure (Duhem-Quine), not a
+measured absence of effect, and an untested gap remains at 0.16." A design that fails to converge
+has not measured the absence of an effect; it has failed to run the test. That is the best
+epistemic behaviour in the series and it is why this negative is trustworthy.
 
-THE COUPLING FINDING, which is the one to act on: any additional beam member coupled to the ring
-reference points collapses the primary's strain margin almost immediately. That is the
-over-constraint docs/FLAKY_DESIGNS.md flags as UNCHECKED for element-based families ("their top
-rings descend onto the same floor, so the exposure exists. This row is here to say nobody has
-looked"). Somebody has now looked, and it bites.
+**Cost shape:** it tells the story without any science. datagenerator $28.47 across 11 calls, 79%
+of spend, all build debugging; implementer $0.25, one call. No campaign ran.
 
-COST SHAPE TELLS THE STORY WITHOUT READING A WORD OF SCIENCE: datagenerator $28.47 across 11
-calls (79%) on build debugging; implementer $0.25, one call. No campaign ran. The strategizer's
-retrospective names the open question honestly -- it allowed 6 debugging delegations on one
-mechanism and says it has "no clean signal for where the 'stop debugging, it's a build wall not a
-science question' line should sit versus PREMATURE CONVERGENCE's instruction not to abandon a
-search too early."
-
-AND IT CLOSED WITH 12.2 h UNSPENT. Not from ignorance: D014's report ended "wall budget remaining:
-12.49h of 18.00h". But the transcript contains ZERO reasoning about the clock -- the agent's loop
-terminates when the deliverable passes the gate, and 1h40m of the run's tail was notebook
-write-up and four gate attempts. The 2026-08-13 PS line telling it to spend the budget was read
-and changed nothing, because prose cannot beat a terminal state.
+**Unresolved:** the coupling finding, which is the one to act on &mdash; any additional beam
+member coupled to the ring reference points collapses the primary's strain margin almost
+immediately. `FLAKY_DESIGNS.md` predicted exactly this exposure for element-based families and
+recorded that nobody had checked it; somebody has now looked and it bites, so that row needs
+updating to n=1 with this run's evidence. And the detail that decides both mechanisms here: the
+secondary-stop family's only feasible rows are `n_stops = 0` and the shaped-disc family's best is
+`cone_rise_ratio = 0.0`, both controls. A family whose only feasible member is its own control has
+not been tested; it has been outlined.
 -->
 
 ---
@@ -5506,6 +5500,13 @@ layout: two-cols-header
 </div>
 
 <!--
+**Result:** NON-ENGAGEMENT, the sharpest readout of its kind in the deck. 26 designs, all
+coilable, 19 converged and 19 nominally "good" &mdash; but all 19 return the incumbent's own peak
+load to 16 significant figures, and the best is `cone_rise_ratio = 0.0`, the flat disc, i.e. the
+control. Below the engagement onset (rise &le; 0.15) 18 of 18 converge with CPRESS EXACTLY ZERO:
+the cone is there, the mast never reaches it. Past the onset, 7 of 8 diverge on overclosure
+chatter. Nothing here both converges and engages.
+
 **Input space:** cone_rise_ratio&isin;[0,.30] — cone height as a fraction of its base radius (0 =
 flat disc, the family's own control). Fixed: everything else at the incumbent (a=.00921,
 b=.03324, pitch=.68128, rtd=.04444, n_long=3).
@@ -5583,14 +5584,38 @@ layout: two-cols-header
 </div>
 
 <!--
+**Result:** NON-ENGAGEMENT. Six designs, all coilable, two decided, and both "good" rows are
+`n_stops = 0` &mdash; the control, i.e. the run-17 rectangle again. 20 solves across 6
+delegations and TWO independent FE constructions (a separate Part-and-Instance, then wire edges
+on the same Part) never produced a stop that carried load. The one solve whose stop did engage
+was already decided against: the PRIMARY's strain crosses 2% at 5.9% compression, dropping
+usable compression from 0.910 to 0.054, roughly 600 increments early. Adding the member is what
+destroys the host.
+
 **Input space:** ratio_stop_d&isin;[.02,.03] — stop member diameter. stop_engagement_fraction
 &isin;[.5,.8] — compression fraction at which the stop is meant to contact. stop_radial_ratio
 &isin;[.4,.6] — stop's radial placement between the mast axis and the primary longerons.
 n_stops&isin;{0,1,3} — discrete count, not a continuous dial. Fixed: primary longeron at the
 incumbent.
 
-**REAL CHART ADDED 2026-08-28 (same gap as D28/D38 -- a coiling GIF with no companion stress
-chart).** n_stops=1's real ODB
+**Seed:** BARREN *as coupled here* — any added beam member tied to the ring reference points
+destroys the primary's strain margin, so the mechanism is untested until that is fixed. ONE
+combination remains untried and is the most promising lead: `stop_construction="same_part"`
+together with longeron-midspan attachment. Each has been tested individually; never together.
+
+**Deferred:** the coupling finding generalises past this slide and is the thing to act on: any
+additional beam member coupled to the ring reference points collapses the primary's strain margin
+almost immediately. `docs/FLAKY_DESIGNS.md` flags exactly this over-constraint exposure as
+UNCHECKED for element-based families &mdash; "their top rings descend onto the same floor, so the
+exposure exists. This row is here to say nobody has looked." Somebody has now looked, and it
+bites. Full account, together with the finding that contact has been nominally on and
+substantively INERT for every feasible design since 2026-08-06, in
+`validation/contact_inert_for_feasible_designs/README.md`.
+
+**Timeline:** Run 20260814T015148 &mdash; 6 delegations, 20 solves, two independent FE
+constructions of the stop. No campaign ran; the whole run was build debugging.
+
+**Infra:** Chart added 2026-08-28, closing the same gap as D28 and D38 (a coiling gif with no companion stress chart). n_stops=1's real ODB
 (`/oscar/scratch/eaguerov/sc_oracle_secondary_stop/riks_459047fed9ee43a48e7ce61ec6784c12/`, 102
 frames, no `results.pkl` -- extracted directly via read-only Abaqus field-output access, U/RF at
 `ZTOP_REF_POINT` and `E` across all elements) does not have a corresponding entry in this
@@ -5602,45 +5627,24 @@ mcs=6.46%, independently confirming the 5.9%/mcs=.054 figure already in the Verd
 this extraction's own precision (a cruder max-principal-or-component strain measure than the
 study's own beam-section-point convention).
 
-**Seed:** BARREN *as coupled here* — any added beam member tied to the ring reference points
-destroys the primary's strain margin. Untested until that is fixed.
 
-**2026-08-29 update (run 20260829T005522, D007/D017):** the fix named above WAS tried. D017
-attached the stop to a genuine FE node on the primary longeron's own mesh instead of any ring
-reference point or driven surface -- zero shared equations with ZTOP_REF_POINT -- and it still
-diverges at the identical mcs~0.51 with the identical residual signature every other
-construction has shown since D003. This conclusively rules out "shared ring-RP DOF set" as the
-cause across five independent attachment/base variants now (D004 x4, D007's contact, D017's
-primary-node coupling); the standing explanation is that ANY new Part+Instance perturbs
-Abaqus's own internal equation numbering, independent of what it connects to. One combination
-remains untried: `stop_construction="same_part"` combined with this longeron-midspan
-attachment (each tested individually, never together) -- flagged as the most promising
-untried lead, not attempted (outside that delegation's authorized scope).
-
-Run 20260814T015148, delegations D003-D006 and D012-D013, H1/H2. 6 datagenerator delegations,
-$28.47 of the run's $35.83.
-
-THE FINDING IS THE COUPLING, NOT THE STOP. D012 refuted "separate-instance-ness" as the cause --
-n_stops=3 built as wire edges on the SAME Part still diverged, at an even earlier LPF 0.257, with
-the same causal fingerprint tied to the primary's own Kinematic-coupling hinge-release scheme. So
-the defect is not how the stop was attached but that ANY additional beam member coupled to those
-ring reference points collapses the primary's strain margin. docs/FLAKY_DESIGNS.md predicted
-exactly this exposure and recorded that nobody had checked it ("Element-based families + coupling
--- the same over-constraint has NOT been checked... This row is here to say nobody has looked").
-Somebody has now looked. That row needs updating to n=1 with this run's evidence.
-
-WHY IT IS "UNTESTABLE" AND NOT "FALSIFIED": the mechanism's own prediction was never reached. The
-stop was supposed to engage AFTER the primary neared its strain limit; instead the primary blew
-its limit at 5.9% compression, which is a broken model, not a tested idea. D013's salvage is what
-established that -- and it was free, following docs/TRAPS.md's own "a stalled solve can still
-decide a design" logic on a partial solve nobody had planned to read.
-
-ON THE SIX DELEGATIONS. Each successive attempt was required to test a genuinely DIFFERENT cause
-(contact settings -> base DOF -> shared property -> arc-length control -> construction strategy),
-and the strategizer stopped only when two fundamentally different constructions both failed. That
-is a defensible discipline. It is also $28 and most of a run, and its own retrospective flags the
-missing signal: where the line sits between "keep debugging" and "this is a build wall, escalate
-it out of the run".
+**History:** the diagnosis narrowed across six delegations, each required to test a genuinely
+DIFFERENT cause &mdash; contact settings, then base DOF, then shared property, then arc-length
+control, then construction strategy &mdash; and the strategizer stopped only when two
+fundamentally different constructions both failed. D012 refuted "separate-instance-ness" as the
+cause: `n_stops=3` built as wire edges on the SAME Part still diverged, at an even earlier LPF
+0.257, with the same causal fingerprint tied to the primary's own kinematic-coupling
+hinge-release scheme. The 2026-08-29 update (run 20260829T005522, D017) then attached the stop to
+a genuine FE node on the primary longeron's own mesh, with zero shared equations with
+ZTOP_REF_POINT, and it STILL diverges at the identical mcs~0.51 with the identical residual
+signature every construction has shown since D003 &mdash; conclusively ruling out a shared
+ring-RP DOF set across five independent attachment and base variants. The standing explanation is
+that ANY new Part-and-Instance perturbs Abaqus's own internal equation numbering, independent of
+what it connects to. And this slide reads UNTESTABLE rather than FALSIFIED because the
+mechanism's own prediction was never reached: the stop was meant to engage AFTER the primary
+neared its strain limit, and instead the primary blew that limit at 5.9% compression, which is a
+broken model rather than a tested idea. D013's salvage established that, for free, by reading a
+partial solve nobody had planned to read.
 -->
 
 ---
