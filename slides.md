@@ -720,6 +720,15 @@ fundamental they are, not by the date they were written.
     the block as `**Result:** <CAUSE>. ...`. Each value is instantiated by
     a real slide in this deck; none of them is invented:
 
+      CONFIRMED      the mechanism engaged, works, and survived this
+                     deck's own artifact checks. D48: sigma_peak flat to
+                     6 significant figures across a 100x finer
+                     arc-length and unchanged under 2x finer mesh, on
+                     three separately-converged non-salvaged solves.
+                     (Added 2026-09-09, while converting D48: the other
+                     six values all describe ways a result FAILED,
+                     because the audit that produced them sampled
+                     failures. A mechanism that WORKED had no label.)
       PHYSICAL       the mechanism engaged and the mechanics defeat it.
                      D47: each arch's own apex IS the ring above it, so
                      it cannot fully invert.
@@ -889,6 +898,7 @@ stabilization gate above is written on.
 
 WHY A RESULT CAME OUT THE WAY IT DID (rule 9d cause labels, on every idea slide's Result)
 
+**CONFIRMED** the mechanism engaged, works, and survived the artifact checks.
 **PHYSICAL** the mechanism engaged and the mechanics defeat it. **NUMERICAL** the solver never
 produced the answer. **NON-ENGAGEMENT** the solve was fine and the mechanism never activated.
 **EVIDENTIAL** the search never reached the discriminating regime. **TOOLING** the model could
@@ -2359,26 +2369,32 @@ Closed on quota with five hypotheses queued and untested.
 </div>
 
 <!--
-This run has no idea slide of its own: every hypothesis targets the snaplegs family, which is
-D48, and this run's contribution is confirmation of D48's numbers rather than a new mechanism.
-D48's own speaker notes carry the per-run detail and name this run as RUN 3.
+**Why it stopped:** an external API quota cut it off after ~2 h 45 min of a 10 h budget, with zero
+gate attempts &mdash; so UNGATED here is an interruption, not a rejection. This is D48's RUN 3.
 
-UNGATED with zero gate attempts -- the quota cut it off before the strategizer tried to close, so
-this is an interruption, not a rejection. The five OPEN hypotheses were queued and are listed
-above as pending rather than dropped, because two of them (H5 bistability by the literature's
-operational test, H7 whether the compression is physically available) were later answered
-DIRECTLY by the user rather than by a fourth agentic run -- see D48's notes, "Post-run, done
-directly rather than spending a 4th agentic attempt".
+**What it bought:** the confirmation, which is what turned D48 from a promising reading into this
+deck's only VALIDATED design. 31 evaluations across 7 fresh hypotheses, explicitly pointed at run
+20260902T035710's own hypotheses file rather than re-deriving the prior art. H1 (SUPPORTED): the
+same design holds sigma_peak flat to six significant figures across a 100&times; finer arc-length
+AND unchanged under a 2&times; finer mesh. H2 (FALSIFIED): the earlier doubt that these readings
+were salvaged partial-solve artifacts is directly refuted &mdash; three separate designs each
+reached a genuine, non-salvaged, fully converged solve and still cleared the target.
 
-Cost $39.50. Note the shape: literature_reviewer $4.93, the highest of any run in this deck,
-because this run was pointed at the previous run's hypotheses file rather than re-deriving the
-prior art -- and strategizer $10.03, unusually high for 10 delegations, consistent with a run
-spending its time deciding what to verify rather than building.
+**Corrections:** none registered. The run's contribution is confirmation of existing numbers
+rather than any new verdict, which is also why it has no idea slide of its own: every hypothesis
+targets the snaplegs family, which is D48.
 
-DO NOT read this run's raw ledger maximum as a headline. Its snaplegs rows include readings up to
-44.9x Bessa that D48's own adjudication rejected; D48's confirmed best-good design is
-sigma_peak=1.2104 kPa (10.79x Bessa), re-confirmed on three separately-converged solves. The
-figure to cite is D48's.
+**Cost shape:** $39.50. Note the shape: literature_reviewer $4.93, the highest of any run in this
+deck, because the run was pointed at the previous attempt's hypotheses file rather than
+re-deriving prior art; and strategizer $10.03, unusually high for 10 delegations, consistent with
+a run spending its time deciding what to verify rather than building.
+
+**Unresolved:** five hypotheses were queued and never tested &mdash; self-interference at a
+realistic mast height, a borderline strain-margin question, and a wider self-collision sweep
+beyond the one design already checked. Two of them were later answered DIRECTLY rather than by a
+fourth agentic attempt, and are recorded in D48's Timeline. Also: DO NOT read this run's raw
+ledger maximum as a headline. Its snaplegs rows include readings up to 44.9&times; Bessa that
+D48's own adjudication rejected; the figure to cite is D48's confirmed 1.2104 kPa (10.79&times;).
 -->
 
 ---
@@ -2416,21 +2432,34 @@ own about the fix.
 </div>
 
 <!--
-H6 is worth reading in full in the run's own hypotheses.json: the strategizer first called it
-SUPPORTED and then self-retracted FOUR MINUTES LATER against its own registered criterion, once a
-real counterexample landed. That retraction predates the same discipline the critic praised in
-runs 20260906T122744 and 20260907T024929, and it happened without a critic in the loop, since this
-run never reached a gate.
+**Why it stopped:** an external API quota cut it off after ~7 h 14 min of a 10 h budget, before
+any gate attempt. This is D48's RUN 2.
 
-Cost $113.71, with strategizer $34.41 -- by far the highest strategizer share in the deck, and the
-signature of a run doing its own mechanism design rather than delegating it: the legged fix was
-invented in the strategizer's own reasoning between delegations, not commissioned from a worker.
+**What it bought:** the diagnosis and the fix. 130 evaluations across 7 hypotheses established
+WHY the un-legged snap-chain cannot work (H4: the arch's own apex is the ring above it, so it
+cannot invert), proved by reaction-force test that the un-legged family is not genuinely bistable
+at all (H5: the axial reaction never crosses into tension), bracketed the bistability threshold
+empirically to (4.400, 5.000], and invented the legged fix that became D48. It closed on quota
+before resolving whether the load target and the compression target could be hit together.
 
-DO NOT read this run's raw ledger maxima as headlines. snapchain contains 16 rows above 100x Bessa
-and snapchaincirc one above 89 BILLION x Bessa -- non-physical artifacts of the un-legged
-topology's flattened-arc limit, which D48's adjudication rejected. Among the ledger's own feasible
-rows the sane maxima are snapchain 1.4551 (12.97x) and snapchaincirc 1.2414 (11.06x); the figure
-to cite for this mechanism family remains D48's confirmed 1.2104 kPa on three converged solves.
+**Corrections:** H6 is worth reading in full in the run's own `hypotheses.json`. The strategizer
+first called it SUPPORTED and then self-retracted FOUR MINUTES LATER against its own registered
+criterion, once a real counterexample landed. That retraction predates the same discipline the
+critic later praised in runs 20260906T122744 and 20260907T024929, and it happened with no critic
+in the loop, since this run never reached a gate.
+
+**Cost shape:** $113.71, with strategizer $34.41 &mdash; by far the highest strategizer share in
+this deck, and the signature of a run doing its own mechanism design rather than delegating it.
+The legged fix was invented in the strategizer's own reasoning between delegations, not
+commissioned from a worker.
+
+**Unresolved:** DO NOT read this run's raw ledger maxima as headlines. `snapchain` contains 16
+rows above 100&times; Bessa and `snapchaincirc` one above 89 BILLION&times; Bessa &mdash;
+non-physical artifacts of the un-legged topology's flattened-arc limit, which D48's own
+adjudication rejected. Among the ledger's own feasible rows the sane maxima are snapchain 1.4551
+(12.97&times;) and snapchaincirc 1.2414 (11.06&times;); the figure to cite for this mechanism
+family remains D48's confirmed 1.2104 kPa on three separately converged solves. Full warning in
+`validation/snaplegs_C1_confirmation/README.md`.
 -->
 
 ---
@@ -2473,6 +2502,13 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** PHYSICAL. 90 designs of a snap-chain whose arches attach directly to the rings, 5 with
+a converged Stage-2 solve and 2 the ledger marks feasible. The topology forbids the mechanism it
+was built for: each arch's apex IS the ring above it, so it cannot fully invert, and a
+reaction-force test confirms the axial reaction never crosses into tension &mdash; it is not
+bistable at all. What its feasible rows measure is an arc flattening rather than a snap, which is
+why no headline is quoted from this family and why the legged version D48 was necessary.
+
 **Input space:** n_levels, rise_ratio (arch rise over thickness -- the bistability parameter),
 t_ratio and w_ratio (arch section), chord_half_angle, compression_cap. 90 ledgered designs across
 run 20260902T035710; per-axis bounds in that run's registration for namespace 'snapchain'.
@@ -2536,25 +2572,32 @@ its retrospectives are the earliest record of two frictions that recurred for da
 </div>
 
 <!--
-Kept, not discarded, and the reason is worth stating: this run is D48's RUN 1, so deleting its
-directory would break the provenance chain of the deck's record-holding design. It also authored
-three files still in bo/ that name it as their origin in their own docstrings --
-bo/oracle_arch_window.py (D003, which widened the ALREADY-EXISTING D24 bistable-arch box into its
-own never-sampled Q>=2.31 regime), bo/D47_oracle_snapchain.py (D047) and
-bo/oracle_snapchain_circ.py.
+**Why it stopped:** an external API quota cut it off after ~92 minutes, before any gate attempt.
+This is D48's RUN 1, the first of three interrupted attempts at one idea.
 
-It has no idea slide because it has no ledgered family data: experiment_data/ contains no
-namespace directory at all, so there is no Stats funnel to report at any size. Its two mechanism
-hypotheses point at the slides that did eventually carry them (D24's family for the arch window,
-D47 for the snap-chain).
+**What it bought:** two oracles and one evaluation. `bo/oracle_arch_window.py` widened the
+ALREADY-EXISTING D24 bistable-arch family's search box into its own never-sampled Q&ge;2.31
+regime, and `bo/D47_oracle_snapchain.py` built the snap-chain's first, un-legged version. That
+un-legged topology's own apex IS the ring above it, so it geometrically cannot fully invert
+&mdash; which was not yet understood at this point and took RUN 2 to diagnose.
 
-EARLIEST RECORD OF TWO RECURRING FRICTIONS, which is the main reason to keep it: (i) its D001
-retrospective reports Semantic Scholar returning HTTP 403 on every call, "the shared
-unauthenticated quota is exhausted" -- the same failure hit runs 20260906T122744 and
-20260907T024929; (ii) its diagnostics contain `ERROR: 'D002' has never been delegated to -- cannot
-Confer with a node that was never woken`, i.e. Confer takes a NODE name and not a delegation id.
-That identical error recurred in run 20260907T024929 five days later, still unfixed.
-Cost $46.94 for 1 eval, almost all of it datagenerator ($30.99) building the two oracles.
+**Corrections:** none. The run did not survive long enough to register a verdict.
+
+**Cost shape:** $46.94 for one evaluation, almost all of it datagenerator ($30.99) building the
+two oracles. The clearest illustration in this deck of where the money actually goes: building a
+family costs roughly thirty times what evaluating a design costs.
+
+**Unresolved:** why this run is KEPT rather than deleted &mdash; it is D48's RUN 1, so removing its
+directory would break the provenance chain of the deck's record-holding design. It has no idea
+slide of its own because it has no ledgered family data &mdash; `experiment_data/` contains no
+namespace directory at all, so there is no Stats funnel to report at any size; its two mechanism
+hypotheses point at D24's family and at D47, which eventually carried them. It is also the
+EARLIEST RECORD of two frictions that then recurred for a week: its D001 retrospective reports
+Semantic Scholar returning HTTP 403 on every call ("the shared unauthenticated quota is
+exhausted"), which then hit runs 20260906T122744 and 20260907T024929; and its diagnostics contain
+`ERROR: 'D002' has never been delegated to -- cannot Confer with a node that was never woken`,
+i.e. `Confer` takes a NODE name and not a delegation id. That identical error recurred in run
+20260907T024929 five days later, still unfixed.
 -->
 
 ---
@@ -2604,114 +2647,76 @@ Slocum, <i>J. Microelectromech. Syst.</i> 13(2):137&ndash;146 (2004).
 </div>
 
 <!--
-**Full Stats detail, trimmed from the visible bullet to fit the canvas (2026-09-04):**
-p50/p90/p100 over the 28 Riks-converged designs -- sigma_peak: 1.06/1.31/5.36 (kPa) *
-mcs: .95/1.02/1.03 * mls: .017/.045/.78 (wide spread -- includes deliberately off-target
-probes, not just candidates). cleared: several of the 28 decided designs clear 2x Bessa
-(0.2244), independently re-confirmed by 3 separately-converged designs (not salvaged
-reads). novel: yes -- mechanism, not a parameter, see 2b.
+**Result:** CONFIRMED. A stack of shallow elastic arches on legs, each snapping through in turn:
+168 designs across three interrupted runs, 167 coilable, 28 converged, 86 feasible, best
+10.79&times; Bessa. It survives every artifact check this deck asks for &mdash; peak load flat to
+six significant figures across a 100&times; finer arc-length, unchanged under a 2&times; finer
+mesh, re-confirmed on three separately converged non-salvaged solves. The mechanism: legs let
+each arch clear the ring below it on full inversion, which is what its un-legged predecessor D47
+could not do.
 
-**Why this gets ONE slide for three runs, not three:** this is one genuinely new idea (rule 1),
-tested across three consecutive one-off agentic runs under the same mission because the first
-two were cut short by an external API-quota limit, not by the science running out — each
-resumed attempt could not literally continue the prior one (a3dasm's resume_from replays an
-already-terminated graph checkpoint; it does not reopen one), so each was a fresh run pointed at
-the previous attempt's own preserved infrastructure and hypotheses file instead. Folding them
-follows the same judgment call this deck's own migration note already licenses for "several
-designs, no genuine split, none justifies its own near-empty slide" — here it is one design
-across three interrupted attempts, not several designs in one attempt, but the same principle:
-splitting this into three near-duplicate slides would not communicate more than one slide telling
-the whole arc.
+**Input space:** n_levels (2&ndash;12, integer) &mdash; ring-level count. rise_ratio, t_ratio,
+w_ratio &mdash; arch rise, thickness and width, each / D1. leg_ratio &mdash; leg height / arch
+rise, the parameter run 1's H4 identified as necessary at all: leg_ratio &gt; 0 is what lets the
+arch clear the ring below it on full inversion. chord_half_angle &mdash; the arc's own angular
+extent. Fixed: D1=100mm, ratio_shear_modulus=.3677, 3 arches per level, matching this study's
+3-longeron convention.
 
-**Deliberately no "Xx the current incumbent" comparison in the Verdict:** this deck's own rule 2c
-says the practical checkpoint is the fixed Bessa multiple, never the drifting incumbent record —
-stated here explicitly because this design is genuinely tempting to headline as "beats the best
-design in the study," which is true today but is exactly the kind of number this rule exists to
-keep out of a verdict.
+**Seed:** BARREN as the one design checked, FERTILE-PARAMETRIC as a family &mdash; the specific
+best-good point is thoroughly confirmed, but the broader box (other n_levels, other
+chord_half_angle) is not, and the queued self-interference sweep at a taller, more realistic mast
+height &mdash; comparable to Bessa's own aspect ratio, against this design's squat 4-level, 31 mm
+build &mdash; never ran.
 
-**Input space:** n_levels (2-12, integer) — ring-level count. rise_ratio, t_ratio, w_ratio — arch
-rise/thickness/width, each / D1. leg_ratio — leg height / arch rise (the free parameter H4, run 1,
-identified as necessary at all: leg_ratio&gt;0 is what lets the arch clear the ring below it on
-full inversion). chord_half_angle — arc's own angular extent. Fixed: D1=100mm,
-ratio_shear_modulus=.3677, 3 arches per level (matching this study's own 3-longeron convention).
+**Deferred:** elastic recovery is very likely complete but is not certified to the last fraction
+of a percent. Released from 82.04% compression the mast returned to 99.64% of its original height
+under nothing but a decreasing push, with no confirmed need for an active pull; the remaining
+0.36% sits at the simulation's own noise floor and is not confidently distinguishable from zero.
+That caveat belongs with the number wherever it is quoted. Five hypotheses were also queued and
+never tested when run 3 hit its quota: self-interference at a realistic mast height, a borderline
+strain-margin question the user judged not load-bearing, and a wider self-collision sweep beyond
+the one design already checked.
 
-**Stage-1 (linear eigenvalue) deliberately skipped, per this run's own PROBLEM_STATEMENT.md
-permission:** a finite-deformation snap-through of an already-curved member is not a small
-perturbation about an undeformed state, so a linear buckling check would describe an irrelevant
-mode (global sway of the ring stack), not this mechanism.
+**Timeline:** three consecutive runs, folded onto one slide because they are ONE idea interrupted
+twice by an external API-quota limit, not three ideas &mdash;
+- Run 20260902T003527, ~92 min, 1 eval. Built `bo/oracle_arch_window.py` and the un-legged
+  `bo/D47_oracle_snapchain.py`. That the un-legged apex IS the ring above it was not yet understood.
+- Run 20260902T035710, ~7h14m of 10h, 130 evals, 7 hypotheses. Diagnosed WHY un-legged cannot work,
+  invented the legged fix, bracketed the bistability threshold to (4.400, 5.000], and proved the
+  un-legged family not genuinely bistable by a reaction-force test.
+- Run 20260902T144836, ~2h45m of 10h, 31 evals, 7 hypotheses, pointed at run 2's own hypotheses
+  file rather than re-deriving it. Produced the convergence and mesh checks, and refuted the doubt
+  that the readings were salvaged.
+- Post-run, 2026-09-02: two queued checks were done directly rather than spending a fourth agentic
+  attempt &mdash; non-adjacent self-interference (clean) and elastic recovery on unload.
 
-**RUN 1 (`runs/20260902T003527`, ~92 min, quota-interrupted):** built `bo/oracle_arch_window.py`
-(widened the ALREADY-EXISTING D24 bistable-arch family's own search box into its own never-sampled
-Q&ge;2.31 regime) and `bo/D47_oracle_snapchain.py` (this mechanism's first, un-legged version) —
-1 real eval logged before the quota cut it off. Un-legged snapchain's own apex IS the ring above
-it, so it geometrically cannot fully invert; this was not yet understood at this point.
+**Infra:** `bo/oracle_snaplegs.py` (the working legged family), `bo/D47_oracle_snapchain.py` and
+`bo/oracle_snapchain_circ.py` (the un-legged predecessor and its circular variant, both settled
+negative, kept for reference), `bo/oracle_arch_window.py`, `scripts/bistability_test.py` (the
+standalone genuine-snap and recovery checker). Stage 1 is deliberately skipped, as
+PROBLEM_STATEMENT.md permits: a finite-deformation snap-through of an already-curved member is not
+a small perturbation about an undeformed state, so a linear buckling check would describe global
+sway of the ring stack rather than this mechanism. ODB archived at
+`data/idea_odbs/20260902_snaplegs_C1_confirmed_winner/`. The chart was computed by hand from this
+design's own reference-point history, since this family's ring/arc topology is not a
+standard-longeron `sim_info` schema that `bo/mini_chart.py` can read &mdash; same area and
+Bessa-point convention. The full confirmation record, the Stats quartile readout, and the
+raw-ledger warnings for all three runs are in `validation/snaplegs_C1_confirmation/README.md`.
 
-**RUN 2 (`runs/20260902T035710`, ~7h14min used of 10h, quota-interrupted):** 130 evals, 7
-hypotheses. Diagnosed WHY the un-legged version can't work (H4: the apex/ring collision above),
-invented the legged fix, found the Q&ge;2.31 bistability threshold empirically brackets to
-(4.400, 5.000] (H6 — initially mis-called SUPPORTED by the strategizer, then self-retracted 4
-minutes later against its own registered criterion once a real counterexample landed; the
-retraction itself is on record in `debug/strategizer_notes/hypotheses.json`), rigorously confirmed
-the un-legged family is NOT genuinely bistable via a real reaction-force test (H5: axial reaction
-never crosses into tension), and found the two designs (informally "W2"/"W5" in the run's own
-files) that bracket the load-vs-compression trade-off this mechanism runs into. Closed on quota
-before resolving whether the load target and the compression target could be hit simultaneously.
-
-**RUN 3 (`runs/20260902T144836`, ~2h45min used of 10h, quota-interrupted):** 31 evals, 7 fresh
-hypotheses, explicitly pointed at run 2's own hypotheses file rather than re-deriving it. H1
-(SUPPORTED): the same design (informally "G2"/"C1") holds &sigma;_peak flat to 6 significant
-figures across a 100x finer arc-length AND unchanged under 2x finer mesh — about the strongest
-confirmation this deck's own artifact-check standard can produce. H2 (FALSIFIED): the earlier
-doubt that these readings were salvaged/incomplete-solve artifacts is directly refuted — three
-separate designs each reached a genuine, non-salvaged, fully converged solve and still cleared
-the target. Closed on quota with 5 more hypotheses queued but untested (self-interference at a
-realistic mast height, a borderline strain-margin question the user judged not load-bearing, and
-a wider self-collision sweep beyond the one design already checked).
-
-**Post-run, done directly rather than spending a 4th agentic attempt (2026-09-02):** two checks
-the queued hypotheses would have run were done directly against the confirmed best-good design
-(informally "C1": n_levels=4, rise_ratio=.038269, leg_ratio=1.05, t_ratio=.007578, w_ratio=.0866,
-chord_half_angle=1.0472, compression_cap=.82) using the oracle's own `unload=True` restart-analysis
-capability (`scripts/bistability_test.py`), rather than trusting the run's own citation for the
-test's provenance (see below):
-- Non-adjacent self-interference (the worry that ring k+2's rim could collide with level k's own
-  legs, since each level rotates 60&deg; from the last): checked clean, `interpenetration_nonadjacent
-  =False` throughout the whole compression history for this design.
-- Elastic recovery on unload: released from 82.04% compression back toward zero under a
-  simulated slow release, the mast recovered to 99.64% of its own original height under nothing but
-  a decreasing push — no confirmed need for an active pull. The final ~0.36% of the return shows a
-  reading right at the simulation's own noise floor (not confidently distinguishable from zero),
-  so genuine, complete self-recovery is very likely but not certified to the last fraction of a
-  percent.
-
-**A caught citation problem, disclosed rather than quietly dropped:** run 2's own H5 attributed its
-reaction-force bistability test to "Melancon et al. 2024, arXiv:2401.07881." Checked directly
-against the actual paper: that arXiv number's real authors are Peng, Niloy, Kam, Celli &amp;
-Plucinsky, and the paper is about a different thing (design frameworks for engineering
-bistability), not this test. The physical test itself is sound on its own terms regardless of the
-citation — but the citation is fabricated, not merely mis-remembered, and is not repeated on the
-visible slide face or its own footnote for that reason. Recorded here as a general caution: this
-mechanism's TWO real literature groundings above (Shan et al. 2015, Qiu/Lang/Slocum 2004) were
-independently re-verified against the actual papers before being put on this slide; nothing else
-this run cited should be taken on the run's own word without the same check.
-
-**Seed:** BARREN as the one design checked, FERTILE-PARAMETRIC as a family — the specific
-best-good point above is thoroughly confirmed, but the broader box (other n_levels, other
-chord_half_angle) is not, and the run's own queued self-interference sweep at a taller, more
-realistic mast height (comparable to Bessa's own aspect ratio, vs. this design's own squat
-4-level/31mm-tall build) never ran.
-
-**Infra:** `bo/oracle_snaplegs.py` (the working, legged family), `bo/D47_oracle_snapchain.py`
-and `bo/oracle_snapchain_circ.py` (the un-legged predecessor and its circular-section variant,
-both settled negative, kept for reference), `bo/oracle_arch_window.py` (run 1's widened-search
-fork of the pre-existing D24 bistable-arch family), `scripts/bistability_test.py` (the standalone
-genuine-snap/recovery checker). ODB archived at
-`data/idea_odbs/20260902_snaplegs_C1_confirmed_winner/` (source:
-`/oscar/scratch/eaguerov/sc_oracle_snaplegs/riks_8d1a96cda8294be6aba72fe401eead65/`). GIF: native
-Abaqus/CAE Viewer export, standard pipeline; chart built directly from this design's own
-`results.pkl` reference-point history (this family's ring/arc topology isn't a standard-longeron
-sim_info schema, so `bo/mini_chart.py` couldn't read it directly — same area/Bessa-point
-convention, computed by hand from the same reference-point fields the oracle itself uses).
+**History:** why one slide for three runs &mdash; each resumed attempt could not literally
+continue the prior one (a3dasm's `resume_from` replays an already-terminated graph checkpoint, it
+does not reopen one), so each was a fresh run pointed at the previous attempt's preserved
+infrastructure and hypotheses file. Folding them follows the judgment call the deck's own
+migration note already licenses; splitting into three near-duplicate slides would communicate
+less. Deliberately NO "&times; the current incumbent" comparison appears in the Verdict, per rule
+2c: this design is genuinely tempting to headline as beating the best design in the study, which
+is true today and is exactly the kind of number that rule keeps out of a verdict. And a caught
+citation problem, disclosed rather than quietly dropped: run 2's H5 attributed its bistability
+test to "Melancon et al. 2024, arXiv:2401.07881", but that arXiv number's real authors are Peng,
+Niloy, Kam, Celli and Plucinsky and the paper is about a different subject. The physical test is
+sound regardless; the citation is fabricated, not mis-remembered, which is why it appears neither
+on the slide face nor in its footnote. The two real groundings (Shan et al. 2015; Qiu, Lang and
+Slocum 2004) were re-verified against the actual papers before going on the slide.
 -->
 
 ---
