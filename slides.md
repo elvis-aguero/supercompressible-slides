@@ -8625,38 +8625,28 @@ This run's H1 counterexample (2.5656 kPa) is this whole batch's best confirmed v
 </div>
 
 <!--
-Per-hypothesis detail:
+**Why it stopped:** GATED, after an eventful verdict history on H1 &mdash; three separate reads
+before it settled.
 
-- H1: an eventful verdict history — D003's first attempt (63 evals) was confounded by
-  a slenderness gate the strategizer itself had mis-specified along the wrong axis
-  (pitch/(2b) instead of pitch/(2a) for this reversed orientation), which excluded the
-  known baseline's own neighbourhood entirely (INCONCLUSIVE, Duhem-Quine: the
-  contradiction indicts the imposed constraint, not the hypothesis). D005's corrected
-  re-test (40 evals, full domain, no slenderness gate) found several designs that
-  clear both the sigma floor AND full compression but ALL fail max_local_strain
-  (0.030-0.050 vs the 0.02 limit) — initially read as SUPPORTED (the "cannot find a
-  counterexample" claim survives). D006-D012's continued local refinement (a
-  one-at-a-time search, then a single-axis ratio_a bisection, then a joint local
-  re-search) eventually found and repeatedly confirmed (bit-identical across 3
-  repeats, D012) a design at ratio_a=0.009338 that DOES clear the floor while meeting
-  all three criteria — reversing the verdict to FALSIFIED. Per adversarial review:
-  the counterexample-finding methodology evolved from what was originally registered
-  (a single ≥60-eval joint campaign) to a more targeted sequential search, but the
-  registered PREDICTION itself (no design clears the floor) is unambiguously and
-  repeatably contradicted, which is what the charter's FALSIFIED criterion actually
-  turns on — methodology evolving mid-investigation is normal iterative science, not
-  goalpost-moving on the claim.
-- H2: D013 (8 evals) traced D007's earlier null result to a genuine domain confound
-  (ratio_pitch lower bound excluded the exact pitch needed to match the new
-  single-storey winner's height at 2 equal storeys) — the same class of bug as H1's
-  D003 confound. Re-tested near the corrected region: the uniform-storey anchor
-  numerically clears the floor (2.566 kPa) but Riks returned NaN for both
-  compressive and local strain (could not confirm feasibility, treated conservatively
-  as infeasible); 4 asymmetric b-splits all returned real values but collapsed to
-  0.65-0.73 max_compressive_strain (a recurring buckling-mode-switch pattern seen
-  throughout this study); 3 further ratio_a increases all returned NaN again. Net
-  across 48 total evals (D007+D013): zero confirmed-feasible designs, but the NaN gap
-  keeps this from being a fully clean negative.
+**What it bought:** a confirmed local optimum in the reversed-orientation rectangle family, reached
+only after the search was un-blocked. D005's corrected 40-eval re-test over the full domain found
+several designs clearing both the load floor AND full compression, all of them failing local
+strain at 0.030&ndash;0.050 against the 0.02 limit &mdash; and continued local refinement
+(one-at-a-time, then a single-axis bisection, then a joint local re-search) eventually found and
+repeatedly confirmed a point bit-identically across three independent solves.
+
+**Corrections:** the first attempt was confounded by the strategizer's OWN mis-specified
+slenderness gate, applied along the wrong axis for this reversed orientation &mdash; pitch over
+twice the tangential dimension instead of the radial one &mdash; which excluded the known
+baseline's entire neighbourhood. Scored INCONCLUSIVE on Duhem-Quine grounds, correctly: the
+contradiction indicts the imposed constraint, not the hypothesis. The corrected re-test was then
+read SUPPORTED before refinement narrowed it further.
+
+**Cost shape:** 63 evals wasted on the mis-gated attempt, 40 on the corrected re-test, plus the
+refinement chain.
+
+**Unresolved:** nothing new opened; the value of this run is the anchor it confirmed and the
+worked example of a self-inflicted constraint being diagnosed rather than reported as a result.
 -->
 ---
 class: summary-slide
@@ -8678,22 +8668,24 @@ One new family tested and cleanly falsified; the run's real finding is analytica
 </div>
 
 <!--
-Per-hypothesis detail:
+**Why it stopped:** GATED, with one hypothesis registered and deliberately left unevaluated.
 
-- H2: statement registers that n_longerons might materially change achievable
-  sigma_cr,nd per longeron within the winning rectangular family (a different
-  question from this study's earlier, cross-section-independent n_longerons=5 test)
-  — proposed this run with prior left at its initial value, zero evaluations before
-  run close; picked up three runs later (outside this batch's scope).
-- H3: D006 re-ran a corrected (ungated) joint 5D search (ratio_a, ratio_b, ratio_pitch,
-  ratio_top_diameter, ratio_shear_modulus), 45 oracle evals, seeded at the known
-  baseline (reproduced exactly: 1.168791, feasible, slenderness=6.35). Only 3/45
-  points (6.7%) feasible even without any slenderness gate. Best feasible:
-  σ_cr,nd=1.650585 (41% above baseline, not doubling it), at a materially different
-  ratio_shear_modulus (0.423586 vs the 0.3677 held fixed throughout every prior run) —
-  a genuine, if modest, new gain from freeing that one dimension. Objective GP
-  surrogate CV R²=0.995. Registered prediction ("no design clears 2.3376 kPa; best
-  feasible stays modestly above 1.1688, not doubling it") NOT contradicted → SUPPORTED.
+**What it bought:** a corrected joint 5-D search that reproduced the known baseline exactly and
+then found something genuinely interesting about WHERE the improvement lives. 45 evals, ungated,
+seeded at the baseline: only 3 of 45 feasible even with no slenderness gate at all, and the best
+feasible sits 41% above baseline &mdash; not doubling it &mdash; **at a materially different
+shear-modulus ratio (0.423586) than the 0.3677 held fixed throughout every prior run.**
+
+**Corrections:** none required.
+
+**Cost shape:** 45 evals.
+
+**Unresolved:** H2 was registered and then never evaluated &mdash; whether longeron COUNT
+materially changes achievable load per longeron within the winning rectangular family, which is a
+different question from the study's earlier cross-section-independent count test. Zero evaluations
+before the run closed; picked up three runs later. Worth noting the shear-modulus finding above is
+also unfollowed: it was held fixed by convention rather than by physics, and the best design found
+here moved it.
 -->
 
 ---
@@ -8746,6 +8738,13 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** PHYSICAL, and barred by theory rather than unlucky. 45 designs, 29 coilable, 6
+converged, none feasible, and peak load never clears the bar at all. Classical flexural-torsional
+theory says why: the shear-centre coupling this idea needed can only LOWER the buckling load, and
+open thin-walled sections have inherently low torsional stiffness &mdash; so it trades away the
+dominant load lever for a coupling term theory guarantees can only hurt. A GP surrogate here is
+genuinely predictive (CV R&sup2;=0.881), confirming the flat landscape is real.
+
 **Input space:** a&isin;[.002,.02], b&isin;[.01,.06] — outer L-profile leg dimensions.
 t_frac_a, t_frac_b&isin;[.02,.5] — wall thickness as a fraction of each leg's own outer
 dimension. ratio_pitch&isin;[.30,1.5], ratio_top_diameter&isin;[0,.3] — usual per-storey
@@ -8818,18 +8817,23 @@ Three new cross-section families tried this run, all dead ends — but the run's
 </div>
 
 <!--
-Per-hypothesis detail:
+**Why it stopped:** GATED.
 
-- H4: D013's ledger — best feasible design is NOT the pure ratio_b-sweep optimum
-  (1.15937 kPa) but a further +20% "stretch test" on ratio_top_diameter
-  (1.16879 kPa, ratio_top_diameter=0.045534), coilable=1, max_compressive_strain=
-  0.99974, max_local_strain=0.019593. Per an adversarial-audit correction: this is
-  the BEST FOUND design in the family, not a proven optimum — ratio_top_diameter was
-  still improving at the last tested step when the search stopped, so a better
-  design in this same family plausibly exists just beyond what was tested.
-- This best-found value (1.1688 kPa) becomes the working baseline for the next two
-  runs (`20260709T024901`, `20260712T192155`), both of which try to beat it with a
-  new 2.3376 kPa floor (2× this new baseline) — see their own summary slides.
+**What it bought:** the working baseline the next two runs are measured against. The best feasible
+design is NOT the pure single-dimension optimum (1.15937 kPa) but a further +20% stretch test on
+ring taper &mdash; 1.16879 kPa at ratio_top_diameter=0.045534, coilable, compression 0.99974,
+strain 0.019593.
+
+**Corrections:** an adversarial audit corrected the framing rather than the number, and the
+correction matters: this is the BEST FOUND design in the family, **not a proven optimum.** Ring
+taper was still improving at the last tested step when the search stopped, so a better design
+plausibly exists just beyond what was tested.
+
+**Cost shape:** the campaign plus the stretch test that found the reported best.
+
+**Unresolved:** the taper direction itself, left improving. This 1.1688 kPa value becomes the
+working baseline for runs 20260709T024901 and 20260712T192155, both of which try to beat twice it
+&mdash; so the un-probed taper margin propagates into both of their floors.
 -->
 
 ---
@@ -8875,6 +8879,13 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** PHYSICAL. 56 designs, 45 coilable and all 45 converged, 40 of them clearing 2&times;
+Bessa on load, and exactly 1 feasible. Load is not the gate here; local strain is. And the
+mechanism's own governing relationship simply is not there: across 45 designs, how thin the
+mid-span hinge is shows NO consistent relationship with peak strain &mdash; sometimes thinner
+helps, sometimes it does not. There is no sweet spot to dial in, and the family underperforms the
+uniform-section baseline regardless.
+
 **Input space:** a&isin;[.003,.03] — leg cross-section. b_end&isin;[.010,.075] — thick end-segment
 depth (near the rings). b_hinge&isin;[.005,.030] — thin mid-span hinge depth. hinge_fraction
 &isin;[.05,.9] — fraction of the longeron's length occupied by the thin hinge segment.
@@ -8963,26 +8974,23 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** PHYSICAL, then DISQUALIFIED on a later criterion. 51 designs, 36 coilable and
+converged, 4 feasible at the time. The box genuinely coils &mdash; confirmed against real rotation
+data, so the high load quartiles are a stiffer coiling response, not a different mode &mdash; it
+just needs far more force and stalls before full travel. Re-solved under the contact oracle
+2026-09-01, the best design clears load, compression, strain and slenderness (2.20&times; Bessa)
+but fails ring_passthrough, which did not exist when the campaign ran.
+
 **Input space:** a_out, b_out&isin;[.006,.10] — outer box dimensions. t1, t3&isin;[.0005,.02] —
 wall thicknesses. ratio_pitch&isin;[.25,1.5], ratio_top_diameter&isin;[0,.8] — usual per-storey
 pitch/taper meaning. Fixed: ratio_shear_modulus=.3677, circular=3 (cross-section-family switch).
 
-**Seed:** BARREN — the outer-tangential-dimension sweep's feasible windows (0.02, 0.054) sit in a
-sea of 6-of-8 infeasible points with no monotonic trend to climb. The "non-coiling stiff mode"
-this slide previously blamed does not hold up: direct inspection of the one archived Riks
-history (UR about the mast axis, ratio_a_out=.0389/ratio_b_out=.0753, a cleared-but-not-good
-point) shows the top ring genuinely rotating past 116 degrees, unstabilized (ALLSD=0) — real
-coiling, not a mode switch. It's just much stiffer (sigma_peak~5.2 kPa there, an order of
-magnitude over typical designs) and stalls at 56% raw compression instead of reaching full
-travel. A closed thin-wall box resists the twist the coiling mechanism needs, so it takes far
-more force to get the same rotation and runs out of travel first — that's the real mechanism,
-not a parameter this search under-sampled. Shape novelty was never a
-real claim here either way — by the idea's own stated method, it was built by mining Bessa's own
-generalized 7D dataset for a stiffness combination no solid shape reaches, then picking a shape
-to realize that already-implicit point. The genuinely new information is mechanistic (a
-different, mode-switching failure than the solid rectangle's clean collapse), not the shape.
+**Seed:** BARREN — the outer-tangential-dimension sweep's two feasible windows sit in a sea of
+6-of-8 infeasible points with no monotonic trend to climb, and the mechanism argues against
+climbing anyway: a closed thin-wall box resists the very twist the coiling mechanism needs, so it
+takes far more force for the same rotation and runs out of travel first.
 
-**Timeline:** D004: build + validate the BoxProfile family. D007: search (this run's
+**Timeline:** Run 20260708T021335 &mdash; D004: build + validate the BoxProfile family. D007: search (this run's
 H2) — the outer-tangential-dimension sweep found feasible windows at ratio_b_out=0.02
 and 0.054 but infeasible at 6 of 8 other swept points, a genuinely different
 mechanical behavior from the solid-rectangle family's clean, monotonic collapse (this
@@ -9008,6 +9016,20 @@ this repo's 100MB-odb-file convention).
 presentation/resim/box/riks_c6f5fdb729c549fd93c5ddb53065dde3). GIF: native Abaqus/CAE
 Viewer export, standard pipeline. The hollow box's rectangular tube profile is
 directly visible in the rendered beam cross-sections.
+
+**History:**
+
+RETRACTED EXPLANATION: the "non-coiling stiff mode" this slide once blamed does not hold up.
+Direct inspection of the one archived Riks history (rotation about the mast axis, at
+ratio_a_out=.0389 / ratio_b_out=.0753, a cleared-but-not-good point) shows the top ring genuinely
+rotating past 116 degrees, unstabilized with ALLSD=0 &mdash; real coiling, not a mode switch. It
+is simply much stiffer (about 5.2 kPa there, an order of magnitude over typical designs) and
+stalls at 56% raw compression instead of reaching full travel.
+
+ON NOVELTY: shape novelty was never a real claim here either way. By the idea's own stated method
+it was built by mining Bessa's generalized 7-D dataset for a stiffness combination no solid shape
+reaches, then picking a shape to realize that already-implicit point. The genuinely new
+information is mechanistic, not the shape.
 -->
 
 ---
@@ -9068,6 +9090,13 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** PHYSICAL. 46 designs, 32 coilable and converged, 30 clearing 2&times; Bessa on load,
+1 feasible. The core hypothesis is contradicted rather than unsupported: the stiffness RATIO
+between compliant and stiff legs shows no consistent relationship with strain across the 32
+converged designs, weak and non-monotonic, so a more compliant leg sometimes helps and sometimes
+does not. The sharpest single contrast is ratio=0.951 stalling at compression 0.160 against
+ratio=1.0 reaching 0.9999 &mdash; and no improvement over uniform was found anywhere.
+
 **Input space:** a&isin;[.003,.03] — radial dimension, shared by all 3 legs. b_stiff&isin;
 [.010,.075] — the 2 stiff legs' tangential dimension. b_compliant&isin;[.005,.030] — the 1
 compliant leg's tangential dimension. ratio_pitch&isin;[.25,1.5], ratio_top_diameter&isin;[0,.8]
@@ -9078,11 +9107,7 @@ relationship with strain across 32 converged designs (weak, non-monotonic: ratio
 at mcs=0.160 while ratio=1.0, i.e. uniform, hit mcs≈1.0) — there is no direction to dial the
 heterogeneity in, and the best-found point never beat the uniform baseline it was meant to rescue.
 
-**Deferred:** Stats-migration note (2026-08-04): mcs values exceeding 1.0 appear in
-this raw dataset (p100=1.49) — a real logged value, not a typo; not investigated
-further.
-
-**Timeline:** D010: build + validate (exact degenerate reproduction of the known
+**Timeline:** Run 20260708T021335 &mdash; D010: build + validate (exact degenerate reproduction of the known
 baseline). D011: 45-eval search (this run's H3). D012: post-hoc CV — shows the same
 recurring pattern as this run's H1/H2: sigma_crit is strongly learnable (R²=0.920),
 max_compressive_strain is moderately learnable (R²=0.418, above chance but noisier).
@@ -9115,6 +9140,10 @@ family's DEAD-END verdict rests on the OTHER 31 converged designs' ratio-vs-stra
 trend, not this one point, so the video the user asked for currently cannot be produced
 honestly — reporting the reproducibility failure instead of substituting another design's
 render for it.
+
+**History:** Stats-migration note (2026-08-04): mcs values exceeding 1.0 appear in
+this raw dataset (p100=1.49) — a real logged value, not a typo; not investigated
+further.
 -->
 
 ---
@@ -9139,21 +9168,28 @@ Every hypothesis this run either fails outright or is blocked by the same recurr
 </div>
 
 <!--
-Per-hypothesis detail:
+**Why it stopped:** GATED, after a post-hoc cross-validation pass changed how three of its
+verdicts were scored.
 
-- H1: D003 ran a 60-eval constrained CEI-BO campaign in the [8,10) slenderness band;
-  2/60 feasible, best 0.3130 kPa (worse than the established ≥10 optimum, 0.3644 kPa).
-  D014's post-hoc 5-fold CV: sigma_crit GP R²=0.997 (excellent) but
-  max_compressive_strain R²=-0.192 and max_local_strain R²=-5.26 (both below chance) —
-  applying the same standard later used for H2/H3, retracted from FALSIFIED to
-  INCONCLUSIVE.
-- H2: D014's CV shows max_compressive_strain R²=-0.026 for this campaign too — the
-  identical binding-constraint failure mode as H1/H3. D004's own cross-cutting finding:
-  only 1/44 coilable rows in the whole campaign was fully feasible.
-- H4: D005 ran the anchor reproduction (bit-matched, sigma_crit=0.364418) plus a
-  systematic 2-stage grid (48 new points) holding slenderness fixed at exactly 10.0;
-  only the smallest tested b (closest to baseline) had any feasible point at all (2/6);
-  every larger b anchor (0.025 through 0.075) had zero feasible points out of 6 each.
+**What it bought:** an honest accounting of what its own surrogates could and could not support.
+H1 searched the 8-to-10 slenderness band across 60 evals, found 2 of 60 feasible with the best at
+0.3130 kPa &mdash; worse than the established &ge;10 optimum at 0.3644 &mdash; and D004's
+cross-cutting finding is starker still: only 1 of 44 coilable rows in the whole campaign was fully
+feasible. H4 separately reproduced the anchor bit-for-bit and ran a systematic two-stage 48-point
+grid holding slenderness exactly at 10.0.
+
+**Corrections:** the post-hoc 5-fold cross-validation is the reason to read this run's verdicts
+carefully. The load surrogate is excellent (R&sup2;=0.997) while BOTH binding-constraint surrogates
+are BELOW CHANCE &mdash; compression R&sup2;=&minus;0.192 and strain R&sup2;=&minus;5.26 for H1, and
+compression R&sup2;=&minus;0.026 for H2. Applying that standard consistently, H1 was retracted from
+FALSIFIED to INCONCLUSIVE, matching how H2 and H3 were already scored.
+
+**Cost shape:** 60 evals on H1, 48 on H4's grid, plus the cross-validation pass.
+
+**Unresolved:** the same binding-constraint failure mode recurs across H1, H2 and H3 &mdash; a
+surrogate that predicts load well and predicts the criteria that actually gate feasibility no
+better than chance. That is a property of the modelling, not of any one family, and nothing here
+fixed it.
 -->
 
 ---
@@ -9207,6 +9243,12 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** NON-ENGAGEMENT. 67 designs, only 9 coilable, all 9 converged and clearing 2&times;
+Bessa on load, none feasible, with compression the gate. Elliptical rings sharply DESTROY
+coilability rather than redistributing strain: compression collapses from 0.9999 to 0.398 at the
+very first non-circular step tested. Inconclusive only because the constraint surrogates were not
+demonstrably above chance, so a closed non-existence verdict was not licensed; D10-2 supplied it.
+
 **Input space:** ring_aspect_ratio&isin;[1,1.5] — ellipse major/minor axis ratio.
 ring_phase_offset&isin;[0,.2] rad — rotation between top and bottom ring's major axis.
 a&isin;[.004,.02], b&isin;[.01,.045] — longeron cross-section semi-axes. ratio_pitch&isin;
@@ -9289,6 +9331,14 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** PHYSICAL, from a designed experiment rather than a search. 48 designs, 45 coilable, 27
+converged, 23 of 27 clearing 2&times; Bessa on load, 1 feasible at 0.53&times; Bessa. Bowing does
+the OPPOSITE of what was hypothesised, and a confound-free dose-response sweep is what shows it:
+compression falls monotonically with bow, a 48% drop from 0.5846 to 0.3040, collapsing the very
+quantity the mechanism was meant to protect. Across the full converged population the effect
+washes out once other dimensions vary freely &mdash; real in the controlled comparison, not
+generalisable.
+
 **Input space:** bow_amp&isin;[0,.2] — max inward radial bow at mid-height (zero at both rings).
 a&isin;[.004,.02], b&isin;[.01,.045] — cross-section semi-axes. ratio_pitch&isin;[.3,1],
 ratio_top_diameter&isin;[0,.6] — usual per-storey pitch/taper meaning. Fixed: circular=2
@@ -9299,7 +9349,7 @@ ratio_shear_modulus=.3677.
 direction (more bow → less strain retained), not a noisy or ambiguous one; there is no amplitude,
 sign, or profile of "bow" left to try that the mechanism itself doesn't already rule out.
 
-**Timeline:** D011: mechanism dose-response sweep (this run's H5). D012: 48-eval joint
+**Timeline:** Run 20260706T204732 &mdash; D011: mechanism dose-response sweep (this run's H5). D012: 48-eval joint
 5D existence follow-up — Pearson/Spearman check on the converged subset (mcs vs.
 bow_amplitude: r=-0.175, ρ=-0.163, p=0.417) finds only a weak, non-significant
 correlation. This is one of the deck's clean mechanism falsifications, analogous in
