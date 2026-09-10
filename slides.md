@@ -5160,98 +5160,38 @@ comparing a float to a string), closing **UNGATED** at 17h10m of 18h.
 </div>
 
 <!--
-TWO PARALLEL TRACKS, BOTH CONTACT-MEDIATED. D002 (literature_reviewer) surveyed 14 papers
-and grounded a real, recurring mechanism -- a two-phase "soften, then self-contact stiffens"
-load path (Liu, Ennis & Coulais 2024 arXiv:2410.16452; Dharmavaram, Ebrahimi & Ghosh 2021
-arXiv:2108.10976; Hima, Bigoni & Dal Corso 2022 arXiv:2205.02034) -- and ranked THREE
-candidates: (1) kissing-pair self-contact [highest confidence, pursued as H3/D33], (2)
-staged storey [second, pursued as H4/D34], (3) a bend-twist self-locking ribbed cross-section
-[highest novelty, lowest confidence, needs shell/solid elements not yet wired up -- SHELVED,
-and its shelving is exactly what the first REJECT below caught].
+**Why it stopped:** the first REJECT is the informative one: the run had SHELVED its
+literature review's highest-novelty candidate (a bend-twist self-locking ribbed cross-section)
+for needing shell or solid elements not yet wired up, and the critic caught exactly that. It was
+later built as D35.
 
-WHAT ACTUALLY BLOCKED EACH TRACK, IN PLAIN TERMS. A sudden/rigid contact force breaks an
-IMPLICIT solver's iteration (Abaqus/Standard's usual step-by-step approach, which must find a
-converged answer at every single step -- contrasted with Explicit below, a different, slower but
-more robust time-marching approach that never has to "converge" at a step, only advance) regardless
-of whether the underlying idea is any good -- that is a NUMERICAL problem, fixed by changing the
-math (a softer contact law, a different time-stepping solver), not the design. D33/H3 hit exactly
-this (a hard *CONNECTOR STOP -- a modeling element that enforces a rigid mechanical limit directly,
-rather than through ordinary surface-to-surface contact -- failed under Riks, Static+stabilization
-(the same static solver with a small artificial damping term added, a common trick to help it
-push through a rough patch), AND Explicit -- three solver regimes, one contact law, ~0% every
-time), then fixed it numerically (D018's soft law) and got real signal for the first
-time. D34/H4 hit the SAME numerical wall at first (D007-D010: every design stalls at
-1.5-2.5% compression regardless of contact law), fixed it numerically too (D011/D013's
-switch to Explicit dynamics, reaching 76% RAW compression, no more crashing) -- and THEN hit
-a completely different kind of wall: a genuine DESIGN limit that no solver change touches.
-Storey 1's own material strain crosses Bessa's 2% ceiling almost immediately, independent of
-solver or contact law (D013's finding). That is why H4 is the cleaner negative: the
-diagnosis is design-specific, not a tooling gap.
+**What it bought:** the cleanest worked example in the deck of separating a numerical wall from a
+design wall &mdash; the distinction rule 9d now formalises, articulated here before that rule
+existed. Both tracks were contact-mediated and both first hit a solver wall. D33 fixed its wall
+numerically (a soft connector law in place of a hard stop) and got real signal for the first time
+in the family's history. D34 fixed its wall too (Explicit dynamics, 76% raw compression, no
+crashing) and then hit something a solver change cannot touch: storey 1's own strain crosses the
+2% ceiling almost immediately. That is why D34 is the cleaner negative &mdash; the diagnosis is
+design-specific, not a tooling gap.
 
-H5, THE NEGATIVE CONTROL (not a new D-slide -- see below). D016 tested whether a smoothly
-graded single-member cross-section (no contact, no discrete storeys) beats a uniform member
--- predicted to FAIL, since nothing in the literature says continuous grading alone (absent a
-contact-triggered stiffness jump) adds load capacity rather than just relocating where
-buckling starts. Confirmed cleanly: 8/10 designs converged (2 stalled), 0/10 feasible,
-sigma_peak ranged 0.0883-0.1136 kPa = 0.79-1.01x the Bessa point (0.1122 kPa, the CURRENT
-sigma_peak-metric anchor -- NOT the 0.1306 kPa retired-eigenvalue figure), never exceeding
-the uniform baseline. This is genuinely the SAME idea as D18 "Smoothly radially-tapered
-('waisted') longeron" -- a longeron whose own cross-section varies along its arc-length,
-thick at the ends and thin (or vice versa) in the middle -- so per rule 1 this does NOT earn
-a new D-slide; it folds into this summary instead, with the Idea column pointing back to D18
-rather than a dash (this IS a specific idea being re-tested, not "the whole design space").
-D18's own headline was later invalidated by a slenderness-formula bug (see D18's own speaker
-notes); H5 is effectively a clean, corrected-infrastructure re-confirmation of the same
-prediction, useful precisely because it is cheap (one 30-minute delegation) and because it
-rules out an entire class of cheaper ideas before anyone spends a contact-engineering
-campaign on a variant of it.
+**Corrections:** H5 was run as a deliberate NEGATIVE CONTROL and confirmed cleanly: a smoothly
+graded single-member cross-section, no contact and no discrete storeys, was predicted to fail and
+did &mdash; 8 of 10 converged, 0 of 10 feasible, sigma_peak 0.0883&ndash;0.1136 kPa, i.e.
+0.79&ndash;1.01&times; the Bessa point, never exceeding the uniform baseline. Per rule 1 it earns
+no new slide, because it is the same idea as D18; its Idea column points back there.
 
-THE TWO REJECTS, VERBATIM ENOUGH TO MATTER. Call 1 (80% budget, 14.4/18h): the deliverable
-wrote up both tracks as OPEN and moved to close with 3.64h unspent; the objection didn't need
-to invent anything -- candidate 3 (the bend-twist ribbed cross-section) was still sitting on
-the shelf, unmentioned in the plan for the remaining time. Call 2 (87%, 15.58h): ONE
-delegation happened in between (D017, porting Explicit dynamics to kissing_pair), and the
-deliverable now claimed "every lever exhausted" -- but D017's OWN closing sentence named an
-untried lever (a soft/ramped connector instead of the hard stop), and the run had spent its
-one intervening delegation re-testing the old formulation under a new solver instead of
-pursuing it. REJECTed again, and pointedly NOT softened to REVISE -- the critic's own
-reasoning: re-testing instead of trying the named alternative isn't a good-faith response,
-it's a resubmission. This is the exact failure mode the study was burned by in run
-20260814T015148 below, which PASSED its gate at only 32% of budget spent -- the rule written
-in response ("CRITIC: REJECT a run you know has not used its time allocation") is what fired
-here, twice, and it produced the run's only positive result as a direct consequence (D018/
-D019, in response to call 2).
+**Cost shape:** the literature review grounded a real, recurring two-phase "soften, then
+self-contact stiffens" load path across 14 papers and ranked three candidates. Two were pursued
+here (D33, D34); the third was shelved and became D35 in a later run.
 
-THE THIRD REVIEW AND THE WALL. Call 3 (95% spent) found nothing wrong -- it re-verified
-every disputed number (0.486, 0.051, both self-clearance figures) against the raw delegation
-logs to the decimal, and returned NOTED (zero findings). It would have become PASS/GATED on
-the next attempt. Instead, `Done()` -- the formal gate-mode close -- started throwing
-`TypeError('<' not supported between instances of 'float' and 'str')` 21 times over about 30
-minutes. Root cause: a3dasm's `_ledger_snapshot` (src/a3dasm/_src/nodes/strategizer.py:868)
-calls `sorted(all_rows)` to build a content hash over every experiment row across every
-namespace, and this run's two new oracle namespaces (kissing_pair, staged_storey) carry
-free-text diagnostic `note` columns alongside numeric ones -- a mix Python's `sorted()`
-cannot compare. CONFIRMED PRE-EXISTING, not introduced by the automatic a3dasm upgrade that
-ran at launch (2b5f12de -> fbd292d6): none of the three commits in that range touch
-strategizer.py. A latent bug, triggered by this run's column shape, not introduced by it --
-still open, in a3dasm's own repository, as of this writing.
-
-COST RECONCILIATION (rule 7ter). telemetry/summary.json recorded $192.07 total, including a
-strategizer entry of $25.23 from only 4 of its 8 real turns; summing all events directly from
-debug/transcripts/strategizer/*.jsonl gives $25.98 -- a $0.75 correction, smaller than the
-20260809 run's (where the strategizer was entirely unrecorded) but the same underlying gap.
-Actual: $192.07 - $25.23 + $25.98 = $192.82.
-
-INFRA PROMOTED TO GOLD FROM THIS RUN (not itself part of the science, noted for
-completeness): scripts/supercompressible_riks_pp.py gained ALLKE/ALLIE energy-ratio
-extraction (needed for the Explicit-dynamics quasi-static-validity check used by both
-tracks); scripts/supercompressible_{riks,lin_buckle}_pretwist.py gained a new opt-in
-`cross_section == "circular_graded"` mode (for H5/D18's re-test); and
-presentation/render/render_odb.py's ring-schematic overlay crashed (IndexError on an empty
-`rings_3d`) rendering D34's gif -- a pre-existing gap this run's two-storey topology was the
-first to expose, fixed by guarding the one-time ring-label block on `rings_3d` being
-non-empty. All three are purely additive/defensive; every pre-existing family's code path is
-untouched.
+**Unresolved:** whether D33's contact does load-bearing work at all. D019 raised the connector
+stiffness 5&times; to check whether a stiffer contact behaves differently, as a genuinely
+load-bearing one should &mdash; it did not, and compression collapsed to 5.1%, which is
+consistent with the soft law being nearly inert rather than constraining anything. So 48.6% may
+be closer to "what a slightly regularized no-contact solve reaches" than to what self-contact
+buys. H3 stays OPEN. Separately, `render_odb.py` cannot render an Explicit-dynamics ODB from
+these families at all &mdash; its per-frame displacement field is keyed differently &mdash; which
+is why D34's gif comes from a Standard-solver point.
 -->
 
 ---
@@ -5300,6 +5240,13 @@ layout: two-cols-header
 </div>
 
 <!--
+**Result:** NUMERICAL, then NON-ENGAGEMENT. Six designs, all coilable, two decided, none
+feasible. The first wall was purely a solver one: a hard `*CONNECTOR STOP` failed under Riks,
+under Static-plus-stabilization and under Explicit &mdash; three regimes, one contact law, roughly
+0% compression every time. That is the contact force breaking the solver, not the physics. A soft
+ramped law then reached 48.6%, far past every hard-stop attempt. Whether the contact does real
+load-bearing work, or merely stops interfering, was never confirmed.
+
 **Input space:** none free — a single validation point (n_corners=3, ratio_d=.02, pitch=.75,
 top_d=.30, leg_offset=.05, gap0=.015); only the contact law/solver varied across delegations.
 
@@ -5311,41 +5258,42 @@ physically meaningless Riks overshoot), not evidence of more real compression th
 deck does not treat a solver's own "completed successfully" flag as proof it reached its actual
 load target without checking the load path (see D21-revisited's own finding on this exact trap).
 
-**Seed:** FERTILE — sweep the connector's stiffness multiplier as a free search dimension
-around 3&times; (which converged) rather than point-probing 3&times;/15&times;; the
-load-bearing range in between is unmapped.
+**Seed:** FERTILE — sweep the connector's stiffness multiplier as a free search dimension around
+3&times; (which converged) rather than point-probing 3&times; and 15&times;; the load-bearing
+range between them is unmapped. Note D33-2 has since swept exactly that and found nothing beats
+3&times;, so this Seed is answered by that slide.
 
-Run 20260816T013744, delegations D003/D004/D006/D008 (hard stop, 3 solvers, all ~0%), D017
-(Explicit port, named the untried soft-connector lever), D018 (soft connector, 3x stiffness,
-48.6% -- ARCHIVED here, data/idea_odbs/20260816T013744_D33_kissing_pair/), D019 (soft
-connector, 15x stiffness, collapsed to 5.1%, self-clearance check). H3.
+**Deferred:** the result is real numerical progress and unconfirmed physics, and the reason is
+worth keeping. D019 raised the connector stiffness 5&times; specifically to check whether a
+stiffer contact behaves differently from a softer one, the way a genuinely load-bearing contact
+should. It did not: self-clearance was within 0.01 mm either way and compression COLLAPSED to
+5.1%. That is consistent with the soft law being nearly INERT at these stiffnesses &mdash; not
+really constraining anything, just failing to crash &mdash; which would make 48.6% closer to
+"what a slightly regularized no-contact solve reaches" than to "what self-contact stiffening
+buys". H3 stays OPEN on that basis.
 
-FOOTNOTES: [1] Liu, Ennis & Coulais (2024), "Tuning the buckling sequences of metamaterials
-using plasticity," arXiv:2410.16452. [2] Dharmavaram, Ebrahimi & Ghosh (2021), "Coupled
-Bend-Twist Mechanics of Biomimetic Scale Substrate," arXiv:2108.10976. [3] Hima, Bigoni &
-Dal Corso (2022), "Buckling vs unilateral constraint for a multistable metamaterial element,"
-Phil. Trans. R. Soc. A, arXiv:2205.02034.
+**Timeline:** Run 20260816T013744, H3 &mdash; D003/D004/D006/D008 ran the hard stop across three
+solvers, all ~0%. D017 ported to Explicit and named the untried lever. D018 applied a soft
+connector at 3&times; stiffness and reached 48.6% (archived at
+`data/idea_odbs/20260816T013744_D33_kissing_pair/`). D019 tried 15&times; and collapsed to 5.1%.
 
-WHY THIS IS THE FIRST NON-ZERO RESULT IN THE FAMILY'S HISTORY: every prior attempt (D003,
-D004, D006, D008, D017 -- five delegations, one hard *CONNECTOR STOP formulation, three
-different solvers) produced ~0% compression because a sudden/rigid contact force breaks an
-implicit solver's Newton iteration the instant the stop engages -- a NUMERICAL failure, not
-evidence the mechanism is bad. D017's own closing lines named the fix nobody had tried: not
+**Infra:** sigma_peak is normalised by n_longerons_effective=6 (2 &times; n_corners) per this
+hypothesis's own comparability requirement, each corner being replaced by two independently
+anchored beams &mdash; verified against the ledger's own `n_longerons_effective` column rather
+than assumed.
+
+**History:** why this was the family's first non-zero result &mdash; five prior delegations
+(D003, D004, D006, D008, D017) using one hard `*CONNECTOR STOP` formulation across three
+different solvers all produced ~0% compression, because a sudden rigid contact force breaks an
+implicit solver's Newton iteration the instant the stop engages. A NUMERICAL failure, not
+evidence against the mechanism. D017's own closing lines named the fix nobody had tried: not
 another solver, a different constitutive law for the stop. D018 did exactly that.
 
-WHY THE RESULT IS STILL UNCONFIRMED, NOT A WIN: D019 raised the stiffness 5x (to 15x beam
-bending stiffness) specifically to check whether a stiffer contact behaves differently from a
-softer one, the way a genuinely load-bearing contact should. It didn't -- Tier-1 self-
-clearance was within 0.01mm either way, and compression COLLAPSED to 5.1% rather than staying
-high or improving. That is consistent with the soft law being nearly inert at these
-stiffnesses (not really constraining anything, just failing to crash), which would mean 48.6%
-is closer to "what a slightly-regularized no-contact solve reaches" than "what self-contact
-stiffening buys." The honest state: real numerical progress, unconfirmed physics. H3 stays
-OPEN.
-
-sigma_peak is normalised by n_longerons_effective=6 (2 x n_corners), per this hypothesis's own
-comparability requirement (each corner replaced by 2 independently-anchored beams) -- verified
-directly against the ledger's own n_longerons_effective column, not assumed.
+FOOTNOTES: [1] Liu, Ennis & Coulais (2024), "Tuning the buckling sequences of metamaterials using
+plasticity," arXiv:2410.16452. [2] Dharmavaram, Ebrahimi & Ghosh (2021), "Coupled Bend-Twist
+Mechanics of Biomimetic Scale Substrate," arXiv:2108.10976. [3] Hima, Bigoni & Dal Corso (2022),
+"Buckling vs unilateral constraint for a multistable metamaterial element," Phil. Trans. R. Soc.
+A, arXiv:2205.02034.
 -->
 
 ---
@@ -5396,6 +5344,12 @@ layout: two-cols-header
 </div>
 
 <!--
+**Result:** PHYSICAL, and the contrast with D33 is the point. 62 designs, 22 coilable, zero
+reaching Riks convergence under three contact laws and two solvers. The numerical wall was hit
+first and then FIXED: escalating to Abaqus/Explicit reached 76% RAW compression with no crashing.
+Behind it sits a design limit no solver touches &mdash; storey 1's own strain crosses 2% almost
+immediately, capping citable compression at 3.9%, long before storey 1 could hand off to storey 2.
+
 **Input space:** ratio_d1&isin;[.01,.04], ratio_pitch1&isin;[.13,1.04] — storey 1 (deliberately
 weaker) section/pitch. ratio_d2&isin;[.023,.073], ratio_pitch2&isin;[.30,1.20] — storey 2
 section/pitch. twist_angle1, twist_angle2&isin;[0,&pi;/2] — per-storey pretwist.
@@ -5403,63 +5357,42 @@ ratio_top_diameter&isin;[0,.8] — whole-mast taper, same range every family use
 stop_engagement_fraction&isin;[.05,.85] — solid-height at which storey 1 lands and storey 2
 begins carrying load. Fixed: n_longerons&isin;{3,4,5,6} (categorical), ratio_shear_modulus=.3677.
 
-**Seed:** BARREN, fully — widening storey 1 closed first (105 evals, mcs stuck at 35.6%). A
-follow-up gave the *thinner*-storey-1 signal proper statistical power (120 more evals, same
-unrestricted box): the effect is real and holds up under scrutiny, but every slenderness-linked
-dimension on BOTH storeys moves the same way — it's the study's own already-closed
-kinematic-depth-cap wall reasserting itself, not a storey-1-specific escape. Best achieved
-(20.5%) is worse than the wide-direction campaign's own best. `staged_storey` (this slide's own
-oracle) was not re-run — same root cause, independently confirmed twice now via a different
-oracle.
+**Seed:** BARREN, fully. Widening storey 1 closed first (105 evals, stuck at 35.6%), and a
+follow-up gave the opposite thin direction proper power (120 more evals, pooled by Fisher-z):
+the effect is real (pooled rho=&minus;0.30, p=0.0009 Holm-significant) but every
+slenderness-linked dimension on BOTH storeys moves compression the same way. That is the study's
+own kinematic-depth-cap wall reasserting itself, not a storey-1 escape.
 
-Run 20260816T013744, delegations D005/D007/D009/D010/D011/D013/D014/D015. H4.
+**Deferred:** no quartile line can be reported for this family. The Riks-converged population is
+empty &mdash; `riks_converged == 0` for all 62 rows &mdash; and stating quartiles anyway would
+fabricate data from zero observations. Also unresolved: the registered 120&ndash;180-eval adaptive
+BO campaign never ran, blocked at every stage by the storey-1 strain limit rather than by search
+budget, so the family is closed on a design diagnosis rather than on an exhausted search.
 
-FOOTNOTES: [1] Liu, Ennis & Coulais (2024), "Tuning the buckling sequences of metamaterials
-using plasticity," arXiv:2410.16452.
+**Timeline:** Run 20260816T013744, H4 &mdash;
+- D005 confirmed genuine staging is achievable (storey-2 growth ratio up to 82.68&times;).
+- D007's 32-point pilot converged nothing, all stalling at 1.5&ndash;2.5% compression.
+- D009 ruled out an easy fix (stabilization was already on); D010 tried linear and exponential soft-penalty contact, still nothing.
+- D011 and D013 escalated to Abaqus/Explicit and it worked NUMERICALLY: 76% raw compression, no crashes.
+- D013 then found the real answer: the windowed metric never moves because storey 1 crosses 2% strain immediately.
+- D014's 20-design sweep found a narrow escape (extreme storey-1 slenderness flips the
+  ordering in 2 of 5); D015's Explicit re-test showed the flip did not survive.
+- Post-run, 2026-08-23: two ad-hoc worktree investigations against H12's mechanistically identical `graded_storey` oracle, not this slide's own.
 
-EIGHT DELEGATIONS, ONE DESIGN-LIMIT DIAGNOSIS. D005 confirmed genuine staging is achievable
-(storey2_growth_ratio up to 82.68x). D007's 32-point pilot converged nothing (0/9
-Stage-2-attempted, all stalling 1.5-2.5% compression). D009 ruled out an easy fix
-(stabilization already on). D010 tried linear/exponential soft-penalty contact -- still
-nothing (0/4). D011/D013 escalated to Abaqus/Explicit dynamics, a materially different solver
-built for exactly this class of contact-chattering problem, and it worked NUMERICALLY: 76%
-raw compression, no more crashing. Then D013 found the real answer: the citable (windowed)
-compression metric never moves because storey 1's own local strain crosses the 2% limit
-almost immediately, independent of solver or contact law. D014's targeted 20-design sweep
-found a narrow escape (extreme storey-1 slenderness flips the ordering in 2/5 designs);
-D015's Explicit re-test showed the flip didn't survive the solver change. Registered
-120-180-eval adaptive BO campaign never ran -- blocked at every stage by this same
-design-specific issue, not by search budget.
+**Infra:** the gif's design (storey2_growth_ratio=31.65, ring_passthrough=False) is archived at
+`data/idea_odbs/20260816T013744_D34_staged_storey/` and is a clean Standard-solver demonstration
+of staging actually happening, storey 2 visibly less deformed than storey 1. It was chosen over
+the family's more dramatic Explicit points (up to 82.68&times; growth) because `render_odb.py`
+could not render an Explicit-dynamics ODB from this family at all &mdash; its per-frame
+displacement field is keyed differently &mdash; and a separate ring-overlay bug crashed on this
+topology regardless of engine. A typical member per rule 4's no-winner convention, not a
+cherry-picked best, and still not feasible: mcs_windowed=0.015.
 
-THE GIF'S DESIGN (storey2_growth_ratio=31.65, ring_passthrough=False, riks_odb archived at
-data/idea_odbs/20260816T013744_D34_staged_storey/) is a clean, Standard-solver demonstration
-of staging actually happening -- storey 2 visibly far less deformed than storey 1 -- chosen
-over the family's more dramatic Explicit-engine points (up to 82.68x growth) specifically
-because render_odb.py could not render an Explicit-dynamics ODB from this family at all (see
-this run's summary-slide notes): its per-frame displacement field is keyed differently, and a
-separate ring-schematic-overlay bug (fixed as part of this update) crashed on this topology's
-node layout regardless of engine. Not a cherry-picked "best" number -- per the deck's
-no-winner convention, a typical, cleanly-renderable member of the search. It is still NOT
-feasible: mcs_windowed=0.015 (1.5%), far short of the 0.80 floor, for the same storey-1-strain
-reason as every other point in this family.
-
-sigma_eigenvalue/mcs_windowed/mls_windowed quartiles cannot be reported over the Riks-
-converged population per contract rule 3(c) because that population is empty (riks_converged
-== 0 for all 62 rows in this run's ledger) -- stating a quartile line anyway would fabricate
-data from zero observations.
-
-WIDEN/THIN STOREY-1 FOLLOW-UP (2026-08-23, ad-hoc worktree-isolated investigations, not a
-registered run -- ran against H12's own `graded_storey` oracle, a distinct but mechanistically
-identical family, NOT this slide's own `staged_storey`). Widening storey 1's strain-relevant
-bounds: 105 evals, mcs stuck at 35.6% (2.2x short), unanimous single-criterion failure. A
-follow-up gave the *opposite* (thin storey-1) direction proper statistical power: 120 more
-evals over the same unrestricted box, pooled with the first campaign via Fisher-z
-meta-analysis -- rank correlation of ratio_d1 against mcs_windowed: pooled rho=-0.30,
-combined p=0.0009 (Holm-significant). But `ratio_pitch1` (+0.385), `ratio_pitch2` (+0.278),
-`ratio_d2` (-0.238), and `n_longerons` (+0.312) all move mcs_windowed the same direction at
-similar significance -- the signature of the study's own slenderness-driven kinematic-depth-cap
-relationship applying identically to both storeys, not a storey-1-specific mechanism. Best
-achieved at the thin extreme: mcs=20.5%, worse than the wide campaign's own 35.6%.
+**History:** footnote [1] Liu, Ennis & Coulais (2024), "Tuning the buckling sequences of
+metamaterials using plasticity," arXiv:2410.16452. The two 2026-08-23 follow-up campaigns ran
+against a distinct but mechanistically identical family (`graded_storey`, H12's oracle) rather
+than `staged_storey`; this slide's own oracle was not re-run, since the root cause was
+independently confirmed twice through the other one.
 -->
 
 ---
