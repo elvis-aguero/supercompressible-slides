@@ -3706,50 +3706,38 @@ claim down to "plausible, not demonstrated" — existence stands, causation does
 </div>
 
 <!--
-H4 DETAIL (folds in here, refinement of D41 per rule 1). Delegation D006 rebuilt the chiral-twist
-joint so the rod is genuinely free to rotate independent of the ring's own rigid-body rotation --
-the exact confound diagnosed on D41's own slide. 45 ledgered evals, 0 strict feasible,
-twist_energy_fraction peaked at 0.0731 (still far below a 50% dominant-mode bar), and 21 of 45
-points reached a >=10x comparison bar on an unrelated axis without ever engaging twist. Closes
-the mechanism a second time, this time with the confound actually removed -- D41's own finding
-was not an artifact of the locked joint.
+**Why it stopped:** GATED on round 4. call_002 raised one MAJOR &mdash; the run's causal claim
+overstated what its own delegation reports established &mdash; and call_003 resolved it by
+rewriting the notebook to hedge that claim, re-verified against the raw transcripts rather than
+re-asserted.
 
-H5 DETAIL (folds in here, refinement of D40 per rule 1). Delegation D010 targeted the crosslinked
-bundle's asymptotic post-buckling stiffness directly (shaping the crosslink connector's own
-stiffness curve, not just its magnitude) -- 0/59 Stage-2 converged, mcs-vs-lambda correlation
-0.02 (no relationship), best found mcs_windowed=0.081. D007's own retrospective flagged a real
-premise mismatch in its own task brief (assumed D40's 71.9% figure came from a finite/compliant
-connector; it came from D017's rigid kinematic tie) -- investigated with real diagnostic solves
-rather than accepted at face value, per this delegation's own CONSISTENCY-flagged retrospective.
+**What it bought:** one real design and two mechanisms closed a second time. D42 (serpentine) is
+the result, and its mechanism was re-attributed post-run &mdash; see its own slide below. Both
+closures removed a confound rather than repeating a test: D006 rebuilt the chiral-twist joint so
+the rod is genuinely free to rotate independent of the ring's rigid-body rotation, the exact
+confound diagnosed on D41's slide, and the mechanism still closed &mdash; 45 evals, 0 strictly
+feasible, twist energy fraction peaking at 0.0731 against a 50% dominant-mode bar. So D41's
+finding was not an artifact of the locked joint. D010 shaped the crosslinked bundle's connector
+stiffness CURVE rather than its magnitude: 0 of 59 converged, mcs-versus-lambda correlation 0.02.
 
-THE CRITIC'S FULL ARC (4 review rounds). call_001: no finding, verified provenance and the
-literature corpus entry. call_002: MAJOR -- the causal claim above overstated what D005/D008's
-own delegation reports established (quoted verbatim above). call_003: RESOLVED -- the notebook
-was rewritten to hedge the causal claim explicitly, re-verified against the raw transcripts, not
-just re-claimed. call_004: no CRITICAL/MAJOR remaining, GATED.
+**Corrections:** four retrospective flags, all genuine, all but one resolved in-run. D001 caught a
+real inconsistency between PROBLEM_STATEMENT.md's then-new lessons-learned section and the
+D24-revisited slide's Verdict text &mdash; fixed as its own commit. D005, D006 and D007 each
+flagged a task-brief premise that did not match the underlying code, and each investigated with
+real diagnostic solves rather than trusting it. D007's is sharpest: its brief assumed D40's 71.9%
+came from a compliant connector when it came from a rigid kinematic tie.
 
-RETROSPECTIVE FLAGS (4, all genuine, all resolved in-run except one). D001 (literature reviewer)
-flagged a real inconsistency between PROBLEM_STATEMENT.md's new Lessons-learned section 6 (the
-splice-in-disguise warning, added the same advisor session) and the D24-revisited slide's own
-Verdict text, which had not been updated to match -- fixed as its own commit, this session.
-D005/D006/D007 (implementers/datagenerator) each flagged a task-brief premise that didn't match
-the underlying code or a prior run's own mechanism, investigated and resolved with real evidence
-rather than trusted or silently worked around.
+**Cost shape:** $75.70 = $74.13 telemetry + $1.57 strategizer, whose `by_role` entry in
+`telemetry/summary.json` is EMPTY &mdash; the same gap as the prior run, and the reason rule 6
+requires summing that transcript by hand.
 
-BLOCKED (D006, matches TRAPS.md #9): a concurrent-write ledger-loss bug inside the vendored
-a3dasm harness dropped some of D006's own campaign rows mid-run. Recovered via the campaign's own
-aggregate JSON output (not lost, just not individually re-derivable from the ledger) -- the same
-class of bug already documented, not a new one.
-
-INFRA BUILT THIS RUN, not yet promoted to gold: bo/oracle_serpentine.py (the real result),
-bo/oracle_chiral_twist.py, bo/oracle_crosslink_bundle.py, matching scripts/ pre/post-processors,
-and a genuinely new addition to bo/prefilter.py -- a local-radius-of-curvature slenderness gate
-for wavy centerlines, extending the existing global beam-theory-validity check to a failure mode
-only a non-straight member can have. Promotion is the user's call.
-
-COST RECONCILIATION. telemetry/summary.json records $74.13 with an EMPTY strategizer entry in
-by_role (same gap as the prior run). Summing directly from the strategizer's own transcript:
-$1.57. Actual: $74.13 + $1.57 = $75.70.
+**Unresolved:** a concurrent-write ledger-loss bug in the vendored a3dasm harness dropped some of
+D006's campaign rows mid-run (TRAPS.md #9, an already-documented class). Recovered from the
+campaign's aggregate JSON, so nothing was lost, but those rows are not individually re-derivable
+from the ledger. Also unpromoted: `bo/oracle_serpentine.py`, `bo/oracle_chiral_twist.py`,
+`bo/oracle_crosslink_bundle.py`, their pre- and post-processors, and a genuinely new
+local-radius-of-curvature slenderness gate in `bo/prefilter.py` extending the global beam-validity
+check to a failure mode only a non-straight member can have.
 -->
 
 ---
@@ -3802,191 +3790,70 @@ strips" — cited &amp; verified against the study's own literature corpus (Corp
 </div>
 
 <!--
-**Input space:** ratio_pitch&isin;[.35,1.20] — storey height / D1, narrowed at the low end where
-the new local-curvature gate binds hardest. ratio_top_diameter&isin;[0,.60] — taper, kept
-non-negative so this family's result is never confounded with the already-closed "flare the
-rings" lever. ratio_a&isin;[.003,.020] — OUT-of-plane (radial) cross-section half-dimension, kept
-small so radial bending/twisting stays the compliant channel. ratio_b&isin;[.015,.05] — IN-plane
+**Result:** CONFIRMED, for a mechanism other than the registered one. 140 serpentine designs, 121
+coilable, 61 converged, 51 feasible, best 5.76&times; Bessa, holding under two imperfection
+studies. But the registered mechanism was bend-twist post-buckling capacity, and that is not what
+produces the number. An ablation (same design, wave amplitude &rarr; 0) leaves the control's
+contact pressure at the loading disc at exactly zero throughout, while the serpentine design's
+late rise from mcs&asymp;85% tracks that disc's pressure climbing 4&rarr;214 kPa in lockstep.
+
+**Input space:** ratio_pitch&isin;[.35,1.20] &mdash; storey height / D1, narrowed at the low end
+where the local-curvature gate binds hardest. ratio_top_diameter&isin;[0,.60] &mdash; taper, kept
+non-negative so this family is never confounded with the already-closed ring-flare lever.
+ratio_a&isin;[.003,.020] &mdash; OUT-of-plane (radial) cross-section half-dimension, kept small so
+radial bending and twisting stay the compliant channel. ratio_b&isin;[.015,.05] &mdash; IN-plane
 (tangential) half-dimension, kept large relative to ratio_a (aspect ratio spans ~1&ndash;16).
-amplitude_rel&isin;[.01,.08] — peak tangential wave offset / D1, lower-bounded so the wave is a
-genuine planform feature, not a near-straight re-test of the baseline. n_undulations — discrete
-wave-period count. Fixed: n_longerons=3, n_storeys=1, twist_angle=0, ratio_shear_modulus=.3677.
+amplitude_rel&isin;[.01,.08] &mdash; peak tangential wave offset / D1, lower-bounded so the wave
+is a genuine planform feature and not a near-straight re-test of the baseline. n_undulations
+&mdash; discrete wave-period count. Fixed: n_longerons=3, n_storeys=1, twist_angle=0,
+ratio_shear_modulus=.3677.
 
-**Verdict, full text (trimmed from the visible bullet 2026-08-28 to fix a confirmed 514px
-render clip, headless-measured):** the existence claim (clears both the 2&times;-Bessa target
-2.88&times; and the incumbent floor 1.06&times;, holds up under 2 independent imperfection
-studies, peak strain mid-span) is solid. **Correction (2026-08-26, advisor session, direct
-ablation):** the claimed mechanism is not what's actually happening. Re-solving the identical
-design with amplitude_rel&rarr;0 (a straight-centerline control, same cross-section/pitch) shows
-the control's CPRESS at the rigid loading disc stays exactly 0 for its entire history, run all the
-way to full geometric closure — it never reaches the disc. The serpentine design's late &sigma;
-rise (mcs&asymp;85% to its window's close) tracks that SAME disc's CPRESS rising in lockstep
-(4&rarr;214 kPa). The headline number comes from the wave's shape bringing the member into
-contact with the rigid loading disc, not from the claimed bend-twist post-buckling channel — real
-and wave-caused (the control disproves a generic every-design-eventually-squishes story).
-**Novelty resolved (2026-08-27):** re-solved the actual Bessa reference point (not just the
-matched-cross-section control) under the same contact oracle — it never touches the disc anywhere
-in its own history, and its own peak occurs early (mcs&asymp;15%) before decaying monotonically
-to near-zero, the opposite shape from D42's late rise. The floor does not do what D42 does; this
-is a genuinely distinct, contact-mediated channel. **Mesh check (2026-08-26):** &sigma;_peak
-itself is not fully mesh-converged — see below. **Independently reconfirmed (run
-`20260826T233507`, D010):** a second, unrelated CPRESS extraction on the same ODB — a distinct
-code path, zero new solves — reproduces the identical frame-by-frame finding: contact-free
-through frame 63, CPRESS and RF3 rising together from frame 64 on.
+**Seed:** FERTILE — the wave-to-contact channel is real and wave-caused, so the open move is to
+test whether it survives a DIFFERENT disc: change the loading-disc geometry or its axial
+placement and see whether the late rise follows the design or follows the boundary. That single
+test decides whether this is an exploitable lever or an accident of this rig.
 
-**Sharpened 2026-08-28 (PI review, actioning the ADVISOR CAVEAT below):** the PI pointed out that
-Bessa's own design also has a stress peak, so "novel because it has a late peak" was never a
-precise enough claim — every compressed member peaks somewhere over its own loading history,
-Bessa's included. The comparison that actually matters is not "does it peak" but "what KIND of
-peak is it." Bessa's is an ordinary early elastic-buckling maximum (mcs&asymp;15%) followed by
-monotonic softening (&sigma; decaying toward zero) — the textbook post-buckling signature, with
-zero contact anywhere (CPRESS=0, all 63 frames) and nothing that looks like a design running out
-of room. D42's is a late, contact-driven RISE (&sigma; climbing in lockstep with CPRESS from
-frame 64 on) that stays under the 2% local-strain ceiling the entire time it's happening — a
-qualitatively different event (stiffening against a hard kinematic limit, not softening after a
-critical load), and one Bessa's own design never exhibits at any point in its history. So: having
-"a peak" is not what's novel (concede that point fully); reaching one LATE, via genuine contact,
-without ever breaching the strain ceiling, is — and Bessa's own re-solved reference is the direct
-evidence that this specific combination is not something "any design eventually does."
+**Deferred:** the question that decides what this design is worth is still open &mdash; whether
+the contact-mediated load path is a real, exploitable structural lever or a boundary-condition
+accident specific to this disc's placement. The evidence establishes that the wave causes the
+contact and that the reference design never does it; it does not establish that the channel
+survives a different disc or a physical rig. Separately on record: sigma_peak itself is not fully
+mesh-converged.
 
-**Seed:** FERTILE — narrowed (2026-08-26): a cross-section-swap probe (identical wave, isotropic
-CircularProfile substituted for RectangularProfile, radius matched to the SAME cross-sectional
-area) still drives the member into real disc contact (COPEN closes to exactly 0, both surfaces,
-mcs&asymp;65-70%) and produces the same qualitative late-&sigma; rise, so the effect is not specific
-to Shi et al.'s anisotropic bend-twist mode — it survives a completely different, isotropic
-cross-section as long as the WAVE is present. What's still untested: WHY the wave's coiled shape
-reaches the disc while the straight control's does not. Track the longeron's own 3D trajectory
-frame-by-frame near the contact-engagement point for both to see what geometric quantity actually
-diverges — axial position, radial excursion, or something else. That would settle whether this is
-an exploitable geometric lever or an accident of where D1=100mm places the disc relative to this
-design's own coil radius (one probe, not a swept campaign — the circular substitute is also
-substantially stiffer pre-contact, ~2.3&times; Bessa vs the rectangle's ~0.3-0.4&times;, since an
-isotropic circle at matched area is much stiffer than a highly-elongated anisotropic rectangle in
-its own weak/radial direction).
-
-**Deferred:** RESOLVED (2026-08-26, advisor session) — the causal-mechanism question the critic
-left open (call_002) is no longer just hedged. A direct ablation (identical design,
-amplitude_rel&rarr;0) disproves BOTH candidate explanations on the table: not the claimed
-bend-twist post-buckling channel (the control's own CPRESS at the loading disc is exactly zero
-throughout, so nothing about the anisotropic cross-section alone produces this), and not a
-generic "every design eventually bottoms out against the disc" story either (the control's
-&sigma; just monotonically fades toward zero, run all the way past mcs=100% nominal, with no late
-rise at all). The real cause: the wave's own shape brings the member into disc contact where the
-straight member's shape does not, in the SAME compression range. Still open: WHY (see Seed above)
-— and whether that contact-mediated load path is a real, exploitable structural lever or a
-boundary-condition accident specific to this disc's placement.
-
-THE COMPRESSION-LIMIT CONSTRAINT, EXPLAINED (added 2026-08-27, expanding the advisor caveat
-below into an actual physical account, not just a flag). Why would ANY design's &sigma; rise late
-in compression, independent of what its own "novel" feature is doing? Because &sigma;_peak is the
-MAXIMUM reaction force over the whole compression window, and once a design's own members run out
-of room to bend/coil freely — either by geometrically exhausting their own coiling motion, or (as
-here) by physically contacting a rigid surface — continuing to advance the prescribed compression
-means pushing against something far stiffer than the original compliant structure: a hard
-kinematic limit, not a buckling member. That's a generic "running out of give" effect, the
-mechanical equivalent of a spring reaching solid height, and it says nothing in itself about
-WHATEVER specific feature (a wave, a twist, a splice) the design under test happens to have — any
-design pushed far enough toward its own compression ceiling will show some version of this same
-late rise. The ablation control above already demonstrates the generic case directly: even the
-STRAIGHT centerline control shows a real early elastic peak (&sigma;=0.119 kPa at mcs&asymp;6%,
-1.06&times; Bessa) before fading — an ordinary compression response with no wave involved at all.
-
-ADVISOR CAVEAT (2026-08-27, PI review — ACTIONED 2026-08-28, see "Sharpened" note above and the
-visible Stats/Verdict wording): a high &sigma;_peak reached simply because a design approaches
-ITS OWN compression limit
-is technically valid but not novel by itself — Bessa's own original baseline already has this
-property (its own ablation control above shows an ordinary early elastic peak, &sigma;=0.119 kPa
-at mcs&asymp;6%, unrelated to any wave). What would make D42 genuinely new is showing the
-contact-driven LATE rise is a distinct, exploitable phenomenon beyond "any design close enough to
-the disc eventually sees &sigma; rise" — not yet settled either way. No new evidence gathered
-this entry; this is a scoping note for whoever writes the family's final verdict, not a finding.
-
-**RESOLVED 2026-08-27 (same day, real re-solve, not more argument):** re-solved the ACTUAL Bessa
-reference point (ratio_d=.02005, ratio_pitch=.25, ratio_top_diameter=.25053, imperfection=.067 --
-not the matched-cross-section proxy control used above) through `bo/oracle_circular.py`'s CURRENT
-contact-enabled oracle -- the archived reference ODB (`data/idea_odbs/bessa_baseline/`) was solved
-2026-07-31 via an explicitly NO-CONTACT pipeline, so this is the FIRST time the study's own
-normalization anchor has been checked under the same physics D42 was. sbatch job 5420896, separate
-allocation; raw ODB/results archived at `data/idea_odbs/20260827_bessa_point_contact_resolve/`
-(the sbatch wrapper itself misreported this job as FAILED -- the Abaqus solve completed cleanly
-regardless; see that directory's own PROVENANCE.txt).
-sigma_peak=0.112199 kPa -- matches the archived no-contact figure to 6 significant figures;
-contact changes nothing about the reference floor's own headline number. CPRESS extracted
-read-only at all 63 Riks frames: **exactly 0.0 at every frame** -- the Bessa point never touches
-the disc, anywhere in its compression history. Full sigma-vs-mcs shape (from the same results.pkl):
-peaks EARLY at mcs&asymp;13-18% (&sigma;&asymp;0.1120 kPa), then decays MONOTONICALLY to near-zero
-(&sigma;&asymp;0.003 kPa) by mcs&asymp;98-101% -- the opposite shape from D42's late, contact-driven
-rise, and consistent with (stronger evidence than, since this is the literal anchor, not a proxy)
-the matched-cross-section ablation control's own early-peak-then-fade behavior already documented
-above. **The caveat is resolved, not just scoped**: the reference floor does not do what D42 does.
-D42's contact-driven late rise is a genuinely distinct channel, not a re-discovery of a property
-Bessa's own design already has. `novel:` promoted from an unqualified assertion to a directly
-tested one -- see the Stats bullet's own novel: line and the main Verdict above, both updated.
-
-PS &sect;6 self-check (2026-08-26): this family uses `RectangularProfile` (not circular) — the
-SAME profile type &sect;6 flags for the D24 splice, where the rectangular cross-section quietly
-cleared the bar with the "new" component contributing nothing. Re-running the ablation's own
-COPEN (contact-gap) and &sigma; fields frame-by-frame settles that this is not the same pattern,
-but not for the reason first written here (corrected same day): the control does NOT sit near
-zero throughout. It has a normal early elastic peak at mcs&asymp;6% reaching &sigma;=0.119 kPa
-(1.06&times; Bessa) — matching this slide's own cited "incumbent floor (1.06&times;)" almost
-exactly — then decays smoothly and monotonically to near-zero by mcs&asymp;100%, the same
-coiling-then-fading response every straight-centerline family in this study shows. Its contact
-gap closes from 2.033mm (t=0) to only ~1.05mm by its own solve's deepest frame (mcs&asymp;100-102%),
-never reaching the disc — so it never gets the SECOND, contact-driven rise the serpentine gets
-(gap starts closing by mcs&asymp;64%, fully closed by mcs&asymp;90%, driving &sigma; to 5.76&times;).
-The corrected mechanism: the wave doesn't create load-bearing capacity where none existed — the
-rectangular cross-section alone already reaches the incumbent floor early — it adds a late,
-contact-driven SECOND event on top of that same baseline response. Removing the wave leaves the
-early peak intact but forfeits the late one; it is not riding along on the cross-section the way
-D24's splice rode along on its baseline, since the floor-clearing peak is common to both and the
-2&times;-Bessa-clearing margin is entirely the late event's own.
-
-MESH-REFINEMENT CHECK (2026-08-26, deck audit item 3 — offered twice earlier this session,
-run for real this time). Same design, same protocol as the Kresling mesh study: baseline mesh
-(divisor 300, matching the archived winner) vs. 2&times; (600) vs. 4&times; (1200), re-solved
-from scratch since the original winner's raw ODB no longer exists on scratch.
-
-    divisor   sigma_win (kPa)   mcs_win   max_local_strain (raw, unwindowed)
-    300           0.6463         0.9286        0.05007
-    600           0.5729         0.9260        0.05010
-    1200          did not converge ("TOO MANY ATTEMPTS") -- same failure mode as Kresling's own 4x
-
-sigma_peak (the actual headline metric) drops 11.4% under 2&times; refinement -- real, not noise,
-and larger than it looks against a 5.76&times;-Bessa headline. mcs_win is stable (-0.3%). The raw
-max_local_strain scalar is essentially perfectly converged (+0.06%) -- so the strain reading
-itself is fine; it's specifically the contact-pressure-driven sigma_peak that is mesh-sensitive,
-consistent with it coming from a late, sharp CPRESS spike rather than a smooth bending response.
-Unlike Kresling, there is no known geometric singularity here to explain it, and unlike Kresling
-there is no 3rd point: 4x fails to solve, so whether sigma_peak is settling toward a stable value
-or still drifting is UNRESOLVED, not ruled out. This does not overturn the existence claim -- even
-the 2x-refined value (0.5729 kPa = 5.11x Bessa) clears both the 2x-Bessa target and the incumbent
-floor comfortably -- but the precise headline multiplier (5.76x) should be read as accurate to
-roughly +-1 significant figure, not to 3, until a solver that can push past 2x refinement (finer
-local seeding near the contact patch specifically, rather than a uniform global divisor, is the
-likely next step) settles it.
-
-**Timeline:**
-D001: literature review — found and distinguished the Shi et al. 2024 precedent from D19's
-already-closed meander family.
-D003: oracle build (bo/oracle_serpentine.py) + the local-radius-of-curvature slenderness gate
-(bo/prefilter.py) needed for a wavy, not just straight, member.
-D005: seed campaign (H3/H1) — 15 feasible, best 0.5639 kPa.
-D008: extended-box campaign (H6) — 36 new feasible, winning point 0.6460 kPa.
-D009/D011: imperfection-robustness studies (H7/H8) — 8 and 9 independent draws.
-D012: peak-strain-location check (H9) — confirmed mid-span, not joint.
-Advisor session (2026-08-26, post-run): direct ablation (amplitude_rel&rarr;0 control, identical
-cross-section/pitch, re-solved via bo/oracle_serpentine.py's own evaluate()) plus a CPRESS trace
-on both ODBs — disproved the run's own bend-twist claim and the generic-squish alternative,
-identified real disc-contact engagement as the actual cause of the late-compression rise.
+**Timeline:** Run 20260826T012550 &mdash;
+- D001 reviewed the literature and distinguished the Shi et al. 2024 precedent from D19's already-closed meander family.
+- D003 built the oracle plus the local-radius-of-curvature slenderness gate a wavy member needs.
+- D005 ran the seed campaign (H3/H1), 15 feasible, best 0.5639 kPa.
+- D008 ran the extended-box campaign (H6), 36 new feasible, winning point 0.6460 kPa.
+- D009 and D011 ran the imperfection-robustness studies (H7/H8), 8 and 9 independent draws.
+- D012 checked peak-strain location (H9) and confirmed mid-span rather than joint.
+- Post-run advisor session, 2026-08-26: the ablation and CPRESS traces that re-attributed the mechanism.
 
 **Infra:** bo/oracle_serpentine.py (Stage-1/Stage-2 dispatch, windowed_metrics reduction, plus a
 serpentine_out_of_plane_fraction diagnostic that checks whether the bend-twist mode actually
 engages), scripts/supercompressible_lin_buckle_serpentine.py,
 scripts/supercompressible_riks_serpentine.py, scripts/supercompressible_riks_serpentine_pp.py.
-ODB: /oscar/scratch/eaguerov/sc_oracle_serpentine/riks_47facf20e3c342b692ebe3c32272f997/ (D008's
-own winning design — the run's own headline point, not a no-winner-convention "typical" pick,
-since this idea's own Result bullet already headlines this specific number).
+ODB /oscar/scratch/eaguerov/sc_oracle_serpentine/riks_47facf20e3c342b692ebe3c32272f997/ &mdash;
+D008's own winning design, not a no-winner-convention typical pick, since this slide headlines
+that specific number. The full evidential record, including every dated correction below in its
+original wording, is in `validation/d42_contact_channel/README.md`.
+
+**History:** three corrections and one independent reconfirmation, all preserved in full in
+`validation/d42_contact_channel/README.md`. MECHANISM RE-ATTRIBUTED 2026-08-26 (advisor session,
+direct ablation): the registered bend-twist claim was disproved, and so was the generic
+"every design eventually bottoms out against the disc" alternative &mdash; the straight-centerline
+control's sigma fades monotonically toward zero past mcs=100% nominal with no late rise at all.
+NOVELTY RESOLVED 2026-08-27: the Bessa reference point itself was re-solved through the current
+contact-enabled oracle, the first time the study's own normalisation anchor had been checked under
+the same physics D42 was, returning sigma_peak=0.112199 kPa &mdash; matching the archived
+no-contact figure to six significant figures, never touching the disc, and peaking early
+(mcs&asymp;15%) before softening monotonically. SHARPENED 2026-08-28 (PI review): "novel because
+it has a late peak" was conceded as too loose, since every compressed member peaks somewhere. The
+precise claim is the KIND of peak &mdash; a late, contact-driven RISE that stays under the 2%
+local-strain ceiling throughout, against Bessa's ordinary early buckling maximum followed by
+monotonic softening. INDEPENDENTLY RECONFIRMED by run 20260826T233507's D010: a different script,
+zero new solves, same frame-by-frame result &mdash; contact-free through frame 63, CPRESS and RF3
+rising together from frame 64.
 -->
 
 ---
