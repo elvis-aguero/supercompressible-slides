@@ -3543,15 +3543,14 @@ reproduce if the cell were executed. The underlying 54-count is independently co
 QueryStore, so the verdicts stand &mdash; but the run exhausted its 10 h budget before a fourth
 pass could land the fix. UNGATED, not FAILED.
 
-**What it bought:** D42's headline reproduced exactly and then explained away. D004 re-solved
-D42's winning design and reproduced sigma_peak=0.646302 kPa to 0.0% &mdash; a fresh point
-estimate, not a re-read &mdash; and a widened-box campaign found 8 of 28 feasible, best 0.48059
-kPa, with 5 of 6 imperfection draws feasible. Then D010 opened that same ODB through a distinct
-code path and found CPRESS is exactly 0.0 for frames 0&ndash;63, spanning the entire contact-free
-buckling event and its post-buckling valley, turning nonzero only at frame 64, after which RF3 and
-CPRESS rise together to a peak 26&times; the true contact-free structural one. So D42's headline is
-driven by the wavy longeron contacting the rigid loading disc, not by bend-twist post-buckling
-capacity &mdash; independently confirmed on a second code path.
+**What it bought:** D42's headline reproduced exactly, then explained away. D004 re-solved D42's
+winning design and reproduced sigma_peak=0.646302 kPa to 0.0% &mdash; a fresh estimate, not a
+re-read &mdash; and a widened-box campaign found 8 of 28 feasible, best 0.48059 kPa. Then D010
+opened that same ODB through a distinct code path: CPRESS is exactly 0.0 for frames
+0&ndash;63, spanning the whole contact-free buckling event and its post-buckling valley, turning
+nonzero only at frame 64, after which RF3 and CPRESS rise together to a peak 26&times; the true
+contact-free structural one. D42's headline is the wavy longeron hitting the rigid loading disc,
+not bend-twist capacity &mdash; confirmed independently on a second code path.
 
 **Corrections:** the D42 mechanism correction above, which this run's own notebook draft had not
 caught up with, was confirmed rather than merely restated. No hypothesis verdict moved.
@@ -3559,14 +3558,16 @@ caught up with, was confirmed rather than merely restated. No hypothesis verdict
 **Cost shape:** 14 delegations, all 14 retrospectives clean &mdash; no CONSISTENCY flags at all,
 the only run in this deck with none.
 
-**Unresolved:** two live defects, both flagged and neither fixed. (1) `bo/cei_core.py`'s CEI
-acquisition is near-deterministic once conditioned on similar training data, so a different outer
-seed diversifies only the initial Sobol DoE: 73 of 80 candidates across two "differently seeded"
-runs were bit-identical and silently dedup-dropped, wasting real Abaqus compute. Full account and
-what a fix needs in `validation/cei_seed_diversity_bug/README.md`. (2) `campaign_summary.py`'s own
-funnel-count code, which the critic rejected twice; D009's `build_final_summary.py` is the working
-replacement and was never folded back in. Both matter beyond this run: (1) undermines every
-"we re-ran with a different seed" claim in the deck.
+**Unresolved:** two things, neither fixed. (1) A different BO `seed` does not diversify a CEI
+campaign &mdash; 73 of 80 candidates across two "differently seeded" runs were bit-identical, and
+one top-up batch of 15 landed 1 real row, the rest dedup-dropped AFTER their solves ran. The seed
+only picks where the acquisition optimiser starts climbing; the peak is a property of the fitted
+surface. Verified against `bo/cei_core.py` on 2026-09-09, which also corrects this run's own
+framing of it as a defect in that module &mdash; see
+`validation/cei_seed_diversity_bug/README.md`. It matters past this run because it means no "we
+re-ran with a different seed" claim in this deck is independent evidence. (2)
+`campaign_summary.py`'s funnel-count code, rejected by the critic twice; D009's
+`build_final_summary.py` is the working replacement and was never folded back in.
 -->
 
 ---
