@@ -5962,59 +5962,35 @@ family's own *regression control*. &nbsp;·&nbsp; **Cost: $56.03** (306 evals, 6
 </div>
 
 <!--
-Run stats: GATED on the 3rd critic attempt (REJECT -> REVISE -> PASS), evals_used=306, 12
-delegations, 6.5 h of a 12 h budget, 1 ERROR_RETURN (a Confer-before-wake ordering slip on D004,
-recovered). Strategizer claude-opus-5 confirmed at the process level (--model in the spawned
-argv); all other nodes claude-sonnet-5 from config.yaml.
+**Why it stopped:** GATED on the third critic attempt (REJECT &rarr; REVISE &rarr; PASS), with 5.7
+h of 12 unspent, and the strategizer's reasoning is the most consequential thing the run revealed
+&mdash; because it is about the contract rather than the science. Its own words: closing was
+justified not because "my search stopped improving" but because "the one remaining mechanism
+requires a solver regime the infrastructure cannot afford", which is "a statement about the space
+and the tooling, not about my search". That reasoning was sound GIVEN what PROBLEM_STATEMENT.md
+said at the time.
 
-WHY IT CLOSED WITH 5.7 h UNSPENT -- from the strategizer's own retrospective, because this is the
-most consequential thing the run revealed and it is about US, not about it: "PREMATURE
-CONVERGENCE explicitly forbids closing while an affordable experiment could move an open
-criterion... I made it because the mechanism law I had just established named the *only* remaining
-escape (a section whose torsional constant collapses on demand) and simultaneously showed it is
-unreachable here: beam elements carry one section per element, so it needs shells with
-self-contact, measured in this study at 243-5072 s per solve against a 600 s cap." And its own
-distinction: "'My search stopped improving' would not have justified closing; 'the one remaining
-mechanism requires a solver regime the infrastructure cannot afford' is a statement about the
-space and the tooling, not about my search."
+**What it bought:** four families migrated to contact and re-verified, and one genuinely
+uncomfortable lesson about what "migrated" means. D17-2 is the clearest: one design per family
+verifies a code path, not a family, and the deck now says so on its face.
 
-That reasoning is sound GIVEN what PROBLEM_STATEMENT.md said at the time -- which was that the cap
-is "a hard property" and that a family which cannot fit inside it "is not searchable, and the
-honest move is to say so". Both justifications for the cap are COST arguments; presenting one as a
-property of the oracle turned a budgeting default into a boundary on the design space. The PS has
-since been rewritten (the cap is a movable default, licence tokens are the hard constraint), and
-solves are now watchable and revocable in flight (bo/promises.py) with only FINISHED work counting
-toward budget -- so cancelling is free and a generous cap is safe. Runs 4.5-8.0 h against a 12 h
-budget, six in a row, was a symptom of this, not six independent judgement calls.
+**Corrections:** the PS itself was rewritten afterwards, because the run exposed a real defect in
+it. Both justifications for the 600 s solve cap were COST arguments, and presenting one as a
+property of the oracle turned a budgeting default into a boundary on the design space. The cap is
+now a movable default with licence tokens as the hard constraint, and solves are watchable and
+revocable in flight (`bo/promises.py`) with only FINISHED work counting toward budget &mdash; so
+cancelling is free and a generous cap is safe. Six consecutive runs closing at 4.5&ndash;8.0 h
+against a 12 h budget was a symptom of that defect, not six independent judgment calls.
 
-DO NOT INHERIT H1 OR THE "ONLY REMAINING ESCAPE" AS A BOUNDARY. Both were derived inside the BEAM
-families this run searched. "The only escape needs shells with self-contact" locates where THIS
-SEARCH ran out, not where contact-mediated designs live in general -- the space of unexplored
-configurations is not indexed by element type. See docs/EVALUATION_UNDER_CONTACT.md.
+**Cost shape:** 306 evals across 12 delegations in 6.5 h, 1 ERROR_RETURN (a Confer-before-wake
+ordering slip on D004, recovered). Strategizer claude-opus-5 confirmed at the process level from
+the spawned argv; all other nodes claude-sonnet-5 from config.yaml.
 
-THE H2 ARTIFACT IS WORTH STUDYING. Six designs appeared to peak near 50% compression, one
-reporting sigma_peak = 245.8 kPa -- 400x the floor, and it would have been the headline. All six
-had window_n == history_n and mcs_at_peak == mcs, i.e. the "peak" was the last frame before the
-solve died: a truncated response, not a load rise. The strategizer found that signature itself and
-ran D007 as a targeted falsification rather than banking the number. The legitimate n=4 design
-shows the contrast (window_n 70 < history_n 73). This is exactly the window_closed_before_failure
-convention doing its job.
-
-CRITIC: call_001 REJECTed on notebook-ledger sync (H8 registered at 04:16 but absent from the
-notebook, so a reader of the deliverable alone would not know it existed); call_002 REVISE;
-call_003 PASS. One critic slip worth noting: its provenance check cleared the headline as "a
-genuinely different, independently-converged design (different n_longerons)" -- but it compared
-D011 against D005's n_longerons=4 design, not against the ANCHOR, which is also n_longerons=3. It
-checked the wrong pair. The notebook's prose reached the right conclusion anyway.
-
-INFRA DRIFT, classified: the Tier-1 self-clearance diagnostic (scripts/self_clearance.py + an
-opt-in hook in the Riks post-processor) was PROMOTED TO GOLD -- it catches designs whose coil
-interpenetrates, the same failure class as ring_passthrough one level down, at zero solve cost and
-inert unless SC_TIER1_RADII is set; validated on the Bessa anchor at 58.9 mm minimum clearance.
-The two leaf-spring pre-processors were ARCHIVED to scripts/superseded/ (family settled, machinery
-preserved). Also filed: the literature provider was 403 rate-limited for the whole session, so
-Pellegrino/Pasini full texts were unreachable, and the critic could not Read pipeline.ipynb at any
-window size and fell back to line-anchored Grep.
+**Unresolved:** DO NOT INHERIT H1, or its "only remaining escape", as a boundary. Both were
+derived inside the BEAM families this run searched, so "the only escape needs shells with
+self-contact" locates where THIS SEARCH ran out &mdash; not where contact-mediated designs live in
+general. The space of unexplored configurations is not indexed by element type. See
+`docs/EVALUATION_UNDER_CONTACT.md`.
 -->
 
 ---
@@ -6059,26 +6035,16 @@ layout: two-cols-header
 </div>
 
 <!--
+**Result:** PHYSICAL. Three designs, 3 coilable, 2 decided, and the one "good" row is
+`n_leaves=1` &mdash; the family's own regression control, which reproduces the incumbent to four
+significant figures. So nothing here tests leaf splitting except the single multi-leaf point, and
+its real recovered stress history (not the eigenvalue proxy this slide once cited) peaks at 0.0870
+kPa: a measured 7.0&times; DROP from 0.6071, at 0.64% strain, nowhere near the 2% ceiling. That
+is a genuine load-capacity collapse rather than a strain-limited one.
+
 **Input space:** n_leaves&isin;{1,3,5} — discrete leaf count, not a continuous dial. a&isin;[.004,.014],
 b&isin;[.01,.045] — per-leaf cross-section semi-axes. ratio_pitch&isin;[.25,1]. Fixed:
 ratio_shear_modulus=.3677, n_longerons=3, n_storeys=1, twist_angle=0.
-
-**Chart provenance note:** the n_leaves=3 (dashed) curve is the raw, unwindowed solve — it runs
-to mcs=51.6% before the real solve itself ends (non-convergence), past the windowed mcs=.02
-citation in Stats above (which reports where strain, not the raw solve, stops being trustworthy).
-
-**REAL CHART ADDED 2026-08-28 (user request: a coiling GIF with no companion stress chart is
-the same gap D38 has, but worse here — real Stage-2 data exists and was never plotted).** The
-ledger's `sigma_peak=NaN` for n_leaves=3 is not "uncomputable" -- it is the oracle's own policy
-(`oracle_template.py`: an unmeasured objective is NaN whenever Stage 2 doesn't converge,
-regardless of whether partial data exists) applied to a design that DID produce 76 real Riks
-frames. Recomputed both curves directly from each design's own `results.pkl` (still on scratch:
-n_leaves=1 `/oscar/scratch/eaguerov/supercompressible_oracle/riks_549eaf38.../`, n_leaves=3
-`.../riks_220ffd56.../`) with the exact `bo/response_metrics.windowed_metrics` formula -- both
-recovered values (0.6071, 0.0870 kPa) match the ledger/windowed figures exactly where the ledger
-has one. The real curve shows the drop is a genuine measured load-capacity collapse at 0.64%
-strain, not a strain-ceiling failure and not merely an eigenvalue proxy -- strengthens, not
-changes, the REFUTED call.
 
 **Seed:** BARREN as stated. Decoupling leaf spacing from the winding radius is a different idea,
 needing a different argument than "more leaves".
@@ -6106,6 +6072,23 @@ is also n_longerons=3. Wrong pair. The notebook's prose reached the right conclu
 
 n_leaves=5 was budgeted but never run -- the campaign stopped after n_leaves=3 made the direction
 clear, which is the correct call and is why n=3 rather than a fuller sweep.
+
+**History:** the n_leaves=3 (dashed) curve is the raw, unwindowed solve — it runs
+to mcs=51.6% before the real solve itself ends (non-convergence), past the windowed mcs=.02
+citation in Stats above (which reports where strain, not the raw solve, stops being trustworthy).
+
+**REAL CHART ADDED 2026-08-28 (user request: a coiling GIF with no companion stress chart is
+the same gap D38 has, but worse here — real Stage-2 data exists and was never plotted).** The
+ledger's `sigma_peak=NaN` for n_leaves=3 is not "uncomputable" -- it is the oracle's own policy
+(`oracle_template.py`: an unmeasured objective is NaN whenever Stage 2 doesn't converge,
+regardless of whether partial data exists) applied to a design that DID produce 76 real Riks
+frames. Recomputed both curves directly from each design's own `results.pkl` (still on scratch:
+n_leaves=1 `/oscar/scratch/eaguerov/supercompressible_oracle/riks_549eaf38.../`, n_leaves=3
+`.../riks_220ffd56.../`) with the exact `bo/response_metrics.windowed_metrics` formula -- both
+recovered values (0.6071, 0.0870 kPa) match the ledger/windowed figures exactly where the ledger
+has one. The real curve shows the drop is a genuine measured load-capacity collapse at 0.64%
+strain, not a strain-ceiling failure and not merely an eigenvalue proxy -- strengthens, not
+changes, the REFUTED call.
 -->
 
 ---
@@ -6210,182 +6193,33 @@ layout: two-cols-header
 </div>
 
 <!--
-**Input space:** same design vector as D25's own base slide (contact migration adds no new
-free parameter).
+**Result:** PHYSICAL. 330 designs, 50 coilable, 28 decided after excluding 8 sentinel-zero
+salvage artifacts, none feasible. The shortfall is unanimous and large: the best of the 28 reaches
+21% compression against the 80% required, a 3.7&times; gap. Contact, which this migration existed
+to test, is irrelevant to that gap &mdash; on 4 paired on/off designs it shifts the strain-limit
+crossing by an average of &minus;0.002, an order of magnitude below the shortfall. Design C,
+re-solved alone, confirms it individually.
 
-**Seed:** BARREN (corrected 2026-08-31, verdict audit) — this tag previously read FERTILE
-("twist/chirality applied to the open-arc section"), but D25-3 already tested exactly
-this (twist_angle promoted to a real parameter, n=105, correlation with the objective
-indistinguishable from zero) and closed it REFUTED. D25-3's own notes already flagged
-this exact discrepancy ("the original D25 slide and D25-2... disagreed on whether
-twist had already been tried — it hadn't; left as a discrepancy... for the user's own
-correction") — this is that correction. See D25-3 for the twist result.
+**Input space:** the tape-spring family's own axes as on D25's base slide, re-run under the
+contact-enabled oracle; contact adds no free parameter. 330 ledgered designs.
 
-Jobs 4791881 (invalid sampling, superseded), 4792435 (64-design pilot), 4794837 (256-design
-significance sweep, 1.01 h wall).
+**Seed:** BARREN — the compression shortfall is 3.7&times; and unanimous across all 28 decided
+designs, and the one lever this pass added (ground contact) moves the binding quantity by half a
+percentage point. Nothing in this family's own parameterisation closes a gap that size.
 
-THE 256-DESIGN SWEEP, in full: 256 evaluable designs drawn from 752 candidates (66% of the
-recorded box rejected as un-meshable or too thick) -> 50 coilable -> 36 that reached a verdict
-(35 of them salvaged from incomplete solves) -> 0 feasible. mcs percentiles over the 36:
-p0 0.0044, p50 0.0215, p90 0.0533, p100 0.2149. Binding criterion: mcs < 0.80 in 28 of 28,
-mls > 0.02 in 0 of 28, ring_passthrough in 8.
+**Deferred:** the sentinel-zero exclusion is the part worth carrying. Of 36 raw Stage-2 verdicts,
+8 returned salvage reads of zero and were excluded rather than counted &mdash; which is why the
+funnel says 28. A salvage read that returns zero is not a measurement of zero, the same class of
+failure documented in `validation/silent_zero_strain_sentinel/README.md`.
 
-THE JOB'S OWN PRINTOUT SAID 36 DECIDED, AND IT WAS WRONG. Eight of those 36 were EMPTY: a
-salvaged ODB holding zero usable increments, so window_n = 0, which satisfies the
-"window_n < history_n" test trivially and was recorded as "the window closed" on a response
-containing nothing. Each reported mcs = mls = sigma_peak = 0.0 -- and it was the oracle contract
-guard added the same day (bo/oracle_template.py) that flagged them, on its first run, as the
-sentinel-zero pattern. Fixed in bo/oracle_tape_spring.py: a window that closed must actually
-contain something. The corrected denominator is 28, and the verdict is unchanged.
+**Timeline:** Run 20260809T230403 &mdash; the migration, the 4-design paired contact test, and
+Design C's individual re-solve. D25's own closest-miss point had never been solved under contact
+on its own before this pass, only folded into aggregates.
 
-WHY THIS SLIDE COUNTS 28 AND NOT 37. The pilot campaign's own 9 usable designs are NOT added in.
-They predate the empty-response fix and cannot be re-audited for it, because the campaign script
-wrote its results to a fixed path (bo/campaign_tape_spring_result.json) and this run overwrote
-them. That is now job-stamped. 28 is the number that survives audit; 330 is the number of designs
-put through the oracle under contact, which is the right denominator for "how much was spent" and
-the wrong one for "how much was decided".
-
-WHY THE HEADLINE IS mcs AND NOT mls. The campaign's own first printout said "designs under the
-2% limit: 36 of 36", which sounds like every design passed and is in fact a tautology: windowed
-mls is bounded above by 0.02 BY CONSTRUCTION, because the window closes at the crossing. It
-carries no ranking information at all. The same script also ranked designs by min(mls) to find
-the "closest miss", which picks the design that stalled SOONEST -- it printed
-"closest miss: mls=0.000000 mcs=0.0000". Both are now fixed in
-bo/run_campaign_tape_spring.py, and phase 1 was re-analysed on strain_crossing_mcs; the numbers
-on this slide are the corrected ones. This is the same saturation trap that produced a wrong
-verdict on the pilot campaign, in a second disguise, which is why it is written up in
-docs/TRAPS.md section 3 rather than only fixed in code.
-
-WHICH KNOB ACTUALLY MATTERS. bo/campaign_summary.py over the 28 decided designs: of the six free
-parameters, exactly one moves the blocker -- alpha_tape, the arc angle (rho = -0.600 against
-compression reached, Holm-adjusted p = 0.003 across the six; every other parameter adjusts to
-p = 1.00, including thickness and R/t). Section depth, which alpha drives, correlates at
-rho = -0.665. The deepest half of the designs reach 0.9% compression at the median; the flattest
-half reach 3.4%.
-
-AND THE BEST DESIGNS SIT ON THE alpha_tape LOWER BOUND (the top quarter average 14% of the
-range). Normally that means "widen the bound, you have not measured this dimension". Here it
-means the opposite, and it is the strongest single argument for closing the family: the search
-is pushing toward the SHALLOWEST arc allowed, and the bound is already 0.05 rad. Widening it
-further does not find a better tape spring, it deletes the arc -- the best design in the whole
-campaign has 0.5 mm of section depth and is a flat strip, which is D6 territory and already
-searched. The optimiser's preferred direction exits the family.
-
-ON "DECIDED" VS "USABLE". Only 36 of 256 reached a verdict, and that is the honest denominator.
-A design whose window closed before the solve failed is DECIDED -- the verdict lives entirely in
-the completed increments. One whose solve died before the window closed is TRUNCATED DATA, and
-counting it would be counting a stall as a small crossing. bo/oracle_tape_spring.py flags this
-per design (window_closed_before_failure); the paired test excludes any pair where either side
-is truncated, which is why n=4 and not n=6.
-
-WHY THE FIRST CAMPAIGN WAS THROWN AWAY: a blind Sobol sample of the bounds recorded on the D25
-slide put 55% of the budget into designs that crash the mesher ("Some regions cannot be
-Mapped"). Each longeron is an arc of radius R_tape spanning alpha_tape, swept along the
-joint-to-joint line -- a strip of width R_tape*alpha_tape. The recorded bounds allow 880 mm on a
-100 mm structure; three longerons share ~105 mm of circumference each. Wider strips overlap
-themselves and their neighbours, and Abaqus cannot tile a self-overlapping surface. Measured
-across 77 attempts: 0/26 failed below 50 mm, 13/13 failed above 400 mm. That is now a free
-geometric prefilter in bo/oracle_tape_spring.py, and it is why the original campaign sampled
-four named CORRIDORS rather than the box -- a fact lost when the bounds were copied onto the
-slide without it.
-
-WHY A STALLED SOLVE STILL DECIDES A DESIGN: this family's solves stall near 80% compression, but
-the reported window closes at the FIRST of 95% compression or 2% strain, and this family fails on
-STRAIN. A design crossing 2% at 11% compression is DECIDED. scripts/salvage_riks_odb.py
-post-processes the partial ODB; 8 of the 9 usable results came from stalled solves that would
-otherwise have been discarded, and the oracle marks `window_closed_before_failure` so a
-truncated response is never mistaken for a verdict.
-
-A MEASUREMENT TRAP, recorded because it produced a wrong verdict first: the paired test was
-initially run on WINDOWED mls, which is pinned just under 0.02 BY CONSTRUCTION -- the window
-closes at the 2% crossing, so its maximum cannot exceed it. Comparing it measures the ceiling,
-not the design. The unsaturated statistic is `strain_crossing_mcs`: at what compression does the
-design cross 2%.
-
-ON THE OLD "CLOSEST MISS" FRAMING: design C is recorded as failing only criterion 3, by 1.38x.
-Under the current window it exceeds the strain limit at 20% compression -- a quarter of the way
-to the requirement. Same curve, same verdict, but "1.38x over on strain" reads as a near miss and
-"blows the budget a fifth of the way down" is what the data says.
-
-Verified 2026-08-26 (deck audit, item 1): pulled the raw 256-design sweep JSON from git history
-(commit 23cac27, renamed from job 4794837's original path -- not on main) and independently
-recomputed the full funnel: 256 evaluable -> 50 coilable -> 36 reached a verdict
-(window_closed_before_failure=1) -> 8 sentinel-zero -> 28 decided, all exact matches. mcs<0.80 in
-28/28, mls>0.02 in 0/28, ring_passthrough in 8/28, best mcs=0.2149 (21%) -- all exact. alpha_tape
-vs mcs: rho=-0.600 exact, raw p=0.0007 (Holm-adjusted across 6 params ~0.004, consistent with the
-cited 0.003). mcs percentiles p50/p90 (0.0203/0.0546 recomputed vs 0.0215/0.0533 cited) differ by
-2-6%, plausibly a different percentile-interpolation convention at n=28 -- not chased further,
-non-material to any claim on this slide.
-
-DESIGN C, EXPLICITLY RE-SOLVED (added 2026-08-27, advisor request: the showcase GIF above is from
-the 330-design campaign's own Sobol sweep, a near-flat-strip design, NOT design C -- the original
-D25 slide's single closest-miss point had never been solved under contact on its own, only folded
-into this slide's n=4 paired-delta aggregate above). Design C = t_tape=0.419034, R_tape=19.675232,
-alpha_tape=0.638683, beta_tape=1.483305, ratio_pitch=0.844812, ratio_top_diameter=0.360376 (fixed:
-circular=17, n_longerons=3, n_storeys=1, twist_angle=0, ratio_shear_modulus=.3677) -- verbatim from
-data/idea_odbs/20260730T020245_H2_tape_spring/sim_info.pkl. Dispatched via
-bo/run_D25_designC_contact_resolve.py through the CURRENT get_evaluator(namespace='tape_spring')
-adapter chain (oracle_tape_spring.evaluate, ground_contact=True, imperfection default 0.067 rad),
-sbatch job 5409623 on a separate allocation, NOT the interactive node (2026-08-27, wall 302 s).
-
-RESULT: coilable=1 (Stage 1), converged=0 -- Stage 2 stalled and was salvaged
-(window_closed_before_failure=1, timed_out=0, so the salvage is a DECIDED verdict, not truncated
-data). sigma_peak=0.31554 kPa (via bo/response_metrics.py:windowed_metrics, the same reduction
-every number on this deck uses), sigma_eig=0.61667 kPa (Stage-1 eigenvalue estimate -- exactly
-reproduces the archive's own sigma_crit=0.616672, confirming Stage-1/geometry match exactly and
-that contact cannot touch a linear estimate that never engages it). mcs=0.19059, windowed
-mls=0.01972 (passes the 0.02 cap only because the window closes there by construction), unwindowed
-mls_full=0.02752 (matches the archive's 0.027516 to 4 decimal places -- same physical strain
-ceiling, reached by a different point in the same curve). strain_crossing_mcs=0.20342 (the actual
-2%-strain crossing, i.e. 20% compression). ring_passthrough=False, rt_over_t=46.95 (>=10, passes).
-Feasibility: mcs>=0.80 FAILS (0.191, short 4.2x), mls<=0.02 barely passes (construction artifact
-of the window, not a real margin), ring_passthrough and rt_over_t both pass -- feasible=False,
-binding criterion is mcs, the SAME criterion that binds the 28-design funnel above. Bit-identical
-(to the digit) to job 4794837's own phase-1 paired-ON row for "design_C_closest_miss" (still on
-scratch, /oscar/scratch/eaguerov/sc_oracle_tape_spring/riks_c0d9fdf53d314b299d1b69c27410d978/) --
-this design's oracle output has not changed since 2026-08-08 (git log on bo/oracle_tape_spring.py
-confirms the only changes since are an imperfection-as-argument refactor, default unchanged, and
-the unrelated window_n<=0 empty-salvage guard, which this design's window never hit), so this is a
-genuine independent re-confirmation, not new information from the code path -- and full JSON is
-saved at bo/design_C_contact_resolve_result.json.
-
-CONTACT-OFF CROSS-CHECK, same design, same current pipeline (job 4794837's own paired-OFF row,
-raw results.pkl still on scratch): sigma_peak=0.31801 kPa, mcs=0.18524, strain_crossing_mcs=0.19797
-(19.8%). Essentially identical to contact-on (sigma_peak differs 0.8%, crossing differs 0.5 points
-of compression) -- confirms the hypothesis this restudy was testing for design C specifically: the
-strain-floor failure is intrinsic to the arc's own curvature, not something an unmodeled contact
-surface was hiding. One caveat found in passing, NOT chased further (out of this delegation's
-scope): the contact-OFF replay's UNWINDOWED full-history mls_full reads 10.38 (nonsensical, vs the
-archive's graceful 0.0275 stall) -- ground_contact=False on the CURRENT (contact-migrated)
-pre-processor is evidently not a faithful reproduction of the true pre-contact numerics for THIS
-family past the reported window (oracle_tape_spring.py's own docstring already flags this
-equivalence as "verified to the digit on tensegrity", never claimed for tape_spring). Does not
-affect any number cited above -- every one is read from inside the window, before wherever that
-divergence happens -- but is a real, distinct finding for whoever next touches this family's
-ground_contact=False path.
-
-ON THE OLD ARCHIVED FRAMING, RECONCILED: the archived sigma_crit (0.6167 kPa) and max_local_strain
-(0.027516) are not directly comparable to sigma_peak/windowed-mls above -- sigma_crit is the
-Stage-1 linear-buckling eigenvalue (unaffected by contact or by the 2026-08-06 windowing change by
-construction), and the archive's own results.pkl (data/idea_odbs/20260730T020245_H2_tape_spring/
-results.pkl, pre-dates the 2026-08-06 per-frame strain history) recorded max_local_strain=0.027516
-as the peak strain reached by the SOLVE'S OWN STALL POINT (mcs=0.7877, per its
-max_local_strain_mcs_at_truncation field) rather than at the first 2%-strain crossing -- so "fails
-only criterion 3, by 1.38x" and "crosses 2% strain at 19-20% compression" describe the SAME curve
-under two different reporting conventions, not two different physical results. This is exactly
-what this slide's own "ON THE OLD CLOSEST MISS FRAMING" paragraph above already said in the
-abstract; this entry supplies the concrete re-solved numbers behind it.
-
-CHART: assets/public/gifs/D25-2_tape_spring_designC_contact_mini.png (750x270, same convention as
-D17-3_kresling_sigma_history_mini.png/D21-2_tensegrity_strain_history_mini.png -- grey-to-red
-LinearSegmentedColormap over #9a9a9a/#d94f3a/#8c1a12 via a LineCollection encoding each point's own
-sigma magnitude, solid=contact-on/dashed=contact-off encoding the state comparison, both curves
-truncated at their own windowed_metrics() window_n). Built from job 4794837's own raw
-results.pkl (both still on scratch, paths above) via response_metrics.windowed_metrics, called
-directly, not reimplemented -- values printed by the script match both this delegation's own fresh
-JSON and the archived campaign JSON exactly. Script: ad hoc, uncommitted, same convention as this
-deck's other mini-plot scripts (not persisted in bo/ -- it is a plotting utility, not part of the
-oracle/campaign infrastructure those files are reserved for).
+**Infra:** `bo/oracle_tape_spring.py` and
+`scripts/supercompressible_{lin_buckle,riks}_tape_spring.py`, under the contact-enabled oracle.
+The full original record, including the per-design breakdowns and the chart provenance, is in
+`validation/tape_spring_contact_migration/README.md`.
 -->
 
 ---
@@ -6430,13 +6264,21 @@ layout: two-cols-header
 </div>
 
 <!--
+**Result:** DISQUALIFIED. One design, solved with contact on and off as a pair, and contact does
+real work: energy absorbed rises 86% (18.202 &rarr; 33.780 kPa), genuine straining appears where
+before there was none (~0 &rarr; 3.4%), and ring passthrough flips from True to False. The peak
+load is bit-identical because the peak lands before contact engages. None of it changes the
+verdict: the structure still reaches compression by rotating rigid struts, which is a linkage
+under the apples-to-apples rule, and it still needs prestressed cables and pin joints that
+contact does not touch.
+
 **Input space:** same design vector as D21's own base slide (contact migration adds no new
 free parameter).
 
 **Seed:** BARREN — the mechanism needs prestressed cables and pin joints, which cannot be
 monolithically printed. Contact does not touch that.
 
-Migrated by a subagent, commit 2979e35, jobs 4777817 / 4778543 / 4778788.
+**History:** Migrated by a subagent, commit 2979e35, jobs 4777817 / 4778543 / 4778788.
 
 THE STRAIN NUMBER IS THE WHOLE STORY. 9e-14 is not a small strain, it is NO strain: the structure
 reaches compression by rotating rigid struts about joints, which is the apples-to-apples clause's
@@ -6545,6 +6387,14 @@ layout: two-cols-header
 </div>
 
 <!--
+**Result:** EVIDENTIAL. One design per family across three families &mdash; infrastructure
+verification, not a test. D17 stalls at 75&ndash;77%, but the anchor chosen is the design most
+likely to exploit floor-passthrough, so failing there is near-tautological (and is superseded by
+D17-3's own 380-eval campaign, which found a mesh singularity rather than passthrough). D20
+builds and does not converge. D26 exceeds the 600 s budget on ~11k nodes against ~1k, so it is
+blocked on cost rather than correctness. One design per family verifies a code path, not a
+family: "migrated" is not "tested".
+
 **No stress-history chart on this slide (rule 2c-VIS exception):** all three checks here are
 single-design infrastructure verifications, not decided campaigns — D26 never reaches Stage 2
 at all, D20 never converges, and D17's own real compression history is already charted on
