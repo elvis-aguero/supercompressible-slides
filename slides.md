@@ -9396,23 +9396,27 @@ The run that broke the SCLF "486 kPa" headline (real physics, invalid strain) an
 </div>
 
 <!--
-Per-hypothesis detail beyond the idea slides:
+**Why it stopped:** GATED, with one verdict retracted before close.
 
-- H2: D009 5-fold CV on 95 combined ledger rows (D003+D006+D008) — sigma_crit
-  (log1p) GP CV R²=0.891 (pooled 0.904), max_local_strain GP CV R²=0.654 (pooled
-  0.661, the actually-binding constraint), coilable classifier CV accuracy=0.905 vs
-  0.737 majority baseline — all three clearly above chance, satisfying both prongs
-  of the study's Charter §2 adequacy bar (coverage AND above-chance surrogate).
-- H3: 41 evals, stopped on the eval cap not convergence — inadequate power for the
-  broad existence-negation claim (retracted from an initial FALSIFIED). The
-  mechanistic A/B pair (identical ratio_d/pitch/top_diameter, only n_storeys differs)
-  is a clean, confound-free comparison on its own terms: max_local_strain
-  0.01994→0.02263 (+13.5%) at n_storeys=2, opposite of the registered prediction.
-- H6: two decorrelated 1D sweeps (D010) — Exp 1 (tangential fixed, radial varied):
-  strain rises 4× (0.0203→0.0804) tracking sigma_crit. Exp 2 (radial fixed, tangential
-  varied): strain flat (0.041-0.047), sigma_crit swings 22× (0.138→3.05) — exactly
-  backwards from the registered mechanism (radial was predicted to drive stiffness,
-  tangential to be flat).
+**What it bought:** the first run in the deck whose surrogates PASS the adequacy bar on both
+prongs, which is what licenses its conclusions. A 5-fold cross-validation on 95 combined ledger
+rows gives load CV R&sup2;=0.891 (0.904 pooled), local-strain CV R&sup2;=0.654 (0.661 pooled) on
+the actually-binding constraint, and a coilability classifier at 0.905 accuracy against a 0.737
+majority baseline &mdash; all three clearly above chance, satisfying both coverage and
+above-chance-surrogate requirements.
+
+**Corrections:** H3 was retracted from an initial FALSIFIED, correctly: 41 evals stopped on the
+eval cap rather than on convergence, which is inadequate power for a broad existence-negation. Its
+mechanistic A/B pair is clean on its own terms though &mdash; identical geometry with only storey
+count differing &mdash; and it goes the wrong way for the hypothesis: local strain rises from
+0.01994 to 0.02263, +13.5%, at two storeys.
+
+**Cost shape:** 95 ledger rows across three delegations feeding the cross-validation, plus H3's 41
+and H6's two decorrelated 1-D sweeps.
+
+**Unresolved:** nothing new opened. This run's contribution is partly methodological: it is the
+point at which "did the surrogate actually predict the binding constraint" becomes a question the
+deck asks of every campaign.
 -->
 
 ---
@@ -9459,13 +9463,20 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** TOOLING. Zero designs were ever built, so there is no population to compute over and
+nothing physical was measured. The hypothesis as registered is untestable rather than falsified:
+`model.EllipticalProfile` does not exist in the installed Abaqus 2024 kernel, and the
+`GeneralizedProfile` route combined with `DURING_ANALYSIS` is rejected outright at `.inp`-write
+time. A hard software-capability gap. Substituting a rectangular profile was registered SEPARATELY
+as its own hypothesis rather than silently reinterpreting this one.
+
 **Seed:** BARREN — reviving this literally requires an Abaqus kernel with a native
 `EllipticalProfile`/`DURING_ANALYSIS`-compatible section, an infra change outside this study's
 control; the mechanistic question it was asking (anisotropic torsional stiffening) was already
 substituted and tested as this run's H6 and came back FALSIFIED, so the physics question this
 idea wanted answered is closed even though the literal geometry was never built.
 
-**Timeline:** D005: introspection — confirmed `model.EllipticalProfile` absent from
+**Timeline:** Run 20260705T181941 &mdash; D005: introspection — confirmed `model.EllipticalProfile` absent from
 the installed Abaqus 2024 kernel, and `GeneralizedProfile(...,
 integration=DURING_ANALYSIS)` rejected at input-file-write time (this run's H4).
 Originally the strategizer briefly closed this FALSIFIED before the validator/Charter
@@ -9538,6 +9549,13 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** PHYSICAL, on an adequate search with above-chance surrogates (load CV
+R&sup2;=0.999, strain CV R&sup2;=0.545). 50 designs, all coilable and converged, 9 feasible and 23
+clearing 2&times; Bessa on load. Square does genuinely edge circular on load at matched strain
+&mdash; 0.16&ndash;0.19 against roughly 0.13&ndash;0.22 &mdash; so the comparison the hypothesis
+rested on is real. It simply is not enough: the registered floor-clearing prediction failed, with
+the best feasible design 18.4% short, and local strain is what blocks feasibility.
+
 **Input space:** side&isin;[.005,.025] — square side length. ratio_pitch&isin;[.25,1],
 ratio_top_diameter&isin;[0,.6] — usual per-storey pitch/taper meaning. Fixed:
 ratio_shear_modulus=.3677, circular=2 (cross-section-family switch), n_longerons=3,
@@ -9554,7 +9572,7 @@ reproduce the cited values almost exactly: mcs_full=1.094, mls=.019773&asymp;.02
 small (~3%) discrepancy left unresolved since it doesn't change the FALSIFIED verdict
 either way.
 
-**Timeline:** D011: search (this run's H5). D012: surrogate CV adequacy check. This
+**Timeline:** Run 20260705T181941 &mdash; D011: search (this run's H5). D012: surrogate CV adequacy check. This
 run's H2 (SCLF family ceiling, meta/analytical) established the underlying physical
 trade-off this idea (and every subsequent cross-section variant) runs into: buckling
 stiffness scales with cross-section radius^4 while coiling-induced local bending
@@ -9614,6 +9632,12 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** CONFIRMED. 165 designs across THREE independent BO campaigns over the same 4-D box,
+149 coilable, 148 converged, 6 feasible, best 2.79&times; Bessa &mdash; and 3 of the 6 also clear
+this run's own higher target. Real, repeatable, and not a fluke, which is why this design becomes
+`run17_rectangle`, the canonical anchor the rest of this deck is normalised against. It was later
+refined to 0.7704 kPa in subsequent runs; that refinement is not this campaign's own result.
+
 **Input space:** a&isin;[.004,.014] — radial (short) semi-axis. b&isin;[.01,.045] — tangential
 (long) semi-axis. ratio_pitch&isin;[.25,1], ratio_top_diameter&isin;[0,.6] — usual per-storey
 pitch/taper meaning. Fixed: ratio_shear_modulus=.3677, circular=2 (cross-section-family
@@ -9695,20 +9719,25 @@ The run that discovered circular cross-sections can pass Stage 2 where generaliz
 </div>
 
 <!--
-Per-hypothesis detail:
+**Why it stopped:** GATED.
 
-- H1: registered floor was 90% Riks strain on the exact Bessa-optimum design; result
-  9.23%, RF3 history -1165N→-170N (snap-back, not coiling collapse). Adequate test
-  (exact registered design, standard Riks scripts), prediction decisively contradicted.
-- H3: D006 tested d=0.09 at pitches 0.40 (45.75% strain), 0.35 (50.91%), 0.30
-  (not coilable, ztop_ur IndexError). Power-law extrapolation from H2's data had
-  overestimated where 90% strain would occur.
-- H4: D008 Test A used finer Riks arc-length steps (initialArcInc=0.01,
-  maxArcInc=0.2, maxNumInc=600) than D007's earlier coarse attempt, which had failed
-  to converge near the geometric limit (h_min=9.244mm) and was misread as a design
-  failure rather than a numerical-settings issue.
-- H5: D008 Test B1, top_diam=0.50 at the same pitch/d as H4; h_min=15.175mm (vs
-  9.244mm at top_diam=0.5978) — mechanism is opposite of registered prediction.
+**What it bought:** a decisively contradicted prediction and, more usefully, a numerical-settings
+lesson. H1's registered floor was 90% compression on the exact Bessa-optimum design; the result was
+9.23%, with the reaction history showing snap-back rather than a coiling collapse &mdash; an
+adequate test on the exact registered design through the standard scripts, decisively
+contradicted.
+
+**Corrections:** H4 is the instructive one. An earlier coarse attempt had failed to converge near
+the geometric limit and was misread as a DESIGN failure; re-running it with finer Riks arc-length
+steps showed it was a numerical-settings issue instead. That distinction &mdash; solver settings
+versus design limit &mdash; is the one this deck later formalises as a cause label.
+
+**Cost shape:** small, mostly point tests and short sweeps rather than campaigns.
+
+**Unresolved:** H3's power-law extrapolation from earlier data OVERESTIMATED where 90% strain
+would occur, and the corrected sweep found the real behaviour at three pitches instead. An
+extrapolation that far outside its fitted range is not evidence, which is worth remembering
+wherever this deck quotes one.
 -->
 
 ---
@@ -9751,20 +9780,22 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** PHYSICAL (RETRACTED). 42 designs, 28 coilable, 5 converged, and at the time this read
+as an existence result: circular passes Stage 1 and this campaign's own compression bar where the
+generalized family does not. The mechanism insight stands. The headline does not: local strain was
+NEVER MEASURED in this campaign, and the next run's H1 found peak local strain of 24.7% &mdash;
+roughly 12&times; the 2% PLA limit &mdash; which invalidates all 5 points. A criterion that is not
+measured is not passed.
+
 **Input space:** ratio_d&isin;[.08,.16] (constrained solid circle; else free) — cross-section
 diameter. ratio_pitch&isin;[.25,1.5], ratio_top_diameter&isin;[0,.8] — usual per-storey
 pitch/taper meaning. Fixed: circular=1 (cross-section-family switch), n_longerons=3,
 twist_angle=0, ratio_shear_modulus=.43681, and the generalized-optimum moments this campaign
 was testing against (area=.00215, Ixx=1.35e-6, Iyy=1.24e-6, J=6.65e-6).
 
-**Seed:** BARREN — the invalidating local-strain measurement (24.7%) is 12× over the 2% PLA
-limit, the same order-of-magnitude gap this deck treats as unclosable elsewhere; the design's
-real legacy is the three-criteria contract it forced into existence, not a refinement candidate.
-This design sits entirely inside Bessa's own explored circular family (just thicker), so it was
-never a shape novelty claim to begin with, and its own huge, real-looking σ numbers (431-506
-kPa, all "cleared" against the campaign's own bar) hid a 24.7% strain violation the moment
-someone actually measured it — the mechanism insight that forced the three-criteria contract is
-the design's entire contribution, not the shape or the raw number.
+**Seed:** BARREN — the invalidating local-strain measurement, 24.7%, is 12&times; over the 2%
+limit, the same order-of-magnitude gap this deck treats as unclosable elsewhere. The design's real
+legacy is the three-criteria contract it forced into existence, not a refinement candidate.
 
 **Timeline:** Stats-migration note (2026-08-04): N=42 combines D003's 36-pt Stage-1
 LHS sweep (23 coilable) with 6 targeted refinement points across D004(2)/D005(2)/
@@ -9793,6 +9824,12 @@ presentation/resim/thick_sclf/riks_6944016ddcca48608b995e9d6a4cbdfd). GIF: nativ
 Abaqus/CAE Viewer export, thick circular tube visibly coiling into a tight
 double-helix, strain colored (E11), dashed schematic rings, portrait canvas —
 standard pipeline, no gotchas specific to this ODB.
+
+ON NOVELTY AND ON THE NUMBERS: this design sits entirely inside Bessa's own explored circular
+family, just thicker, so it was never a shape-novelty claim to begin with. And its huge,
+real-looking load figures (431&ndash;506 kPa, all "cleared" against the campaign's own bar) hid a
+24.7% strain violation the moment someone actually measured it. The mechanism insight that forced
+the three-criteria contract is this design's entire contribution.
 -->
 
 ---
@@ -9819,19 +9856,26 @@ Three genuinely new mechanisms this run (multi-storey, n=5 longerons, extended-J
 </div>
 
 <!--
-Per-hypothesis detail beyond what's in the idea slides:
+**Why it stopped:** GATED, with a licence-server outage costing 26 of 80 planned evaluations.
 
-- H1: 46/80 registered evals (license-server outage killed 26 planned runs);
-  6/46 coilable, all ≤65.31 kPa; posterior path 0.8→0.35→0.25→(briefly FALSIFIED,
-  validator-corrected)→0.03 INCONCLUSIVE.
-- H4: direct point-test of B1 anchor (ratio_J=7.77e-6, ratio_Ixx=1.4e-6,
-  ratio_shear_modulus=0.44); result 71.5943 kPa vs 75.1 kPa registered floor;
-  power-law fit (σ∝J^0.56, sub-linear, not the naively-assumed linear GJ scaling)
-  motivated the extended-J-beyond-domain-max search in H5.
-- H6/H7: D4 Riks converged 18 increments then diverged (RF3: -1501N→-615N, load
-  shedding, but "SOLUTION APPEARS TO BE DIVERGING"), max |U3| strain 15.99/50mm=32%.
-  C4 Riks converged 22 increments, terminated at 5.90/65.32mm=9.0% strain — worse
-  than D4 despite lower torsional stiffness, because of its longer mast height.
+**What it bought:** the sub-linear scaling law that redirected the search. A direct point test of
+the B1 anchor returned 71.5943 kPa against a 75.1 kPa registered floor, and the power-law fit is
+the finding: load goes as torsional constant to the 0.56 power &mdash; SUB-linear, not the naively
+assumed linear scaling &mdash; which is what motivated extending the search beyond the dataset's
+own maximum rather than deeper inside it.
+
+**Corrections:** H1's posterior path is on record as 0.8 &rarr; 0.35 &rarr; 0.25 &rarr; briefly
+FALSIFIED &rarr; 0.03 INCONCLUSIVE, the FALSIFIED step corrected by the validator. Only 46 of 80
+registered evals ran, 6 of 46 coilable, none above 65.31 kPa.
+
+**Cost shape:** 46 of 80 planned evals; the outage is the reason the absence claim could not be
+closed.
+
+**Unresolved:** both Stage-2 attempts in the extended-J thread ended badly and differently &mdash;
+one converged 18 increments then diverged with load shedding and an explicit diverging message,
+the other terminated at 22 increments with a WORSE compression figure despite lower torsional
+stiffness, because its mast was longer. Neither produced a trustworthy number, which is what D2's
+own slide records.
 -->
 
 ---
@@ -9875,6 +9919,13 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** EVIDENTIAL. 32 designs, 9 coilable, and Stage 2 never ran at all in this campaign, so
+neither compression nor strain was tracked. What can be said is Stage-1 only: the two-storey
+topology recovers almost all of the single-storey optimum's buckling load (best coilable at 99.5%
+of it) without losing coilability &mdash; which is a real result about the topology and no result
+at all about feasibility. A later 40-eval follow-up on a lower-dimensional reparametrisation also
+found 0 feasible.
+
 **Input space:** twist_angle&isin;[.05,.35] rad. ratio_pitch&isin;[.25,1.5], ratio_top_diameter
 &isin;[0,.8] — usual per-storey pitch/taper meaning. ratio_shear_modulus&isin;[.334,.45].
 ratio_area&isin;[1.17e-5,4.1e-3], ratio_Ixx&isin;[1e-7,1.4e-6], ratio_Iyy&isin;[1e-7,1.4e-6],
@@ -9983,6 +10034,13 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** PHYSICAL, and the finding is an algebraic one rather than a search outcome. 31
+designs, 20 coilable, Stage 2 never run. The registered claim holds &mdash; n=4, 5 and 6 all
+reach the predicted threshold &mdash; but none reaches the study's actual floor, and per-longeron
+load turns out to be empirically INDEPENDENT of longeron count at fixed cross-section: the
+critical load scales as count times torsional constant, and dividing by count cancels it exactly.
+So this axis is orthogonal to performance rather than a new regime.
+
 **Input space:** twist_angle&isin;[0,&pi;]. ratio_area&isin;[1.17e-5,4.1e-3], ratio_Ixx&isin;
 [1e-7,1.4e-6], ratio_Iyy&isin;[1.13e-11,1.4e-6], ratio_J&isin;[1e-6,7.77e-6] — generalized
 cross-section moments (Bessa's own 7D parametrization). ratio_pitch&isin;[.25,1.5],
@@ -10001,22 +10059,21 @@ carried forward: this run's finding that σ per longeron is independent of n_lon
 at matched cross-section directly motivated the extended-J search (H4/H5 next) as the
 actual lever for beating the Bessa optimum.
 
-**Infra:** ODB: data/idea_odbs/20260629T191754_H3_n5_longerons/ (source:
-presentation/resim/n5_longerons/riks_60c367f12e3a4903839e9afe3127aa00). RENDERING
-BLOCKER, reported per this batch's instructions rather than skipped: this archived
-ODB's Riks step only recorded RF/RM/U/UR field output — no `E` (strain) field was
-ever requested when the resim was originally run. render_odb.py's strain-coloring
-step (`setPrimaryVariable(variableLabel='E', ...)`) therefore fails with "Primary
-Variable not available: 'E' at integration points" on this specific ODB. This is a
-genuine data-provenance gap in the earlier resim pipeline for this one family
-(confirmed identical in the un-archived source copy too, so it is not an archiving
-mistake), not a bug in render_odb.py itself, and not something fixable without a
-fresh Abaqus solve (out of scope for this rendering-only batch). The gif shown is
-therefore rendered WITHOUT strain coloring (uniform shaded beam profiles, no legend)
-— an explicit, honest degradation per the format contract's gotcha 5 ("if colour
-carries no data meaning, turn it off entirely"), not a fabricated E11 contour. The
-same limitation affects one other idea in this batch (the extended-J hollow-tube
-longeron, next).
+**Infra:** ODB `data/idea_odbs/20260629T191754_H3_n5_longerons/` (source
+`presentation/resim/n5_longerons/riks_60c367f12e3a4903839e9afe3127aa00`). The gif is rendered
+WITHOUT strain colouring &mdash; uniform shaded beam profiles, no legend &mdash; because this
+archived ODB's Riks step never requested a strain field at all. See History for why that is an
+honest degradation rather than a renderer bug.
+
+
+RENDERING BLOCKER, reported rather than skipped: this ODB's Riks step recorded only RF, RM, U and
+UR field output, with no `E` field ever requested when the resim was originally run, so
+`render_odb.py`'s strain-colouring step fails with "Primary Variable not available: 'E' at
+integration points" on this specific ODB. A genuine data-provenance gap in the earlier resim
+pipeline for this one family &mdash; confirmed identical in the un-archived source copy, so not an
+archiving mistake &mdash; not a bug in the renderer, and not fixable without a fresh solve.
+Rendering without colour is what the format contract's own gotcha 5 prescribes when colour would
+carry no data meaning, in preference to a fabricated contour. The same limitation affects D2.
 -->
 
 ---
@@ -10059,6 +10116,13 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** NUMERICAL. 18 designs, 16 coilable, and no design in this family has ever produced a
+trustworthy Stage-2 number. One candidate errored out on too many attempts; the other ran to a
+genuine solver stall at 9% compression and produced no stress reading of its own. The Stage-1
+existence claim is supported by an eigenvalue reading, and that is the trap this slide records:
+the once-cited 76.1 kPa is a linear-buckling eigenvalue, not a Stage-2 measurement, and the
+"1 of 1 cleared" figure was that eigenvalue read as a decided result.
+
 **Input space:** twist_angle&isin;[0,&pi;]. ratio_area&isin;[1.17e-5,4.1e-3], ratio_Ixx&isin;
 [1e-7,1.4e-6], ratio_Iyy&isin;[1.13e-11,1.4e-6], ratio_J&isin;[1e-6,1.5e-5] — generalized
 cross-section moments, ratio_J pushed beyond the Bessa 7D dataset's own max (7.77e-6).
@@ -10066,34 +10130,11 @@ ratio_pitch&isin;[.25,1.5], ratio_top_diameter&isin;[0,.8] — usual per-storey 
 meaning (D006's Stage-1 screen; the Stage-2 anchors D4/C4 named in Timeline below fix these at
 specific points instead). Fixed: n_longerons=3, n_storeys=1.
 
-**Seed:** FERTILE on convergence only, not on contribution. D4, the closer near-miss (32%
-strain), never actually converged ("too many attempts" mid-solve); this deck has elsewhere
-(D5/H4) traced an identical Riks non-convergence to coarse arc-length settings rather than a
-real physics wall, so a finer-step re-solve of D4 alone would settle whether the GJ-vs-coiling
-tradeoff genuinely blocks it or was never properly tested. But resolving that question would
-not make this idea novel: Bessa's own generalized cross-section space (the 7D dataset's
-ratio_area/Ixx/Iyy/J columns) already spans this shape-agnostic stiffness axis abstractly —
-picking a hollow/cellular shape is just one way to reach a point in that space a solid material
-can't. The one thing Bessa's own generalized work never checked is local strain against the 2%
-cap, so a real strain-verified point here would carry weak novelty at best. De-prioritize
-relative to ideas that change the centerline, topology, or load path, not just the
-cross-section shape.
-
-**C4 forensics (raw scratch data for this design is gone, purged from
-`/oscar/scratch/eaguerov/supercompressible_oracle/` since it was solved 2026-06-29; recovered
-from delegation D008's own transcript in `runs/20260629T191754/debug/delegation_log.jsonl`,
-still on disk): C4's exact inputs are ratio_area=.00215261, ratio_Ixx=ratio_Iyy=1.4e-6,
-ratio_J=9.0e-6, ratio_pitch=.653233, ratio_top_diameter=.445325, ratio_shear_modulus=.449.**
-The Stage-1 linear-buckling load was loads[0]=1794.0 N -- convert to nominal stress
-(1794*1000/(&pi;*100&sup2;/4*3)) = 76.14 kPa, matching the slide's own cited "76.1 kPa" exactly.
-This is an EIGENVALUE, computed before any Stage-2 solve ran. The actual Stage-2 Riks solve
-ran 22 increments and stalled with max|U3|=5.896mm out of a 65.32mm mast height (0.0903
-compression, matching the slide's own "mcs=.090") -- the final two increments returned an
-identical displacement, the signature of a genuine solver bifurcation/stall, not a sustained
-reading -- and never produced a Stage-2 stress number of its own. mls was also never measured.
-So "cleared 2xBessa" was never really tested here at all: the only number that clears it is a
-Stage-1 quantity, and the one real Stage-2 attempt hit a wall before producing anything to
-compare.
+**Seed:** FERTILE on convergence only, NOT on contribution — re-solve the closer near-miss (32%
+strain) at a finer arc-length step. It never actually converged, and this deck has elsewhere traced an identical Riks non-convergence to
+coarse arc-length settings rather than a physics wall &mdash; so a finer-step re-solve of that one
+design would settle whether the stiffness-versus-coiling tradeoff genuinely blocks it or was never
+properly tested.
 
 **Timeline:** This is H5 of run `20260629T191754`, delegation D006 (Stage-1
 existence), with Stage-2 Riks tests as H4 (max-J single-longeron anchor, FALSIFIED,
@@ -10126,6 +10167,30 @@ hollow, J = I&#8321; + I&#8322; = 2I exactly by radial symmetry, so GJ/(E&middot
 .7354 regardless of wall thickness &mdash; hollowing a circular tube cannot move the torsion-to-
 bending ratio at all (derived in `bo/D41_oracle_chiral_twist.py`'s HONEST GJ/EI RANGE note).
 Pushing ratio_J past Bessa's max does not buy what this slide assumed it would.
+
+**History:** **C4 forensics (raw scratch data for this design is gone, purged from
+`/oscar/scratch/eaguerov/supercompressible_oracle/` since it was solved 2026-06-29; recovered
+from delegation D008's own transcript in `runs/20260629T191754/debug/delegation_log.jsonl`,
+still on disk): C4's exact inputs are ratio_area=.00215261, ratio_Ixx=ratio_Iyy=1.4e-6,
+ratio_J=9.0e-6, ratio_pitch=.653233, ratio_top_diameter=.445325, ratio_shear_modulus=.449.**
+The Stage-1 linear-buckling load was loads[0]=1794.0 N -- convert to nominal stress
+(1794*1000/(&pi;*100&sup2;/4*3)) = 76.14 kPa, matching the slide's own cited "76.1 kPa" exactly.
+This is an EIGENVALUE, computed before any Stage-2 solve ran. The actual Stage-2 Riks solve
+ran 22 increments and stalled with max|U3|=5.896mm out of a 65.32mm mast height (0.0903
+compression, matching the slide's own "mcs=.090") -- the final two increments returned an
+identical displacement, the signature of a genuine solver bifurcation/stall, not a sustained
+reading -- and never produced a Stage-2 stress number of its own. mls was also never measured.
+So "cleared 2xBessa" was never really tested here at all: the only number that clears it is a
+Stage-1 quantity, and the one real Stage-2 attempt hit a wall before producing anything to
+compare.
+
+WHY RESOLVING THAT WOULD NOT MAKE THIS NOVEL: Bessa's own generalized cross-section space (the 7-D
+dataset's area, Ixx, Iyy and J columns) already spans this shape-agnostic stiffness axis
+abstractly &mdash; picking a hollow or cellular shape is just one way to reach a point in that
+space a solid material cannot. The one thing that generalized work never checked is local strain
+against the 2% cap, so a real strain-verified point here would carry weak novelty at best.
+De-prioritise relative to ideas that change the centreline, the topology or the load path rather
+than the cross-section shape.
 -->
 
 ---
@@ -10147,19 +10212,22 @@ This run proposed two new mechanisms (pre-twist, longeron count) but completed z
 </div>
 
 <!--
-Per-hypothesis detail:
+**Why it stopped:** the study's first run. It closed with both of its hypotheses registered and
+ZERO evaluations against either, so nothing was tested here.
 
-- H1 (pre-twisted longerons): statement "twist_angle ∈ [π/6, π] with optimized 7D
-  cross-section achieves ≥75.1 kPa/longeron"; prior 0.6; proposed 2026-06-29T15:03:13Z;
-  zero evaluations this run (status stayed OPEN at run close). See idea slide below for
-  full resolution (run `20260629T191754`, delegation D003, INCONCLUSIVE).
-- H2 (n_longerons ∈ {4,5}): statement "n_longerons=4 or 5 with optimized 7D
-  cross-section achieves ≥75.1 kPa/longeron"; prior 0.45; also zero evaluations this
-  run. Resolved next run as H3 (SUPPORTED: n=4/5/6 all achieve 65.31-71.59 kPa,
-  exceeding the registered 65.3 kPa prediction threshold, though not the study's
-  75.1 kPa floor).
-- Both hypotheses are excluded from any "oracle-wiring-check" treatment — they are
-  genuine, substantive design proposals, just not yet tested when this run closed.
+**What it bought:** two genuine design proposals on the record, with priors set and timestamps
+attached, and nothing measured. Both were resolved later &mdash; pre-twisted longerons in the very
+next run (INCONCLUSIVE, D1's own slide), and the longeron-count question as that run's H3
+(SUPPORTED: counts of 4, 5 and 6 all reach 65.31&ndash;71.59 kPa, exceeding the registered
+prediction threshold though not the study's floor).
+
+**Corrections:** none possible; no evidence existed yet.
+
+**Cost shape:** zero evaluations.
+
+**Unresolved:** worth stating explicitly because it affects how this slide should be read: BOTH
+hypotheses are excluded from any oracle-wiring-check treatment. They are substantive design
+proposals that simply had not been tested when the run closed, not instrument checks.
 -->
 
 ---
@@ -10202,36 +10270,11 @@ class: idea-slide
 </div>
 
 <!--
-**Chart provenance:** the gif/chart above are a genuine Stage-2 (Riks) contact solve of
-D003's own coilable design (twist=76&deg;), the family's first-ever Riks attempt (the
-original 46-eval campaign never ran Stage 2 at all) — added 2026-09-05, illustrative
-only, not a resimulated campaign result. Real motion only in the first ~19 of 786
-frames; the rest is a genuine solver stall (`.sta` shows the load-proportionality
-factor frozen at 0.218 for 500+ consecutive increments, arc-length step cut to
-~6.7e-08 — Abaqus retrying without progress, not slowly converging), not a rendering
-artifact. Killed manually and salvaged via `scripts/salvage_riks_odb.py` (the same
-`supercompressible_riks_pp` post-processor a normal solve uses). Stalls at 21.8%
-compression, far short of the 80% needed to decide feasibility — does not change this
-slide's own established verdict that twist kills coilability; sharpens it.
-
-**Process note, recorded because it is instructive:** twist=76&deg; was reused from
-this slide's own PRE-EXISTING Stage-1-only illustration without first checking whether
-it was the strongest available candidate for a Stage-2 test — it wasn't. The original
-campaign's own data (`results_d003_final.csv`) shows a stronger nonzero-twist design at
-twist=2.2&deg;, &sigma;_crit=21.93 (roughly 3&times; this one's 7.16), chosen originally
-for visible twist in a picture, not physical merit. This is the same anti-pattern this
-deck's own "Re-study under contact" summary slide already warns about for five other
-families: "Do not read 'we migrated it' as 'we tested it' ... the one design available
-is usually the winner of a search run without contact, the worst point to generalise
-from." Flagged directly by the advisor, not self-caught. A Stage-2 test of the stronger
-2.2&deg; design is in progress as a direct follow-up.
-
-**Original Stage-1-only illustration (superseded above, kept for provenance):** re-run
-fresh against the same generalized-cross-section+twist Stage-1 script, since the
-original 2026-06-29 delegation's ODBs no longer exist on scratch (ephemeral sandbox
-cleanup, not a fabrication) — undeformed mesh, then its actual lowest mode. That
-render (`D1_pretwisted_negative_native.gif`, still in `assets/public/gifs/` if needed)
-showed only a static Stage-1 eigenmode, not real coiling motion.
+**Result:** PHYSICAL. 46 designs of a planned 80 &mdash; a licence-server outage killed the rest
+&mdash; with only 6 coilable and Stage 2 never reached. Pre-twist DESTROYS coilability rather than
+helping it, which is the opposite of the mechanism proposed. Formally inconclusive because the
+campaign fell short of its own registered eval bar, but the 46 completed evaluations point one way
+with no ambiguity, and compression and strain were not tracked at all in this era.
 
 **Input space:** twist_angle&isin;[0,&pi;]. ratio_area&isin;[1.17e-5,4.1e-3], ratio_Ixx&isin;
 [1e-7,1.4e-6], ratio_Iyy&isin;[1e-7,1.4e-6], ratio_J&isin;[1e-6,7.77e-6] — generalized
@@ -10280,6 +10323,37 @@ still executing; it has since closed with its own ODB archived — see its own s
 elsewhere in this deck. A Stage-2 ODB for THIS family now exists (2026-09-05, see the
 gif/chart above and the chart-provenance note), made purely for illustration, not as a
 resimulated campaign result.
+
+**History:** **Chart provenance:** the gif/chart above are a genuine Stage-2 (Riks) contact solve of
+D003's own coilable design (twist=76&deg;), the family's first-ever Riks attempt (the
+original 46-eval campaign never ran Stage 2 at all) — added 2026-09-05, illustrative
+only, not a resimulated campaign result. Real motion only in the first ~19 of 786
+frames; the rest is a genuine solver stall (`.sta` shows the load-proportionality
+factor frozen at 0.218 for 500+ consecutive increments, arc-length step cut to
+~6.7e-08 — Abaqus retrying without progress, not slowly converging), not a rendering
+artifact. Killed manually and salvaged via `scripts/salvage_riks_odb.py` (the same
+`supercompressible_riks_pp` post-processor a normal solve uses). Stalls at 21.8%
+compression, far short of the 80% needed to decide feasibility — does not change this
+slide's own established verdict that twist kills coilability; sharpens it.
+
+**Process note, recorded because it is instructive:** twist=76&deg; was reused from
+this slide's own PRE-EXISTING Stage-1-only illustration without first checking whether
+it was the strongest available candidate for a Stage-2 test — it wasn't. The original
+campaign's own data (`results_d003_final.csv`) shows a stronger nonzero-twist design at
+twist=2.2&deg;, &sigma;_crit=21.93 (roughly 3&times; this one's 7.16), chosen originally
+for visible twist in a picture, not physical merit. This is the same anti-pattern this
+deck's own "Re-study under contact" summary slide already warns about for five other
+families: "Do not read 'we migrated it' as 'we tested it' ... the one design available
+is usually the winner of a search run without contact, the worst point to generalise
+from." Flagged directly by the advisor, not self-caught. A Stage-2 test of the stronger
+2.2&deg; design is in progress as a direct follow-up.
+
+**Original Stage-1-only illustration (superseded above, kept for provenance):** re-run
+fresh against the same generalized-cross-section+twist Stage-1 script, since the
+original 2026-06-29 delegation's ODBs no longer exist on scratch (ephemeral sandbox
+cleanup, not a fabrication) — undeformed mesh, then its actual lowest mode. That
+render (`D1_pretwisted_negative_native.gif`, still in `assets/public/gifs/` if needed)
+showed only a static Stage-1 eigenmode, not real coiling motion.
 -->
 
 ---
