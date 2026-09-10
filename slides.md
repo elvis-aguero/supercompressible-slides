@@ -318,12 +318,47 @@ fundamental they are, not by the date they were written.
         caught, and is now also enforced by `lint_slides.py`, see below).
 
         A compression video is REQUIRED, not optional, for the first
-        slide reporting a genuinely new idea or ANY D<n>-<k> revisit,
-        whenever the design underwent real, visible deformation. The
-        ONLY valid exception is a design whose own real deformation is
-        visually indistinguishable from undeformed (e.g. failure at ~3%
-        compression) — and that exception must be STATED, not silently
-        defaulted to, in the same visual slot the video would occupy.
+        slide reporting a genuinely new idea or ANY D<n>-<k> revisit.
+        THE VISUAL SLOT IS NEVER EMPTY — there is no case in which a
+        slide reporting a real solve shows nothing.
+
+        THE ONE GENUINE EMPTY-SLOT CASE is a slide where no model was
+        ever successfully built, so nothing exists to render at any
+        compression — D8, whose geometry the installed Abaqus kernel
+        cannot construct at all, is the only such slide in this deck.
+        A slide whose designs WERE solved but whose ODBs were not
+        retained (D54-2, D10-2) is NOT that case: it is a provenance
+        gap, closed by re-solving one design for a still, and its notes
+        must say so rather than treat the blank as permitted.
+
+        WHERE THE DESIGN BARELY MOVES (revised 2026-09-10, after this
+        exception was used as an excuse on D58 to show NOTHING): a
+        design whose own deformation is small is NOT licence to omit the
+        media. The only permitted substitute is A STILL FRAME rendered
+        natively from the same ODB, captioned with the compression it
+        reaches. A blank slot, a text box explaining the absence, or
+        "the chart is the honest picture instead" are all violations.
+        The small-deformation case is a REASON TO SHOW A STILL, not a
+        reason to show nothing.
+
+        AND CHECK BEFORE CONCLUDING THE MOTION IS INVISIBLE. D58 was
+        written up as "visually indistinguishable from undeformed" on
+        the strength of its 0.6% windowed compression figure, without
+        anyone rendering it. Rendered, its own descending branch runs to
+        3.2% over 26 distinct frames with the skin visibly wrinkling —
+        a perfectly good video. The windowed compression number is not
+        a proxy for how much the geometry visibly moves: the window can
+        close on STRAIN long before the motion stops.
+
+        AND CHECK WHAT THE DISPLAY GROUP IS ACTUALLY SHOWING. gotcha 2
+        below restricts the display to the beam instance, which is
+        right for a bare mast and WRONG for any family whose mechanism
+        lives in another instance — a skin, a mandrel, a stop. D58's
+        first render was three bare longerons on a slide about a
+        membrane sheet. `SHOW_INSTANCES=<name>` adds it back. If the
+        thing the slide is about is not visible in the frame, the
+        render is not done.
+
         "No render yet, ask if you want one built" is NEVER an
         acceptable substitute: if a real solved ODB exists, render it.
 
@@ -1544,7 +1579,8 @@ bo/oracle_gap_orientation.py DOES salvage; see D54's Deferred for the correction
 **Infra:** Oracle bo/oracle_gap_orientation.py with bo/prefilter_gap_orientation.py; Stage 1
 scripts/supercompressible_lin_buckle_gap_orientation.py (+ its own _pp.py), Stage 2
 scripts/supercompressible_riks_gap_orientation.py (+ _pp.py). Feasibility is the study's standard
-five. No ODB is cited because none of the 142 designs produced a converged Stage-2 solve.
+five. No ODB is cited because none of the 142 designs produced a converged Stage-2 solve. NO MEDIA: this slide's visual slot is empty because no ODB from either of its 142 designs was retained &mdash; `/oscar/scratch/eaguerov/sc_oracle_gap_orientation/` holds zero Riks and zero lin-buckle solves today. Rule 2c-VIS (revised 2026-09-10) permits no text-only exception, so this is a PROVENANCE GAP to be closed by re-solving one design for a still, not a licence to leave it blank.
+
 -->
 
 ---
@@ -1577,15 +1613,10 @@ class: idea-slide
 ::right::
 
 <div class="flex flex-col gap-1" style="height: 425px">
-  <div class="flex items-center justify-center text-center px-6" style="height: 380px">
-    <div class="text-sm opacity-70 leading-snug">
-      <b>No compression video.</b><br><br>
-      Rule 2c-VIS exception, stated rather than defaulted to: the furthest any of these designs
-      compressed is <b>0.55%</b> &mdash; under a millimetre of travel on a 100 mm mast, and
-      indistinguishable from the undeformed state at any usable frame size.
-    </div>
+  <div class="flex items-center justify-center" style="height: 380px">
+    <img src="/gifs/D55_microtruss_still.png" class="rounded shadow-lg" style="max-height: 380px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-50 text-center">Yields before it visibly moves.</div>
+  <div class="text-xs opacity-50 text-center">Still: mode 1 geometry, no Stage-2 solve exists.</div>
 </div>
 
 <!--
@@ -3372,12 +3403,11 @@ layout: two-cols-header
 
 ::right::
 
-<div class="flex flex-col items-center justify-center h-full gap-2 px-4">
-  <div class="text-sm opacity-70 text-center">No new video or chart (rule 2c-VIS exception):
-  the corrected design's own failure point (3% compression) is visually indistinguishable
-  from the undeformed mast, and a stress-history curve over that same sliver of range would
-  show nothing a number doesn't already say. See D41's own base slide for what an ordinary
-  (uncorrected-joint) collapse in this family looks like.</div>
+<div class="flex flex-col gap-1" style="height: 425px">
+  <div class="flex items-center justify-center" style="height: 380px">
+    <img src="/gifs/D41-2_twist_buckle_corrected.gif" class="rounded shadow-lg" style="max-height: 380px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">Corrected joint, the 12% decided design.</div>
 </div>
 
 <!--
@@ -7918,7 +7948,8 @@ this idea remains distinct from D10's own already-BARREN Seed.
 
 **Timeline:** D006 of run `20260718T031519`, H1.
 
-**Infra:** no code changed — same oracle path as D10's own base campaign.
+**Infra:** no code changed — same oracle path as D10's own base campaign. NO MEDIA: this slide's visual slot is empty because none of its own 32 designs has a retained ODB, and borrowing D10's archived one would break rule 5(a)'s one-provenance-per-slide (it is a different design). Rule 2c-VIS (revised 2026-09-10) permits no text-only exception, so this is a PROVENANCE GAP to be closed by re-solving one design for a still.
+
 -->
 
 ---
