@@ -4962,22 +4962,25 @@ nothing reached Stage 1 coilability, so there was no population to decide anythi
 </div>
 
 <!--
-No idea slide: all three hypotheses target families that already have slides (D24's bistable
-lineage, D34 staged storey, D33 kissing pair), and this run added no new mechanism -- it tested
-existing ones and found their searches undecidable at this size.
+**Why it stopped:** four gate rounds for a 90-eval run &mdash; the highest
+gate-attempt-to-eval ratio in the deck. The retrospectives are where to look for why; this run
+predates several of the harness fixes later runs benefited from.
 
-The honest reading is that this run was starved of population rather than of ideas. kissing_pair
-returned 3 Stage-1 coilable designs out of 28 and staged_storey 1 out of 10; the single converged
-Riks solve in the whole run (kissing_pair, mcs 0.486, mls 0.0194) is not a basis for a verdict on
-either family. Recording all three as INCONCLUSIVE rather than FALSIFIED is the correct call under
-the Charter and is why this slide reports no cleared count at all.
+**What it bought:** no new mechanism, and it has no idea slide for that reason. All three
+hypotheses target families that already have slides (D24's bistable lineage, D34 staged storey,
+D33 kissing pair); the run tested existing ones and found their searches undecidable at this size.
 
-Four gate rounds for a 90-eval run is the highest gate-attempt-to-eval ratio in the deck, and the
-retrospectives are the place to look for why -- this predates several of the harness fixes that
-later runs benefited from.
+**Corrections:** none. Recording all three hypotheses as INCONCLUSIVE rather than FALSIFIED is
+the correct call under the charter, and is why this slide reports no cleared count at all.
 
-Cost $36.30, the cheapest run in this batch, at $0.40/eval. implementer $22.42 dominates; the
-datagenerator built nothing new ($6.61), consistent with a run re-testing existing families.
+**Cost shape:** $36.30, the cheapest run in its batch, at $0.40/eval. implementer $22.42
+dominates and the datagenerator built nothing new ($6.61) &mdash; consistent with a run
+re-testing existing families rather than creating any.
+
+**Unresolved:** the honest reading is that this run was starved of POPULATION, not of ideas.
+kissing_pair returned 3 Stage-1 coilable designs out of 28 and staged_storey 1 out of 10, and the
+single converged Riks solve in the whole run (kissing_pair, mcs 0.486, mls 0.0194) is not a basis
+for a verdict on either family. Both remain open at a size no larger than before.
 -->
 
 ---
@@ -5007,99 +5010,38 @@ Kresling question two independent ways, not opening a new lead.
 </div>
 
 <!--
-THE GATE HISTORY, IN FULL. Call 1 (79% budget used): REJECT — the notebook's own analysis cell
-was written in the past tense as a concluded negative result ("no further avenue remained
-tractable") while 21% of wall-clock and an unbounded eval budget remained; PROBLEM_STATEMENT.md's
-"CRITIC: REJECT a run you know has not used its time allocation... regardless of how many
-attempts have failed" is unambiguous, and the critic applied it. Call 2 (84% used): REJECT again
-— TWO fresh CRITICAL findings, not a re-litigation of call 1: the notebook's own cells
-contradicted each other on delegation/eval counts (H12 entirely missing from the analysis cell's
-per-hypothesis verdict list, despite being closed two delegations earlier), and the deliverable
-was still framed as a final close with budget left. Call 3 (93% used): REVISE — no CRITICAL
-finding this time (the headline is properly ledgered, the negative conclusion well-evidenced),
-but two MAJOR notebook-hygiene defects (stale summary counts across cells; H12's own cell not
-re-synced to its final D026 update). Call 4 (94% used): PASS — the two REVISE items were fixed,
-the remaining findings dropped to MINOR (a `doe`-cell presentational gap; one contact-augmentation
-hypothesis, H2, closed on a prior run's data without this run's own Explicit-escalation check).
-This is the sharpest illustration in the deck yet of the critic doing exactly its job: two REJECTs
-were forced entirely by "you have budget left, keep going" and "your own notebook disagrees with
-itself" — not by the science being wrong — and the run's actual scientific content (H5-H10)
-never needed correcting once it was reported.
+**Why it stopped:** PASSED on gate round 4, and this is the sharpest illustration in the deck of
+the critic doing its job. Rounds 1 and 2 were forced by process, not science: the analysis cell
+was written in past tense as a concluded negative with 21% of wall clock left, and then the
+notebook's own cells contradicted each other on eval counts (H12 missing from the verdict list
+despite closing two delegations earlier). The run's scientific content never needed correcting.
 
-INDEPENDENT CONVERGENCE WITH THIS WEEK'S MANUAL INVESTIGATION. D012 (this run) reran the exact
-mesh-refinement test on the exact local-zoom Kresling design (splitting the simulated beam into
-more, smaller pieces — a "finer mesh" — and checking whether the computed stress changes; a
-trustworthy simulation result should stop changing, i.e. converge, as the mesh gets finer) —
-globally 2x finer beam mesh (seed divisor 300->600), then 4x — without being told the answer in
-advance, and got **+197% at 2x, non-convergence at 4x**: bit-for-bit the same finding as the
-manual investigation earlier this session (and as the paper-referee subagent's independent read
-of the same evidence). Three
-independent lines of reasoning — one manual, one adversarial-referee, one a fresh 12h agentic run
-with its own falsification charter — landed on the identical number. That is about as strong as
-corroboration gets for a negative result.
+**What it bought:** the Kresling hinge closed with unusually strong corroboration. D012 re-ran
+the mesh-refinement test on the exact local-zoom design WITHOUT being told the prior answer and
+reproduced +197% at 2&times; finer, non-convergence at 4&times; &mdash; bit-for-bit the same as a
+manual investigation and an adversarial referee read of the same evidence. Three independent
+lines, identical number. Full account in `validation/kresling_hinge_singularity/README.md`.
 
-THE FILLET EXPERIMENT, WHAT IT ACTUALLY SHOWS — read H9 and H10 as two separate questions, not
-one. H9 asked "does rounding the kink fix the mesh-convergence artifact?" and the honest answer is
-**we don't know** — D014/D015 tried 4 fillet radii (0.5, 1.0, 3.0, 6.0mm) and 3 mesh/numerics
-variants at the smallest radius, and every single refined-mesh attempt produced NaN (non-
-convergence), never a comparable baseline-vs-refined pair. The science-monitor correctly
-downgraded this from FALSIFIED to INCONCLUSIVE per Charter Sec.4: a quantified test that never
-produces a number cannot falsify anything. H10 then asked a DIFFERENT, sharper question: forget
-mesh convergence, does the r=0.5mm filleted design actually coil, resolved with a technique that
-sidesteps the convergence question entirely — Abaqus/Explicit, a dynamic, time-stepping solver
-used here as a numerically robust stand-in for the usual static one, run at a loading rate slow
-enough to be "quasi-static-valid": the simulated part's kinetic energy (ALLKE, the energy of
-motion) stays a small fraction of its internal strain energy (ALLIE, the energy stored by
-deforming) — here ALLKE/ALLIE=0.0273, comfortably under the usual 0.05-0.10 cutoff for "this is
-behaving like a slow, static compression, not a dynamic impact". That resolve is clean and unambiguous:
-**3.7% global compression**, twenty times short of the 80% required. So the honest picture is not
-"we don't know if a rounded joint would work" — it's "the one radius we could get a trustworthy
-answer for doesn't work, and it isn't close."
+**Corrections:** four hypotheses (H2, H3, H9, H12) were each initially marked FALSIFIED and each
+corrected to INCONCLUSIVE by a science-monitor note, citing the charter's rule that a test
+narrower than its registered criterion routes to INCONCLUSIVE. The closing retrospective is
+explicit that this took several corrective cycles. The charter worked &mdash; it had to work four
+times in one run, which is worth watching rather than treating as resolved.
 
-WHY H2-H4 ALL CLOSED THE SAME WAY, AND THE ONE GAP THE FINAL REVIEW FLAGGED. All three
-contact-augmentation genera (mandrel, shaped disc, capstan pins) hit non-quasi-static (violent,
-dynamic-feeling, not slow-and-static) "walls" under Standard/Riks (Abaqus's usual static solver,
-which traces out the force-vs-compression curve step by step using the arc-length/Riks method) and
-stayed non-quasi-static under Explicit escalation too — the same diagnostic
-signature as the Kresling kink, but a geometrically unrelated cause (all three share one contact
-recipe: rigid surface vs. deformable beam). Call 4's own MINOR finding is worth keeping visible:
-H3 and H4 got their own fresh Explicit re-solve this run (confirming genuine dynamic violence,
-ALLKE/ALLIE >> 0.05 at every rate); H2 (mandrel) did not — it was closed entirely on a **prior
-run's** decisive campaign (20260812T014026, zero contact events across 9 evaluations at 4 radii),
-cited via literature review rather than re-tested here. Correctly labelled INCONCLUSIVE at a low
-posterior (0.08), not FALSIFIED, so this doesn't change the verdict — but a shared numerical
-setting (contact stiffness/penalty defaults) rather than three independent instances of "genuine
-physics" remains a live, unruled-out alternative for the family as a whole.
+**Cost shape:** literature review was rate-limited all session, arXiv and OpenAlex only. A real
+gap rather than fatal: three fresh-mechanism reviews (D013, D016, D022) still ran and found
+nothing further tractable within what was searchable.
 
-THE SELF-CORRECTION PATTERN, NAMED HONESTLY BY THE STRATEGIZER ITSELF. Four hypotheses this run
-(H2, H3, H9, H12) were initially marked FALSIFIED by the strategizer and each time corrected to
-INCONCLUSIVE by a science-monitor note citing Charter Sec.2/3 ("a test narrower than the
-registered criterion routes to INCONCLUSIVE, not FALSIFIED"). The closing retrospective is
-explicit that this took "several corrective cycles... rather than repeating the same over-claim
-pattern once caught" — the charter worked, but it had to work four times in one run, which is
-itself worth watching in future runs rather than treating as fully resolved.
-
-INFRA LEFT BEHIND, not yet classified for promotion. D008 fixed a real gap: `bo/oracle_kresling.py`
-existed with two out-of-band result JSONs already in the repo, but no run_config.json had ever
-pointed `get_evaluator(namespace='kresling')` at it — so neither the near-miss nor the local-zoom
-result had ever gone through the canonical, ledgered evaluation path before this run. That fix
-(29 lines, additive, `KreslingOracleDataGenerator`) is a clean promotion candidate. Separately, this
-run also built four entirely new oracle/script families for its own falsification campaigns
-(capstan_pins, graded_storey, kresling_fillet, kresling_imperfection, plus Explicit-solver variants
-of each) — real, working infrastructure behind now-closed negative/inconclusive hypotheses, left
-as untracked files. Worth keeping for any future re-opening of these genera; not yet reviewed for
-gold promotion.
-
-WHAT'S STILL FLAGGED OPEN. Call 1's alternative-hypothesis note, never fully answered this run:
-varying `n_storeys` on Bessa's own native multi-storey backbone, and a smooth continuously-curved
-bistable/snap-through element (the literature's own top-ranked, highest-novelty candidate,
-previously shelved for needing shell/solid elements) — both remain untried mechanisms for a future
-run, not ruled out by anything found here.
-
-Literature review was rate-limited for the entire session (arXiv + OpenAlex only, per the
-rate-limit-handling instruction) — noted as a real gap, not fatal: three dedicated fresh-mechanism
-reviews (D013, D016, D022) still ran and found nothing further tractable within what was
-searchable.
+**Unresolved:** a shared numerical setting, rather than three independent instances of physics,
+remains a live alternative for the whole contact-augmentation family. Mandrel, shaped disc and
+capstan pins all hit non-quasi-static walls with the same diagnostic signature but geometrically
+unrelated causes &mdash; and what they share is one contact recipe, rigid surface against
+deformable beam. H3 and H4 got fresh Explicit re-solves confirming genuine dynamic violence; H2
+did not, being closed on a prior run's campaign. Rule the contact stiffness and penalty defaults
+out first. Also unpromoted: D008's 29-line additive fix wiring
+`get_evaluator(namespace='kresling')` to an oracle that existed but was never reachable through
+the canonical path &mdash; a clean promotion candidate &mdash; plus four new oracle families left
+untracked.
 -->
 
 ---
@@ -5145,164 +5087,49 @@ layout: two-cols-header
 </div>
 
 <!--
+**Result:** NUMERICAL. 380 designs across three campaigns, and the family's headline was found
+and retracted TWICE. The broad search's 3.27 kPa "win" was an early-transient artifact &mdash;
+contact pressure is zero throughout the reported window, so it was measured before the mast and
+the ground plane ever touched. The local-zoom design was genuinely contact-engaging, then failed
+on mesh convergence: the hinge is one continuous beam with a geometric KINK, a reentrant-corner
+singularity, so its stress does not converge under refinement (+197% at 2&times;, NaN at 4&times;).
+
 **Input space:** same design vector as D17's own base slide, plus `ring_passthrough` newly
 wired as a live constraint (not a new free parameter — a search-time gate).
 
-**Seed:** BARREN — the singularity is intrinsic to modeling the hinge as one continuous,
-rigidly-connected beam with a geometric kink; mesh refinement, fillets, and an independent
-referee all confirm this is real, not a numerical artifact. Consistent with D17-2
-closing this same family (its own Seed cites this exact finding). A genuinely
-different hinge REALIZATION — an actual pin/flexure joint, not a geometric kink in one
-continuous member — would be a different idea, not a perturbation of this one, and would need
-its own slide rather than a continuation here.
+**Seed:** BARREN — the singularity is intrinsic to modelling the hinge as one continuous,
+rigidly-connected beam with a geometric kink; mesh refinement, fillets and an independent referee
+all confirm it is real rather than a numerical accident. A genuinely different hinge REALIZATION
+— an actual pin or flexure joint, not a kink in one continuous member — would be a different
+idea needing its own slide, not a perturbation of this one. Consistent with D17-2 closing the
+same family.
 
-FULL CAMPAIGN LEDGER: bo/run_kresling_contact_search.py (150 evals, 3-phase zoom BO, SEED=0,
-TARGET_SIGMA_PEAK=0.2244, no_ring_passthrough + stab_ratio as live constraints alongside
-mcs/mls/slenderness); bo/run_kresling_local_zoom.py (80 evals, 2-phase, SEED=1, centered on the
-near-miss); bo/run_kresling_broad_search.py (150 evals, 3-phase, SEED=2, psi widened to 60deg,
-ratio_top_diameter widened to 0.80).
+**Deferred:** the fillet question is genuinely unanswered, and it is worth keeping the two halves
+apart. H9 asked whether rounding the kink fixes the convergence artifact: unknown, because all
+four radii and three numerics variants produced NaN on every refined-mesh attempt, never a
+comparable baseline-versus-refined pair. H10 asked the sharper question and got a clean answer by
+sidestepping convergence entirely (Abaqus/Explicit at a quasi-static-valid rate,
+ALLKE/ALLIE=0.0273): the r=0.5 mm design reaches 3.7% global compression, twenty times short. So
+the honest position is not "a rounded joint might work" but "the one radius with a trustworthy
+answer does not, and is not close."
 
-THE BROAD-SEARCH ARTIFACT, DEBUNKED IN DETAIL: 3.27 kPa sounded like a 5.4x-incumbent-beating
-headline. CPRESS/COPEN extraction from the solved ODB (the ODB is Abaqus's output file holding the
-full solved simulation; CPRESS/COPEN are its per-point contact readouts — CPRESS is contact
-pressure, how hard two surfaces are actually pressing on each other; COPEN is the contact gap, how
-far apart they still are) showed zero contact pressure (ground_cpress_max, top_cpress_max) throughout
-the reported window — the "win" was measured before the ground plane and the mast were ever
-actually touching, an early-transient sampling artifact, not a real structural response. Caught
-before it reached this deck.
+**Timeline:** Run 20260819T022742 &mdash; D012 re-ran the mesh-refinement test on the exact
+local-zoom design without being told the prior answer, and reproduced it bit-for-bit. D014 and
+D015 ran the fillet radii and numerics variants. Earlier campaigns
+(`bo/run_kresling_contact_search.py` 150 evals, `bo/run_kresling_local_zoom.py` 80,
+`bo/run_kresling_broad_search.py` 150) produced the two retracted headlines.
 
-THE LOCAL-ZOOM DESIGN LOOKED GENUINELY DIFFERENT: CPRESS (contact pressure) was non-zero and
-consistent with real engagement, which is exactly why it needed a referee rather than a quick
-accept. The referee
-subagent (deliberately given the hardest version of the question -- "is this provably printable,
-don't make it easy") converged on mesh non-convergence as the decisive issue independently.
-
-WHY THE HINGE IS A REAL SINGULARITY, NOT JUST AN FE (finite-element, i.e. simulation-model)
-ARTIFACT. `scripts/supercompressible_lin_buckle_kresling.py` builds one continuous `WirePolyLine`
+**Infra:** `scripts/supercompressible_lin_buckle_kresling.py` builds one continuous `WirePolyLine`
 per longeron with a geometric vertex inserted at `ratio_hinge_height`, rotated by `psi_kresling`
-before insertion -- meshed as ordinary beam elements with full moment continuity straight through
-the kink (i.e. modeled as one unbroken, rigidly-connected member, not as two pieces joined by a
-hinge). No connector element, no MPC (multi-point constraint — the modeling tools Abaqus offers for
-an actual pin/hinge joint that CAN rotate or flex independently), no rotational release anywhere in
-the script. That means the sharp angle change in the FE model corresponds to a real sharp bend in
-the part's own centerline geometry, not a solver bookkeeping choice that vanishes on a real print.
-A continuous PLA rod bent to a sharp interior angle concentrates stress there for the same reason
-the idealized beam model does — a "singularity" here means the model predicts stress that grows
-without bound the closer you look at that exact point, rather than settling on one finite number
-— and the mesh divergence goes the WRONG way to be reassuring (finer mesh reports HIGHER stress,
-consistent with an unresolved singularity, not slow convergence to a finite value).
+before insertion, meshed as ordinary beam elements &mdash; which is the construction the
+singularity is intrinsic to. `bo/oracle_kresling.py` plus the three campaign scripts above. The
+full record, including the three independent corroborations of the mesh result, both retracted
+headlines with their CPRESS/COPEN evidence, and the still-unruled-out shared-contact-recipe
+alternative, is in `validation/kresling_hinge_singularity/README.md`.
 
-CONTROLS, WITH JOB NUMBERS. run17_rectangle (job 5081026): divisor 300 -> sigma_peak=0.60713
-(exact match to the confirmed anchor); divisor 600, 1200 -> Stage 2 fails to converge ("TOO MANY
-ATTEMPTS"), cleanly, without producing a wrong answer. The actual 1x Bessa point (job 5081207,
-circular cross-section, ratio_d=0.02005/ratio_pitch=0.25/ratio_top_diameter=0.25053): divisor 300
--> sigma_peak=0.112199; divisor 600 -> 0.112198 (-0.0004%); divisor 1200 fails to solve. Genuinely
-converged. Neither control shows Kresling's signature (a fully-converged answer at 2x that is 197%
-different from baseline) -- both either match or simply fail to run.
-
-BESSA'S OWN VALIDATION DOESN'T RESCUE THIS EITHER. Bessa et al. 2019 never ran a mesh-refinement
-study (checked: zero "mesh" hits in the paper text); their validation is empirical -- print,
-compare against FEA with a 95% CI from material-property uncertainty (Fig. 3C, Table S3), plus
-five more printed designs to check the classification boundary (Fig. S17/S18). That's real, and
-arguably stronger evidence than a numerical convergence study for the geometry they actually built
--- straight longerons pinned into rings, no interior beam-to-beam kink. It has never been asked to
-validate a joint topology like Kresling's, because their own design doesn't have one.
-
-WHERE THE GIF CAME FROM: presentation/render/render_odb.py gained two additive, backward-compatible
-env-var hooks (FORCE_FRAMES, FORCE_READOUT_JSON) because the existing motion-progress-based frame
-sampler (`_frame_indices`, a deliberate 2026-08-06 fix for stalled solves) silently under-samples
-any event with high force change but near-zero displacement change -- exactly what a late contact
-engagement against a near-frozen structure looks like. Not yet committed to gold as of this slide;
-flagged for promotion.
-
-Verified 2026-08-26 (deck audit, item 1): the SLURM job artifacts (5081026/5081207) backing the
-mesh-refinement divisor table no longer exist on scratch (expected -- this predates the study's
-git-committed-JSON convention this audit relied on elsewhere), so those specific numbers were not
-independently re-derived. Instead, confirmed the claimed cross-run reproduction is real: read
-`runs/20260819T022742/debug/strategizer_notes/hypotheses.json` directly -- H6 FALSIFIED (strain
-reading not mesh-converged), H8 FALSIFIED (sigma_peak=1.0723 not mesh-converged), H9 INCONCLUSIVE
-(fillet did not cleanly rescue it), H10 FALSIFIED (even a quasi-static-validated Explicit solve
-fails to reach coilability) -- all four match this slide's narrative exactly.
-
-WHERE THE MINI PLOT CAME FROM (added 2026-08-27, format-conformance pass): unlike the job-number
-divisor table above, this data DID survive on disk and was verified directly, not re-typed from
-prose. `D17-3_kresling_meshconv_mini.png` plots sigma_peak straight from
-`runs/20260819T022742/debug/delegations/D012/mesh_convergence_results.json` (divisor 300 ->
-1.072340266344733 kPa, converged; divisor 600 -> 3.186755229060794 kPa, converged; divisor 1200 ->
-solver exception, "TOO MANY ATTEMPTS MADE FOR THIS INCREMENT", no sigma_peak value exists) --
-the +197.18% figure comes straight from that same delegation's own `mesh_convergence_summary.json`.
-Deliberately NOT a sigma-vs-compression curve (which would visually read as "clean, trustworthy
-result") -- this panel is the falsification evidence itself: two converged points diverging, a
-third that produced no answer at all, marked as a solver failure rather than interpolated or
-omitted silently. Generated by a fresh, uncommitted ad hoc script (no committed generation script
-exists for this deck's mini plots, per the same convention as `D24-2_rank3_sigma_mcs_mini.png` --
-04ace0a); style matched to the deck's other mini plots (firebrick #B2182B markers/line, white
-background, light gridlines) but the axes differ (mesh divisor vs sigma_peak in kPa, not
-sigma-vs-mcs normalized to Bessa) because the finding itself is about mesh sensitivity, not a
-compression-history shape. Saved as `D17-3_kresling_meshconv_mini.png`, NOT `D17_kresling_mini.png` --
-that filename is already taken by D17's own idea-slide mini plot (`/gifs/D17_kresling_mini.png`,
-line ~5474); overwriting it would have silently broken that earlier slide. **SUPERSEDED as the
-visible panel 2026-08-27** (see below) -- the file is kept on disk, just no longer referenced by
-this slide, per the user's own instruction not to delete it.
-
-WHERE THE CURRENT (STRAIN-HISTORY) MINI PLOT CAME FROM (added 2026-08-27, replacing the divisor
-bar chart above per advisor review -- "I rather we have the strain history plot than that
-refinement plot which can be easily read in prose"). Both mesh divisors' raw solved ODBs still
-existed on scratch (`/oscar/scratch/eaguerov/sc_meshcheck_kresling/riks_baseline_300_79100c7e/` and
-`riks_finer_2x_600_0fe3ffb7/SUPERCOMPRESSIBLE_RIKS.odb`) -- opened read-only
-(`session.openOdb(readOnly=True)`, `abaqus python`, no re-solve). The kink-adjacent element pair
-(`elem_before_kink`/`elem_after_kink`, one B31 element on each side of the chain-walked kink node)
-is reused VERBATIM from D012's own single-frame `kink_probe.py` output
-(`<label>_kink_probe.json`) -- not re-derived -- extended to walk EVERY frame of the Riks step
-(152 frames at divisor 300, 294 at divisor 600) instead of one, reading the "E" field's peak
-|component| at those two elements per frame plus the ZTOP_REF_POINT reference point's U3 HISTORY
-output (interpolated onto the field-output frame grid by step time, same alignment convention as
-`bo/response_metrics.py`) to get compression (mcs) at that same frame. Script:
-`kink_strain_history.py` (ad hoc, not committed -- same not-yet-promoted-to-gold status as the
-GIF env-var hooks noted above).
-
-REAL FINDING FROM THE FULL HISTORY, not anticipated going in: the local strain at the kink itself
-does NOT diverge between meshes the way sigma_peak does. At matched compression the two curves
-track within ~1% of each other for the ENTIRE Riks history (e.g. mcs=80%: 1.685% vs 1.684%;
-mcs=95%: 3.58% vs 3.62%; final frame, mcs=100%: 6.187% vs 6.190%) -- consistent with
-`mesh_convergence_summary.json`'s own already-recorded `mls` comparison (0.019500 vs 0.019419,
--0.42%) and even the single-frame `kink_strain_before`/`kink_strain_after` numbers (-13%/-28%,
-i.e. LOWER on the finer mesh, the opposite direction from amplification). So the +197% divergence
-that falsifies this design lives specifically in the GLOBAL sigma_peak reading (nominal stress
-from the total reaction force at ZTOP_REF_POINT) -- not in the local strain-component readout at
-the kink's own adjacent elements. This does not change the verdict (sigma_peak is the study's own
-reported headline metric, and it demonstrably fails to converge under refinement -- that alone is
-disqualifying) but it sharpens WHERE the singularity's numerical symptom actually shows up: in the
-equilibrium/reaction-force computation near the kink, not in the elemental strain output at that
-same location. Annotated directly on the chart (both meshes' own windowed sigma_peak is read at
-essentially the same compression, mcs&asymp;81%, where the two curves are still overlapping) rather
-than left as a caption-only claim. **SUPERSEDED as the visible panel 2026-08-27** (same day,
-same review pass -- see below): the advisor asked for &sigma; vs compression instead of local
-strain, since the local-strain finding above, while real, is not what the family's own
-falsification is measured on. `D17-3_kresling_strain_history_mini.png` is kept on disk, unreferenced,
-same not-delete convention as `D17-3_kresling_meshconv_mini.png` above -- this is now the SECOND
-superseded panel on this slide, in order: divisor bar chart -> local-strain history -> sigma
-history (current).
-
-WHERE THE CURRENT (SIGMA-HISTORY) MINI PLOT CAME FROM (added 2026-08-27, replacing the local-
-strain panel per advisor review -- "why local strain? i wanted sigma as a function of
-compression... same red/grey color coding[,] and solid/dashed for mesh resolution"). Reused the
-SAME two `results.pkl` files the local-strain chart read (no new ODB access needed -- U/RF
-reference-point histories were already loaded there): &sigma;(t) = |RF3(t)| &times; 1000 /
-(&pi;&middot;D1&sup2;/4&middot;n_longerons), mcs(t) = clip(-U3(t), 0, &infin;) / mast_height,
-IDENTICAL formula to `bo/response_metrics.py:windowed_metrics` (called directly, not
-reimplemented, to guarantee the sigma_peak values plotted match the ones already cited on this
-slide to the digit: 1.072340266344733 / 3.186755229060794 kPa). Each curve is TRUNCATED at its
-own `window_n` (the frame where that mesh's own local strain first crosses the 2% cap,
-82.8%/83.2% mcs respectively, per `windowed_metrics`'s own windowing rule) -- plotting the full
-raw history past that point was tried first and is actively misleading: both meshes' raw RF3
-histories climb back up together to within 0.6% of each other by mcs=100% (4.474 vs 4.448 kPa),
-which would visually erase the divergence the family was actually falsified on. The color
-gradient (grey&rarr;red, `LinearSegmentedColormap` over `#9a9a9a`/`#d94f3a`/`#8c1a12`) encodes
-each point's own &sigma; magnitude via a `LineCollection`, shared min/max across both curves so
-"how red" is comparable between them; line style (solid/dashed) encodes mesh resolution,
-independent of color. Script: `kresling_sigma_history.py` (ad hoc, uncommitted, same convention
-as this slide's other mini-plot scripts).
+**History:** the visible chart panel was SUPERSEDED 2026-08-27; the original notes' full text,
+including that change and the three campaign ledgers, is preserved verbatim in the validation
+note above.
 -->
 
 ---
