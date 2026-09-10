@@ -6537,43 +6537,31 @@ Four literature-grounded chirality/elastic-instability candidates tested against
 </div>
 
 <!--
-Run stats: all-Sonnet, GATED on 4th critic attempt (1 CRITICAL doe-cell finding
-caught and fixed between calls 1-2, then clean), evals_used=301, ~8h wall of a
-12h budget. H-numbering note: unlike earlier runs, this run registered only 2
-top-level hypotheses (H1/H2) and tested 4 candidate families as evidence for/
-against both, rather than one H per candidate — D009/D010 don't get their own
-"H3"/"H4" rows here because they were run as sub-campaigns cited as evidence,
-not separately pre-registered claims.
+**Why it stopped:** GATED on the fourth critic attempt, with one CRITICAL doe-cell finding caught
+and fixed between calls 1 and 2 and clean thereafter. ~8 h of a 12 h budget, all-Sonnet roster.
 
-D004 (chiral_shell_tube, own slide D26): 80-pt sweep, 0/68 valid designs
-coilable (12/80 rejected by the thin-shell rt_over_t&ge;20 guard before that).
-Every lowest mode is a global lateral-bending/Euler-sway pair — a full
-monocoque tube is too stiff against global bending for the local torsional/
-coiling coupling to compete.
+**What it bought:** the shell direction closed twice, from opposite ends. D004 (D26) swept a full
+monocoque tube: 0 of 68 valid designs coilable, every lowest mode a global lateral-bending sway
+pair, because a continuous tube is far stiffer against global bending than this study's sparse
+discrete-longeron families, so the coiling coupling never competes. D007 (D27) then reverted to
+discrete members while keeping each one a twisted shell vane, to test whether that stiffness was
+the whole story. It was not: still 0 of 115 coilable on the strict check.
 
-D007 (chiral_shell_vane, own slide D27): follow-up after D004 — reverts to n
-discrete members (this study's usual sparse topology) while keeping each
-member a chirally-twisted doubly-curved shell "vane". 120-pt sweep, still
-0/115 coilable on the strict check; the weaker "coilable_legacy" proxy (same
-threshold convention every other family uses) passes 34/115, so the two
-coilability definitions disagree substantially here — worth watching if this
-family or a descendant gets revisited.
+**Corrections:** an H-numbering note worth having, because it makes the table read oddly against
+other runs. This run registered only TWO top-level hypotheses and tested four candidate families
+as evidence for and against both, rather than one hypothesis per candidate. D009 and D010 have no
+"H3"/"H4" rows here because they ran as sub-campaigns cited as evidence, not as separately
+pre-registered claims.
 
-D009 (circular pretwist, folds into the pretwisted-longerons idea, D1): 100%
-coilable, twist_angle coefficient -0.0093 (negligible) in the OLS regression.
+**Cost shape:** 301 evals across ~8 h, all-Sonnet.
 
-D010 (anisotropic-rectangle pretwist, folds into the run17-rectangle-anchor
-idea, D6): twist_angle coefficient grew to +0.0781 but still not significant
-(p=0.145) against ratio_a (0.9114) and ratio_b (0.3859) dominating. Found a
-feasible point at sigma_crit=0.425389 kPa (mcs=1.011151, mls=0.018075,
-twist_angle=0.073079) that numerically clears 2&times; Bessa — but per the
-regression, this is a resize-family point with a statistically
-non-contributing cosmetic twist, not evidence of a genuinely novel mechanism.
-Full critic-gate history: 4 review calls, 1 CRITICAL (doe cell had no real
-create/sampler branch — fixed) + 2 MAJOR (D009's regression never actually
-run despite being cited; a nonlinear/near-critical-point alternative
-mechanism from the cited literature never considered) at call_001, all three
-resolved for real by call_002, clean PASS at call_004.
+**Unresolved:** the two coilability definitions disagree substantially in the vane family, and
+nobody has adjudicated it. The strict check passes 0 of 115 while the weaker `coilable_legacy`
+proxy &mdash; the same threshold convention every OTHER family in this study uses &mdash; passes
+34 of 115. That is a much bigger gap than D26's, so either this family is genuinely closer to
+coiling than the tube and the strict check is the right arbiter, or the two conventions are not
+measuring the same thing and every other family's numbers inherit the looser one. Worth resolving
+before any descendant of this family is revisited.
 -->
 
 ---
@@ -6621,6 +6609,13 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** NON-ENGAGEMENT. 80 designs, 68 valid after the thin-shell guard rejected 12 on
+rt_over_t&ge;20, and ZERO Stage-1 coilable. The monocoque topology suppresses coiling entirely,
+for a stiffness reason rather than a tuning one: all 68 have a global lateral-bending sway pair as
+their lowest buckling mode instead of top-ring rotation. A continuous shell tube is far stiffer
+against global bending than this study's sparse discrete-longeron families, so the local
+torsional coupling never competes.
+
 **Input space:** n_lobes&isin;[3,6] — discrete lobe count. A_max&isin;[.05,.35] — lobe amplitude.
 twist_chirality&isin;[0,3.14] — azimuthal twist of the lobe pattern bottom-to-top. t_shell&isin;
 [.5,2] — shell wall thickness. ratio_pitch&isin;[.15,.8], ratio_top_diameter&isin;[0,.5] — usual
@@ -6632,19 +6627,14 @@ independently when D27 reverted to discrete members and still failed strict coil
 Further thinning the shell just converges toward an ordinary discrete beam cross-section,
 already tested extensively elsewhere in this study.
 
-**Deferred:** Coilability check for this family is stricter than the shared
-`supercompressible_lin_buckle_pp.py` convention used by every discrete-member family:
-it requires the top ring's rotation AND axial descent to be non-trivial RELATIVE TO
-the shell wall's own local deformation scale (not just non-zero in absolute terms),
-specifically to rule out cases where the wall's own local wrinkling dominates and a
-tiny absolute rotation is just noise riding on top of it. Under the weaker,
-shared-convention "legacy" threshold (rotation present AND near-zero absolute lateral
-displacement), 4/68 pass — so there is a genuine, unresolved daylight between the two
-coilability definitions for this family, not fully adjudicated this run. **Verdict-audit
-note (2026-08-31):** REFUTED above holds either way — 4/68 is not a working family under
-either convention — but the visible Stats bullet's flat "0 coil" is this family's own
-stricter check, not directly comparable to another family's "coilable" count without this
-qualifier.
+**Deferred:** genuine, unresolved daylight between two coilability definitions for this family.
+Its own check is stricter than the shared `supercompressible_lin_buckle_pp.py` convention every
+discrete-member family uses: it requires the top ring's rotation AND axial descent to be
+non-trivial RELATIVE TO the shell wall's own local deformation scale, not merely non-zero, so that
+local wall wrinkling cannot pass as a tiny absolute rotation riding on noise. Under the weaker
+shared convention, 4 of 68 pass. REFUTED holds either way &mdash; 4 of 68 is not a working family
+&mdash; but the visible Stats bullet's flat "0 coil" is this family's own stricter check and is
+not directly comparable to another family's count without that qualifier.
 
 **Timeline:** This is H1 of run `20260804T221559`, delegation D003 (build) + D004
 (80-pt LHS sweep, seed=0, 20 per n_lobes&isin;&#123;3,4,5,6&#125;).
@@ -6667,6 +6657,9 @@ ODBs and applying this family's own three-part criterion to every mode: **0 desi
 coiling signature anywhere**, best ur3_ratio .0030 against the .05 bar &mdash; 17&times; short.
 "The monocoque topology suppresses coiling entirely" is now demonstrated over 20 modes rather
 than inferred from one. See `validation/shell_coiling_mode_scan/README.md`, commit 9fca313.
+
+**History:** verdict-audit note 2026-08-31 recorded the strict-versus-legacy qualifier above, so
+that this slide's "0 coil" is not read as the same measurement as another family's.
 -->
 
 ---
@@ -6712,6 +6705,12 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** NON-ENGAGEMENT. 120 designs reverting to discrete members while keeping each one a
+chirally twisted shell vane, and it did NOT fix D26's failure: still 0 of 115 valid designs pass
+the strict coilability check, so the sway mode is not purely a monocoque-stiffness artifact as
+D26's own finding predicted. The informative detail is a disagreement between definitions &mdash;
+the weaker `coilable_legacy` proxy, the convention every other family uses, passes 34 of 115.
+
 **Input space:** t_shell&isin;[.2,2] — shell wall thickness. W&isin;[3,15] — vane width. B_max&isin;
 [1,8] — vane curvature amplitude. twist_total&isin;[.2,1.5] — per-longeron twist over the mast
 height. ratio_pitch&isin;[.3,1], ratio_top_diameter&isin;[0,.4] — usual per-storey pitch/taper
