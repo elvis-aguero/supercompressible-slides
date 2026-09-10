@@ -1235,10 +1235,11 @@ class: idea-slide
 - **Origin:** H1 again &mdash; the peak has to be carried by stretched material. A sheet loaded in
   its own plane is stiff in a way no slender member can be, and a thin sheet was expected to wrinkle
   away at about 0.01% strain and then keep carrying load essentially strain-free.
-- **Stats:** n=2 &rarr; 1 coil &rarr; 1 riks &rarr; 1 good (0.59&times; Bessa)
-  p50/p90/p100 &mdash; &sigma;_peak: .066/.066/.066 &middot; mcs: .872/.872/.872 &middot; mls: .0191/.0191/.0191
+- **Stats:** n=2 &rarr; 1 coil &rarr; 1 riks &rarr; 1 good (0.59&times; Bessa) &mdash; **every stage
+  past n=2 is the CONTROL.** The skinned design is not coilable: it is 0/1 from the first gate on.
+  p50/p90/p100 &mdash; &sigma;_peak/mcs/mls: .066/.872/.0191 (one design, the control &mdash; no distribution)
   cleared: none &middot; novel: **yes** &mdash; first continuous surface in this study
-  best good: the family's only feasible member is its own SKINLESS control (&sigma;=.0659 mcs=.872)
+  best good: skin OFF &rarr; &sigma;=.0659 mcs=.872 mls=.0191
 - **Verdict:** POWERED &middot; REFUTED &middot; in-plane membrane stiffening
   The load half was right beyond expectation &mdash; 1268&times; its own control &mdash; and that is
   why it fails: all of it arrives by 0.6% compression, and the mast then never coils at all. The
@@ -1249,15 +1250,13 @@ class: idea-slide
 ::right::
 
 <div class="flex flex-col gap-1" style="height: 425px">
-  <div class="flex items-center justify-center" style="height: 175px">
-    <img src="/gifs/D58_skinned_mast_mini.png" style="max-height: 175px; max-width: 100%" />
+  <div class="flex items-center justify-center" style="height: 150px">
+    <img src="/gifs/D58_skinned_mast_mini.png" style="max-height: 150px; max-width: 100%" />
   </div>
-  <div class="text-xs leading-snug px-2 opacity-70">
-    No compression video: this design's own deformation stops at 0.6% compression, which is
-    visually indistinguishable from undeformed. The chart is the honest picture &mdash; a needle at
-    zero compression, already grey (past the 2% cap), against the skinless control's real
-    load-carrying curve flat along the axis at this scale.
+  <div class="flex items-center justify-center" style="height: 260px">
+    <img src="/gifs/D58_skinned_mast.gif" class="rounded shadow-lg" style="max-height: 260px; max-width: 100%" />
   </div>
+  <div class="text-xs opacity-50 text-center">Skin wrinkles; grey is past the 2% cap.</div>
 </div>
 
 <!--
@@ -1298,10 +1297,31 @@ already rejected, which is worth remembering before anyone quotes the number.
 **Infra:** Family `circular=21` in the canonical `workspace/data_generator.py`; Stage 1
 scripts/supercompressible_lin_buckle_skinned_mast.py, Stage 2
 scripts/supercompressible_riks_skinned_mast.py. The sheet is S4R shell elements at 16 x 10 per
-panel; its ring-coupled edges and its longeron-tied edges are disjoint by construction, so
-over-constraint is impossible. Feasibility is the study's standard five, on windowed metrics. Chart
-traces to /oscar/scratch/eaguerov/supercompressible_oracle/riks_84ba41a522854048ad6ed018a0a6c9c0
-(skinned, solid) and riks_214f0308d51d4e8384f3389d63f47a30 (control, dashed).
+panel, with its ring-coupled and longeron-tied edges disjoint by construction so over-constraint
+is impossible. Feasibility is the study's standard five, on windowed metrics. Gif and chart both
+trace to
+/oscar/scratch/eaguerov/supercompressible_oracle/riks_84ba41a522854048ad6ed018a0a6c9c0 &mdash; the
+SKINNED design, rendered with `SHOW_INSTANCES=SKIN` so the sheet itself is visible rather than
+three bare longerons (the renderer's default restricts the display group to the beam instance per
+rule 4's gotcha 2, which for this family hides the entire mechanism). The chart is the skinned
+design ALONE: co-plotting the control is illegible, their compression extents differing by
+31&times; (0.032 against 1.01), and the 1268&times; ratio is a scalar not a curve-shape claim.
+
+**History:** CORRECTED 2026-09-10, and both halves were my own errors rather than inherited ones. FIRST, this
+slide claimed "no compression video: this design's own deformation stops at 0.6% compression,
+which is visually indistinguishable from undeformed". That used rule 2c-VIS's stated exception as
+an excuse to show nothing. A real video existed the whole time: the renderer's own reversal cutoff
+stops it at the deepest descent, giving 26 distinct frames over 0&ndash;3.2% compression with the
+sheet visibly wrinkling. SECOND, the chart was not merely wasteful of vertical space, it was
+misleading in a way this deck has documented before. `bo/mini_chart.py` had no reversal cutoff, so
+it plotted all 64 frames including the 40 in which the mast is RISING &mdash; the loading point
+reaches +57.0 mm against a maximum descent of 2.18 mm, and `np.clip(-U[2], 0, None)` collapses
+every rising frame onto mcs=0. The y-limit of 76,405&times; Bessa came from frame 63, where the
+mast sits 57 mm ABOVE its own start. Same class as the `abs(U3)` bug in
+`validation/mcs_sign_bug_postmortem/`, whose fix (c79a524) added a reversal cutoff to the RENDERER
+and not to the chart builder. Fixed in `bo/mini_chart.py`; the chart's peak is now 1489&times;
+rather than 76,405&times;, and monotonic solves are unaffected (D9-2's chart reproduces
+bit-identically).
 -->
 
 ---
