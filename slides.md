@@ -1609,15 +1609,12 @@ class: idea-slide
 ::right::
 
 <div class="flex flex-col gap-1" style="height: 425px">
-  <div class="flex items-center justify-center text-center px-6" style="height: 380px">
-    <div class="text-sm opacity-70 leading-snug">
-      <b>No compression video.</b><br><br>
-      Rule 2c-VIS exception, stated rather than defaulted to: the furthest any of these 142
-      designs compressed is <b>3.6%</b>, which is visually indistinguishable from undeformed.
-      The Stage-1 ablation that decided H4 is a stiffness measurement, not a motion.
-    </div>
+  <div class="flex items-center justify-center" style="height: 380px">
+    <img src="/gifs/D54-2_gap_circumferential_still.png" class="rounded shadow-lg" style="max-height: 380px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-50 text-center">Deformation below the visible threshold.</div>
+  <div class="text-xs opacity-50 text-center">Still: mode 1 of the re-solved Stage-1 eigenvalue
+  problem (not a compression frame) &mdash; the paired chords bow SIDEWAYS as a unit instead of
+  coiling, which is why this design reads non-coilable.</div>
 </div>
 
 <!--
@@ -1657,7 +1654,20 @@ bo/oracle_gap_orientation.py DOES salvage; see D54's Deferred for the correction
 **Infra:** Oracle bo/oracle_gap_orientation.py with bo/prefilter_gap_orientation.py; Stage 1
 scripts/supercompressible_lin_buckle_gap_orientation.py (+ its own _pp.py), Stage 2
 scripts/supercompressible_riks_gap_orientation.py (+ _pp.py). Feasibility is the study's standard
-five. No ODB is cited because none of the 142 designs produced a converged Stage-2 solve. NO MEDIA: this slide's visual slot is empty because no ODB from either of its 142 designs was retained &mdash; `/oscar/scratch/eaguerov/sc_oracle_gap_orientation/` holds zero Riks and zero lin-buckle solves today. Rule 2c-VIS (revised 2026-09-10) permits no text-only exception, so this is a PROVENANCE GAP to be closed by re-solving one design for a still, not a licence to leave it blank.
+five. No ODB is cited because none of the 142 designs produced a converged Stage-2 solve. MEDIA, provenance gap CLOSED 2026-09-10. None of the 142 designs' ODBs had been retained
+(`sc_oracle_gap_orientation/` held zero Riks and zero lin-buckle solves), so rather than leave the
+slot blank the design was RE-SOLVED: `bo/oracle_gap_orientation.py` at the circumferential-gap
+point [ratio_chord_d 0.015, ratio_h 0.04, ratio_diag_d 0.007, n_bays 8, ratio_pitch 0.681277,
+ratio_top_diameter 0.04444, mode_single 0, gap_circumferential 1, stage1_only 1], Stage 1 only.
+The new ODB is `sc_oracle_gap_orientation/lin_922bd694393d4ec1a9c34b7f60de49df/`, and the still is
+frame 1 (mode 1) from the native Abaqus viewer path, rule 4's only permitted renderer.
+
+The re-solve reproduces the campaign's verdict and adds to it: `coilable=0`, `coiling_mode_found=0`,
+and `sigma_eig=0.9559` &mdash; a REAL eigenvalue, but of a mode that is not the coiling mode, which
+is exactly what the still shows. The paired chords bow sideways as a unit rather than coiling, so
+the composite-depth mechanism this pass was testing never gets the chance to act. That is a
+sharper statement of the negative than "3.6% compression, too small to see", which is what this
+slot used to say instead of showing anything.
 
 -->
 
@@ -8117,12 +8127,13 @@ class: idea-slide
 
 ::right::
 
-<div class="flex flex-col items-center justify-center h-full gap-2 px-4">
-  <div class="text-sm opacity-70 text-center">No video or chart (rule 2c-VIS
-  exception): every one of 32 points failed Stage-1 coilability — no Stage-2 data
-  exists to chart, and no archived ODB for this specific 2026-07-18 campaign was
-  found on scratch or in this run's own delegation logs to render (ephemeral sandbox
-  cleanup, not a fabrication — same situation as D1's own slide).</div>
+<div class="flex flex-col gap-1" style="height: 425px">
+  <div class="flex items-center justify-center" style="height: 380px">
+    <img src="/gifs/D10-2_elliptical_rings_still.png" class="rounded shadow-lg" style="max-height: 380px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">Still: mode 1 of re-solved LHS point 1 of 32 (not a
+  compression frame) &mdash; the three longerons LEAN independently rather than coiling together.
+  No chart: 0 of 32 were coilable, so no Stage-2 history exists.</div>
 </div>
 
 <!--
@@ -8141,7 +8152,24 @@ this idea remains distinct from D10's own already-BARREN Seed.
 
 **Timeline:** D006 of run `20260718T031519`, H1.
 
-**Infra:** no code changed — same oracle path as D10's own base campaign. NO MEDIA: this slide's visual slot is empty because none of its own 32 designs has a retained ODB, and borrowing D10's archived one would break rule 5(a)'s one-provenance-per-slide (it is a different design). Rule 2c-VIS (revised 2026-09-10) permits no text-only exception, so this is a PROVENANCE GAP to be closed by re-solving one design for a still.
+**Infra:** no code changed — same oracle path as D10's own base campaign. MEDIA, provenance gap CLOSED 2026-09-10, and the earlier claim that the toolchain was gone was
+WRONG. This slide previously said no ODB existed and that the elliptical-rings generator had never
+been promoted to gold, which is true of `scripts/` but not of the repo: the exact pre/post
+processors this campaign ran are preserved verbatim in
+`debug/infra_snapshots/20260718T071127_prelaunch/scripts/supercompressible_lin_buckle_elliptical_rings.py`
+(and its `_riks_` twin). An infra snapshot is taken before every fresh run, so a family retired
+from `scripts/` is still recoverable &mdash; the earlier search simply never looked there. Same
+lesson as section 2b of the developer contract: absence of evidence in the place you looked is not
+evidence of absence.
+
+Re-solved LHS point 1 of the campaign's own 32 (`ellipse_aspect_ratio` 0.5631, `phase_offset`
+0.5763 rad, at the fixed run17_rectangle section) against those snapshot scripts. The result is a
+BIT-EXACT reproduction of the 2026-07-18 row: `sigma_crit = 0.8593093687417613` against the
+campaign `output.csv`'s 0.8593093687417613, `coilable = 0`. The still is frame 1 (mode 1) from the
+native viewer, and it shows the finding directly: the three longerons lean independently instead
+of coiling together, so the first buckling mode is not a coiling mode. No chart, and this IS the
+rule's genuine exemption rather than a gap: 0 of 32 were coilable, so no Stage-2 history was ever
+produced to plot. New ODB: `sc_still_d10_2/lin_d10_2_row0/`.
 
 -->
 
