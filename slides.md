@@ -45,10 +45,13 @@ fundamental they are, not by the date they were written.
 
    A revisit slide is a FULL idea-slide (rule 2's template, `class:
    idea-slide`, all linting rules apply) — not a lighter format. It uses
-   the SAME 4 bullets (What/Origin/Stats/Verdict); Origin becomes "what
-   prompted THIS revisit" (a contract change, a new infra capability, a
-   consistency check) rather than re-explaining the base mechanism, which
-   already has its own D<n> slide to point back to. If a revisit's own
+   the SAME 4 bullets (What/Origin/Stats/Verdict); Origin carries the base
+   idea's OWN source class AND what prompted THIS revisit (a contract
+   change, a new infra capability, a consistency check) — see rule 2(b),
+   revised 2026-09-10. It does NOT re-explain the base mechanism, which has
+   its own D<n> slide, but it must never leave a reader unable to tell
+   whether the idea came from physics, a textbook or an article without
+   opening that other slide. If a revisit's own
    Stats funnel is thin (one validation point, one imperfection sweep),
    report it honestly at that size — n=1 is a valid Stats line, not a
    reason to skip the format.
@@ -81,30 +84,71 @@ fundamental they are, not by the date they were written.
                       same. Free/fixed parameter bounds live ONLY in the
                       speaker notes' Input space (rule 9), never
                       duplicated here.
-     (b) Origin    — where the idea came from, AND the PHYSICAL MECHANISM
-                      that motivates it: why, mechanistically, would this
-                      help the mast coil further, absorb more
-                      compression, or raise its stiffness? A citation is
-                      supporting evidence for that mechanism, not a
-                      substitute for stating it — "Rathore & Grason 2011"
-                      alone names a source, not a reason; "Rathore &
-                      Grason 2011 — a crosslinked bundle carries an
-                      intrinsic torque a single member doesn't, because
-                      the crosslinks resist relative bending/twisting
-                      between sub-beams" states the mechanism the
-                      citation backs. Use a real, specific citation, or
-                      the honest "common sense / resize of family X" if
-                      that's actually what it was — never fabricate a
-                      literature grounding that isn't real. If a real
-                      citation is claimed, add a numbered footnote below
-                      the bullets with the actual reference; if only a
-                      named theory/author was cited without a delegation
-                      verifying a specific paper, the footnote must say
-                      so plainly rather than invent a fake
-                      author/year/journal. For a D<n>-<k> revisit, Origin
-                      is what prompted THIS pass (a fix, a contract
-                      change, a new capability) — the base mechanism
-                      lives on D<n>'s own slide.
+     (b) Origin    — WHERE THE IDEA CAME FROM, epistemically, AND the
+                      PHYSICAL MECHANISM that motivates it.
+
+                      IT MUST OPEN WITH A SOURCE CLASS (added 2026-09-10,
+                      after an audit found most Origins named what
+                      PROMPTED a pass — a prior slide, an open question,
+                      "H1 again" — rather than where the idea came from.
+                      A hypothesis id is an ADDRESS, not an origin, and
+                      is never an acceptable answer to "physics,
+                      textbook, or article?"). Exactly one of:
+
+                        LITERATURE      — a specific paper. Requires a
+                                          numbered footnote with the real
+                                          reference.
+                        THEORY          — established, textbook mechanics
+                                          (flexural-torsional theory, the
+                                          parallel-axis theorem,
+                                          Kirchhoff rods, Calladine shell
+                                          folding, the Lagrange-Keller
+                                          optimal column). Name the
+                                          result, not just the field.
+                        MEASUREMENT     — a law or number THIS study
+                                          measured (e.g. its own
+                                          sigma_peak sizing law, a
+                                          kinematic cap, a correlation).
+                                          Say which.
+                        PRIOR-FAILURE   — the named, diagnosed failure of
+                                          a specific earlier design. Name
+                                          the design AND what its failure
+                                          established.
+                        OWN-IDEATION    — proposed by the run itself with
+                                          no external grounding, or plain
+                                          common sense. Honest and
+                                          perfectly acceptable; say so
+                                          rather than dressing it up.
+                        INSTRUMENT      — a revisit prompted by a fix, a
+                                          new capability, or a criterion
+                                          that did not exist before. See
+                                          the revisit rule below: this
+                                          class NEVER stands alone.
+
+                      Then state the mechanism. A citation is supporting
+                      evidence for a mechanism, not a substitute for
+                      stating it — "Rathore & Grason 2011" alone names a
+                      source, not a reason; "Rathore & Grason 2011 — a
+                      crosslinked bundle carries an intrinsic torque a
+                      single member doesn't, because the crosslinks
+                      resist relative bending/twisting between sub-beams"
+                      states the mechanism the citation backs. Never
+                      fabricate a literature grounding that isn't real:
+                      if only a named theory or author was cited without
+                      a delegation verifying a specific paper, the
+                      footnote must say so plainly rather than invent an
+                      author/year/journal.
+
+                      A D<n>-<k> REVISIT CARRIES TWO THINGS, not one
+                      (revised 2026-09-10; the previous wording asked
+                      only for "what prompted THIS pass", which is why
+                      every revisit in this deck lost its epistemic
+                      origin entirely): the base idea's OWN source class,
+                      and then what prompted this pass. Written
+                      "INSTRUMENT, on a THEORY idea — <what changed>".
+                      A reader must never have to open another slide to
+                      learn whether the idea came from physics, a
+                      textbook, or an article.
      (c) Stats     — a FIXED-FORMAT structured data line, not free prose
                       (a deliberate, scoped exception to the
                       plain-language bar below — this is a data readout
@@ -362,12 +406,46 @@ fundamental they are, not by the date they were written.
         "No render yet, ask if you want one built" is NEVER an
         acceptable substitute: if a real solved ODB exists, render it.
 
-        A real sigma-vs-compression chart (`*_mini.png`) is REQUIRED
-        alongside the video whenever a chart would show something the
-        caption can't — most commonly a two-design comparison
-        (with/without a mechanism, before/after a fix, genuine/ambiguous)
-        or a stress history the reader would otherwise have to take on
-        faith from the Stats numbers alone.
+        THE STRESS-HISTORY CHART IS THE SECOND REQUIRED VISUAL, AND THE
+        REQUIREMENT IS UNCONDITIONAL (rewritten 2026-09-10, after an
+        audit found 30 of 71 idea slides with no chart at all, 15 of
+        them slides that DID have a converged stress history to plot).
+        The previous wording — "REQUIRED whenever a chart would show
+        something the caption can't" — is exactly why: it read as a
+        judgement call, so slide after slide judged itself exempt. It
+        never was a judgement call. A Stats funnel reporting `-> R riks`
+        with R >= 1 IS a stress history the reader is otherwise being
+        asked to take on faith from four summary numbers, every time,
+        with no exceptions. The video shows what the design DID; the
+        chart shows WHAT IT COST. Neither substitutes for the other.
+
+        SO: a real sigma-vs-compression chart (`*_mini.png`), built by
+        `bo/mini_chart.py`, is REQUIRED on every idea slide whose
+        campaign produced AT LEAST ONE converged Riks history — whatever
+        that history shows. A single point is a chart (n=1 is a valid
+        chart, as it is a valid Stats line). A history that ends in a
+        stall, a non-convergence, or a wild artifact spike is a chart:
+        those are the ones the reader most needs to see, not the ones
+        to hide. "The numbers are in Stats", "it adds nothing", "the
+        video already shows it" and "0 good, so there is nothing to
+        plot" are ALL violations. `lint_slides.py` enforces this from
+        the Stats funnel's own riks count.
+
+        THE ONLY EXEMPTION is a campaign with NO Stage-2 history in
+        existence: every design failed Stage-1 coilability, or every
+        Stage-2 solve failed before producing a usable history, or no
+        model was ever built (D8). There is then literally no
+        sigma-vs-compression curve to draw, and that fact is itself the
+        finding — the slide's notes must say which of those it is, in
+        the Result label's own cause vocabulary (rule 9d), because
+        "0 coilable" and "coilable but Stage 2 never converged" are
+        different results with different causes and must not read alike.
+        This exemption is about the ABSENCE OF DATA, never about a
+        judgement that a chart would be uninformative.
+
+        A two-design comparison (with/without a mechanism, before/after
+        a fix, genuine/ambiguous) is a chart that carries EXTRA duty
+        beyond the baseline requirement, not the trigger for it.
 
         BUILD EVERY CHART WITH `bo/mini_chart.py` — NEVER A FRESH ONE-OFF
         SCRIPT (rule tightened 2026-08-31, after the one-off-script pattern
@@ -1101,7 +1179,7 @@ class: idea-slide
 - **What:** a slack elastic tie spans bottom ring to top ring, its top anchor rotated *against* the
   direction the mast twists as it coils, and sized to go taut only past 80% compression. Longerons
   unchanged.
-- **Origin:** the run's own answer to H1 &mdash; if bending cannot reach the target, the peak has to
+- **Origin:** MEASUREMENT &mdash; this study's own H1 measurement: if bending cannot reach the target, the peak has to
   come from stretched material. Coiling pulls the tie's two ends apart faster than descent brings
   them together, so its straight-line span *grows*: a tie can stay limp early and pull hard late.
 - **Stats:** n=18 &rarr; 18 coil &rarr; 3 riks &rarr; 0 good
@@ -1187,7 +1265,7 @@ class: idea-slide
 - **What:** D9's radial bow, re-signed to point *outward*, and &mdash; the change that matters &mdash;
   the longeron made thicker along with it, 0.026 of the ring diameter against the study's usual
   0.020. One design, built and validated; not a search.
-- **Origin:** D9 bowed at FIXED depth, where a bow can only lengthen and soften the member, so it
+- **Origin:** PRIOR-FAILURE, on an OWN-IDEATION idea (D9, a common-sense geometric hypothesis) &mdash; D9 bowed at FIXED depth, where a bow can only lengthen and soften the member, so it
   had to lose. The bow's real claim is different: it grows the radius the longeron coils onto, and
   the 2%-strain depth limit is set by that radius &mdash; so a bowed member is *allowed* to be thicker.
 - **Stats:** n=1 &rarr; 1 coil &rarr; 1 riks &rarr; 1 good (1.11&times; Bessa)
@@ -1267,7 +1345,7 @@ class: idea-slide
 - **What:** a thin PLA sheet fills each gap between neighbouring longerons, following the mast's own
   tapered surface between the two rings, bonded to both rings and to the longeron on either side.
   Modelled with shell elements; one design plus its matched skinless control.
-- **Origin:** H1 again &mdash; the peak has to be carried by stretched material. A sheet loaded in
+- **Origin:** THEORY &mdash; membrane vs. bending stiffness: the peak has to be carried by stretched material. A sheet loaded in
   its own plane is stiff in a way no slender member can be, and a thin sheet was expected to wrinkle
   away at about 0.01% strain and then keep carrying load essentially strain-free.
 - **Stats:** n=2 &rarr; 1 coil &rarr; 1 riks &rarr; 1 good (0.59&times; Bessa) &mdash; **every stage
@@ -1434,7 +1512,7 @@ class: idea-slide
 
 - **What:** each longeron becomes two slender chords spanning ring-to-ring, linked by slender
   rungs sized to buckle elastically once coiling starts. Rings and longeron count unchanged.
-- **Origin:** run's own ideation.<sup>1</sup> The paired chords act as one deep section before the
+- **Origin:** OWN-IDEATION, proposed by the run itself.<sup>1</sup> The paired chords act as one deep section before the
   rungs buckle and as two independent thin chords after &mdash; stiff while carrying load, limp
   while coiling.
 - **Stats:** n=24 &rarr; 24 coil &rarr; 0 riks &rarr; 0 good
@@ -1514,7 +1592,7 @@ class: idea-slide
 
 - **What:** the same two-chord ladder as D54, with the gap between chords rotated from RADIAL
   (pointing out from the mast axis) to CIRCUMFERENTIAL (lying along the ring), and the box widened.
-- **Origin:** what prompted this pass: the coiling mode bends each longeron about its
+- **Origin:** THEORY, on an OWN-IDEATION idea (D54, proposed by the run itself) &mdash; what prompted this pass: the coiling mode bends each longeron about its
   circumferential axis, so a radial gap lies along that bending axis and adds no composite depth,
   while a circumferential gap should add all of it.
 - **Stats:** n=142 &rarr; 20 coil &rarr; 0 riks &rarr; 0 good
@@ -1597,7 +1675,7 @@ class: idea-slide
 - **What:** the ladder braced in BOTH directions at once &mdash; circumferential webs and radial
   webs on the same chords, making each longeron a small three-dimensional truss instead of a
   planar ladder.
-- **Origin:** if a planar ladder adds composite depth about only one axis, bracing both axes
+- **Origin:** OWN-IDEATION &mdash; if a planar ladder adds composite depth about only one axis, bracing both axes
   should add it about both, and the coiling mode cannot escape into the unbraced direction.
 - **Stats:** n=21 &rarr; 16 coil &rarr; 0 riks &rarr; 0 good
   quartiles unavailable — no design reached a converged Riks solve
@@ -1669,7 +1747,7 @@ class: idea-slide
 
 - **What:** abandons bracing entirely: many closely-spaced, pre-twisted longerons that come into
   MUTUAL contact as they coil, so the stack braces itself only once it is already coiled.
-- **Origin:** separate strength from compressibility in TIME rather than in cross-section &mdash;
+- **Origin:** OWN-IDEATION &mdash; separate strength from compressibility in TIME rather than in cross-section &mdash;
   nothing stiffens the member while it needs to bend, and the nested helical stack supplies
   stiffness afterwards.
 - **Stats:** n=26 &rarr; 21 coil &rarr; 6 riks &rarr; 1 good (0.51&times; Bessa)
@@ -1686,10 +1764,13 @@ class: idea-slide
 ::right::
 
 <div class="flex flex-col gap-1" style="height: 425px">
-  <div class="flex items-center justify-center" style="height: 380px">
-    <img src="/gifs/D56_self_nest.gif" class="rounded shadow-lg" style="max-height: 380px; max-width: 100%" />
+  <div class="flex items-center justify-center" style="height: 150px">
+    <img src="/gifs/D56_self_nest_mini.png" style="max-height: 150px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-50 text-center">The control, contact OFF &mdash; see notes.</div>
+  <div class="flex items-center justify-center" style="height: 260px">
+    <img src="/gifs/D56_self_nest.gif" class="rounded shadow-lg" style="max-height: 260px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">Chart: the best design. Gif: the control, contact OFF &mdash; see notes.</div>
 </div>
 
 <!--
@@ -1817,7 +1898,7 @@ class: idea-slide
 
 - **What:** Longerons split into two counter-inclined sets &mdash; half offset one way between
   the rings, half the other. Nothing else changed.
-- **Origin:** Ideated this run from chiral-metamaterial work.<sup>1</sup> Two opposed
+- **Origin:** LITERATURE &mdash; ideated this run from chiral-metamaterial work.<sup>1</sup> Two opposed
   handednesses cannot coil at once, so the mast's free coiling path vanishes.
 - **Stats:** n=165 &rarr; 74 coil &rarr; 7 riks &rarr; 0 good
   p50/p90/p100 &mdash; &sigma;_crit: .086/.376/.391 &middot; mcs: .724/.793/.796 &middot; mls: .0199/.0200/.0200
@@ -2018,7 +2099,7 @@ class: idea-slide
 
 - **What:** a thin scale bonded to the longeron on a standoff, carrying load from zero curvature
   and buckling away once coiling starts. Base beam and rings unchanged.
-- **Origin:** the reverse trigger of D49's contact stiffening &mdash; carry from the start and shed
+- **Origin:** PRIOR-FAILURE &mdash; the reverse trigger of D49's REFUTED contact stiffening: carry from the start and shed
   later, rather than engage only after the buckling event that sets the load has happened.
 - **Stats:** n=412 &rarr; 409 coil &rarr; 171 riks &rarr; 41 good (0.78&times; Bessa)
   p50/p90/p100 &mdash; &sigma;_crit: .094/.149/.639 &middot; mcs: .410/.910/.945 &middot; mls: .0197/.0200/.0200
@@ -2033,10 +2114,13 @@ class: idea-slide
 ::right::
 
 <div class="flex flex-col gap-1" style="height: 425px">
-  <div class="flex items-center justify-center" style="height: 380px">
-    <img src="/gifs/D51_release_scale.gif" class="rounded shadow-lg" style="max-height: 380px; max-width: 100%" />
+  <div class="flex items-center justify-center" style="height: 150px">
+    <img src="/gifs/D51_release_scale_mini.png" style="max-height: 150px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-50 text-center">Typical release-scale solve.</div>
+  <div class="flex items-center justify-center" style="height: 260px">
+    <img src="/gifs/D51_release_scale.gif" class="rounded shadow-lg" style="max-height: 260px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">Best design with scales realized; strain passes 2% at 81% compression.</div>
 </div>
 
 <!--
@@ -2096,7 +2180,7 @@ class: idea-slide
 
 - **What:** the same offset scale, but bonded at ONE end only and free to slide axially at the
   other, so it can stiffen while engaged without being dragged along the core as it shortens.
-- **Origin:** what D51's own failure named. H3 measured the binding constraint as the scale's own
+- **Origin:** PRIOR-FAILURE &mdash; what D51's own failure named. H3 measured the binding constraint as the scale's own
   strain from being tied at both ends; releasing one end removes exactly that term.
 - **Stats:** n=73 &rarr; 72 coil &rarr; 40 riks &rarr; 18 good (0.74&times; Bessa)
   p50/p90/p100 &mdash; &sigma;_crit: .092/.118/.157 &middot; mcs: .770/.934/.949 &middot; mls: .0198/.0199/.0200
@@ -2111,10 +2195,13 @@ class: idea-slide
 ::right::
 
 <div class="flex flex-col gap-1" style="height: 425px">
-  <div class="flex items-center justify-center" style="height: 380px">
-    <img src="/gifs/D52_slip_scale.gif" class="rounded shadow-lg" style="max-height: 380px; max-width: 100%" />
+  <div class="flex items-center justify-center" style="height: 150px">
+    <img src="/gifs/D52_slip_scale_mini.png" style="max-height: 150px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-50 text-center">Typical slip-tie solve.</div>
+  <div class="flex items-center justify-center" style="height: 260px">
+    <img src="/gifs/D52_slip_scale.gif" class="rounded shadow-lg" style="max-height: 260px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">Best design; strain passes 2% at 88% compression.</div>
 </div>
 
 <!--
@@ -2165,7 +2252,7 @@ class: idea-slide
 
 - **What:** the scale moved from radially outward of the core to circumferentially beside it, so
   its material adds section WIDTH instead of section DEPTH.
-- **Origin:** the study's own sizing law. &sigma;_peak &prop; E&middot;w&middot;c&sup3;/L&sup2; is
+- **Origin:** MEASUREMENT &mdash; the study's own sizing law. &sigma;_peak &prop; E&middot;w&middot;c&sup3;/L&sup2; is
   linear in width w but cubic in the depth c that the 2% strain cap fixes &mdash; so widening is the
   one move the cap does not directly punish.
 - **Stats:** n=59 &rarr; 52 coil &rarr; 20 riks &rarr; 8 good (0.67&times; Bessa)
@@ -2181,10 +2268,13 @@ class: idea-slide
 ::right::
 
 <div class="flex flex-col gap-1" style="height: 425px">
-  <div class="flex items-center justify-center" style="height: 380px">
-    <img src="/gifs/D53_tangent_scale.gif" class="rounded shadow-lg" style="max-height: 380px; max-width: 100%" />
+  <div class="flex items-center justify-center" style="height: 150px">
+    <img src="/gifs/D53_tangent_scale_mini.png" style="max-height: 150px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-50 text-center">Typical tangential-scale solve.</div>
+  <div class="flex items-center justify-center" style="height: 260px">
+    <img src="/gifs/D53_tangent_scale.gif" class="rounded shadow-lg" style="max-height: 260px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">Best design, 6 scales; strain passes 2% at 84% compression.</div>
 </div>
 
 <!--
@@ -2298,7 +2388,7 @@ class: idea-slide
 - **What:** replaces D35's rigid panel clamp with a compliant flexural neck; panels touch
   only via unilateral, frictionless contact &mdash; tests whether a flexible root adds
   stiffness without D35's failure mode.
-- **Origin:** D35 (rigid panels) failed for a known reason: the clamp froze curvature
+- **Origin:** PRIOR-FAILURE &mdash; D35 (rigid panels) failed for a known reason: the clamp froze curvature
   locally and amplified it elsewhere, closing the strain window on 0 of 64 designs. Tests
   whether a compliant root fixes that.
 - **Stats:** n=309 &rarr; 178 coil &rarr; 69 riks &rarr; 48 good (4.64&times; Bessa) &mdash;
@@ -2526,7 +2616,7 @@ class: idea-slide
 
 - **What:** rigid rings joined by three transversely-loaded shallow arches attached DIRECTLY to
   the rings, with no legs &mdash; compression was meant to come from each arch snapping through.
-- **Origin:** chaining bistable curved-beam units to trap elastic strain by sequential
+- **Origin:** LITERATURE &mdash; chaining bistable curved-beam units to trap elastic strain by sequential
   snap-through (Shan et al. 2015<sup>1</sup>), taken in its simplest possible embodiment first.
 - **Stats:** n=90 &rarr; 90 coil &rarr; 5 riks &rarr; 2 good
   p50/p90/p100 &mdash; mcs: .928/.940/.948 &middot; mls: .0124/.0179/.0200 (&sigma;_crit n/a, no eigen stage)
@@ -2546,10 +2636,13 @@ class: idea-slide
 ::right::
 
 <div class="flex flex-col gap-1" style="height: 425px">
-  <div class="flex items-center justify-center" style="height: 380px">
-    <img src="/gifs/D47_snapchain.gif" class="rounded shadow-lg" style="max-height: 380px; max-width: 100%" />
+  <div class="flex items-center justify-center" style="height: 150px">
+    <img src="/gifs/D47_snapchain_mini.png" style="max-height: 150px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-50 text-center">Arc flattens against the ring above.</div>
+  <div class="flex items-center justify-center" style="height: 260px">
+    <img src="/gifs/D47_snapchain.gif" class="rounded shadow-lg" style="max-height: 260px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">Arc flattens against the ring above; peak 26&times; Bessa is an arch-stiffness artifact (see notes).</div>
 </div>
 
 <!--
@@ -2665,7 +2758,7 @@ class: idea-slide
 - **What:** abandons ring-rotation coiling entirely: rigid rings connected by three curved
   arches, each on two short legs so it can flip to its mirror curve without hitting the
   ring below &mdash; compression comes from arches snapping in sequence.
-- **Origin:** Shan et al. 2015¹ &mdash; chaining bistable curved-beam units traps elastic
+- **Origin:** LITERATURE &mdash; Shan et al. 2015¹: chaining bistable curved-beam units traps elastic
   strain via sequential snap-through, never applied to this problem before. Bistability
   threshold (rise/thickness &ge; ~2.31): Qiu, Lang &amp; Slocum 2004².
 - **Stats:** 3 runs folded into one (see Timeline) &mdash; n=168 &rarr; 167 coil &rarr; 28
@@ -2848,7 +2941,7 @@ class: idea-slide
 
 - **What:** a purely geometric doubly-curved shallow SHELL segment spliced into the longeron, with
   no prestress &mdash; the shell's own curvature is meant to make it snap between two stable states.
-- **Origin:** a doubly-curved shell has two stable configurations for purely geometric reasons,
+- **Origin:** THEORY &mdash; a doubly-curved shell has two stable configurations for purely geometric reasons,
   so splicing one in should buy a snap-through stroke without any pre-load to manufacture.
 - **Stats:** n=80 &rarr; 53 coil &rarr; 23 riks &rarr; 7 good (0.32&times; Bessa)
   p50/p90/p100 &mdash; &sigma;_crit: .134/.361/.694 &middot; mcs: .160/.934/.948 &middot; mls: .0196/.0200/.0200
@@ -2863,10 +2956,13 @@ class: idea-slide
 ::right::
 
 <div class="flex flex-col gap-1" style="height: 425px">
-  <div class="flex items-center justify-center" style="height: 380px">
-    <img src="/gifs/D45_bistable_shell.gif" class="rounded shadow-lg" style="max-height: 380px; max-width: 100%" />
+  <div class="flex items-center justify-center" style="height: 150px">
+    <img src="/gifs/D45_bistable_shell_bestgood_mini.png" style="max-height: 150px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-50 text-center">Typical shell-splice solve.</div>
+  <div class="flex items-center justify-center" style="height: 260px">
+    <img src="/gifs/D45_bistable_shell.gif" class="rounded shadow-lg" style="max-height: 260px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">Chart: the best design (0.32&times; Bessa at 93% compression).</div>
 </div>
 
 <!--
@@ -2921,7 +3017,7 @@ class: idea-slide
 
 - **What:** an initially slit (open) thin-walled tube longeron whose slit edges come into contact
   and close as it twists, so the section converts from open to closed mid-stroke.
-- **Origin:** a closed thin-walled section has torsional stiffness orders above an open one of the
+- **Origin:** THEORY &mdash; a closed thin-walled section has torsional stiffness orders above an open one of the
   same material, so a section that closes on itself under load should gain that jump for free,
   exactly when the coiling mode is trying to twist it.
 - **Stats:** n=33 &rarr; 24 coil &rarr; 0 riks &rarr; 0 good
@@ -3072,7 +3168,7 @@ layout: two-cols-header
 
 - **What:** same single bistable insert as D24, moved to the longeron's MID-SPAN (flanked by
   plain segments) instead of against a ring joint — both joints now see ordinary geometry.
-- **Origin:** isolates whether D24's benefit survives away from the joint, and (rule 2a)
+- **Origin:** INSTRUMENT, on a LITERATURE idea (D24, elastic-instability/bistable-mechanism metamaterials) &mdash; isolates whether D24's benefit survives away from the joint, and (rule 2a)
   whether the insert itself, not just its host design, pulls its own weight.
 - **Stats:** n=1 winning design + imperfection sweep + 1 ablation.<br>
   &sigma;<sub>peak</sub>=0.5838 kPa (2.6&times; target), joint-strain margin 0.8%, feasible
@@ -3183,7 +3279,7 @@ class: idea-slide
 - **What:** replace one longeron with N=2&ndash;6 genuinely bistable (Q=rise/thickness &ge;
   2.31) shallow-arch segments chained end-to-end, so the longeron snaps through several times in
   a controlled sequence as it compresses, instead of buckling smoothly like an ordinary beam.
-- **Origin:** Correa, Seepersad &amp; Haberman (2015) &mdash; a chain of sequential
+- **Origin:** LITERATURE &mdash; Correa, Seepersad &amp; Haberman (2015): a chain of sequential
   negative-stiffness cells; a genuine connectivity change (a SEQUENCE of discrete snap-through
   events), not a single modified segment.
 - **Stats:** n=182 &rarr; 129 coil &rarr; 99 riks &rarr; 0 good (clean)
@@ -3387,7 +3483,7 @@ layout: two-cols-header
   own bottom-to-top axis (was the ring's shared radial direction) — the axis Fang et al.'s
   mechanism needs to twist about. Re-solved the matched validation point, then a 20-design
   follow-up search under the fix.
-- **Origin:** D41's own base slide found the mechanism wasn't engaging — the joint axis was
+- **Origin:** PRIOR-FAILURE, on a LITERATURE idea (D41, Fang et al. 2025) &mdash; D41's own base slide found the mechanism wasn't engaging — the joint axis was
   inherited unchanged from every straight-longeron family; tests whether fixing it works.
 - **Stats:** n=1 validation point + 20-design follow-up.<br>
   Twist-strain fraction: 0.011%&rarr;12.2% (1078&times;) — engages, but only 3% compression.
@@ -3490,7 +3586,7 @@ layout: two-cols-header
 - **What:** re-solved the family's best-cited design (D020, archived at 71.9% compression)
   under two solver configurations — 9&times; larger time budget, and a non-stabilized path —
   then a 48-design adaptive search of the whole space.
-- **Origin:** this headline had never been independently re-verified; checks whether it
+- **Origin:** INSTRUMENT, on a LITERATURE idea (D40, Rathore &amp; Grason 2011) &mdash; this headline had never been independently re-verified; checks whether it
   reproduces and whether ANY design in the family is confirmed working.
 - **Stats:** n=48 &rarr; 38 Stage-1 &rarr; 1 Riks-converged &rarr; 0 good (0&times; Bessa).<br>
   D020 re-solved twice: both non-converged, agree to 6+ sig figs (mcs=0.7173) — a real
@@ -3633,7 +3729,7 @@ class: idea-slide
 - **What:** A literal, periodic B31 beam-element mesh along each longeron: repeating stiffer
   "grain" inclusions (locally-enlarged cross-section) connected by slender, chirally-offset bar
   pairs — a real discretized lattice, not a homogenized section.
-- **Origin:** Pancella &amp; D'Annibale (2025)&sup1; — a periodic chiral-grain lattice carries a
+- **Origin:** LITERATURE &mdash; Pancella &amp; D'Annibale (2025)&sup1;: a periodic chiral-grain lattice carries a
   homogenized extension-shear/bend-twist coupling from material chirality itself (the grain-bar
   offset), not from centerline geometry the way serpentine's coupling is — testing whether that
   distinct channel keeps the lowest buckling mode GLOBAL coiling, not local grain/bar buckling,
@@ -3804,7 +3900,7 @@ class: idea-slide
 - **What:** Offset each longeron's centerline from the straight ring-to-ring chord by a sinusoid
   in the TANGENTIAL direction — perpendicular to the mast's own coiling-bow plane, not within it
   — with a strongly anisotropic cross-section (stiff in-plane, compliant out-of-plane).
-- **Origin:** Shi, Huang, Yu &amp; Li (2024)&sup1; — an anisotropic serpentine strip buckles OUT
+- **Origin:** LITERATURE &mdash; Shi, Huang, Yu &amp; Li (2024)&sup1;: an anisotropic serpentine strip buckles OUT
   of its own planform via a coupled bend-twist mode (a double-eigenvalue bifurcation), a
   different post-buckling channel than the planar coiling every other family here shares.
 - **Stats:** n=140 &rarr; 121 coil &rarr; 61 riks &rarr; 51 good (5.76&times; Bessa)
@@ -3984,7 +4080,7 @@ class: idea-slide
   thickened past this study's usual cross-section, so rod-level TORSIONAL buckling competes with
   the bending-dominated coiling every straight-longeron family inherits — the question is whether
   each ROD twists about its OWN axis, independent of the rings' own relative rotation.
-- **Origin:** Fang et al. (2025), *Nature* 639 — torsional strain energy scales ~8&times; more
+- **Origin:** LITERATURE &mdash; Fang et al. (2025), *Nature* 639: torsional strain energy scales ~8&times; more
   favorably with stress than bending, decoupling load capacity from every family's curvature cap.
   Thickened deliberately: a slender rod buckles in bending first, so torsion can't compete unless
   the bending threshold rises faster than the torsional one.
@@ -4073,7 +4169,7 @@ layout: two-cols-header
 - **What:** D24's splice re-migrated to ground+top-disc contact; optimum reconfirmed, and a
   refined search found a new candidate ("Rank-3"), imperfection-tested (Bessa's own
   lognormal(4&deg;,1.2&deg;), 3 seeds).
-- **Origin:** D24's own slide flagged its headline as never re-measured under contact — this
+- **Origin:** INSTRUMENT, on a LITERATURE idea (D24, elastic-instability/bistable-mechanism metamaterials) &mdash; D24's own slide flagged its headline as never re-measured under contact — this
   closes that gap.
 - **Stats:** n=1 candidate (Rank-3), imperfection-sampled (19 draws). Fine-mesh re-solve
   (250&times; tighter, job 5410570): the draw behind the cited 1.6487 kPa median does NOT
@@ -4222,7 +4318,7 @@ layout: two-cols-header
 - **What:** discrete straight longerons replaced by ONE continuous, periodically-cut PLA shell
   wall — cut length `l`, ligament width `delta`, shell thickness `t_shell` free; ring radii fixed
   to the study's standard envelope.
-- **Origin:** kirigami-cut shell metamaterials literature (cut networks that buckle/snap
+- **Origin:** LITERATURE (field-level) &mdash; kirigami-cut shell metamaterials (cut networks that buckle/snap
   out-of-plane at each ligament) — the idea being that many independent ligament rotations absorb
   the ring's rotation-descent demand instead of one beam's curvature.
 - **Stats:** n=51 &rarr; 0 coil &rarr; 0 riks &rarr; 0 good
@@ -4286,6 +4382,13 @@ index**, best ur3_ratio .0103 against the .05 bar. The mode-1 column reproduces 
 this family would not test it better; there is no coiling mode to find. Same scan closes D26,
 D27 and D38 &mdash; 0 of 267 designs across all four. See
 `validation/shell_coiling_mode_scan/README.md`, commit 9fca313.
+
+**History:** Origin grounding is FIELD-LEVEL, not a specific paper. The delegation cited the
+kirigami-cut shell-metamaterial literature as a class of prior work; no delegation ever verified a
+particular author/year/journal for it, so none is claimed here (rule 2(b): never fabricate a
+citation that was not verified). The mechanism the class supplies &mdash; many independent ligament
+rotations absorbing a rotation-descent demand that a continuous wall has to absorb as strain &mdash;
+is real and is what was actually tested; only the bibliographic address is missing.
 -->
 
 ---
@@ -4301,7 +4404,7 @@ layout: two-cols-header
 - **What:** Bessa's rigid 0-D top ring replaced by an elastically-buckling, kirigami-cut annular
   shell — ring cut length, ligament width, thickness, and radial width free; longeron geometry
   unchanged from the matched circular-family control.
-- **Origin:** same kirigami-cut shell grounding as D36, applied to the ring rather than the
+- **Origin:** LITERATURE (field-level, as D36) &mdash; the same kirigami-cut shell grounding, applied to the ring rather than the
   longerons — letting the effective ring radius evolve during compression instead of staying
   fixed.
 - **Stats:** n=36 &rarr; 28 coil &rarr; 1 riks &rarr; 0 good
@@ -4365,6 +4468,10 @@ scripts/supercompressible_{lin_buckle,riks}_compliant_ring.py. ODB:
 2026-08-26 with SHOW_INSTANCES=RING_TOP (a real, separately-meshed 960-element shell instance,
 distinct from the 0-D-point rings every other family in this study has) -- the actual kirigami-cut
 ring geometry, not the schematic dashed-circle placeholder used where no ring mesh exists.
+
+**History:** Origin grounding is FIELD-LEVEL, inherited from D36 &mdash; the same kirigami-cut
+shell-metamaterial class of prior work, with no specific paper verified by any delegation, so none
+is claimed (rule 2(b)).
 -->
 
 ---
@@ -4380,7 +4487,7 @@ layout: two-cols-header
 - **What:** a mass-neutral, helically-graded thickness field t(&theta;,z) over an otherwise
   UNCUT, smooth conical shell wall (a=0 collapses to the study's own uniform-shell control) —
   grading contrast `a`, rotational order `n_eff`, helical twist, phase, pitch/taper free.
-- **Origin:** graded/hierarchical architected-metamaterial literature — the idea being that
+- **Origin:** LITERATURE (field-level) &mdash; graded/hierarchical architected-metamaterial work: the idea being that
   reshaping the strain-vs-compression integral via a spatially-varying wall thickness could let
   a design reach mcs&ge;0.80 within the 2% strain budget at a higher &sigma;_peak than a uniform
   wall permits.
@@ -4436,6 +4543,10 @@ Applying this family's own three-part criterion to all 20 modes across 24 retain
 **0 designs carry the coiling signature at any index**, best ur3_ratio .0001 against the .05 bar
 &mdash; 500&times; short. There is essentially no top-ring rotation anywhere in this family's
 spectrum. See `validation/shell_coiling_mode_scan/README.md`, commit 9fca313.
+
+**History:** Origin grounding is FIELD-LEVEL, not a specific paper: the graded/hierarchical
+architected-metamaterial literature was cited as a class, and no delegation verified a particular
+reference for it, so none is claimed (rule 2(b)).
 -->
 
 ---
@@ -4451,7 +4562,7 @@ layout: two-cols-header
 - **What:** an outer continuous shell wall backed by an inner collar/panel that closes a gap and
   engages via self-contact partway through compression, meant to raise effective stiffness only
   after engagement — gap `g0`, collar thickness `t_in`, engagement height/preload free.
-- **Origin:** direct follow-up to D36/D38's shared failure mode — instead of cutting or grading
+- **Origin:** PRIOR-FAILURE &mdash; D36/D38's shared failure mode: instead of cutting or grading
   the wall itself, add a second wall that only helps once contact closes, hoping to avoid the
   local-buckling competition both prior shell attempts hit.
 - **Stats:** n=5 &rarr; 0 coil &rarr; 0 riks &rarr; 0 good
@@ -4522,7 +4633,7 @@ layout: two-cols-header
 
 - **What:** each longeron replaced by 2-3 slender B31 sub-beams on the same envelope circle, tied
   at discrete axial crosslink points.
-- **Origin:** Rathore &amp; Grason 2011 — a crosslinked bundle of slender filaments carries an
+- **Origin:** LITERATURE &mdash; Rathore &amp; Grason 2011: a crosslinked bundle of slender filaments carries an
   intrinsic torque an equivalent single member doesn't, because the crosslinks resist relative
   bending/twisting between sub-beams; the hope was this extra coupling raises the mast's coiling
   stiffness beyond a solid-longeron control at the same envelope diameter.
@@ -4641,7 +4752,7 @@ layout: two-cols-header
 - **What:** `twist_angle` — a helical PRE-twist baked into the tape-spring cross-section along
   the member's length (D1's convention), promoted to a real 7th parameter (&plusmn;90&deg;).
   Verified to bit-exactly reproduce the untwisted record first.
-- **Origin:** chirality/twist is established on other families (D1, D27); closes an ambiguity
+- **Origin:** INSTRUMENT, on a THEORY idea (D25, Calladine shell folding + Seffen&ndash;Pellegrino tape-spring mechanics) &mdash; chirality/twist is established on other families (D1, D27); closes an ambiguity
   where the deck's own prior Seed tags disagreed on whether it had been tried here — it hadn't.
 - **Stats:** n=105 (70 broad-Sobol + 35 directed) &rarr; 20/105 coilable &rarr; 15/105 decided
   &rarr; 0 good.<br>
@@ -4790,7 +4901,7 @@ layout: two-cols-header
   module constant to a real 9th design parameter (3&times;&ndash;15&times;). Adds
   connector-force (CTF) output, making load-bearing directly measurable. Swept 6 points,
   reference design fixed.
-- **Origin:** D33's own slide left "does the multiplier matter, is contact actually
+- **Origin:** INSTRUMENT, on a LITERATURE idea (D33, Liu, Ennis &amp; Coulais 2024) &mdash; D33's own slide left "does the multiplier matter, is contact actually
   interfering" open; this sweep answers both.
 - **Stats:** n=6 (full range): 3&times; converges (baseline, 48.6% compression); 5&times;
   gate-fails; 7&times; diverges; 9&times; times out twice (6&times;&ndash;10.5&times; is a
@@ -4869,7 +4980,7 @@ layout: two-cols-header
   each of n_ribs stations, angled and spaced so consecutive scales overlap and lock against each
   other as the beam bends — a substrate that transitions from soft (bare beam) to stiff (locked
   scales) past some curvature.
-- **Origin:** Dharmavaram, Ebrahimi &amp; Ghosh 2021 (arXiv:2108.10976) — overlapping rigid
+- **Origin:** LITERATURE &mdash; Dharmavaram, Ebrahimi &amp; Ghosh 2021 (arXiv:2108.10976): overlapping rigid
   scales lock past a curvature threshold, decoupling strain from bending depth the way
   biological scale substrates do; independently top-ranked for novelty by 3 separate literature
   reviews (2026-08-16/19/20) before this run resourced it.
@@ -5107,7 +5218,7 @@ layout: two-cols-header
 - **What:** a dedicated oracle with `ring_passthrough` wired as a LIVE constraint. Three
   campaigns, 380 evals total, plus mesh-refinement (2&times;/4&times;) and fillet variants
   on the resulting near-miss, cross-checked by an independent referee.
-- **Origin:** the base D17 slide left the hinge's mesh-convergence status open after a
+- **Origin:** INSTRUMENT, on a THEORY idea (D17, the Kresling folding pattern) &mdash; the base D17 slide left the hinge's mesh-convergence status open after a
   coarse-mesh scan suggested a &gt;10&times; Bessa design; tests whether that headline holds.
 - **Stats:** n=380 across 3 campaigns (150+80+150) + mesh/fillet variants.<br>
   Broad search: &sigma;<sub>peak</sub>=3.27 kPa "win" — zero contact pressure throughout, an
@@ -5259,7 +5370,7 @@ layout: two-cols-header
   to close a small gap and make frictionless surface contact partway through the coil — no
   shared node with the ring, unlike the closed `secondary_stop` family. Single validation
   point; only the contact law/solver varied (see Input space).
-- **Origin:** Liu, Ennis &amp; Coulais 2024&sup1; (measured stroke-triggered self-contact
+- **Origin:** LITERATURE &mdash; Liu, Ennis &amp; Coulais 2024&sup1; (measured stroke-triggered self-contact
   stiffening), Dharmavaram, Ebrahimi &amp; Ghosh 2021&sup2; (soft-to-stiff contact-locking in
   a bending filament), Hima, Bigoni &amp; Dal Corso 2022&sup3; (rigorous non-artefactual
   stiffness discontinuity at a unilateral-constraint threshold).
@@ -5362,7 +5473,7 @@ layout: two-cols-header
   carries zero load until storey 1 fully collapses, then absorbs compression fresh, like a second
   spring engaging once the first bottoms out. Contact-decoupled, unlike the closed `asym_storey`
   family, which rigidly ties both storeys' motion from t=0.
-- **Origin:** Liu, Ennis &amp; Coulais 2024&sup1; — the same layer-by-layer programmed
+- **Origin:** LITERATURE &mdash; Liu, Ennis &amp; Coulais 2024&sup1;: the same layer-by-layer programmed
   buckling sequence grounding D33, applied here as discrete storeys rather than a single
   member's self-contact.
 - **Stats:** n=62 &rarr; 22 coil &rarr; 0 riks &rarr; 0 good
@@ -5522,7 +5633,7 @@ layout: two-cols-header
 
 - **What:** Replace the flat rigid ground disc with a shallow axisymmetric **cone**, so the coil
   bears on a slope and the bearing point migrates as it descends.
-- **Origin:** analogy from shell-buckling and origami-confinement literature — and the *cheap*
+- **Origin:** LITERATURE (field-level) &mdash; analogy from shell-buckling and origami-confinement work; and the *cheap*
   half of the run's contact program: it changes only the rigid surface, leaving the primary member
   and its coupling scheme exactly as validated.
 - **Stats:** n=26 &rarr; 26 coil &rarr; 19 riks &rarr; 19 good (5.41&times; Bessa)
@@ -5594,6 +5705,10 @@ version that both converged and engaged could not be the deliverable: this slide
 the same class as ring-flaring &mdash; tools for raising the floor under a new mechanism, not
 candidate mechanisms &mdash; so the cone fails the novelty test whether or not the overclosure
 chatter is ever fixed.
+
+**History:** Origin grounding is FIELD-LEVEL, and weaker than the others: it is an ANALOGY to
+shell-buckling and origami-confinement work rather than a claim that any specific paper proposes a
+confining cone for this problem. No delegation verified a reference, so none is claimed (rule 2(b)).
 -->
 
 ---
@@ -5609,7 +5724,7 @@ layout: two-cols-header
 
 - **What:** Short stocky members carrying nothing at first, **engaging only once the primary
   longerons near their 2%-strain limit** — a contact-triggered stiffness jump.
-- **Origin:** Florijn, Coulais &amp; van Hecke 2014, *Programmable Mechanical Metamaterials*. It
+- **Origin:** LITERATURE &mdash; Florijn, Coulais &amp; van Hecke 2014, *Programmable Mechanical Metamaterials*. It
   attacks the kinematic law head-on: a *separate* member escapes the ring-rotation curvature
   compatibility (&kappa;_max &asymp; 1/R_mean) that caps one continuous longeron.
 - **Stats:** n=6 &rarr; 6 coil &rarr; 2 riks &rarr; 2 good (5.41&times; Bessa)
@@ -5829,7 +5944,7 @@ layout: two-cols-header
 
 - **What:** Build the longeron already wound as a helix of `helix_wrap` turns, so coiling
   supplies only the *remaining* curvature.
-- **Origin:** this run's own law. Strain is c &times; curvature **change**, not curvature — a member
+- **Origin:** MEASUREMENT &mdash; this run's own law. Strain is c &times; curvature **change**, not curvature — a member
   born at &kappa;&#8320; travels only &kappa;_max &minus; &kappa;&#8320;, so the cap 0.02/&Delta;&kappa; relaxes.
 - **Stats:** pre-coiled (wrap&gt;0): n=30 &rarr; 3 coil &rarr; 2 riks &rarr; 0 good — **both riks solves hit the 600 s cap**
   (this specific 30-eval campaign; the Verdict's &rho;=&minus;0.392 is a SEPARATE, later,
@@ -5849,9 +5964,14 @@ layout: two-cols-header
 
 ::right::
 
-<div class="flex flex-col items-center justify-center" style="height: 420px">
-  <img src="/gifs/D30_precoil_wrap45_native.gif" style="max-height: 340px; max-width: 100%" class="rounded shadow-lg" />
-  <div class="text-xs opacity-60 mt-1 px-4 text-center">wrap 4.5, stopping at the reversal (frame 156/785).</div>
+<div class="flex flex-col gap-1" style="height: 425px">
+  <div class="flex items-center justify-center" style="height: 150px">
+    <img src="/gifs/D30_precoil_wrap45_mini.png" style="max-height: 150px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 260px">
+    <img src="/gifs/D30_precoil_wrap45_native.gif" class="rounded shadow-lg" style="max-height: 260px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">wrap 4.5, stopping at the reversal (frame 156/785); 61.5% compression reached.</div>
 </div>
 
 <!--
@@ -5920,7 +6040,7 @@ layout: two-cols-header
 
 - **What:** A coaxial rigid cylinder inside the mast for the longerons to wind onto — hoping it
   governs the coiling curvature and adds a confined second load path once members bear on it.
-- **Origin:** the run's opening hypothesis (H1/H2) — once the cross-section is capped, the only
+- **Origin:** MEASUREMENT &mdash; this study's own cross-section cap (the run's opening H1/H2 result): once the cross-section is capped, the only
   lever left is what the member coils *against*.
 - **Stats:** confined: n=9 &rarr; 9 coil &rarr; 9 riks &rarr; 4 good (5.41&times; Bessa), radii .6/.7/.78/.83 (.83 = geometric limit)
   p50/p90/p100 — &sigma;_crit: 1.98/3.25/4.65 &middot; mcs: .45/.91/.91 &middot; mls: .0198/.0198/.0198
@@ -6057,7 +6177,7 @@ layout: two-cols-header
 - **What:** Split each longeron into `n_leaves` thin leaves stacked in the winding plane, free to
   slide — a leaf spring. The hope: total depth still carries load while each leaf bends at its own
   small depth.
-- **Origin:** direct attack on this run's own H1 — coiling curvature is pinned to the ring radius,
+- **Origin:** THEORY &mdash; a direct attack on this run's own H1 cap: coiling curvature is pinned to the ring radius,
   so the only free lever is the depth it acts on. Classical leaf-spring practice, not a
   metamaterial citation.
 - **Stats:** n=3 &rarr; 3 coil &rarr; 2 riks &rarr; 1 good (5.41&times; Bessa)
@@ -6214,7 +6334,7 @@ layout: two-cols-header
 - **What:** migrated the tape-spring pre-processor to ground+top-disc contact (already had
   self-contact, readiest of the five families). 330 designs total (64-pilot + 256-Sobol),
   10 paired on/off, and a targeted re-solve of the closest-miss design ("Design C").
-- **Origin:** ground contact was restored study-wide 2026-08-06 (v1); closes the "migrated
+- **Origin:** INSTRUMENT, on a THEORY idea (D25, Calladine shell folding + Seffen&ndash;Pellegrino tape-spring mechanics) &mdash; ground contact was restored study-wide 2026-08-06 (v1); closes the "migrated
   &ne; tested" gap the re-study index flags for five families.
 - **Stats:** n=330 &rarr; 50 coil &rarr; 28 decided &rarr; 0 good (of 36 raw verdicts, 8 were
   sentinel-zero salvage artifacts, excluded — see notes)<br>
@@ -6286,7 +6406,7 @@ layout: two-cols-header
 - **What:** contact added by hand, not by the migration tool — struts have no cross-section
   geometry, so the secondary side is a NODE REGION with the strut radius injected explicitly.
   1 design, on vs off; Stage 1 reproduces the archive exactly.
-- **Origin:** ground contact was restored study-wide 2026-08-06 (v1); this family needed a
+- **Origin:** INSTRUMENT, on a LITERATURE idea (D21, Amendola et al. 2018 tensegrity prestress-stiffness theory) &mdash; ground contact was restored study-wide 2026-08-06 (v1); this family needed a
   hand migration since the automated tool doesn't apply to truss members.
 - **Stats:** n=1 design, on/off paired. Energy absorbed +86% (18.202&rarr;33.780 kPa).
   &sigma;<sub>peak</sub> bit-identical (peak lands before contact engages). mls:
@@ -6413,7 +6533,7 @@ layout: two-cols-header
 - **What:** **D17**/**D20** migrated to contact by `scripts/_migrate_contact.py`; **D26** had
   no Stage-2 pre-processor at all (its prior campaigns all failed Stage-1) — one written for
   it. One design solved per family — verifies a code path, not a family.
-- **Origin:** closes the "migrated &ne; tested" gap (re-study index) for three families,
+- **Origin:** INSTRUMENT, on a THEORY idea (D17, the Kresling folding pattern) &mdash; closes the "migrated &ne; tested" gap (re-study index) for three families,
   verifying each code path runs before being cited as tested under contact.
 - **Stats:** n=1 per family (3 designs), infrastructure verification only.<br>
   D17: stalls at 75&ndash;77% — the anchor tested is the design most likely to exploit
@@ -6630,7 +6750,7 @@ class: idea-slide
   a built-in azimuthal twist of the lobe pattern from bottom to top —
   chirality breaking mirror symmetry to try to couple axial compression into
   global rotation.
-- **Origin:** Liu et al. 2025 (*Nature Communications* 16:11359), "chiral
+- **Origin:** LITERATURE &mdash; Liu et al. 2025 (*Nature Communications* 16:11359), "chiral
   multi-curved shell metamaterials integrating compression-torsion and
   buckling mechanisms" — every prior family in this study keeps a discrete-
   member load path; this removes the discreteness entirely.
@@ -6727,7 +6847,7 @@ class: idea-slide
   topology) after D26's monocoque tube suppressed coiling, but gave each
   discrete longeron a genuinely new, non-beam shape: a twisting,
   doubly-curved shell "vane" instead of a solid/thin-walled cross-section.
-- **Origin:** direct empirical follow-up to D26 — its own finding (full
+- **Origin:** PRIOR-FAILURE &mdash; a direct empirical follow-up to D26: its own finding (full
   monocoque tube too stiff against global lateral bending) predicts that
   restoring low overall bending stiffness via discrete members should let a
   coiling mode compete again, while keeping the chirality/twist mechanism.
@@ -6861,7 +6981,7 @@ class: idea-slide
 - **What:** Replaced the solid B31 longeron with a thin-walled, open-arc S4R
   **shell** section, hypothesizing a *localized elastic fold* could escape
   the mast-scale coiling curvature capping every beam family.
-- **Origin:** Named for Calladine inextensional shell-folding theory and
+- **Origin:** THEORY &mdash; named for Calladine inextensional shell-folding theory and
   Seffen–Pellegrino tape-spring mechanics.¹
 - **Stats:** n=406 → 176 coil → 137 riks → 0 good
   p50/p90/p100 — σ_crit: 2.11/17.6/88.3 · mcs: 1.02/1.04/1.06 · mls: .047/.130/.447
@@ -7143,8 +7263,8 @@ class: idea-slide
 - **What:** Spliced one bistable, shallow-arched snap-through segment near
   the bottom ring, jointly re-optimized with the base cross-section, to
   reinvest local-strain headroom into higher σ_cr,nd than 0.7704 kPa.
-- **Origin:** elastic-instability/bistable-mechanism metamaterials
-  literature; follow-on to a same-run hypothesis whose single-arch strain
+- **Origin:** LITERATURE (field-level) &mdash; elastic-instability/bistable
+  metamaterials; follow-on to a same-run hypothesis whose single-arch strain
   cut (mean ~7%, max 12.3%) fell short of a pre-registered 20% bar.
 - **Stats:** n=133 → 132 coil → 66 riks → 1 good (6.5× Bessa)
   p50/p90/p100 — σ_crit: .76/1.50/1.99 · mcs: 1.00/1.00/1.04 · mls: .0194/.0230/.0267
@@ -7241,6 +7361,11 @@ one-frame numerical artifact, the identical signature established for D24-2's Ra
 Pushing further &mdash; 50&times;, 100&times;, 250&times; finer &mdash; makes the solver fail to
 converge at all in this region, which is a separate solver-brittleness finding rather than
 evidence against the 10&times; answer, that being this design's best available converged read.
+
+Origin grounding is FIELD-LEVEL: the elastic-instability/bistable-mechanism metamaterial
+literature was cited as a class of prior work and no delegation verified a specific
+author/year/journal, so none is claimed on the slide (rule 2(b) &mdash; never fabricate a
+citation that was not verified).
 -->
 
 ---
@@ -7352,7 +7477,7 @@ class: idea-slide
 - **What:** Chain of N alternating-sign pre-curved shallow-arch segments,
   rise-to-thickness ratio (Q) kept *below* the bistability floor (Q≈2.31) —
   mild repeating curvature, not genuine snap-through.
-- **Origin:** follow-up to the same run's H2 (*true* bistable, Q≥2.31
+- **Origin:** PRIOR-FAILURE &mdash; the same run's H2 (*true* bistable, Q≥2.31
   chain), which hit a Riks solve-completion wall (18 coilable, only 2/18
   converged); asks whether backing off avoids the wall while still beating
   baseline.
@@ -7502,7 +7627,7 @@ class: idea-slide
   open thin-walled cruciform/I-beam profile, chosen so torsional stiffness
   (J) is tunable independently of bending stiffness (Ixx/Iyy), unlike a solid
   rectangle where the two are coupled.
-- **Origin:** classical flexural-torsional beam theory (common-sense
+- **Origin:** THEORY &mdash; classical flexural-torsional beam theory (common-sense
   cross-section engineering, not a specific outside citation) — the
   motivating idea was that decoupling J from Ixx/Iyy might let the section
   reach high axial stiffness without paying the local-bending-strain penalty
@@ -7639,7 +7764,7 @@ class: idea-slide
 - **What:** Replaced the bending longeron with a pin-jointed, prestressed
   Class-1 tensegrity assembly — stiffness from prestress/geometry, not
   beam bending.
-- **Origin:** Amendola et al. (2018) tensegrity prestress-stiffness theory,
+- **Origin:** LITERATURE &mdash; Amendola et al. (2018) tensegrity prestress-stiffness theory,
   contrasted with Meng (2012)/Sorrentino (2021) on bending-family
   strain-stiffness coupling.
 - **Stats:** n=45 → 45 coil → 44 riks → 12 good (1691&times; Bessa)
@@ -7783,7 +7908,7 @@ class: idea-slide
   separated by a fixed gap (a laced/battened built-up member), aiming to
   set global bending stiffness by chord separation while peak local strain
   stays governed by each chord's own small radius.
-- **Origin:** common-sense mechanistic hypothesis grounded in the
+- **Origin:** THEORY &mdash; a mechanistic hypothesis grounded in the
   parallel-axis theorem (2&middot;A_f&middot;(h/2)&sup2;), not a
   literature citation.
 - **Stats:** n=62 &rarr; 50 coil &rarr; 50 riks &rarr; 1 good (0.0061&times; Bessa)
@@ -7902,7 +8027,7 @@ class: idea-slide
   sweep — a 30-point LHS spanning the full registered 2D box (ellipse_aspect_ratio,
   phase_offset), plus 2 boundary probes within ~1&deg; of the circular/zero-phase
   anchor, at the fixed run17_rectangle cross-section.
-- **Origin:** D10's own base slide could not close FALSIFIED — the study's own
+- **Origin:** INSTRUMENT, on an OWN-IDEATION idea (D10, a common-sense structural-symmetry-breaking hypothesis) &mdash; D10's own base slide could not close FALSIFIED — the study's own
   adequacy bar (Charter &sect;2) blocks a non-existence verdict when the guiding
   surrogates aren't predicting above chance. This re-test answers the question
   directly, by full coverage, not by surrogate prediction.
@@ -7969,7 +8094,7 @@ class: idea-slide
   small-amplitude in-plane serpentine (meander) wave instead of a straight
   line, aiming to distribute bending curvature along the member's length
   rather than concentrate it at one region.
-- **Origin:** common-sense mechanistic hypothesis (a curvature-distribution
+- **Origin:** OWN-IDEATION &mdash; a common-sense mechanistic hypothesis (a curvature-distribution
   argument), not drawn from an outside literature source.
 - **Stats:** n=17 &rarr; 17 coil &rarr; 8 riks &rarr; 3 good (5.89&times; Bessa, pre-contact
   eigenvalue metric — see notes)
@@ -8101,7 +8226,7 @@ class: idea-slide
 - **What:** Tapered a longeron's radial thickness along its arc-length —
   thick at both ring ends, waisted at mid-span — a fixed-volume
   optimal-column shape, not a uniform section.
-- **Origin:** classical Lagrange-Keller / Tadjbakhsh-Keller optimal-column
+- **Origin:** THEORY &mdash; the classical Lagrange-Keller / Tadjbakhsh-Keller optimal-column
   result, adapted to this study's longeron geometry.
 - **Stats:** n=29 &rarr; 29 coil &rarr; 29 riks &rarr; 1 good (0.57&times; Bessa, current metric)
   p50/p90/p100 — &sigma;_crit: .756/3.04/3.58 · mcs: .677/1.058/1.072 · mls: .0192/.0277/.0441
@@ -8241,7 +8366,7 @@ class: idea-slide
   at an interior hinge node, offset circumferentially by angle
   `psi_kresling`, coupling axial compression to rigid-body strut
   re-orientation instead of relying purely on elastic bending.
-- **Origin:** the Kresling origami folding pattern (a well-known
+- **Origin:** THEORY &mdash; the Kresling origami folding pattern (a well-known
   bar-hinge/triangulated-cylinder mechanism), adapted here to this study's
   beam-longeron model — a real, specific geometric precedent, not a
   fabricated citation.
@@ -8413,7 +8538,7 @@ class: idea-slide
 - **What:** Bent each longeron into a helix winding around the mast axis
   (a `helix_wrap` parameter), rather than a straight line, hypothesizing a
   spring-like geometry predisposed to reversible coiling.
-- **Origin:** common-sense mechanistic hypothesis, explicitly distinguished
+- **Origin:** OWN-IDEATION &mdash; a common-sense mechanistic hypothesis, explicitly distinguished
   from pre-twist (which rotates the cross-section) and radial bowing
   (which is planar) — both tried and falsified in earlier runs. Not drawn
   from an outside literature source.
@@ -8556,7 +8681,7 @@ class: idea-slide
 - **What:** Added a diagonal chiral-bracing lattice of short auxiliary beam
   struts between adjacent longerons, layered on the slenderness-valid
   rectangular family (two verified CEI-BO campaigns; see notes).
-- **Origin:** common-sense — an alternative stiff load path to offload
+- **Origin:** OWN-IDEATION — an alternative stiff load path to offload
   torsional/bending demand from the longerons (a later refinement drew a
   cable-stayed precedent, Gurfinkel & Krishnan 2017; see notes).
 - **Stats:** n=42 &rarr; 30 coil &rarr; 22 riks &rarr; 0 good
@@ -8753,7 +8878,7 @@ class: idea-slide
 - **What:** An open thin-walled longeron cross-section with an inherent
   shear-centre-to-centroid offset (Abaqus `LProfile`) — a DOF the Bessa
   parametrization fixes to zero, never accessed by any prior family.
-- **Origin:** parametric-space extension, tempered by a literature review
+- **Origin:** OWN-IDEATION &mdash; a parametric-space extension, tempered by a literature review
   (Zahn & Iwankiw 1989 flexural-torsional buckling theory) predicting
   AGAINST the mechanism beforehand (see notes).
 - **Stats:** n=45 → 29 coil → 6 riks → 0 good
@@ -8901,7 +9026,7 @@ class: idea-slide
 - **What:** A spatially-varying longeron: thick `RectangularProfile` ends
   near both rings (global stiffness) with a deliberately thin mid-span
   "hinge" segment to cap peak bending strain.
-- **Origin:** common sense — decouple average stiffness (thick ends) from
+- **Origin:** OWN-IDEATION — decouple average stiffness (thick ends) from
   peak local fibre strain (thin hinge), a DOF no uniform family could access.
 - **Stats:** n=56 → 45 coil → 45 riks → 1 good (1.24× Bessa, current metric)
   p50/p90/p100 — σ_crit: 3.01/13.96/41.51 · mcs: .93/1.00/1.00 · mls: .067/.121/.250
@@ -8984,7 +9109,7 @@ class: idea-slide
 - **What:** A closed, thin-walled rectangular hollow-tube (`BoxProfile`)
   longeron, motivated by mining the 50,000-point Bessa 7D dataset for
   high-torsion/bending-stiffness combinations no solid family could reach.
-- **Origin:** dataset-mining common sense — a least-squares fit of
+- **Origin:** MEASUREMENT — dataset mining: a least-squares fit of
   high-performing 7D rows to box geometries had poor residuals (~98%
   relative L2 error), so the family was built and searched directly.
 - **Stats:** n=51 → 36 coil → 36 riks → 4 good (2.78× Bessa, current metric)
@@ -9097,7 +9222,7 @@ class: idea-slide
 - **What:** Made the 3 longerons non-identical: 2 stiff `RectangularProfile`
   + 1 compliant `RectangularProfile`, same radial dimension, unchanged
   rings.
-- **Origin:** common sense — the compliant longeron absorbs large
+- **Origin:** OWN-IDEATION — the compliant longeron absorbs large
   rotations, "rescuing" compressibility while the stiff ones carry
   buckling load.
 - **Stats:** n=46 → 32 coil → 32 riks → 1 good (3.25× Bessa, current metric)
@@ -9258,7 +9383,7 @@ class: idea-slide
   independently-parametrized ellipses plus a phase offset between the top
   and bottom ring's major-axis orientation, to break the rotational
   symmetry that forces every longeron to undergo identical peak curvature.
-- **Origin:** common sense structural-symmetry-breaking hypothesis, not a
+- **Origin:** OWN-IDEATION &mdash; a common-sense structural-symmetry-breaking hypothesis, not a
   literature citation.
 - **Stats:** n=67 → 9 coil → 9 riks → 0 good
   p50/p90/p100 — σ_crit: 0.36/1.97/4.05 · mcs: 0.36/0.47/0.78 · mls: .012/.021/.039
@@ -9353,7 +9478,7 @@ class: idea-slide
 - **What:** Gave each longeron a smooth radial offset by height — zero at
   both rings, max inward bow at mid-height — to geometrically pre-condition
   the coiling path and retain high compressive strain.
-- **Origin:** common sense geometric hypothesis, not a literature citation.
+- **Origin:** OWN-IDEATION &mdash; a common-sense geometric hypothesis, not a literature citation.
 - **Stats:** n=48 → 45 coil → 27 riks → 1 good (0.53× Bessa)
   p50/p90/p100 — σ_crit: 1.37/8.97/16.00 · mcs: 0.44/1.00/1.00 · mls: .024/.045/.071
   cleared: 23 of 27 decided ≥ 2× Bessa (0.2244) · novel: no — clearing the σ bar is common
@@ -9485,7 +9610,7 @@ class: idea-slide
   `EllipticalProfile`, `DURING_ANALYSIS` integration), oriented so its short axis lies in the
   plane of dominant coiling bending, to raise torsional stiffness past the circular family's
   strain ceiling. Free: none — untestable, see Verdict
-- **Origin:** direct mechanistic extension of the SCLF (circular) family —
+- **Origin:** OWN-IDEATION — a direct mechanistic extension of the SCLF (circular) family:
   common sense, not a literature citation.
 - **Stats:** n=0 &rarr; 0 coil &rarr; 0 riks &rarr; 0 good — untestable (hard software-capability
   gap, see Verdict)<br>
@@ -9569,7 +9694,7 @@ class: idea-slide
   half-width/fiber-distance, a square carries ~1.7× a circle's moment of
   inertia (I_square/I_circle=64/(12π)), bend axis on a flat side not a
   diagonal.
-- **Origin:** common sense, basic section-property comparison — not a
+- **Origin:** OWN-IDEATION — common sense, a basic section-property comparison — not a
   literature citation.
 - **Stats:** n=50 → 50 coil → 50 riks → 9 good (1.23× Bessa)
   p50/p90/p100 — σ_crit: .22/4.54/13.15 · mcs: .99/1.00/1.00 · mls: .022/.055/.098
@@ -9658,7 +9783,7 @@ class: idea-slide
   tangential LONG — reverse of this run's earlier falsified orientation,
   at slenderness≥10, testing whether max_local_strain and sigma_crit
   decouple.
-- **Origin:** direct extension of the elliptical-substitution idea above —
+- **Origin:** OWN-IDEATION — a direct extension of the elliptical-substitution idea above:
   mirror of this run's own H6, common sense, not a literature citation.
 - **Stats:** n=165 → 149 coil → 148 riks → 6 good (2.79× Bessa)
   p50/p90/p100 — σ_crit: .86/4.26/7.52 · mcs: .80/1.00/1.00 · mls: .022/.034/.043
@@ -9678,8 +9803,14 @@ class: idea-slide
 
 ::right::
 
-<div class="flex items-center justify-center h-full">
-  <img src="/gifs/D6_run17_rectangle_native.gif" class="max-h-100 rounded shadow-lg" />
+<div class="flex flex-col gap-1" style="height: 425px">
+  <div class="flex items-center justify-center" style="height: 150px">
+    <img src="/gifs/D6_run17_rectangle_mini.png" style="max-height: 150px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 260px">
+    <img src="/gifs/D6_run17_rectangle_native.gif" class="rounded shadow-lg" style="max-height: 260px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">The run17_rectangle anchor, not the campaign p50. Colour is a FLAT FALLBACK (one scalar, not a strain history &mdash; see notes).</div>
 </div>
 
 <!--
@@ -9746,6 +9877,11 @@ standard pipeline — re-rendered fresh for this batch (an earlier square-canvas
 unlabeled-legend version existed from a prior rendering pass and has been replaced
 with the current portrait/top-right-legend/schematic-ring pipeline to match this
 deck's contract).
+
+**History:** the chart's colour is the flat fallback, not a strain history: this ODB predates
+the 2026-08-06 per-frame strain output, so `bo/mini_chart.py` shades the whole curve by the one
+scalar `max_local_strain` it has (0.0199, just under the 2% cap). The sigma-vs-compression curve
+itself is real per-frame data; only the colour is degenerate.
 -->
 
 ---
@@ -9805,7 +9941,7 @@ class: idea-slide
 - **What:** Constrained the cross-section to a solid circle (ratio_d ∈
   [0.08,0.16], else free) after the generalized Bessa optimum failed
   Stage 2 categorically — testing whether J/I=2 is what Stage 2 needs.
-- **Origin:** follow-up to this run's H1 (generalized optimum: 9.23% Riks
+- **Origin:** MEASUREMENT &mdash; this run's own H1 number (generalized optimum: 9.23% Riks
   strain, not 90%) — circular is the shape closest to Bessa 2019's own
   demonstration.
 - **Stats:** n=42 → 28 coil → 5 riks → 0 good (mls never measured this campaign)
@@ -9826,8 +9962,14 @@ class: idea-slide
 
 ::right::
 
-<div class="flex items-center justify-center h-full">
-  <img src="/gifs/D5_sclf_thick_native.gif" class="max-h-100 rounded shadow-lg" />
+<div class="flex flex-col gap-1" style="height: 425px">
+  <div class="flex items-center justify-center" style="height: 150px">
+    <img src="/gifs/D5_sclf_thick_mini.png" style="max-height: 150px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 260px">
+    <img src="/gifs/D5_sclf_thick_native.gif" class="rounded shadow-lg" style="max-height: 260px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">Huge &sigma; on a linear axis; grey throughout because the design is past the 2% strain cap everywhere (scalar mls=0.25). Colour is a FLAT FALLBACK &mdash; no per-frame strain on this ODB.</div>
 </div>
 
 <!--
@@ -9881,6 +10023,12 @@ family, just thicker, so it was never a shape-novelty claim to begin with. And i
 real-looking load figures (431&ndash;506 kPa, all "cleared" against the campaign's own bar) hid a
 24.7% strain violation the moment someone actually measured it. The mechanism insight that forced
 the three-criteria contract is this design's entire contribution.
+
+**History:** the chart's colour is the flat fallback (pre-2026-08-06 ODB, no per-frame strain
+output), shaded by the scalar `max_local_strain` of 0.2500 &mdash; 25% strain, an order of magnitude
+past the 2% cap, which is why the curve is grey end to end. That grey is the whole finding: the
+family reaches ~3600x Bessa in stress and is nowhere near admissible in strain. The
+sigma-vs-compression curve itself is real per-frame data.
 -->
 
 ---
@@ -9944,7 +10092,7 @@ class: idea-slide
   ring at mid-height, still 3 continuous longerons per storey — instead of
   Bessa's single-storey topology, to see if a shorter per-segment coiling
   path could beat the Bessa 2019 paper optimum (65.3 kPa/longeron).
-- **Origin:** common sense topology extension of the Bessa rocking-mast
+- **Origin:** OWN-IDEATION &mdash; a common-sense topology extension of the Bessa rocking-mast
   concept, not drawn from an outside literature source.
 - **Stats:** n=32 → 9 coil → 0 riks → 0 good (mcs/mls never tracked this campaign)
   p50/p90/p100 — σ_crit (coilable only): 5.6/64.3/65.0 · mcs: not tracked · mls: not tracked
@@ -10059,7 +10207,7 @@ class: idea-slide
 - **What:** Increased the mast's rotational symmetry from Bessa's fixed 3
   longerons to 4, 5, and 6, at the same (near-optimal) 7D cross-section, to
   test whether more legs raise the per-longeron critical load.
-- **Origin:** common sense topology extension — Bessa's own parametrization
+- **Origin:** OWN-IDEATION — a common-sense topology extension: Bessa's own parametrization
   never varies longeron count, fixing it at 3 throughout the 2019 paper.
 - **Stats:** n=31 (D005's own ledger; "48-evaluation" in an earlier draft
   could not be corroborated) → 20 coil → 0 riks → 0 good (Stage 2 never run)
@@ -10141,7 +10289,7 @@ class: idea-slide
 - **What:** Pushed torsional-stiffness ratio_J beyond the Bessa 7D
   dataset's own max (7.77e-6) — hollow/cellular cross-sections (e.g. a
   hollow tube) unreachable by any solid Bessa-parametrized material.
-- **Origin:** common-sense extrapolation of the Bessa family's torsion
+- **Origin:** MEASUREMENT &mdash; the study's own dataset extrapolated along the Bessa family's torsion
   axis — σ_cr,nd scales with GJ, and the Bessa optimum sits at only 86%
   of max ratio_J.
 - **Stats:** n=18 → 16 coil → 1 riks → 0 good<br>
@@ -10161,9 +10309,14 @@ class: idea-slide
 
 ::right::
 
-<div class="flex flex-col items-center justify-center gap-1" style="height: 420px">
-  <img src="/gifs/D2_hollow_tube_D4_native.gif" style="max-height: 340px; max-width: 100%" class="rounded shadow-lg" />
-  <div class="text-xs opacity-50 text-center">D4 design; native render, no strain coloring (see notes).</div>
+<div class="flex flex-col gap-1" style="height: 425px">
+  <div class="flex items-center justify-center" style="height: 150px">
+    <img src="/gifs/D2_hollow_tube_mini.png" style="max-height: 150px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 260px">
+    <img src="/gifs/D2_hollow_tube_D4_native.gif" class="rounded shadow-lg" style="max-height: 260px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">D4 design. &sigma; peaks at 568&times; Bessa but compression stops at 32%. Colour is a FLAT FALLBACK at a scalar mls of 0.0 &mdash; the known zero-strain SENTINEL, i.e. strain was never measured here, NOT measured as zero (see notes).</div>
 </div>
 
 <!--
@@ -10242,6 +10395,16 @@ space a solid material cannot. The one thing that generalized work never checked
 against the 2% cap, so a real strain-verified point here would carry weak novelty at best.
 De-prioritise relative to ideas that change the centreline, the topology or the load path rather
 than the cross-section shape.
+
+
+the chart's colour must not be read as strain. This ODB predates the 2026-08-06
+per-frame strain output, so the curve is shaded by the scalar `max_local_strain`, and that scalar
+is **0.0** &mdash; the silent zero-strain sentinel documented in
+`validation/silent_zero_strain_sentinel/`, which means strain was never measured on this solve,
+not that it was measured and found to be zero. The lightest-red shade is therefore an artifact of
+a missing measurement; treat this design as having NO strain evidence. The sigma-vs-compression
+curve itself is real per-frame data, and its story stands on its own: 568x Bessa in stress, but
+compression stops at 32%, so it never approaches the 80% the objective needs.
 -->
 
 ---
@@ -10294,7 +10457,7 @@ class: idea-slide
 
 - **What:** Added a helical pre-twist (π/6 to π) to each longeron of the
   3-longeron mast, on top of the full 7D Bessa cross-section search.
-- **Origin:** common-sense hypothesis — a pre-twisted leg might exploit a
+- **Origin:** OWN-IDEATION — a pre-twisted leg might exploit a
   shorter effective pitch and reach a higher coiling eigenvalue.
 - **Stats:** n=46 &rarr; 6 coil &rarr; 0 riks &rarr; 0 good<br>
   p50/p90/p100 &sigma;_crit: 7.3/43.6/65.3 &middot; mcs/mls: not tracked<br>
