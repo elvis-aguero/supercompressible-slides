@@ -4125,55 +4125,38 @@ one preserving global coiling, within 9 pts of the bar.
 </div>
 
 <!--
-THE GATE HISTORY. Call 1: REJECT -- closing on a negative result with real wall-clock budget
-still unspent, a CRITICAL finding per PROBLEM_STATEMENT.md's own explicit critic instruction
-(independent of an otherwise-clean reproducibility gate). Call 2: REJECT again -- same charter
-defect in fact pattern even though the specific H7 sub-question flagged last time had since been
-properly, severely tested; told to either run the two named untested H7 axes or open a fresh
-mechanism with the ~1.6h remaining. Call 3: PASS -- both defects resolved with real, checkable
-ledger evidence (D021/D022), and the remaining budget (~10%) was correctly judged insufficient to
-responsibly ground and test a fresh mechanism from scratch.
+**Why it stopped:** GATED on round 3. Rounds 1 and 2 both rejected it for closing on a negative
+result with real wall clock unspent &mdash; a CRITICAL under PROBLEM_STATEMENT.md's explicit
+critic instruction &mdash; and round 2 told it to either run the two named untested H7 axes or
+open a fresh mechanism with the ~1.6 h left. Round 3 passed: both resolved with real ledger
+evidence (D021/D022), the remaining ~10% correctly judged too little for a fresh mechanism.
 
-THE H7 INVESTIGATION, IN FULL (D014-D022, by far the largest share of this run's budget). D014
-validated the mechanism on one sample + its N=0 (uncoupled) control: crosslinking 3 unbraced,
-slender sub-beams recovers a 22x eigenvalue increase over uncoupled (rigid) / 19x (soft), reaching
-~76% of an equivalent solid single-beam's own eigenvalue at matched envelope -- and critically,
-the LOWEST vibration mode stayed the coherent global coiling mode in every configuration, unlike
-every shell family this run tried. D015 (34-design campaign) found Stage-2 converged for only a
-minority, with a genuine "hard local instability" signature at higher crosslink counts. D016-D018
-isolated the cause via two independently-different crosslink realizations (a meshed beam-link
-batten vs. a genuine rigid kinematic *CONNECTOR with no meshed geometry) and a soft-vs-rigid
-stiffness sweep -- both point to the SAME instability, ruling out a meshing artifact. D019
-(27-design campaign restricted to n_crosslinks in {0,1}, re-examining D015's own data) found the
-hard-instability pattern does NOT afflict low-crosslink-count designs, and reached mcs=0.7173 --
-a genuine Riks snap-through plateau, not a wall-clock artifact (confirmed via an extended
-solve-budget check), with max_local_strain never binding (best 0.003 against the 0.02 cap). D020
-(10-point local refinement) confirmed this is a real local optimum (mcs=0.7191) and flagged two
-untested directions. D021 (14-point decisive grid probe) found pushing FURTHER in both flagged
-directions makes it WORSE, falsifying the "push further" hypothesis rather than confirming it.
-D022 closed the two remaining named axes (soft connector stiffness at n_crosslinks=1; n_sub_beams=3)
--- both collapse catastrophically via early Riks divergence, a qualitatively different failure mode
-than D020's near-0.72 salvages, confirming n_sub_beams=2/rigid is not merely a local optimum on
-that axis but structurally the winning configuration.
+**What it bought:** one family worth keeping and four closed. The keeper is the crosslinked beam
+bundle (D40), the only family in the run preserving genuine global coiling as its lowest
+vibration mode in every configuration, with a real 22&times; capacity gain over uncoupled
+sub-beams. Nine delegations went into it; the arc is in
+`validation/crosslinked_bundle_investigation/README.md`. The four closures &mdash; kirigami shell
+wall, compliant kirigami ring, graded thickness, nested double-wall &mdash; all failed the same
+way: the lowest mode is local, not global.
 
-WHY H4's NEAR-MISS DOESN'T RESCUE H4. D007's idx=15 design (mcs=0.7885, mls=0.01976, both just
-under their bars) is numerically the closest ANY design got to feasibility this run -- closer than
-H7's own 0.7191. But its ring radius barely moved (+0.0026%), the opposite of what H4 predicts
-(a favorably GROWING ring radius). It is a good geometry point on the compliant_ring family's own
-parameter space, not evidence for the hypothesized mechanism -- H4 is correctly FALSIFIED as a
-mechanism even though it produced the run's numerically-closest single design.
+**Corrections:** H4 produced the run's numerically-closest single design (mcs=0.7885, mls=0.01976,
+both just under their bars) and it does NOT rescue H4. That design's ring radius barely moved
+(+0.0026%), the opposite of what H4 predicts &mdash; a good geometry point on the compliant-ring
+family's own parameter space, not evidence for the hypothesised mechanism. H4 is correctly
+FALSIFIED as a mechanism despite it.
 
-TWO REAL INFRA BUGS SURFACED, NEITHER FIXED HERE (both in the vendored a3dasm harness, not this
-repo). `bo/campaign_summary.py`'s `decided_key` default reads a definitive Stage-1 "not coilable"
-verdict as "no verdict reached" for two-stage families, producing a false "nothing to summarise"
-on a fully-decided campaign (D006). `InstrumentedDataGenerator`'s dedup-on-write can silently drop
-a corrected re-run under the same delegation ID (D018) -- same class of danger as the
-`SlurmAsyncPool` discard-on-timeout bug already in `docs/TRAPS.md` #8; now also #9 there.
+**Cost shape:** the H7 investigation took the largest share of the budget and earned it. The
+decisive step was D017: a rigid kinematic connector with NO meshed geometry reproduces the same
+instability as a meshed beam-link batten, ruling out a meshing artifact by construction.
 
-A PRE-EXISTING DOC/CODE MISMATCH, ALSO NOT FIXED HERE. `bo/prefilter.py`'s `THINNESS_FLOOR=10.0`
-does not match several of these new families' own generator docstrings, which assert/document a
->=20 thin-shell-validity floor (D008's retrospective). Which value is scientifically correct is a
-physics-validity judgment call, not picked here.
+**Unresolved:** two harness bugs surfaced, neither fixed. `bo/campaign_summary.py`'s
+`decided_key` default reads a definitive Stage-1 "not coilable" verdict as "no verdict reached"
+for two-stage families, giving a false "nothing to summarise" on a fully decided campaign (D006).
+And `InstrumentedDataGenerator`'s dedup-on-write can silently drop a corrected re-run under the
+same delegation id (D018) &mdash; now `TRAPS.md` #9, and one of three ways this ledger
+under-counts real solves (`validation/ledger_undercounting/README.md`). Separately, and
+explicitly a physics judgment call not picked here: `bo/prefilter.py`'s `THINNESS_FLOOR=10.0`
+contradicts several of these families' own docstrings, which document a &ge;20 floor.
 -->
 
 ---
@@ -4216,6 +4199,13 @@ layout: two-cols-header
 </div>
 
 <!--
+**Result:** NON-ENGAGEMENT. 51 kirigami-cut shell designs across two independent draws, ZERO
+Stage-1 coilable. The solves ran; the mechanism never became the structure's preferred behaviour.
+Every design's lowest vibration mode is a local ligament or panel buckling mode, not the global
+ring-driven coiling mode the study needs &mdash; the cuts avoided one failure mode and fell into
+another. A later 267-ODB scan applying this family's own three-part criterion to all 20 modes
+found no coiling signature at ANY mode index.
+
 **Input space:** l&isin;[1,300] — cut length (mm) of each kirigami slit. delta&isin;[1,50] —
 ligament width between adjacent cuts. t_shell&isin;[.3,3.5] — shell wall thickness.
 helical_twist_total&isin;[0,2&pi;] — total helical twist applied across the shell's height.
@@ -4226,7 +4216,7 @@ meaning from every other family. Fixed: ring radii held at the study's standard 
 is FERTILE in principle, but every direction tried so far makes local buckling worse, not
 better, giving no reason to expect it reverses just outside the tested range.
 
-**Timeline:**
+**Timeline:** Run 20260823T161229 &mdash;
 - D004: single-sample validation — mechanism builds and solves cleanly, 14-25s/solve.
 - D006 (36 drawn, 24 valid Stage-1 verdicts): Sobol screen.
 - D008 (30 drawn, 27 valid): packing-fix top-up, meeting H3's registered ~40-80 campaign scale.
@@ -4293,6 +4283,13 @@ layout: two-cols-header
 </div>
 
 <!--
+**Result:** PHYSICAL. 36 compliant-ring designs, 28 coilable, 1 fully converged, 22 more stopping
+early with enough data to read a ring-radius trajectory &mdash; 23 usable. The mechanism needs the
+ring radius to GROW as the mast coils, relieving strain. Measured, it shrinks in 14 of 23
+trajectories against 3 that grow. The one dramatic +163% outlier is a real ring self-buckling
+event, but at 5.3% compression &mdash; an early failure, not a pathway. No design's peak load
+beats its own matched rigid-ring control.
+
 **Input space:** t_ring&isin;[.3,1.5] — ring shell thickness. w_ring&isin;[8,25] — ring radial
 width. delta_ring&isin;[1.5,5] — ligament width between ring cuts. l_ring&isin;[3,15] — ring cut
 length. margin_frac_ring&isin;[.10,.25] — safety margin fraction on the ring's own geometric
@@ -4305,7 +4302,7 @@ n_longerons&isin;{3,4,5,6} (categorical, searched).
 found (mcs=0.7885) had a flat radius, not a growing one — worth reusing as a starting geometry
 for a *different* hypothesis, not evidence this one works.
 
-**Timeline:**
+**Timeline:** Run 20260823T161229 &mdash;
 - D005: single-sample validation — Stage 1 sigma_eig=0.1238 kPa vs. the matched bessa_point
   rigid-ring control's 0.1306 kPa (-5.2%), a modest, physically-expected compliance cost.
 - D007 (36 designs, 28 coilable, all auto-escalated to Stage 2): the campaign referenced in Stats.
@@ -4357,6 +4354,13 @@ layout: two-cols-header
 </div>
 
 <!--
+**Result:** PHYSICAL. 22 helically-graded shell designs, none Stage-1 coilable, so Stage 2 never
+escalated. What was measured is the Stage-1 rotation signal, and the lever is genuinely real:
+twist phase and magnitude move it non-monotonically and asymmetrically by sign, with
+&minus;60&deg; reaching 28&times; the plain reference while +60&deg; sits 40&times; BELOW it. The
+magnitude is what fails. The best rotation signal found, 1.25e-4, is roughly 400&times; under the
+0.05 coilability threshold, so no amount of phase tuning brings this family into contention.
+
 **Input space:** a&isin;[.3,.5] — grading contrast (0 = uniform-shell control). n_eff&isin;[3,8]
 — rotational order of the thickness field. t0&isin;[.5,3] — nominal (unmgraded) wall thickness.
 helical_twist_total&isin;[-4&pi;,4&pi;] — including small-angle probes. helical_phase0&isin;[0,2&pi;]
@@ -4368,7 +4372,7 @@ under-explored signal (only sparsely probed here) rather than a flat null; FERTI
 campaign specifically maps the twist-phase/magnitude surface near its own steepest gradient
 instead of the broad Sobol-style screen used here.
 
-**Timeline:**
+**Timeline:** Run 20260823T161229 &mdash;
 - D010: single-sample validation — set up the shell/grading-field construction (reusing D004's
   kirigami_shell shell-element scripting at a=0).
 - D011 (22-point sweep): the campaign referenced in Stats.
@@ -4421,6 +4425,13 @@ layout: two-cols-header
 </div>
 
 <!--
+**Result:** NON-ENGAGEMENT. A bounded Stage-1-only diagnostic, 5 configurations spanning the
+mechanism's full engagement range, and none coilable. The rotation signal stays 5 to 8 ORDERS OF
+MAGNITUDE below the 0.05 threshold in every case, and it does not even move monotonically with
+engagement &mdash; a much stronger backing panel gave a LOWER signal than a weaker one. The
+mechanism does not show up at all, let alone favourably. At n=5 this is a diagnostic rather than a
+campaign, but the shortfall is far too large for sample size to be the explanation.
+
 **Input space:** g0&isin;[0,1] — radial gap between outer shell and inner collar before
 engagement. t_in&isin;[.2,5] — collar thickness. with_backing&isin;{0,1} — control switch (0 =
 D38's uncut-shell control, bit-for-bit). backing_axial_extent&isin;[.05,1] — collar height as a
@@ -4435,7 +4446,7 @@ engagement range (collar-only through idealized-fully-engaged through a stronger
 case), not a sparse sample of an unbounded space, so there is no un-probed direction left to
 call FERTILE.
 
-**Timeline:**
+**Timeline:** Run 20260823T161229 &mdash;
 - D012, full diagnostic table: (a) outer shell alone (sigma_eig=1372.4, reproduces D38's a=0
   control bit-for-bit) &rarr; (b1) collar-only, g0=0.05, t_in=1.0, no preload (+18.8%, ur3_ratio
   DOWN) &rarr; (c) idealised fully-engaged, g0=0.0, t_in=1.0 (+21.0%) &rarr; (e) stronger
@@ -4492,6 +4503,13 @@ layout: two-cols-header
 </div>
 
 <!--
+**Result:** NUMERICAL. 113 designs across five campaigns, NONE reaching a converged Riks solve.
+Two things here are real: this family preserves genuine global coiling as the lowest vibration
+mode in every configuration, unlike every shell or ring family tried alongside it, and
+crosslinking three slender sub-beams recovers a 22&times; eigenvalue gain over the uncoupled case.
+What is NOT real is the 71.9% once called a physical snap-through plateau &mdash; D40-2's two
+re-solves confirm an arc-length divergence. The stall is real; the mechanism behind it was not.
+
 **Animation caveat (moved from the visible caption to stay within the caption-brevity
 budget):** the family's own best design (D020) stalls at 71.9% compression (mcs=0.7191),
 where the solve's progress on the mode this study measures effectively ends. The animation
@@ -4518,18 +4536,13 @@ searched, held constant within any one design).
 
 **Seed:** BARREN at n_sub_beams&isin;{2,3} with this crosslink topology — both the soft
 connector-stiffness axis and n_sub_beams=3 were closed decisively (catastrophic early collapse,
-not a tuning shortfall). **Superseded (2026-08-31, verdict audit): the rest of this Seed
-originally said "FERTILE if the snap-through itself is targeted directly" — there is no
-snap-through to target (see D40-2). The real open question, per D40-2's own Seed, is
-whether a different crosslink placement/spacing entirely — outside the neighborhood
-re-tested there — avoids the Riks-convergence wall altogether; that, not snap-through
-targeting, is this family's actual untried next step.**
+not a tuning shortfall).
 
 **Deferred:** InstrumentedDataGenerator's dedup-on-write can silently drop a corrected re-run
 under the same delegation ID (hit at D018) — same danger class as docs/TRAPS.md #8; documented
 here as #9, not fixed in the vendored a3dasm harness.
 
-**Timeline:**
+**Timeline:** Run 20260823T161229 &mdash;
 - D014 (1 sample + N=0 control): validated the mechanism and the global-coiling-mode preservation.
 - D015 (34 designs): found a "hard local instability" at higher crosslink counts.
 - D016 (6 designs): follow-up.
@@ -4554,6 +4567,15 @@ bo/D40_oracle_crosslinked_bundle.py (namespace='crosslinked_bundle'); connector 
 bo/crosslinked_bundle_mpc.py. GIF rendered from D020's own Riks ODB:
 /oscar/scratch/eaguerov/sc_oracle_crosslinked_bundle/riks_516824ed2260409398982f7735bfdc0d/
 SUPERCOMPRESSIBLE_RIKS.odb (340-frame history, 30 rendered).
+
+**History:** SUPERSEDED 2026-08-31 (verdict audit). the rest of this Seed
+originally said "FERTILE if the snap-through itself is targeted directly" — there is no
+snap-through to target (see D40-2). The real open question, per D40-2's own Seed, is
+whether a different crosslink placement/spacing entirely — outside the neighborhood
+re-tested there — avoids the Riks-convergence wall altogether; that, not snap-through
+targeting, is this family's actual untried next step.**
+
+The nine-delegation investigation behind this slide, D014 through D022, is in full in `validation/crosslinked_bundle_investigation/README.md`.
 -->
 
 ---
@@ -4591,6 +4613,13 @@ layout: two-cols-header
 </div>
 
 <!--
+**Result:** PHYSICAL. 105 designs, 70 broad-Sobol plus 35 directed, of which 20 were coilable and
+15 decided; none feasible. The measured null is unusually clean: twist's correlation with both the
+objective and the binding constraint is indistinguishable from zero &mdash; not weak, none &mdash;
+and the median compression, 0.0273 against the untwisted family's own 0.022, shows the same
+shortfall signature rather than a different one. Adding chirality to the tape-spring section
+changes neither what limits the design nor how far it gets.
+
 **Input space:** twist_angle &isin;[-90&deg;,90&deg;] — the 7th free parameter, newly added
 this pass; the other 6 are the tape-spring family's existing bounds (see D25's own slide).
 
@@ -4598,35 +4627,21 @@ this pass; the other 6 are the tape-spring family's existing bounds (see D25's o
 matter. The original D25 slide and D25-2 (contact)'s own Seed tags disagreed on whether
 twist had already been tried (it hadn't); this closes that ambiguity with a real result.
 
-NOT part of run 20260822T025309 -- a separate, later, ad-hoc worktree-isolated investigation.
-Committed 2026-08-23T12:28 UTC (git log -S), which sits between run 20260822T025309's close
-(2026-08-22T14:06 UTC) and run 20260823T161229's start (2026-08-23T16:12 UTC) -- placed here,
-between those two runs' sections, per the deck's anti-chronological ordering rule. Corrected
-2026-08-25: an earlier version of this note placed the slide ABOVE run 20260823T161229 on the
-mistaken belief that "one day after 20260822T025309 closed" made it newer than everything below
-it -- it never checked against 20260823T161229's own start time, which is later still. Do not
-read this slide as one of either run's own hypotheses.
+**Deferred:** two residual gaps, both disclosed by the investigating agent rather than found
+later. Phase 2's directional refinement toward positive twist was chosen from a phase-1
+sub-sample contaminated by 2 sentinel-zero salvage rows in the negative-twist bucket &mdash; the
+pooled 105-eval null correlation is unaffected, but a follow-up giving negative twist equal
+weight would close it. And a documentation discrepancy is left standing deliberately for the
+user: the original D25 slide and D25-2 disagree on this Seed tag (BARREN vs FERTILE), traced via
+`git log -S` to commit 6ac0244, which misread an ambiguous sentence as saying twist had been
+tested. It had not &mdash; that 330-design campaign held twist_angle=0.0 throughout.
 
-Full campaign: 70 broad-Sobol + 35 twist-sign-directed refinement, contact on, 20/105 coilable,
-15/105 reached a verdict. Best decided design: mcs=0.1133 (need 0.80, short 7.1x) at
-twist_angle=+5.8deg -- near zero, not at a large twist -- t_tape=0.5660, R_tape=27.805,
-alpha_tape=0.4682, beta_tape=1.1473, ratio_pitch=1.3343, ratio_top_diameter=0.7267,
-twist_angle=0.1018 rad. Vs. the twist=0 baseline (n=28, median mcs=0.022, best=0.21): this
-campaign's median (0.0273) is marginally higher but uninterpretable given the null correlation;
-its best is worse than the untwisted campaign's own best.
+**Timeline:** NOT part of any run. A separate, later, ad-hoc worktree-isolated investigation,
+committed 2026-08-23T12:28 UTC, which sits between run 20260822T025309's close
+(2026-08-22T14:06) and run 20260823T161229's start (2026-08-23T16:12) &mdash; hence its position
+here under the deck's anti-chronological ordering. Do not read it as either run's hypothesis.
 
-Caveat disclosed by the investigating agent: phase-2's directional refinement (toward positive
-twist) was chosen from a phase-1 sub-sample contaminated by 2 sentinel-zero salvage rows in the
-negative-twist bucket. The pooled 105-eval correlation (the headline null finding) is unaffected,
-but a follow-up giving negative twist equal weight would close this residual gap.
-
-Documentation finding, reported not fixed here (append-only convention): the original D25 slide
-and D25-2 (contact) disagree on this Seed tag (BARREN vs FERTILE). Traced via
-`git log -S` to commit 6ac0244, which misread an ambiguous sentence on the original slide as
-saying twist itself had been tested -- it hadn't; that 330-design campaign held twist_angle=0.0
-throughout. Left as a discrepancy on those two slides for the user's own correction.
-
-Infra: bo/oracle_tape_spring.py (PARAM_NAMES/BOUNDS grow a 7th entry),
+**Infra:** bo/oracle_tape_spring.py (PARAM_NAMES/BOUNDS grow a 7th entry),
 scripts/supercompressible_{lin_buckle,riks}_tape_spring.py, bo/campaign_tape_spring_twist.py,
 bo/_twist_stage1_scan.py, bo/_twist_kill_signal.py. Not committed to gold as of this slide --
 left in an isolated worktree pending review.
@@ -4636,6 +4651,18 @@ the best design (mcs=0.1133 @ twist=+5.8&deg;), and both Spearman correlations (
 sigma_peak, &rho;=+0.0071 vs riks_strain, n=15) directly from the raw campaign JSON (commit
 13cc7c5, branch worktree-agent-a66caf1865bb9b16f, not on main) -- all reproduce to the cited
 precision.
+
+**History:** Full campaign: 70 broad-Sobol + 35 twist-sign-directed refinement, contact on, 20/105 coilable,
+15/105 reached a verdict. Best decided design: mcs=0.1133 (need 0.80, short 7.1x) at
+twist_angle=+5.8deg -- near zero, not at a large twist -- t_tape=0.5660, R_tape=27.805,
+alpha_tape=0.4682, beta_tape=1.1473, ratio_pitch=1.3343, ratio_top_diameter=0.7267,
+twist_angle=0.1018 rad. Vs. the twist=0 baseline (n=28, median mcs=0.022, best=0.21): this
+campaign's median (0.0273) is marginally higher but uninterpretable given the null correlation;
+its best is worse than the untwisted campaign's own best.
+
+CORRECTED 2026-08-25: an earlier version of this slide's notes placed it ABOVE run 20260823T161229, on the mistaken belief that being one day after 20260822T025309's close made it newer than everything below &mdash; it never checked 20260823T161229's own start time, which is later still.
+
+VERIFIED 2026-08-26 (deck audit): independently recomputed n/coilable/decided counts, the best design (mcs=0.1133 at twist=+5.8&deg;) and both Spearman correlations (&rho;=&minus;0.0036 vs sigma_peak, &rho;=+0.0071 vs riks_strain, n=15) directly from the raw campaign JSON (commit 13cc7c5, branch worktree-agent-a66caf1865bb9b16f, not on main) &mdash; all reproduce to the cited precision.
 -->
 
 ---
@@ -4666,76 +4693,37 @@ a real design parameter.
 </div>
 
 <!--
-THE GATE HISTORY. Call 1 (90% budget used, 10.84h/12h per the authoritative snapshot): REJECT —
-the strategizer's closing prose claimed "~11.7h/12.00h... exhausted", which contradicted every
-actually-logged figure in the run (the injected constraint snapshot and the last delegation's own
-self-report both said 10.8h/90%, ~70 minutes genuinely left). PROBLEM_STATEMENT.md's "REJECT a run
-you know has not used its time allocation" gave the critic no discretion. The critic also flagged,
-correctly, that H3's own registered falsification_criterion (a stiffness-multiplier sweep across
-3x-15x) had an identified, actionable, affordable next step sitting undone: the multiplier was
-read once from os.environ at import time, invisible to the design vector. Call 2 (93% used):
-PASS — the strategizer promoted the multiplier into a real 9th PARAM_NAMES/BOUNDS parameter,
-ran the committed sweep, and corrected its own initial "FALSIFIED" read to INCONCLUSIVE once a
-validator noted 3 of 6 points were inadmissible or missing (a stabilization-gate failure, a
-divergence, and two timeouts), leaving the 5x-9x zone genuinely under-characterized.
+**Why it stopped:** GATED on round 2. Round 1 rejected it at 90% budget used: the strategizer's
+closing prose claimed "~11.7h/12.00h... exhausted" while every logged figure said 10.8 h and ~70
+minutes left, and PROBLEM_STATEMENT.md's "REJECT a run you know has not used its time allocation"
+leaves no discretion. The critic also flagged an affordable undone step &mdash; H3's stiffness
+multiplier was read once from `os.environ` at import, invisible to the design vector. Round 2
+passed once it became a real 9th search parameter and the sweep ran.
 
-WHY H1 WENT FALSIFIED -> INCONCLUSIVE, NOT A RETRACTION. The strategizer's first read of the
-64-eval scale_lock evidence was FALSIFIED (posterior 0.04). A validator note pointed out the
-registered falsification_criterion had committed to an 80-120-eval 3-phase shrinking-zoom BO
-campaign; what actually ran was ~64 evals scattered across a literature-centre sweep, a deliberately
-softer sub-region, and two stabilization-magnitude escalations -- informative, but short of the
-severity bar the registered criterion demanded. Corrected to INCONCLUSIVE (0.08), "bounded
-negative, not proof of absence" -- and the family was deprioritized for the rest of the run's
-budget given the causal mechanism found (below) makes further search in this exact parameter
-family implausible to succeed, not because the clock ran out.
+**What it bought:** two mechanisms closed with controls rather than by exhaustion (D35, D33-2
+below), and two instrument bugs caught before their numbers were believed &mdash; both in
+`validation/silent_zero_strain_sentinel/README.md`. The second is the one worth knowing: after a
+geometry bug was fixed, sigma_peak came back 30&ndash;55&times; target with `max_local_strain`
+reading exactly 0.0 everywhere. A delegation probed the ODB before trusting it and found 0 of 595
+sampled frames carried a strain field at all, so ~30 rows of 0.0 were a false sentinel.
 
-THE TWO BUGS SCALE_LOCK SURFACED, IN THE ORDER THEY WERE FOUND. (1) The ground/top-disc rigid
-surface's construction rotated the sketch about the wrong axis (X instead of Y, a copy-paste drift
-from a different family's convention) and placed it at zero clearance with the wrong free-side
-normal on the top disc -- three compounding t=0 defects that failed all 25 of D004's
-geometrically-diverse LHS designs identically, before increment 1, independent of the sampled
-geometry. Root-caused via an isolated Abaqus/CAE geometry probe plus direct .msg-file overclosure
-evidence (job riks_04347d..., "LONGERONS.13 IS OVERCLOSED BY 47.9886" against a 50mm mast radius).
-(2) Once fixed, the resulting sigma_peak values were 30-55x the target with max_local_strain
-reading exactly 0.0 on every point -- a second delegation sanity-checked this BEFORE trusting it,
-via read-only ODB field-output probing (0 of 595 sampled frames carried an E/LE field at all).
-Root cause: the beam section (GeneralizedProfile + BeamSection(BEFORE_ANALYSIS), no *SECTION
-POINTS) never wrote strain fields to the ODB -- every scale_lock max_local_strain reading to date,
-~30 rows, was a false 0.0 sentinel, not a measurement. Fixed by switching to a native
-RectangularProfile (matching this study's own working run17_rectangle anchor); confirmed via a
-bit-for-bit-identical reproduction of the run17_rectangle anchor through the unmodified `default`
-oracle path.
+**Corrections:** two verdicts were softened by validator notes, both correctly. H1's first read of
+the 64-eval scale_lock evidence was FALSIFIED (posterior 0.04), but the registered criterion had
+committed to an 80&ndash;120-eval three-phase zoom campaign and what ran was ~64 evals across
+three sub-studies &mdash; informative, short of the registered severity bar. Corrected to
+INCONCLUSIVE, "bounded negative, not proof of absence". H3 likewise, once a validator noted 3 of
+its 6 sweep points were inadmissible or missing, leaving the 5&ndash;9&times; zone
+under-characterised.
 
-THE ARTIFACT THAT ALMOST READ AS A WIN. Kissing-pair's stiffness sweep at 12x/15x multiplier
-reported sigma_peak = 0.59/0.71 kPa -- nominally beating even the study's best confirmed design
-(0.6077 kPa). But mcs_at_peak (the compression fraction where that peak occurs) was 0.00078 at
-15x: the "peak" happens at 0.08% compression, essentially the instant contact registers, not after
-any meaningful load history. Real compression achieved (riks_strain) DECREASES with multiplier
-(48.6% at 3x -> 10.2% at 12x -> 5.1% at 15x) -- a stiffer contact spring produces a bigger
-first-contact force spike and locks the mechanism up faster, not a bigger real capacity. The run's
-own final synthesis correctly used compression achieved, not the inflated peak force, as the
-deciding metric.
+**Cost shape:** the family was deprioritised for the remaining budget because the causal
+mechanism found makes further search there implausible &mdash; not because the clock ran out.
+That distinction is why H1 reads INCONCLUSIVE rather than untested.
 
-A REAL DEFECT NOT FIXED THIS RUN, FLAGGED FOR THE HARNESS MAINTAINERS. D015's own sweep found only
-1 of 7 successful `get_evaluator(namespace='kissing_pair')` calls persisted to the canonical
-store -- consistent with a lost-update race when multiple concurrent OS processes call
-get_evaluator() against the SAME namespace store without serializing the read-modify-write. Lives
-in the vendored a3dasm harness package, not this repo's code; not headline-relevant this run
-(the headline is ledgered via a different namespace) but a generalizable risk for ANY family using
-concurrent same-namespace dispatch.
-
-Infra promoted to gold this run: scripts/supercompressible_{lin_buckle,riks}_scale_lock.py,
-scripts/supercompressible_riks_pp.py, bo/D35_oracle_scale_lock.py (the two bug fixes above);
-bo/oracle_tape_spring.py (missing DataGenerator adapter); bo/D33_oracle_kissing_pair.py,
-bo/kissing_pair_connector_stop.py (stiffness-multiplier promotion + connector-force output).
-
-EVAL-COUNT DISCLOSURE (2026-08-26, deck audit item 1): the visible "69 ledgered evals" figure could
-not be independently reconciled. run_status.json's own evals_used=64; a naive sum of every
-delegation_log.jsonl entry's own "evals" field gives 60 (undercounts even 64, so per-delegation
-self-reports are themselves incomplete -- consistent with this study's known ledger-undercounting
-pattern elsewhere, see D42's own run summary). Unlike the cost figure on this slide (which has an
-explicit reconciliation), no clean accounting was found for 69 vs. 64 vs. 60 within the audit's
-time budget. Left as-is rather than replaced with an equally-unverified number.
+**Unresolved:** the artifact that almost read as a win, and it is a pattern not an incident.
+Kissing-pair's sweep at 12&times;/15&times; reported sigma_peak 0.59/0.71 kPa, nominally beating
+even the study's best confirmed design &mdash; but `mcs_at_peak` was 0.00078 at 15&times;, so the
+"peak" lands at 0.08% compression, the instant contact registers. Same class as D24-2's spike and
+the skinned-mast reading on D58. `mcs_at_peak` is the field that catches it.
 -->
 
 ---
@@ -4781,6 +4769,13 @@ layout: two-cols-header
 </div>
 
 <!--
+**Result:** PHYSICAL. Six points across the full stiffness-multiplier range, and none beats the
+3&times; baseline's 48.6% compression. Compression falls MONOTONICALLY as stiffness rises:
+3&times; converges at 48.6%, 5&times; fails the gate, 7&times; diverges, 9&times; times out twice
+(6&ndash;10.5&times; is a pathological zone), 12&times;/15&times; converge but reach only 10.2%
+and 5.1%. A stiffer spring gives a bigger first-contact force spike, not more capacity. Contact
+IS load-bearing at 3&times;; nothing improves on it.
+
 **Input space:** stiffness_multiplier &isin;[3,15] (&times;) — the 9th free parameter,
 newly promoted this pass from a fixed environment-variable constant; other 8 unchanged from
 D33's own bounds.
@@ -4855,8 +4850,14 @@ layout: two-cols-header
 </div>
 
 <!--
-**Chart provenance:** strain rises smoothly 0.0&rarr;0.0197 over 1315 real frames before the
-stall — a real, gradual response, not a numerical artifact.
+**Result:** PHYSICAL, established by a control rather than inferred. 64 designs, 54 coilable,
+none converging. Strip the scale panels off the best-performing geometry and the identical base
+beam converges cleanly to 89.5% compression at 1.75% strain, matching this study's confirmed
+incumbent. The SAME geometry WITH the ribs crosses the 2% ceiling at only 33&ndash;45%
+compression. The rigid panel-to-panel coupling at each rib station is itself what concentrates
+strain and destroys the design &mdash; the opposite of the mechanism's premise.
+
+
 
 **Input space:** ratio_a&isin;[.006,.02] — radial half-thickness. ratio_b&isin;[.01,.05] —
 tangential half-width. ratio_pitch&isin;[.15,1.2], ratio_top_diameter&isin;[0,.6] — usual
@@ -4881,17 +4882,15 @@ coupling mechanism itself is the problem, not the region of the 10D space search
 flexible scale realization (closer to a soft biological substrate than a rigid interlocking
 panel) is a genuinely different idea, untried.
 
-**Deferred:** any future literature review re-surfacing this exact mechanism should be pointed at
-this slide and its causal-isolation control, not re-derive the geometry from the paper a fifth
-time — the open question is now narrower than "does the infra exist": does ANY realization
-decouple the rib-station strain concentration from the base beam's own bending strain, since a
-rigid-panel realization does not. A separate question, raised post-run by the advisor (is the
-0/64 Stage-2 non-convergence itself a numerics/wall-clock artifact, the way part of D43/
-grain-beam's own population turned out to be?), is now closed as of 2026-08-27 (see Timeline):
-it is not — every design forensically examined (idx=0/10/23, 3 of 3) shows the same
-settings-independent physical wall.
+**Deferred:** the open question is narrower than "does the infra exist": does ANY realization
+decouple the rib-station strain concentration from the base beam's own bending strain, given a
+rigid-panel realization does not? Any future literature review re-surfacing this mechanism should
+be pointed at this slide and its control rather than re-deriving the geometry a fifth time. One
+related worry is CLOSED as of 2026-08-27: the 0-of-64 Stage-2 non-convergence is not itself a
+numerics artifact the way part of D43's population turned out to be &mdash; all 3 designs
+forensically examined (idx 0, 10, 23) show the same settings-independent physical wall.
 
-**Timeline:**
+**Timeline:** Run 20260822T025309 &mdash;
 - D002 (single smoke eval) + D004 (24-pt LHS, paper-centre sub-region): both failed Stage 2
   identically pre-fix.
 - D005: root-caused and fixed the t=0 geometry defect, re-tested 5 points, cut mcs_windowed from
@@ -4926,7 +4925,8 @@ settings-independent physical wall.
   diagnostic script/results kept out-of-repo (non-canonical, no ledger write, same precedent as
   D43's own D007 diagnostic).
 
-**Infra:** two real infra bugs found and fixed getting this family to a trustworthy read (full
+**Infra:** Chart provenance: strain rises smoothly 0.0&rarr;0.0197 over 1315 real frames before the stall &mdash; a real, gradual response, not a numerical artifact.
+ two real infra bugs found and fixed getting this family to a trustworthy read (full
 detail in the run summary slide's own speaker notes): the t=0 ground/top-disc geometry defect,
 then the missing *SECTION POINTS beam-section spec. Namespace 'scale_lock'; oracle at
 bo/D35_oracle_scale_lock.py; scripts/supercompressible_{lin_buckle,riks}_scale_lock.py.
