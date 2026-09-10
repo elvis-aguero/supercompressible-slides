@@ -3287,90 +3287,39 @@ feasibility this run.
 </div>
 
 <!--
-H1/H2/H7/H12 DETAIL (twist_buckle). D002 found and fixed a real joint-DOF bug: the inherited
-local datum released rotation about the joint's own approximate radial direction, not each
-oblique rod's own bottom-to-top axis, structurally suppressing Fang et al.'s twist mechanism
-regardless of geometry. Fixed (four coupling variants tried; see D41-2's own Infra
-note), validated: twist_energy_fraction rose 1078x. But the corrected design still only
-reaches mcs=0.03 (H1). D011 (H7) tested whether SMALLER twist_angle recovers coilability --
-it does not; all 8 points fail Stage-1 outright, the opposite of the predicted recovery. D019
-(H12) ran a full 20-design adaptive search of the corrected-joint family: only 2/20 dispatches
-ever reached a decided verdict (5 Stage-1 rejects, 13 unresolved non-convergence), both
-infeasible. Twist and coilability trade off sharply in this family; whether any point
-resolves that trade-off is still open.
+**Why it stopped:** PASSED on gate round 4. call_001 rejected it on a CRITICAL &mdash;
+`pipeline.ipynb` was missing its mandatory verdict cells, plus a stale hypotheses cell. call_002
+and call_003 rejected it on run-adequacy, 19% then 11% of the wall clock unspent on a negative
+result, against PROBLEM_STATEMENT.md's "exhaust the time limit" clause. call_004 passed at 91%
+used.
 
-H3/H9 DETAIL (crosslinked_bundle). D004's own 9-point crosslink_spacing_bias sweep at the
-D020 optimum found its own bias=0.0 reconfirmation salvaged (non-converged), with mcs=0.7173
-(not 0.7191). D008's stabilization + 1800s escalation didn't fix it (0/5 riks_converged=1).
-D012 (decisive): re-solved the SAME point on the plain, non-stabilized path at 9x the time
-budget (5400s) -- still fails, returning in only 1197s with a confirmed genuine arc-length
-divergence ("TIME INCREMENT REQUIRED IS LESS THAN THE MINIMUM SPECIFIED"), matching D004's
-own reading to 6+ significant figures. D015 (H9) ran a real 48-eval BO campaign over the
-family's full 10D box -- 38/48 reached Stage 2, only 1/48 (2.6%) ever converged, and that one
-design was infeasible (mcs=0.242). No design in this family is currently confirmed working.
+**What it bought:** one real bug fix and four families narrowed to a single shared obstruction.
+D002 found and fixed a genuine joint-DOF defect: the inherited local datum released rotation about
+the joint's approximate radial direction rather than each oblique rod's own bottom-to-top axis,
+structurally suppressing the twist mechanism regardless of geometry. Fixed and validated &mdash;
+twist energy fraction rose 1078&times; (D41-2). The wider finding is negative and consistent: of
+five families, FOUR are undecided because Stage 2 would not converge, not because any mechanism
+was measured and found wanting. Full per-family detail in
+`validation/run_20260829_five_family_audit/README.md`.
 
-H4/H8/H10 DETAIL (bistable_arch). D010 (H4) escalated the 3 non-converged high-Q points to
-Abaqus/Explicit dynamics -- all 3 "complete" numerically but fail the quasi-static-validity
-gate hard (ALLKE/ALLIE 21-23x over the 0.05 threshold), i.e. inertia/impact noise, not a
-legitimate reading. D014 (H8) ran a real, adaptive 42-point 3-phase zoom-BO campaign over the
-family's full 6D box -- 13 converged, 11 strictly feasible (genuinely working designs exist),
-but exactly 1 shows any snap-reversal and it is the same documented coarse-increment spike
-artifact. D016 (H10) tried to attribute the best non-snap design's capacity to the arch
-mechanism specifically vs. host cross-section/pitch alone -- the registered test came back
-infeasible/artifactual (stab_ratio 2.2x its own cap); the host-alone comparison is a separate,
-unregistered measurement, reported but not a clean answer to what was asked.
+**Corrections:** two stale claims were withdrawn and the fix was promoted the same day. A prior
+"mls ~ 0.003" figure at the crosslinked_bundle baseline did not reproduce &mdash; this run's
+re-solve of the same point returned mls ~ 0.0205, just over the 0.02 ceiling, and the stale figure
+was removed from D40's slide. Post-run and user-authorised, three pieces of infrastructure went to
+gold: the joint-DOF fix (4c3da12), the secondary_stop diagnostic infra (2b2f8b1) and the
+grain_beam registration wrapper (a016152). Separately the window-closed-before-failure convention
+was applied uniformly across `oracle_circular.py` and `D43_oracle_grain_beam.py` (d5aa47e), so a
+result now counts as decided on every family rather than only the newer ones.
 
-H5 DETAIL (secondary_stop). D017 attached the stop to a genuine FE node on the primary
-longeron's own mesh (stop_attachment="longeron_midspan") instead of ZTOP_REF_POINT or a driven
-surface -- zero shared equations with the ring reference point -- and it still diverges at
-the identical mcs~0.51 with the identical residual signature every construction has shown
-since D003. Conclusively rules out "shared ring-RP DOF set" as the cause across five
-independent attachment/base variants now. One combination remains untried:
-stop_construction="same_part" WITH this longeron-midspan attachment (each tested individually,
-never together) -- outside this delegation's authorized scope, flagged for a future run.
+**Cost shape:** 44 delegations, 8 flagged on CONSISTENCY only, none BLOCKED.
 
-H6/H11 DETAIL (grain_beam). D009 (H6) targeted "Point B" specifically -- the exact open
-question flagged on D43's own prior slide. Result: genuinely ambiguous under the registered
-falsification criterion, whose "load reversal" definition didn't match this study's own
-established compression-only convention used elsewhere. D018 (H11) ran a further real
-adaptive BO campaign (21 points) over the family's full 7D box -- found nothing, but thin: no
-feasible/converged incumbent ever existed to seed the acquisition, so it fell back to
-near-random Sobol sampling rather than a GP-guided search.
-
-THE GATE HISTORY (4 rounds). call_001: REJECT -- CRITICAL, pipeline.ipynb was missing its
-mandatory verdict/analysis cells entirely (a forward reference to "the Verdict cell" that did
-not exist), plus a stale Hypotheses cell (H4 shown as "pending", H5/H6 entirely absent despite
-being closed). call_002: REJECT -- both cell-structure findings resolved (independently
-re-derived both headline numbers from the ledger and confirmed a match), but a NEW critical
-surfaced: the notebook closed on a negative result with 19% of the wall-clock budget still
-unspent, directly against PROBLEM_STATEMENT.md's explicit "exhaust the time limit... REJECT
-a run you know has not used its time allocation" clause. call_003: REJECT -- still 11%
-budget remaining (89% used) on a negative result, plus a specific literature-identified
-alternative explanation for H2 (the ring's own bulk rotation, not the rod-joint DOF) left
-unaddressed. call_004: PASS -- budget now at 91% used with one more genuine delegation (D020)
-closing H5's last untried construction since call_003, and H2's alternative explanation
-resolved by direct code inspection (the top ring's reference point carries no rotational BC
-at all, confirmed against the bottom ring's explicit ur1/ur2/ur3=0). One MINOR finding
-survived uncorrected: the Verdict cell's own hypothesis-count language (7/11/12) should read
-"twelve" throughout -- cosmetic, does not affect any conclusion.
-
-RETROSPECTIVE FLAGS (8 of 44 delegations flagged, all CONSISTENCY, none BLOCKED). Two are
-worth a future run's attention, neither resolved here: (1) D009's flag that
-bo/D43_oracle_grain_beam.py's convergence gate (requires literal Riks completion) is stricter
-than bo/oracle_circular.py's (the PROBLEM_STATEMENT-named reference oracle, which had no such
-distinction at all) -- FIXED post-run, see below. (2) D004's flag that a prior claim
-("mls~0.003" at the crosslinked_bundle D020 baseline) didn't reproduce -- this run's own
-re-solve of the same point got mls~0.0205, just over the 0.02 ceiling; the stale figure has
-been removed from D40's slide. D001's flag (whether H2's "confound" framing matches Fang et
-al.'s own model) was resolved the same run by direct code inspection (see H1/H2 detail above).
-
-INFRA PROMOTED TO GOLD, POST-RUN (2026-08-29, later the same day, user-authorized). The H2
-joint-DOF fix (commit 4c3da12); the secondary_stop D007/D017 diagnostic infra (commit
-2b2f8b1); the grain_beam DataGenerator registration wrapper (commit a016152). Separately, the
-window-closed-before-failure convention was applied uniformly to oracle_circular.py and
-D43_oracle_grain_beam.py (commit d5aa47e) -- resolving retrospective flag (1) above: a result is
-now decided if the specific quantity feasibility is judged on reflects real data confirmed
-before any solver failure, on every family, not just the newer ones that already had this.
+**Unresolved:** one combination in the secondary_stop family remains untried &mdash;
+`stop_construction="same_part"` together with longeron-midspan attachment, each tested
+individually but never together. Five independent attachment and base variants have now
+conclusively ruled out a shared ring reference-point DOF set as the cause of that family's
+divergence at mcs ~ 0.51. Also open: whether any point in the corrected-joint twist family
+resolves the twist-versus-coilability trade-off at all, since only 2 of 20 dispatches in its own
+adaptive search ever reached a decided verdict.
 -->
 
 ---
@@ -3412,6 +3361,13 @@ layout: two-cols-header
 </div>
 
 <!--
+**Result:** NUMERICAL, then EVIDENTIAL. The joint-DOF fix works and is confirmed: correcting the
+released rotation axis raised the twist energy fraction from 0.011% to 12.2%, a factor of 1078, so
+the rod genuinely twists where before the mechanism was structurally suppressed. But the corrected
+design still reaches only 3% compression, and a 20-design follow-up returned 5 Stage-1 rejects, 13
+unresolved non-convergences and 2 decided points, both infeasible. The twist-versus-coilability
+trade-off stayed undecided because Stage 2 mostly would not converge.
+
 **Input space:** same design vector as D41's own base slide (the joint-DOF fix is a
 construction correction, not a new parameter); the 20-design follow-up re-searches that same
 family's existing bounds under the corrected joint.
@@ -3423,21 +3379,7 @@ this family's design space reaches feasibility (mcs>=0.80) with the corrected jo
 result). The open question is now specifically the twist/coilability trade-off, not the
 joint construction.
 
-**Prior attempt, reconciled (2026-08-31, verdict audit):** this was not the first fix
-attempt. Run `20260826T012550` H4 (delegation D006, 3 days earlier) already "rebuilt the
-chiral-twist joint so the rod is genuinely free to rotate... the exact confound diagnosed
-on D41's own slide," measuring twist_energy_fraction peak=0.0731 (7.3%), 0 strict feasible
-— that run's own text called it "clos[ing] the mechanism a second time, this time with the
-confound actually removed." This slide's own D002 measured 0.1218 (12.2%) on the same
-family. The two are not the same construction (D006's own notes describe a from-scratch
-joint rebuild; this slide's Input space above describes a rotation-axis correction) and
-the two numbers were never reconciled anywhere in the deck before this note. Both agree on
-the practical conclusion (twist genuinely engages, feasibility still fails), so the
-Verdict is unaffected — but a future agent comparing "twist_energy_fraction" across the
-deck should know these are two different fixes to the same family, not one number cited
-twice.
-
-**Timeline:** D002 (run 20260829T005522, H2): the joint fix + matched-point validation.
+**Timeline:** Run 20260829T005522 &mdash; D002 (H2): the joint fix + matched-point validation.
 H12 (same run): a 20-design follow-up search using the fixed joint -- 5 Stage-1 rejects, 13
 unresolved non-convergence, 2 decided (both infeasible, mcs=.12/.55). Routed to H2 SUPPORTED
 / H1 & H12 INCONCLUSIVE per runs/20260829T005522/debug/strategizer_notes/hypotheses.json.
@@ -3469,6 +3411,20 @@ such control in this family, since none of the 151 prior evals contains a twist 
 compression rising monotonically .0707 &rarr; .1023 and &sigma;_peak falling monotonically
 6.604 &rarr; 4.262 across 0&ndash;60&deg;: ~.0005 mcs/deg, so reaching the .80 bar would need
 ~1400&deg;. Full commit e9cfd59.
+
+**History:** PRIOR ATTEMPT, RECONCILED 2026-08-31 (verdict audit). this was not the first fix
+attempt. Run `20260826T012550` H4 (delegation D006, 3 days earlier) already "rebuilt the
+chiral-twist joint so the rod is genuinely free to rotate... the exact confound diagnosed
+on D41's own slide," measuring twist_energy_fraction peak=0.0731 (7.3%), 0 strict feasible
+— that run's own text called it "clos[ing] the mechanism a second time, this time with the
+confound actually removed." This slide's own D002 measured 0.1218 (12.2%) on the same
+family. The two are not the same construction (D006's own notes describe a from-scratch
+joint rebuild; this slide's Input space above describes a rotation-axis correction) and
+the two numbers were never reconciled anywhere in the deck before this note. Both agree on
+the practical conclusion (twist genuinely engages, feasibility still fails), so the
+Verdict is unaffected — but a future agent comparing "twist_energy_fraction" across the
+deck should know these are two different fixes to the same family, not one number cited
+twice.
 -->
 
 ---
@@ -3511,15 +3467,15 @@ layout: two-cols-header
 </div>
 
 <!--
+**Result:** NUMERICAL. The family's best-cited result does not reproduce. D020's archived 71.9%
+headline was re-solved twice, on the plain non-stabilized path at nine times the time budget, and
+both agree with each other to six significant figures at mcs=0.7173 while confirming a genuine
+arc-length divergence &mdash; a real divergence, not a timeout, so the archived reading was never a
+converged solve. A fresh 48-design search of the full 10D box then had 38 of 48 reach Stage 2 with
+only one converging, and that one infeasible at mcs=0.242.
+
 **Input space:** same 10-parameter design vector as D40's own base slide; the 48-design
 adaptive search (24 seeded + 24 active) resamples that same space, no new parameter added.
-
-**Chart correction (2026-08-31, rebuilt with `bo/mini_chart.py`):** now plots the full
-unwindowed history in multiples of Bessa, linear, colored by local strain (mls) with the
-deck's corrected convention (see rule 2c-VIS), not the old sigma-colored, window-truncated
-version. The curve visibly turns grey at mcs&asymp;0.72 — confirming, from real per-frame
-data, that "matches D004's reading" (cited elsewhere on this slide as
-mcs=0.7173) was always the same point as the strain-cap crossing, not a coincidence.
 
 **Seed:** FERTILE — the family's own construction, not this one design point, is the open question
 now: something prevents a clean Riks solve near this optimum, and no confirmed working
@@ -3527,7 +3483,7 @@ design currently exists anywhere in the space searched. Untried: whether a diffe
 crosslink placement/spacing entirely (outside the neighborhood re-tested here) avoids
 whatever this design point is hitting.
 
-**Timeline:** D004 (run 20260829T005522, H3): 9-point crosslink_spacing_bias sweep at the
+**Timeline:** Run 20260829T005522 &mdash; D004 (H3): 9-point crosslink_spacing_bias sweep at the
 D020 optimum, best mcs=0.7173 at bias=0.0 (the baseline itself) -- all 9 points salvaged
 (non-converged). D008: stabilization + 1800s escalation on the same 5 points, 0/5 reached
 riks_converged=1. D012 (decisive): re-solved the bias=0.0 baseline on the plain,
@@ -3545,6 +3501,13 @@ reproducibility, not a construction bug. Sigma-history chart built from D012's o
 /oscar/scratch/eaguerov/sc_oracle_crosslinked_bundle/riks_26dc76db026249d093d739469e0dc99a/
 results.pkl (reduced with this study's usual sigma = |RF[2]|*1000/(pi*D1^2/4*n_longerons_
 effective) formula, n_longerons_effective=8 for n_longerons=4 x n_sub_beams=2).
+
+**History:** CHART REBUILT 2026-08-31 with `bo/mini_chart.py`. now plots the full
+unwindowed history in multiples of Bessa, linear, colored by local strain (mls) with the
+deck's corrected convention (see rule 2c-VIS), not the old sigma-colored, window-truncated
+version. The curve visibly turns grey at mcs&asymp;0.72 — confirming, from real per-frame
+data, that "matches D004's reading" (cited elsewhere on this slide as
+mcs=0.7173) was always the same point as the strain-cap crossing, not a coincidence.
 -->
 
 ---
