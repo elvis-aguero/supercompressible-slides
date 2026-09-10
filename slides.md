@@ -2757,24 +2757,31 @@ already-built longeron have never produced a feasible design.
 </div>
 
 <!--
-H5 and H6 are the run's real product and they are worth more than their two ticks suggest: both
-are NEGATIVE-SPACE claims, established by auditing families this study had already built rather
-than by building anything new. H5 says the whole chained bistable-hinge lineage (D23 -> D24 -> D44)
-has never yielded a feasible design; H6 says the same of every lattice/shell longeron embodiment
-built to that date. Claims of that shape are what stop a later run re-entering a lineage that
-looks unexplored from any single slide.
+**Why it stopped:** ran to a close. Two of its ten hypotheses were new mechanisms; the rest were
+audits and re-tests of families this study had already built.
 
-Cost $74.37 = $71.73 telemetry + $2.64 strategizer summed by hand (rule 6), at $0.30/eval --
-mid-range for this deck. datagenerator $37.91 for two new oracles (bistable_shell, torsional_tube)
-plus repairs to three existing ones; literature_reviewer $7.73, the second-highest in the deck,
-consistent with a run whose job was partly auditing prior art rather than proposing.
+**What it bought:** its real product is two NEGATIVE-SPACE claims, worth more than their two ticks
+suggest, and both were established by auditing existing families rather than by building anything
+new. H5 says the whole chained bistable-hinge lineage (D23 &rarr; D24 &rarr; D44) has never
+yielded a feasible design; H6 says the same of every lattice or shell longeron embodiment built to
+that date. Claims of that shape are what stop a later run re-entering a lineage that looks
+unexplored from any single slide. The two new mechanisms it did build are D45 and D46 below.
 
-Two families here are re-tests that close questions other slides had left open, and their Idea
-cells point at the EXISTING slides rather than earning new numbers: H8 at D41-2 (the corrected
-joint, whose own slide records the twist family), H9 at D33, H10 at D35. Only H4 and H7 are new
-mechanisms, and they take D45 and D46 -- the numbers bo/D45_oracle_bistable_shell.py and
-bo/D46_oracle_torsional_tube.py had already claimed in their filenames while the deck jumped
-from D44 to D48.
+**Corrections:** none registered during the run.
+
+**Cost shape:** $74.37 = $71.73 telemetry + $2.64 strategizer summed by hand (rule 6), at
+$0.30/eval, mid-range for this deck. datagenerator $37.91 for two new oracles (bistable_shell,
+torsional_tube) plus repairs to three existing ones. literature_reviewer $7.73, the second-highest
+in the deck, consistent with a run whose job was partly auditing prior art rather than proposing.
+
+**Unresolved:** D46's mechanism is untested rather than refuted &mdash; every solve died on
+edge-to-edge self-contact before the slit closed, so the switch it was built to test never
+happened. Three of this run's hypotheses are re-tests whose Idea cells point at EXISTING slides
+rather than earning new numbers (H8 at D41-2, H9 at D33, H10 at D35), which is the correct
+behaviour and is noted so the table is not misread as ten new ideas. And the deck's numbering
+jumped D44 &rarr; D48 for a while because
+`bo/D45_oracle_bistable_shell.py` and `bo/D46_oracle_torsional_tube.py` had already claimed those
+numbers in their own filenames before the slides existed.
 -->
 
 ---
@@ -2812,6 +2819,14 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** PHYSICAL. 80 doubly-curved shell splices, 53 Stage-1 coilable, 23 with a converged
+Stage-2 solve and 7 feasible, the best at 0.32&times; the Bessa reference. This family's verdict
+rests on measured performance rather than solver failure &mdash; 23 of 53 converged is the
+healthiest Stage-2 yield of the five families in its run. The bind is a thickness one and it is
+two-sided: geometric bistability needs the shell shallow and thin relative to its span, carrying
+load needs the opposite. The quartiles show it directly &mdash; peak load rises to 0.694 kPa only
+where compression collapses to 0.160.
+
 **Input space:** ratio_a and ratio_b &mdash; the shell segment's two in-plane half-dimensions (the
 best row uses a=.009213, b=.033240, i.e. a markedly anisotropic patch); plus the host beam's
 ratio_pitch&isin;~[0.32,1.08] and ratio_top_diameter. 80 ledgered designs; per-axis bounds in the
@@ -2832,8 +2847,8 @@ Note per rule 2b: this is MECHANISM novelty against the beam-segment bistables (
 whose lineage H5 of the same run separately established has never produced a feasible design --
 so the shell embodiment was a reasonable next vehicle, not a re-run.
 
-**Timeline:** Built and tested within run 20260901T020153; H4 is its registered hypothesis and was
-FALSIFIED against the target. See that run's summary above for the full verdict table.
+**Timeline:** Run 20260901T020153 &mdash; built and tested within it; H4 is its registered
+hypothesis and was FALSIFIED against the target. See that run's summary above for the full table.
 
 **Infra:** Oracle bo/D45_oracle_bistable_shell.py; Stage 1
 scripts/supercompressible_lin_buckle_bistable_shell.py, Stage 2 via that family's own
@@ -2878,6 +2893,13 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** NUMERICAL, then NON-ENGAGEMENT. 33 slit-tube designs, 24 Stage-1 coilable, and none
+reached a converged Stage-2 solve; the furthest compressed 2.6% inside the metric window. The
+obstruction is the solver, not the mechanism: edge-to-edge self-contact on a thin shell is the
+hardest contact problem in this study, and every solve died before the slit's edges met. So the
+open-to-closed section switch the design exists to test never happened in any surviving solve,
+and nothing here is evidence about the mechanism itself.
+
 **Input space:** the slit tube's wall thickness and radius ratios, slit width, and the host beam's
 ratio_pitch / ratio_top_diameter. 33 ledgered designs; per-axis bounds in the run's registration
 for namespace 'torsional_tube'. Fixed: n_longerons=3, n_storeys=1, ratio_shear_modulus=0.3677,
@@ -2900,8 +2922,8 @@ salvage path. bo/D46_oracle_torsional_tube.py in fact has one of the most thorou
 The furthest solve's window never closed, which is why no decided row exists -- not a missing
 capability. See D54's Deferred.
 
-**Timeline:** Built and tested within run 20260901T020153; H7 is its registered hypothesis and was
-FALSIFIED against the target, though on solver failure rather than measured performance -- which
+**Timeline:** Run 20260901T020153 &mdash; built and tested within it; H7 is its registered
+hypothesis and was FALSIFIED against the target, though on solver failure not measured performance -- which
 is why this slide's CAMPAIGN axis reads BLOCKED and its IDEA axis withholds a judgment the
 evidence cannot support.
 
@@ -2951,41 +2973,40 @@ genuinely open, not a result yet.
 </div>
 
 <!--
-H1 (excluded per rule 2): routine oracle-wiring reconfirm against run17_rectangle, SUPPORTED,
-0.02% deviation.
+**Why it stopped:** PASSED on gate round 10, the most of any run to date. Rounds ~002&ndash;004
+rejected it for crediting mid_span_bistable as clearing the novelty floor without re-testing D24
+under the current oracle, until that comparison (H15) actually ran. Rounds ~005&ndash;009 rejected
+it on run-adequacy (PROBLEM_STATEMENT's unconditional "exhaust the budget" clause) until the two
+named literature alternatives were checked against the corpus and shown to need shell physics this
+study's beam model cannot approximate &mdash; a demonstrated boundary, not a hand-wave.
 
-CREDITED RESULT: mid_span_bistable (D24-3) -- a real, non-artifact reading, passes the
-joint-strain check by a thin 0.8% margin, majority-robust. OPEN LEAD: chained_arch (D44) -- more
-novel, higher raw numbers, validity genuinely unresolved after real effort (not disproven).
+**What it bought:** one credited result and one open lead. CREDITED: mid_span_bistable (D24-3), a
+real non-artifact reading that passes the joint-strain check by a thin 0.8% margin and is
+majority-robust across imperfection draws. OPEN LEAD: chained_arch (D44), more novel with higher
+raw numbers, and genuinely unresolved after real effort rather than disproven. H1 was the routine
+oracle-wiring reconfirm against run17_rectangle (0.02% deviation), excluded from the deck per
+rule 1.
 
-MECHANISM-ATTRIBUTION CORRECTION (added post-run, user-caught): this run's own notebook argued
-the mid-span insert is "genuinely responsible for the capacity" by comparing it against the same
-design with the insert shrunk to nothing. That ablation's own "without insert" baseline turns out
-to BE run17_rectangle's own already-optimized geometry -- the single best design in this entire
-study, chosen by search for reasons having nothing to do with bistability. Comparing against an
-already-near-optimal design and finding no improvement doesn't show a mechanism isn't pulling its
-weight; it shows it doesn't beat the best thing this study has ever found, which is a much weaker
-and less interesting claim. See D24-3's own notes for the full correction and why a
-literal "circular Bessa + bistability" comparison isn't available either.
+**Corrections:** the mechanism-attribution correction, caught by the user after the run closed.
+The notebook argued the mid-span insert is "genuinely responsible for the capacity" by comparing
+it against the same design with the insert shrunk to nothing &mdash; but that ablation's
+"without insert" baseline turns out to BE run17_rectangle's already-optimised geometry, the best
+design in this study, chosen by a search having nothing to do with bistability. Finding no
+improvement over an already-near-optimal design does not show a mechanism is not pulling its
+weight; it shows it does not beat the best thing the study has found, which is a far weaker
+claim. D24-3's own History note carries the matched-compression table.
 
-GATE HISTORY (10 rounds, the most of any run to date). Early rounds (~002-004): the run initially
-credited mid_span_bistable as clearing the novelty floor without directly re-testing D24 under
-the current oracle for a fair comparison -- REJECTed until that comparison (H15) was actually
-run. Later rounds (~005-009): REJECTed repeatedly on run-adequacy (PROBLEM_STATEMENT's
-unconditional "exhaust the budget" clause) until the two named literature alternatives (Jiang
-shell, Krankel/Wadee weave) were checked against the corpus and found to require real shell
-physics this study's beam model can't approximate -- not a hand-wave, a demonstrated boundary.
-call_010: PASS.
+**Cost shape:** 46 delegations, 15 flagged on CONSISTENCY only. 5 ERROR_RETURNs, all
+harness-level (stale revision hashes on concurrent notebook edits, one wrong cell name),
+self-corrected by retry rather than science bugs.
 
-RETROSPECTIVE FLAGS: 15 of 46 delegations flagged (CONSISTENCY only). 5 ERROR_RETURN events this
-run, all harness-level (stale revision hashes on concurrent notebook edits, one wrong cell name)
--- self-corrected via retry, not science bugs.
-
-INFRA BUILT THIS RUN, NOT YET PROMOTED TO GOLD: bo/D44_oracle_chained_arch.py,
-bo/D24_3_oracle_mid_span_bistable.py, scripts/supercompressible_lin_buckle_mid_span_bistable.py,
-scripts/supercompressible_riks_chained_arch_contact.py,
-scripts/supercompressible_riks_mid_span_bistable_contact.py, plus a modification to
-scripts/supercompressible_lin_buckle_chained_arch.py. Promotion is the user's call.
+**Unresolved:** six files built by this run are still run artifacts rather than gold, and
+promotion is the user's call: `bo/D44_oracle_chained_arch.py`,
+`bo/D24_3_oracle_mid_span_bistable.py`,
+`scripts/supercompressible_lin_buckle_mid_span_bistable.py`,
+`scripts/supercompressible_riks_chained_arch_contact.py`,
+`scripts/supercompressible_riks_mid_span_bistable_contact.py`, plus a modification to
+`scripts/supercompressible_lin_buckle_chained_arch.py`.
 -->
 
 ---
@@ -3030,48 +3051,56 @@ layout: two-cols-header
 </div>
 
 <!--
-**Chart correction (2026-08-31, rebuilt with `bo/mini_chart.py`):** now plots the full
-unwindowed history (both curves reach mcs=1.0), colored by local strain (mls) per the
-deck's corrected convention (rule 2c-VIS), not the old sigma-colored, window-truncated
-version. Neither curve ever crosses the 2% strain cap (max 1.93%/1.98%), consistent with
-the 0.8% joint-strain margin already cited above — neither curve ever turns the flat grey
-the color scale reserves for "past 2%".
+**Result:** EVIDENTIAL. One mid-span-insert design plus an 8-draw imperfection sweep and one
+ablation: peak load 0.5838 kPa, joint-strain margin 0.8%, feasible on 6 of 8 draws. The design is
+real and its reading trustworthy. What the run could not establish is that the INSERT is
+responsible for it: the ablation removed the insert from a host that is bit-for-bit
+`run17_rectangle`, the best design in this study, found by a search unrelated to bistability. So
+the comparison is against an optimised incumbent, not the minimal host rule 2a requires.
 
-**Deeper gap (2026-08-31, verdict audit):** `bo/D24_3_oracle_mid_span_bistable.py` never computes
-a genuine-snap diagnostic at all — checked directly, every "snap" reference in that file is
-a comment assuming the mechanism, not a checked field (unlike `bo/D44_oracle_chained_arch.py`
-and the D24/D24-2 oracles, which at least attempt `arch_snap_reversal`, even though it has
-never once come back confirmed there either — see D24-2's Seed). This ablation compares two
-designs without ever confirming either one actually snaps.
+**Input space:** same design vector as D24's own base slide (mid-span adds no new free parameter);
+this pass additionally sampled imperfection angle from Bessa's own lognormal(4&deg;,1.2&deg;)
+distribution (D19, 8 draws) &mdash; not a design parameter.
 
-**Input space:** same design vector as D24's own base slide (mid-span adds no new free
-parameter); this pass additionally sampled imperfection angle from Bessa's own
-lognormal(4&deg;,1.2&deg;) distribution (D19, 8 draws) — not a design parameter.
+**Seed:** FERTILE — run the fair test this pass did not: does a single bistable insert improve on
+a MINIMAL, non-cherry-picked rectangular longeron of comparable dimensions, rather than on
+`run17_rectangle`'s own search-optimised numbers? That is the question rule 2a asks and nobody has
+answered it.
 
-**Seed:** FERTILE — the fair test this run didn't run: does a single bistable insert improve on
-a MINIMAL, non-cherry-picked rectangular longeron of comparable dimensions (not specifically
-`run17_rectangle`'s own search-optimized numbers)? A literal "circular Bessa + bistability"
-comparison isn't available either — checked directly in `bo/D24_3_oracle_mid_span_bistable.py` and
-`bo/D44_oracle_chained_arch.py`: both hardcode a solid RectangularProfile cross-section, because
-the mechanism's own defining quantity (bistability_Q = rise/thickness) needs the same
-directional, anisotropic bending stiffness a rectangular section gives and a round one doesn't
-have in the same distinguishing sense. Nobody has built or tested a round-cross-section bistable
-variant in this study. So rectangular is a necessary ingredient here, not a separable confound —
-you can't fairly ask "is rectangular alone better" as if rectangular were removable. The real,
-still-open question is whether this idea, realized in its minimal necessary form, does something
-a comparably-sized plain rectangular beam doesn't — not whether it beats the single best design
-this entire study has ever found.
+**Deferred:** two gaps, the second worse than the first. (1) A literal "circular Bessa +
+bistability" control is not available: both `bo/D24_3_oracle_mid_span_bistable.py` and
+`bo/D44_oracle_chained_arch.py` hardcode a solid RectangularProfile, because the mechanism's
+defining quantity (bistability_Q = rise/thickness) needs the directional bending stiffness a
+rectangular section gives and a round one does not. Rectangular is a necessary ingredient here,
+not a separable confound, and no round-section bistable variant exists in this study. (2)
+`bo/D24_3_oracle_mid_span_bistable.py` never computes a genuine-snap diagnostic at all: every
+"snap" reference in it is a comment assuming the mechanism, not a checked field. So this ablation
+compares two designs without confirming either one snaps.
 
-**Mechanism-attribution correction, in full (user-caught, 2026-08-30):** the run's own notebook
+**Timeline:** Run 20260830T004106 &mdash;
+- D17 and D18 (H10/H11) produced the winning point, the imperfection sweep and the ablation.
+- D19 ran the 8-draw robustness sweep.
+- See D44's own slide for the chained-arch thread this restudy was compared against (H15).
+
+**Infra:** `bo/D24_3_oracle_mid_span_bistable.py`,
+`scripts/supercompressible_{lin_buckle,riks}_mid_span_bistable_contact.py` (new this run, not yet
+promoted to gold). Winning ODB
+`/oscar/scratch/eaguerov/sc_oracle_mid_span_bistable/riks_c6a667fa1ab047128b4b6b1910fcf2b3/`;
+ablation ODB `riks_fcfc9c5f0a594aa6a9d42b8d99c7ef0c/` in the same scratch directory. Chart rebuilt
+2026-08-31 with `bo/mini_chart.py`: it now plots the full unwindowed history (both curves reach
+mcs=1.0) coloured by local strain per rule 2c-VIS, replacing an old sigma-coloured,
+window-truncated version. Neither curve ever crosses the 2% cap (max 1.93% / 1.98%), consistent
+with the 0.8% joint-strain margin, so neither ever turns the flat grey the scale reserves for
+past-cap.
+
+**History:** MECHANISM-ATTRIBUTION CORRECTION, user-caught 2026-08-30. The run's own notebook
 compared the winning design (arch_rise_ratio=0.30, f_insert_length=0.30) against the same design
-with `f_insert_length` shrunk to 0.02 (near-zero insert length, i.e. "no insert"). That ablated
-design's other four dimensions (ratio_a=0.009213, ratio_b=0.033238, ratio_pitch=0.681277,
-ratio_top_diameter=0.04444) are bit-for-bit `run17_rectangle`'s own confirmed-optimal geometry
-(`bo/confirmed_anchors.json`) — the single best design in this whole study, found by a real
-search for reasons unrelated to bistability. Pulling the actual per-frame stress-vs-compression
-curves for both (not just the summary numbers) and comparing at matched compression levels:
+with `f_insert_length` shrunk to 0.02, i.e. "no insert". That ablated design's other four
+dimensions (ratio_a=0.009213, ratio_b=0.033238, ratio_pitch=0.681277, ratio_top_diameter=0.04444)
+are bit-for-bit `run17_rectangle`'s confirmed-optimal geometry from `bo/confirmed_anchors.json`.
+Pulling the per-frame stress-vs-compression curves for both and comparing at matched compression:
 
-| compression | with insert | without insert (=run17_rectangle) |
+| compression | with insert | without insert (= run17_rectangle) |
 |---|---|---|
 | 5% | 0.583 kPa | 0.608 kPa |
 | 10% | 0.553 kPa | 0.590 kPa |
@@ -3081,23 +3110,12 @@ curves for both (not just the summary numbers) and comparing at matched compress
 | 70% | 0.122 kPa | 0.164 kPa |
 
 The plain, insert-free baseline reads HIGHER at every single compression level, not lower. The
-run's own ablation check is still valid for what it actually tested — the with-insert design's
-own reported peak (0.5838 kPa) is real, not a numerical spike; the ablated design's own headline
-number (10.2 kPa) IS a spike (confirmed from the raw per-frame history: it appears for exactly 2
-increments before crashing back to the same smooth curve as the with-insert design), and the
-run's sustained-fraction check correctly caught that. But "the with-insert reading is trustworthy"
-and "the insert is responsible for the capacity" are different claims, and only the first one is
-actually supported by this comparison. The second remains untested.
-
-**Timeline:** D17/D18 (this run, H10/H11): winning point + imperfection sweep + the (confounded)
-ablation. D19: 8-draw robustness sweep. See D44's own slide for the chained-arch thread this
-restudy was compared against (H15).
-
-**Infra:** bo/D24_3_oracle_mid_span_bistable.py,
-scripts/supercompressible_{lin_buckle,riks}_mid_span_bistable_contact.py (new this run, not yet
-promoted to gold). Winning ODB:
-/oscar/scratch/eaguerov/sc_oracle_mid_span_bistable/riks_c6a667fa1ab047128b4b6b1910fcf2b3/;
-ablation ODB: riks_fcfc9c5f0a594aa6a9d42b8d99c7ef0c/ (same SCRATCH dir).
+run's own ablation is still valid for what it actually tested: the with-insert peak (0.5838 kPa)
+is real and not a numerical spike, while the ablated design's own headline (10.2 kPa) IS a spike
+&mdash; confirmed from the raw per-frame history, it appears for exactly 2 increments before
+crashing back to the same smooth curve &mdash; and the run's sustained-fraction check correctly
+caught that. But "the with-insert reading is trustworthy" and "the insert is responsible for the
+capacity" are different claims, and only the first is supported here.
 -->
 
 ---
@@ -3145,6 +3163,13 @@ class: idea-slide
 </div>
 
 <!--
+**Result:** PHYSICAL, then NON-ENGAGEMENT. 182 chained bistable-arch longerons, 129 coilable, 99
+converged, none feasible. The campaign mapped a real two-sided trade-off rather than a dead end:
+flaring the rings and straightening the two end segments passes joint-strain with 4.1% margin, but
+that design's sustained-capacity reading is ambiguous, while the design with a genuine sustained
+response fails joint strain. And the family's own genuine-snap diagnostic has never come back
+confirmed on any of its 294 solves, matching the sibling D24 family.
+
 **Input space:** n_segments&isin;{2,...,6} &mdash; discrete chain length. arch_rise_ratio,
 ratio_a, ratio_b, ratio_pitch, ratio_top_diameter &mdash; same physical meaning as every other
 rectangular-cross-section family in this study. end_rise_scale&isin;[0,1] &mdash; how much the
@@ -3157,13 +3182,6 @@ specifically in the region between D032 (genuine but joint-strain-fails) and H12
 (joint-strain-passes but ambiguous) is the concrete, well-defined next step. This is NOT a
 mechanism restart &mdash; the FAMILY is confirmed capable of both a genuine sustained
 &sigma; response and a joint-strain pass, just not (yet) both in the same design.
-**Corrected 2026-08-31 (verdict audit):** "confirmed capable" here means a non-spike,
-sustained stress reading — it does NOT mean the bistable snap-through mechanism itself is
-confirmed to have engaged. Checked directly: `arch_snap_reversal` (the oracle's own
-genuine-snap diagnostic) is unpopulated on 0 of 294 chained-arch solves ever run, D032 and
-the D030 fine-grid re-solve included. The sibling D24 family ran this same check
-repeatedly and never found a real snap in any properly-resolved solve either — a specific,
-named reason to doubt "the mechanism is confirmed," not proof it fails.
 
 **Deferred:** two other literature-grounded bistable mechanisms (Jiang et al. 2018 doubly-curved
 shell; Krankel/Wadee woven column) were reviewed and NOT pursued &mdash; both require real
@@ -3171,7 +3189,7 @@ shell-element (S4R) physics this study's B31-beam infrastructure cannot faithful
 (checked directly against the corpus's full text, not asserted). Building and validating new
 shell infrastructure was out of this run's remaining budget.
 
-**Timeline:**
+**Timeline:** Run 20260830T004106 &mdash;
 - D002: literature review, 3 candidates identified.
 - D003 (H3): chained-arch, energy-free, 71/72 non-convergent.
 - D005 (H4): validated point, no-contact imperfection sweep &mdash; 3/8 feasible, majority fail
@@ -3218,6 +3236,14 @@ ever turns the flat grey the color scale reserves for "past 2%", for that same r
 **Infra:** bo/D44_oracle_chained_arch.py, scripts/supercompressible_lin_buckle_chained_arch.py
 (modified this run), scripts/supercompressible_riks_chained_arch_contact.py (new this run) —
 none yet promoted to gold.
+
+**History:** CORRECTED 2026-08-31 (verdict audit). "confirmed capable" here means a non-spike,
+sustained stress reading — it does NOT mean the bistable snap-through mechanism itself is
+confirmed to have engaged. Checked directly: `arch_snap_reversal` (the oracle's own
+genuine-snap diagnostic) is unpopulated on 0 of 294 chained-arch solves ever run, D032 and
+the D030 fine-grid re-solve included. The sibling D24 family ran this same check
+repeatedly and never found a real snap in any properly-resolved solve either — a specific,
+named reason to doubt "the mechanism is confirmed," not proof it fails.
 -->
 
 ---
