@@ -3500,10 +3500,14 @@ layout: two-cols-header
 ::right::
 
 <div class="flex flex-col gap-1" style="height: 425px">
-  <div class="flex items-center justify-center" style="height: 380px">
-    <img src="/gifs/D41-2_twist_buckle_corrected.gif" class="rounded shadow-lg" style="max-height: 380px; max-width: 100%" />
+  <div class="flex items-center justify-center" style="height: 150px">
+    <img src="/gifs/D41-2_twist_buckle_corrected_mini.png" style="max-height: 150px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-50 text-center">Corrected joint, the 12% decided design.</div>
+  <div class="flex items-center justify-center" style="height: 260px">
+    <img src="/gifs/D41-2_twist_buckle_corrected.gif" class="rounded shadow-lg" style="max-height: 260px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">Chart: the matched validation point &mdash; 165&times;
+  Bessa by 5% compression, but grey (past the 2% strain cap) from 3% on. Gif: the 12% decided design.</div>
 </div>
 
 <!--
@@ -3571,6 +3575,23 @@ the practical conclusion (twist genuinely engages, feasibility still fails), so 
 Verdict is unaffected — but a future agent comparing "twist_energy_fraction" across the
 deck should know these are two different fixes to the same family, not one number cited
 twice.
+
+**History:** chart provenance, since this slide's Stats reports Stage-2 in prose rather than
+the funnel format. The curve is `sc_oracle_twist_buckle/riks_d0ce3221cce2478881e7ade1b0fa2af3`,
+identified as THIS pass's matched validation point on two independent checks: its windowed mcs
+is 0.0300, the "only 3% compression" this slide reports, and its `preprocess.py` was written
+at 01:51 UTC on 2026-08-29, inside run `20260829T005522`'s own window (opened 00:55 UTC) &mdash;
+i.e. after D002 landed the joint-axis fix. The corrected axis is a change to the pre-processor,
+not a `sim_info` parameter, so that timestamp is the only available discriminator and it is
+recorded here rather than left implicit. One caution for anyone re-deriving this: `stat` prints
+LOCAL time (UTC-4 on this cluster), and reading those mtimes as UTC puts the solve an hour
+BEFORE the run and inverts the conclusion.
+
+The original-axis half of the matched pair is `riks_8e306844c8ca4aa2897bdad48cedfa5c` &mdash; same
+design to five parameters, written 17 minutes earlier &mdash; but it holds no `results.pkl` and
+still has its Abaqus lock file, so that solve never completed and the before/after pair cannot
+be drawn as two curves. The 0.011%->12.2% twist-strain comparison this slide reports came from
+the run's own instrumentation, not from a chartable second history.
 -->
 
 ---
@@ -4824,6 +4845,26 @@ its best is worse than the untwisted campaign's own best.
 CORRECTED 2026-08-25: an earlier version of this slide's notes placed it ABOVE run 20260823T161229, on the mistaken belief that being one day after 20260822T025309's close made it newer than everything below &mdash; it never checked 20260823T161229's own start time, which is later still.
 
 VERIFIED 2026-08-26 (deck audit): independently recomputed n/coilable/decided counts, the best design (mcs=0.1133 at twist=+5.8&deg;) and both Spearman correlations (&rho;=&minus;0.0036 vs sigma_peak, &rho;=+0.0071 vs riks_strain, n=15) directly from the raw campaign JSON (commit 13cc7c5, branch worktree-agent-a66caf1865bb9b16f, not on main) &mdash; all reproduce to the cited precision.
+
+**No stress-history chart yet, and this is a VIOLATION, not an exception** (rule 2c-VIS, chart
+clause rewritten unconditional 2026-09-10). 15 of 105 designs were DECIDED here, so converged
+Riks histories existed. They are not recoverable from anything now on disk, and this slide is the
+worst provenance case in the deck:
+
+- The campaign's own raw result JSON is NOT in the repo. The audit that verified this slide's
+  numbers (commit `ca4fcde`, "verify D25-revisited(twist) against raw campaign data") checked them
+  against that file at the time; the file itself was never committed, and a search of every JSON
+  in the repo for a 105/70/35/28-row table carrying a twist field finds nothing.
+- The obvious scratch tree, `sc_oracle_chiral_twist`, is NOT this campaign. Its numbers do not
+  reproduce this slide's: median windowed mcs 0.0496 against the reported 0.0273, best 0.2194
+  against the reported 0.1133, and n=103 twisted solves against the reported 105. (That tree is
+  D41's family &mdash; it is organised around `tef`, the twist-energy fraction, against Fang's
+  target.)
+
+So the twist campaign was worktree-isolated, as this slide's Timeline already says, and its
+scratch was not preserved. Closing this means re-solving one design, not locating one. Recorded
+here so no future pass claims the rule's absent-data exemption for it: the data existed and was
+lost, which is a provenance gap, not an exemption.
 -->
 
 ---
@@ -6565,10 +6606,27 @@ builds and does not converge. D26 exceeds the 600 s budget on ~11k nodes against
 blocked on cost rather than correctness. One design per family verifies a code path, not a
 family: "migrated" is not "tested".
 
-**No stress-history chart on this slide (rule 2c-VIS exception):** all three checks here are
-single-design infrastructure verifications, not decided campaigns — D26 never reaches Stage 2
-at all, D20 never converges, and D17's own real compression history is already charted on
-D17-3.
+**No stress-history chart on this slide YET, and this is a VIOLATION, not an exception**
+(corrected 2026-09-10, when rule 2c-VIS's chart clause was rewritten from conditional to
+unconditional). The claim that used to stand here &mdash; that three single-design infrastructure
+checks are not decided campaigns, and that D17's history "is already charted on D17-3" &mdash; does
+not survive the rewritten rule on either count. A stalled or non-converged history IS a chart
+under the new wording, explicitly; and pointing at another slide's chart is a cross-reference, not
+an exemption, because the chart has to sit where the claim is made. Applying the rule's own test
+per family: D26 never reaches Stage 2, so it is genuinely exempt; D20 builds and never converges,
+which may still leave a partial history; D17 stalls at 75&ndash;77%, which is unambiguously a real
+history and the single most informative thing this slide could show.
+
+What blocks it is identification, not the rule. This slide reports "n=1 per family" in prose
+rather than the `n -> coil -> riks -> good` funnel, and publishes no sigma or mcs for any of the
+three designs, so there is nothing to match a candidate ODB against. The family's scratch tree
+(`sc_oracle_kresling`, 99 chartable solves) contains at least ten solves whose windowed mcs falls
+in the 73&ndash;79% band, and D17's own anchor parameters do not match any of them &mdash; that
+family carries `psi_kresling` and `ratio_hinge_height` beyond the base cross-section, so the
+anchor cannot be pinned from the base slide's `best good` line either. Closing this needs the
+re-study's own delegation ledger for the three design vectors actually solved. Picking any of the
+ten near-miss solves instead would manufacture false provenance, which is the specific failure
+already sitting on disk as `D45_bistable_shell_mini.png`.
 
 **Input space:** same three design vectors as D17/D20/D26's own base slides; no new
 parameter — a single point per family, run through the migrated/new code path.
@@ -7848,6 +7906,16 @@ use LE/LE11, axial logarithmic strain -- the truss-family analogue of the same
 physical quantity) rather than leaving color off or fabricating a bending-strain
 field that does not exist for this topology. Only 10 frames were available in this
 ODB's Riks step (vs up to 30 elsewhere); all 10 rendered cleanly.
+
+**No stress-history chart yet, and this is a VIOLATION, not an exception** (rule 2c-VIS, chart
+clause rewritten unconditional 2026-09-10). 44 designs reached a converged Riks solve, so the
+history exists. `data/idea_odbs/20260718T132852_H3_tensegrity/` preserves
+`tensegrity_RIKS.odb` and its `PROVENANCE.txt`, but no `results.pkl` and no `sim_info.pkl` &mdash;
+`bo/mini_chart.py` reads the pickles, not the ODB, so the curve has to be re-extracted by running
+this family's Stage-2 post-processor over the archived ODB. That needs Abaqus, and the cluster's
+DSLS licence server (`eng-dl-03.ad.brown.edu:4085`) has been down since roughly 20:23 UTC on
+2026-09-10. BLOCKED on that outage, not undecided: the ODB is in hand and the design is
+unambiguous.
 -->
 
 ---
@@ -8780,6 +8848,15 @@ genuine blocker... report that specifically rather than skip it silently"), the
 image shown is a genuine native Abaqus/CAE render of this same ODB's undeformed
 (frame 0) configuration only -- a real, unfabricated render, just not an animation. A
 full animated re-render of this idea remains open work.
+
+**No stress-history chart yet, and this is a VIOLATION, not an exception** (rule 2c-VIS, chart
+clause rewritten unconditional 2026-09-10). 22 designs reached a converged Riks solve.
+`data/idea_odbs/20260721T201733_H4_chiral_brace/` holds `SUPERCOMPRESSIBLE_RIKS.odb` and a
+`sim_info.pkl` but NO `results.pkl`, so as with D21 the curve must be re-extracted from the ODB by
+this family's Stage-2 post-processor, which needs Abaqus and is blocked by the same DSLS licence
+outage. Note this is a DIFFERENT blocker from the one the right-column caption already describes:
+that caption is about rendering the gif, where two corrupted nodes crash every frame after the
+first. The chart does not depend on rendering geometry and is not affected by those nodes.
 -->
 
 ---
