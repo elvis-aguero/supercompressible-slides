@@ -3525,7 +3525,7 @@ contact-artifact finding already on D42's slide. The correction is not a one-off
 | # | Claim | Verdict | Key evidence | Idea |
 |---|---|---|---|---|
 | H1 | Serpentine reproduces its own headline in a fresh run, plus a widened box and imperfection robustness | &#10003; | &sigma;_peak=0.646302 kPa, 0.0% diff from D42's own value; box 8/28 feasible; imperfection 5/6 feasible (0.48&ndash;0.72 kPa) | D42 &rarr; |
-| H2 | A second, independent novel mechanism exists beyond serpentine | &#10007; | Literature-only scouting (11 papers); no candidate judged independent of grain-beam; best alternative (a self-contact family) flagged despite a weak prior track record (48.6% max compression) | &mdash; |
+| H2 | A second, independent novel mechanism exists beyond serpentine | &#10007; | Literature-only scouting (11 papers); no candidate judged independent of grain-beam; best alternative (a self-contact family) flagged despite a weak prior track record (48.6% max compression) | — |
 | H3 | Grain-beam's literal chiral sub-lattice keeps its lowest buckling mode global, escaping the shell-based dead end | &#10007; | 44 real Stage-2 dispatches (tightened Riks settings); 0 converged; 1/44 clears mcs&ge;0.80 &amp; mls&le;0.02 but never reaches LPF=1.0 | D43 &rarr; |
 | H4 | Serpentine's late-&sigma; rise is genuine bend-twist post-buckling capacity | &#10007; | Independent CPRESS re-derivation (read-only, 0 new solves) on D004's own ODB reconfirms D42's 2026-08-26 correction: a contact artifact | D42 &rarr; |
 
@@ -3535,84 +3535,38 @@ contact-artifact finding already on D42's slide. The correction is not a one-off
 </div>
 
 <!--
-H1 DETAIL. D004 re-solved D42's exact winning design (bo/oracle_serpentine.py, now the canonical
-namespace='serpentine' entrypoint) and reproduced sigma_peak=0.646302 kPa to a 0.0% difference --
-this run's own point estimate, not a re-read of the archived ODB. A widened-box campaign (28 real
-Stage-2 dispatches) found 8/28 feasible, best 0.48059 kPa. A 6-draw imperfection-robustness study
-found 5/6 feasible (0.481644-0.717763 kPa); the 1 infeasible draw (3.14deg imperfection) failed
-Stage-2 convergence (salvaged partial ODB, riks_strain reached only 0.59) and is non-comparable,
-not folded into the feasible range.
+**Why it stopped:** UNGATED after 3 review rounds, on the wall clock rather than on the science.
+call_001 found nothing critical. call_002 and call_003 both raised the same MAJOR: the notebook's
+grain-beam funnel count was authoritative-sounding prose backed by a broken
+`campaign_summary.summarize()` call for this family's schema, so the printed funnel would not
+reproduce if the cell were executed. The underlying 54-count is independently correct via direct
+QueryStore, so the verdicts stand &mdash; but the run exhausted its 10 h budget before a fourth
+pass could land the fix. UNGATED, not FAILED.
 
-H2 DETAIL. D006 (backup-candidate scouting while the grain-beam campaign ran) reviewed 11 papers
-and evaluated 6 candidate second-mechanism families against PROBLEM_STATEMENT.md's own named
-exclusions (rigid-linkage reduction, over-stiff substitution suppressing global coiling) -- 4 of 6
-failed once actually read against a direct quote, not skimmed. The remaining top pick, a
-self-contact chiral-truss family (Farzaneh et al.), was recommended despite this study's existing
-self-contact family (D33/D34) having a weak track record (best-ever 48.6% compression, well under
-the 80% floor, never confirmed load-bearing). Scouting only -- not built or tested this run.
+**What it bought:** D42's headline reproduced exactly and then explained away. D004 re-solved
+D42's winning design and reproduced sigma_peak=0.646302 kPa to 0.0% &mdash; a fresh point
+estimate, not a re-read &mdash; and a widened-box campaign found 8 of 28 feasible, best 0.48059
+kPa, with 5 of 6 imperfection draws feasible. Then D010 opened that same ODB through a distinct
+code path and found CPRESS is exactly 0.0 for frames 0&ndash;63, spanning the entire contact-free
+buckling event and its post-buckling valley, turning nonzero only at frame 64, after which RF3 and
+CPRESS rise together to a peak 26&times; the true contact-free structural one. So D42's headline is
+driven by the wavy longeron contacting the rigid loading disc, not by bend-twist post-buckling
+capacity &mdash; independently confirmed on a second code path.
 
-H3 DETAIL. D003 inherited a partially-built grain-beam family from an earlier interrupted attempt
-(oracle, prefilter gate, Stage-1/Stage-2 scripts, an 8-point Stage-1 screen already complete) and
-root-caused a failed Stage-2 validation: the Riks surface `ALL_LONGERONS_SURF` was built from
-EVERY ring-hoop and bar edge, so interior grain-ring joint nodes (2 ring edges + 2 bar edges
-meeting) triggered Abaqus's own input-processor rejection ("MORE THAN TWO UNDERLYING ELEMENTS
-HAVING A COMMON NODE") before the job ever started. D005's first real campaign (70 dispatches,
-pre-fix settings) found 0/70 converged; D007 diagnosed the population as MIXED -- some designs are
-genuine settings-independent snap/bifurcation dead ends, others were merely settings-starved -- and
-tightened the Riks increment controls (maxNumInc=8000, initialArcInc=1e-3, minArcInc=1e-12,
-maxArcInc=0.05, MAX_SOLVE_SECONDS=2400s). D008 baked this into the canonical
-scripts/supercompressible_riks_grain_beam.py + bo/D43_oracle_grain_beam.py. D009's follow-up campaign
-(44 real dispatches under the tightened settings, surviving a mid-campaign CEI-BO seed-diversity bug
-that wasted 13/15 solves on bit-identical re-proposals -- see BLOCKED below) genuinely rescued some
-previously-starved designs (1/44 now reaches mcs&ge;0.80 outright vs 0/70 before), but the
-family's snap/bifurcation behavior right at LPF=1 held as a real physical wall for every design
-tested, including the closest ("Point B": R=3.931, t=0.535, alpha=4.772, beta=1.526, chirality=-1,
-w=2.539; mcs=0.8178, mls=0.0197), which dies to "TIME INCREMENT REQUIRED IS LESS THAN THE MINIMUM
-SPECIFIED" just short of the finish line -- see D43's own slide.
+**Corrections:** the D42 mechanism correction above, which this run's own notebook draft had not
+caught up with, was confirmed rather than merely restated. No hypothesis verdict moved.
 
-H4 DETAIL. D010 was a targeted, time-boxed (<15 min), read-only follow-up: the critic flagged that
-this run's notebook draft hadn't caught up with D42's own 2026-08-26 mechanism correction already
-on record in the deck. D010 opened D004's still-extant Riks ODB (no re-solve), extracted per-frame
-CPRESS/RF3 field output via a fresh script (a distinct code path from whatever produced the
-2026-08-26 slide correction), and found CPRESS is exactly 0.0 for frames 0-63 (spanning the entire
-genuine, contact-free buckling event and its post-buckling valley) and turns nonzero at frame 64,
-after which RF3 and CPRESS rise monotonically together to the final frame -- 26x larger than the
-true contact-free structural peak. Independent, second-code-path confirmation that D42's headline
-sigma_peak is driven by the wavy longeron contacting the rigid loading disc, not by bend-twist
-post-buckling capacity.
+**Cost shape:** 14 delegations, all 14 retrospectives clean &mdash; no CONSISTENCY flags at all,
+the only run in this deck with none.
 
-THE CRITIC'S ARC (3 review rounds, never reached PASS). call_001: no CRITICAL finding. call_002:
-MAJOR -- the notebook's grain_beam funnel count (65 screened out / 54 reached Stage 2) was
-authoritative-sounding prose backed by a broken `campaign_summary.summarize()` call for this
-family's data (a `decided_key` default that doesn't exist in this family's schema), so the printed
-funnel would not reproduce those numbers if the notebook cell were actually executed -- the
-underlying 54-count is independently correct and verifiable via direct QueryStore, so the
-conclusion (H3 FALSIFIED, objective floor cleared) is not invalidated, but the "authoritative"
-framing overstated what the code actually derived. call_003: REVISE again -- the same
-`campaign_summary` call still had two independent bugs (`n_prefiltered` computed by string-matching
-a `note` field that never contains the word "prefilter" for this family; `is_decided()` defaulting
-to a `decided_key` column, `window_closed_before_failure`, that does not exist anywhere in the
-store). Fixable without new evaluations, but the run exhausted its 10h budget before a 4th pass
-could land -- UNGATED, not FAILED: the scientific verdicts stand, the notebook's own funnel-count
-code does not yet correctly reproduce them.
-
-RETROSPECTIVE FLAGS: none flagged this run (14/14 retrospectives clean) -- the closest to a genuine
-finding was D007's own FRICTION note (undocumented QOS cap on ad-hoc sbatch jobs outside the async
-dispatch machinery, worked around via `--account=mbessa-condo`), not rising to a deck-level issue.
-
-BLOCKED (D009, self-diagnosed, not a capability gap): a mid-campaign top-up batch landed only 1/15
-new real rows -- traced to `bo/cei_core.py`'s async CEI acquisition being near-deterministic once
-conditioned on similar training data, so a different outer `seed` only diversifies the initial
-Sobol DoE, not the ~74 subsequent CEI proposals; 73/80 candidates across two "differently seeded"
-runs were bit-identical, silently dedup-dropped, wasting real Abaqus compute. Worked around with a
-pure OS-entropy random top-up. Flagged for whoever owns `cei_core.py`, not fixed this run.
-
-INFRA BUILT THIS RUN, not yet promoted to gold: the grain-beam family itself (bo/D43_oracle_grain_beam.py,
-bo/prefilter.py:passes_grain_beam_slenderness, scripts/supercompressible_{lin_buckle,riks}_grain_beam.py
-+ pp), now falsified but real, reusable infra; the tightened Riks increment-control settings (D007/
-D008); D009's `campaign_summary.py`-adjacent `build_final_summary.py` (reusable funnel-count builder,
-the fix the critic wants applied to `campaign_summary.py` itself, not yet done). Promotion is the
-user's call.
+**Unresolved:** two live defects, both flagged and neither fixed. (1) `bo/cei_core.py`'s CEI
+acquisition is near-deterministic once conditioned on similar training data, so a different outer
+seed diversifies only the initial Sobol DoE: 73 of 80 candidates across two "differently seeded"
+runs were bit-identical and silently dedup-dropped, wasting real Abaqus compute. Full account and
+what a fix needs in `validation/cei_seed_diversity_bug/README.md`. (2) `campaign_summary.py`'s own
+funnel-count code, which the critic rejected twice; D009's `build_final_summary.py` is the working
+replacement and was never folded back in. Both matter beyond this run: (1) undermines every
+"we re-ran with a different seed" claim in the deck.
 -->
 
 ---
@@ -3662,21 +3616,25 @@ analysis of a chiral metamaterial", <i>Continuum Mechanics and Thermodynamics</i
 </div>
 
 <!--
+**Result:** PHYSICAL, then NUMERICAL. 119 grain-beam designs, 54 passing Stage 1 with the lowest
+mode still global, and none of 44 real Stage-2 dispatches converging. The run separated the two
+causes: tightening the Riks increment controls genuinely rescued some starved designs, taking 1 of
+44 to mcs &ge; 0.80 against 0 of 70 before, so those were numerics. But every design then died at
+the same place &mdash; a snap or bifurcation right at LPF=1.0, just short of full compression
+&mdash; which held across settings and is structural, not solver.
+
 **Input space:** n_cells&isin;[3,8] — discrete grain-inclusion count. R&isin;[3.0,4.0] — grain
 radius (relative). t&isin;[.40,.55] — bar thickness. w&isin;[2.0,3.5] — bar width. alpha&isin;
 [1,5], beta&isin;[1,5] — grain/bar chirality-offset shape parameters. chirality&isin;{-1,+1} —
 discrete handedness. Fixed: n_longerons=3, n_storeys=1, D1=100mm, ratio_shear_modulus=.3677.
 
-**Seed:** BARREN — the failure is not parametric within the tested box: D009's 44-point campaign
-(seed=1 continuation + seed=2 top-up, the latter mostly wasted on a near-deterministic CEI-BO
-acquisition re-proposing already-ledgered points — see notes) plus a pure-random top-up all
-converge on the same wall (0 designs reach LPF=1.0), and D007's diagnosis (genuinely different
-solver settings genuinely rescue SOME designs to mcs&ge;0.80, but not to full compression) rules
-out a numerics-only explanation. What's untested: whether a fundamentally different Riks
-stabilization strategy (energy-dissipation stabilization rather than pure arc-length control,
-which this study's charter otherwise avoids as a science-methodology change requiring approval)
-could push past the snap point at all, or whether the snap is a genuine structural dead end for
-this topology regardless of solver.
+**Seed:** BARREN — the failure is not parametric within the tested box. D009's 44-point campaign
+plus a pure-random top-up all converge on the same wall (0 designs reach LPF=1.0), and D007's
+diagnosis rules out a numerics-only explanation: different settings genuinely rescue SOME designs
+to mcs&ge;0.80, but none to full compression. What is untested is whether a fundamentally different
+Riks strategy — energy-dissipation stabilization rather than pure arc-length control, which this
+study's charter otherwise avoids as a methodology change needing approval — could pass the snap at
+all.
 
 **Deferred:** whether the 1/44 design that individually clears both mcs&ge;0.80 and mls&le;0.02
 sub-criteria ("Point B") represents a genuinely different structural regime from the other 43, or
@@ -3688,7 +3646,7 @@ falsification criterion, not a clean confirm/refute -- Point B's status cannot m
 INCONCLUSIVE until that criterion's "load reversal" definition is resolved to a single,
 stated meaning.
 
-**Timeline:**
+**Timeline:** Run 20260826T233507 &mdash;
 D002: literature review — identified Pancella &amp; D'Annibale (2025) as the grounding citation,
 distinguished from Frenzel/Wu-Qi-Liao's 3D chiral-truss precedent (deferred to D006 as a possible
 H2 candidate, ultimately not pursued as independent of this family).
