@@ -1532,10 +1532,13 @@ class: idea-slide
 ::right::
 
 <div class="flex flex-col gap-1" style="height: 425px">
-  <div class="flex items-center justify-center" style="height: 380px">
-    <img src="/gifs/D54_shear_release.gif" class="rounded shadow-lg" style="max-height: 380px; max-width: 100%" />
+  <div class="flex items-center justify-center" style="height: 150px">
+    <img src="/gifs/D54_shear_release_mini.png" style="max-height: 150px; max-width: 100%" />
   </div>
-  <div class="text-xs opacity-50 text-center">Typical ladder solve, stopping early.</div>
+  <div class="flex items-center justify-center" style="height: 260px">
+    <img src="/gifs/D54_shear_release.gif" class="rounded shadow-lg" style="max-height: 260px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">Chart: the two re-solves that DO converge, at pitch 0.68 (solid = D003_val, dashed = this campaign&rsquo;s design moved there). Both peak red at ~2% compression then go grey &mdash; past the 2% strain cap for the whole remaining stroke. Gif: a typical campaign solve, stopping early.</div>
 </div>
 
 <!--
@@ -4872,9 +4875,14 @@ layout: two-cols-header
 
 ::right::
 
-<div class="flex flex-col items-center justify-center h-full">
-  <img src="/gifs/D25-3_tape_spring_twist_negative_native.gif" class="max-h-72 rounded shadow-lg" />
-  <div class="text-xs opacity-60 mt-2 px-4 text-center">Deepest real solve of 105: fails strain budget early.</div>
+<div class="flex flex-col gap-1" style="height: 425px">
+  <div class="flex items-center justify-center" style="height: 150px">
+    <img src="/gifs/D25-3_tape_spring_twist_mini.png" style="max-height: 150px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 260px">
+    <img src="/gifs/D25-3_tape_spring_twist_negative_native.gif" class="rounded shadow-lg" style="max-height: 260px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">Chart: the best of the 20 coilable designs (near-zero twist). It reaches 2.67&times; Bessa but turns grey at mcs 0.113 &mdash; the strain cap, exactly the 0.1133 in Stats. Gif: deepest real solve of 105.</div>
 </div>
 
 <!--
@@ -4948,6 +4956,19 @@ So the twist campaign was worktree-isolated, as this slide's Timeline already sa
 scratch was not preserved. Closing this means re-solving one design, not locating one. Recorded
 here so no future pass claims the rule's absent-data exemption for it: the data existed and was
 lost, which is a provenance gap, not an exemption.
+
+**History:** chart provenance, added 2026-09-11. This slide reports Stage 2 in prose rather than
+the `n -> coil -> riks -> good` funnel, so the chart source had to be identified rather than read
+off. It is `sc_oracle_tape_spring/riks_a917be76bec8419da9b057924afb0ce3`, matched on three
+independent facts: that tree holds exactly **20** twisted (`twist_angle` != 0) Riks solves against
+this slide's own 20/105 coilable; that design's windowed mcs is **0.1133**, the "best 0.1133" in
+Stats to four digits; and its twist is 0.1018 rad, i.e. the "near-zero twist" the same line
+attributes to the best point. The chart then corroborates it independently: the curve turns grey
+exactly at mcs 0.113, which is the strain cap closing the window at the reported value.
+
+An earlier pass reported this slide's provenance as unrecoverable, on the grounds that
+`sc_oracle_chiral_twist` does not reproduce its numbers. That tree is D41's `tef`-organised
+family and was the wrong place to look; the tape-spring family's own tree was never searched.
 -->
 
 ---
@@ -6688,9 +6709,14 @@ layout: two-cols-header
 
 ::right::
 
-<div class="flex flex-col items-center justify-center h-full">
-  <img src="/gifs/D17-2_restudy_laced_contact.gif" class="max-h-80 rounded shadow-lg" />
-  <div class="text-xs opacity-60 mt-2 px-4 text-center">D20's laced longeron, coiling — see notes.</div>
+<div class="flex flex-col gap-1" style="height: 425px">
+  <div class="flex items-center justify-center" style="height: 150px">
+    <img src="/gifs/D17-2_restudy_laced_contact_mini.png" style="max-height: 150px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 260px">
+    <img src="/gifs/D17-2_restudy_laced_contact.gif" class="rounded shadow-lg" style="max-height: 260px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">D20&rsquo;s laced longeron, the one check here with a salvageable history: 45% compression at 0.02&times; Bessa &mdash; it compresses freely and carries essentially nothing.</div>
 </div>
 
 <!--
@@ -6760,6 +6786,26 @@ count, inconsistent with this deck's own house convention elsewhere (report agai
 valid/evaluated denominator, e.g. D25's "256 evaluable" phrasing). Corrected in the Seed line
 above. D17's citation points to D17-3, independently verified separately on that
 slide.
+
+**History:** chart added 2026-09-11, and the earlier note here claiming the exemption applies to
+all three checks was WRONG on one of them. Per-family, from their own scratch:
+
+  * **D20 (laced)** DOES have a usable history. `sc_laced_contact/riks_b97fdad9b4` holds a partial
+    ODB; re-running the shared Stage-2 post-processor over it recovers 109 points, and dropping the
+    single trailing non-converged sample (a 3.4e8 kPa spike at frozen displacement -- the oracles'
+    own `_drop_nonconverged_tail` convention) leaves 108 clean ones: **45.3% compression at 0.02x
+    Bessa**, strain 1.31%. It compresses freely and carries essentially nothing. That is the chart.
+  * **D26 (chiral shell)** has a partial ODB whose post-processing FAILS outright, so no history
+    exists -- the genuine "no Stage-2 solve produced a usable history" exemption.
+  * **D17 (Kresling)** has no contact solve at all: no Riks directory in any kresling tree carries
+    `ground_contact = True`. The "stalls at 75-77%" figure in Stats is therefore not backed by a
+    retained ODB in scratch, and is superseded anyway by D17-3's own 380-eval campaign.
+
+NOTE for whoever charts a non-converged solve next: `bo/mini_chart.py` does NOT apply
+`_drop_nonconverged_tail`, while every reported metric does. Charting a salvaged ODB straight from
+its `results.pkl` therefore plots a terminal spike the numbers never saw -- here a 3.4e8 kPa one
+that would have set the y-axis. The dropped copy is at
+`/oscar/scratch/eaguerov/sc_chart_extract2/D20_laced_contact_dropped/`.
 -->
 
 ---
@@ -7937,9 +7983,14 @@ class: idea-slide
 
 ::right::
 
-<div class="flex flex-col items-center justify-center h-full gap-1">
-  <img src="/gifs/D21_tensegrity_native.gif" class="max-h-85 rounded shadow-lg" />
-  <div class="text-xs opacity-50 text-center">Colour = LE11 (axial strain); no beam bending field here.</div>
+<div class="flex flex-col gap-1" style="height: 425px">
+  <div class="flex items-center justify-center" style="height: 150px">
+    <img src="/gifs/D21_tensegrity_mini.png" style="max-height: 150px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 260px">
+    <img src="/gifs/D21_tensegrity_native.gif" class="rounded shadow-lg" style="max-height: 260px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">Prestress reaction at mcs=0; &sigma; is exactly 0 through the whole stroke.</div>
 </div>
 
 <!--
@@ -8881,11 +8932,14 @@ class: idea-slide
 
 ::right::
 
-<div class="flex flex-col items-center justify-center h-full gap-1">
-  <img src="/gifs/D15_chiral_brace_native.gif" class="max-h-85 rounded shadow-lg" />
-  <div class="text-xs opacity-50 text-center">Undeformed frame only — a genuine ODB rendering
-  blocker (2 corrupted nodes crash every later frame), not skipped; investigated, not
-  faked (see notes).</div>
+<div class="flex flex-col gap-1" style="height: 425px">
+  <div class="flex items-center justify-center" style="height: 150px">
+    <img src="/gifs/D15_chiral_brace_mini.png" style="max-height: 150px; max-width: 100%" />
+  </div>
+  <div class="flex items-center justify-center" style="height: 260px">
+    <img src="/gifs/D15_chiral_brace_native.gif" class="rounded shadow-lg" style="max-height: 260px; max-width: 100%" />
+  </div>
+  <div class="text-xs opacity-50 text-center">Peak at mcs=0 (pre-load ramp); the brace then carries almost nothing.</div>
 </div>
 
 <!--
