@@ -1539,7 +1539,7 @@ class: idea-slide
 </div>
 
 <!--
-**Result:** NUMERICAL, then PHYSICAL. Twenty-four ladder longerons, every one of them Stage-1
+**Result:** NUMERICAL, then NON-ENGAGEMENT. Twenty-four ladder longerons, every one of them Stage-1
 coilable and none reaching a converged Stage-2 solve. Fifteen produced no usable history at
 all, so those rows are NOT-EVALUABLE rather than infeasible; the other nine closed their window on
 STRAIN, at 4.8&ndash;7.8% compression with local strain already at 2%. Bracing that stiffens a
@@ -1577,6 +1577,33 @@ scripts/supercompressible_riks_shear_release.py. Feasibility is the study's stan
 Gif traces to /oscar/scratch/eaguerov/sc_oracle_shear_release/D006_5/riks_c438e40f9f904e6dae6fe0d0701778c6
 (mcs 0.0777, the furthest any ladder design compressed) -- a TYPICAL member per rule 4's
 no-winner convention, and the reason the animation shows so little travel.
+
+**History:** cause label corrected 2026-09-11, from `NUMERICAL, then PHYSICAL`. Rule 9d reserves
+PHYSICAL for a mechanism that ENGAGED and was then defeated by the mechanics; this one never
+engaged, as this slide's own Verdict says. (Rule 9d's text names this slide as the case the
+vocabulary exists to prevent.)
+
+Four hypotheses for the 0/24 Stage-2 failure were tested and three refuted
+(`validation/d54_stage2_never_tested/`). Rung degeneracy is real but not binding: grading the
+rung diameters cut peak indefiniteness from 3567 negative eigenvalues to 453 and bought +2% of
+step time. Disc contact is irrelevant: hard vs penalty produce genuinely different decks and
+byte-identical failures, so it is inert. Chord-to-chord convergence is refuted by the oracle's
+own `mode_single` control &mdash; one chord, no diagonals, no pair that can converge, and it
+fails too.
+
+What it actually was is CAMPAIGN PLACEMENT. Sweeping `ratio_pitch` alone moved `mcs_full`
+monotonically 0.0964 &rarr; 0.3285 as pitch fell 0.9993 &rarr; 0.68 (3.4&times;), while moving the
+rungs off the 0.4 mm print floor made it worse. Re-solved at the solvable corner, BOTH the
+known-good `D003_val` design and THIS campaign's own chord/taper converge to full compression
+(`mcs_full` 1.0000 and 1.0014; &sigma;_peak 1.48&times; and 1.21&times; Bessa). The campaign
+searched masts 1.5&ndash;1.8&times; longer than the one configuration known to solve.
+
+The mechanism is therefore now MEASURABLE, and on those converged solves it still does not fire:
+`mcs_windowed` = 0.0236, i.e. the 2%-strain window closes at 2.4% compression, so the rungs never
+reach the curvature they were sized to buckle at. Both also show chord interpenetration
+(&minus;0.09 to &minus;0.15 mm), which this model cannot prevent &mdash; beam-to-beam contact is a
+root-caused dead end for B31 `circumEdges` surfaces (`docs/self_contact_spec.md`). So
+NON-ENGAGEMENT now rests on positive evidence rather than on missing data.
 -->
 
 ---
@@ -2175,6 +2202,15 @@ the study's standard five. Gif traces to
 /oscar/scratch/eaguerov/sc_oracle_release_scale/riks_a2aa223ff79f4964bacc1a4c7e1a4aca -- the
 furthest-compressing member of the search (mcs 0.9455), a TYPICAL solve per rule 4, not the
 best-good design.
+
+**History:** added 2026-09-11 &mdash; this family defines **no scale-to-scale contact** &mdash; its only
+contact pairs are longeron-vs-ground-disc and longeron-vs-top-disc. The locking mechanism of
+Dharmavaram, Ebrahimi &amp; Ghosh 2021 lives entirely in scale-to-scale contact, so this slide is
+NOT a test of that paper; it is a bonded-standoff load-path idea that shares the word "scale", and
+its best design carries `n_scales = 1`, which has no neighbour to lock against. The paper's
+mechanism is tested only by D35 and D49. The standoff cost this slide identifies is now closed
+form: `h_tip` = `L_neck` + &eta;&middot;`t_scale`, charged against the same capped section depth.
+See `validation/scale_engagement_coilability_tradeoff/`.
 -->
 
 ---
@@ -2247,6 +2283,12 @@ scripts/supercompressible_riks_slip_scale.py (promoted to gold 20260906, commit 
 Feasibility is the study's standard five. Gif traces to
 /oscar/scratch/eaguerov/sc_oracle_slip_scale/D036_2/riks_383a2da3e2394508837a9b05a2052ad4
 (mcs 0.9492), a TYPICAL solve per rule 4.
+
+**History:** added 2026-09-11 &mdash; like D51 and D53, this family defines **no scale-to-scale
+contact** (ground-disc and top-disc pairs only), so it is not a test of Dharmavaram, Ebrahimi &amp;
+Ghosh 2021 &mdash; that paper's mechanism is scale-on-scale locking, and it is tested only by D35
+and D49. This is a sliding-tie load-path idea, refuted on its own terms.
+See `validation/scale_engagement_coilability_tradeoff/`.
 -->
 
 ---
@@ -2323,6 +2365,11 @@ scripts/supercompressible_riks_tangent_scale.py (promoted to gold 20260906, comm
 Feasibility is the study's standard five. Gif traces to
 /oscar/scratch/eaguerov/sc_oracle_tangent_scale/D039_0/riks_18816600f1fc4fc88107c1c768a0e497
 (mcs 0.9340), a TYPICAL solve per rule 4.
+
+**History:** added 2026-09-11 &mdash; like D51 and D52, this family defines **no scale-to-scale
+contact** (ground-disc and top-disc pairs only), so it is not a test of Dharmavaram, Ebrahimi &amp;
+Ghosh 2021. This is a width-not-depth offset idea, refuted on its own sizing law.
+See `validation/scale_engagement_coilability_tradeoff/`.
 -->
 
 ---
@@ -2483,6 +2530,32 @@ slips in the notebook's prose that the critic confirmed touched no verdict or he
 the H4 panel-skew null were moved verbatim into
 validation/contact_stiffener_matched_pairs/README.md on 2026-09-09, when these notes were
 10,016 characters; no figure changed in the move.
+
+ADDED 2026-09-11 &mdash; THIS SLIDE'S CENTRAL NEGATIVE WAS MEASURED AT THE WRONG CORNER.
+The standing result &mdash; pre-engaged scales raise &sigma;_eig by a median +0.36% over 60 matched
+pairs, hence "the route through the linear buckling load is closed" &mdash; was measured at
+`t_scale/d` &asymp; 0.02&ndash;0.08, where the effect genuinely is ~0. That ratio is the study's own
+sole lever (n&#770;&middot;e&#770;_axial = `t_scale/d`, independent of skew), and it is exactly
+sin(&theta;_eng): the axial engagement fraction IS the sine of the scale's tilt. The campaign
+realized a median `t_scale/d` of 0.0185 with 0.107 mm foil scales on a 2.19 mm neck.
+
+The binding cost is the FLEXURAL NECK, not the scale: `h_tip` = `L_neck` + &eta;&middot;`t_scale`
+exactly, so gate (e) reduces to c + `L_neck` + (&eta;+1)&middot;`t_scale` &le; L/20. At this
+campaign's own pitch a 3 mm neck leaves a NEGATIVE budget, which is what forced the search onto
+foil-thin scales. 158 of 490 designs had a short neck, 12 of 490 a thick scale, and **0 of 490
+had both** &mdash; which is the only place the mechanism exists.
+
+Measured at a gate-verified corner INSIDE this slide's own registered box (`L_neck` 1.0 mm,
+`t_scale` at its 0.60 mm ceiling, &eta; 2.81, `t_scale/d` 0.1389, same pitch), as a matched pair
+through this same oracle: &sigma;_eig 0.07266 ON against 0.04927 OFF, **+47.48%**. So the
+buckling-load route is NOT closed.
+
+It is, however, self-defeating: that arm returns `lb_coilable = 0`. Across a 14-point sweep of the
+admissible engagement range, **0 of 14 designs are both coilable and &ge; +30%**, and the gain runs
+inversely to base stiffness &mdash; +47% on a slender beam that loses the coiling mode, +13.6% on
+the one stiff beam that keeps it. Stiffness and compressibility are drawn from the same capped
+section depth. The Verdict stands; its REASON is sharper than "panels add nothing".
+See `validation/scale_engagement_coilability_tradeoff/`.
 -->
 
 ---
@@ -5142,6 +5215,19 @@ forensically examined (idx 0, 10, 23) show the same settings-independent physica
 detail in the run summary slide's own speaker notes): the t=0 ground/top-disc geometry defect,
 then the missing *SECTION POINTS beam-section spec. Namespace 'scale_lock'; oracle at
 bo/D35_oracle_scale_lock.py; scripts/supercompressible_{lin_buckle,riks}_scale_lock.py.
+
+**History:** added 2026-09-11 &mdash; this slide's control-established PHYSICAL verdict is the whole
+scale programme's answer, and it has since been confirmed from two other directions
+(`validation/scale_engagement_coilability_tradeoff/`). The Spearman table above is the same
+trade-off as a gradient &mdash; every parameter that buys &sigma;_eig costs `mcs_windowed` &mdash;
+and a matched pair at the maximum-engagement corner of the sibling D49 family measured +47.5% on
+&sigma;_eig with coilability lost outright, the extreme point of that curve.
+
+One caution for anyone citing this family's converged solves: they split. Those reading
+&sigma;_peak 36.8&ndash;38.3&times; Bessa at `mcs` 0.526 carry `mls` = 0.02000 from a real per-frame
+strain history and fail only the 80%-compression criterion. The higher 70&ndash;86&times; readings
+all carry `mls` = 0.00000 &mdash; the silent zero-strain sentinel
+(`validation/silent_zero_strain_sentinel/`) &mdash; and are artifacts.
 -->
 
 ---
