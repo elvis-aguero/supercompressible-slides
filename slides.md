@@ -542,7 +542,7 @@ fundamental they are, not by the date they were written.
    the matplotlib/COORD-field-reconstruction pipeline used elsewhere in
    this repo. The point is source truth directly from the simulation
    tool, with no custom re-derivation of geometry between the ODB and
-   the image. The renderer lives at presentation/render/render_odb.py.
+   the image. The renderer lives at scripts/render/render_odb.py.
    Known gotchas, solved once and documented here so nobody has to
    rediscover them a third time:
      1. `vp.setValues(displayedObject=odb)` raises "TypeError:
@@ -7015,7 +7015,7 @@ convention; n_lobes=3, A_max=0.1997, twist_chirality=2.521 rad, t_shell=0.978mm,
 ratio_pitch=0.4292, ratio_top_diameter=0.1733). GIF: native Abaqus/CAE Viewer export
 of the LIN_BUCKLE step's Mode 1 frame, rendered 2026-08-05. This is a *BUCKLE step
 (eigenvalue analysis, 21 frames = base + 20 requested modes), not a Riks history —
-required a fix to `presentation/render/render_odb.py` (AUTO deformation scaling
+required a fix to `scripts/render/render_odb.py` (AUTO deformation scaling
 instead of uniform x1, and restricting playback to frames [0,1] instead of
   subsampling across all 20 unrelated eigenmodes) since neither existed
   before this idea needed to render a non-coiling buckle-only result.
@@ -7895,7 +7895,7 @@ summary slide for its one-line status.
 (archived from scratch riks_de8c7e06e10b40e2a80fd6146e69eeee). Best *infeasible* sigma
 found in the campaign was ~0.68 kPa, below the 0.7704 kPa baseline even before the
 strain-correlation problem is considered. GIF: native Abaqus/CAE Viewer render via
-`presentation/render/render_odb.py` (E11 strain coloring, top-right legend, schematic
+`scripts/render/render_odb.py` (E11 strain coloring, top-right legend, schematic
 dashed-circle ring overlay recomputed from COORD every frame, portrait 480-wide
 canvas), same pipeline as the rest of this deck. Rendered fresh this session directly
 from the archived ODB (no native gif existed for this idea before).
@@ -8184,7 +8184,7 @@ closes three orders of magnitude from a single documented mechanism. Flipped INC
 FALSIFIED.
 
 **Infra:** ODB: data/idea_odbs/20260718T071133_H2_laced_built_up/SUPERCOMPRESSIBLE_RIKS.odb,
-sourced from presentation/resim/built_up/riks_4a8e6e6a4c504a5abfa2ef1b0d5f21c1. Rendered cleanly
+sourced from data/render_odbs/resim/built_up/riks_4a8e6e6a4c504a5abfa2ef1b0d5f21c1. Rendered cleanly
 through the full native pipeline; the twin-chord (two-parallel-rod) construction of each longeron
 and its coiling motion are clearly visible.
 -->
@@ -8388,7 +8388,7 @@ hierarchical/fractal-order refinement of this idea, also falsified -- not in thi
 batch's scope, noted here for continuity only.
 
 **Infra:** ODB: data/idea_odbs/20260718T031519_H2_meander_serpentine/SUPERCOMPRESSIBLE_RIKS.odb,
-sourced from presentation/resim/meander/riks_545d6f9df95a45a195e0991a7c74a888. Rendered
+sourced from data/render_odbs/resim/meander/riks_545d6f9df95a45a195e0991a7c74a888. Rendered
 cleanly through the full native pipeline; the meander perturbation is subtle at this
 (small, per-hypothesis) amplitude but visible along each longeron's length.
 
@@ -8528,7 +8528,7 @@ run `20260717T192331`. The mis-specification bug was caught by a later ledger au
 (this run's own H4), and independently re-confirmed in run `20260718T132852`'s H2.
 
 **Infra:** ODB: data/idea_odbs/20260717T192331_H3_waisted_tapered/SUPERCOMPRESSIBLE_RIKS.odb,
-sourced from presentation/resim/waisted/riks_b25001089f5c4baa82473915d82f8736 -- a
+sourced from data/render_odbs/resim/waisted/riks_b25001089f5c4baa82473915d82f8736 -- a
 typical member of this family's search per the format contract's no-winner
 convention, not necessarily the single best (and specifically NOT the
 later-invalidated 0.877 kPa point). Rendered cleanly through the full native
@@ -8665,7 +8665,7 @@ refinement, all slenderness>=10 pre-screened, meeting the registered >=30-eval b
 psi_kresling=30deg, sigma_cr,nd=0.7110618 kPa.
 
 **Infra:** ODB: data/idea_odbs/20260717T014507_H3_kresling_bar_hinge/SUPERCOMPRESSIBLE_RIKS.odb,
-sourced from presentation/resim/kresling_run17/riks_93eadc4e3f4f4c5fa20d3e80954e6b60.
+sourced from data/render_odbs/resim/kresling_run17/riks_93eadc4e3f4f4c5fa20d3e80954e6b60.
 Rendered cleanly through the full native pipeline; the bar-hinge kink partway up each
 longeron is visible in the animation.
 
@@ -8847,7 +8847,7 @@ N x to_kpa); max_local_strain=0.19521886 (scalar field) matches the cited 19.1% 
 rounding.
 
 **Infra:** ODB: data/idea_odbs/20260715T002538_H2_helical_longeron_path/SUPERCOMPRESSIBLE_RIKS.odb,
-sourced from presentation/resim/helical/riks_helical_76b431f83394417ea38e227d26171b56
+sourced from data/render_odbs/resim/helical/riks_helical_76b431f83394417ea38e227d26171b56
 -- this is the wrap=0.6 matched-pair comparison point, not the "best good" degenerate
 wrap=0 design (which has no ODB in this archive). Landscape render (28 frames, mcs
 0-95%) confirms clean, no clipping; the mini-plot uses --windowed-only (the
@@ -8983,7 +8983,7 @@ that is where the best-known illustrative bracing point's ODB was recovered from
 PROVENANCE.txt is explicit that this is "an illustrative bracing point, not
 bit-identical to the H4 optimum" -- the exact 8D optimum's parameters were never
 recoverable from that later run's own text). Two small general-purpose fixes were
-made to the shared presentation/render/render_odb.py during this investigation
+made to the shared scripts/render/render_odb.py during this investigation
 (kept, since they are principled and harmless for every other ODB in this deck): (1)
 `_current_positions` now falls back to undeformed-coordinates + U when an ODB has no
 COORD field output at all (needed for this same bracing ODB's ring-schematic
@@ -9333,7 +9333,7 @@ majority-class dummy on every fold) are not — the same binding-constraint-surr
 failure mode this run's own H2/H3 also hit.
 
 **Infra:** ODB: data/idea_odbs/20260708T021335_H1_flexure_hinge/ (source:
-presentation/resim/flexure/riks_5d90665da6d54585b4b429f4c5d17007). GIF: native
+data/render_odbs/resim/flexure/riks_5d90665da6d54585b4b429f4c5d17007). GIF: native
 Abaqus/CAE Viewer export, standard pipeline. The alternating thick/thin segments
 along each leg's length are directly visible in the rendered beam profiles
 (renderBeamProfiles=ON) — the coiled, fully-collapsed frame shown is the one
@@ -9434,7 +9434,7 @@ data/idea_odbs/20260901_D12_boxprofile_bestgood_undercontact/ (PROVENANCE.txt on
 this repo's 100MB-odb-file convention).
 
 **Infra:** ODB: data/idea_odbs/20260708T021335_H2_box_hollow_tube/ (source:
-presentation/resim/box/riks_c6f5fdb729c549fd93c5ddb53065dde3). GIF: native Abaqus/CAE
+data/render_odbs/resim/box/riks_c6f5fdb729c549fd93c5ddb53065dde3). GIF: native Abaqus/CAE
 Viewer export, standard pipeline. The hollow box's rectangular tube profile is
 directly visible in the rendered beam cross-sections.
 
@@ -9534,7 +9534,7 @@ recurring pattern as this run's H1/H2: sigma_crit is strongly learnable (R²=0.9
 max_compressive_strain is moderately learnable (R²=0.418, above chance but noisier).
 
 **Infra:** ODB: data/idea_odbs/20260708T021335_H3_heterogeneous_longerons/ (source:
-presentation/resim/heterogeneous/riks_fb818885227f43fe888ec53eafa44a17, representative
+data/render_odbs/resim/heterogeneous/riks_fb818885227f43fe888ec53eafa44a17, representative
 point solved at sigma=0.867; the family's actual near-degenerate best-found point was
 ~0.3644, i.e. the baseline itself). GIF: native Abaqus/CAE Viewer export, standard
 pipeline. The visibly different cross-section sizes among the three legs (two thick,
@@ -9696,7 +9696,7 @@ phase offset re-test, FALSIFIED) — that refinement folds into this same idea, 
 belongs to a later batch's summary slide.
 
 **Infra:** ODB: data/idea_odbs/20260706T204732_H3_elliptical_rings/ (source:
-presentation/resim/elliptical/riks_ellring_48e398830e1c4b4ca2e491e4da1e547d). GIF:
+data/render_odbs/resim/elliptical/riks_ellring_48e398830e1c4b4ca2e491e4da1e547d). GIF:
 native Abaqus/CAE Viewer export, standard pipeline. The rendered design shows visibly
 incomplete/partial coiling (a mid-strain frame, not the collapsed cliff case) — a
 representative, still-somewhat-coiling point from the family, per the format
@@ -9787,7 +9787,7 @@ design point; only σ needed correction. Verdict (FALSIFIED · WEAK) unchanged e
 way.
 
 **Infra:** ODB: data/idea_odbs/20260706T204732_H5_bowed_longerons/ (source:
-presentation/resim/bowed/riks_bow_86c0a1b0a97a46e480420304ad196708). Landscape
+data/render_odbs/resim/bowed/riks_bow_86c0a1b0a97a46e480420304ad196708). Landscape
 re-render (2026-08-26): clean, no clipping across the full window (mcs 0%→88%);
 replaces the old native-export gif with the split-panel layout, same underlying ODB.
 -->
@@ -10003,7 +10003,7 @@ and the square-section test is essentially the same trade-off restated for a
 different section shape.
 
 **Infra:** ODB: data/idea_odbs/20260705T181941_H5_square_section/ (source:
-presentation/resim/square/riks_c91bd5835aaf40f99dc06a3228aa4411). GIF: native
+data/render_odbs/resim/square/riks_c91bd5835aaf40f99dc06a3228aa4411). GIF: native
 Abaqus/CAE Viewer export, standard pipeline, no ODB-specific gotchas — the square
 cross-section's flat-sided profile is visible in the rendered beam geometry
 (renderBeamProfiles=ON), distinguishing it visually from the circular SCLF renders
@@ -10258,7 +10258,7 @@ adoption of the three-criteria feasibility contract (coilable, Riks strain≥90%
 local strain≤2%) used in every subsequent run.
 
 **Infra:** ODB: data/idea_odbs/20260630T164908_H4_SCLF_thick/ (source:
-presentation/resim/thick_sclf/riks_6944016ddcca48608b995e9d6a4cbdfd). GIF: native
+data/render_odbs/resim/thick_sclf/riks_6944016ddcca48608b995e9d6a4cbdfd). GIF: native
 Abaqus/CAE Viewer export, thick circular tube visibly coiling into a tight
 double-helix, strain colored (E11), dashed schematic rings, portrait canvas —
 standard pipeline, no gotchas specific to this ODB.
@@ -10416,10 +10416,10 @@ genuine science-integrity error the automated validator did not flag on its own 
 (it flagged sparsity; the critic separately caught the convergence issue).
 
 **Infra:** ODB: data/idea_odbs/20260629T191754_H2_multistorey_n2/ (source:
-presentation/resim/twostorey/riks_9a82d64e16d34b71ac1e541263cd92bf; illustrative
+data/render_odbs/resim/twostorey/riks_9a82d64e16d34b71ac1e541263cd92bf; illustrative
 rectangular-family point, not bit-identical to the original run's anchor A5, but
 representative of the n_storeys=2 mechanism). GIF: native Abaqus/CAE Viewer export
-(presentation/render/render_odb.py). Only 5-6 Riks increments are present in this
+(scripts/render/render_odb.py). Only 5-6 Riks increments are present in this
 archived ODB (a relatively shallow coiling test at this twist/pitch combination), so
 the animation is short; the legs show very low strain throughout (E11 range roughly
 ±1.6e-3), consistent with this being a modest, not-yet-optimized point in the family
@@ -10504,7 +10504,7 @@ at matched cross-section directly motivated the extended-J search (H4/H5 next) a
 actual lever for beating the Bessa optimum.
 
 **Infra:** ODB `data/idea_odbs/20260629T191754_H3_n5_longerons/` (source
-`presentation/resim/n5_longerons/riks_60c367f12e3a4903839e9afe3127aa00`). The gif is rendered
+`data/render_odbs/resim/n5_longerons/riks_60c367f12e3a4903839e9afe3127aa00`). The gif is rendered
 WITHOUT strain colouring &mdash; uniform shaded beam profiles, no legend &mdash; because this
 archived ODB's Riks step never requested a strain field at all. See History for why that is an
 honest degradation rather than a renderer bug.
@@ -10600,7 +10600,7 @@ motivated the pivot to the Solid Circular Longeron Family (next run) as the fami
 that can actually pass Stage 2.
 
 **Infra:** ODB: data/idea_odbs/20260629T191754_H5_extended_J_hollow_tube_D4/ (source:
-presentation/resim/hollow_tube/riks_6b8f4808e5e2404fb8b7d33e75b28015). Same rendering
+data/render_odbs/resim/hollow_tube/riks_6b8f4808e5e2404fb8b7d33e75b28015). Same rendering
 blocker as the n=5-longerons idea above: this ODB's Riks step recorded no `E` field
 output (only RF/RM/U/UR), so render_odb.py's strain-coloring step cannot run;
 rendered here without color as an honest degradation (format contract gotcha 5), not
