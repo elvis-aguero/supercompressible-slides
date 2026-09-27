@@ -2934,7 +2934,7 @@ Bessa-point convention. The full confirmation record, the Stats quartile readout
 raw-ledger warnings for all three runs are in `validation/snaplegs_C1_confirmation/README.md`.
 
 **History:** why one slide for three runs &mdash; each resumed attempt could not literally
-continue the prior one (a3dasm's `resume_from` replays an already-terminated graph checkpoint, it
+continue the prior one (adda's `resume_from` replays an already-terminated graph checkpoint, it
 does not reopen one), so each was a fresh run pointed at the previous attempt's preserved
 infrastructure and hypotheses file. Folding them follows the judgment call the deck's own
 migration note already licenses; splitting into three near-duplicate slides would communicate
@@ -3984,7 +3984,7 @@ came from a compliant connector when it came from a rigid kinematic tie.
 `telemetry/summary.json` is EMPTY &mdash; the same gap as the prior run, and the reason rule 6
 requires summing that transcript by hand.
 
-**Unresolved:** a concurrent-write ledger-loss bug in the vendored a3dasm harness dropped some of
+**Unresolved:** a concurrent-write ledger-loss bug in the vendored adda harness dropped some of
 D006's campaign rows mid-run (TRAPS.md #9, an already-documented class). Recovered from the
 campaign's aggregate JSON, so nothing was lost, but those rows are not individually re-derivable
 from the ledger. Also unpromoted: `bo/oracle_serpentine.py`, `bo/oracle_chiral_twist.py`,
@@ -4155,7 +4155,7 @@ disclosed 28 real Abaqus invocations behind 11 ledgered rows.
 `_imperfection_rad` now stores `which="input"` when a real value is given, deliberately not for
 the non-sampling `imp=None` case, since a NaN there would break dedup for every other oracle.
 Also corrected: this study's own initial take that a keep-last dedup policy "strictly dominates"
-was wrong, per the a3dasm maintainer. Riks solves here are not guaranteed deterministic, so a
+was wrong, per the adda maintainer. Riks solves here are not guaranteed deterministic, so a
 "last" call can be a flaky partial re-solve as easily as a genuine fix, and no implicit
 overwrite policy is safe in either direction. That is why `supersede()` is explicit and
 audit-logged. Both, with the other two ways this ledger under-counts, are in
@@ -4808,7 +4808,7 @@ not a tuning shortfall).
 
 **Deferred:** InstrumentedDataGenerator's dedup-on-write can silently drop a corrected re-run
 under the same delegation ID (hit at D018) — same danger class as docs/TRAPS.md #8; documented
-here as #9, not fixed in the vendored a3dasm harness.
+here as #9, not fixed in the vendored adda harness.
 
 **Timeline:** Run 20260823T161229 &mdash;
 - D014 (1 sample + N=0 control): validated the mechanism and the global-coiling-mode preservation.
